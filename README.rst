@@ -1,9 +1,9 @@
-=========================
-PyCon website by Eldarion
-=========================
+============================
+PyCon US website by Eldarion
+============================
 
-This repository stores the PyCon website developed by Eldarion. More details
-will follow soon.
+This repository stores the PyCon US website developed by Eldarion. More
+details will follow soon.
 
 
 Issues
