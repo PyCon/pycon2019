@@ -10,4 +10,4 @@ Issues
 ======
 
 If you find an issue with this code base you are welcome to e-mail us at
-development@ledarion.com.
+development@eldarion.com.
