@@ -1,0 +1,9 @@
+# production.txt is a pip requirements file which describes the distributions
+# required to run this project in a production environment.
+
+--requirement=project.txt
+
+# Put project-specific requirements here.
+# See http://pip-installer.org/requirement-format.html for more information.
+
+psycopg2==2.2.1
