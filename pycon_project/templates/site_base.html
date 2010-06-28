@@ -5,46 +5,38 @@
 {% block head_title_base %}PyCon 2011: Connecting The Python Community{% endblock %}
 
 {% block extra_head_base %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css?1" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/tabs.css" />
-    <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "all" %}" title="blog feed"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css" />
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
-{% block heading %}
-    <div id="heading">
-        <h1><a href="{% url home %}">Pycon 2011</a></h1>
-        <h2>XXXXX Xth&ndash;Xth 2011<br />Atlanta, Georgia</h2>
-    </div>
-{% endblock %}
-
-{% block extra_body %}
-    <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    {# <script type="text/javascript"> #}
-    {# try { #}
-    {# var pageTracker = _gat._getTracker("UA-2401894-23"); #}
-    {# pageTracker._trackPageview(); #}
-    {# } catch(err) {}</script> #}
-    
-    <script>
-        $("#id_email").focus();
-    </script>
-{% endblock %}
+{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}img/logo.gif" alt="PyCon"/></a>{% endblock %}
 
 
-{% block body_base %}
-    {% block body %}{% endblock %}
+
+{% block left_tabs %}
+    {% include "snippets/left_tabs.html" %}
 {% endblock %}
 
 {% block right %}
     {% include "_sponsors.html" %}
 {% endblock %}
 
+{% block body %}
+    <div id="sidebar">
+    {% block sidebar %}
+        {% include "snippets/sidebar.html" %}
+    {% endblock %}
+    </div>
+    <div id="content">
+    {% block content %}
+        <p>Coming Soon!</p>
+    {% endblock %}
+    </div>
+{% endblock %}
+
 {% block footer %}
-    <b>Pycon 2011</b> is a production of <b>Python Software Foundation</b>.<br/>
-    Site built by <b>Eldarion</b> using <b>Django</b> and <b>Pinax</b>.<br/>
-    <b>Django</b> is a registered trademark of the <b>Django Software Foundation</b>.
+<div class="legal">
+    {% trans "&copy; 2011 PyCon" %}
+</div>
 {% endblock %}
