@@ -157,7 +157,7 @@ INSTALLED_APPS = [
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "jannis@enn.io"
-SITE_NAME = "pycon"
+SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
 
 LOGIN_REDIRECT_URLNAME = "home"
 LOGIN_URL = '/account/login/'
