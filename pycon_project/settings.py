@@ -180,6 +180,11 @@ ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = True
 
 EMAIL_CONFIRMATION_DAYS = 3
 
+WAKAWAKA_DEFAULT_INDEX = "index"
+
+# Also allow lower case wiki page names
+WAKAWAKA_SLUG_REGEX = r'((([a-z]+){2,})(/([a-z]+){2,})*)'
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
