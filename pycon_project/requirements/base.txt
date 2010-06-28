@@ -27,4 +27,4 @@ Pygments==1.3.1
 django-mailer==0.2.0dev1
 gunicorn==0.9.1
 -e git://github.com/alex/django-fixture-generator.git#egg=fixture_generator
-django-wakawaka==0.3
+-e git://github.com/pinax/django-wakawaka.git#egg=django-wakawaka
