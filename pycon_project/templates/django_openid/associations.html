@@ -1,0 +1,41 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "OpenID Associations" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Manage OpenID Associations" %}</h1>
+    
+    {% url acct_passwd_set as acct_passwd_set_url %}
+    
+    {% if not request.user.password %}
+        <p>{% blocktrans %}You have not set a password for this user account. You are unable to remove OpenID associations until you <a href="{{ acct_passwd_set_url }}">set a password</a>.{% endblocktrans %}</p>
+    {% endif %}
+    
+    {% if openids %}
+        <p>{% blocktrans with del_buttons|pluralize as buttons %}Your account is currently associated with the following OpenID {{ buttons }}:{% endblocktrans %}</p>
+        
+        {% for openid in openids %}
+            <form class="uniForm" action="{{ action }}" method="POST">
+                {% csrf_token %}
+                
+                <span class="openid">{{ openid.openid }}</span>
+                {% if request.user.password %}
+                  <input type="hidden" name="todelete" value="{{ openid.button }}" />
+                  <input type="submit" value="{% trans "Remove association" %}" />
+                {% endif %}
+            </form>
+        {% endfor %}
+    {% endif %}
+    
+    <p>{% trans "To associate a new OpenID with this account, sign in with it here:" %}</p>
+    
+    <form class="uniForm" action="{{ action_new }}" method="POST">
+        {% csrf_token %}
+        
+        <input type="text" name="openid_url" value="" />
+        <input type="hidden" name="next" value="{{ associate_next }}">
+        <input type="submit" value="{% trans "Authenticate and associate with this account" %}" />
+    </form>
+{% endblock %}

@@ -22,7 +22,7 @@ INTERNAL_IPS = [
 ]
 
 ADMINS = [
-    # ("Your Name", "your_email@domain.com"),
+    ("Jannis Leidel", "jannis@enn.io"),
 ]
 
 MANAGERS = ADMINS
@@ -30,7 +30,7 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-        "NAME": "dev.db",                       # Or path to database file if using sqlite3.
+        "NAME": os.path.join(PROJECT_ROOT, "dev.db"), # Or path to database file if using sqlite3.
         "USER": "",                             # Not used with sqlite3.
         "PASSWORD": "",                         # Not used with sqlite3.
         "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
@@ -75,7 +75,6 @@ STATIC_URL = "/site_media/static/"
 # Additional directories which hold static files
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "media"),
-    os.path.join(PINAX_ROOT, "media", PINAX_THEME),
 ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -107,7 +106,6 @@ ROOT_URLCONF = "pycon_project.urls"
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
-    os.path.join(PINAX_ROOT, "templates", PINAX_THEME),
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -116,7 +114,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages",
     
     "pinax.core.context_processors.pinax_settings",
 ]
@@ -131,27 +128,62 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.humanize",
     
-    "pinax.templatetags",
-    
     # external
     "mailer",
     "uni_form",
     "staticfiles",
     "debug_toolbar",
     
+    "emailconfirmation",
+    "timezones",
+    "django_openid",
+    "oauth_access",
+    "uni_form",
+    "ajax_validation",
+    "gunicorn",
+    "fixture_generator",
+    "wakawaka",
+    "biblion",
+    
     # Pinax
+    "pinax.templatetags",
+    "pinax.apps.waitinglist",
+    "pinax.apps.account",
     
     # project
+    "sponsors",
 ]
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-CONTACT_EMAIL = "feedback@example.com"
-SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
+CONTACT_EMAIL = "jannis@enn.io"
+SITE_NAME = "pycon"
+
+LOGIN_REDIRECT_URLNAME = "home"
+LOGIN_URL = '/account/login/'
+LOGOUT_URL = '/account/logout/'
+LOGIN_REDIRECT_URL = '/'
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+BIBLION_SECTIONS = [
+    ("general", "General"),
+]
+
+ACCOUNT_OPEN_SIGNUP = True
+ACCOUNT_REQUIRED_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_AUTHENTICATION = False
+ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = True
+
+EMAIL_CONFIRMATION_DAYS = 3
+
+WAKAWAKA_DEFAULT_INDEX = "index"
+
+# Also allow lower case wiki page names
+WAKAWAKA_SLUG_REGEX = r'((([a-z]+){2,})(/([a-z]+){2,})*)'
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

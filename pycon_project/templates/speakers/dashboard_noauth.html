@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+
+{% block body_class %}speaker{% endblock %}
+
+{% block body %}
+    <h1>Speakers</h1>
+    
+    <p>
+        Talk proposals will be accepted until <b>July 10th</b> and accepted talks will be announced by <b>July 25th</b>.
+        For more information see the blog post <a href="/blog/2010/05/18/talk-submissions-are-open/">Talk Submissions are Open</a>.
+    </p>
+    
+    <p>To submit a talk:</p>
+    
+    <ol class="steps">
+        <li class="next"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
+        <li>create a speaker profile</li>
+        <li>submit one or more talk proposals</li>
+    </ol>
+{% endblock %}

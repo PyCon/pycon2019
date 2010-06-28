@@ -1,0 +1,58 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block body_class %}speaker{% endblock %}
+
+{% block body %}
+    
+    {% if not request.user.is_authenticated %}
+        {% if login_form %}
+            <h2>Log In To Your Existing Account</h2>
+            
+            <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
+                {% csrf_token %}
+                <fieldset class="inlineLabels">
+                    {{ login_form|as_uni_form }}
+                    <div class="form_block">
+                        <input type="submit" name="login" value="log in" />
+                    </div>
+                </fieldset>
+            </form>
+            
+            <p><b>- or -</b></p>
+        {% endif %}
+        
+        <h2>Create An Account and Speaker Profile</h2>
+        
+        <p>You've been attached as an additional speaker to a talk proposal for DjangoCon. Create yourself an account and speaker profile by filling out the form below. You will be able to see the proposal(s) you've been invited to once signed up.</p>
+        
+        <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
+            {% csrf_token %}
+            <fieldset class="inlineLabels">
+                {{ signup_form|as_uni_form }}
+            </fieldset>
+            <fieldset class="inlineLabels">
+                {{ speaker_form|as_uni_form }}
+                <div class="form_block">
+                    <input type="submit" name="signup" value="submit" />
+                </div>
+            </fieldset>
+        </form>
+    {% else %}
+        
+        <h2>Create Your Speaker Profile</h2>
+        
+        <p>You were attached as an additional speaker to a talk proposal for DjangoCon, but have not created a speaker profile. Create your speaker profile below.</p>
+        
+        <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
+            {% csrf_token %}
+            <fieldset class="inlineLabels">
+                {{ speaker_form|as_uni_form }}
+                <div class="form_block">
+                    <input type="submit" name="signup" value="create" />
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}
