@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load waitinglist_tags %}
+
+{% block head_title_base %}PyCon 2011: Connecting The Python Community{% endblock %}
 
 {% block extra_head_base %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
@@ -25,13 +28,9 @@
     {% include "snippets/left_tabs.html" %}
 {% endblock %}
 
-{% comment %}
-{% block right_tabs %}
-    <ul class="tabs">{% spaceless %}
-        <li id="tab_tab1"><a href="#">{% trans "Tab 1" %}</a></li>
-    {% endspaceless %}</ul>
+{% block right %}
+    {% include "_sponsors.html" %}
 {% endblock %}
-{% endcomment %}
 
 {% block body %}
     <div id="sidebar">

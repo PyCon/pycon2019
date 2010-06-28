@@ -1,0 +1,65 @@
+{% load sponsors_tags %}
+
+<div class="sponsors">
+    <h2>Produced by</h2>
+    
+    {% sponsors "producer" as sponsors %}
+    {% for sponsor in sponsors %}
+        <div class="sponsor">
+            <a href="{{ sponsor.external_url }}">
+                <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+            </a>
+        </div>
+    {% endfor %}
+    
+    <h2>Sponsors</h2>
+    
+    {% sponsors "kryptonite" as sponsors %}
+    {% if sponsors %}
+        <h3>Kryptonite</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% sponsors "diamond" as sponsors %}
+    {% if sponsors %}
+        <h3>Diamond</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% sponsors "platinum" as sponsors %}
+    {% if sponsors %}
+        <h3>Platinum</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% sponsors "gold" as sponsors %}
+    {% if sponsors %}
+        <h3>Gold</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+</div>

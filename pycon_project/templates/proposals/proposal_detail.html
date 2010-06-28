@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block body_class %}speaker{% endblock %}
+
+{% block body %}
+    <h1>{{ proposal.title }}</h1>
+    
+    <p>
+        {% if not proposal.cancelled %}
+            {% if request.user == proposal.speaker.user %}
+                <a href="{% url proposal_edit proposal.pk %}">Edit</a>
+                | <a href="{% url proposal_cancel proposal.pk %}">Cancel</a>
+            {% else %}
+                <a href="{% url proposal_leave proposal.pk %}">Leave</a>
+            {% endif %}
+        {% else %}
+            Cancelled
+        {% endif %}
+    </p>
+    
+    <div>
+        {{ proposal.description }}
+    </div>
+    
+    <p><b>Type</b>: {{ proposal.get_session_type_display }}</p>
+    
+    <div>
+        {{ proposal.abstract_html|safe }}
+    </div>
+    
+    <p><b>Audience level</b>: {{ proposal.get_audience_level_display }}</p>
+    
+    <p><b>Submitting speaker</b>: {{ proposal.speaker }}</p>
+    
+    {% if proposal.additional_speakers.all %}
+        <p><b>Additional speakers</b>:</p>
+        <ul>
+        {% for speaker in proposal.additional_speakers.all %}
+            {% if speaker.user %}
+                <li><b>{{ speaker.name }}</b> &mdash; {{ speaker.email }}</li>
+            {% else %}
+                <li>{{ speaker.email }} &mdash; pending invitation</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+{% endblock %}

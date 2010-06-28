@@ -1,0 +1,18 @@
+{% load openid_tags %}
+
+<div class="account-bar">
+{% if user.is_authenticated %}
+    {% ifopenid %}<img src="{{ STATIC_URL }}images/openid-icon.png" alt="Logged in with OpenID" />{% endifopenid %}<b>{{ user }}</b>
+    |
+    <a href="{% url acct_email %}">Account</a>
+    |
+    {% if user.is_staff %}
+        <a href="/admin/">Admin</a>
+        |
+    {% endif %}
+    <a href="{% if request.openid %}/openid/logout/?next={% url acct_logout %}{% else %}{% url acct_logout %}{% endif %}">Logout</a>
+{% else %}
+    <a href="{% url acct_login %}">Log in</a> or <a href="{% url acct_signup %}">Sign Up</a>
+{% endif %}
+</div>
+<div class="clear"></div>

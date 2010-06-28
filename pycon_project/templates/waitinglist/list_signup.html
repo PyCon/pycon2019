@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+
+{% block body %}
+    {% include "_three_boxes.html" %}
+    
+    <div class="waitinglist">
+        {% for error in form.email.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+        
+        <p class="main">If you would like to be informed when this site launches,<br />enter your e-mail address below:</p>
+        
+        <form method="POST" action="{% url waitinglist_list_signup %}">
+            {% csrf_token %}
+            
+            <input id="id_email" type="text" name="email" maxlength="75" /><input type="submit" value="submit" />
+        </form>
+        
+        <p>Your e-mail address will only be used for announcements about this site.</p>
+        
+        <p class="main">or <a href="http://twitter.com/pycon">follow <b>@pycon</b> on twitter</a>.</p>
+    </div>
+{% endblock %}
