@@ -147,7 +147,7 @@ INSTALLED_APPS = [
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "feedback@example.com"
-SITE_NAME = "Pinax"
+SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
