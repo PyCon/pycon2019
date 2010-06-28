@@ -160,6 +160,9 @@ CONTACT_EMAIL = "jannis@enn.io"
 SITE_NAME = "pycon"
 
 LOGIN_REDIRECT_URLNAME = "home"
+LOGIN_URL = '/account/login/'
+LOGOUT_URL = '/account/logout/'
+LOGIN_REDIRECT_URL = '/'
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
