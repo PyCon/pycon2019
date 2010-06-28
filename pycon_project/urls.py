@@ -30,7 +30,7 @@ urlpatterns = patterns("",
    # url(r"^creole_preview/$", creole_preview, name="creole_preview"),
     
     url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
-    url(r"^wiki/", include("wakawaka.urls")),
+    url(r"^", include("wakawaka.urls")),
 )
 
 
