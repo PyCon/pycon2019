@@ -24,6 +24,19 @@
 {% endblock %}
 {% endcomment %}
 
+{% block body %}
+    <div id="sidebar">
+    {% block sidebar %}
+        {% include "snippets/sidebar.html" %}
+    {% endblock %}
+    </div>
+    <div id="content">
+    {% block content %}
+        <p>Coming Soon!</p>
+    {% endblock %}
+    </div>
+{% endblock %}
+
 {% block footer %}
 <div class="legal">
     {% trans "&copy; 2011 PyCon" %}
