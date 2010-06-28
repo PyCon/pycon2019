@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load openid_tags %}
+
+{% block body_class %}account{% endblock %}
+
+
+{% block subnav %}
+    {% if user.is_authenticated %}
+        <a href="{% url acct_email %}">{% trans "E-Mail Addresses" %}</a>
+        |
+        <a href="/openid/associations/">{% trans "OpenID Associations" %}</a>
+        |
+        {% if user.password %}
+            <a href="{% url acct_passwd %}">{% trans "Change Password" %}</a>
+        {% else %}
+            <a href="{% url acct_passwd_set %}">{% trans "Set Password" %}</a>
+        {% endif %}
+        {% if user.password %}
+            {% ifopenid %}
+                |
+                <a href="{% url acct_passwd_delete %}">{% trans "Delete Password" %}</a>
+            {% endifopenid %}
+        {% endif %}
+        {# | <a href="{% url acct_language_change %}">{% trans "Language" %}</a> #}
+        |
+        <a href="{% url acct_timezone_change %}">{% trans "Timezone" %}</a>
+    {% endif %}
+{% endblock %}

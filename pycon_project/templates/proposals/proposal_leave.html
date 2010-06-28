@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block body_class %}speaker{% endblock %}
+
+{% block body %}
+    <h1>Leave: {{ proposal.title }}</h1>
+    
+    <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
+        {% csrf_token %}
+        <p>Are you sure you want to no longer speak on <b>{{ proposal.title }}</b>?</p>
+        <input type="submit" value="I am sure" />
+    </form>
+{% endblock %}
