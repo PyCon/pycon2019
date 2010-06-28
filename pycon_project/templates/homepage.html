@@ -1,40 +1,28 @@
 {% extends "site_base.html" %}
 
-{% load i18n %}
-
-{% block head_title %}{% trans "Welcome" %}{% endblock %}
+{% load biblion_tags %}
 
 {% block body_class %}home{% endblock %}
-
 {% block body %}
     
-    <h1>{% trans "Welcome to Pinax" %}</h1>
-    
-    <p>
-        {% blocktrans %}
-        <b>Pinax</b> is a <a href="http://djangoproject.com/">Django</a>
-        project intended to provide a starting point for websites. By
-        integrating numerous reusable Django apps to take care of the
-        things that many sites have in common, it lets you focus on what
-        makes your site different.
-        {% endblocktrans %}
-    </p>
-    
-    <p>
-        {% blocktrans %}
-        For more information about Pinax, see
-        <a href="http://pinaxproject.com/">http://pinaxproject.com/</a>.
-        {% endblocktrans %}
-    </p>
-    
-    <h2>{% trans "About this project" %}</h2>
-    
-    <p>
-        {% blocktrans %}
-        This project lays the foundation for all other Pinax starter projects. It
-        provides the project directory layout and some key infrastructure apps on
-        which the other starter projects are based.
-        {% endblocktrans %}
-    </p>
+    <div class="mainbox">
+        <h2>DjangoCon US Returns</h2>
+        <p><b>DjangoCon US</b> returns to Portland Oregon in September, 2010.</p>
+        <p><a href="/tickets/">Registration</a> and <a href="/speaker/">Talk Submissions</a> are now open.</p>
+    </div>
+    <h1>Blog</h1>
+    {% latest_blog_posts as posts %}
+    {% if posts %}
+        {% for post in posts %}
+            <div class="blog-post">
+                <h2><a href="{{ post.get_absolute_url }}" class="post-link">{{ post.title }}</a></h2>
+                {% include "biblion/dateline.html" %}
+                <p class="teaser">{{ post.teaser_html|safe }}</p>
+                <p class="more"><a href="{{ post.get_absolute_url }}" class="post-link">read more...</a></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No blog posts have been published.</p>
+    {% endif %}
     
 {% endblock %}

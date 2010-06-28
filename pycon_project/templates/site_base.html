@@ -1,24 +1,50 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load waitinglist_tags %}
+
+{% block head_title_base %}PyCon 2011: Connecting The Python Community{% endblock %}
 
 {% block extra_head_base %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css?1" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/tabs.css" />
+    <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "all" %}" title="blog feed"/>
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
-{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}pinax/img/logo.png" alt="Pinax"/></a>{% endblock %}
-
-{% comment %}
-{% block right_tabs %}
-    <ul class="tabs">{% spaceless %}
-        <li id="tab_tab1"><a href="#">{% trans "Tab 1" %}</a></li>
-    {% endspaceless %}</ul>
+{% block heading %}
+    <div id="heading">
+        <h1><a href="{% url home %}">Pycon 2011</a></h1>
+        <h2>XXXXX Xth&ndash;Xth 2011<br />Atlanta, Georgia</h2>
+    </div>
 {% endblock %}
-{% endcomment %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    {# <script type="text/javascript"> #}
+    {# try { #}
+    {# var pageTracker = _gat._getTracker("UA-2401894-23"); #}
+    {# pageTracker._trackPageview(); #}
+    {# } catch(err) {}</script> #}
+    
+    <script>
+        $("#id_email").focus();
+    </script>
+{% endblock %}
+
+
+{% block body_base %}
+    {% block body %}{% endblock %}
+{% endblock %}
+
+{% block right %}
+    {% include "_sponsors.html" %}
+{% endblock %}
 
 {% block footer %}
-<div class="legal">
-    {% trans "&copy; 2010 &lt;your company here&gt;" %}
-</div>
+    <b>Pycon 2011</b> is a production of <b>Python Software Foundation</b>.<br/>
+    Site built by <b>Eldarion</b> using <b>Django</b> and <b>Pinax</b>.<br/>
+    <b>Django</b> is a registered trademark of the <b>Django Software Foundation</b>.
 {% endblock %}
