@@ -1,0 +1,13 @@
+<div class="waitinglist">
+    <p class="main">If you would like to be informed when this site launches,<br />enter your e-mail address below:</p>
+    
+    <form method="POST" action="{% url waitinglist_list_signup %}">
+        {% csrf_token %}
+        {% waitinglist_entry_form as form %}
+        <input id="id_email" type="text" name="email" maxlength="75" /><input type="submit" value="submit" />
+    </form>
+    
+    <p>Your e-mail address will only be used for announcements about this site.</p>
+    
+    <p class="main">or <a href="http://twitter.com/pycon">follow <b>@pycon</b> on twitter</a>.</p>
+</div>
