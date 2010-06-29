@@ -11,7 +11,6 @@
         </style><![endif]-->
         <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/960.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css?4" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/account.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
         {% if LANGUAGE_BIDI %}
@@ -46,6 +45,9 @@
             <div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
             <div id="right_tabs" >{% block right_tabs %}{% endblock %}</div>
             <div id="tabhead-extra">{% block tabhead_extra %}{% endblock %}</div>
+            <div id="nav">
+                {% include "nav.html" %}
+            </div>
         </div>
         
         {% block body_outer %}
