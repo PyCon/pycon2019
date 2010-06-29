@@ -22,6 +22,7 @@ django-atomformat==0.1.1.dev1
 Pygments==1.3.1
 gunicorn==0.9.1
 django-mailer==0.2.0dev1
+docutils==0.6
 
 -e git+git://github.com/alex/django-fixture-generator.git#egg=fixture_generator
 -e git+git://github.com/pinax/django-wakawaka.git#egg=django-wakawaka
