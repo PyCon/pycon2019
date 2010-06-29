@@ -7,9 +7,6 @@ admin.autodiscover()
 
 from pinax.apps.account.openid_consumer import PinaxConsumer
 
-#from pycon_project.views import creole_preview
-
-
 handler500 = "pinax.views.server_error"
 
 
@@ -26,8 +23,6 @@ urlpatterns = patterns("",
     url(r"^oauth_access/", include("oauth_access.urls")),
     url(r"^waitinglist/", include("pinax.apps.waitinglist.urls")),
     url(r"^admin/", include(admin.site.urls)),
-    
-   # url(r"^creole_preview/$", creole_preview, name="creole_preview"),
     
     url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
     url(r"^", include("wakawaka.urls")),
