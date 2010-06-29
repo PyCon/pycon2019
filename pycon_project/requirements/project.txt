@@ -7,3 +7,22 @@
 # See http://pip-installer.org/requirement-format.html for more information.
 
 PIL==1.1.7
+
+django-email-confirmation==0.2.dev1
+django-timezones==0.2.dev1
+django-ajax-validation==0.1.3
+django-oauth-access==0.1.dev6
+pytz==2010h
+django-openid==0.2.3.dev1
+python-openid==2.2.5
+oauth2==1.1.3
+biblion==0.1.dev6
+creole==1.1
+django-atomformat==0.1.1.dev1
+Pygments==1.3.1
+gunicorn==0.9.1
+django-mailer==0.2.0dev1
+
+-e git+git://github.com/alex/django-fixture-generator.git#egg=fixture_generator
+-e git+git://github.com/pinax/django-wakawaka.git#egg=django-wakawaka
+-e hg+http://bitbucket.org/jezdez/django-markitup#egg=django-markitup
