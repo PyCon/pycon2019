@@ -11,7 +11,7 @@
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
-{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}img/logo.gif" alt="PyCon"/></a>{% endblock %}
+{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}img/logo.png" alt="PyCon"/></a>{% endblock %}
 
 {% block tabhead_extra %}
 <div id="icons-box">
@@ -24,26 +24,11 @@
 {% include "snippets/account_bar.html" %}
 {% endblock %}
 
-{% block left_tabs %}
-    {% include "snippets/left_tabs.html" %}
-{% endblock %}
-
 {% block right %}
     {% include "_sponsors.html" %}
 {% endblock %}
 
-{% block body %}
-    <div id="sidebar">
-    {% block sidebar %}
-        {% include "snippets/sidebar.html" %}
-    {% endblock %}
-    </div>
-    <div id="content">
-    {% block content %}
-        <p>Coming Soon!</p>
-    {% endblock %}
-    </div>
-{% endblock %}
+{% block body %}{% endblock %}
 
 {% block footer %}
 <div class="legal">

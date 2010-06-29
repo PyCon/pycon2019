@@ -10,6 +10,7 @@ body {
   height: 100%;
   line-height:1.6em;
   margin: 0 25px 0 25px;
+  font-size:85%;
 }
 
 h1, h2, h3, h4 {
@@ -25,6 +26,29 @@ h3, h3 a, h3 a:hover, h3 a:visited, h4, h4 a, h4 a:hover, h4 a:visited {
 
 h1 {
   font-size: 174%;
+  margin-bottom:20px;
+}
+
+h2 {
+  font-size: 167%;
+}
+
+h3 {
+  font-size: 131%;
+}
+
+p, ol, ul {
+  margin: 0 0 15px 0;
+}
+
+ol {
+  margin-left: 2em;
+  list-style-type: decimal;
+}
+
+ul {
+  margin-left: 2em;
+  list-style-type: disc;
 }
 
 /***************************************************************************** general layout styles ***/
@@ -35,23 +59,28 @@ h1 {
     position: relative;
     height:177px;
 }
+
 #tabhead .logo {
     height: 78px;
     padding:10px 0 0 10px;
 }
+
 #tabhead .logo img {
     width: 500px;
     height: 78px;
 }
+
 #tabhead .login {
     position: absolute;
     top: 6px;
     right: 15px;
     color: #DEF; /* login bar text colour */
 }
+
 #tabhead .login a, #tabhead .login a:visited {
     color: #DEF; /* login bar link colour */
 }
+
 #tabhead .login a:hover {
     color: #FFF; /* login bar link hover colour */
 }
@@ -71,13 +100,13 @@ form#search {
   border-top: 2px solid #ccc;
   padding: 0 0.5em;
   width: 160px;
-  font-size:93%;
+  font-size:77%;
   color:#000;
 }
 
 #icons-box {
   position:absolute;
-  top:35px;
+  top:40px;
   right:8px;
   height: 20px;
 }
@@ -86,16 +115,22 @@ form#search {
   padding-bottom: 5px;
 }
 
-.account-bar {
+#tabhead .account-bar {
+  position: relative;
   float:right;
   color:#fff;
   font-size:77%;
-  margin-top:4px;
+  background:none;
+  margin:0 8px 0 0;
 }
 
-.account-bar a {
+#tabhead .account-bar a, #tabhead .account-bar a:visited {
   color:#fff;
   text-decoration:none;
+}
+
+#tabhead .account-bar a:hover {
+  text-decoration:underline;
 }
 
 /*** body ***/
@@ -104,10 +139,7 @@ form#search {
   width: 100%;
 }
 
-#content {
-}
-
-#sidebar {
+.sponsors {
   float:right;
   width:180px;
   margin: 0 0 0 20px;
@@ -119,12 +151,15 @@ form#search {
   padding: 10px 0 0 0;
   width: 100%;
   border-top:1px solid #ccc;
+  font-size:85%;
 }
 
 /***************************************************************************** elements ***/
 /*** main navigation ***/
-#left_tabs {
+#nav {
+  position:absolute;
   left: 0;
+  bottom:-1px;
   width:100%;
 }
 
@@ -260,6 +295,94 @@ form#search {
   overflow: hidden;
   height: 1px;
 }
+
+/*** forms ***/
+
+form.uniForm {
+  background: #CCC;
+  padding: 15px;
+  text-shadow: 0px 1px 0px #EEE;
+}
+form.uniForm .focused {
+  background: #EEE;
+}
+.form_block {
+  padding: 10px 5px;
+}
+
+#errorMsg ul {
+  margin: 5px;
+  list-style-type: none;
+}
+form label {
+  font-size: 16pt;
+  color: #222;
+}
+
+form.uniForm input[type=text], form.uniForm input[type=password] {
+  font-size: 14pt;
+  padding: 3px 6px;
+}
+form.uniForm input[type=submit] {
+  float: right;
+  margin: 0;
+  color: #DEF;
+  font-size: 12pt;
+  background: rgb(18, 40, 25);
+  padding: 6px 12px 5px;
+  border: none;
+  cursor: pointer;
+}
+form.uniForm input[type=submit]:hover {
+  background: rgb(35, 79, 50);
+  color: #FFF;
+  border: 1px rgb(35, 79, 50);
+}
+form.uniForm textarea {
+  font-size: 14pt;
+  padding: 2px;
+}
+form.uniForm select {
+  font-size: 14pt;
+}
+
+
+/*** messages ***/
+
+ul#messages {
+    margin: 0 0 10px 0;
+    padding: 0;
+    list-style: none;
+}
+ul#messages li {
+    padding: 5px 10px;
+    margin: 3px;
+}
+ul#messages li a {
+    float: right;
+    color: #693;
+}
+ul#messages .debug {
+    background: #EEE;
+    border: 1px solid #BBB;
+}
+ul#messages .info {
+    background: #DEF;
+    border: 1px solid #9BC;
+}
+ul#messages .success {
+    background: #EFD;
+    border: 1px solid #BC9;
+}
+ul#messages .warning {
+    background: #FED;
+    border: 1px solid #CB9;
+}
+ul#messages .error {
+    background: #FDD;
+    border: 1px solid #C99;
+}
+
 
 /***************************************************************************** page specific styles */
 /*** homepage ***/
