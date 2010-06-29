@@ -53,6 +53,9 @@
         {% block body_outer %}
         <div id="body">
             <div id="wrapper">
+                <div id="right">
+                    {% block right %}{% endblock %}
+                </div>
                 <div id="main">
                     <div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}{% endblock %}</div>{% endblock %}</div>
                     {% if messages %}
@@ -68,9 +71,6 @@
                     
                     {% block body_base %}
                     {% endblock %}
-                </div>
-                <div id="right">
-                    {% block right %}{% endblock %}
                 </div>
                 <div class="clear"></div>
             </div>
