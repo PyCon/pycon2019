@@ -1,6 +1,12 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load markitup_tags %}
+
+{% block extra_body_base %}
+    {% markitup_media  "no-jquery" %}
+    {% markitup_editor "id_content" "auto_preview" %}
+{% endblock %}
 
 {% block title %}
     {% if page.is_initial %}

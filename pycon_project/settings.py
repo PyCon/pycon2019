@@ -133,6 +133,7 @@ INSTALLED_APPS = [
     "uni_form",
     "staticfiles",
     "debug_toolbar",
+    "markitup",
     
     "emailconfirmation",
     "timezones",
@@ -184,6 +185,12 @@ WAKAWAKA_DEFAULT_INDEX = "index"
 
 # Also allow lower case wiki page names
 WAKAWAKA_SLUG_REGEX = r'((([a-z]+){2,})(/([a-z]+){2,})*)'
+
+MARKITUP_AUTO_PREVIEW = True
+MARKITUP_SET = 'markitup/sets/restructuredtext'
+MARKITUP_SKIN = 'markitup/skins/simple'
+MARKITUP_FILTER = ('markitup.renderers.render_rest', {})
+MARKITUP_MEDIA_URL = STATIC_URL
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
