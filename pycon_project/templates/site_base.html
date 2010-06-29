@@ -28,7 +28,7 @@
     {% include "_sponsors.html" %}
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body_base %}{% block body %}{% endblock %}{% endblock %}
 
 {% block footer %}
 <div class="legal">
