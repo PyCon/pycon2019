@@ -23,6 +23,7 @@ urlpatterns = patterns("",
     url(r"^oauth_access/", include("oauth_access.urls")),
     url(r"^waitinglist/", include("pinax.apps.waitinglist.urls")),
     url(r"^admin/", include(admin.site.urls)),
+    url(r'^markitup/', include('markitup.urls')),
     
     url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
     url(r"^", include("wakawaka.urls")),
