@@ -35,3 +35,24 @@
     {% trans "&copy; 2011 PyCon" %}
 </div>
 {% endblock %}
+
+{% block extra_body_base %}
+    <script type="text/javascript">
+    $(function() {
+        $('#search input[type="text"]').each(function() {
+            var default_value = this.value;
+            $(this).focus(function() {
+                if(this.value == default_value) {
+                    this.value = '';
+                }
+            });
+            $(this).blur(function() {
+                if(this.value == '') {
+                    this.value = default_value;
+                }
+            });
+        });
+
+    });
+    </script>
+{% endblock %}
