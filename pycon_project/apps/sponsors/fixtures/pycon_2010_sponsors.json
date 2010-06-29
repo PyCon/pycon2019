@@ -1,0 +1,485 @@
+[
+    {
+        "pk": 1, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Google", 
+            "level": 1, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://code.google.com/opensource/"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "CCP Games", 
+            "level": 2, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.ccpgames.com/"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Walt Disney Animation Studios", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.disneyanimation.com/"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "neg-ng", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.net-ng.com/"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "socialserve.com", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.socialserve.com/"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "ActiveState", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.activestate.com/"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "White Oak", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.woti.jobs/"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Canonical", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.canonical.com/"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Microsoft", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://ironpython.net/"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Sauce Labs", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.saucelabs.com/"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Rackspace Cloud", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.rackspacecloud.com/"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "ESRI", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.esri.com/"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Oracle", 
+            "level": 3, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://wiki.oracle.com/page/Python"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Enthought", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.enthought.com/"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Wingware", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.wingware.com/"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Imaginary Landscape", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.chicagopython.com/"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Emma", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.myemma.com/"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Visual Numerics", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.vni.com/"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:24", 
+            "name": "Hiidef", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://hiidef.com/"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Breadpig", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.breadpig.com/"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Accense Technology", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.accense.com/"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Tummy", 
+            "level": 4, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.tummy.com/"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "ZeOmega", 
+            "level": 5, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.zeomega.com/"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "O'Reilly", 
+            "level": 6, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.oreilly.com/"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Linux Journal", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.linuxjournal.com/"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Linux Pro Magazine", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.linuxpromagazine.com/"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Ubuntu User", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://ubuntu-user.com/"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Code Magazine", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://www.code-magazine.com/"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Startup Riot", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://startupriot.com/"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "sponsors.sponsor", 
+        "fields": {
+            "added": "2010-06-29 12:33:25", 
+            "name": "Bit", 
+            "level": 7, 
+            "contact_email": "", 
+            "active": false, 
+            "contact_name": "", 
+            "annotation": "", 
+            "external_url": "http://thebitsource.com/"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Diamond", 
+            "order": 0
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Platinum", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Gold", 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Silver", 
+            "order": 3
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Patron", 
+            "order": 4
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Vendor I", 
+            "order": 5
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "sponsors.sponsorlevel", 
+        "fields": {
+            "description": "", 
+            "name": "Media", 
+            "order": 6
+        }
+    }
+]
