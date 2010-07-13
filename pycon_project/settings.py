@@ -154,6 +154,7 @@ INSTALLED_APPS = [
     
     # project
     "sponsors",
+    "wiki",
 ]
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
