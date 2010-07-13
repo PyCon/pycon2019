@@ -29,7 +29,10 @@
 	<p class="revert-warning">{% trans "You are editing an revision which is not the latest!" %}</p>
 	{% endif %}
 
-	<form class="wakawaka_edit_form" method="POST" action="">{% csrf_token %}
+	{% if is_locked and have_lock %}
+	<p class="lock-notice">{% trans "The page is locked for you." %}</p>
+	<form class="wakawaka_edit_form" method="POST" action="">
+	    {% csrf_token %}
 		{{ form.as_p }}
 		<p>
             <input type="submit" value="{% trans "Save changes" %}" />
@@ -37,14 +40,22 @@
 			{% if page.is_initial %}
 				javascript:window.history.go(-1);
 			{% else %}
-				{% url wakawaka_page slug=page.slug %}
+				?cancel_lock=true
 			{% endif %}
 			">{% trans "Cancel" %}</a>
 		</p>
 	</form>
+	{% else %}
+	{% blocktrans with lock_timestamp|timesince as lock_timestamp %}The page is locked for {{ lock_owner }} since about {{ lock_timestamp }}.{% endblocktrans %}
+	{% if allowed_to_reset %}<a href="?reset_lock=true" title="Locked for another {{ lock_ttl|timeuntil }}">{% trans "Reset lock" %}</a>{% endif %}
+	<div class="page">
+		{% include "wakawaka/page_content.html" %}
+	</div>
+	{% endif %}
 
 	{% if not page.is_initial and delete_form %}
 	<form class="wakawaka_delete_form" method="POST" action="" onsubmit="return confirm('{% trans "Please confirm deletion" %}');">
+	    {% csrf_token %}
 		{{ delete_form.as_p }}
 		<p>
 			<input type="submit" value="{% trans "Delete" %}" />
