@@ -10,12 +10,10 @@ from pinax.apps.account.openid_consumer import PinaxConsumer
 handler500 = "pinax.views.server_error"
 
 
-
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
         "template": "homepage.html",
     }, name="home"),
-
     url(r"^account/signup/$", "pinax.apps.account.views.signup", name="acct_signup"),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/(.*)", PinaxConsumer()),
@@ -23,8 +21,7 @@ urlpatterns = patterns("",
     url(r"^oauth_access/", include("oauth_access.urls")),
     url(r"^waitinglist/", include("pinax.apps.waitinglist.urls")),
     url(r"^admin/", include(admin.site.urls)),
-    url(r'^markitup/', include('markitup.urls')),
-    
+    url(r"^markitup/", include("markitup.urls")),
     url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
     url(r"^", include("wakawaka.urls")),
 )
@@ -32,8 +29,8 @@ urlpatterns = patterns("",
 
 if settings.SERVE_MEDIA:
     urlpatterns += patterns("",
-        (r'^favicon.ico$', 'django.views.generic.simple.redirect_to', {
-            'url': settings.STATIC_URL + 'img/favicon.ico',
+        url(r"^favicon.ico$", "django.views.generic.simple.redirect_to", {
+            "url": settings.STATIC_URL + "img/favicon.ico",
         }),
-        (r"", include("staticfiles.urls")),
+        url(r"", include("staticfiles.urls")),
     )
