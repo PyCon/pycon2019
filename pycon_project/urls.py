@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.views.generic.simple import direct_to_template, redirect_to
 
 from django.contrib import admin
 admin.autodiscover()
@@ -11,8 +11,8 @@ handler500 = "pinax.views.server_error"
 
 
 urlpatterns = patterns("",
-    url(r"^$", direct_to_template, {
-        "template": "homepage.html",
+    url(r"^$", redirect_to, {
+        "url": "/about/",
     }, name="home"),
     url(r"^account/signup/$", "pinax.apps.account.views.signup", name="acct_signup"),
     url(r"^account/", include("pinax.apps.account.urls")),
@@ -29,7 +29,7 @@ urlpatterns = patterns("",
 
 if settings.SERVE_MEDIA:
     urlpatterns += patterns("",
-        url(r"^favicon.ico$", "django.views.generic.simple.redirect_to", {
+        url(r"^favicon.ico$", redirect_to, {
             "url": settings.STATIC_URL + "img/favicon.ico",
         }),
         url(r"", include("staticfiles.urls")),
