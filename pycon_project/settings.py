@@ -192,9 +192,9 @@ WAKAWAKA_DEFAULT_INDEX = "index"
 WAKAWAKA_SLUG_REGEX = r"((([a-z]+){2,})(/([a-z]+){2,})*)"
 
 MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/restructuredtext"
+MARKITUP_SET = "markitup/sets/creole"
 MARKITUP_SKIN = "markitup/skins/simple"
-MARKITUP_FILTER = ("markitup.renderers.render_rest", {})
+MARKITUP_FILTER = ("biblion.creole_parser.parse", {})
 MARKITUP_MEDIA_URL = STATIC_URL
 
 # local_settings.py can be used to override environment-specific settings
