@@ -1,0 +1,39 @@
+[
+    {
+        "pk": 1, 
+        "model": "wakawaka.wikipage", 
+        "fields": {
+            "object_id": null, 
+            "content_type": null, 
+            "slug": "about", 
+            "modified": "2010-07-16 16:14:08", 
+            "created": "2010-07-16 16:14:08"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "wakawaka.revision", 
+        "fields": {
+            "creator_ip": "127.0.0.1", 
+            "created": "2010-07-16 16:48:05", 
+            "creator": 1, 
+            "modified": "2010-07-16 16:48:05", 
+            "content": "= PyCon 2011: Connecting The Python Community =\r\n\r\nThe Python Software Foundation is proud to present the annual Python community conference, PyCon 2011.\r\n\r\nAnnouncements concerning 2011, and beyond will be made in the weeks to come.", 
+            "message": "", 
+            "page": 1
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "wakawaka.revision", 
+        "fields": {
+            "creator_ip": "127.0.0.1", 
+            "created": "2010-07-16 16:14:09", 
+            "creator": 1, 
+            "modified": "2010-07-16 16:14:09", 
+            "content": "", 
+            "message": "Initial revision", 
+            "page": 1
+        }
+    }
+]
