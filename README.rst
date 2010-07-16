@@ -15,8 +15,8 @@ To get setup with pycon code you must have the follow installed:
  * virtualenv 1.4.7+
  * C compiler (for PIL)
 
-Development environment
------------------------
+Setting up environment
+----------------------
 
 Create a virtual environment where pycon dependencies will live::
 
@@ -28,24 +28,26 @@ Install pycon project dependencies::
 
     (pycon)$ pip install -r requirements/project.txt
 
-If everything has gone successfully thus far you can create a local database
-for development and run the server::
+If you are setting up a production environment use
+``requirements/production.txt`` instead.
+
+Setting up the database
+-----------------------
+
+This will vary for production and development. By default the project is set
+up to run on a SQLite database. If you are setting up a production database
+see the Configuration section below for where to place settings and get the
+database running. Now you can run::
 
     (pycon)$ python manage.py syncdb
+    (pycon)$ python manage.py loaddata fixtures/initial_wakawaka.json
+
+Running a web server
+--------------------
+
+In development you should run::
+
     (pycon)$ python manage.py runserver
-
-Production environment
-----------------------
-
-Create a virtual environment where pycon dependencies will live::
-
-    $ virtualenv --no-site-packages pycon
-    $ source pycon/bin/activate
-    (pycon)$
-
-Install pycon project dependencies::
-
-    (pycon)$ pip install -r requirements/production.txt
 
 @@@ TODO: not sure what will be used for deployment yet. This project comes
 with a ``deploy/pinax.wsgi`` which can be used with mod_wsgi and showcase how
