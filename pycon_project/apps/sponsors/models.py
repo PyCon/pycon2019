@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+
 class SponsorLevel(models.Model):
     
     name = models.CharField(_("name"), max_length=100)
@@ -42,7 +43,7 @@ class Sponsor(models.Model):
 
 class SponsorLogo(models.Model):
     
-    sponsor = models.ForeignKey(Sponsor, verbose_name=("Sponsor"))
+    sponsor = models.ForeignKey(Sponsor, verbose_name=_("sponsor"))
     label = models.CharField(
         max_length = 100,
         help_text = _("To display this logo on site use label 'website'")
