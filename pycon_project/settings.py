@@ -22,7 +22,6 @@ INTERNAL_IPS = [
 ]
 
 ADMINS = [
-    ("Jannis Leidel", "jannis@enn.io"),
 ]
 
 MANAGERS = ADMINS
@@ -83,7 +82,7 @@ STATICFILES_DIRS = [
 ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "zp$u@twk2#4u+jeitp^o*%nt6r%ckslky!oes!z3i7t(vv$oiw"
+SECRET_KEY = ""
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
@@ -159,13 +158,13 @@ INSTALLED_APPS = [
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-CONTACT_EMAIL = "jannis@enn.io"
+CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
 SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
 
 LOGIN_REDIRECT_URLNAME = "home"
-LOGIN_URL = '/account/login/'
-LOGOUT_URL = '/account/logout/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "/account/login/"
+LOGOUT_URL = "/account/logout/"
+LOGIN_REDIRECT_URLNAME = "home"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -186,12 +185,12 @@ EMAIL_CONFIRMATION_DAYS = 3
 WAKAWAKA_DEFAULT_INDEX = "index"
 
 # Also allow lower case wiki page names
-WAKAWAKA_SLUG_REGEX = r'((([a-z]+){2,})(/([a-z]+){2,})*)'
+WAKAWAKA_SLUG_REGEX = r"((([a-z]+){2,})(/([a-z]+){2,})*)"
 
 MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = 'markitup/sets/restructuredtext'
-MARKITUP_SKIN = 'markitup/skins/simple'
-MARKITUP_FILTER = ('markitup.renderers.render_rest', {})
+MARKITUP_SET = "markitup/sets/restructuredtext"
+MARKITUP_SKIN = "markitup/skins/simple"
+MARKITUP_FILTER = ("markitup.renderers.render_rest", {})
 MARKITUP_MEDIA_URL = STATIC_URL
 
 # local_settings.py can be used to override environment-specific settings
