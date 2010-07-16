@@ -25,5 +25,4 @@ django-mailer==0.2.0dev1
 docutils==0.6
 django-wakawaka==0.4.dev4
 django-markitup==0.6.1
-
--e git+git://github.com/alex/django-fixture-generator.git#egg=fixture_generator
+django-fixture-generator==0.2.0
