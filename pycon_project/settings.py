@@ -156,6 +156,10 @@ INSTALLED_APPS = [
     "wiki",
 ]
 
+FIXTURE_DIRS = [
+    os.path.join(PROJECT_ROOT, "fixtures"),
+]
+
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
