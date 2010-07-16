@@ -17,8 +17,6 @@
 {% endblock %}
 
 {% block body_base %}
-	<h1><a href="{% url wakawaka_page slug=page.slug %}">{{ page.slug }}</a></h1>
-
 	{% if rev.is_not_current %}
 	<p class="revert-warning">
 		{% trans "You are viewing an older revision!" %}
