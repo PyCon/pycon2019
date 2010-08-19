@@ -41,6 +41,7 @@ class Proposal(models.Model):
         help_text = "Brief one paragraph blurb (will be public if accepted). Must be 400 characters or less"
     )
     session_type = models.IntegerField(choices=SESSION_TYPES)
+    classification = models.IntegerField(choices=SESSION_CLASSIFICATION_SURVEY)
     abstract = models.TextField(
         help_text = "More detailed description (will be public if accepted). You can use <a href='http://wikicreole.org/' target='_blank'>creole</a> markup. <a id='preview' href='#'>Preview</a>",
     )
