@@ -11,19 +11,20 @@ handler500 = "pinax.views.server_error"
 
 
 urlpatterns = patterns("",
-    url(r"^$", redirect_to, {
-        "url": "/about/",
-    }, name="home"),
-    url(r"^account/signup/$", "pinax.apps.account.views.signup", name="acct_signup"),
-    url(r"^account/", include("pinax.apps.account.urls")),
-    url(r"^openid/(.*)", PinaxConsumer()),
-    url(r"^oauth_access/finish_signup/(?P<service>\w+)/$", "oauth_callbacks.finish_signup", name="oauth_access_finish_signup"),
-    url(r"^oauth_access/", include("oauth_access.urls")),
-    url(r"^waitinglist/", include("pinax.apps.waitinglist.urls")),
-    url(r"^admin/", include(admin.site.urls)),
-    url(r"^markitup/", include("markitup.urls")),
-    url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
-    url(r"^", include("wakawaka.urls")),
+    url(r"^$", redirect_to, {"url": "/%s/"  % settings.PYCON_YEAR}),
+    url(r"^%s/" % settings.PYCON_YEAR, include(patterns("",
+        url(r"^$", redirect_to, {"url": "/%s/about/" % settings.PYCON_YEAR}, name="home"),
+        url(r"^account/signup/$", "pinax.apps.account.views.signup", name="acct_signup"),
+        url(r"^account/", include("pinax.apps.account.urls")),
+        url(r"^openid/(.*)", PinaxConsumer()),
+        url(r"^oauth_access/finish_signup/(?P<service>\w+)/$", "oauth_callbacks.finish_signup", name="oauth_access_finish_signup"),
+        url(r"^oauth_access/", include("oauth_access.urls")),
+        url(r"^waitinglist/", include("pinax.apps.waitinglist.urls")),
+        url(r"^admin/", include(admin.site.urls)),
+        url(r"^markitup/", include("markitup.urls")),
+        url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
+        url(r"^", include("wakawaka.urls")),
+    ))),
 )
 
 
