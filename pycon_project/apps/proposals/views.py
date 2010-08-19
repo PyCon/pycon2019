@@ -16,7 +16,7 @@ from proposals.forms import ProposalSubmitForm, ProposalEditForm, AddSpeakerForm
 from proposals.models import Proposal
 from speakers.models import Speaker
 
-from mycon_project.utils import send_email
+from pycon_project.utils import send_email
 
 
 def proposal_submit(request):
