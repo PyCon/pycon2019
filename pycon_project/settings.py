@@ -142,7 +142,6 @@ INSTALLED_APPS = [
     "oauth_access",
     "uni_form",
     "ajax_validation",
-    "gunicorn",
     "fixture_generator",
     "wakawaka",
     "biblion",
