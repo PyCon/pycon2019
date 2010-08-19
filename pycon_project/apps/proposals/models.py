@@ -9,20 +9,30 @@ class Proposal(models.Model):
     
     SESSION_TYPE_TALK = 1
     SESSION_TYPE_PANEL = 2
+    SESSION_TYPE_TUTORIAL = 3
     
     SESSION_TYPES = [
         (SESSION_TYPE_TALK, "Talk"),
-        (SESSION_TYPE_PANEL, "Panel")
+        (SESSION_TYPE_PANEL, "Panel"),
+        (SESSION_TYPE_TUTORIAL, "Tutorial"),
+    ]
+    
+    SESSION_CLASSIFICATION_SURVEY = 1
+    SESSION_CLASSIFICATION_RAISE_AWARENESS = 2
+    SESSION_CLASSIFICATION_INDEPTH = 3
+    
+    SESSION_CLASSIFICATIONS = [
+        (SESSION_CLASSIFICATION_SURVEY, "Survey"),
+        (SESSION_CLASSIFICATION_RAISE_AWARENESS, "Raise Awareness"),
+        (SESSION_CLASSIFICATION_INDEPTH, "Discuss in Depth"),
     ]
     
     AUDIENCE_LEVEL_NOVICE = 1
-    AUDIENCE_LEVEL_INTERMEDIATE = 2
-    AUDIENCE_LEVEL_EXPERT = 3
+    AUDIENCE_LEVEL_EXPERIENCED = 2
     
     AUDIENCE_LEVELS = [
         (AUDIENCE_LEVEL_NOVICE, "Novice"),
-        (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
-        (AUDIENCE_LEVEL_EXPERT, "Expert"),
+        (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
     
     title = models.CharField(max_length=100)
@@ -47,6 +57,11 @@ class Proposal(models.Model):
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
     cancelled = models.BooleanField(default=False)
+    
+    # PyCon additions
+    recording = models.BooleanField(default=True)
+    opt_out_ads = models.NullBooleanField(default=False)
+    extreme_pycon = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
         self.abstract_html = creole_parser.parse(self.abstract)
