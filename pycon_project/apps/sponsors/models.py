@@ -20,13 +20,13 @@ class SponsorLevel(models.Model):
 class Sponsor(models.Model):
     
     name = models.CharField(_("name"), max_length=100)
-    external_url = models.URLField(_("External URL"))
-    annotation = models.TextField(_("Annotation"), blank=True)
-    contact_name = models.CharField(_("Contact name"), max_length=100)
+    external_url = models.URLField(_("external URL"))
+    annotation = models.TextField(_("annotation"), blank=True)
+    contact_name = models.CharField(_("contact name"), max_length=100)
     contact_email = models.EmailField(_(u"Contact e\u2011mail"))
-    level = models.ForeignKey(SponsorLevel, verbose_name=_("Level"))
-    added = models.DateTimeField(_("Added"), default=datetime.datetime.now)
-    active = models.BooleanField(_("Active"), default=False)
+    level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
+    added = models.DateTimeField(_("added"), default=datetime.datetime.now)
+    active = models.BooleanField(_("active"), default=False)
     
     def __unicode__(self):
         return self.name
@@ -48,7 +48,7 @@ class SponsorLogo(models.Model):
         max_length = 100,
         help_text = _("To display this logo on site use label 'website'")
     )
-    logo = models.ImageField(_("Logo"), upload_to="sponsor_logos/")
+    logo = models.ImageField(_("logo"), upload_to="sponsor_logos/")
     
     class Meta:
         unique_together = [("sponsor", "label")]

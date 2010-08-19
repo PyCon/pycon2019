@@ -40,16 +40,15 @@ DATABASES = {
 }
 
 # Local time zone for this installation. Choices can be found here:
-# http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
-# although not all variations may be possible on all operating systems.
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = "US/Eastern"
 
 # Language code for this installation. All choices can be found here:
-# http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-# http://blogs.law.harvard.edu/tech/stories/storyReader$15
-LANGUAGE_CODE = "en"
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = "en-us"
 
 SITE_ID = 1
 
@@ -61,8 +60,9 @@ USE_I18N = True
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 
-# URL that handles the media served from MEDIA_ROOT.
-# Example: "http://media.lawrence.com"
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = "/%s/site_media/media/" % PYCON_YEAR
 
 # Absolute path to the directory that holds static files like app media.
@@ -98,7 +98,6 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.doc.XViewMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
@@ -116,7 +115,13 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.media",
     "django.core.context_processors.request",
     
+    "staticfiles.context_processors.static_url",
+    
     "pinax.core.context_processors.pinax_settings",
+    
+    "pinax.apps.account.context_processors.account",
+    
+    "review.context_processors.permissions",
 ]
 
 INSTALLED_APPS = [
@@ -153,7 +158,12 @@ INSTALLED_APPS = [
     "pinax.apps.account",
     
     # project
+    "speakers",
+    "proposals",
     "sponsors",
+    "review",
+    "boxes",
+    "schedule"
     "wiki",
 ]
 
@@ -165,11 +175,6 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
 SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
-
-LOGIN_REDIRECT_URLNAME = "home"
-LOGIN_URL = "/%s/account/login/" % PYCON_YEAR
-LOGOUT_URL = "/%s/account/logout/" % PYCON_YEAR
-LOGIN_REDIRECT_URLNAME = "home"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -185,18 +190,16 @@ ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = True
 
+LOGIN_REDIRECT_URLNAME = "home"
+LOGIN_URL = "/%s/account/login/" % PYCON_YEAR
+LOGOUT_URL = "/%s/account/logout/" % PYCON_YEAR
+LOGIN_REDIRECT_URLNAME = "home"
+
 EMAIL_CONFIRMATION_DAYS = 3
 
-WAKAWAKA_DEFAULT_INDEX = "index"
+ACCEPTING_PROPOSALS = True
 
-# Also allow lower case wiki page names
-WAKAWAKA_SLUG_REGEX = r"((\w{2,})(/\w{2,})*)"
-
-MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/creole"
-MARKITUP_SKIN = "markitup/skins/simple"
-MARKITUP_FILTER = ("biblion.creole_parser.parse", {})
-MARKITUP_MEDIA_URL = STATIC_URL
+SCHEDULE_TIMEZONE = "US/Eastern"
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

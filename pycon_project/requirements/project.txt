@@ -7,7 +7,6 @@
 # See http://pip-installer.org/requirement-format.html for more information.
 
 PIL==1.1.7
-
 django-email-confirmation==0.2.dev1
 django-timezones==0.2.dev1
 django-ajax-validation==0.1.3

@@ -29,7 +29,7 @@ class SponsorsNode(template.Node):
             level__name__iexact = level,
             active = True
             ).order_by(
-                "-added"
+                "added"
             )
         context[self.context_var] = queryset
         return u""
