@@ -1,11 +1,25 @@
-{% extends "site_base.html" %}
+{% extends "proposals/base.html" %}
 
 {% load uni_form_tags %}
 
-{% block body_class %}speaker{% endblock %}
-
 {% block extra_head %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/facebox.css" />
+    <style>
+        .uniForm select,
+        .uniForm textarea
+        {
+            width: 99%;
+        }
+        .uniForm input[type=text]
+        {
+            width: 95%;
+        }
+        .uniForm .formHint {
+            width: 99%;
+            line-height: 12pt;
+            margin-top: 8px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -13,7 +27,7 @@
     
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
-        <fieldset class="inlineLabels">
+        <fieldset>
             {{ form|as_uni_form }}
             <div class="form_block">
                 <input type="submit" name="finish" value="submit and finish" />

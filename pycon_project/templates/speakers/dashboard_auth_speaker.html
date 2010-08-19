@@ -1,6 +1,4 @@
-{% extends "site_base.html" %}
-
-{% block body_class %}speaker{% endblock %}
+{% extends "speakers/base.html" %}
 
 {% block subnav %}
     <p><a href="{% url speaker_edit %}">Edit your speaker profile</a></p>
@@ -9,21 +7,24 @@
 {% block body %}
     <h1>Speakers</h1>
     
-    <p>
-        Talk proposals will be accepted until <b>July 10th</b> and accepted talks will be announced by <b>July 25th</b>.
-        For more information see the blog post <a href="/blog/2010/05/18/talk-submissions-are-open/">Talk Submissions are Open</a>.
-    </p>
-    
-    <p>To submit a talk:</p>
-    
-    <ol class="steps">
-        <li class="done">sign up and log in</li>
-        <li class="done">create a speaker profile</li>
-        <li class="next"><a href="{% url proposal_submit %}">{{ proposal_text }}</a></li>
-    </ol>
-    
-    <p>You will be able to come back and revise your submission until the deadline.
-        Remember that speakers must register and pay to attend the conference.</p>
+    {% if accepting_proposals %}
+        <p>
+            Talk proposals will be accepted until <b>XXX</b> and accepted talks will be announced by <b>XXX</b>.
+        </p>
+        
+        <p>To submit a talk:</p>
+        
+        <ol class="steps">
+            <li class="done">sign up and log in</li>
+            <li class="done">create a speaker profile</li>
+            <li class="next"><a href="{% url proposal_submit %}">{{ proposal_text }}</a></li>
+        </ol>
+        
+        <p>You will be able to come back and revise your submission until the deadline.
+            Remember that speakers must register and pay to attend the conference.</p>
+    {% else %}
+        <p>Talk submissions are now closed and the <a href="{% url schedule_list %}">schedule has been announced</a>.</p>
+    {% endif %}
     
     <h2>Proposals</h2>
     
@@ -41,7 +42,7 @@
                 <td><a href="{% url proposal_detail proposal.pk %}">{{ proposal.title }}</a></td>
                 <td>{{ proposal.get_session_type_display }}</td>
                 <td>{{ proposal.get_audience_level_display }}</td>
-                <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}Submitted{% else %}Associated{% endif %}{% endif %}</td>
+                <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}Accepted{% else %}Submitted{% endif %}{% else %}Associated{% endif %}{% endif %}</td>
                 <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user %}<a href="{% url proposal_edit proposal.pk %}">Edit</a>{% endif %}{% if request.user == proposal.speaker.user %} | <a href="{% url proposal_cancel proposal.pk %}">Cancel</a>{% else %}<a href="{% url proposal_leave proposal.pk %}">Leave</a>{% endif %}{% endif %}</td>
             </tr>
             {% endfor %}

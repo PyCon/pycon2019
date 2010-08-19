@@ -6,6 +6,7 @@
 {% load account_tags %}
 
 {% block head_title %}{% trans "Login" %}{% endblock %}
+{% block body_class %}full{% endblock %}
 
 {% block body %}
     
@@ -51,6 +52,9 @@
     {% endcomment %}
     
     <p>{% blocktrans %}If you have any trouble logging in to your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
+{% endblock %}
+
+{% block right %}
 {% endblock %}
 
 {% block extra_body %}
