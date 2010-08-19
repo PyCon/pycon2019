@@ -1,0 +1,15 @@
+{% extends "sponsors/base.html" %}
+
+
+{% block body %}
+    <p>Sponsor MyCON.</p>
+    {% if user.is_authenticated %}
+        {% if user.sponsorship %}
+            <p>Your sponsorship application is being processed.</p>
+        {% else %}
+            <a href="{% url sponsor_apply %}">Apply to be a sponsor</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url acct_signup %}?next={% url sponsor_apply %}">Sign up to be a sponsor</a>
+    {% endif %}
+{% endblock %}
