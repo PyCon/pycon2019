@@ -13,7 +13,6 @@ def pycon_2010_sponsors():
         "Patron",
         "Vendor I",
         "Media",
-        
     ]
     levels = {}
     for pos, name in enumerate(level_names):
@@ -27,9 +26,9 @@ def pycon_2010_sponsors():
         )
     
     create_sponsor("Google", "http://code.google.com/opensource/", "Diamond")
-
+    
     create_sponsor("CCP Games", "http://www.ccpgames.com/", "Platinum")
-
+    
     create_sponsor("Walt Disney Animation Studios", "http://www.disneyanimation.com/", "Gold")
     create_sponsor("neg-ng", "http://www.net-ng.com/", "Gold")
     create_sponsor("socialserve.com", "http://www.socialserve.com/", "Gold")
