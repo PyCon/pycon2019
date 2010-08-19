@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from eldarion.test import TestCase
+from eldarion_test import TestCase
 
 from sponsors.models import Sponsor
 

@@ -23,7 +23,7 @@ class SponsorLevel(models.Model):
 class Sponsor(models.Model):
     
     applicant = models.OneToOneField(
-        User, related_name="sponsorship", verbose_name=_("applicant")
+        User, related_name="sponsorship", verbose_name=_("applicant"), null=True
     )
     name = models.CharField(_("name"), max_length=100)
     external_url = models.URLField(_("external URL"))
