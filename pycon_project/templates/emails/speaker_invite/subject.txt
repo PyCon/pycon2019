@@ -1,1 +1,1 @@
-DjangoCon 2010: {{ proposal.speaker.name }} has added you as a speaker on {{ proposal.title }}
+MyCon 2010: {{ proposal.speaker.name }} has added you as a speaker on {{ proposal.title }}

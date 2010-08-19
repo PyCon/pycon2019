@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load openid_tags %}
 
-{% block body_class %}account{% endblock %}
+{% block body_class %}full account{% endblock %}
 
 
 {% block subnav %}
@@ -27,4 +27,7 @@
         |
         <a href="{% url acct_timezone_change %}">{% trans "Timezone" %}</a>
     {% endif %}
+{% endblock %}
+
+{% block right %}
 {% endblock %}

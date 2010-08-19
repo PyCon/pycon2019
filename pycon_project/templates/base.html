@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>{% block head_title %}{% endblock %}{% if SITE_NAME %} - {{ SITE_NAME }}{% endif %}</title>
+        <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} : {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
         <!--[if IE]><style>
             div {
                 zoom: 1; /* trigger hasLayout */
@@ -11,6 +11,7 @@
         </style><![endif]-->
         <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/960.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css?5" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/account.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
         {% if LANGUAGE_BIDI %}
@@ -40,11 +41,8 @@
         {% endif %}
         
         <div id="tabhead">
-            <div class="logo" dir="ltr">{% block logo_link_image %}{% endblock %}</div>
-            <div class="login">{% block login %}{% endblock %}{% block locale_switcher %}{% endblock %}<div style="text-align: right;"></div></div>
-            <div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
-            <div id="right_tabs" >{% block right_tabs %}{% endblock %}</div>
-            <div id="tabhead-extra">{% block tabhead_extra %}{% endblock %}</div>
+            {% block heading %}{% endblock %}
+            {% include "_account_bar.html" %}
             <div id="nav">
                 {% include "nav.html" %}
             </div>
@@ -53,9 +51,6 @@
         {% block body_outer %}
         <div id="body">
             <div id="wrapper">
-                <div id="right">
-                    {% block right %}{% endblock %}
-                </div>
                 <div id="main">
                     <div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}{% endblock %}</div>{% endblock %}</div>
                     {% if messages %}
@@ -71,6 +66,9 @@
                     
                     {% block body_base %}
                     {% endblock %}
+                </div>
+                <div id="right">
+                    {% block right %}{% endblock %}
                 </div>
                 <div class="clear"></div>
             </div>

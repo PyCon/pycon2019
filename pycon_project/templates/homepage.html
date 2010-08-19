@@ -1,26 +1,27 @@
 {% extends "site_base.html" %}
 
+{% load boxes_tags %}
 {% load biblion_tags %}
-{% load i18n %}
-
-{% block head_title %}{% trans "Home" %}{% endblock %}
 
 {% block body_class %}home{% endblock %}
-
 {% block body %}
     
-    <h1>{% trans "PyCon 2011: Connecting The Python Community" %}</h1>
+    <div class="mainbox">
+        {% box "mainbox" %}
+    </div>
+    <h1>Blog</h1>
+    {% latest_blog_posts as posts %}
+    {% if posts %}
+        {% for post in posts %}
+            <div class="blog-post">
+                <h2><a href="{{ post.get_absolute_url }}" class="post-link">{{ post.title }}</a></h2>
+                {% include "biblion/dateline.html" %}
+                <p class="teaser">{{ post.teaser_html|safe }}</p>
+                <p class="more"><a href="{{ post.get_absolute_url }}" class="post-link">read more...</a></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No blog posts have been published.</p>
+    {% endif %}
     
-    <p>
-        {% blocktrans %}
-
-        <p>The Python Software Foundation is proud to present the annual
-        Python community conference, PyCon 2010. PyCon 2010 was held at the
-        Hyatt Regency Atlanta in downtown Atlanta, Georgia from February 17
-        through 25.</p>
-
-        <p>Thanks to all who made this the best PyCon yet!</p>
-        {% endblocktrans %}
-    </p>
-
 {% endblock %}

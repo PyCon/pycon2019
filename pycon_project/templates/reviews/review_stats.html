@@ -1,0 +1,41 @@
+{% extends "reviews/base.html" %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% block body %}
+    <h1>Proposal Review Stats</h1>
+    
+    <h2>Good ({{ good_proposals|length }})</h2>
+    
+    <div class="stat-def">proposals with at least one +1 and no &minus;1s</div>
+    
+    {% with good_proposals as proposals %}
+        {% include "reviews/_review_table.html" %}
+    {% endwith %}
+    
+    <h2>Bad ({{ bad_proposals|length }})</h2>
+    
+    <div class="stat-def">proposals with at least one &minus;1 and no +1s</div>
+    
+    {% with bad_proposals as proposals %}
+        {% include "reviews/_review_table.html" %}
+    {% endwith %}
+    
+    <h2>Indifferent ({{ indifferent_proposals|length }})</h2>
+    
+    <div class="stat-def">proposals with neither a +1 or a &minus;1</div>
+    
+    {% with indifferent_proposals as proposals %}
+        {% include "reviews/_review_table.html" %}
+    {% endwith %}
+    
+    <h2>Controversial ({{ controversial_proposals|length }})</h2>
+    
+    <div class="stat-def">proposals with both a +1 and &minus;1</div>
+    
+    {% with controversial_proposals as proposals %}
+        {% include "reviews/_review_table.html" %}
+    {% endwith %}
+    
+{% endblock %}
