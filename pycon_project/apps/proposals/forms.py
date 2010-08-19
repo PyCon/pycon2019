@@ -8,7 +8,12 @@ class ProposalForm(forms.ModelForm):
     
     class Meta:
         model = Proposal
-        exclude = ["speaker", "additional_speakers", "cancelled"]
+        exclude = [
+            "speaker",
+            "additional_speakers",
+            "cancelled",
+            "opt_out_ads",
+        ]
     
     def clean_description(self):
         value = self.cleaned_data["description"]
