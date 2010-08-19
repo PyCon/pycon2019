@@ -163,7 +163,7 @@ INSTALLED_APPS = [
     "sponsors",
     "review",
     "boxes",
-    "schedule"
+    "schedule",
     "wiki",
 ]
 
@@ -196,6 +196,15 @@ LOGOUT_URL = "/%s/account/logout/" % PYCON_YEAR
 LOGIN_REDIRECT_URLNAME = "home"
 
 EMAIL_CONFIRMATION_DAYS = 3
+
+WAKAWAKA_DEFAULT_INDEX = "index"
+WAKAWAKA_SLUG_REGEX = r"((\w{2,})(/\w{2,})*)" # allow lower case wiki page names
+
+MARKITUP_AUTO_PREVIEW = True
+MARKITUP_SET = "markitup/sets/creole"
+MARKITUP_SKIN = "markitup/skins/simple"
+MARKITUP_FILTER = ("biblion.creole_parser.parse", {})
+MARKITUP_MEDIA_URL = STATIC_URL
 
 ACCEPTING_PROPOSALS = True
 
