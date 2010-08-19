@@ -8,6 +8,8 @@ import pinax
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
+PYCON_YEAR = "2011"
+
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
 
@@ -61,7 +63,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 
 # URL that handles the media served from MEDIA_ROOT.
 # Example: "http://media.lawrence.com"
-MEDIA_URL = "/site_media/media/"
+MEDIA_URL = "/%s/site_media/media/" % PYCON_YEAR
 
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
@@ -69,7 +71,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
-STATIC_URL = "/site_media/static/"
+STATIC_URL = "/%s/site_media/static/" % PYCON_YEAR
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
@@ -166,8 +168,8 @@ CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
 SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
 
 LOGIN_REDIRECT_URLNAME = "home"
-LOGIN_URL = "/account/login/"
-LOGOUT_URL = "/account/logout/"
+LOGIN_URL = "/%s/account/login/" % PYCON_YEAR
+LOGOUT_URL = "/%s/account/logout/" % PYCON_YEAR
 LOGIN_REDIRECT_URLNAME = "home"
 
 DEBUG_TOOLBAR_CONFIG = {
