@@ -62,4 +62,28 @@
         {% endfor %}
     {% endif %}
     
+    {% sponsors "sprint" as sponsors %}
+    {% if sponsors %}
+        <h3>Sprint</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% sponsors "media" as sponsors %}
+    {% if sponsors %}
+        <h3>Media</h3>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
 </div>
