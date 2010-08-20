@@ -5,11 +5,11 @@ from wiki.creole_parser import parse
 class CreoleParsingTests(unittest.TestCase):
     def test_link_to_wiki_page(self):
         self.assertEquals(parse('[[foo]]'),
-                          u'<p><a href="/foo/">foo</a></p>\n')
+                          u'<p><a href="/2011/foo/">foo</a></p>\n')
 
     def test_link_to_wiki_subpage(self):
         self.assertEquals(parse('[[foo/bar]]'),
-                          u'<p><a href="/foo/bar/">foo/bar</a></p>\n')
+                          u'<p><a href="/2011/foo/bar/">foo/bar</a></p>\n')
 
     def test_link_to_other_site_page(self):
         self.assertEquals(parse('[[/foo]]'),
