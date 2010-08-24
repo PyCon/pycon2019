@@ -32,11 +32,7 @@ class Sponsor(models.Model):
     contact_email = models.EmailField(_(u"Contact e\u2011mail"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"), null=True)
     added = models.DateTimeField(_("added"), default=datetime.datetime.now)
-    active = models.NullBooleanField(_("active"), choices=[
-        (True, "approved"),
-        (False, "rejected"),
-        (None, "unreviewed"),
-    ])
+    active = models.NullBooleanField(_("active"))
     
     def __unicode__(self):
         return self.name
