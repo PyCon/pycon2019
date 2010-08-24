@@ -10,7 +10,7 @@
     {% if user.is_authenticated %}
         <a href="{% url acct_email %}">{% trans "E-Mail Addresses" %}</a>
         |
-        <a href="/openid/associations/">{% trans "OpenID Associations" %}</a>
+        <a href="{% url openid-associations %}">{% trans "OpenID Associations" %}</a>
         |
         {% if user.password %}
             <a href="{% url acct_passwd %}">{% trans "Change Password" %}</a>
