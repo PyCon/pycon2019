@@ -199,6 +199,7 @@ EMAIL_CONFIRMATION_DAYS = 3
 
 WAKAWAKA_DEFAULT_INDEX = "index"
 WAKAWAKA_SLUG_REGEX = r"((\w{2,})(/\w{2,})*)" # allow lower case wiki page names
+WAKAWAKA_LOCK_TIMEOUT = 10*60
 
 MARKITUP_AUTO_PREVIEW = True
 MARKITUP_SET = "markitup/sets/creole"
