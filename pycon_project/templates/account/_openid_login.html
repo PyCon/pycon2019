@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% comment %}@@@ why isn't this done as a form?{% endcomment %}
-<form class="login uniForm" action="/openid/register/" method="POST">
+<form class="login uniForm" action="{% url openid-register %}" method="POST">
     {% csrf_token %}
     <fieldset class="inlineLabels">
         {% if url_required %}
