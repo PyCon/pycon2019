@@ -30,7 +30,6 @@
 	{% endif %}
 
 	{% if is_locked and have_lock %}
-	<p class="lock-notice">{% trans "The page is locked for you." %}</p>
 	<form class="wakawaka_edit_form" method="POST" action="">
 	    {% csrf_token %}
 		{{ form.as_p }}
@@ -46,7 +45,7 @@
 		</p>
 	</form>
 	{% else %}
-	{% blocktrans with lock_timestamp|timesince as lock_timestamp %}The page is locked for {{ lock_owner }} since about {{ lock_timestamp }}.{% endblocktrans %}
+	{% blocktrans with lock_timestamp|timesince as lock_timestamp %}The page was locked for {{ lock_owner }} about {{ lock_timestamp }} ago.{% endblocktrans %}
 	{% if allowed_to_reset %}<a href="?reset_lock=true" title="Locked for another {{ lock_ttl|timeuntil }}">{% trans "Reset lock" %}</a>{% endif %}
 	<div class="page">
 		{% include "wakawaka/page_content.html" %}
@@ -66,4 +65,8 @@
 	<h2>{% trans "Revisions for this page" %}</h2>
 
 	{% include "wakawaka/revision_table.html" %}
+{% endblock %}
+
+{% block right %}
+{# no sponsors on wiki edit page, more room for edit box #}
 {% endblock %}
