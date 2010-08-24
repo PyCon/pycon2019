@@ -10,7 +10,7 @@
 <p>
     You have begun to associate <strong>{{ specific_openid }}</strong> with your existing account.
     This will allow you to sign in as <strong>{% user_display user %}</strong> using that OpenID.
-    Click below to verify that association or <a href="/openid/associations/">Decline Association</a>.
+    Click below to verify that association or <a href="{% url openid-associations %}">Decline Association</a>.
 </p>
 
 <form class="uniForm" id="openid-verify-association" action="{{ action }}" method="POST">
