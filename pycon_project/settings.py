@@ -191,6 +191,10 @@ ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = True
 
+AUTHENTICATION_BACKENDS = [
+    "pinax.apps.account.auth_backends.AuthenticationBackend",
+]
+
 LOGIN_REDIRECT_URLNAME = "home"
 LOGIN_URL = "/%s/account/login/" % PYCON_YEAR
 LOGOUT_URL = "/%s/account/logout/" % PYCON_YEAR
