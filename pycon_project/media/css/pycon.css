@@ -4,7 +4,7 @@ body {
     padding: 0;
     margin: 0;
     background: #366386;
-    color: #EEE;
+    color: #222;
     min-width: 840px;
 }
 #heading {
@@ -87,6 +87,7 @@ body {
     font-size: 10pt;
     line-height: 1.2em;
     font-weight: 400;
+    color: #EEE;
 }
 body.full #main {
     float: none;
@@ -377,4 +378,10 @@ body.schedule div.slot {
 .schedule-table td.other {
     font-weight: 600;
     font-size: 12pt;
+}
+
+
+table.history td {
+    font-size: 10pt;
+    font-weight: 400;
 }
