@@ -45,6 +45,21 @@ class Sponsor(models.Model):
             return reverse("sponsor_detail", kwargs={"pk": self.pk})
         return reverse("sponsor_index")
 
+    @property
+    def website_logo_url(self):
+        import pdb; pdb.set_trace()
+        if not hasattr(self, '_website_logo_url'):
+            benefits = self.sponsor_benefits.filter(benefit__type='weblogo',
+                                                    upload__isnull=False)
+            if benefits.count():
+                # @@@ smarter handling of multiple weblogo benefits?
+                # shouldn't happen
+                self._website_logo_url = benefits[0].upload.url
+            else:
+                self._website_logo_url = None
+
+        return self._website_logo_url
+    
     def reset_benefits(self):
         """
         Reset all benefits for this sponsor to the defaults for their
@@ -69,7 +84,7 @@ class Sponsor(models.Model):
                 sponsor_benefit.other_limits = benefit_level.other_limits
 
                 # and set to active
-                sponsor_benefit.active
+                sponsor_benefit.active = True
 
                 # @@@ We don't call sponsor_benefit.clean here. This means
                 # that if the sponsorship level for a sponsor is adjusted
@@ -106,6 +121,7 @@ class Benefit(models.Model):
     type = models.CharField(_("type"),
                             choices=[('text', 'Text'),
                                      ('file', 'File'),
+                                     ('weblogo', 'Web Logo'),
                                      ('simple', 'Simple')],
                             max_length=10,
                             default='simple')
@@ -171,7 +187,7 @@ class SponsorBenefit(models.Model):
         this ``SponsorBenefit``, depending on its ``Benefit`` type.
 
         """
-        if self.benefit.type == 'file':
+        if self.benefit.type == 'file' or self.benefit.type == 'weblogo':
             return ['upload']
         elif self.benefit.type == 'text':
             return ['text']
