@@ -1,5 +1,7 @@
 {% extends "speakers/base.html" %}
 
+{% load boxes_tags %}
+
 {% block subnav %}
     <p><a href="{% url speaker_edit %}">Edit your speaker profile</a></p>
 {% endblock %}
@@ -8,9 +10,7 @@
     <h1>Speakers</h1>
     
     {% if accepting_proposals %}
-        <p>
-            Talk proposals will be accepted until <b>XXX</b> and accepted talks will be announced by <b>XXX</b>.
-        </p>
+        <p>{% box "talk-proposals" %}</p>
         
         <p>To submit a talk:</p>
         
