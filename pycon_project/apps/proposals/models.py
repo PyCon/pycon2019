@@ -60,9 +60,11 @@ class Proposal(models.Model):
     cancelled = models.BooleanField(default=False)
     
     # PyCon additions
-    recording = models.BooleanField(default=True)
+    recording = models.BooleanField(default=True,
+                                    help_text='I grant permission for PyCon to record my talk in audio and video and make these recordings publicly available.')
     opt_out_ads = models.NullBooleanField(default=False)
-    extreme_pycon = models.BooleanField(default=False)
+    extreme_pycon = models.BooleanField(u"EXTREME PyCon!", default=False,
+                                        help_text='This talk will skip the intro fluff, assume the audience has the needed background, and dive straight into the details.')
     
     def save(self, *args, **kwargs):
         self.abstract_html = creole_parser.parse(self.abstract)

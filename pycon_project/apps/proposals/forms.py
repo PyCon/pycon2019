@@ -14,7 +14,7 @@ class ProposalForm(forms.ModelForm):
             "cancelled",
             "opt_out_ads",
         ]
-    
+
     def clean_description(self):
         value = self.cleaned_data["description"]
         if len(value) > 400:
