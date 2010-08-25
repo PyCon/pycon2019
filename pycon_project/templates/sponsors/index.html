@@ -2,14 +2,28 @@
 
 
 {% block body %}
-    <p>Sponsor MyCON.</p>
+    <h1>PyCon 2011 Sponsorship</h1>
+    
     {% if user.is_authenticated %}
         {% if user.sponsorship %}
             <p>Your sponsorship application is being processed.</p>
         {% else %}
-            <a href="{% url sponsor_apply %}">Apply to be a sponsor</a>
+            <p>To sponsor PyCon 2011:</p>
+            
+            <ol class="steps">
+                <li class="done">sign up and log in</li>
+                <li class="next"><a href="{% url sponsor_apply %}">apply to be a sponsor</a></li>
+                <li>await application processing</li>
+            </ol>
+
         {% endif %}
     {% else %}
-        <a href="{% url acct_signup %}?next={% url sponsor_apply %}">Sign up to be a sponsor</a>
+        <p>To sponsor PyCon 2011:</p>
+        
+        <ol class="steps">
+            <li class="next"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
+            <li>apply to be a sponsor</li>
+            <li>await application processing</li>
+        </ol>
     {% endif %}
 {% endblock %}
