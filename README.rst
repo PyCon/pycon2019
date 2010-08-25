@@ -40,7 +40,11 @@ see the Configuration section below for where to place settings and get the
 database running. Now you can run::
 
     (pycon)$ python manage.py syncdb
-    (pycon)$ python manage.py loaddata fixtures/initial_wakawaka.json
+    (pycon)$ python manage.py loaddata fixtures/initial_{wakawaka,boxes}.json
+
+The wakawaka fixtures will require a user to exist before being ran. During
+syncdb it is worth it to make a superuser account which can then be used for
+making other users staff/superusers after they sign up.
 
 Running a web server
 --------------------
@@ -53,6 +57,23 @@ In development you should run::
 with a ``deploy/pinax.wsgi`` which can be used with mod_wsgi and showcase how
 to setup the WSGI environment if another mechanism is chosen.
 
+Sending mail/notification
+-------------------------
+
+All mail and some notification are queued in the database to be sent later. In
+a future version of Pinax this will made much more configurable. It is best
+to setup a cron job to run these two commands every minute::
+
+    (pycon)$ python manage.py send_mail
+    (pycon)$ python manage.py emit_notices
+
+And this one every 10–20 minutes::
+
+    (pycon)$ python manage.py retry_deferred
+
+More information can be found in `Pinax deployment documentation`_.
+
+.. _Pinax deployment documentation: http://pinaxproject.com/docs/dev/deployment.html#sending-mail-and-notices
 
 Configuration
 =============
