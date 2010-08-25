@@ -12,6 +12,7 @@
             {% if sponsor.website_logo_url %}
                 <div class="sponsor">
                     <a href="{{ sponsor.external_url }}">
+                        {# @@@ sane resizing with sorl-thumbnail #}
                         <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
                     </a>
                 </div>

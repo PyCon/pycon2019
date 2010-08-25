@@ -19,11 +19,11 @@ class SponsorTests(TestCase):
     def test_index(self):
         response = self.get("sponsor_index")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Sign up to be a sponsor")
+        self.assertContains(response, '<li class="next"><a href="/2011/account/signup/')
         
         with self.login("linus", "penguin"):
             response = self.get("sponsor_index")
-            self.assertContains(response, "Apply to be a sponsor")
+            self.assertContains(response, '<li class="next"><a href="/2011/sponsors/apply/')
             
             response = self.post("sponsor_apply", data={
                 "name": "Linux Foundation",
@@ -170,6 +170,13 @@ class BenefitTests(TestCase):
         self.check_benefits(s, [('Cookies', None, 'crumbs', True),
                                 ('Free Speech', None, '', False),
                                 ('Mugshot', None, '', False)])
+
+        s.level = self.tin
+        s.save()
+
+        self.check_benefits(s, [('Cookies', None, 'all you can eat', True),
+                                ('Free Speech', 100, '', True),
+                                ('Mugshot', None, 'b&w, 2x2in, unflattering', True)])
 
         s.level = None
         s.save()
