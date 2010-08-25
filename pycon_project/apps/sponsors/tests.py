@@ -1,4 +1,7 @@
+from cStringIO import StringIO
+
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
@@ -101,14 +104,21 @@ class SponsorTests(TestCase):
         detail_url = reverse("sponsor_detail", kwargs={'pk': s.pk})
         
         with self.login("linus", "penguin"):
+            # @@@ yuck. would love to clean this up using
+            # http://pythonpaste.org/webtest/#id2 and
+            # http://pypi.python.org/pypi/django-webtest/
             response = self.client.post(detail_url,
                                         {'name': 'Linux Fund',
                                          'external_url': 'http://www.linuxfund.org',
                                          'contact_name': 'Randal Schwartz',
-                                         'contact_email': 'randal@schwartz.org'})
+                                         'contact_email': 'randal@schwartz.org',
+                                         'sponsor_benefits-TOTAL_FORMS': '0',
+                                         'sponsor_benefits-INITIAL_FORMS': '0',
+                                         })
             self.assertRedirects(response, detail_url)
 
             self.assertEqual(self.reload(s).name, 'Linux Fund')
+
         
 class BenefitTests(TestCase):
     def setUp(self):
@@ -120,11 +130,14 @@ class BenefitTests(TestCase):
 
         self.cookies = Benefit.objects.create(name='Cookies', type='simple')
         self.free_speech = Benefit.objects.create(name='Free Speech', type='text')
+        self.mugshot = Benefit.objects.create(name='Mugshot', type='file')
 
         BenefitLevel.objects.create(level=self.tin, benefit=self.cookies,
                                     other_limits='all you can eat')
         BenefitLevel.objects.create(level=self.tin, benefit=self.free_speech,
                                     max_words=100)
+        BenefitLevel.objects.create(level=self.tin, benefit=self.mugshot,
+                                    other_limits='b&w, 2x2in, unflattering')
         BenefitLevel.objects.create(level=self.zinc, benefit=self.cookies,
                                     other_limits='only one')
         BenefitLevel.objects.create(level=self.lead, benefit=self.cookies,
@@ -148,19 +161,22 @@ class BenefitTests(TestCase):
         s.save()
 
         self.check_benefits(s, [('Cookies', None, 'all you can eat', True),
-                                ('Free Speech', 100, '', True)])
+                                ('Free Speech', 100, '', True),
+                                ('Mugshot', None, 'b&w, 2x2in, unflattering', True)])
 
         s.level = self.lead
         s.save()
 
         self.check_benefits(s, [('Cookies', None, 'crumbs', True),
-                                ('Free Speech', None, '', False)])
+                                ('Free Speech', None, '', False),
+                                ('Mugshot', None, '', False)])
 
         s.level = None
         s.save()
         
         self.check_benefits(s, [('Cookies', None, '', False),
-                                ('Free Speech', None, '', False)])
+                                ('Free Speech', None, '', False),
+                                ('Mugshot', None, '', False)])
 
     def test_enforce_max_words(self):
         s = Sponsor.objects.create(applicant=self.linus,
@@ -174,3 +190,34 @@ class BenefitTests(TestCase):
         sb.clean()
         sb.text = 'FIRE! ' * 101
         self.assertRaises(ValidationError, sb.clean)
+
+    def test_edit_benefits(self):
+        s = Sponsor.objects.create(applicant=self.linus,
+                                   name='Linux Foundation',
+                                   contact_name='Linus Torvalds',
+                                   contact_email='linus@linux.org',
+                                   active=True, level=self.tin)
+
+        detail_url = reverse("sponsor_detail", kwargs={'pk': s.pk})
+        
+        with self.login("linus", "penguin"):
+            # @@@ yuck. would love to clean this up using
+            # http://pythonpaste.org/webtest/#id2 and
+            # http://pypi.python.org/pypi/django-webtest/
+            upload = SimpleUploadedFile('somefile.txt', 'some file data')
+            response = self.client.post(detail_url,
+                                        {'name': 'Linux Fund',
+                                         'external_url': 'http://www.linuxfund.org',
+                                         'contact_name': 'Randal Schwartz',
+                                         'contact_email': 'randal@schwartz.org',
+                                         'sponsor_benefits-TOTAL_FORMS': '3',
+                                         'sponsor_benefits-INITIAL_FORMS': '3',
+                                         'sponsor_benefits-0-id': '1',
+                                         'sponsor_benefits-1-id': '2',
+                                         'sponsor_benefits-1-text': 'FIRE!',
+                                         'sponsor_benefits-2-id': '3',
+                                         'sponsor_benefits-2-upload': upload})
+            self.assertRedirects(response, detail_url)
+
+            self.assertEqual(self.reload(s).name, 'Linux Fund')
+
