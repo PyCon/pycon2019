@@ -87,6 +87,7 @@ body {
     font-size: 10pt;
     line-height: 1.2em;
     font-weight: 400;
+    color: #EEE;
 }
 body.full #main {
     float: none;
