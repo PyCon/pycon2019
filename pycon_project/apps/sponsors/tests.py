@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 from eldarion_test import TestCase
 
-from sponsors.models import Sponsor
+from sponsors.models import Sponsor, Benefit, SponsorLevel, BenefitLevel
 
 
 class SponsorTests(TestCase):
@@ -86,3 +86,58 @@ class SponsorTests(TestCase):
         
         response = self.get("sponsor_detail", pk=s.pk)
         self.assertEqual(response.status_code, 302)
+
+
+class BenefitTests(TestCase):
+    def setUp(self):
+        self.linus = User.objects.create_user("linus", "linus@linux.org", "penguin")
+
+        self.tin = SponsorLevel.objects.create(name='Tin', cost=10000, order=0)
+        self.zinc = SponsorLevel.objects.create(name='Zinc', cost=5000, order=1)
+        self.lead = SponsorLevel.objects.create(name='Lead', cost=2000, order=2)
+
+        cookies = Benefit.objects.create(name='Cookies', type='simple')
+        free_speech = Benefit.objects.create(name='Free Speech', type='text')
+
+        BenefitLevel.objects.create(level=self.tin, benefit=cookies,
+                                    other_limits='all you can eat')
+        BenefitLevel.objects.create(level=self.tin, benefit=free_speech,
+                                    max_words=100)
+        BenefitLevel.objects.create(level=self.zinc, benefit=cookies,
+                                    other_limits='only one')
+        BenefitLevel.objects.create(level=self.lead, benefit=cookies,
+                                    other_limits='crumbs')
+
+    def check_benefits(self, sponsor, benefits):
+        self.assertEqual([(unicode(b.benefit),
+                           b.max_words, b.other_limits, b.active)
+                          for b in sponsor.sponsor_benefits.all()],
+                         benefits)
+        
+    def test_reset_benefits(self):
+        s = Sponsor.objects.create(applicant=self.linus,
+                                   name='Linux Foundation',
+                                   contact_name='Linus Torvalds',
+                                   contact_email='linus@linux.org',
+                                   level=self.zinc)
+        self.check_benefits(s, [('Cookies', None, 'only one', True)])
+
+        s.level = self.tin
+        s.save()
+
+        self.check_benefits(s, [('Cookies', None, 'all you can eat', True),
+                                ('Free Speech', 100, '', True)])
+
+        s.level = self.lead
+        s.save()
+
+        self.check_benefits(s, [('Cookies', None, 'crumbs', True),
+                                ('Free Speech', None, '', False)])
+
+        s.level = None
+        s.save()
+        
+        self.check_benefits(s, [('Cookies', None, '', False),
+                                ('Free Speech', None, '', False)])
+
+        

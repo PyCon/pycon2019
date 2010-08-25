@@ -1,11 +1,20 @@
 from django.contrib import admin
 
-from sponsors.models import SponsorLevel, Sponsor, SponsorLogo
+from sponsors.models import SponsorLevel, Sponsor, Benefit, BenefitLevel, SponsorBenefit
 
 
-class SponsorLogoInline(admin.StackedInline):
-    model = SponsorLogo
-    extra = 1
+class BenefitLevelInline(admin.TabularInline):
+    model = BenefitLevel
+    extra = 0
+
+
+class SponsorBenefitInline(admin.StackedInline):
+    model = SponsorBenefit
+    extra = 0
+
+    fieldsets = [(None, {'fields': [('benefit', 'active'),
+                                    ('max_words', 'other_limits'),
+                                    'text', 'upload']})]
 
 
 class SponsorAdmin(admin.ModelAdmin):
@@ -16,8 +25,26 @@ class SponsorAdmin(admin.ModelAdmin):
                                                      (u'2', "approved"),
                                                      (u'3', "rejected")]
         return form
+
+    save_on_top = True
+
+    fieldsets = [(None, {'fields': [('name', 'applicant'),
+                                    ('level', 'active'),
+                                    'external_url', 'annotation',
+                                    ('contact_name', 'contact_email')]}),
+                 ('Metadata', {'fields': ['added'],
+                               'classes': ['collapse']})]
     
-    inlines = [SponsorLogoInline]
+    inlines = [SponsorBenefitInline]
+
+
+class BenefitAdmin(admin.ModelAdmin):
+    inlines = [BenefitLevelInline]
+
+
+class SponsorLevelAdmin(admin.ModelAdmin):
+    inlines = [BenefitLevelInline]
     
-admin.site.register(SponsorLevel)
+admin.site.register(SponsorLevel, SponsorLevelAdmin)
 admin.site.register(Sponsor, SponsorAdmin)
+admin.site.register(Benefit, BenefitAdmin)

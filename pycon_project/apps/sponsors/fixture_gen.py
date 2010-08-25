@@ -4,13 +4,13 @@ from sponsors.models import SponsorLevel, Sponsor
 
 
 SPONSORSHIP_LEVELS = [
-    "Diamond",
-    "Platinum",
-    "Gold",
-    "Silver",
-    "Patron",
-    "Vendor I",
-    "Media",
+    ("Diamond", 10000),
+    ("Platinum", 5000),
+    ("Gold", 2000),
+    ("Silver", 1000),
+    ("Patron", 500),
+    ("Vendor I", 100),
+    ("Media", 0),
 ]
 
 SPONSORS = {
@@ -64,8 +64,8 @@ SPONSORS = {
 @fixture_generator(SponsorLevel, Sponsor)
 def pycon_2010_sponsors():
     levels = {}
-    for pos, name in enumerate(SPONSORSHIP_LEVELS):
-        levels[name] = SponsorLevel.objects.create(order=pos, name=name)
+    for pos, (name, cost) in enumerate(SPONSORSHIP_LEVELS):
+        levels[name] = SponsorLevel.objects.create(order=pos, name=name, cost=cost)
     
     for level, sponsors in SPONSORS.iteritems():
         for name, url in sponsors:
