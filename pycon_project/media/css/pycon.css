@@ -378,3 +378,9 @@ body.schedule div.slot {
     font-weight: 600;
     font-size: 12pt;
 }
+
+
+table.history td {
+    font-size: 10pt;
+    font-weight: 400;
+}
