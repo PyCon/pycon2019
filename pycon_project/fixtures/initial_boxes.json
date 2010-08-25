@@ -1,0 +1,11 @@
+[
+    {
+        "pk": 1, 
+        "model": "boxes.box", 
+        "fields": {
+            "content": "Talk proposals will be accepted until ... and accepted talks will be announced by ...", 
+            "user": null, 
+            "label": "talk-proposals"
+        }
+    }
+]
