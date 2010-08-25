@@ -11,7 +11,7 @@
         "pk": 2, 
         "model": "sites.site", 
         "fields": {
-            "domain": "pycon.eldaron.com", 
+            "domain": "pycon.eldarion.com", 
             "name": "PyCon 2011 Atlanta"
         }
     }
