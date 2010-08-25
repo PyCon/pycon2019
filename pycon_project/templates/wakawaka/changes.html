@@ -3,6 +3,8 @@
 {% load wakawaka_tags %}
 {% load i18n %}
 
+{% block body_class %}{{ page.slug }}{% endblock %}
+
 {% block extrahead %}
 	{{ block.super }}
 
