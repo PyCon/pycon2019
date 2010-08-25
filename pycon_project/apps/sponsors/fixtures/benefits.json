@@ -12,7 +12,7 @@
         "pk": 2, 
         "model": "sponsors.benefit", 
         "fields": {
-            "type": "file", 
+            "type": "weblogo", 
             "name": "Web logo", 
             "description": ""
         }
