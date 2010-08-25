@@ -5,7 +5,7 @@ from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
-from sponsors.forms import SponsorApplicationForm
+from sponsors.forms import SponsorApplicationForm, SponsorDetailsForm
 from sponsors.models import Sponsor
 
 
@@ -52,6 +52,16 @@ def sponsor_detail(request, pk):
     sponsor = get_object_or_404(Sponsor, pk=pk)
     if not sponsor.active or sponsor.applicant != request.user:
         return redirect("sponsor_index")
+
+    if request.method == "POST":
+        form = SponsorDetailsForm(request.POST, instance=sponsor)
+        if form.is_valid():
+            form.save()
+            return redirect(request.path)
+    else:
+        form = SponsorDetailsForm(instance=sponsor)
+    
     return render_to_response("sponsors/detail.html", {
         "sponsor": sponsor,
+        "form": form,
     }, context_instance=RequestContext(request))

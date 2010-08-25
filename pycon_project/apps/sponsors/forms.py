@@ -18,3 +18,12 @@ class SponsorApplicationForm(forms.ModelForm):
         if commit:
             obj.save()
         return obj
+
+
+class SponsorDetailsForm(forms.ModelForm):
+    class Meta:
+        model = Sponsor
+        fields = ["name", "external_url",
+                  "contact_name", "contact_email"]
+
+

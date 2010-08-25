@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
 
@@ -90,6 +91,25 @@ class SponsorTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
+    def test_detail_edit(self):
+        s = Sponsor.objects.create(applicant=self.linus,
+                                   name='Linux Foundation',
+                                   contact_name='Linus Torvalds',
+                                   contact_email='linus@linux.org',
+                                   active=True)
+
+        detail_url = reverse("sponsor_detail", kwargs={'pk': s.pk})
+        
+        with self.login("linus", "penguin"):
+            response = self.client.post(detail_url,
+                                        {'name': 'Linux Fund',
+                                         'external_url': 'http://www.linuxfund.org',
+                                         'contact_name': 'Randal Schwartz',
+                                         'contact_email': 'randal@schwartz.org'})
+            self.assertRedirects(response, detail_url)
+
+            self.assertEqual(self.reload(s).name, 'Linux Fund')
+        
 class BenefitTests(TestCase):
     def setUp(self):
         self.linus = User.objects.create_user("linus", "linus@linux.org", "penguin")
