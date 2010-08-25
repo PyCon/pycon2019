@@ -32,9 +32,18 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
     def _construct_form(self, i, **kwargs):
         form = super(SponsorBenefitsInlineFormSet, self)._construct_form(i, **kwargs)
 
-        # only include the relevant data field for this benefit type
+        # only include the relevant data fields for this benefit type
+        fields = form.instance.data_fields()
         form.fields = dict((k, v) for (k, v) in form.fields.items()
-                           if k in form.instance.data_fields() + ['id'])
+                           if k in fields + ['id'])
+        
+        for field in fields:
+            # don't need a label, the form template will label it with the benefit name
+            form.fields[field].label = ''
+
+            # provide word limit as help_text
+            if form.instance.benefit.type == 'text' and form.instance.max_words:
+                form.fields[field].help_text = u"maximum %s words" % form.instance.max_words
 
         return form
         

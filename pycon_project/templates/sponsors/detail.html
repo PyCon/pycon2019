@@ -12,17 +12,29 @@
         {% csrf_token %}
         <fieldset class="inlineLabels">
             {{ form|as_uni_form }}
-            
-            {{ formset.management_form }}
-            {{ formset.non_form_errors }}
-
-            {% for form in formset.forms %}
-            {{ form|as_uni_form }}
-            {% endfor %}
-
-            <div class="form_block">
-                <input type="submit" value="save" />
-            </div>
         </fieldset>
+
+        <h4>{{ sponsor.level }} Sponsor Benefits</h4>
+
+        {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+
+        <ul id="sponsor_benefits">
+            {% for form in formset.forms %}
+            <li>
+                <h5>{{ form.instance.benefit }}</h5>
+                <p>{{ form.instance.benefit.description }}</p>
+
+                <fieldset class="inlineLabels">
+                    {{ form|as_uni_form }}
+                </fieldset>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="form_block">
+            <input type="submit" value="save" />
+        </div>
+
     </form>
 {% endblock %}
