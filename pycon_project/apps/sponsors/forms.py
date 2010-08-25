@@ -1,6 +1,8 @@
 from django import forms
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 
+from django.contrib.admin.widgets import AdminFileWidget
+
 from sponsors.models import Sponsor, SponsorBenefit
 
 
@@ -36,7 +38,7 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
         fields = form.instance.data_fields()
         form.fields = dict((k, v) for (k, v) in form.fields.items()
                            if k in fields + ['id'])
-        
+
         for field in fields:
             # don't need a label, the form template will label it with the benefit name
             form.fields[field].label = ''
@@ -44,6 +46,10 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
             # provide word limit as help_text
             if form.instance.benefit.type == 'text' and form.instance.max_words:
                 form.fields[field].help_text = u"maximum %s words" % form.instance.max_words
+
+            # use admin file widget that shows currently uploaded file
+            if field == 'upload':
+                form.fields[field].widget = AdminFileWidget()
 
         return form
         
