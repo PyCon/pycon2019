@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.contrib.auth.models import User
 
 from eldarion_test import TestCase
@@ -96,16 +98,16 @@ class BenefitTests(TestCase):
         self.zinc = SponsorLevel.objects.create(name='Zinc', cost=5000, order=1)
         self.lead = SponsorLevel.objects.create(name='Lead', cost=2000, order=2)
 
-        cookies = Benefit.objects.create(name='Cookies', type='simple')
-        free_speech = Benefit.objects.create(name='Free Speech', type='text')
+        self.cookies = Benefit.objects.create(name='Cookies', type='simple')
+        self.free_speech = Benefit.objects.create(name='Free Speech', type='text')
 
-        BenefitLevel.objects.create(level=self.tin, benefit=cookies,
+        BenefitLevel.objects.create(level=self.tin, benefit=self.cookies,
                                     other_limits='all you can eat')
-        BenefitLevel.objects.create(level=self.tin, benefit=free_speech,
+        BenefitLevel.objects.create(level=self.tin, benefit=self.free_speech,
                                     max_words=100)
-        BenefitLevel.objects.create(level=self.zinc, benefit=cookies,
+        BenefitLevel.objects.create(level=self.zinc, benefit=self.cookies,
                                     other_limits='only one')
-        BenefitLevel.objects.create(level=self.lead, benefit=cookies,
+        BenefitLevel.objects.create(level=self.lead, benefit=self.cookies,
                                     other_limits='crumbs')
 
     def check_benefits(self, sponsor, benefits):
@@ -140,4 +142,15 @@ class BenefitTests(TestCase):
         self.check_benefits(s, [('Cookies', None, '', False),
                                 ('Free Speech', None, '', False)])
 
-        
+    def test_enforce_max_words(self):
+        s = Sponsor.objects.create(applicant=self.linus,
+                                   name='Linux Foundation',
+                                   contact_name='Linus Torvalds',
+                                   contact_email='linus@linux.org',
+                                   level=self.tin)
+
+        sb = s.sponsor_benefits.get(benefit=self.free_speech)
+        sb.text = 'FIRE! ' * 99
+        sb.clean()
+        sb.text = 'FIRE! ' * 101
+        self.assertRaises(ValidationError, sb.clean)
