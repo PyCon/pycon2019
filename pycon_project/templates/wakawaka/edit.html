@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load markitup_tags %}
 
+{% block body_class %}{{ page.slug }}{% endblock %}
+
 {% block extra_body_base %}
     {% markitup_media  "no-jquery" %}
     {% markitup_editor "id_content" "auto_preview" %}
