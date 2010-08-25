@@ -15,7 +15,6 @@ handler500 = "pinax.views.server_error"
 
 urlpatterns = patterns("",
     url(r"^$", redirect_to, {"url": "/%s/"  % settings.PYCON_YEAR}),
-    url(r"^markitup/", include("markitup.urls")),
     url(r"^%s/" % settings.PYCON_YEAR, include(patterns("",
         url(r"^$", redirect_to, {"url": "/%s/about/" % settings.PYCON_YEAR}, name="home"),
         url(r"^account/signup/$", "pinax.apps.account.views.signup", name="acct_signup"),
@@ -33,6 +32,7 @@ urlpatterns = patterns("",
         url(r"^admin/", include(admin.site.urls)),
         url(r"^creole_preview/$", creole_preview, name="creole_preview"),
         url(r"^feed/(?P<section>\w+)/$", "biblion.views.blog_feed", name="blog_feed"),
+        url(r"^markitup/", include("markitup.urls")),
         url(r"^", include("wakawaka.urls")),
     ))),
 )

@@ -11,7 +11,7 @@
 // http://www.wikicreole.org/
 // -------------------------------------------------------------------
 var mySettings = {
-  previewParserPath: '/markitup/preview/',
+  previewParserPath: '/2011/markitup/preview/',
   onShiftEnter: {keepDefault: false, replaceWith: '\\\\'},
   onCtrlEnter: {keepDefault: false, replaceWith: '\n\n'},
   markupSet: [
