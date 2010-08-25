@@ -1,5 +1,6 @@
 {% extends "sponsors/base.html" %}
 
+{% load boxes_tags %}
 
 {% block body %}
     <h1>PyCon 2011 Sponsorship</h1>
@@ -8,6 +9,8 @@
         {% if user.sponsorship %}
             <p>Your sponsorship application is being processed.</p>
         {% else %}
+            <p>{% box "sponsorship-info" %}</p>
+            
             <p>To sponsor PyCon 2011:</p>
             
             <ol class="steps">
@@ -15,9 +18,11 @@
                 <li class="next"><a href="{% url sponsor_apply %}">apply to be a sponsor</a></li>
                 <li>await application processing</li>
             </ol>
-
+            
         {% endif %}
     {% else %}
+        <p>{% box "sponsorship-info" %}</p>
+        
         <p>To sponsor PyCon 2011:</p>
         
         <ol class="steps">
