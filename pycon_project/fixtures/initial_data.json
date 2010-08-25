@@ -6,5 +6,13 @@
             "domain": "localhost:8000", 
             "name": "PyCon 2011 Atlanta - A Conference for the Python Community"
         }
+    },
+    {
+        "pk": 2, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "pycon.eldaron.com", 
+            "name": "PyCon 2011 Atlanta - A Conference for the Python Community"
+        }
     }
 ]
