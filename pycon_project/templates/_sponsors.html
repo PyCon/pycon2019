@@ -1,16 +1,18 @@
 {% load sponsors_tags %}
 
 <div class="sponsors">
-    <h2>Produced by</h2>
     
     {% sponsors "producer" as sponsors %}
-    {% for sponsor in sponsors %}
-        <div class="sponsor">
-            <a href="{{ sponsor.external_url }}">
-                <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
-            </a>
-        </div>
-    {% endfor %}
+    {% if sponsors %}
+        <h2>Produced by</h2>
+        {% for sponsor in sponsors %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
     
     <h2>Sponsors</h2>
     
