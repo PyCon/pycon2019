@@ -47,7 +47,6 @@ class Sponsor(models.Model):
 
     @property
     def website_logo_url(self):
-        import pdb; pdb.set_trace()
         if not hasattr(self, '_website_logo_url'):
             benefits = self.sponsor_benefits.filter(benefit__type='weblogo',
                                                     upload__isnull=False)
