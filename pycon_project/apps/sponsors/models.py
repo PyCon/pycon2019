@@ -164,3 +164,16 @@ class SponsorBenefit(models.Model):
         if self.max_words and len(self.text.split()) > self.max_words:
             raise ValidationError('Sponsorship level only allows for %s words.'
                                   % self.max_words)
+
+    def data_fields(self):
+        """
+        Return list of data field names which should be editable for
+        this ``SponsorBenefit``, depending on its ``Benefit`` type.
+
+        """
+        if self.benefit.type == 'file':
+            return ['upload']
+        elif self.benefit.type == 'text':
+            return ['text']
+        return []
+    

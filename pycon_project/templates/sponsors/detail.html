@@ -6,13 +6,20 @@
 
 {% block body %}
 
-<h3>Sponsor: {{ sponsor }}</h3>
+<h3>{{ sponsor.level }} Sponsor: {{ sponsor }}</h3>
 
-    <form method="POST" action="" class="uniForm">
+    <form enctype="multipart/form-data" method="POST" action="" class="uniForm">
         {% csrf_token %}
         <fieldset class="inlineLabels">
             {{ form|as_uni_form }}
             
+            {{ formset.management_form }}
+            {{ formset.non_form_errors }}
+
+            {% for form in formset.forms %}
+            {{ form|as_uni_form }}
+            {% endfor %}
+
             <div class="form_block">
                 <input type="submit" value="save" />
             </div>

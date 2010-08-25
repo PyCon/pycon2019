@@ -5,8 +5,8 @@ from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
-from sponsors.forms import SponsorApplicationForm, SponsorDetailsForm
-from sponsors.models import Sponsor
+from sponsors.forms import SponsorApplicationForm, SponsorDetailsForm, SponsorBenefitsFormSet
+from sponsors.models import Sponsor, SponsorBenefit
 
 
 def require_no_sponsorship(only_active=False):
@@ -53,15 +53,24 @@ def sponsor_detail(request, pk):
     if not sponsor.active or sponsor.applicant != request.user:
         return redirect("sponsor_index")
 
+    formset_kwargs = {'instance': sponsor,
+                      'queryset': SponsorBenefit.objects.filter(active=True)}
+    
     if request.method == "POST":
         form = SponsorDetailsForm(request.POST, instance=sponsor)
-        if form.is_valid():
+        formset = SponsorBenefitsFormSet(request.POST, request.FILES,
+                                         **formset_kwargs)
+        if form.is_valid() and formset.is_valid():
             form.save()
+            formset.save()
+            # @@@ user message here?
             return redirect(request.path)
     else:
         form = SponsorDetailsForm(instance=sponsor)
+        formset = SponsorBenefitsFormSet(**formset_kwargs)
     
     return render_to_response("sponsors/detail.html", {
         "sponsor": sponsor,
         "form": form,
+        "formset": formset,
     }, context_instance=RequestContext(request))
