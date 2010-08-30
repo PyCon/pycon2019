@@ -6,4 +6,5 @@
 # Put project-specific requirements here.
 # See http://pip-installer.org/requirement-format.html for more information.
 
+PIL==1.1.7
 psycopg2==2.2.2
