@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+BIN_DIR=`dirname $(readlink -f $0)`
+. $BIN_DIR/env
+
+PYTHON=$VENV_ROOT/bin/python
+MEDIA_BUNDLE=pycon_site_media.tar
+
+$PYTHON manage.py build_static --noinput
+rm -rf $MEDIA_BUNDLE
+tar -cf $MEDIA_BUNDLE site_media
+cat $MEDIA_BUNDLE | ssh -p 1382 172.21.1.50 "cat > $MEDIA_BUNDLE ; rm -rf site_media_${DOMAIN}/static ; tar xf $MEDIA_BUNDLE ; mkdir -p site_media_${DOMAIN} ; mv site_media/static site_media_${DOMAIN} ; rm -rf site_media"
