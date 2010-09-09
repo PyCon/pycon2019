@@ -14,5 +14,13 @@
             "domain": "pycon.eldarion.com", 
             "name": "PyCon 2011 Atlanta"
         }
+    },
+    {
+        "pk": 3, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "us.pycon.org", 
+            "name": "PyCon 2011 Atlanta"
+        }
     }
 ]
