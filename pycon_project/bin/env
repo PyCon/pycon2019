@@ -1,0 +1,6 @@
+#!/bin/bash
+PROJECT="pycon_project"
+ROOT="${HOME}/webapps/${DOMAIN}"
+PROJECT_ROOT="${ROOT}/${PROJECT}"
+SERVER_ROOT="${ROOT}/gondor"
+VENV_ROOT="${HOME}/virtualenvs/${DOMAIN}"
