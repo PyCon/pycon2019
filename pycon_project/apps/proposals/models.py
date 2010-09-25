@@ -10,11 +10,13 @@ class Proposal(models.Model):
     SESSION_TYPE_TALK = 1
     SESSION_TYPE_PANEL = 2
     SESSION_TYPE_TUTORIAL = 3
+    SESSION_TYPE_POSTER = 4
     
     SESSION_TYPES = [
         (SESSION_TYPE_TALK, "Talk"),
         (SESSION_TYPE_PANEL, "Panel"),
         (SESSION_TYPE_TUTORIAL, "Tutorial"),
+        (SESSION_TYPE_POSTER, "Poster")
     ]
     
     SESSION_CLASSIFICATION_SURVEY = 1
