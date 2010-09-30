@@ -48,14 +48,14 @@ class Sponsor(models.Model):
     @property
     def website_logo_url(self):
         if not hasattr(self, '_website_logo_url'):
+            self._website_logo_url = None
             benefits = self.sponsor_benefits.filter(benefit__type='weblogo',
                                                     upload__isnull=False)
             if benefits.count():
                 # @@@ smarter handling of multiple weblogo benefits?
                 # shouldn't happen
-                self._website_logo_url = benefits[0].upload.url
-            else:
-                self._website_logo_url = None
+                if benefits[0].upload:
+                    self._website_logo_url = benefits[0].upload.url
 
         return self._website_logo_url
     
