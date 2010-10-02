@@ -268,21 +268,23 @@ h3 {
     border: none;
 }
 
-div.sponsors {
-    margin: 20px 0 0 50px;
+div.support-pycon {
+   margin: 20px 0 0 50px;
 }
-div.sponsors h2 {
-    font-size: 14pt;
+div.support-pycon h2 {
+   font-size: 14pt;
+   text-align: center;
 }
-div.sponsors h3 {
-    margin-top: 20px;
-    font-size: 12pt;
+
+div.support-pycon h3 {
+   margin-top: 20px;
+   font-size: 12pt;
+   text-align: center;
+   border-bottom: 1px solid;
 }
-.sponsor {
-    margin: 10px 0;
-}
-.sponsor img {
-    width: 150px;
+
+div.support-pycon .sponsor img {
+   width: 160px;
 }
 
 body.review .proposal {
