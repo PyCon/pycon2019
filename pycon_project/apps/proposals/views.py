@@ -127,7 +127,7 @@ def proposal_edit(request, pk):
     queryset = Proposal.objects.select_related("speaker")
     proposal = get_object_or_404(queryset, pk=pk)
     if request.user != proposal.speaker.user:
-        return HttpResponseForbidden()
+        raise Http404()
     if request.method == "POST":
         form = ProposalEditForm(request.POST, instance=proposal)
         if form.is_valid():
@@ -149,7 +149,7 @@ def proposal_detail(request, pk):
     queryset = Proposal.objects.select_related("speaker", "speaker__user")
     proposal = get_object_or_404(queryset, pk=pk)
     if request.user not in [p.user for p in proposal.speakers()]:
-        return HttpResponseForbidden()
+        raise Http404()
     ctx = {
         "proposal": proposal,
     }
