@@ -93,6 +93,9 @@ def speaker_create_token(request, token):
             if login_form.is_valid():
                 login_form.login(request)
                 return redirect("speaker_create_token", token)
+            else:
+                signup_form = SignupForm(initial={"email": speaker.invite_email}, prefix="signup")
+                speaker_form = None
         elif "signup" in request.POST:
             login_form = None
             forms = []
