@@ -54,8 +54,6 @@ class ReviewAssignment(models.Model):
     
     assigned_at = models.DateTimeField(default=datetime.now)
     opted_out = models.BooleanField()
-    
-    review = models.OneToOneField("Review", null=True)
 
 
 class Review(models.Model):
