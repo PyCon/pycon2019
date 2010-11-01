@@ -16,7 +16,7 @@ def send_email(to, kind, **kwargs):
         "STATIC_URL": settings.STATIC_URL,
     }
     ctx.update(kwargs.get("context", {}))
-    subject = render_to_string("emails/%s/subject.txt" % kind, ctx)
+    subject = render_to_string("emails/%s/subject.txt" % kind, ctx).strip()
     message_html = render_to_string("emails/%s/message.html" % kind, ctx)
     message_plaintext = strip_tags(message_html)
     
