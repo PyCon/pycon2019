@@ -22,6 +22,8 @@ def proposals_generator(request, queryset, username=None, check_speaker=True):
         if check_speaker:
             if request.user in [s.user for s in obj.speakers()]:
                 continue
+        if obj.result is None:
+            continue
         obj.comment_count = obj.result.comment_count
         obj.total_votes = obj.result.vote_count
         obj.plus_one = obj.result.plus_one
