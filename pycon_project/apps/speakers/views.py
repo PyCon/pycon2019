@@ -148,7 +148,10 @@ def speaker_create_token(request, token):
 @login_required
 def speaker_edit(request, pk=None):
     if pk is None:
-        speaker = request.user.speaker_profile
+        try:
+            speaker = request.user.speaker_profile
+        except Speaker.DoesNotExist:
+            return redirect("speaker_create")
     else:
         if request.user.groups.filter(name="organizer").exists():
             speaker = get_object_or_404(Speaker, pk=pk)
