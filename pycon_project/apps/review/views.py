@@ -41,21 +41,17 @@ def proposals_generator(request, queryset, username=None, check_speaker=True):
             obj.latest_vote = "no-vote"
         yield obj
 
-def get_group_key(proposal):
-    
-    return proposal.session_type
 
 def group_proposals(proposals):
-    groups = {}
-    
-    for prop in proposals:
-        session_type = prop.session_type
-        if session_type in groups.keys():
-            groups[session_type].append(prop)
+    grouped = {}
+    for proposal in proposals:
+        session_type = proposal.session_type
+        if session_type in grouped:
+            grouped[session_type].append(proposal)
         else:
-            groups[session_type] = [prop]
+            grouped[session_type] = [proposal]
+    return grouped
 
-    return groups
 
 @login_required
 def review_list(request, username=None):
