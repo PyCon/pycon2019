@@ -74,7 +74,7 @@ class ReviewAssignment(models.Model):
         ).order_by(
             "num_assignments",
         )
-        for reviewer in reviewers:
+        for reviewer in reviewers[:3]:
             cls._default_manager.create(
                 proposal=proposal,
                 user=reviewer,
