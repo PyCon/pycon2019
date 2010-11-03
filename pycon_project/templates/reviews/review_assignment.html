@@ -7,6 +7,7 @@
         <tr>
             <th>Proposal</th>
             <th>Opted out</th>
+            <th>Opt out</th>
         </tr>
         {% for assignment in assignments %}
             <tr>
@@ -17,6 +18,12 @@
                 </td>
                 <td>
                     {{ assignment.opted_out|yesno }}
+                </td>
+                <td>
+                    <form method="post" action="{% url review_assignment_opt_out assignment.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Opt-out" />
+                    </form>
                 </td>
             </tr>
         {% endfor %}
