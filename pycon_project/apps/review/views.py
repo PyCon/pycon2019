@@ -41,6 +41,21 @@ def proposals_generator(request, queryset, username=None, check_speaker=True):
             obj.latest_vote = "no-vote"
         yield obj
 
+def get_group_key(proposal):
+    
+    return proposal.session_type
+
+def group_proposals(proposals):
+    groups = {}
+    
+    for prop in proposals:
+        session_type = prop.session_type
+        if session_type in groups.keys():
+            groups[session_type].append(prop)
+        else:
+            groups[session_type] = [prop]
+
+    return groups
 
 @login_required
 def review_list(request, username=None):
@@ -62,8 +77,10 @@ def review_list(request, username=None):
     
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
+    proposals = group_proposals(proposals_generator(request, queryset, username=username, check_speaker=not admin))
+    
     ctx = {
-        "proposals": proposals_generator(request, queryset, username=username, check_speaker=not admin),
+        "proposals": proposals,
         "username": username,
     }
     ctx = RequestContext(request, ctx)
@@ -179,10 +196,10 @@ def review_stats(request):
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
     ctx = {
-        "good_proposals": list(proposals_generator(request, good, check_speaker=not admin)),
-        "bad_proposals": list(proposals_generator(request, bad, check_speaker=not admin)),
-        "indifferent_proposals": list(proposals_generator(request, indifferent, check_speaker=not admin)),
-        "controversial_proposals": list(proposals_generator(request, controversial, check_speaker=not admin)),
+        "good_proposals": group_proposals(proposals_generator(request, good, check_speaker=not admin)),
+        "bad_proposals": group_proposals(proposals_generator(request, bad, check_speaker=not admin)),
+        "indifferent_proposals": group_proposals(proposals_generator(request, indifferent, check_speaker=not admin)),
+        "controversial_proposals": group_proposals(proposals_generator(request, controversial, check_speaker=not admin)),
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
