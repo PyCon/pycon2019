@@ -5,55 +5,36 @@
 
 {% block body %}
     <h1>Proposal Review Stats</h1>
-    <div class="in-page-nav">
-        <a href="#good">Good</a> |
-        <a href="#bad">Bad</a> |
-        <a href="#indifferent">Indifferent</a> |
-        <a href="#controversial">Controversial</a>
-    </div>
     
-    <div class="stats-section">
-        <a name="good"></a>
-        <h2>Good ({{ good_proposals|length }})</h2>
-    
-        <div class="stat-def">proposals with at least one +1 and no &minus;1s</div>
-    
-        {% with good_proposals as proposals %}
+    {% if key %}
+        <div><a href="{% url review_stats %}">Go back to stats</a></div>
+        <div>
+            {% if key == "good" %}
+                <h2>Good ({{ good_proposals|length }})</h2>
+                <div class="stat-def">proposals with at least one +1 and no &minus;1s</div>
+            {% endif %}
+            {% if key == "bad" %}
+                <h2>Bad ({{ bad_proposals|length }})</h2>
+                <div class="stat-def">proposals with at least one &minus;1 and no +1s</div>
+            {% endif %}
+            {% if key == "indifferent" %}
+                <h2>Indifferent ({{ indifferent_proposals|length }})</h2>
+                <div class="stat-def">proposals with neither a +1 or a &minus;1</div>
+            {% endif %}
+            {% if key == "controversial" %}
+                <h2>Controversial ({{ controversial_proposals|length }})</h2>
+                <div class="stat-def">proposals with both a +1 and &minus;1</div>
+            {% endif %}
+            
             {% include "reviews/_review_table.html" %}
-        {% endwith %}
-    </div>
-    
-    <div class="stats-section">
-        <a name="bad"></a>
-        <h2>Bad ({{ bad_proposals|length }})</h2>
-    
-        <div class="stat-def">proposals with at least one &minus;1 and no +1s</div>
-    
-        {% with bad_proposals as proposals %}
-            {% include "reviews/_review_table.html" %}
-        {% endwith %}
-    </div>
-    
-    <div class="stats-section">
-        <a name="indifferent"></a>
-        <h2>Indifferent ({{ indifferent_proposals|length }})</h2>
-    
-        <div class="stat-def">proposals with neither a +1 or a &minus;1</div>
-    
-        {% with indifferent_proposals as proposals %}
-            {% include "reviews/_review_table.html" %}
-        {% endwith %}
-    </div>
-    
-    <div class="stats-section">
-        <a name="controversial"></a>
-        <h2>Controversial ({{ controversial_proposals|length }})</h2>
-    
-        <div class="stat-def">proposals with both a +1 and &minus;1</div>
-    
-        {% with controversial_proposals as proposals %}
-            {% include "reviews/_review_table.html" %}
-        {% endwith %}
-    </div>
-    
+            
+        </div>
+    {% else %}
+        <b>Proposals</b>:
+            <a href="{% url review_stats_key "good" %}">Good</a> ({{ proposals.good.count }}) |
+            <a href="{% url review_stats_key "bad" %}">Bad</a> ({{ proposals.bad.count }}) |
+            <a href="{% url review_stats_key "indifferent" %}">Indifferent</a> ({{ proposals.indifferent.count }}) |
+            <a href="{% url review_stats_key "controversial" %}">Controversial</a> ({{ proposals.controversial.count }})
+    {% endif %}
+
 {% endblock %}
