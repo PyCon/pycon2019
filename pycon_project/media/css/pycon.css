@@ -391,6 +391,11 @@ body.schedule div.slot {
 .stats-section h2 {
     margin-top: 0;
 }
+
+.extreme {
+    font-weight: bold;
+    font-style: italic;
+}
 table.history td {
     font-size: 10pt;
     font-weight: 400;
