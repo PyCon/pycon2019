@@ -39,6 +39,9 @@
                         with
                         {{ proposal.additional_speakers.all|join:", " }}
                     {% endif %}
+                    {% if proposal.extreme_pycon %}
+                        <div class="extreme">EXTREME Pycon!</div>
+                    {% endif %}
                 </div>
             </td>
             <td class="count">
