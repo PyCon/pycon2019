@@ -173,29 +173,35 @@ def review_detail(request, pk):
 
 
 @login_required
-def review_stats(request):
+def review_stats(request, key=None):
+    
+    ctx = {}
     
     if not request.user.groups.filter(name="reviewers").exists():
         return access_not_permitted(request)
     
-    proposals = Proposal.objects.select_related("speaker__user", "result")
+    queryset = Proposal.objects.select_related("speaker__user", "result")
     
-    # proposals with at least one +1 and no -1s, sorted by the 'score'
-    good = proposals.filter(result__plus_one__gt=0, result__minus_one=0).order_by("-result__score")
-    # proposals with at least one -1 and no +1s, reverse sorted by the 'score'
-    bad = proposals.filter(result__minus_one__gt=0, result__plus_one=0).order_by("result__score")
-    # proposals with neither a +1 or a -1, sorted by total votes (lowest first)
-    indifferent = proposals.filter(result__minus_one=0, result__plus_one=0).order_by("result__vote_count")
-    # proposals with both a +1 and -1, sorted by total votes (highest first)
-    controversial = proposals.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count")
+    proposals = {
+        # proposals with at least one +1 and no -1s, sorted by the 'score'
+        "good": queryset.filter(result__plus_one__gt=0, result__minus_one=0).order_by("-result__score"),
+        # proposals with at least one -1 and no +1s, reverse sorted by the 'score'
+        "bad": queryset.filter(result__minus_one__gt=0, result__plus_one=0).order_by("result__score"),
+        # proposals with neither a +1 or a -1, sorted by total votes (lowest first)
+        "indifferent": queryset.filter(result__minus_one=0, result__plus_one=0).order_by("result__vote_count"),
+        # proposals with both a +1 and -1, sorted by total votes (highest first)
+        "controversial": queryset.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
+    }
     
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
-    ctx = {
-        "good_proposals": group_proposals(proposals_generator(request, good, check_speaker=not admin)),
-        "bad_proposals": group_proposals(proposals_generator(request, bad, check_speaker=not admin)),
-        "indifferent_proposals": group_proposals(proposals_generator(request, indifferent, check_speaker=not admin)),
-        "controversial_proposals": group_proposals(proposals_generator(request, controversial, check_speaker=not admin)),
-    }
+    if key:
+        ctx.update({
+            "key": key,
+            "proposals": group_proposals(proposals_generator(request, proposals[key], check_speaker=not admin))
+        })
+    else:
+        ctx["proposals"] = proposals
+    
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
