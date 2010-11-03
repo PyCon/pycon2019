@@ -1,0 +1,24 @@
+{% extends "reviews/base.html" %}
+
+{% block body %}
+    <h1>Review Assignments</h1>
+    
+    <table>
+        <tr>
+            <th>Proposal</th>
+            <th>Opted out</th>
+        </tr>
+        {% for assignment in assignments %}
+            <tr>
+                <td>
+                    <a href="{{ assignment.proposal.get_absolute_url }}">
+                        {{ assignment.proposal }}
+                    </a>
+                </td>
+                <td>
+                    {{ assignment.opted_out|yesno }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

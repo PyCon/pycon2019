@@ -186,3 +186,14 @@ def review_stats(request):
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
+
+@login_required
+def review_assignments(request):
+    if not request.user.groups.filter(name="reviewers").exists():
+        return access_not_permitted(request)
+    assignments = ReviewAssignmnet.objects.filter(
+        user=request.user,
+    )
+    return render_to_response("reviews/review_assignment.html", {
+        "assignments": review_assignments,
+    }, context_instances=RequestContext(request))
