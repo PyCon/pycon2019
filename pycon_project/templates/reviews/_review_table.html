@@ -1,7 +1,14 @@
+<div>
+    <b>View</b>:
+        <a href="#type-talk">Talks</a> |
+        <a href="#type-panel">Panels</a> |
+        <a href="#type-tutorial">Tutorials</a> |
+        <a href="#type-poster">Posters</a>
+</div>
 {% for type, props in proposals.iteritems %}
     {% for proposal in props %}
         {% if forloop.first %}
-            <h3>{{ proposal.get_session_type_display }}{{ props|length|pluralize }}</h3>
+            <h3 id="type-{{ proposal.get_session_type_display|slugify|lower }}">{{ proposal.get_session_type_display }}{{ props|length|pluralize }}</h3>
             <table class="review-list">
                 <tr>
                     <th>
