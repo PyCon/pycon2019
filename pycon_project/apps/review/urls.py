@@ -6,4 +6,5 @@ urlpatterns = patterns("review.views",
     url(r"^admin/$", "review_admin", name="review_admin"),
     url(r"^stats/$", "review_stats", name="review_stats"),
     url(r"^(?P<pk>\d+)/$", "review_detail", name="review_detail"),
+    url(r"^assignments/$", "review_assignments", name="review_assignments"),
 )
