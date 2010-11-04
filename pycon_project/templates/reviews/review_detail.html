@@ -135,11 +135,35 @@
         <fieldset>
             {{ review_form|as_uni_form }}
             <div class="form_block">
-                <input type="submit" value="submit" />
+                <input type="submit" name="vote_submit" value="submit" />
             </div>
         </fieldset>
     </form>
     
+    
+    <h2>Conversation with Proposer</h2>
+    
+    {% for message in proposal.messages.all %}
+        <div class="review-box">
+            <div class="comment">{{ message.message_html|safe }}</div>
+            <div class="dateline"><b>{{ message.user }}</b> {{ message.submitted_at|timesince }} ago</div>
+        </div>
+        <div class="clear"></div>
+    {% endfor %}
+    
+    <h3>Leave a Message</h3>
+    
+    <p>You can leave a message for the proposer here.</p>
+    
+    <form action="" method="POST" class="uniForm" accept-charset="utf-8">
+        {% csrf_token %}
+        <fieldset>
+            {{ message_form|as_uni_form }}
+            <div class="form_block">
+                <input type="submit" name="message_submit" value="submit" />
+            </div>
+        </fieldset>
+    </form>
 {% endblock %}
 
 {% block extra_body %}

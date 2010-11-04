@@ -1,6 +1,6 @@
 from django import forms
 
-from review.models import Review, Comment
+from review.models import Review, Comment, ProposalMessage
 
 
 class ReviewForm(forms.ModelForm):
@@ -17,5 +17,5 @@ class ReviewCommentForm(forms.ModelForm):
 
 class SpeakerCommentForm(forms.ModelForm):
     class Meta:
-        model = Comment
-        fields = ["text"]
+        model = ProposalMessage
+        fields = ["message"]
