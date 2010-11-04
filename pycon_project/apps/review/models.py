@@ -56,6 +56,21 @@ class ReviewAssignment(models.Model):
     opted_out = models.BooleanField()
 
 
+class ProposalMessage(models.Model):
+    proposal = models.ForeignKey("proposals.Proposal", related_name="messages")
+    user = models.ForeignKey(User)
+    
+    message = models.TextField(
+        help_text = "You can use <a href='http://wikicreole.org/' target='_blank'>creole</a> markup. <a id='preview' href='#'>Preview</a>",
+    )
+    message_html = models.TextField(editable=False)
+    submitted_at = models.DateTimeField(default=datetime.now, editable=False)
+    
+    def save(self, **kwargs):
+        self.message_html = creole_parser.parse(self.message)
+        super(ProposalMessage, self).save(**kwargs)
+
+
 class Review(models.Model):
     VOTES = VOTES
     
