@@ -140,20 +140,30 @@ def review_detail(request, pk):
         if request.user in speakers:
             return access_not_permitted(request)
         
-        review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
+        if "vote_submit" in request.POST:
+            review_form = ReviewForm(request.POST)
+            if review_form.is_valid():
             
-            review = review_form.save(commit=False)
-            review.user = request.user
-            review.proposal = proposal
-            review.save()
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.proposal = proposal
+                review.save()
             
-            return redirect(request.path)
+                return redirect(request.path)
+        elif "message_submit" in request.POST:
+            message_form = SpeakerCommentForm(request.POST)
+            if message_form.is_valid():
+                message = message_form.save(commit=False)
+                message.user = request.user
+                message.proposal = proposal
+                message.save()
+                return redirect(request.path)
     else:
         initial = {}
         if latest_vote:
             initial["vote"] = latest_vote.vote
         review_form = ReviewForm(initial=initial)
+        message_form = SpeakerCommentForm()
     
     proposal.comment_count = proposal.result.comment_count
     proposal.total_votes = proposal.result.vote_count
@@ -169,6 +179,7 @@ def review_detail(request, pk):
         "latest_vote": latest_vote,
         "reviews": reviews,
         "review_form": review_form,
+        "message_form": message_form
     }, context_instance=RequestContext(request))
 
 
