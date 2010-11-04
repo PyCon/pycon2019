@@ -14,6 +14,7 @@ from emailconfirmation.models import EmailAddress
 
 from proposals.forms import ProposalSubmitForm, ProposalEditForm, AddSpeakerForm
 from proposals.models import Proposal
+from review.forms import SpeakerCommentForm
 from speakers.models import Speaker
 
 from pycon_project.utils import send_email
@@ -148,10 +149,25 @@ def proposal_edit(request, pk):
 def proposal_detail(request, pk):
     queryset = Proposal.objects.select_related("speaker", "speaker__user")
     proposal = get_object_or_404(queryset, pk=pk)
+    
     if request.user not in [p.user for p in proposal.speakers()]:
         raise Http404()
+    
+    message_form = SpeakerCommentForm()
+    if request.method == "POST":
+        message_form = SpeakerCommentForm(request.POST)
+        if message_form.is_valid():
+            message = message_form.save(commit=False)
+            message.user = request.user
+            message.proposal = proposal
+            message.save()
+            return redirect(request.path)
+    else:
+        message_form = SpeakerCommentForm()
+    
     ctx = {
         "proposal": proposal,
+        "message_form": message_form
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("proposals/proposal_detail.html", ctx)
