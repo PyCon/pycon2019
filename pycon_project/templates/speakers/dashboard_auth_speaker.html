@@ -35,6 +35,7 @@
                 <th>Session type</th>
                 <th>Audience level</th>
                 <th>Status</th>
+                <th>Messages</th>
                 <th>Actions</th>
             </tr>
             {% for proposal in proposals %}
@@ -43,6 +44,7 @@
                 <td>{{ proposal.get_session_type_display }}</td>
                 <td>{{ proposal.get_audience_level_display }}</td>
                 <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}Accepted{% else %}Submitted{% endif %}{% else %}Associated{% endif %}{% endif %}</td>
+                <td>{{ proposal.messages.all.count }}</td>
                 <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user %}<a href="{% url proposal_edit proposal.pk %}">Edit</a>{% endif %}{% if request.user == proposal.speaker.user %} | <a href="{% url proposal_cancel proposal.pk %}">Cancel</a>{% else %}<a href="{% url proposal_leave proposal.pk %}">Leave</a>{% endif %}{% endif %}</td>
             </tr>
             {% endfor %}
