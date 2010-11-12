@@ -237,6 +237,8 @@ def review_assignment_opt_out(request, pk):
         pk=pk,
         user=request.user
     )
-    review_assignment.opted_out = True
-    review_assignment.save()
+    if not review_assignment.opted_out:
+        review_assignment.opted_out = True
+        review_assignment.save()
+        ReviewAssignment.create_assignments(review_assignment.proposal, origin=ReviewAssignment.AUTO_ASSIGNED_LATER)
     return redirect("review_assignments")
