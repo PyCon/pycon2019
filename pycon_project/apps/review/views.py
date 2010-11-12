@@ -143,13 +143,15 @@ def review_detail(request, pk):
         if "vote_submit" in request.POST:
             review_form = ReviewForm(request.POST)
             if review_form.is_valid():
-            
+                
                 review = review_form.save(commit=False)
                 review.user = request.user
                 review.proposal = proposal
                 review.save()
-            
+                
                 return redirect(request.path)
+            else:
+                message_form = SpeakerCommentForm()
         elif "message_submit" in request.POST:
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
