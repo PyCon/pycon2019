@@ -1,64 +1,79 @@
-{% if proposals %}
-<table class="review-list">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Comments
-        </td>
-        <th>
-            +1
-        </th>
-        <th>
-            +0
-        </th>
-        <th>
-            &minus;0
-        </th>
-        <th>
-            &minus;1
-        </th>
-        <th>
-            Total
-        </th>
-    </tr>
-    {% for proposal in proposals %}
-    <tr class="{{ proposal.latest_vote }}">
-        <td>
-            <div class="title"><a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a></div>
-            <div class="metadata">
-                {{ proposal.get_audience_level_display }}
-                {{ proposal.get_session_type_display }}
-                by
-                {{ proposal.speaker }}
-                {% if proposal.additional_speakers.all %}
-                    with
-                    {{ proposal.additional_speakers.all|join:", " }}
-                {% endif %}
-            </div>
-        </td>
-        <td class="count">
-            {{ proposal.comment_count }}
-        </td>
-        <td class="count plus-one">
-            {{ proposal.plus_one }}
-        </td>
-        <td class="count plus-zero">
-            {{ proposal.plus_zero }}
-        </td>
-        <td class="count minus-zero">
-            {{ proposal.minus_zero }}
-        </td>
-        <td class="count minus-one">
-            {{ proposal.minus_one }}
-        </td>
-        <td class="count">
-            {{ proposal.total_votes }}
-        </td>
-    </tr>
+<div>
+    <b>View</b>:
+        <a href="#type-talk">Talks</a> |
+        <a href="#type-panel">Panels</a> |
+        <a href="#type-tutorial">Tutorials</a> |
+        <a href="#type-poster">Posters</a>
+</div>
+{% for type, props in proposals.iteritems %}
+    {% for proposal in props %}
+        {% if forloop.first %}
+            <h3 id="type-{{ proposal.get_session_type_display|slugify|lower }}">{{ proposal.get_session_type_display }}{{ props|length|pluralize }}</h3>
+            <table class="review-list">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Comments
+                    </td>
+                    <th>
+                        +1
+                    </th>
+                    <th>
+                        +0
+                    </th>
+                    <th>
+                        &minus;0
+                    </th>
+                    <th>
+                        &minus;1
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+        {% endif %}
+        <tr class="{{ proposal.latest_vote }}">
+            <td>
+                <div class="title"><a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a></div>
+                <div class="metadata">
+                    {{ proposal.get_audience_level_display }}
+                    {{ proposal.get_session_type_display }}
+                    by
+                    {{ proposal.speaker }}
+                    {% if proposal.additional_speakers.all %}
+                        with
+                        {{ proposal.additional_speakers.all|join:", " }}
+                    {% endif %}
+                    {% if proposal.extreme_pycon %}
+                        <div class="extreme">EXTREME PyCon!</div>
+                    {% endif %}
+                </div>
+            </td>
+            <td class="count">
+                {{ proposal.comment_count }}
+            </td>
+            <td class="count plus-one">
+                {{ proposal.plus_one }}
+            </td>
+            <td class="count plus-zero">
+                {{ proposal.plus_zero }}
+            </td>
+            <td class="count minus-zero">
+                {{ proposal.minus_zero }}
+            </td>
+            <td class="count minus-one">
+                {{ proposal.minus_one }}
+            </td>
+            <td class="count">
+                {{ proposal.total_votes }}
+            </td>
+        </tr>
+        {% if forloop.last %}
+            </table>
+        {% endif %}
     {% endfor %}
-</table>
-{% else %}
-<p>No matching proposals.</p>
-{% endif %}
+{% empty %}
+    <p>No matching proposals.</p>
+{% endfor %}
