@@ -217,6 +217,7 @@ def review_stats(request, key=None):
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
 
+
 @login_required
 def review_assignments(request):
     if not request.user.groups.filter(name="reviewers").exists():
@@ -227,6 +228,7 @@ def review_assignments(request):
     return render_to_response("reviews/review_assignment.html", {
         "assignments": assignments,
     }, context_instance=RequestContext(request))
+
 
 @login_required
 @require_POST
