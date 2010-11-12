@@ -216,3 +216,27 @@ def review_stats(request, key=None):
     
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
+
+
+@login_required
+def review_assignments(request):
+    if not request.user.groups.filter(name="reviewers").exists():
+        return access_not_permitted(request)
+    assignments = ReviewAssignment.objects.filter(
+        user=request.user,
+    )
+    return render_to_response("reviews/review_assignment.html", {
+        "assignments": assignments,
+    }, context_instance=RequestContext(request))
+
+
+@login_required
+@require_POST
+def review_assignment_opt_out(request, pk):
+    review_assignment = get_object_or_404(ReviewAssignment,
+        pk=pk,
+        user=request.user
+    )
+    review_assignment.opted_out = True
+    review_assignment.save()
+    return redirect("review_assignments")

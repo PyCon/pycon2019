@@ -3,6 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Q
 
 from django.contrib.auth.models import User
 
@@ -54,6 +55,31 @@ class ReviewAssignment(models.Model):
     
     assigned_at = models.DateTimeField(default=datetime.now)
     opted_out = models.BooleanField()
+    
+    @classmethod
+    def create_assignments(cls, proposal, origin=AUTO_ASSIGNED_INITIAL):
+        speakers = [proposal.speaker] + list(proposal.additional_speakers.all())
+        reviewers = User.objects.exclude(
+            pk__in=[
+                speaker.user_id
+                for speaker in speakers
+                if speaker.user_id is not None
+            ]
+        ).filter(
+            groups__name="reviewers",
+        ).filter(
+            Q(reviewassignment__opted_out=False) | Q(reviewassignment=None)
+        ).annotate(
+            num_assignments=models.Count("reviewassignment")
+        ).order_by(
+            "num_assignments",
+        )
+        for reviewer in reviewers[:3]:
+            cls._default_manager.create(
+                proposal=proposal,
+                user=reviewer,
+                origin=origin,
+            )
 
 
 class ProposalMessage(models.Model):
