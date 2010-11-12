@@ -3,6 +3,8 @@
 {% block body_class %}full review{% endblock %}
 
 {% block subnav %}
+    <a href="{% url review_assignments %}">your assignments</a>
+    |
     <a href="{% url review_list %}">all reviews</a>
     |
     <a href="{% url review_list_user user.username %}">your reviews</a>
