@@ -42,6 +42,17 @@ def proposals_generator(request, queryset, username=None, check_speaker=True):
         yield obj
 
 
+def group_proposals(proposals):
+    grouped = {}
+    for proposal in proposals:
+        session_type = proposal.session_type
+        if session_type in grouped:
+            grouped[session_type].append(proposal)
+        else:
+            grouped[session_type] = [proposal]
+    return grouped
+
+
 @login_required
 def review_list(request, username=None):
     
@@ -62,8 +73,10 @@ def review_list(request, username=None):
     
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
+    proposals = group_proposals(proposals_generator(request, queryset, username=username, check_speaker=not admin))
+    
     ctx = {
-        "proposals": proposals_generator(request, queryset, username=username, check_speaker=not admin),
+        "proposals": proposals,
         "username": username,
     }
     ctx = RequestContext(request, ctx)
@@ -127,20 +140,30 @@ def review_detail(request, pk):
         if request.user in speakers:
             return access_not_permitted(request)
         
-        review_form = ReviewForm(request.POST)
-        if review_form.is_valid():
+        if "vote_submit" in request.POST:
+            review_form = ReviewForm(request.POST)
+            if review_form.is_valid():
             
-            review = review_form.save(commit=False)
-            review.user = request.user
-            review.proposal = proposal
-            review.save()
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.proposal = proposal
+                review.save()
             
-            return redirect(request.path)
+                return redirect(request.path)
+        elif "message_submit" in request.POST:
+            message_form = SpeakerCommentForm(request.POST)
+            if message_form.is_valid():
+                message = message_form.save(commit=False)
+                message.user = request.user
+                message.proposal = proposal
+                message.save()
+                return redirect(request.path)
     else:
         initial = {}
         if latest_vote:
             initial["vote"] = latest_vote.vote
         review_form = ReviewForm(initial=initial)
+        message_form = SpeakerCommentForm()
     
     proposal.comment_count = proposal.result.comment_count
     proposal.total_votes = proposal.result.vote_count
@@ -156,34 +179,41 @@ def review_detail(request, pk):
         "latest_vote": latest_vote,
         "reviews": reviews,
         "review_form": review_form,
+        "message_form": message_form
     }, context_instance=RequestContext(request))
 
 
 @login_required
-def review_stats(request):
+def review_stats(request, key=None):
+    
+    ctx = {}
     
     if not request.user.groups.filter(name="reviewers").exists():
         return access_not_permitted(request)
     
-    proposals = Proposal.objects.select_related("speaker__user", "result")
+    queryset = Proposal.objects.select_related("speaker__user", "result")
     
-    # proposals with at least one +1 and no -1s, sorted by the 'score'
-    good = proposals.filter(result__plus_one__gt=0, result__minus_one=0).order_by("-result__score")
-    # proposals with at least one -1 and no +1s, reverse sorted by the 'score'
-    bad = proposals.filter(result__minus_one__gt=0, result__plus_one=0).order_by("result__score")
-    # proposals with neither a +1 or a -1, sorted by total votes (lowest first)
-    indifferent = proposals.filter(result__minus_one=0, result__plus_one=0).order_by("result__vote_count")
-    # proposals with both a +1 and -1, sorted by total votes (highest first)
-    controversial = proposals.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count")
+    proposals = {
+        # proposals with at least one +1 and no -1s, sorted by the 'score'
+        "good": queryset.filter(result__plus_one__gt=0, result__minus_one=0).order_by("-result__score"),
+        # proposals with at least one -1 and no +1s, reverse sorted by the 'score'
+        "bad": queryset.filter(result__minus_one__gt=0, result__plus_one=0).order_by("result__score"),
+        # proposals with neither a +1 or a -1, sorted by total votes (lowest first)
+        "indifferent": queryset.filter(result__minus_one=0, result__plus_one=0).order_by("result__vote_count"),
+        # proposals with both a +1 and -1, sorted by total votes (highest first)
+        "controversial": queryset.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
+    }
     
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
-    ctx = {
-        "good_proposals": list(proposals_generator(request, good, check_speaker=not admin)),
-        "bad_proposals": list(proposals_generator(request, bad, check_speaker=not admin)),
-        "indifferent_proposals": list(proposals_generator(request, indifferent, check_speaker=not admin)),
-        "controversial_proposals": list(proposals_generator(request, controversial, check_speaker=not admin)),
-    }
+    if key:
+        ctx.update({
+            "key": key,
+            "proposals": group_proposals(proposals_generator(request, proposals[key], check_speaker=not admin))
+        })
+    else:
+        ctx["proposals"] = proposals
+    
     ctx = RequestContext(request, ctx)
     return render_to_response("reviews/review_stats.html", ctx)
 

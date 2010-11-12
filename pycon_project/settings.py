@@ -141,6 +141,7 @@ INSTALLED_APPS = [
     "staticfiles",
     "debug_toolbar",
     "markitup",
+    "nashvegas",
     
     "emailconfirmation",
     "timezones",
