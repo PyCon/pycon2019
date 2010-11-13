@@ -213,7 +213,10 @@ class ProposalResult(models.Model):
             if previous == vote:
                 return
             setattr(self, mapping[previous], models.F(mapping[previous]) - 1)
+        else:
+            self.vote_count = models.F("vote_count") + 1
         setattr(self, mapping[vote], models.F(mapping[vote]) + 1)
+        self.comment_count = models.F("comment_count") + 1
         self.save()
         model = self.__class__
         model._default_manager.filter(pk=self.pk).update(score=ProposalScoreExpression())
