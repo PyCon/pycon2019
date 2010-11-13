@@ -392,10 +392,23 @@ body.schedule div.slot {
     margin-top: 0;
 }
 
-.extreme {
+div.badges .badge {
     font-weight: bold;
-    font-style: italic;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    margin: 3px 5px 5px 0;
+    float: left;
 }
+div.badges div.extreme {
+    background: black;
+}
+div.badges div.invited {
+    background: green;
+}
+
 table.history td {
     font-size: 10pt;
     font-weight: 400;
