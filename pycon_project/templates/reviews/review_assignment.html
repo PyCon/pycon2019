@@ -17,15 +17,10 @@
                     </a>
                 </td>
                 <td>
-                    {{ assignment.opted_out|yesno }}
-                </td>
-                <td>
-                    {% if not assignment.opted_out %}
                     <form method="post" action="{% url review_assignment_opt_out assignment.pk %}">
                         {% csrf_token %}
                         <input type="submit" value="Opt-out" />
                     </form>
-                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
