@@ -70,6 +70,7 @@ def review_list(request, username=None):
     if username:
         reviewed = LatestVote.objects.filter(user__username=username).values_list("proposal", flat=True)
         queryset = queryset.filter(pk__in=reviewed)
+    queryset = queryset.order_by("submitted")
     
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
