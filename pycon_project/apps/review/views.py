@@ -226,6 +226,7 @@ def review_assignments(request):
         return access_not_permitted(request)
     assignments = ReviewAssignment.objects.filter(
         user=request.user,
+        opted_out=False
     )
     return render_to_response("reviews/review_assignment.html", {
         "assignments": assignments,
