@@ -139,6 +139,8 @@ def review_detail(request, pk):
     if request.method == "POST":
         if request.user in speakers:
             return access_not_permitted(request)
+        if proposal.invited:
+            return access_not_permitted(request)
         
         if "vote_submit" in request.POST:
             review_form = ReviewForm(request.POST)

@@ -5,6 +5,12 @@
         <a href="#type-tutorial">Tutorials</a> |
         <a href="#type-poster">Posters</a>
 </div>
+<div class="badges legend">
+    <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+    <div class="clear"></div>
+    <div class="badge invited">I</div><div class="label"> = Invited</div>
+</div>
+
 {% for type, props in proposals.iteritems %}
     {% for proposal in props %}
         {% if forloop.first %}
@@ -46,9 +52,14 @@
                         with
                         {{ proposal.additional_speakers.all|join:", " }}
                     {% endif %}
-                    {% if proposal.extreme_pycon %}
-                        <div class="extreme">EXTREME PyCon!</div>
-                    {% endif %}
+                    <div class="badges">
+                        {% if proposal.extreme_pycon %}
+                            <div class="badge extreme">E</div>
+                        {% endif %}
+                        {% if proposal.invited %}
+                            <div class="badge invited">I</div>
+                        {% endif %}
+                    </div>
                 </div>
             </td>
             <td class="count">

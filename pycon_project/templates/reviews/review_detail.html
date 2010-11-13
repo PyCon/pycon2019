@@ -48,6 +48,17 @@
     <div class="proposal">
         <h2>{{ proposal.title }}</h2>
         
+        <div class="badges">
+            {% if proposal.extreme_pycon %}
+                <div class="badge extreme">E</div>
+            {% endif %}
+            {% if proposal.invited %}
+                <div class="badge invited">I</div>
+            {% endif %}
+        </div>
+        
+        <div class="clear"></div>
+        
         <p>
             {% if proposal.cancelled %}
                 Cancelled
@@ -91,79 +102,81 @@
         {% endif %}
     </div>
     
-    <h2>Votes</h2>
-    
-    <div class="{{ latest_vote.css_class }}">
-        <div class="vote-count-box plus-one-box">
-            <div class="label">+1 vote{{ proposal.plus_one|pluralize }}</div>
-            <div class="number">{{ proposal.plus_one }}</div>
-        </div>
-        <div class="vote-count-box plus-zero-box">
-            <div class="label">+0 vote{{ proposal.plus_zero|pluralize }}</div>
-            <div class="number">{{ proposal.plus_zero }}</div>
-        </div>
-        <div class="vote-count-box minus-zero-box">
-            <div class="label">&minus;0 vote{{ proposal.minus_zero|pluralize }}</div>
-            <div class="number">{{ proposal.minus_zero }}</div>
-        </div>
-        <div class="vote-count-box minus-one-box">
-            <div class="label">&minus;1 vote{{ proposal.minus_one|pluralize }}</div>
-            <div class="number">{{ proposal.minus_one }}</div>
-        </div>
-        <div class="vote-count-box total">
-            <div class="label">total</div>
-            <div class="number">{{ proposal.total_votes }}</div>
-        </div>
-        <div class="clear"></div>
-    </div>
-    
-    {% for review in reviews %}
-        <div class="review-box">
-            <div class="vote">{{ review.vote }}</div>
-            <div class="comment">{{ review.comment_html|safe }}</div>
-            <div class="dateline"><b>{{ review.user }}</b> {{ review.submitted_at|timesince }} ago</div>
-        </div>
-        <div class="clear"></div>
-    {% endfor %}
-    
-    <h3>Vote and Comment</h3>
-    
-    <p>You can revise your vote or comment multiple times with an existing vote.</p>
-    
-    <form method="POST" action="" class="uniForm">
-        {% csrf_token %}
-        <fieldset>
-            {{ review_form|as_uni_form }}
-            <div class="form_block">
-                <input type="submit" name="vote_submit" value="submit" />
+    {% if not proposal.invited %}
+        
+        <h2>Votes</h2>
+        
+        <div class="{{ latest_vote.css_class }}">
+            <div class="vote-count-box plus-one-box">
+                <div class="label">+1 vote{{ proposal.plus_one|pluralize }}</div>
+                <div class="number">{{ proposal.plus_one }}</div>
             </div>
-        </fieldset>
-    </form>
-    
-    
-    <h2>Conversation with Proposer</h2>
-    
-    {% for message in proposal.messages.all %}
-        <div class="review-box">
-            <div class="comment">{{ message.message_html|safe }}</div>
-            <div class="dateline"><b>{{ message.user }}</b> {{ message.submitted_at|timesince }} ago</div>
-        </div>
-        <div class="clear"></div>
-    {% endfor %}
-    
-    <h3>Leave a Message</h3>
-    
-    <p>You can leave a message for the proposer here.</p>
-    
-    <form action="" method="POST" class="uniForm" accept-charset="utf-8">
-        {% csrf_token %}
-        <fieldset>
-            {{ message_form|as_uni_form }}
-            <div class="form_block">
-                <input type="submit" name="message_submit" value="submit" />
+            <div class="vote-count-box plus-zero-box">
+                <div class="label">+0 vote{{ proposal.plus_zero|pluralize }}</div>
+                <div class="number">{{ proposal.plus_zero }}</div>
             </div>
-        </fieldset>
-    </form>
+            <div class="vote-count-box minus-zero-box">
+                <div class="label">&minus;0 vote{{ proposal.minus_zero|pluralize }}</div>
+                <div class="number">{{ proposal.minus_zero }}</div>
+            </div>
+            <div class="vote-count-box minus-one-box">
+                <div class="label">&minus;1 vote{{ proposal.minus_one|pluralize }}</div>
+                <div class="number">{{ proposal.minus_one }}</div>
+            </div>
+            <div class="vote-count-box total">
+                <div class="label">total</div>
+                <div class="number">{{ proposal.total_votes }}</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        {% for review in reviews %}
+            <div class="review-box">
+                <div class="vote">{{ review.vote }}</div>
+                <div class="comment">{{ review.comment_html|safe }}</div>
+                <div class="dateline"><b>{{ review.user }}</b> {{ review.submitted_at|timesince }} ago</div>
+            </div>
+            <div class="clear"></div>
+        {% endfor %}
+        
+        <h3>Vote and Comment</h3>
+        
+        <p>You can revise your vote or comment multiple times with an existing vote.</p>
+        
+        <form method="POST" action="" class="uniForm">
+            {% csrf_token %}
+            <fieldset>
+                {{ review_form|as_uni_form }}
+                <div class="form_block">
+                    <input type="submit" name="vote_submit" value="submit" />
+                </div>
+            </fieldset>
+        </form>
+        
+        <h2>Conversation with Proposer</h2>
+        
+        {% for message in proposal.messages.all %}
+            <div class="review-box">
+                <div class="comment">{{ message.message_html|safe }}</div>
+                <div class="dateline"><b>{{ message.user }}</b> {{ message.submitted_at|timesince }} ago</div>
+            </div>
+            <div class="clear"></div>
+        {% endfor %}
+        
+        <h3>Leave a Message</h3>
+        
+        <p>You can leave a message for the proposer here.</p>
+        
+        <form action="" method="POST" class="uniForm" accept-charset="utf-8">
+            {% csrf_token %}
+            <fieldset>
+                {{ message_form|as_uni_form }}
+                <div class="form_block">
+                    <input type="submit" name="message_submit" value="submit" />
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
 {% endblock %}
 
 {% block extra_body %}
