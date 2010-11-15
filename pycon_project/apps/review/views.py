@@ -10,6 +10,8 @@ from proposals.models import Proposal
 from review.forms import ReviewForm, ReviewCommentForm, SpeakerCommentForm
 from review.models import ReviewAssignment, Review, LatestVote, VOTES
 
+from pycon_project.utils import send_email
+
 
 def access_not_permitted(request):
     ctx = RequestContext(request)
@@ -161,10 +163,23 @@ def review_detail(request, pk):
         elif "message_submit" in request.POST:
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
+                
                 message = message_form.save(commit=False)
                 message.user = request.user
                 message.proposal = proposal
                 message.save()
+                
+                for speaker in speakers:
+                    ctx = {
+                        "proposal": proposal,
+                        "message": message,
+                        "reviewer": False,
+                    }
+                    send_email(
+                        [speaker.email], "proposal_new_message",
+                        context = ctx
+                    )
+                
                 return redirect(request.path)
     else:
         initial = {}
