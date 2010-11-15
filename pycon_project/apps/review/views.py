@@ -72,6 +72,9 @@ def review_list(request, username=None):
         queryset = queryset.filter(pk__in=reviewed)
     queryset = queryset.order_by("submitted")
     
+    # filter out tutorials for now
+    queryset = queryset.exclude(session_type=Proposal.SESSION_TYPE_TUTORIAL)
+    
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     
     proposals = group_proposals(proposals_generator(request, queryset, username=username, check_speaker=not admin))
