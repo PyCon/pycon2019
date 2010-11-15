@@ -207,6 +207,16 @@ def review_detail(request, pk):
 
 
 @login_required
+@require_POST
+def review_delete(request, pk):
+    if not request.user.groups.filter(name="reviewers-admins").exists():
+        return access_not_permitted(request)
+    review = get_object_or_404(Review, pk=pk)
+    review.delete()
+    return redirect("review_detail", pk=review.proposal.pk)
+
+
+@login_required
 def review_stats(request, key=None):
     
     ctx = {}

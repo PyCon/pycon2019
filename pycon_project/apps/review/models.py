@@ -130,6 +130,41 @@ class Review(models.Model):
         self.comment_html = creole_parser.parse(self.comment)
         super(Review, self).save(**kwargs)
     
+    def delete(self):
+        model = self.__class__
+        user_reviews = model._default_manager.filter(
+            proposal=self.proposal,
+            user=self.user,
+        )
+        # find previous vote before self
+        try:
+            previous = user_reviews.filter(submitted_at__lt=self.submitted_at).order_by("-submitted_at")[0]
+        except IndexError:
+            # did not find a previous which means this must be the only one.
+            # treat it as a last, but delete the latest vote.
+            self.proposal.result.update_vote(self.vote, removal=True)
+            lv = LatestVote.objects.filter(proposal=self.proposal, user=self.user)
+            lv.delete()
+        else:
+            # handle that we've found a previous vote
+            # check if self is the last vote
+            if self == user_reviews.order_by("-submitted_at")[0]:
+                # self is the latest which means we need to treat as last.
+                # revert the latest vote to previous vote.
+                self.proposal.result.update_vote(self.vote, previous=previous.vote, removal=True)
+                lv = LatestVote.objects.filter(proposal=self.proposal, user=self.user)
+                lv.update(
+                    vote=previous.vote,
+                    submitted_at=previous.submitted_at,
+                )
+            else:
+                # self is not the latest so we just need to decrement the
+                # comment count
+                self.proposal.result.comment_count = models.F("comment_count") - 1
+                self.proposal.result.save()
+        # in all cases we need to delete the review; let's do it!
+        super(Review, self).delete()
+    
     def css_class(self):
         return {
             self.VOTES.PLUS_ONE: "plus-one",
@@ -202,7 +237,7 @@ class ProposalResult(models.Model):
             result.save()
             cls._default_manager.filter(pk=result.pk).update(score=ProposalScoreExpression())
     
-    def update_vote(self, vote, previous=None):
+    def update_vote(self, vote, previous=None, removal=False):
         mapping = {
             VOTES.PLUS_ONE: "plus_one",
             VOTES.PLUS_ZERO: "plus_zero",
@@ -212,11 +247,21 @@ class ProposalResult(models.Model):
         if previous:
             if previous == vote:
                 return
-            setattr(self, mapping[previous], models.F(mapping[previous]) - 1)
+            if removal:
+                setattr(self, mapping[previous], models.F(mapping[previous]) + 1)
+            else:
+                setattr(self, mapping[previous], models.F(mapping[previous]) - 1)
         else:
-            self.vote_count = models.F("vote_count") + 1
-        setattr(self, mapping[vote], models.F(mapping[vote]) + 1)
-        self.comment_count = models.F("comment_count") + 1
+            if removal:
+                self.vote_count = models.F("vote_count") - 1
+            else:
+                self.vote_count = models.F("vote_count") + 1
+        if removal:
+            setattr(self, mapping[vote], models.F(mapping[vote]) - 1)
+            self.comment_count = models.F("comment_count") - 1
+        else:
+            setattr(self, mapping[vote], models.F(mapping[vote]) + 1)
+            self.comment_count = models.F("comment_count") + 1
         self.save()
         model = self.__class__
         model._default_manager.filter(pk=self.pk).update(score=ProposalScoreExpression())
