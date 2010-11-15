@@ -170,15 +170,16 @@ def review_detail(request, pk):
                 message.save()
                 
                 for speaker in speakers:
-                    ctx = {
-                        "proposal": proposal,
-                        "message": message,
-                        "reviewer": False,
-                    }
-                    send_email(
-                        [speaker.email], "proposal_new_message",
-                        context = ctx
-                    )
+                    if speaker and speaker.email:
+                        ctx = {
+                            "proposal": proposal,
+                            "message": message,
+                            "reviewer": False,
+                        }
+                        send_email(
+                            [speaker.email], "proposal_new_message",
+                            context = ctx
+                        )
                 
                 return redirect(request.path)
     else:
