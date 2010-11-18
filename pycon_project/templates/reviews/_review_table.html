@@ -42,7 +42,10 @@
         {% endif %}
         <tr class="{{ proposal.latest_vote }}">
             <td>
-                <div class="title"><a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a></div>
+                <div class="title">
+                    <b>#{{ proposal.number }}</b>:
+                    <a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a>
+                </div>
                 <div class="metadata">
                     {{ proposal.get_audience_level_display }}
                     {{ proposal.get_session_type_display }}

@@ -80,6 +80,10 @@ class Proposal(models.Model):
         self.abstract_html = creole_parser.parse(self.abstract)
         super(Proposal, self).save(*args, **kwargs)
     
+    @property
+    def number(self):
+        return str(self.pk).zfill(3)
+    
     def speakers(self):
         yield self.speaker
         for speaker in self.additional_speakers.all():
