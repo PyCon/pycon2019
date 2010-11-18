@@ -102,7 +102,7 @@
         {% endif %}
     </div>
     
-    {% if not proposal.invited %}
+    {% if is_reviewer_admin or not proposal.invited %}
         
         <h2>Votes</h2>
         
