@@ -335,6 +335,11 @@ body.review .proposal .additional_notes
     vertical-align: middle;
     text-align: center;
 }
+.review-list .result {
+    font-size: 12pt;
+    vertical-align: middle;
+    text-align: center;
+}
 
 .stat-def {
     font-size: 12pt;
@@ -412,4 +417,14 @@ div.badges div.invited {
 table.history td {
     font-size: 10pt;
     font-weight: 400;
+}
+
+.result.accepted {
+    color: #0C0;
+}
+.result.rejected {
+    color: #C00;
+}
+.result.undecided {
+    color: #999;
 }
