@@ -21,6 +21,9 @@
                         Title
                     </th>
                     <th>
+                        Result
+                    </th>
+                    <th>
                         Comments
                     </td>
                     <th>
@@ -64,6 +67,9 @@
                         {% endif %}
                     </div>
                 </div>
+            </td>
+            <td class="result {{ proposal.result.get_accepted_display }}">
+                {{ proposal.result.get_accepted_display }}
             </td>
             <td class="count">
                 {{ proposal.comment_count }}
