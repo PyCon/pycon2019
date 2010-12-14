@@ -182,6 +182,21 @@ def review_detail(request, pk):
                         )
                 
                 return redirect(request.path)
+        elif "result_submit" in request.POST:
+            if admin:
+                result = request.POST["result_submit"]
+                
+                if result == "accept":
+                    proposal.result.accepted = True
+                    proposal.result.save()
+                elif result == "reject":
+                    proposal.result.accepted = False
+                    proposal.result.save()
+                elif result == "undecide":
+                    proposal.result.accepted = None
+                    proposal.result.save()
+            
+            return redirect(request.path)
     else:
         initial = {}
         if latest_vote:
