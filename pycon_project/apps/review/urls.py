@@ -4,6 +4,8 @@ from django.conf.urls.defaults import patterns, url, include, handler404, handle
 urlpatterns = patterns("review.views",
     url(r"^list/$", "review_list", name="review_list"),
     url(r"^list/(?P<username>[\w]+)/$", "review_list", name="review_list_user"),
+    url(r"^tutorial/list/$", "review_tutorial_list", name="review_tutorial_list"),
+    url(r"^tutorial/list/(?P<username>[\w]+)/$", "review_tutorial_list", name="review_tutorial_list_user"),
     url(r"^admin/$", "review_admin", name="review_admin"),
     url(r"^stats/$", "review_stats", name="review_stats"),
     url(r"^stats/(?P<key>[\w]+)/$", "review_stats", name="review_stats_key"),
