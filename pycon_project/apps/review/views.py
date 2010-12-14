@@ -170,8 +170,13 @@ def review_detail(request, pk):
     admin = request.user.groups.filter(name="reviewers-admins").exists()
     speakers = [s.user for s in proposal.speakers()]
     
-    if not request.user.groups.filter(name="reviewers").exists():
-        return access_not_permitted(request)
+    if proposal.session_type == Proposal.SESSION_TYPE_TUTORIAL:
+        if not request.user.groups.filter(name="reviewers-tutorials").exists():
+            return access_not_permitted(request)
+    else:
+        if not request.user.groups.filter(name="reviewers").exists():
+            return access_not_permitted(request)
+    
     if not admin and request.user in speakers:
         return access_not_permitted(request)
     
