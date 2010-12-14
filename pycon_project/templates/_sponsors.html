@@ -5,19 +5,18 @@
     <h2>Sponsors</h2>
     
     {% sponsors as sponsors %}
-    {% regroup sponsors by level as levels %}
-    {% for level in levels %}
-        <h3>{{ level.grouper }}</h3>
-        {% for sponsor in level.list %}
-            {% if sponsor.website_logo_url %}
-                <div class="sponsor">
-                    <a href="{{ sponsor.external_url }}">
-                        {# @@@ sane resizing with sorl-thumbnail #}
-                        <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
-                    </a>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
     
+    {% for sponsor in sponsors %}
+        {% if sponsor.website_logo_url %}
+            {% ifchanged sponsor.level %}
+                <h3>{{ sponsor.level }}</h3>
+            {% endifchanged %}
+            <div class="sponsor">
+                <a href="{{ sponsor.external_url }}">
+                    {# @@@ sane resizing with sorl-thumbnail #}
+                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
