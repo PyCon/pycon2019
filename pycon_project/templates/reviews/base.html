@@ -14,6 +14,12 @@
         |
         <a href="{% url review_admin %}">admin</a>
     {% endif %}
+    {% if is_reviewer_tutorials %}
+        <br />
+        <a href="{% url review_tutorial_list %}">all tutorial reviews</a>
+        |
+        <a href="{% url review_tutorial_list_user user.username %}">your tutorial reviews</a>
+    {% endif %}
 {% endblock %}
 
 {% block right %}{% endblock %}
