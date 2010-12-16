@@ -13,6 +13,7 @@ class ProposalForm(forms.ModelForm):
             "additional_speakers",
             "cancelled",
             "opt_out_ads",
+            "invited",
         ]
 
     def clean_description(self):
