@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from proposals.models import Proposal
+from proposals.models import Proposal, ProposalSessionType
 
 
 class ProposalForm(forms.ModelForm):
@@ -15,7 +15,13 @@ class ProposalForm(forms.ModelForm):
             "opt_out_ads",
             "invited",
         ]
-
+    
+    def __init__(self, *args, **kwargs):
+        super(ProposalForm, self).__init__(*args, **kwargs)
+        self.fields["session_type"] = forms.ModelChoiceField(
+            queryset=ProposalSessionType.available()
+        )
+    
     def clean_description(self):
         value = self.cleaned_data["description"]
         if len(value) > 400:
@@ -23,6 +29,9 @@ class ProposalForm(forms.ModelForm):
                 u"The description must be less than 400 characters"
             )
         return value
+    
+    def clean_session_type(self):
+        return self.cleaned_data["session_type"].pk
 
 
 class ProposalSubmitForm(ProposalForm):
