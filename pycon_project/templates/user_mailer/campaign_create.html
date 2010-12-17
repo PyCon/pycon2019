@@ -1,0 +1,19 @@
+{% extends "user_mailer/base.html" %}
+
+{% load uni_form_tags %}
+
+{% block body %}
+    <h1>Create a Mail Out</h1>
+    
+    <form class="uniForm" method="POST" action="{% url campaign_create %}">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ form|as_uni_form }}
+            <div class="form_block">
+                <input type="submit" value="create" />
+            </div>
+        </fieldset>
+    </form>
+    
+    <p>Email templates are created via admin for now.</p>
+{% endblock %}
