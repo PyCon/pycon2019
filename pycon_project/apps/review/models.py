@@ -4,6 +4,7 @@ from decimal import Decimal
 
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
 
 from django.contrib.auth.models import User
 
@@ -278,3 +279,12 @@ class Comment(models.Model):
         (False, "private"),
     ])
     commented_at = models.DateTimeField(default=datetime.now)
+
+
+def create_proposal_result(sender, instance=None, **kwargs):
+    if instance is None:
+        return
+    ProposalResult.objects.get_or_create(proposal=instance)
+
+
+post_save.connect(create_proposal_result, sender=Proposal)
