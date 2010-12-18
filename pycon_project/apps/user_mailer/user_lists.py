@@ -19,10 +19,15 @@ def reviewers():
     for user in Group.objects.get(name="reviewers").user_set.all():
         yield user
 
+def reviewers_tutorial():
+    for user in Group.objects.get(name="reviewers-tutorial").user_set.all():
+        yield user
+
 # @@@ move to settings.py and accept dotted paths
 user_lists = [
     accepted_speakers,
     organizers,
     reviewers,
+    reviewers_tutorial,
 ]
 user_lists = dict([(f.__name__, f) for f in user_lists])
