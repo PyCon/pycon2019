@@ -11,6 +11,26 @@ def accepted_speakers():
                 speakers.add(speaker.user)
     return iter(speakers)
 
+def accepted_talk_speakers():
+    speakers = set()
+    talks = Session.objects.filter(session_type=Session.SESSION_TYPE_TALK)
+    
+    for session in talks.select_related("speaker__user"):
+        for speaker in session.speakers():
+            if speaker is not None and speaker.user is not None:
+                speakers.add(speaker.user)
+    return iter(speakers)
+
+def accepted_panel_speakers():
+    speakers = set()
+    panels = Session.objects.filter(session_type=Session.SESSION_TYPE_PANEL)
+
+    for session in panels.select_related("speaker__user"):
+        for speaker in session.speakers():
+            if speaker is not None and speaker.user is not None:
+                speakers.add(speaker.user)
+    return iter(speakers)
+
 def organizers():
     for user in User.objects.filter(is_staff=True):
         yield user
@@ -26,6 +46,8 @@ def reviewers_tutorial():
 # @@@ move to settings.py and accept dotted paths
 user_lists = [
     accepted_speakers,
+    accepted_talk_speakers,
+    accepted_panel_speakers,
     organizers,
     reviewers,
     reviewers_tutorial,
