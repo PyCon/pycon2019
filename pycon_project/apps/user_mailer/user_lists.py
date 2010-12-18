@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 
 from schedule.models import Session
 
@@ -11,25 +11,18 @@ def accepted_speakers():
                 speakers.add(speaker.user)
     return iter(speakers)
 
-
-def volunteers():
-    return []
-
-
-def fivesixsix():
-    for user in User.objects.filter(pk__in=[1, 3]):
-        yield user
-
-
 def organizers():
     for user in User.objects.filter(is_staff=True):
         yield user
 
+def reviewers():
+    for user in Group.objects.get(name="reviewers").user_set.all():
+        yield user
 
 # @@@ move to settings.py and accept dotted paths
 user_lists = [
     accepted_speakers,
     organizers,
-    # fivesixsix,
+    reviewers,
 ]
 user_lists = dict([(f.__name__, f) for f in user_lists])
