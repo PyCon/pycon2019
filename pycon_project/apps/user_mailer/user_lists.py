@@ -2,6 +2,8 @@ from django.contrib.auth.models import Group, User
 
 from schedule.models import Session
 
+# @@@ Would probably be a good idea to consolidate the
+# accepted speaker functions
 
 def accepted_speakers():
     speakers = set()
