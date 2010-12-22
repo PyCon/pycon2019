@@ -166,6 +166,7 @@ INSTALLED_APPS = [
     "review",
     "boxes",
     "schedule",
+    "user_mailer",
     "wiki",
 ]
 
