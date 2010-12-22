@@ -65,5 +65,6 @@ user_lists = [
     organizers,
     reviewers,
     reviewers_tutorial,
+    fivesixsix,
 ]
 user_lists = dict([(f.__name__, f) for f in user_lists])
