@@ -53,6 +53,10 @@ def reviewers_tutorial():
         yield user
 
 
+def fivesixsix():
+    for user in User.objects.filter(username__in=["brosner", "jtauber"]):
+        yield user
+
 # @@@ move to settings.py and accept dotted paths
 user_lists = [
     accepted_speakers,
