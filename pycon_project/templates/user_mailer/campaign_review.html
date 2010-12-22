@@ -12,6 +12,8 @@
     <ul>
         {% for campaign_user in campaign %}
             <li>{{ campaign_user.email }} <a class="preview" href="{% url campaign_email_preview campaign.pk campaign_user.pk %}">preview</a></li>
+        {% empty %}
+            <li>No matching users</li>
         {% endfor %}
     </ul>
     
