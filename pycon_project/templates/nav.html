@@ -6,6 +6,7 @@
     {% if is_reviewer or is_reviewer_tutorials %}
         <li class="reviewer_tab"><a href="{% if is_reviewer %}{% url review_list %}{% else %}{% if is_reviewer_tutorials %}{% url review_tutorial_list %}{% endif %}{% endif %}">Reviewers</a></li>
     {% endif %}
+    <li class="volunteer_tab"><a href="{% url wakawaka_page 'volunteer' %}">Volunteer</a></li>
     <li class="tickets_tab"><a href="{% url wakawaka_page 'tickets' %}">Tickets</a></li>
     <li class="venue_tab"><a href="{% url wakawaka_page 'venue' %}">Venue</a></li>
     <li class="sponsors_tab"><a href="{% url wakawaka_page 'sponsors' %}">Sponsors</a></li>
