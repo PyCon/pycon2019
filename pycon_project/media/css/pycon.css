@@ -41,12 +41,12 @@ body {
     text-align: center;
     padding: 10px 20px 5px;
     background: #222;
-    font-size: 16pt;
+    font-size: 14pt;
 }
 #nav a {
     color: #ffcc11;
     text-decoration: none;
-    padding: 6px 20px;
+    padding: 6px 12px;
 }
 #nav a:hover {
     color: #FFF;
