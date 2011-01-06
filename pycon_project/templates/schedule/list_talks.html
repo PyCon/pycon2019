@@ -31,7 +31,7 @@
     {% for talk in talks %}
         <div class="session">
             <div class="title">
-                {{ talk.proposal.title }}
+                <a href="{% url schedule_session talk.proposal.pk %}">{{ talk.proposal.title }}</a>
             </div>
             <div class="metadata">
                 {{ talk.proposal.get_audience_level_display }}
