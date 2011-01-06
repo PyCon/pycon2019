@@ -69,27 +69,6 @@
     <h1>{{ proposal.title }}</h1>
     
     <div class="proposal">
-        <div class="result {{ proposal.result.get_accepted_display }}">
-            {{ proposal.result.get_accepted_display }}
-            {% if is_reviewer_admin %}
-                <form class="result-form" method="POST" action="">
-                    {% csrf_token %}
-                    {% if proposal.result.get_accepted_display == "accepted" %}
-                        <input type="submit" name="result_submit" value="reject" />
-                        <input type="submit" name="result_submit" value="undecide" />
-                    {% else %}
-                        {% if proposal.result.get_accepted_display == "rejected" %}
-                            <input type="submit" name="result_submit" value="accept" />
-                            <input type="submit" name="result_submit" value="undecide" />
-                        {% else %}
-                            <input type="submit" name="result_submit" value="accept" />
-                            <input type="submit" name="result_submit" value="reject" />
-                        {% endif %}
-                    {% endif %}
-                </form>
-            {% endif %}
-        </div>
-        
         <div class="badges">
             {% if proposal.extreme_pycon %}
                 <div class="badge extreme">E</div>
