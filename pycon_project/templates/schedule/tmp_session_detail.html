@@ -65,6 +65,12 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/facebox.css" />
 {% endblock %}
 
+{% block subnav %}
+    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
+    |
+    <a href="{% url schedule_list_tutorials %}">List of Accepted Tutorials</a>
+{% endblock %}
+
 {% block body %}
     <h1>{{ proposal.title }}</h1>
     
