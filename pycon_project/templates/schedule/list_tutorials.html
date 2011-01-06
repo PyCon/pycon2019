@@ -1,0 +1,12 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Accepted Tutorials</h1>
+    
+    {% for tutorial in tutorials %}
+        {{ tutorial }}
+    {% empty %}
+        <p>No accepted tutorials yet.</p>
+    {% endfor %}
+    
+{% endblock %}

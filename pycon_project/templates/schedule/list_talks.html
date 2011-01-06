@@ -1,0 +1,12 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Accepted Talks and Panels</h1>
+    
+    {% for talk in talks %}
+        {{ talk }}
+    {% empty %}
+        <p>No accepted talks or panels yet.</p>
+    {% endfor %}
+    
+{% endblock %}
