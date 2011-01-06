@@ -34,6 +34,14 @@ def schedule_session(request, session_id, template_name="schedule/session_detail
         "timezone": settings.SCHEDULE_TIMEZONE,
     }, **extra_context), context_instance=RequestContext(request))
 
+def tmp_schedule_session(request, proposal_id):
+    
+    proposal = get_object_or_404(Proposal, pk=proposal_id)
+    
+    return render_to_response("schedule/tmp_session_detail.html", {
+        "proposal": proposal
+    }, context_instance=RequestContext(request))
+
 
 def schedule_list_talks(request):
     
