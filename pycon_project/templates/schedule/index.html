@@ -1,0 +1,10 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Schedule</h1>
+    
+    <ul>
+        <a href="{% url schedule_list_talks %}">List of Accepted Talks</a>
+        <a href="{% url schedule_list_tutorials %}">List of Accepted Tutorials</a>
+    </ul>
+{% endblock %}
