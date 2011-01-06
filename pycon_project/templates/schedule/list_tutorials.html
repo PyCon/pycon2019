@@ -26,7 +26,7 @@
                 {{ tutorial.proposal.get_session_type_display }}
                 by
                 {{ tutorial.proposal.speaker }}
-                {% if proposal.additional_speakers.all %}
+                {% if tutorial.proposal.additional_speakers.all %}
                     with
                     {{ tutorial.proposal.additional_speakers.all|join:", " }}
                 {% endif %}
