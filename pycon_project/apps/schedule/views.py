@@ -31,3 +31,17 @@ def schedule_session(request, session_id, template_name="schedule/session_detail
         "session": session,
         "timezone": settings.SCHEDULE_TIMEZONE,
     }, **extra_context), context_instance=RequestContext(request))
+
+
+def schedule_list_talks(request):
+    return render_to_response("schedule/list_talks.html", dict({
+        "talks": [],
+    }), context_instance=RequestContext(request))
+    
+
+def schedule_list_tutorials(request):
+    return render_to_response("schedule/list_tutorials.html", dict({
+        "tutorials": [],
+    }), context_instance=RequestContext(request))
+
+    
