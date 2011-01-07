@@ -12,6 +12,7 @@ from biblion import creole_parser
 
 from proposals.models import Proposal
 
+from schedule.models import Session
 
 class ProposalScoreExpression(object):
     
@@ -288,3 +289,20 @@ def create_proposal_result(sender, instance=None, **kwargs):
 
 
 post_save.connect(create_proposal_result, sender=Proposal)
+
+def accepted_proposal(sender, instance=None, **kwargs):
+    if instance is None:
+        return
+        
+    if instance.accepted == True:
+        Session.objects.get_or_create(
+            title=instance.proposal.title,
+            description=instance.proposal.description,
+            session_type=instance.proposal.session_type,
+            abstract=instance.proposal.abstract,
+            audience_level=instance.proposal.audience_level,
+            submitted=instance.proposal.submitted,
+            speaker=instance.proposal.speaker,
+        )
+
+post_save.connect(accepted_proposal, sender=ProposalResult)
