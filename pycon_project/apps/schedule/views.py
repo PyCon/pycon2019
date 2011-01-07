@@ -45,9 +45,8 @@ def tmp_schedule_session(request, proposal_id):
 
 def schedule_list_talks(request):
     
-    talks = ProposalResult.objects.filter(
-        accepted=True,
-        proposal__session_type__in=[Proposal.SESSION_TYPE_PANEL, Proposal.SESSION_TYPE_TALK]
+    talks = Session.objects.filter(
+        session_type__in=[Session.SESSION_TYPE_PANEL, Session.SESSION_TYPE_TALK]
     )
     
     return render_to_response("schedule/list_talks.html", dict({
@@ -57,9 +56,8 @@ def schedule_list_talks(request):
 
 def schedule_list_tutorials(request):
     
-    tutorials = ProposalResult.objects.filter(
-        accepted=True,
-        proposal__session_type=Proposal.SESSION_TYPE_TUTORIAL
+    tutorials = Session.objects.filter(
+        session_type=Session.SESSION_TYPE_TUTORIAL
     )
     
     return render_to_response("schedule/list_tutorials.html", dict({
