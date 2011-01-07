@@ -292,7 +292,7 @@ post_save.connect(create_proposal_result, sender=Proposal)
 
 
 def promote_proposal(proposal):
-    session = Session.objects.get_or_create(
+    session, created = Session.objects.get_or_create(
         title=proposal.title,
         description=proposal.description,
         session_type=proposal.session_type,
@@ -301,6 +301,10 @@ def promote_proposal(proposal):
         submitted=proposal.submitted,
         speaker=proposal.speaker,
     )
+    
+    for speaker in proposal.additional_speakers.all():
+        session.additional_speakers.add(speaker)
+        session.save()
     
     return session
 
