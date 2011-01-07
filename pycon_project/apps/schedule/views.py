@@ -49,7 +49,7 @@ def schedule_list_talks(request):
     talks = ProposalResult.objects.filter(
         accepted=True,
         proposal__session_type__in=[Proposal.SESSION_TYPE_PANEL, Proposal.SESSION_TYPE_TALK]
-    )
+    ).select_related("proposal", "proposal__speaker")
     
     return render_to_response("schedule/list_talks.html", dict({
         "talks": talks,
