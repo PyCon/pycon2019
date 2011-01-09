@@ -101,6 +101,9 @@ class Proposal(models.Model):
         self.abstract_html = creole_parser.parse(self.abstract)
         super(Proposal, self).save(*args, **kwargs)
     
+    def can_edit(self):
+        return self.get_session_type_display() in [pst.name for pst in ProposalSessionType.available()]
+    
     @property
     def number(self):
         return str(self.pk).zfill(3)

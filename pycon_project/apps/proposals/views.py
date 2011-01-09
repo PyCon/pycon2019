@@ -130,6 +130,12 @@ def proposal_edit(request, pk):
     proposal = get_object_or_404(queryset, pk=pk)
     if request.user != proposal.speaker.user:
         raise Http404()
+    if not proposal.can_edit():
+        ctx = RequestContext(request, {
+            "title": "Proposal editing closed",
+            "body": "Proposal editing is closed for this session type."
+        })
+        return render_to_response("proposals/proposal_error.html", ctx)
     if request.method == "POST":
         form = ProposalEditForm(request.POST, instance=proposal)
         if form.is_valid():
