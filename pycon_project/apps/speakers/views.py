@@ -181,7 +181,7 @@ def speaker_profile(request, pk, template_name="speakers/speaker_profile.html", 
     
     return render_to_response(template_name, dict({
         "speaker": speaker,
-        "sessions": speaker.sessions.all().order_by("slot__start"),
+        "sessions": speaker.sessions.exclude(slot=None).order_by("slot__start"),
         "timezone": settings.SCHEDULE_TIMEZONE,
     }, **extra_context), context_instance=RequestContext(request))
 
