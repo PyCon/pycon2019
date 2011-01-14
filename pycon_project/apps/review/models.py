@@ -294,15 +294,17 @@ post_save.connect(create_proposal_result, sender=Proposal)
 def promote_proposal(proposal):
     session, created = Session.objects.get_or_create(
         pk=proposal.pk,
-        title=proposal.title,
-        description=proposal.description,
-        session_type=proposal.session_type,
-        abstract=proposal.abstract,
-        audience_level=proposal.audience_level,
-        submitted=proposal.submitted,
-        speaker=proposal.speaker,
-        extreme_pycon=proposal.extreme_pycon,
-        invited=proposal.invited,
+        defaults=dict(
+            title=proposal.title,
+            description=proposal.description,
+            session_type=proposal.session_type,
+            abstract=proposal.abstract,
+            audience_level=proposal.audience_level,
+            submitted=proposal.submitted,
+            speaker=proposal.speaker,
+            extreme_pycon=proposal.extreme_pycon,
+            invited=proposal.invited,
+        )
     )
     
     for speaker in proposal.additional_speakers.all():
