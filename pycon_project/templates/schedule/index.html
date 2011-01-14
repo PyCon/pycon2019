@@ -1,7 +1,13 @@
 {% extends "schedule/base.html" %}
 
+{% load boxes_tags %}
+
 {% block body %}
     <h1>Schedule</h1>
+    
+    <div>
+        {% box "schedule-intro" %}
+    </div>
     
     <ul>
         <li><a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a></li>
