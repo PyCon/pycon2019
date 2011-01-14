@@ -300,6 +300,8 @@ def promote_proposal(proposal):
         audience_level=proposal.audience_level,
         submitted=proposal.submitted,
         speaker=proposal.speaker,
+        extreme_pycon=proposal.extreme_pycon,
+        invited=proposal.invited,
     )
     
     for speaker in proposal.additional_speakers.all():
