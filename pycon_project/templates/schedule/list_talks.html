@@ -27,26 +27,25 @@
         <div class="badge invited">I</div><div class="label"> = Invited</div>
     </div>
     
-    {# @@@ this is currently based on proposal object data but needs to be changed to a schedule.Session #}
     {% for talk in talks %}
         <div class="session">
             <div class="title">
-                <a href="{% url schedule_session talk.proposal.pk %}">{{ talk.proposal.title }}</a>
+                <a href="{% url schedule_session talk.pk %}">{{ talk.title }}</a>
             </div>
             <div class="metadata">
-                {{ talk.proposal.get_audience_level_display }}
-                {{ talk.proposal.get_session_type_display }}
+                {{ talk.get_audience_level_display }}
+                {{ talk.get_session_type_display }}
                 by
-                {{ talk.proposal.speaker }}
-                {% if talk.proposal.additional_speakers.all %}
+                {{ talk.speaker }}
+                {% if talk.additional_speakers.all %}
                     with
-                    {{ talk.proposal.additional_speakers.all|join:", " }}
+                    {{ talk.additional_speakers.all|join:", " }}
                 {% endif %}
                 <div class="badges">
-                    {% if talk.proposal.extreme_pycon %}
+                    {% if talk.extreme_pycon %}
                         <div class="badge extreme">E</div>
                     {% endif %}
-                    {% if talk.proposal.invited %}
+                    {% if talk.invited %}
                         <div class="badge invited">I</div>
                     {% endif %}
                     <div class="clear"></div>

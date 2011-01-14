@@ -25,23 +25,25 @@ class Session(models.Model):
     
     SESSION_TYPE_TALK = 1
     SESSION_TYPE_PANEL = 2
+    SESSION_TYPE_TUTORIAL = 3
+    SESSION_TYPE_POSTER = 4
     
     SESSION_TYPES = [
         (SESSION_TYPE_TALK, "Talk"),
-        (SESSION_TYPE_PANEL, "Panel")
+        (SESSION_TYPE_PANEL, "Panel"),
+        (SESSION_TYPE_TUTORIAL, "Tutorial"),
+        (SESSION_TYPE_POSTER, "Poster")
     ]
     
     AUDIENCE_LEVEL_NOVICE = 1
-    AUDIENCE_LEVEL_INTERMEDIATE = 2
-    AUDIENCE_LEVEL_EXPERT = 3
+    AUDIENCE_LEVEL_EXPERIENCED = 2
     
     AUDIENCE_LEVELS = [
         (AUDIENCE_LEVEL_NOVICE, "Novice"),
-        (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
-        (AUDIENCE_LEVEL_EXPERT, "Expert"),
+        (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
     
-    slot = models.ForeignKey(Slot)
+    slot = models.ForeignKey(Slot, null=True)
     track = models.CharField(max_length=10, null=True, blank=True)
     plenary = models.BooleanField(default=False)
     
@@ -64,6 +66,9 @@ class Session(models.Model):
     speaker = models.ForeignKey("speakers.Speaker", related_name="sessions")
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
     cancelled = models.BooleanField(default=False)
+    
+    extreme_pycon = models.BooleanField(u"EXTREME PyCon!", default=False)
+    invited = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
         self.abstract_html = creole_parser.parse(self.abstract)
