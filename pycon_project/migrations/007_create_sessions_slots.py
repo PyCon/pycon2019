@@ -13,14 +13,14 @@ def migrate():
         promote_proposal(result.proposal)
     connections["default"].cursor().execute("SELECT setval('schedule_session_id_seq', (SELECT max(id) FROM schedule_session))")
     
-    wed_morn_start = datetime(2011, 3, 9, 14, 0)  # 9AM Eastern
-    wed_morn_end = datetime(2011, 3, 9, 17, 0)  # Noon Eastern
-    wed_after_start = datetime(2011, 3, 9, 19, 0)  # 2PM Eastern
-    wed_after_end = datetime(2011, 3, 9, 22, 0)  # 5PM Eastern
-    thu_morn_start = datetime(2011, 3, 10, 14, 0)  # 9AM Eastern
-    thu_morn_end = datetime(2011, 3, 10, 17, 0)  # Noon Eastern
-    thu_after_start = datetime(2011, 3, 10, 19, 0)  # 2PM Eastern
-    thu_after_end = datetime(2011, 3, 10, 22, 0)  # 5PM Eastern
+    wed_morn_start = datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
+    wed_morn_end = datetime(2011, 3, 9, 12, 0)  # Noon Eastern
+    wed_after_start = datetime(2011, 3, 9, 14, 0)  # 2PM Eastern
+    wed_after_end = datetime(2011, 3, 9, 17, 0)  # 5PM Eastern
+    thu_morn_start = datetime(2011, 3, 10, 9, 0)  # 9AM Eastern
+    thu_morn_end = datetime(2011, 3, 10, 12, 0)  # Noon Eastern
+    thu_after_start = datetime(2011, 3, 10, 14, 0)  # 2PM Eastern
+    thu_after_end = datetime(2011, 3, 10, 17, 0)  # 5PM Eastern
     
     slots = [
         {
