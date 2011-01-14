@@ -45,6 +45,11 @@
         </ul>
     {% endif %}
     
+    {% if request.user == proposal.speaker.user %}
+        <p><b>Additional Notes:</b></p>
+    
+        <p>{{ proposal.additional_notes }}</p>
+    {% endif %}
     
     <h2>Conversation with Reviewers</h2>
     
