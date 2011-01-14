@@ -40,6 +40,7 @@ def schedule_list_talks(request):
     talks = Session.objects.filter(
         session_type__in=[Session.SESSION_TYPE_PANEL, Session.SESSION_TYPE_TALK]
     )
+    talks = talks.order_by("pk")
     
     return render_to_response("schedule/list_talks.html", dict({
         "talks": talks,
@@ -51,6 +52,7 @@ def schedule_list_tutorials(request):
     tutorials = Session.objects.filter(
         session_type=Session.SESSION_TYPE_TUTORIAL
     )
+    tutorials = tutorials.order_by("pk")
     
     return render_to_response("schedule/list_tutorials.html", dict({
         "tutorials": tutorials,
