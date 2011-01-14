@@ -6,31 +6,16 @@ from django.db import models
 from biblion import creole_parser
 
 
-class Event(models.Model):
-    
-    name = models.CharField(max_length=150)
-    slug = models.SlugField()
-    description = models.TextField(blank=True, null=True)
-    location = models.TextField(blank=True, null=True)
-    
-    start = models.DateTimeField()
-    end = models.DateTimeField()
-    
-    def __unicode__(self):
-        return u"%s" % self.name
-
-
 # @@@ precreate the Slots with proposal == None and then making the schedule is just updating slot.proposal and/or title/notes
 class Slot(models.Model):
     
-    event = models.ForeignKey(Event)
     start = models.DateTimeField()
     end = models.DateTimeField()
     
     title = models.CharField(max_length=255, null=True, blank=True)
     
     def __unicode__(self):
-        return u"(%s) %s: %s — %s" % (self.event, self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
+        return u"%s: %s — %s" % (self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
 
     def sessions(self):
         return self.session_set.all().order_by("track")
