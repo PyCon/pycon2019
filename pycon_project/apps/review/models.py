@@ -293,6 +293,7 @@ post_save.connect(create_proposal_result, sender=Proposal)
 
 def promote_proposal(proposal):
     session, created = Session.objects.get_or_create(
+        pk=proposal.pk,
         title=proposal.title,
         description=proposal.description,
         session_type=proposal.session_type,
