@@ -13,7 +13,9 @@
     {% if not forloop.last %}, {% endif %}{% endfor %}
 </div>
 
-<div class="slot">{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</div>
+{% if session.slot %}
+    <div class="slot">{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</div>
+{% endif %}
 
 <div class="description">{{ session.description }}</div>
 

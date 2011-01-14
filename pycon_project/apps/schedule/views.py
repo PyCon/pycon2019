@@ -33,21 +33,12 @@ def schedule_session(request, session_id, template_name="schedule/session_detail
     }, **extra_context), context_instance=RequestContext(request))
 
 
-def tmp_schedule_session(request, proposal_id):
-    
-    proposal = get_object_or_404(Proposal, pk=proposal_id, result__accepted=True)
-    
-    return render_to_response("schedule/tmp_session_detail.html", {
-        "proposal": proposal
-    }, context_instance=RequestContext(request))
-
-
 def schedule_list_talks(request):
     
-    talks = ProposalResult.objects.filter(
-        accepted=True,
-        proposal__session_type__in=[Proposal.SESSION_TYPE_PANEL, Proposal.SESSION_TYPE_TALK]
-    ).select_related("proposal", "proposal__speaker")
+    talks = Session.objects.filter(
+        session_type__in=[Session.SESSION_TYPE_PANEL, Session.SESSION_TYPE_TALK]
+    )
+    talks = talks.order_by("pk")
     
     return render_to_response("schedule/list_talks.html", dict({
         "talks": talks,
@@ -56,10 +47,10 @@ def schedule_list_talks(request):
 
 def schedule_list_tutorials(request):
     
-    tutorials = ProposalResult.objects.filter(
-        accepted=True,
-        proposal__session_type=Proposal.SESSION_TYPE_TUTORIAL
+    tutorials = Session.objects.filter(
+        session_type=Session.SESSION_TYPE_TUTORIAL
     )
+    tutorials = tutorials.order_by("pk")
     
     return render_to_response("schedule/list_tutorials.html", dict({
         "tutorials": tutorials,
