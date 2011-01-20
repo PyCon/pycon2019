@@ -20,9 +20,14 @@
         {% user_display user as user_display %}
         <p><span class="warning">{% trans "Note" %}</span>: {% blocktrans %}you are already logged in as {{ user_display }}.{% endblocktrans %}</p>
     {% else %}
+        <p>
+            <b>NOTE</b>: The registration system is separate from this website and is located at <a href="https://www.cteusa.com/pycon4/">https://www.cteusa.com/pycon4/</a>.
+            Your username there won't automatically work here.
+        </p>
+        
         {% ifsetting ACCOUNT_OPEN_SIGNUP %}
         {% url acct_signup as signup_url %}
-        <p>{% blocktrans %}Don't have an account? <a href="{{ signup_url }}">Sign up</a>!{% endblocktrans %}</p>
+        <p>{% blocktrans %}Don't have an account on this site? <a href="{{ signup_url }}">Sign up</a>!{% endblocktrans %}</p>
         {% endifsetting %}
     {% endif %}
     
@@ -50,6 +55,11 @@
     <p>{% trans "Or sign in with other sites" %}:</p>
     <a href="{% url oauth_access_login "twitter" %}"><img src="{{ STATIC_URL }}img/twitter-signin.png" /></a> or <a href="{% url oauth_access_login "facebook" %}"><img src="{{ STATIC_URL }}img/facebook-connect.gif" /></a>
     {% endcomment %}
+    
+    <p>
+        <b>NOTE</b>: The registration system is separate from this website and is located at <a href="https://www.cteusa.com/pycon4/">https://www.cteusa.com/pycon4/</a>.
+        Your username there won't automatically work here.
+    </p>
     
     <p>{% blocktrans %}If you have any trouble logging in to your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
 {% endblock %}
