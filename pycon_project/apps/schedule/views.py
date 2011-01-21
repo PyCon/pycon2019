@@ -56,4 +56,9 @@ def schedule_list_tutorials(request):
         "tutorials": tutorials,
     }), context_instance=RequestContext(request))
 
+
+def schedule_tutorials(request):
     
+    return render_to_response("schedule/tutorials.html", dict({
+        
+    }), context_instance=RequestContext(request))
