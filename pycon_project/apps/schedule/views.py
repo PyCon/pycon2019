@@ -25,7 +25,7 @@ def schedule_session(request, session_id, template_name="schedule/session_detail
     if extra_context is None:
         extra_context = {}
     
-    session = Session.objects.get(id=session_id)
+    session = get_object_or_404(Session, id=session_id)
     
     return render_to_response(template_name, dict({
         "session": session,
@@ -74,7 +74,7 @@ def schedule_tutorials(request):
             "morning": {
                 "slot": Slot.objects.get(id=3),
                 "sessions": Session.objects.filter(slot=3).order_by("pk"),
-            }
+            },
             "afternoon": {
                 "slot": Slot.objects.get(id=4),
                 "sessions": Session.objects.filter(slot=4).order_by("pk"),
