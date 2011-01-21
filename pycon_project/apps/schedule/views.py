@@ -59,16 +59,28 @@ def schedule_list_tutorials(request):
 
 def schedule_tutorials(request):
     
-    tutorials = [
-        {
-            "morning": Session.objects.filter(slot=1).order_by("pk"),
-            "afternoon": Session.objects.filter(slot=2).order_by("pk")
+    tutorials = {
+        "wed": {
+            "morning": {
+                "slot": Slot.objects.get(id=1),
+                "sessions": Session.objects.filter(slot=1).order_by("pk"),
+            },
+            "afternoon": {
+                "slot": Slot.objects.get(id=2),
+                "sessions": Session.objects.filter(slot=2).order_by("pk"),
+            }
         }, 
-        {
-            "morning": Session.objects.filter(slot=3).order_by("pk"),
-            "afternoon": Session.objects.filter(slot=4).order_by("pk")
+        "thrus": {
+            "morning": {
+                "slot": Slot.objects.get(id=3),
+                "sessions": Session.objects.filter(slot=3).order_by("pk"),
+            }
+            "afternoon": {
+                "slot": Slot.objects.get(id=4),
+                "sessions": Session.objects.filter(slot=4).order_by("pk"),
+            }
         }
-    ]
+    }
     
     ctx = {
         "tutorials": tutorials,
