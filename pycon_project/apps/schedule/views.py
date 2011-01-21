@@ -70,7 +70,7 @@ def schedule_tutorials(request):
                 "sessions": Session.objects.filter(slot=2).order_by("pk"),
             }
         }, 
-        "thrus": {
+        "thurs": {
             "morning": {
                 "slot": Slot.objects.get(id=3),
                 "sessions": Session.objects.filter(slot=3).order_by("pk"),

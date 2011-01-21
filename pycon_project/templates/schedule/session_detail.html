@@ -2,23 +2,30 @@
 
 {% load timezone_filters %}
 
+{% block subnav %}
+    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
+    |
+    <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
+{% endblock %}
+
 {% block body %}
-<h1>{{ session.title }}</h1>
-
-<div class="session_types">{{ session.get_audience_level_display }} / {{ session.get_session_type_display }}</div>
-
-<div class="speakers">
-    {% for speaker in session.speakers %}
-    <a href="{% url speaker_profile speaker.id %}">{{ speaker }}</a>
-    {% if not forloop.last %}, {% endif %}{% endfor %}
-</div>
-
-{% if session.slot %}
-    <div class="slot">{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</div>
-{% endif %}
-
-<div class="description">{{ session.description }}</div>
-
-<h3>Abstract</h3>
-<div class="abstract">{{ session.abstract_html|safe }}</div>
+    <h1>{{ session.title }}</h1>
+    
+    <div class="session_types">{{ session.get_audience_level_display }} / {{ session.get_session_type_display }}</div>
+    
+    <div class="speakers">
+        {% for speaker in session.speakers %}
+        <a href="{% url speaker_profile speaker.id %}">{{ speaker }}</a>
+        {% if not forloop.last %}, {% endif %}{% endfor %}
+    </div>
+    
+    {% if session.slot %}
+        <div class="slot">{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</div>
+    {% endif %}
+    
+    <div class="description">{{ session.description }}</div>
+    
+    <h3>Abstract</h3>
+    
+    <div class="abstract">{{ session.abstract_html|safe }}</div>
 {% endblock %}

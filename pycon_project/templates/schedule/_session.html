@@ -1,0 +1,15 @@
+<div class="session">
+    <div class="title">
+        <a href="{% url schedule_session session.pk %}">{{ session.title }}</a>
+    </div>
+    <div class="metadata">
+        {{ session.get_audience_level_display }}
+        {{ session.get_session_type_display }}
+        by
+        {{ session.speaker }}
+        {% if session.additional_speakers.all %}
+            with
+            {{ session.additional_speakers.all|join:", " }}
+        {% endif %}
+    </div>
+</div>
