@@ -59,6 +59,19 @@ def schedule_list_tutorials(request):
 
 def schedule_tutorials(request):
     
-    return render_to_response("schedule/tutorials.html", dict({
-        
-    }), context_instance=RequestContext(request))
+    tutorials = [
+        {
+            "morning": Session.objects.filter(slot=1).order_by("pk"),
+            "afternoon": Session.objects.filter(slot=2).order_by("pk")
+        }, 
+        {
+            "morning": Session.objects.filter(slot=3).order_by("pk"),
+            "afternoon": Session.objects.filter(slot=4).order_by("pk")
+        }
+    ]
+    
+    ctx = {
+        "tutorials": tutorials,
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/tutorials.html", ctx)
