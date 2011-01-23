@@ -7,7 +7,7 @@
 {% block extra_head_base %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css?2" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/tabs.css?2" />
-    <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "all" %}" title="blog feed"/>
+    <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "general" %}" title="blog feed"/>
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
