@@ -38,6 +38,17 @@ def accepted_panel_speakers():
     return iter(speakers)
 
 
+def accepted_tutorial_speakers():
+    speakers = set()
+    panels = Session.objects.filter(session_type=Session.SESSION_TYPE_TUTORIAL)
+    
+    for session in panels.select_related("speaker__user"):
+        for speaker in session.speakers():
+            if speaker is not None and speaker.user is not None:
+                speakers.add(speaker.user)
+    return iter(speakers)
+
+
 def organizers():
     for user in User.objects.filter(is_staff=True):
         yield user
@@ -62,6 +73,7 @@ user_lists = [
     accepted_speakers,
     accepted_talk_speakers,
     accepted_panel_speakers,
+    accepted_tutorial_speakers,
     organizers,
     reviewers,
     reviewers_tutorial,
