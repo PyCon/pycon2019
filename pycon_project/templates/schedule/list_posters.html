@@ -1,5 +1,7 @@
 {% extends "schedule/base.html" %}
 
+{% load boxes_tags %}
+
 {% block extra_head %}
     <style>
         .session {
@@ -16,31 +18,33 @@
     <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
     |
     <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
-    |
-    <a href="{% url schedule_list_posters %}">List of Accepted Posters</a>
 {% endblock %}
 
 {% block body %}
-    <h1>Accepted Tutorials</h1>
+    <h1>Accepted Posters</h1>
     
-    {% for tutorial in tutorials %}
+    <div>
+        {% box "posters-intro" %}
+    </div>
+    
+    {% for poster in posters %}
         <div class="session">
             <div class="title">
-                <a href="{% url schedule_session tutorial.pk %}">{{ tutorial.title }}</a>
+                <a href="{% url schedule_session poster.pk %}">{{ poster.title }}</a>
             </div>
             <div class="metadata">
-                {{ tutorial.get_audience_level_display }}
-                {{ tutorial.get_session_type_display }}
+                {{ poster.get_audience_level_display }}
+                {{ poster.get_session_type_display }}
                 by
-                {{ tutorial.speaker }}
-                {% if tutorial.additional_speakers.all %}
+                {{ poster.speaker }}
+                {% if poster.additional_speakers.all %}
                     with
-                    {{ tutorial.additional_speakers.all|join:", " }}
+                    {{ poster.additional_speakers.all|join:", " }}
                 {% endif %}
             </div>
         </div>
     {% empty %}
-        <p>No accepted tutorials yet.</p>
+        <p>No accepted posters yet.</p>
     {% endfor %}
     
 {% endblock %}

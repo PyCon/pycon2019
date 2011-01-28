@@ -57,6 +57,18 @@ def schedule_list_tutorials(request):
     }), context_instance=RequestContext(request))
 
 
+def schedule_list_posters(request):
+    
+    posters = Session.objects.filter(
+        session_type=Session.SESSION_TYPE_POSTER
+    )
+    posters = posters.order_by("pk")
+    
+    return render_to_response("schedule/list_posters.html", dict({
+        "posters": posters,
+    }), context_instance=RequestContext(request))
+
+
 def schedule_tutorials(request):
     
     tutorials = {
