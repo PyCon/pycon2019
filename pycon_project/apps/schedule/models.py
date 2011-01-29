@@ -43,7 +43,7 @@ class Session(models.Model):
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
     
-    slot = models.ForeignKey(Slot, null=True)
+    slot = models.ForeignKey(Slot, null=True, blank=True)
     track = models.CharField(max_length=10, null=True, blank=True)
     plenary = models.BooleanField(default=False)
     
