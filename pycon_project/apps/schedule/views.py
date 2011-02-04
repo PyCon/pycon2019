@@ -1,10 +1,25 @@
+import datetime
+
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from proposals.models import Proposal
-from review.models import ProposalResult
 from schedule.models import Slot, Session
+
+
+wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
+wed_morn_end = datetime.datetime(2011, 3, 9, 12, 20)  # 12:20PM Eastern
+wed_after_start = datetime.datetime(2011, 3, 9, 14, 0)  # 2PM Eastern
+wed_after_end = datetime.datetime(2011, 3, 9, 16, 40)  # 4:40PM Eastern
+thu_morn_start = datetime.datetime(2011, 3, 10, 9, 0)  # 9AM Eastern
+thu_morn_end = datetime.datetime(2011, 3, 10, 12, 20)  # 12:20PM Eastern
+thu_after_start = datetime.datetime(2011, 3, 10, 14, 0)  # 2PM Eastern
+thu_after_end = datetime.datetime(2011, 3, 10, 16, 40)  # 4:40PM Eastern
+
+WEDNESDAY_MORNING = (wed_morn_start, wed_morn_end)
+WEDNESDAY_AFTERNOON = (wed_after_start, wed_after_end)
+THURSDAY_MORNING = (thu_morn_start, thu_morn_end)
+THURSDAY_AFTERNOON = (thu_after_start, thu_after_end)
 
 
 def schedule_list(request, template_name="schedule/schedule_list.html", extra_context=None):
@@ -74,22 +89,30 @@ def schedule_tutorials(request):
     tutorials = {
         "wed": {
             "morning": {
-                "slot": Slot.objects.get(id=1),
-                "sessions": Session.objects.filter(slot=1).order_by("pk"),
+                "slot": WEDNESDAY_MORNING,
+                "sessions": Session.objects.filter(
+                    slot__start=WEDNESDAY_MORNING[0]
+                ).order_by("pk"),
             },
             "afternoon": {
-                "slot": Slot.objects.get(id=2),
-                "sessions": Session.objects.filter(slot=2).order_by("pk"),
+                "slot": WEDNESDAY_AFTERNOON,
+                "sessions": Session.objects.filter(
+                    slot__start=WEDNESDAY_AFTERNOON[0]
+                ).order_by("pk"),
             }
-        }, 
+        },
         "thurs": {
             "morning": {
-                "slot": Slot.objects.get(id=3),
-                "sessions": Session.objects.filter(slot=3).order_by("pk"),
+                "slot": THURSDAY_MORNING,
+                "sessions": Session.objects.filter(
+                    slot__start=THURSDAY_MORNING[0]
+                ).order_by("pk"),
             },
             "afternoon": {
-                "slot": Slot.objects.get(id=4),
-                "sessions": Session.objects.filter(slot=4).order_by("pk"),
+                "slot": THURSDAY_AFTERNOON,
+                "sessions": Session.objects.filter(
+                    slot__start=THURSDAY_AFTERNOON[0]
+                ).order_by("pk"),
             }
         }
     }

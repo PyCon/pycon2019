@@ -23,13 +23,13 @@
     
     <h2>Wednesday, March 9th</h2>
     
-    <h3>Morning ({{ tutorials.wed.morning.slot.start|time }} &ndash; {{ tutorials.wed.morning.slot.end|time }})</h3>
+    <h3>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h3>
     
     {% for session in tutorials.wed.morning.sessions %}
         {% include "schedule/_session.html" %}
     {% endfor %}
     
-    <h3>Afternoon ({{ tutorials.wed.afternoon.slot.start|time }} &ndash; {{ tutorials.wed.afternoon.slot.end|time }})</h3>
+    <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h3>
     
     {% for session in tutorials.wed.afternoon.sessions %}
         {% include "schedule/_session.html" %}
@@ -37,13 +37,13 @@
     
     <h2>Thursday, March 10th</h2>
     
-    <h3>Morning ({{ tutorials.thurs.morning.slot.start|time }} &ndash; {{ tutorials.thurs.morning.slot.end|time }})</h3>
+    <h3>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h3>
     
     {% for session in tutorials.thurs.morning.sessions %}
         {% include "schedule/_session.html" %}
     {% endfor %}
     
-    <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.start|time }} &ndash; {{ tutorials.thurs.afternoon.slot.end|time }})</h3>
+    <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h3>
     
     {% for session in tutorials.thurs.afternoon.sessions %}
         {% include "schedule/_session.html" %}
