@@ -307,9 +307,10 @@ def promote_proposal(proposal):
         )
     )
     
-    for speaker in proposal.additional_speakers.all():
-        session.additional_speakers.add(speaker)
-        session.save()
+    if created:
+        for speaker in proposal.additional_speakers.all():
+            session.additional_speakers.add(speaker)
+            session.save()
     
     return session
 
