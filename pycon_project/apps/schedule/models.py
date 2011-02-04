@@ -3,7 +3,17 @@ import datetime
 
 from django.db import models
 
+from django.contrib.contenttypes.models import ContentType
+
 from biblion import creole_parser
+
+
+class Track(models.Model):
+    
+    name = models.CharField(max_length=65)
+    
+    def __unicode__(self):
+        return self.name
 
 
 # @@@ precreate the Slots with proposal == None and then making the schedule is just updating slot.proposal and/or title/notes
@@ -11,12 +21,12 @@ class Slot(models.Model):
     
     start = models.DateTimeField()
     end = models.DateTimeField()
-    
-    title = models.CharField(max_length=255, null=True, blank=True)
+    kind = models.ForeignKey(ContentType, null=True)
+    track = models.ForeignKey(Track)
     
     def __unicode__(self):
         return u"%s: %s — %s" % (self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
-
+    
     def sessions(self):
         return self.session_set.all().order_by("track")
 
@@ -44,8 +54,6 @@ class Session(models.Model):
     ]
     
     slot = models.ForeignKey(Slot, null=True, blank=True)
-    track = models.CharField(max_length=10, null=True, blank=True)
-    plenary = models.BooleanField(default=False)
     
     title = models.CharField(max_length=100)
     description = models.TextField(
@@ -78,6 +86,6 @@ class Session(models.Model):
         yield self.speaker
         for speaker in self.additional_speakers.all():
             yield speaker
-
+    
     def __unicode__(self):
         return u"%s" % self.title

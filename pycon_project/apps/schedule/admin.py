@@ -4,9 +4,9 @@ from schedule.models import Session, Slot
 
 
 admin.site.register(Slot,
-    list_display = ["start", "end", "title"]
+    list_display = ["pk", "start", "end", "track"]
 )
 
 admin.site.register(Session,
-    list_display = ["track", "plenary", "title", "session_type", "audience_level", "cancelled"]
+    list_display = ["title", "slot", "session_type", "audience_level", "cancelled"]
 )
