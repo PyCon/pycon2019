@@ -14,4 +14,9 @@ urlpatterns = patterns("schedule.views",
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
     url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
+    
+    url(r"^tracks/$", "track_list", name="schedule_track_list"),
+    url(r"^sessions/$", "session_list", name="schedule_session_list"),
+    url(r"^track/(\d+)/$", "track_detail", name="schedule_track_detail"),
+    url(r"^session/(\d+)/$", "session_detail", name="schedule_session_detail"),
 )

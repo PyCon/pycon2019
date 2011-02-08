@@ -1,0 +1,16 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Session: {{ session }}</h1>
+    
+    <h2>Slots</h2>
+    
+    <ul>
+        {% for slot in session.slots.all %}
+            <li>{{ slot }}</li>
+        {% empty %}
+            <li>No slots in session.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
