@@ -53,6 +53,12 @@ class Slot(models.Model):
     track = models.ForeignKey(Track, null=True, related_name="slots")
     session = models.ForeignKey(Session, null=True, related_name="slots")
     
+    def content(self):
+        if self.kind.name == "presentation":
+            return Presentation.objects.get(slot=self)
+        else:
+            return None
+    
     def __unicode__(self):
         return u"%s: %s — %s" % (self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
 

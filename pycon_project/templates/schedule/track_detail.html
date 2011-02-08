@@ -17,7 +17,7 @@
     
     <ul>
         {% for slot in track.slots.all %}
-            <li>{{ slot }}</li>
+            <li>{{ slot }}: {{ slot.content }}</li>
         {% empty %}
             <li>No slots in track.</li>
         {% endfor %}
