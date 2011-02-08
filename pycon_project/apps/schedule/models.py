@@ -3,6 +3,7 @@ import datetime
 
 from django.db import models
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from biblion import creole_parser
@@ -19,6 +20,27 @@ class Track(models.Model):
 class Session(models.Model):
     
     track = models.ForeignKey(Track, null=True, related_name="sessions")
+
+
+class SessionRole(models.Model):
+    
+    SESSION_ROLE_CHAIR = 1
+    SESSION_ROLE_RUNNER = 2
+    
+    SESSION_ROLE_TYPES = [
+        (SESSION_ROLE_CHAIR, "Session Chair"),
+        (SESSION_ROLE_RUNNER, "Session Runner"),
+    ]
+    
+    session = models.ForeignKey(Session)
+    user = models.ForeignKey(User)
+    role = models.IntegerField(choices=SESSION_ROLE_TYPES)
+    status = models.NullBooleanField()
+    
+    submitted = models.DateTimeField(default = datetime.datetime.now)
+    
+    class Meta:
+        unique_together = [("session", "user", "role")]
 
 
 # @@@ precreate the Slots with proposal == None and then making the schedule is just updating slot.proposal and/or title/notes
