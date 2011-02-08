@@ -142,6 +142,17 @@ def track_detail(request, track_id):
     }, context_instance=RequestContext(request))
 
 
+def track_detail_none(request):
+    
+    sessions = Session.objects.filter(track=None)
+    slots = Slot.objects.filter(track=None)
+    
+    return render_to_response("schedule/track_detail_none.html", {
+        "sessions": sessions,
+        "slots": slots,
+    }, context_instance=RequestContext(request))
+
+
 def session_list(request):
     
     sessions = Session.objects.all()

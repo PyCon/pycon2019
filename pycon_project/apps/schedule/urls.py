@@ -18,5 +18,6 @@ urlpatterns = patterns("schedule.views",
     url(r"^tracks/$", "track_list", name="schedule_track_list"),
     url(r"^sessions/$", "session_list", name="schedule_session_list"),
     url(r"^track/(\d+)/$", "track_detail", name="schedule_track_detail"),
+    url(r"^track/none/$", "track_detail_none", name="schedule_notrack_detail"),
     url(r"^session/(\d+)/$", "session_detail", name="schedule_session_detail"),
 )
