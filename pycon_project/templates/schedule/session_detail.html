@@ -9,6 +9,13 @@
     <div>
     {% if chair %}
         Chair: {{ chair }}
+        {% if request.user == chair %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-chair" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
     {% else %}
         {% if user.is_authenticated %}
             {% if not chair_denied %}
@@ -27,6 +34,13 @@
     <div>
     {% if runner %}
         Runner: {{ runner }}
+        {% if request.user == chair %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-runner" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
     {% else %}
         {% if user.is_authenticated %}
             {% if not runner_denied %}
