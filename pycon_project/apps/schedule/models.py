@@ -87,7 +87,7 @@ class Presentation(models.Model):
     
     def save(self, *args, **kwargs):
         self.abstract_html = creole_parser.parse(self.abstract)
-        super(Session, self).save(*args, **kwargs)
+        super(Presentation, self).save(*args, **kwargs)
     
     def speakers(self):
         yield self.speaker
