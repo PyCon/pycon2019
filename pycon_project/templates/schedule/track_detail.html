@@ -7,7 +7,16 @@
     
     <ul>
         {% for session in track.sessions.all %}
-            <li>{{ session }}</li>
+            <li>
+                {{ session }}
+                <ul>
+                    {% for slot in session.sorted_slots %}
+                        <li>{{ slot }}: {{ slot.content }}</li>
+                    {% empty %}
+                        <li>No slots in session.</li>
+                    {% endfor %}
+                </ul>
+            </li>
         {% empty %}
             <li>No sessions in track.</li>
         {% endfor %}
