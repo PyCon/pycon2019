@@ -191,7 +191,7 @@ def session_detail(request, session_id):
                 if session_role:
                     session_role[0].delete()
         elif role == "un-runner":
-            if runner ==request.user:
+            if runner == request.user:
                 session_role = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user)
                 if session_role:
                     session_role[0].delete()
