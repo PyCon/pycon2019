@@ -114,7 +114,7 @@ class Presentation(models.Model):
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
     
-    slot = models.ForeignKey(Slot, null=True, blank=True, related_name="presentations")
+    slot = models.OneToOneField(Slot, null=True, blank=True, related_name="presentation")
     
     title = models.CharField(max_length=100)
     description = models.TextField(
@@ -150,3 +150,21 @@ class Presentation(models.Model):
     
     def __unicode__(self):
         return u"%s" % self.title
+
+
+class Plenary(models.Model):
+    
+    slot = models.OneToOneField(Slot, null=True, blank=True, related_name="plenary")
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=400)
+
+
+class Recess(models.Model):
+    """
+    We call this recess due to Break resulting in using break (lower-case "b")
+    which is a Python keyword.
+    """
+    
+    slot = models.OneToOneField(Slot, null=True, blank=True, related_name="recess")
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=400)
