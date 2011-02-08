@@ -55,9 +55,6 @@ class Slot(models.Model):
     
     def __unicode__(self):
         return u"%s: %s — %s" % (self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
-    
-    def sessions(self):
-        return self.session_set.all().order_by("track")
 
 
 class Presentation(models.Model):
