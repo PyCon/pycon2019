@@ -20,6 +20,30 @@ class Track(models.Model):
 class Session(models.Model):
     
     track = models.ForeignKey(Track, null=True, related_name="sessions")
+    
+    def sorted_slots(self):
+        return self.slots.order_by("start")
+    
+    # @@@ cache?
+    def start(self):
+        slots = self.sorted_slots()
+        if slots:
+            return list(slots)[0].start
+        else:
+            return None
+    
+    # @@@ cache?
+    def end(self):
+        slots = self.sorted_slots()
+        if slots:
+            return list(slots)[-1].end
+        else:
+            return None
+    
+    def __unicode__(self):
+        start = self.start()
+        end = self.end()
+        return u"%s: %s — %s" % (start.strftime("%a"), start.strftime("%X"), end.strftime("%X"))
 
 
 class SessionRole(models.Model):
