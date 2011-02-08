@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from schedule.models import Slot, Presentation, Track, Session
+from schedule.models import Slot, Presentation, Track, Session, SessionRole
 
 
 wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
@@ -155,6 +155,32 @@ def session_detail(request, session_id):
     
     session = get_object_or_404(Session, id=session_id)
     
+    chair = None
+    chair_denied = False
+    chairs = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_CHAIR, status__in=[True, None])
+    if chairs:
+        chair = chairs[0]
+    else:
+        if request.user.is_authenticated():
+            # did the current user previously try to apply and got rejected?
+            if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_CHAIR, status=False):
+                chair_denied = True
+    
+    runner = None
+    runner_denied = False
+    runners = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, status__in=[True, None])
+    if runners:
+        runner = runners[0]
+    else:
+        if request.user.is_authenticated():
+            # did the current user previously try to apply and got rejected?
+            if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_RUNNER, status=False):
+                runner_denied = True
+    
     return render_to_response("schedule/session_detail.html", {
         "session": session,
+        "chair": chair,
+        "chair_denied": chair_denied,
+        "runner": runner,
+        "runner_denied": runner_denied,
     }, context_instance=RequestContext(request))
