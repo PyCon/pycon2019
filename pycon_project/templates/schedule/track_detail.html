@@ -1,0 +1,26 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Track: {{ track }}</h1>
+    
+    <h2>Sessions</h2>
+    
+    <ul>
+        {% for session in track.sessions.all %}
+            <li>{{ session }}</li>
+        {% empty %}
+            <li>No sessions in track.</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Slots</h2>
+    
+    <ul>
+        {% for slot in track.slots.all %}
+            <li>{{ slot }}</li>
+        {% empty %}
+            <li>No slots in track.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}

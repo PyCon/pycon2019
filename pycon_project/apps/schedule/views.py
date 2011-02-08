@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from schedule.models import Slot, Presentation
+from schedule.models import Slot, Presentation, Track, Session
 
 
 wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
@@ -122,3 +122,39 @@ def schedule_tutorials(request):
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/tutorials.html", ctx)
+
+
+def track_list(request):
+    
+    tracks = Track.objects.order_by("name")
+    
+    return render_to_response("schedule/track_list.html", {
+        "tracks": tracks,
+    }, context_instance=RequestContext(request))
+
+
+def track_detail(request, track_id):
+    
+    track = get_object_or_404(Track, id=track_id)
+    
+    return render_to_response("schedule/track_detail.html", {
+        "track": track,
+    }, context_instance=RequestContext(request))
+
+
+def session_list(request):
+    
+    sessions = Session.objects.all()
+    
+    return render_to_response("schedule/session_list.html", {
+        "sessions": sessions,
+    }, context_instance=RequestContext(request))
+
+
+def session_detail(request, session_id):
+    
+    session = get_object_or_404(Session, id=session_id)
+    
+    return render_to_response("schedule/session_detail.html", {
+        "session": session,
+    }, context_instance=RequestContext(request))

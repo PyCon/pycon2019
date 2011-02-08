@@ -1,0 +1,14 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Sessions</h1>
+    
+    <ul>
+        {% for session in sessions %}
+            <li><a href="{% url schedule_session_detail session.pk %}">{{ session }}</a></li>
+        {% empty %}
+            <li>No sessions defined.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
