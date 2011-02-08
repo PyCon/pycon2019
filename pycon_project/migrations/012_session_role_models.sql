@@ -1,4 +1,3 @@
-BEGIN;
 ### New Model: schedule.SessionRole
 CREATE TABLE "schedule_sessionrole" (
     "id" serial NOT NULL PRIMARY KEY,
@@ -10,7 +9,5 @@ CREATE TABLE "schedule_sessionrole" (
     UNIQUE ("session_id", "user_id", "role")
 )
 ;
-COMMIT;
 CREATE INDEX "schedule_sessionrole_session_id" ON "schedule_sessionrole" ("session_id");
 CREATE INDEX "schedule_sessionrole_user_id" ON "schedule_sessionrole" ("user_id");
-COMMIT;
