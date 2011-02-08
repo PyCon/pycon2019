@@ -34,7 +34,7 @@
     <div>
     {% if runner %}
         Runner: {{ runner }}
-        {% if request.user == chair %}
+        {% if request.user == runner %}
             <form method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="role" value="un-runner" />
