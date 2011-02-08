@@ -4,7 +4,7 @@ from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns("schedule.views",
     # url(r"^$", "schedule_list", name="schedule_list"),
-    # url(r"^sessions/(\d+)/", "schedule_session", name="schedule_session"),
+    # url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
     url(r"^$", direct_to_template, {"template": "schedule/index.html"}, name="schedule_index"),
     
@@ -13,5 +13,5 @@ urlpatterns = patterns("schedule.views",
     url(r"^lists/posters/", "schedule_list_posters", name="schedule_list_posters"),
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
-    url(r"^sessions/(\d+)/", "schedule_session", name="schedule_session"),
+    url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
 )

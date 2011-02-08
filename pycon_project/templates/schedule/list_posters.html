@@ -30,7 +30,7 @@
     {% for poster in posters %}
         <div class="session">
             <div class="title">
-                <a href="{% url schedule_session poster.pk %}">{{ poster.title }}</a>
+                <a href="{% url schedule_presentation poster.pk %}">{{ poster.title }}</a>
             </div>
             <div class="metadata">
                 {{ poster.get_audience_level_display }}

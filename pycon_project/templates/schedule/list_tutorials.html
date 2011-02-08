@@ -26,7 +26,7 @@
     {% for tutorial in tutorials %}
         <div class="session">
             <div class="title">
-                <a href="{% url schedule_session tutorial.pk %}">{{ tutorial.title }}</a>
+                <a href="{% url schedule_presentation tutorial.pk %}">{{ tutorial.title }}</a>
             </div>
             <div class="metadata">
                 {{ tutorial.get_audience_level_display }}

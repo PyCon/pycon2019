@@ -21,7 +21,7 @@
         <dl class="sessions">
             {% for session in sessions %}
                 <dt>{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</dt>
-                <dd><a href="{% url schedule_session session.id %}">{{ session.title }}</a></dd>
+                <dd><a href="{% url schedule_presentation session.id %}">{{ session.title }}</a></dd>
             {% endfor %}
         </dl>
     {% endif %}
