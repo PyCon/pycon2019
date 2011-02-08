@@ -182,11 +182,21 @@ def session_detail(request, session_id):
         if role == "chair":
             if chair == None and not chair_denied:
                 SessionRole(session=session, role=SessionRole.SESSION_ROLE_CHAIR, user=request.user).save()
-                return redirect("schedule_session_detail", session_id)
         elif role == "runner":
             if runner == None and not runner_denied:
                 SessionRole(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user).save()
-                return redirect("schedule_session_detail", session_id)
+        elif role == "un-chair":
+            if chair == request.user:
+                session_role = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_CHAIR, user=request.user)
+                if session_role:
+                    session_role[0].delete()
+        elif role == "un-runner":
+            if runner ==request.user:
+                session_role = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user)
+                if session_role:
+                    session_role[0].delete()
+        
+        return redirect("schedule_session_detail", session_id)
     
     return render_to_response("schedule/session_detail.html", {
         "session": session,
