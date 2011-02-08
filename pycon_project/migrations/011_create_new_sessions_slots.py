@@ -3,7 +3,7 @@ def migrate():
     
     from django.contrib.contenttypes.models import ContentType
     
-    from schedule.models import Slot, Session, Track
+    from schedule.models import Slot, Presentation, Track
     
     wed_morn_start = datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
     wed_morn_end = datetime(2011, 3, 9, 12, 20)  # 12:20PM Eastern
@@ -75,13 +75,13 @@ def migrate():
             s = Slot.objects.create(
                 start=slot["start"],
                 end=slot["end"],
-                kind=ContentType.objects.get_for_model(Session),
+                kind=ContentType.objects.get_for_model(Presentation),
                 track=track,
             )
             try:
-                session = Session.objects.get(title=title, session_type=3)
-                session.slot = s
-                session.save()
+                presentation = Presentation.objects.get(title=title, presentation_type=3)
+                presentation.slot = s
+                presentation.save()
                 print "Saved", title
-            except Session.DoesNotExist:
+            except Presentation.DoesNotExist:
                 print "Missed", title
