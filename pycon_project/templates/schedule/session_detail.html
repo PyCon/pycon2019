@@ -12,7 +12,11 @@
     {% else %}
         {% if user.is_authenticated %}
             {% if not chair_denied %}
-                volunteer to be session chair
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="chair" />
+                    <input type="submit" value="volunteer" /> to be session chair
+                </form>
             {% endif %}
         {% else %}
             Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
@@ -26,7 +30,11 @@
     {% else %}
         {% if user.is_authenticated %}
             {% if not runner_denied %}
-                volunteer to be session runner
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="runner" />
+                    <input type="submit" value="volunteer" /> to be session runner
+                </form>
             {% endif %}
         {% else %}
             Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.

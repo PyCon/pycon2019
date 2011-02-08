@@ -157,9 +157,9 @@ def session_detail(request, session_id):
     
     chair = None
     chair_denied = False
-    chairs = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_CHAIR, status__in=[True, None])
+    chairs = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_CHAIR).exclude(status=False)
     if chairs:
-        chair = chairs[0]
+        chair = chairs[0].user
     else:
         if request.user.is_authenticated():
             # did the current user previously try to apply and got rejected?
@@ -168,14 +168,25 @@ def session_detail(request, session_id):
     
     runner = None
     runner_denied = False
-    runners = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, status__in=[True, None])
+    runners = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER).exclude(status=False)
     if runners:
-        runner = runners[0]
+        runner = runners[0].user
     else:
         if request.user.is_authenticated():
             # did the current user previously try to apply and got rejected?
             if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_RUNNER, status=False):
                 runner_denied = True
+    
+    if request.method == "POST" and request.user.is_authenticated():
+        role = request.POST.get("role")
+        if role == "chair":
+            if chair == None and not chair_denied:
+                SessionRole(session=session, role=SessionRole.SESSION_ROLE_CHAIR, user=request.user).save()
+                return redirect("schedule_session_detail", session_id=session_id)
+        elif role == "runner":
+            if runner == None and not runner_denied:
+                SessionRole(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user).save()
+                return redirect("schedule_session_detail", session_id=session_id)
     
     return render_to_response("schedule/session_detail.html", {
         "session": session,
