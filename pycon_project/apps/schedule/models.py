@@ -43,7 +43,12 @@ class Session(models.Model):
     def __unicode__(self):
         start = self.start()
         end = self.end()
-        return u"%s: %s — %s" % (start.strftime("%a"), start.strftime("%X"), end.strftime("%X"))
+        return u"[%s] %s: %s — %s" % (
+            self.track.name,
+            start.strftime("%a"),
+            start.strftime("%X"),
+            end.strftime("%X")
+        )
 
 
 class SessionRole(models.Model):
