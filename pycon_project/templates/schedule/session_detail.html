@@ -2,9 +2,7 @@
 
 {% block body %}
     
-    <p><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> &raquo;</p>
-    
-    <h1>Session: {{ session }}</h1>
+    <h1><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> {{ session }}</h1>
     
     <h2>Slots</h2>
     
