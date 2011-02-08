@@ -6,7 +6,7 @@ from schedule.models import Track, Session, Slot
 
 
 friday_plenaries = [
-    [    
+    [
         {
             "start": datetime(2011, 3, 11, 7, 0),
             "end": datetime(2011, 3, 11, 8, 0),
@@ -397,11 +397,11 @@ sunday_type_1 = [
 
 
 tracks = [
-    {"Centennial I": [friday_slots_type_1, saturday_slots_type_1, sunday_plenaries, sunday_type_1]},
-    {"Centennial II": [friday_slots_type_2, saturday_slots_type_2, sunday_plenaries, sunday_type_1]},
-    {"Centennial III": [friday_slots_type_1, saturday_slots_type_1, sunday_plenaries, sunday_type_1]},
-    {"Centennial IV": [friday_slots_type_2, saturday_slots_type_2, sunday_plenaries, sunday_type_1]},
-    {"Regency V": [friday_slots_type_1, saturday_slots_type_1, sunday_plenaries, sunday_type_1]}
+    {"Centennial I": [friday_slots_type_1, saturday_slots_type_1, sunday_type_1]},
+    {"Centennial II": [friday_slots_type_2, saturday_slots_type_2, sunday_type_1]},
+    {"Centennial III": [friday_slots_type_1, saturday_slots_type_1, sunday_type_1]},
+    {"Centennial IV": [friday_slots_type_2, saturday_slots_type_2, sunday_type_1]},
+    {"Regency V": [friday_slots_type_1, saturday_slots_type_1, sunday_type_1]}
 ]
 
 
@@ -425,3 +425,15 @@ class Command(BaseCommand):
                                 title=slot_data.get("title")
                             )
                             print "\t\tCreated slot: %s" % slot
+        print "Plenaries"
+        for data in [friday_plenaries, saturday_plenaries, sunday_plenaries]:
+            for session_data in data:
+                for slot_data in session_data:
+                    slot = Slot.objects.create(
+                        track=None,
+                        session=None,
+                        start=slot_data.get("start"),
+                        end=slot_data.get("end"),
+                        title=slot_data.get("title")
+                    )
+                    print "\tCreated slot: %s" % slot
