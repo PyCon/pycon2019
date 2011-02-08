@@ -54,8 +54,8 @@ class Slot(models.Model):
     session = models.ForeignKey(Session, null=True, related_name="slots")
     
     def content(self):
-        if self.kind.name == "presentation":
-            return Presentation.objects.get(slot=self)
+        if self.kind_id:
+            return self.kind.get_object_for_this_type(slot=self)
         else:
             return None
     
