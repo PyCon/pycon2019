@@ -12,7 +12,8 @@ from biblion import creole_parser
 
 from proposals.models import Proposal
 
-from schedule.models import Session
+from schedule.models import Presentation
+
 
 class ProposalScoreExpression(object):
     
@@ -292,12 +293,12 @@ post_save.connect(create_proposal_result, sender=Proposal)
 
 
 def promote_proposal(proposal):
-    session, created = Session.objects.get_or_create(
+    presentation, created = Presentation.objects.get_or_create(
         pk=proposal.pk,
         defaults=dict(
             title=proposal.title,
             description=proposal.description,
-            session_type=proposal.session_type,
+            presentation_type=proposal.session_type,
             abstract=proposal.abstract,
             audience_level=proposal.audience_level,
             submitted=proposal.submitted,
@@ -309,10 +310,10 @@ def promote_proposal(proposal):
     
     if created:
         for speaker in proposal.additional_speakers.all():
-            session.additional_speakers.add(speaker)
-            session.save()
+            presentation.additional_speakers.add(speaker)
+            presentation.save()
     
-    return session
+    return presentation
 
 
 def accepted_proposal(sender, instance=None, **kwargs):

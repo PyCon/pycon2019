@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, User
 
-from schedule.models import Session
+from schedule.models import Presentation
 
 
 # @@@ Would probably be a good idea to consolidate the
@@ -9,8 +9,8 @@ from schedule.models import Session
 
 def accepted_speakers():
     speakers = set()
-    for session in Session.objects.select_related("speaker__user"):
-        for speaker in session.speakers():
+    for presentation in Presentation.objects.select_related("speaker__user"):
+        for speaker in presentation.speakers():
             if speaker is not None and speaker.user is not None:
                 speakers.add(speaker.user)
     return iter(speakers)
@@ -18,10 +18,10 @@ def accepted_speakers():
 
 def accepted_talk_speakers():
     speakers = set()
-    talks = Session.objects.filter(session_type=Session.SESSION_TYPE_TALK)
+    talks = Presentation.objects.filter(presentation_type=Presentation.PRESENTATION_TYPE_TALK)
     
-    for session in talks.select_related("speaker__user"):
-        for speaker in session.speakers():
+    for presentation in talks.select_related("speaker__user"):
+        for speaker in presentation.speakers():
             if speaker is not None and speaker.user is not None:
                 speakers.add(speaker.user)
     return iter(speakers)
@@ -29,10 +29,10 @@ def accepted_talk_speakers():
 
 def accepted_panel_speakers():
     speakers = set()
-    panels = Session.objects.filter(session_type=Session.SESSION_TYPE_PANEL)
+    panels = Presentation.objects.filter(presentation_type=Presentation.PRESENTATION_TYPE_PANEL)
     
-    for session in panels.select_related("speaker__user"):
-        for speaker in session.speakers():
+    for presentation in panels.select_related("speaker__user"):
+        for speaker in presentation.speakers():
             if speaker is not None and speaker.user is not None:
                 speakers.add(speaker.user)
     return iter(speakers)
@@ -40,10 +40,10 @@ def accepted_panel_speakers():
 
 def accepted_tutorial_speakers():
     speakers = set()
-    panels = Session.objects.filter(session_type=Session.SESSION_TYPE_TUTORIAL)
+    panels = Presentation.objects.filter(presentation_type=Presentation.PRESENTATION_TYPE_TUTORIAL)
     
-    for session in panels.select_related("speaker__user"):
-        for speaker in session.speakers():
+    for presentation in panels.select_related("speaker__user"):
+        for speaker in presentation.speakers():
             if speaker is not None and speaker.user is not None:
                 speakers.add(speaker.user)
     return iter(speakers)

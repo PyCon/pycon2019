@@ -15,11 +15,11 @@
                 {% for session in slot.sessions %}
                     {% if session.plenary %}
                         <td colspan="2" class="title">
-                            <a href="{% url schedule_session session.id %}">{{ session.title }}</a>
+                            <a href="{% url schedule_presentation session.id %}">{{ session.title }}</a>
                         </td>
                     {% else %}
                         <td class="title">
-                            <a href="{% url schedule_session session.id %}">{{ session.title }}</a>
+                            <a href="{% url schedule_presentation session.id %}">{{ session.title }}</a>
                         </td>
                     {% endif %}
                 {% endfor %}

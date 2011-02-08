@@ -2,7 +2,7 @@
 
 {% block extra_head %}
     <style>
-        .session {
+        .presentation {
             margin-top: 10px;
         }
         .title {
@@ -25,28 +25,28 @@
     
     <h3>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h3>
     
-    {% for session in tutorials.wed.morning.sessions %}
-        {% include "schedule/_session.html" %}
+    {% for presentation in tutorials.wed.morning.presentations %}
+        {% include "schedule/_presentation.html" %}
     {% endfor %}
     
     <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h3>
     
-    {% for session in tutorials.wed.afternoon.sessions %}
-        {% include "schedule/_session.html" %}
+    {% for presentation in tutorials.wed.afternoon.presentations %}
+        {% include "schedule/_presentation.html" %}
     {% endfor %}
     
     <h2>Thursday, March 10th</h2>
     
     <h3>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h3>
     
-    {% for session in tutorials.thurs.morning.sessions %}
-        {% include "schedule/_session.html" %}
+    {% for presentation in tutorials.thurs.morning.presentations %}
+        {% include "schedule/_presentation.html" %}
     {% endfor %}
     
     <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h3>
     
-    {% for session in tutorials.thurs.afternoon.sessions %}
-        {% include "schedule/_session.html" %}
+    {% for presentation in tutorials.thurs.afternoon.presentations %}
+        {% include "schedule/_presentation.html" %}
     {% endfor %}
     
     
