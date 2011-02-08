@@ -1,6 +1,13 @@
 ALTER TABLE "schedule_session_additional_speakers" RENAME TO "schedule_presentation_additional_speakers";
 ALTER TABLE "schedule_session" RENAME TO "schedule_presentation";
 
+ALTER INDEX "schedule_session_additional_speakers_session_id_key" RENAME TO "schedule_presentation_additional_speakers_presentation_id_key";
+ALTER INDEX "schedule_session_additional_speakers_id_seq" RENAME TO "schedule_presentation_additional_speakers_id_seq";
+ALTER INDEX "schedule_session_id_seq" RENAME TO "schedule_presentation_id_seq";
+ALTER INDEX "schedule_session_additional_speakers_pkey" RENAME TO "schedule_presentation_additional_speakers_pkey";
+ALTER INDEX "schedule_session_pkey" RENAME TO "schedule_presentation_pkey";
+ALTER INDEX "schedule_session_additional_speakers_session_id" RENAME TO "schedule_presentation_additional_speakers_session_id";
+
 ALTER TABLE "schedule_presentation" RENAME COLUMN "session_type" TO "presentation_type";
 ALTER TABLE "schedule_presentation_additional_speakers" RENAME COLUMN "session_id" TO "presentation_id";
 
