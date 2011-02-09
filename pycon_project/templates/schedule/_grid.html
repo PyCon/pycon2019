@@ -24,7 +24,7 @@
                                 <div class="speaker">{{ slot.content.speaker }}</div>
                             {% endif %}
                         {% endif %}
-                        <span class="controls"><b>actions</b>: <a href="{% url schedule_slot_edit slot.pk %}">edit</a> | <a href="{% url schedule_slot_remove slot.pk %}" rel="facebox">remove</a></span>
+                        <span class="controls"><b>actions</b>: <a href="{% url schedule_slot_edit slot.pk %}" rel="facebox">edit</a> | <a href="{% url schedule_slot_remove slot.pk %}" rel="facebox">remove</a></span>
                     {% endif %}
                 </td>
             {% endfor %}
