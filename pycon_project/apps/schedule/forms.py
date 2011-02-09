@@ -7,7 +7,7 @@ from schedule.models import Plenary, Recess, Presentation
 class PlenaryForm(forms.ModelForm):
     class Meta:
         model = Plenary
-        exclude = ["slot"]
+        exclude = ["slot", "additional_speakers"]
 
 
 class RecessForm(forms.ModelForm):
