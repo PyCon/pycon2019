@@ -164,7 +164,7 @@ class Plenary(models.Model):
     title = models.CharField(max_length=100)
     speaker = models.ForeignKey("speakers.Speaker", null=True, blank=True, related_name="+")
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
-    description = models.TextField(max_length=400)
+    description = models.TextField(max_length=400, blank=True)
 
 
 class Recess(models.Model):
@@ -175,4 +175,4 @@ class Recess(models.Model):
     
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="recess")
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=400)
+    description = models.TextField(max_length=400, blank=True)
