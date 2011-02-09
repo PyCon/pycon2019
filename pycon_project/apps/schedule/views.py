@@ -193,7 +193,7 @@ def schedule_slot_add(request, slot_id, kind):
         if form.is_valid():
             slot_content = form.save(commit=False)
             slot.assign(slot_content)
-            return redirect("schedule_talks")
+            return redirect("schedule_conference_edit")
     else:
         form = form_class()
     
@@ -227,7 +227,7 @@ def schedule_slot_edit(request, slot_id):
         if form.is_valid():
             slot_content = form.save(commit=False)
             slot.assign(slot_content, old_content=slot.content())
-            return redirect("schedule_talks")
+            return redirect("schedule_conference_edit")
     else:
         form = form_tuple[0](**form_tuple[1])
     
