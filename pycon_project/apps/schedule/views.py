@@ -170,7 +170,7 @@ def schedule_conference_edit(request):
         "sunday": Timetable(Slot.objects.filter(start__week_day=1)),
     }
     ctx = RequestContext(request, ctx)
-    return render_to_response("schedule/talks.html", ctx)
+    return render_to_response("schedule/conference_edit.html", ctx)
 
 
 @login_required
