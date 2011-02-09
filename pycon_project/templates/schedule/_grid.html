@@ -9,7 +9,7 @@
         <tr>
             <td class="time">{{ row.time|date:"h:iA" }}</td>
             {% for slot in row.slots %}
-                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot">{{ slot.pk }}</td>
+                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}">{{ slot.pk }}</td>
             {% endfor %}
         </tr>
     {% endfor %}
