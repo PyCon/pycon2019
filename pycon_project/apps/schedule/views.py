@@ -198,12 +198,13 @@ def schedule_slot_add(request, slot_id, kind):
         form = form_class()
     
     ctx = {
+        "slot": slot,
         "kind": kind,
         "form": form,
         "add": True,
     }
     ctx = RequestContext(request, ctx)
-    return render_to_response("schedule/place.html", ctx)
+    return render_to_response("schedule/slot_place.html", ctx)
 
 
 @login_required
@@ -237,7 +238,7 @@ def schedule_slot_edit(request, slot_id):
         "add": False,
     }
     ctx = RequestContext(request, ctx)
-    return render_to_response("schedule/place.html", ctx)
+    return render_to_response("schedule/slot_place.html", ctx)
 
 
 @login_required
