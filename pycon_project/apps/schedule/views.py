@@ -156,6 +156,8 @@ class Timetable(object):
 def schedule_talks(request):
     ctx = {
         "friday": Timetable(Slot.objects.filter(start__week_day=6)),
+        "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
+        "sunday": Timetable(Slot.objects.filter(start__week_day=1)),
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/talks.html", ctx)
