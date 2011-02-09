@@ -1,4 +1,5 @@
 import datetime
+import itertools
 
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -122,6 +123,42 @@ def schedule_tutorials(request):
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/tutorials.html", ctx)
+
+
+class Timetable(object):
+    
+    def __init__(self, slots):
+        self.slots = slots
+    
+    @property
+    def tracks(self):
+        return Track.objects.filter(
+            pk__in = self.slots.exclude(track=None).values_list("track", flat=True).distinct()
+        ).order_by("name")
+    
+    def __iter__(self):
+        times = sorted(set(itertools.chain(*self.slots.values_list("start", "end"))))
+        slots = list(self.slots.order_by("start"))
+        row = []
+        for time in times:
+            row = {"time": time, "slots": []}
+            for slot in slots:
+                if slot.start == time:
+                    slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
+                    row["slots"].append(slot)
+            yield row
+    
+    @staticmethod
+    def rowspan(times, start, end):
+        return times.index(end) - times.index(start)
+
+
+def schedule_talks(request):
+    ctx = {
+        "friday": Timetable(Slot.objects.filter(start__week_day=6)),
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/talks.html", ctx)
 
 
 def track_list(request):
