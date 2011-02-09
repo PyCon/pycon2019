@@ -49,6 +49,8 @@ class PresentationForm(forms.Form):
         super(PresentationForm, self).__init__(*args, **kwargs)
         if presentation:
             self.fields["presentation"].queryset = presentation_queryset(include=presentation)
+        else:
+            self.fields["presentation"].queryset = presentation_queryset()
     
     def save(self, commit=True):
         return self.cleaned_data["presentation"]
