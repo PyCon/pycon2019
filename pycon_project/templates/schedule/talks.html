@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>schedule</title>
+    </head>
+    <body>
+        <h3>Friday</h3>
+        <table>
+            <tr>
+                <th>&nbsp;</th>
+                {% for track in friday.tracks %}
+                    <th>{{ track.name }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in friday %}
+                <tr>
+                    <td class="time">{{ row.time|date:"h:iA" }}</td>
+                    {% for slot in row.slots %}
+                        <td rowspan="{{ slot.rowspan }}">{{ slot.pk }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
