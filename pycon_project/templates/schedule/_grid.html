@@ -18,6 +18,8 @@
                         {% else %}
                             {% if slot.kind.name == "plenary" %}
                                 {{ slot.content.title }}
+                                <br />
+                                <span class="speaker">{{ slot.content.speaker }}</span>
                             {% else %}
                                 {{ slot.content.title }}
                             {% endif %}
