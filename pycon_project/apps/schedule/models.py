@@ -156,6 +156,8 @@ class Plenary(models.Model):
     
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="plenary")
     title = models.CharField(max_length=100)
+    speaker = models.ForeignKey("speakers.Speaker", null=True, related_name="+")
+    additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
     description = models.TextField(max_length=400)
 
 
