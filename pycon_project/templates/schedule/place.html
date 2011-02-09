@@ -1,6 +1,18 @@
-<h1>Place {{ kind.title }}</h1>
-<form method="POST" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="add" />
-</form>
+<html>
+    <head>
+        <title>Place {{ kind.title }}</title>
+        <style>
+            body {
+                font-family: "Helvetica Neue", Arial, "Helvetica";
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Place {{ kind.title }}</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="add" />
+        </form>
+    </body>
+</html>
