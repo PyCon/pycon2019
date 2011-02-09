@@ -16,6 +16,8 @@ urlpatterns = patterns("schedule.views",
     url(r"^talks/", "schedule_talks", name="schedule_talks"),
     url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
+    url(r"^slot/(\d+)/(\w+)/$", "schedule_slot_add", name="schedule_slot_add"),
+    
     url(r"^tracks/$", "track_list", name="schedule_track_list"),
     url(r"^sessions/$", "session_list", name="schedule_session_list"),
     url(r"^track/(\d+)/$", "track_detail", name="schedule_track_detail"),

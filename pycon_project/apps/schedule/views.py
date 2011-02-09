@@ -5,6 +5,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
+from schedule.forms import PlenaryForm, RecessForm, PresentationForm
 from schedule.models import Slot, Presentation, Track, Session, SessionRole
 
 
@@ -165,6 +166,35 @@ def schedule_talks(request):
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/talks.html", ctx)
+
+
+def schedule_slot_add(request, slot_id, kind):
+    
+    slot = Slot.objects.get(pk=slot_id)
+    
+    form_class = {
+        "plenary": PlenaryForm,
+        "break": RecessForm,
+        "presentation": PresentationForm,
+    }[kind]
+    
+    if request.method == "POST":
+        form = form_class(request.POST)
+        
+        if form.is_valid():
+            slot_content = form.save(commit=False)
+            slot.assign(slot_content)
+            return redirect("schedule_talks")
+    else:
+        form = form_class()
+    
+    ctx = {
+        "kind": kind,
+        "form": form,
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/place.html", ctx)
+
 
 
 def track_list(request):

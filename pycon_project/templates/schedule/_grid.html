@@ -9,7 +9,13 @@
         <tr>
             <td class="time">{{ row.time|date:"h:iA" }}</td>
             {% for slot in row.slots %}
-                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}">{{ slot.pk }}</td>
+                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}">
+                    {% if not slot.content %}
+                        <a href="{% url schedule_slot_add slot.pk "plenary" %}">pl</a> | <a href="{% url schedule_slot_add slot.pk "break" %}">br</a> | <a href="{% url schedule_slot_add slot.pk "presentation" %}">pr</a>
+                    {% else %}
+                        @@@ CONTENT
+                    {% endif %}
+                </td>
             {% endfor %}
         </tr>
     {% endfor %}
