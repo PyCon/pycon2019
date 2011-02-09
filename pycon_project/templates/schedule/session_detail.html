@@ -1,0 +1,69 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    
+    <p><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> &raquo;</p>
+    
+    <h1>{{ session }}</h1>
+    
+    <div>
+    {% if chair %}
+        Chair: {{ chair }}
+        {% if request.user == chair %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-chair" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
+    {% else %}
+        {% if user.is_authenticated %}
+            {% if not chair_denied %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="chair" />
+                    <input type="submit" value="volunteer" /> to be session chair
+                </form>
+            {% endif %}
+        {% else %}
+            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
+        {% endif %}
+    {% endif %}
+    </div>
+    
+    <div>
+    {% if runner %}
+        Runner: {{ runner }}
+        {% if request.user == runner %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-runner" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
+    {% else %}
+        {% if user.is_authenticated %}
+            {% if not runner_denied %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="runner" />
+                    <input type="submit" value="volunteer" /> to be session runner
+                </form>
+            {% endif %}
+        {% else %}
+            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
+        {% endif %}
+    {% endif %}
+    </div>
+    
+    <h2>Slots</h2>
+    
+    <ul>
+        {% for slot in session.slots.all %}
+            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+        {% empty %}
+            <li>No slots in session.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
