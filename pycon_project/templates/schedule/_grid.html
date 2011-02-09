@@ -11,7 +11,7 @@
             {% for slot in row.slots %}
                 <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot {{ slot.kind.name }} rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}">
                     {% if not slot.content %}
-                        <span class="controls"><a href="{% url schedule_slot_add slot.pk "plenary" %}" title="add plenary">pl</a> | <a href="{% url schedule_slot_add slot.pk "break" %}" title="add break">br</a> | <a href="{% url schedule_slot_add slot.pk "presentation" %}" title="add presentation">pr</a></span>
+                        <span class="controls"><b>add</b>: <a href="{% url schedule_slot_add slot.pk "plenary" %}">plenary</a> | <a href="{% url schedule_slot_add slot.pk "break" %}">break</a> | <a href="{% url schedule_slot_add slot.pk "presentation" %}">presentation</a></span>
                     {% else %}
                         {% if slot.kind.name == "recess" %}
                             <div class="title">{{ slot.content.title }}</div>
