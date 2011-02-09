@@ -1,6 +1,6 @@
 {% extends "site_base.html" %}
 
-{% block head_title %}Conference Edit{% endblock %}
+{% block head_title %}Conference Schedule Edit{% endblock %}
 
 {% block body_class %}full{% endblock %}
 
@@ -87,17 +87,19 @@
 {% endblock %}
 
 {% block body %}
-        <h2>Friday</h2>
-        
-        {% with friday as day %}{% include "schedule/_grid.html" %}{% endwith %}
-        
-        <h2>Saturday</h2>
-        
-        {% with saturday as day %}{% include "schedule/_grid.html" %}{% endwith %}
-        
-        <h2>Sunday</h2>
-        
-        {% with sunday as day %}{% include "schedule/_grid.html" %}{% endwith %}
+    <h1>Conference Schedule Edit</h1>
+    
+    <h2>Friday</h2>
+    
+    {% with friday as day %}{% include "schedule/_grid.html" %}{% endwith %}
+    
+    <h2>Saturday</h2>
+    
+    {% with saturday as day %}{% include "schedule/_grid.html" %}{% endwith %}
+    
+    <h2>Sunday</h2>
+    
+    {% with sunday as day %}{% include "schedule/_grid.html" %}{% endwith %}
 {% endblock %}
 
 {% block extra_body %}
