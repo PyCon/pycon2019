@@ -146,7 +146,7 @@ class Timetable(object):
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
                     row["slots"].append(slot)
-            if len(row["slots"] == 1):
+            if len(row["slots"]) == 1:
                 row.colspan = len(self.tracks)
             else:
                 row.colspan = 1
