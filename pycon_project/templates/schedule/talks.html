@@ -1,6 +1,31 @@
 <html>
     <head>
         <title>schedule</title>
+        <style>
+            body {
+                font-family: "Helvetica Neue", Arial, "Helvetica";
+            }
+            table {
+                border-collapse: collapse;
+            }
+            td {
+                padding: 2px 4px;
+                border: 1px solid #666;
+                vertical-align: top;
+            }
+            td.slot {
+                text-align: center;
+            }
+            th {
+                padding: 2px 4px;
+                border-right: 1px solid #666;
+            }
+            td.time {
+                font-size: 9pt;
+                border: none;
+                border-top: 1px solid #666;
+            }
+        </style>
     </head>
     <body>
         <h3>Friday</h3>
@@ -15,7 +40,7 @@
                 <tr>
                     <td class="time">{{ row.time|date:"h:iA" }}</td>
                     {% for slot in row.slots %}
-                        <td rowspan="{{ slot.rowspan }}">{{ slot.pk }}</td>
+                        <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot">{{ slot.pk }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
