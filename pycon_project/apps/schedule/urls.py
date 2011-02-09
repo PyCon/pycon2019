@@ -4,7 +4,7 @@ from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns("schedule.views",
     # url(r"^$", "schedule_list", name="schedule_list"),
-    # url(r"^sessions/(\d+)/", "schedule_session", name="schedule_session"),
+    # url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
     url(r"^$", direct_to_template, {"template": "schedule/index.html"}, name="schedule_index"),
     
@@ -13,5 +13,16 @@ urlpatterns = patterns("schedule.views",
     url(r"^lists/posters/", "schedule_list_posters", name="schedule_list_posters"),
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
-    url(r"^sessions/(\d+)/", "schedule_session", name="schedule_session"),
+    url(r"^conference/edit/$", "schedule_conference_edit", name="schedule_conference_edit"),
+    url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
+    
+    url(r"slot/(\d+)/edit/$", "schedule_slot_edit", name="schedule_slot_edit"),
+    url(r"slot/(\d+)/remove/$", "schedule_slot_remove", name="schedule_slot_remove"),
+    url(r"^slot/(\d+)/(\w+)/$", "schedule_slot_add", name="schedule_slot_add"),
+    
+    url(r"^tracks/$", "track_list", name="schedule_track_list"),
+    url(r"^sessions/$", "session_list", name="schedule_session_list"),
+    url(r"^track/(\d+)/$", "track_detail", name="schedule_track_detail"),
+    url(r"^track/none/$", "track_detail_none", name="schedule_notrack_detail"),
+    url(r"^session/(\d+)/$", "session_detail", name="schedule_session_detail"),
 )

@@ -1,31 +1,69 @@
 {% extends "schedule/base.html" %}
 
-{% load timezone_filters %}
-
-{% block subnav %}
-    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
-    |
-    <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
-{% endblock %}
-
 {% block body %}
-    <h1>{{ session.title }}</h1>
     
-    <div class="session_types">{{ session.get_audience_level_display }} / {{ session.get_session_type_display }}</div>
+    <p><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> &raquo;</p>
     
-    <div class="speakers">
-        {% for speaker in session.speakers %}
-        <a href="{% url speaker_profile speaker.id %}">{{ speaker }}</a>
-        {% if not forloop.last %}, {% endif %}{% endfor %}
+    <h1>{{ session }}</h1>
+    
+    <div>
+    {% if chair %}
+        Chair: {{ chair }}
+        {% if request.user == chair %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-chair" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
+    {% else %}
+        {% if user.is_authenticated %}
+            {% if not chair_denied %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="chair" />
+                    <input type="submit" value="volunteer" /> to be session chair
+                </form>
+            {% endif %}
+        {% else %}
+            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
+        {% endif %}
+    {% endif %}
     </div>
     
-    {% if session.slot %}
-        <div class="slot">{{ session.slot.start|localtime:timezone|date:"F jS" }} {{ session.slot.start|localtime:timezone|date:"P" }} &ndash; {{ session.slot.end|localtime:timezone|date:"P" }}</div>
+    <div>
+    {% if runner %}
+        Runner: {{ runner }}
+        {% if request.user == runner %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="role" value="un-runner" />
+                <input type="submit" value="opt out" />
+            </form>
+        {% endif %}
+    {% else %}
+        {% if user.is_authenticated %}
+            {% if not runner_denied %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="runner" />
+                    <input type="submit" value="volunteer" /> to be session runner
+                </form>
+            {% endif %}
+        {% else %}
+            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
+        {% endif %}
     {% endif %}
+    </div>
     
-    <div class="description">{{ session.description }}</div>
+    <h2>Slots</h2>
     
-    <h3>Abstract</h3>
+    <ul>
+        {% for slot in session.slots.all %}
+            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+        {% empty %}
+            <li>No slots in session.</li>
+        {% endfor %}
+    </ul>
     
-    <div class="abstract">{{ session.abstract_html|safe }}</div>
 {% endblock %}

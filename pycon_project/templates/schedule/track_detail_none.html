@@ -1,0 +1,38 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    
+    <p><a href="{% url schedule_track_list %}">Tracks</a> &raquo;</p>
+    
+    <h1>No Track</h1>
+    
+    <h2>Sessions</h2>
+    
+    <ul>
+        {% for session in sessions %}
+            <li>
+                <a href="{% url schedule_session_detail session.pk %}">{{ session }}</a>
+                <ul>
+                    {% for slot in session.sorted_slots %}
+                        <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+                    {% empty %}
+                        <li>No slots in session.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% empty %}
+            <li>No sessions without track.</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Slots</h2>
+    
+    <ul>
+        {% for slot in slots %}
+            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+        {% empty %}
+            <li>No slots without track.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
