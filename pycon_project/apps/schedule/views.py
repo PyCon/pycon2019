@@ -138,7 +138,7 @@ class Timetable(object):
     
     def __iter__(self):
         times = sorted(set(itertools.chain(*self.slots.values_list("start", "end"))))
-        slots = list(self.slots.order_by("start"))
+        slots = list(self.slots.order_by("start", "track__name"))
         row = []
         for time in times:
             row = {"time": time, "slots": []}
