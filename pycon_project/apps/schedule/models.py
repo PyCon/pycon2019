@@ -97,6 +97,13 @@ class Slot(models.Model):
         self.kind = ContentType.objects.get_for_model(content)
         self.save()
     
+    def unassign(self):
+        content = self.content()
+        content.slot = None
+        content.save()
+        self.kind = None
+        self.save()
+    
     def __unicode__(self):
         return u"%s: %s — %s" % (self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
 

@@ -240,6 +240,25 @@ def schedule_slot_edit(request, slot_id):
     return render_to_response("schedule/place.html", ctx)
 
 
+@login_required
+def schedule_slot_remove(request, slot_id):
+    
+    if not request.user.is_staff:
+        return redirect("/")
+    
+    slot = Slot.objects.get(pk=slot_id)
+    
+    if request.method == "POST":
+        slot.unassign()
+        return redirect("schedule_conference_edit")
+    
+    ctx = {
+        "slot": slot,
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/slot_remove.html", ctx)
+
+
 def track_list(request):
     
     tracks = Track.objects.order_by("name")
