@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>&nbsp;</th>
+        {% for track in day.tracks %}
+            <th>{{ track.name }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in day %}
+        <tr>
+            <td class="time">{{ row.time|date:"h:iA" }}</td>
+            {% for slot in row.slots %}
+                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot">{{ slot.pk }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
