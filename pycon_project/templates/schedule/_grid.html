@@ -14,14 +14,13 @@
                         <span class="controls"><a href="{% url schedule_slot_add slot.pk "plenary" %}" title="add plenary">pl</a> | <a href="{% url schedule_slot_add slot.pk "break" %}" title="add break">br</a> | <a href="{% url schedule_slot_add slot.pk "presentation" %}" title="add presentation">pr</a></span>
                     {% else %}
                         {% if slot.kind.name == "recess" %}
-                            {{ slot.content.title }}
+                            <div class="title">{{ slot.content.title }}</div>
                         {% else %}
                             {% if slot.kind.name == "plenary" %}
-                                {{ slot.content.title }}
-                                <br />
-                                <span class="speaker">{{ slot.content.speaker }}</span>
+                                <div class="title">{{ slot.content.title }}</div>
+                                <div class="speaker">{{ slot.content.speaker }}</div>
                             {% else %}
-                                {{ slot.content.title }}
+                                <div class="title">{{ slot.content.title }}</div>
                             {% endif %}
                         {% endif %}
                     {% endif %}
