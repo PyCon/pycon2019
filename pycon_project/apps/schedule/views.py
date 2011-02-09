@@ -233,6 +233,7 @@ def schedule_slot_edit(request, slot_id):
         form = form_tuple[0](**form_tuple[1])
     
     ctx = {
+        "slot": slot,
         "kind": kind,
         "form": form,
         "add": False,
