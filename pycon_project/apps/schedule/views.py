@@ -5,6 +5,8 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
+from django.contrib.auth.decorators import login_required
+
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
 from schedule.models import Slot, Presentation, Track, Session, SessionRole
 
@@ -158,7 +160,10 @@ class Timetable(object):
         return times.index(end) - times.index(start)
 
 
-def schedule_talks(request):
+@login_required
+def schedule_conference_edit(request):
+    if not request.user.is_staff:
+        return redirect("/")
     ctx = {
         "friday": Timetable(Slot.objects.filter(start__week_day=6)),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
@@ -168,7 +173,11 @@ def schedule_talks(request):
     return render_to_response("schedule/talks.html", ctx)
 
 
+@login_required
 def schedule_slot_add(request, slot_id, kind):
+    
+    if not request.user.is_staff:
+        return redirect("/")
     
     slot = Slot.objects.get(pk=slot_id)
     
@@ -197,7 +206,11 @@ def schedule_slot_add(request, slot_id, kind):
     return render_to_response("schedule/place.html", ctx)
 
 
+@login_required
 def schedule_slot_edit(request, slot_id):
+    
+    if not request.user.is_staff:
+        return redirect("/")
     
     slot = Slot.objects.get(pk=slot_id)
     kind = slot.kind.name
