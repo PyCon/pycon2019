@@ -100,7 +100,7 @@ MIDDLEWARE_CLASSES = [
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "pycon_project.urls"
