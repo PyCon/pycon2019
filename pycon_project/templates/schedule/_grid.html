@@ -13,7 +13,6 @@
                     {% if not slot.content %}
                         <span class="controls"><a href="{% url schedule_slot_add slot.pk "plenary" %}" title="add plenary">pl</a> | <a href="{% url schedule_slot_add slot.pk "break" %}" title="add break">br</a> | <a href="{% url schedule_slot_add slot.pk "presentation" %}" title="add presentation">pr</a></span>
                     {% else %}
-                        <span class="controls"><a href="{% url schedule_slot_edit slot.pk %}">edit</a></span>
                         {% if slot.kind.name == "recess" %}
                             <div class="title">{{ slot.content.title }}</div>
                         {% else %}
@@ -25,6 +24,7 @@
                                 <div class="speaker">{{ slot.content.speaker }}</div>
                             {% endif %}
                         {% endif %}
+                        <span class="controls"><a href="{% url schedule_slot_edit slot.pk %}">edit</a></span>
                     {% endif %}
                 </td>
             {% endfor %}
