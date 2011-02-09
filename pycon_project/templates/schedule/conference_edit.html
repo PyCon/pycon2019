@@ -1,84 +1,93 @@
-<html>
-    <head>
-        <title>schedule</title>
-        <style>
-            body {
-                font-family: "Helvetica Neue", Arial, "Helvetica";
-            }
-            table {
-                border-collapse: collapse;
-                width: 960px;
-                margin: 0 auto;
-            }
-            td {
-                padding: 4px 8px;
-                border: 1px solid #666;
-                vertical-align: top;
-            }
-            td.slot {
-                text-align: center;
-                background: #FFF;
-                font-size: 10pt;
-                width: 180px;
-            }
-            td.slot.recess,
-            td.slot.recess.colspan-1.rowspan-1,
-            td.slot.recess.colspan-1.rowspan-2 {
-                background: #ECFFFF;
-            }
-            td.slot.plenary {
-                background: #DCDCFF;
-            }
-            td.slot div.title {
-                font-weight: bold;
-            }
-            td.slot div.speaker {
-                font-style: italic;
-                font-size: 8pt;
-            }
-            th {
-                padding: 2px 4px;
-                border-right: 1px solid #666;
-            }
-            td.time {
-                width: 50px;
-                font-size: 9pt;
-                border: none;
-                border-top: 1px solid #666;
-            }
-            td.colspan-1.rowspan-1 {
-                background: #FFFCC9;
-            }
-            td.colspan-1.rowspan-2 {
-                background: #FDA;
-            }
-            td.slot:hover .controls {
-                display: block;
-            }
-            .controls {
-                display: none;
-                font-size: 8pt;
-            }
-            .controls a {
-                text-decoration: none;
-                color: #000;
-            }
-            .controls a:hover {
-                color: #999;
-            }
-        </style>
-    </head>
-    <body>
-        <h3>Friday</h3>
+{% extends "site_base.html" %}
+
+{% block head_title %}Conference Edit{% endblock %}
+
+{% block body_class %}full{% endblock %}
+
+{% block right %}
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Helvetica";
+        }
+        table {
+            border-collapse: collapse;
+            width: 960px;
+            margin: 0 auto;
+            font-weight: normal;
+            line-height: 1.1em;
+        }
+        td {
+            padding: 4px 8px;
+            border: 1px solid #666;
+            vertical-align: top;
+        }
+        td.slot {
+            text-align: center;
+            background: #FFF;
+            font-size: 10pt;
+            width: 180px;
+        }
+        td.slot.recess,
+        td.slot.recess.colspan-1.rowspan-1,
+        td.slot.recess.colspan-1.rowspan-2 {
+            background: #ECFFFF;
+        }
+        td.slot.plenary {
+            background: #DCDCFF;
+        }
+        td.slot div.title {
+            font-weight: bold;
+        }
+        td.slot div.speaker {
+            font-style: italic;
+            font-size: 8pt;
+        }
+        th {
+            padding: 2px 4px;
+            border-right: 1px solid #666;
+        }
+        td.time {
+            width: 50px;
+            font-size: 9pt;
+            border: none;
+            border-top: 1px solid #666;
+        }
+        td.colspan-1.rowspan-1 {
+            background: #FFFCC9;
+        }
+        td.colspan-1.rowspan-2 {
+            background: #FDA;
+        }
+        td.slot:hover .controls {
+            display: block;
+        }
+        .controls {
+            display: none;
+            font-size: 8pt;
+        }
+        .controls a {
+            text-decoration: none;
+            color: #000;
+        }
+        .controls a:hover {
+            color: #999;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+        <h2>Friday</h2>
         
         {% with friday as day %}{% include "schedule/_grid.html" %}{% endwith %}
         
-        <h3>Saturday</h3>
+        <h2>Saturday</h2>
         
         {% with saturday as day %}{% include "schedule/_grid.html" %}{% endwith %}
         
-        <h3>Sunday</h3>
+        <h2>Sunday</h2>
         
         {% with sunday as day %}{% include "schedule/_grid.html" %}{% endwith %}
-    </body>
-</html>
+{% endblock %}
