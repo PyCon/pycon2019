@@ -1,0 +1,15 @@
+{% extends "schedule/base.html" %}
+
+{% block body %}
+    <h1>Tracks</h1>
+    
+    <ul>
+        <li><a href="{% url schedule_notrack_detail %}">No track</a></li>
+        {% for track in tracks %}
+            <li><a href="{% url schedule_track_detail track.pk %}">{{ track }}</a></li>
+        {% empty %}
+            <li>No tracks defined.</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
