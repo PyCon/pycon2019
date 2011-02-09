@@ -2,5 +2,5 @@
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="add" />
+    <input type="submit" value="{% if add %}add{% else %}edit{% endif %}" />
 </form>

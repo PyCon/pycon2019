@@ -191,10 +191,40 @@ def schedule_slot_add(request, slot_id, kind):
     ctx = {
         "kind": kind,
         "form": form,
+        "add": True,
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/place.html", ctx)
 
+
+def schedule_slot_edit(request, slot_id):
+    
+    slot = Slot.objects.get(pk=slot_id)
+    kind = slot.kind.name
+    
+    form_tuple = {
+        "plenary": (PlenaryForm, {"instance": slot.content()}),
+        "recess": (RecessForm, {"instance": slot.content()}),
+        "presentation": (PresentationForm, {"initial": {"presentation": slot.content()}}),
+    }[kind]
+    
+    if request.method == "POST":
+        form = form_tuple[0](request.POST, **form_tuple[1])
+        
+        if form.is_valid():
+            slot_content = form.save(commit=False)
+            slot.assign(slot_content, old_content=slot.content())
+            return redirect("schedule_talks")
+    else:
+        form = form_tuple[0](**form_tuple[1])
+    
+    ctx = {
+        "kind": kind,
+        "form": form,
+        "add": False,
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/place.html", ctx)
 
 
 def track_list(request):
