@@ -147,9 +147,9 @@ class Timetable(object):
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
                     row["slots"].append(slot)
             if len(row["slots"]) == 1:
-                row.colspan = len(self.tracks)
+                row["colspan"] = len(self.tracks)
             else:
-                row.colspan = 1
+                row["colspan"] = 1
             yield row
     
     @staticmethod
