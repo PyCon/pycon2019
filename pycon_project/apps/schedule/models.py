@@ -88,7 +88,10 @@ class Slot(models.Model):
         else:
             return None
     
-    def assign(self, content):
+    def assign(self, content, old_content=None):
+        if old_content is not None:
+            old_content.slot = None
+            old_content.save()
         content.slot = self
         content.save()
         self.kind = ContentType.objects.get_for_model(content)
