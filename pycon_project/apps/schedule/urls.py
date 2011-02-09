@@ -13,7 +13,7 @@ urlpatterns = patterns("schedule.views",
     url(r"^lists/posters/", "schedule_list_posters", name="schedule_list_posters"),
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
-    url(r"^talks/", "schedule_talks", name="schedule_talks"),
+    url(r"^conference/edit/$", "schedule_conference_edit", name="schedule_conference_edit"),
     url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
     url(r"slot/(\d+)/edit/$", "schedule_slot_edit", name="schedule_slot_edit"),
