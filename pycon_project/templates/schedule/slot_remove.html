@@ -1,0 +1,10 @@
+<div align="center">
+    <p>Are you sure you want to remove <b>{{ slot.content.title }}</b> from the slot?</p>
+</div>
+<div align="center">
+    <form method="POST" action="{% url schedule_slot_remove slot.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Yes, I am sure" />
+        <input type="button" value="No, do not delete" onclick="$.facebox.close();" />
+    </form>
+</div>
