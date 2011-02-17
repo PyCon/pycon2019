@@ -9,9 +9,9 @@ body {
     min-width: 840px;
 }
 #heading {
-    background: url(/2011/site_media/static/img/header_background.gif);
+    background: #366386 url(/2011/site_media/static/img/header_background.gif);
     margin: 0;
-    height: 91px;
+    height: 94px;
 }
 #heading h1 {
     margin: 0;
