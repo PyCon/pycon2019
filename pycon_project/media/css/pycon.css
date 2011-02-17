@@ -3,8 +3,9 @@ body {
     font-weight: 300;
     padding: 0;
     margin: 0;
-    background: #366386;
+    background: #fff;
     color: #222;
+
     min-width: 840px;
 }
 #heading {
@@ -81,13 +82,19 @@ body {
     width: 200px;
 }
 #footer {
-    margin: 0 auto;
-    width: 840px;
-    padding: 10px;
+    margin: 0;
+    width: 100%;
+    padding: 10px 0;
     font-size: 10pt;
     line-height: 1.2em;
     font-weight: 400;
     color: #EEE;
+    background: #366386;
+}
+
+#footer-content {
+  margin: 0 auto;
+  width: 840px;
 }
 #footer a {
     color: #CCC;
