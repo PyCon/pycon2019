@@ -1,0 +1,90 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Conference Schedule Draft{% endblock %}
+
+{% block body_class %}full{% endblock %}
+
+{% block right %}
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Helvetica";
+        }
+        #wrapper {
+            width: 960px;
+        }
+        table {
+            border-collapse: collapse;
+            font-weight: normal;
+            line-height: 1.1em;
+        }
+        td {
+            padding: 4px 8px;
+            border: 1px solid #666;
+            vertical-align: top;
+        }
+        td.slot {
+            text-align: center;
+            background: #FFF;
+            font-size: 10pt;
+            width: 180px;
+        }
+        td.slot.recess,
+        td.slot.recess.colspan-1.rowspan-1,
+        td.slot.recess.colspan-1.rowspan-2 {
+            background: #ECFFFF;
+        }
+        td.slot.plenary {
+            background: #DCDCFF;
+        }
+        td.slot div.title {
+            font-weight: bold;
+        }
+        td.slot div.speaker {
+            font-style: italic;
+            font-size: 8pt;
+        }
+        th {
+            font-size: 12pt;
+            background: #FFF;
+            padding: 2px 4px;
+            border: none;
+            border-right: 1px solid #666;
+        }
+        td.time {
+            width: 50px;
+            font-size: 9pt;
+            border: none;
+            border-top: 1px solid #666;
+        }
+        td.colspan-1.rowspan-1 {
+            background: #FFFCC9;
+        }
+        td.colspan-1.rowspan-2 {
+            background: #FDA;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Conference Schedule Draft</h1>
+    
+    <p>
+        Note that this is just a draft for review purposes and does not reflect
+        the functionality that will exist in the final conference schedule grid.
+    </p>
+    
+    <h2>Friday</h2>
+    
+    {% with friday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+    
+    <h2>Saturday</h2>
+    
+    {% with saturday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+    
+    <h2>Sunday</h2>
+    
+    {% with sunday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+{% endblock %}

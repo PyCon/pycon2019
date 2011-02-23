@@ -163,7 +163,7 @@ class Timetable(object):
 @login_required
 def schedule_conference_edit(request):
     if not request.user.is_staff:
-        return redirect("/")
+        return redirect("schedule_conference_draft")
     ctx = {
         "friday": Timetable(Slot.objects.filter(start__week_day=6)),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
@@ -171,6 +171,17 @@ def schedule_conference_edit(request):
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/conference_edit.html", ctx)
+
+
+@login_required
+def schedule_conference_draft(request):
+    ctx = {
+        "friday": Timetable(Slot.objects.filter(start__week_day=6)),
+        "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
+        "sunday": Timetable(Slot.objects.filter(start__week_day=1)),
+    }
+    ctx = RequestContext(request, ctx)
+    return render_to_response("schedule/conference_draft.html", ctx)
 
 
 @login_required
