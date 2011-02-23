@@ -78,9 +78,9 @@ class Slot(models.Model):
     title = models.CharField(max_length=100, null=True, blank=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
-    kind = models.ForeignKey(ContentType, null=True)
-    track = models.ForeignKey(Track, null=True, related_name="slots")
-    session = models.ForeignKey(Session, null=True, related_name="slots")
+    kind = models.ForeignKey(ContentType, null=True, blank=True)
+    track = models.ForeignKey(Track, null=True, blank=True, related_name="slots")
+    session = models.ForeignKey(Session, null=True, blank=True, related_name="slots")
     
     def content(self):
         if self.kind_id:
