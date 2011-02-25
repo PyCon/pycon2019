@@ -14,7 +14,7 @@ urlpatterns = patterns("schedule.views",
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
     url(r"^conference/edit/$", "schedule_conference_edit", name="schedule_conference_edit"),
-    url(r"^conference/draft/$", "schedule_conference_draft", name="schedule_conference_draft"),
+    url(r"^conference/draft_hidden/$", "schedule_conference_draft", name="schedule_conference_draft"),
     url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
     url(r"slot/(\d+)/edit/$", "schedule_slot_edit", name="schedule_slot_edit"),
