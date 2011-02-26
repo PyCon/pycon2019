@@ -128,6 +128,12 @@ def schedule_tutorials(request):
     return render_to_response("schedule/tutorials.html", ctx)
 
 
+def pairwise(iterable):
+    a, b = itertools.tee(iterable)
+    next(b, None)
+    return itertools.izip_longest(a, b)
+
+
 class Timetable(object):
     
     def __init__(self, slots):
@@ -143,7 +149,7 @@ class Timetable(object):
         times = sorted(set(itertools.chain(*self.slots.values_list("start", "end"))))
         slots = list(self.slots.order_by("start", "track__name"))
         row = []
-        for time in times:
+        for time, next_time in pairwise(times):
             row = {"time": time, "slots": []}
             for slot in slots:
                 if slot.start == time:
@@ -153,7 +159,8 @@ class Timetable(object):
                 row["colspan"] = len(self.tracks)
             else:
                 row["colspan"] = 1
-            yield row
+            if row["slots"] or next_time is None:
+                yield row
     
     @staticmethod
     def rowspan(times, start, end):
