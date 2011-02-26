@@ -129,9 +129,10 @@ def schedule_tutorials(request):
 
 
 def izip_longest(*args):
-    def sentinel(counter=([fillvalue]*(len(args)-1)).pop):
+    fv = None
+    def sentinel(counter=([fv]*(len(args)-1)).pop):
         yield counter()
-    iters = [itertools.chain(it, sentinel(), itertools.repeat(None)) for it in args]
+    iters = [itertools.chain(it, sentinel(), itertools.repeat(fv)) for it in args]
     try:
         for tup in itertools.izip(*iters):
             yield tup
