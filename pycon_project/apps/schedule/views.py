@@ -141,7 +141,7 @@ def izip_longest(*args):
 
 def pairwise(iterable):
     a, b = itertools.tee(iterable)
-    next(b, None)
+    b.next()
     return izip_longest(a, b)
 
 
