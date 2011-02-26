@@ -128,10 +128,21 @@ def schedule_tutorials(request):
     return render_to_response("schedule/tutorials.html", ctx)
 
 
+def izip_longest(*args):
+    def sentinel(counter=([fillvalue]*(len(args)-1)).pop):
+        yield counter()
+    iters = [itertools.chain(it, sentinel(), itertools.repeat(None)) for it in args]
+    try:
+        for tup in itertools.izip(*iters):
+            yield tup
+    except IndexError:
+        pass
+
+
 def pairwise(iterable):
     a, b = itertools.tee(iterable)
     next(b, None)
-    return itertools.izip_longest(a, b)
+    return izip_longest(a, b)
 
 
 class Timetable(object):
