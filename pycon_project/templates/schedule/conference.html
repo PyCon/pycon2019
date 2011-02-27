@@ -1,5 +1,7 @@
 {% extends "site_base.html" %}
 
+{% load schedule_tags %}
+
 {% block head_title %}Conference Schedule{% endblock %}
 
 {% block body_class %}full{% endblock %}
@@ -71,15 +73,17 @@
 {% block body %}
     <h1>Conference Schedule</h1>
     
-    <h2>Friday</h2>
-    
-    {% with friday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
-    
-    <h2>Saturday</h2>
-    
-    {% with saturday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
-    
-    <h2>Sunday</h2>
-    
-    {% with sunday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+    {% schedule_cache %}
+        <h2>Friday</h2>
+        
+        {% with friday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+        
+        <h2>Saturday</h2>
+        
+        {% with saturday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+        
+        <h2>Sunday</h2>
+        
+        {% with sunday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+    {% endschedule_cache %}
 {% endblock %}
