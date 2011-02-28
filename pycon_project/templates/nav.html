@@ -1,7 +1,7 @@
 {% load wakawaka_tags %}
 <ul>
     <li class="about_tab"><a href="{% url wakawaka_page 'about' %}">About</a></li>
-    <li class="schedule_tab"><a href="{% url schedule_index %}">Schedule</a></li>
+    <li class="schedule_tab"><a href="{% url schedule_conference %}">Schedule</a></li>
     <li class="speaker_tab"><a href="{% url speaker_dashboard %}">Speakers</a></li>
     {% if is_reviewer or is_reviewer_tutorials %}
         <li class="reviewer_tab"><a href="{% if is_reviewer %}{% url review_list %}{% else %}{% if is_reviewer_tutorials %}{% url review_tutorial_list %}{% endif %}{% endif %}">Reviewers</a></li>
