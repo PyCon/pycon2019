@@ -11,6 +11,16 @@
 {% block body %}
     <h1>{{ presentation.title }}</h1>
     
+    {% if user.is_authenticated %}
+        {% if presentation.bookmarked %}
+            <p><a href="{% url schedule_user_slot_manage presentation.id %}" class="unbookmark">unbookmark</a></p>
+        {% else %}
+            <p><a href="{% url schedule_user_slot_manage presentation.id %}" class="bookmark">bookmark</a></p>
+        {% endif %}
+    {% else %}
+        <p><a href="{% url acct_login %}?next={{ request.path }}">log in</a> to bookmark this presentaton</p>
+    {% endif %}
+    
     <div class="badges">
         {% if presentation.extreme_pycon %}
             <div class="badge extreme">E</div>
@@ -38,4 +48,45 @@
     <h3>Abstract</h3>
     
     <div class="abstract">{{ presentation.abstract_html|safe }}</div>
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("a.bookmark").live("click", function() {
+                aElem = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=add;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function() {
+                        aElem.text("unbookmark");
+                        aElem.removeClass("bookmark");
+                        aElem.addClass("unbookmark");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+            $("a.unbookmark").live("click", function() {
+                aElem = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=delete;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function(response) {
+                        aElem.text("bookmark");
+                        aElem.removeClass("unbookmark");
+                        aElem.addClass("bookmark");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}
