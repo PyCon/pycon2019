@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
-from schedule.models import Slot, Presentation, Track, Session, SessionRole, UserSlot
+from schedule.models import Slot, Presentation, Track, Session, SessionRole, UserBookmark
 
 
 wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
@@ -173,11 +173,11 @@ class Timetable(object):
             for slot in slots:
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
-                    # check if self.user has bookmarked this slot
-                    if self.user and UserSlot.objects.filter(user=self.user, slot=slot).exists():
-                        slot.bookmarked = True
-                    else:
-                        slot.bookmarked = False
+                    if self.user and slot.kind.name == "presentation":
+                        bookmarks = UserBookmark.objects.filter(
+                            user=self.user, presentation=slot.content()
+                        )
+                        slot.bookmarked = bookmarks.exists()
                     row["slots"].append(slot)
             if len(row["slots"]) == 1:
                 row["colspan"] = len(self.tracks)
@@ -398,18 +398,14 @@ def session_detail(request, session_id):
 
 
 @login_required
-def schedule_user_slot_manage(request, slot_id):
-    try:
-        if request.method == "POST":
-            if request.POST["action"] == "add":
-                UserSlot.objects.create(user=request.user, slot_id=slot_id)
-            elif request.POST["action"] == "delete":
-                UserSlot.objects.filter(user=request.user, slot=slot_id).delete()
-            else:
-                return HttpResponse(status=400)
-            return HttpResponse(status=202)
+def schedule_user_slot_manage(request, presentation_id):
+    if request.method == "POST":
+        if request.POST["action"] == "add":
+            UserBookmark.objects.create(user=request.user, presentation_id=presentation_id)
+        elif request.POST["action"] == "delete":
+            UserBookmark.objects.filter(user=request.user, presentation=presentation_id).delete()
         else:
-            return HttpResponseNotAllowed(["POST"])
-    except:
-        import traceback
-        traceback.print_exc()
+            return HttpResponse(status=400)
+        return HttpResponse(status=202)
+    else:
+        return HttpResponseNotAllowed(["POST"])
