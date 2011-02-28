@@ -48,6 +48,12 @@ def schedule_presentation(request, presentation_id, template_name="schedule/pres
     
     presentation = get_object_or_404(Presentation, id=presentation_id)
     
+    if request.user.is_authenticated():
+        bookmarks = UserBookmark.objects.filter(
+            user=request.user, presentation=presentation
+        )
+        presentation.bookmarked = bookmarks.exists()
+    
     return render_to_response(template_name, dict({
         "presentation": presentation,
         "timezone": settings.SCHEDULE_TIMEZONE,
