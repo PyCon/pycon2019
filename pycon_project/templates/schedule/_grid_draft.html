@@ -27,7 +27,9 @@
                                 {% if slot.content.invited %}
                                     <div class="badge invited">I</div>
                                 {% endif %}
-                                <div class="badge {% if not slot.bookmarked %}bookmark{% else %}bookmarked{% endif %}"><a href="{% url schedule_user_slot_manage slot.id %}">&nbsp;</a></div>
+                                {% if user.is_authenticated %}
+                                    <div class="badge {% if not slot.bookmarked %}bookmark{% else %}bookmarked{% endif %}"><a href="{% url schedule_user_slot_manage slot.id %}">&nbsp;</a></div>
+                                {% endif %}
                             </div>
                             <div class="title"><a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content.title }}</a></div>
                             {% if slot.content.speaker %}

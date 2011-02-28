@@ -107,7 +107,14 @@
         <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
         <div class="clear"></div>
         <div class="badge invited">I</div><div class="label"> = Invited</div>
+        <div class="clear"></div>
     </div>
+    
+    {% if user.is_authenticated %}
+        <div>Click <img src="{{ STATIC_URL }}img/star.png" /> to bookmark</div>
+    {% else %}
+        <div><a href="{% url acct_login %}?next={{ request.path }}">Log in</a> to be able to bookmark talks and panels that interest you</div>
+    {% endif %}
     
     {% csrf_token %}
     
