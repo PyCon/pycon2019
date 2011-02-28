@@ -29,17 +29,20 @@ class ScheduleCacheNode(template.Node):
     def render(self, context):
         if db:
             user = context["user"]
-            prefix = "pycon2011-schedule"
-            key = "%s-%d" % (prefix, user.id) if user.is_authenticated() else prefix
-            output = db.get(key)
-            if output is None:
-                with db.lock("%s-lock" % key):
-                    # check for cached data if we lost lock acquisition and
-                    # if nothing was returned we can be sure we own the lock
-                    output = db.get(key)
-                    if output is None:
-                        output = self.nodelist.render(context)
-                        db.set(key, output)
+            if not user.is_authenticated():
+                prefix = "pycon2011-schedule"
+                key = "%s-%d" % (prefix, user.id) if user.is_authenticated() else prefix
+                output = db.get(key)
+                if output is None:
+                    with db.lock("%s-lock" % key):
+                        # check for cached data if we lost lock acquisition and
+                        # if nothing was returned we can be sure we own the lock
+                        output = db.get(key)
+                        if output is None:
+                            output = self.nodelist.render(context)
+                            db.set(key, output)
+            else:
+                output = self.nodelist.render(context)
         else:
             output = self.nodelist.render(context)
         return output
