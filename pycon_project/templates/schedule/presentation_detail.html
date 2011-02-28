@@ -2,6 +2,21 @@
 
 {% load timezone_filters %}
 
+{% block extra_head %}
+    <style>
+        a.unbookmark {
+            text-decoration: none;
+            padding-left: 20px;
+            background: url(/2011/site_media/static/img/star.png) no-repeat left;
+        }
+        a.bookmark {
+            text-decoration: none;
+            padding-left: 20px;
+            background: url(/2011/site_media/static/img/star_unselected.png) no-repeat left;
+        }
+    </style>
+{% endblock %}
+
 {% block subnav %}
     <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
     |
