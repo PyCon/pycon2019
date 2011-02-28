@@ -153,6 +153,7 @@ INSTALLED_APPS = [
     "wakawaka",
     "biblion",
     "fixture_generator",
+    "sorl.thumbnail",
     
     # Pinax
     "pinax.templatetags",
