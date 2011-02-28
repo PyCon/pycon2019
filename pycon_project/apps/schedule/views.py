@@ -2,13 +2,15 @@ import datetime
 import itertools
 
 from django.conf import settings
+from django.core.context_processors import csrf
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
-from schedule.models import Slot, Presentation, Track, Session, SessionRole
+from schedule.models import Slot, Presentation, Track, Session, SessionRole, UserBookmark
 
 
 wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
@@ -45,6 +47,12 @@ def schedule_presentation(request, presentation_id, template_name="schedule/pres
         extra_context = {}
     
     presentation = get_object_or_404(Presentation, id=presentation_id)
+    
+    if request.user.is_authenticated():
+        bookmarks = UserBookmark.objects.filter(
+            user=request.user, presentation=presentation
+        )
+        presentation.bookmarked = bookmarks.exists()
     
     return render_to_response(template_name, dict({
         "presentation": presentation,
@@ -148,8 +156,13 @@ def pairwise(iterable):
 
 class Timetable(object):
     
-    def __init__(self, slots):
+    def __init__(self, slots, user=None):
         self.slots = slots
+        
+        if user.is_authenticated():
+            self.user = user
+        else:
+            self.user = None
     
     @property
     def tracks(self):
@@ -166,6 +179,11 @@ class Timetable(object):
             for slot in slots:
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
+                    if self.user and slot.kind.name == "presentation":
+                        bookmarks = UserBookmark.objects.filter(
+                            user=self.user, presentation=slot.content()
+                        )
+                        slot.bookmarked = bookmarks.exists()
                     row["slots"].append(slot)
             if len(row["slots"]) == 1:
                 row["colspan"] = len(self.tracks)
@@ -182,7 +200,7 @@ class Timetable(object):
 @login_required
 def schedule_conference_edit(request):
     if not request.user.is_staff:
-        return redirect("schedule_conference_draft")
+        return redirect("schedule_conference")
     ctx = {
         "friday": Timetable(Slot.objects.filter(start__week_day=6)),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
@@ -192,15 +210,15 @@ def schedule_conference_edit(request):
     return render_to_response("schedule/conference_edit.html", ctx)
 
 
-@login_required
-def schedule_conference_draft(request):
+def schedule_conference(request):
     ctx = {
-        "friday": Timetable(Slot.objects.filter(start__week_day=6)),
-        "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
-        "sunday": Timetable(Slot.objects.filter(start__week_day=1)),
+        "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
+        "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
+        "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
+        "csrf_token": csrf(request),
     }
     ctx = RequestContext(request, ctx)
-    return render_to_response("schedule/conference_draft.html", ctx)
+    return render_to_response("schedule/conference.html", ctx)
 
 
 @login_required
@@ -383,3 +401,17 @@ def session_detail(request, session_id):
         "runner": runner,
         "runner_denied": runner_denied,
     }, context_instance=RequestContext(request))
+
+
+@login_required
+def schedule_user_slot_manage(request, presentation_id):
+    if request.method == "POST":
+        if request.POST["action"] == "add":
+            UserBookmark.objects.create(user=request.user, presentation_id=presentation_id)
+        elif request.POST["action"] == "delete":
+            UserBookmark.objects.filter(user=request.user, presentation=presentation_id).delete()
+        else:
+            return HttpResponse(status=400)
+        return HttpResponse(status=202)
+    else:
+        return HttpResponseNotAllowed(["POST"])

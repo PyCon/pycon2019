@@ -186,3 +186,12 @@ class Recess(models.Model):
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="recess")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=400, blank=True)
+
+
+class UserBookmark(models.Model):
+    
+    user = models.ForeignKey(User)
+    presentation = models.ForeignKey(Presentation)
+    
+    class Meta:
+        unique_together = [("user", "presentation")]
