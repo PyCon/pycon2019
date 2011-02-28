@@ -22,6 +22,14 @@
                                     <div class="speaker">{{ slot.content.speaker }}</div>
                                 {% endif %}
                             {% else %}
+                                <div class="badges">
+                                    {% if slot.content.extreme_pycon %}
+                                        <div class="badge extreme">E</div>
+                                    {% endif %}
+                                    {% if slot.content.invited %}
+                                        <div class="badge invited">I</div>
+                                    {% endif %}
+                                </div>
                                 <div class="title"><a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content.title }}</a></div>
                                 {% if slot.content.speaker %}
                                     <div class="speaker">{{ slot.content.speaker }}</div>
