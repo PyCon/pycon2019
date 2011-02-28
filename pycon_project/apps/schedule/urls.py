@@ -6,7 +6,7 @@ urlpatterns = patterns("schedule.views",
     # url(r"^$", "schedule_list", name="schedule_list"),
     # url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
-    url(r"^$", direct_to_template, {"template": "schedule/index.html"}, name="schedule_index"),
+    url(r"^index/$", direct_to_template, {"template": "schedule/index.html"}, name="schedule_index"),
     
     url(r"^lists/talks/", "schedule_list_talks", name="schedule_list_talks"),
     url(r"^lists/tutorials/", "schedule_list_tutorials", name="schedule_list_tutorials"),
@@ -14,7 +14,7 @@ urlpatterns = patterns("schedule.views",
     
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
     url(r"^conference/edit/$", "schedule_conference_edit", name="schedule_conference_edit"),
-    url(r"^conference/$", "schedule_conference", name="schedule_conference"),
+    url(r"^$", "schedule_conference", name="schedule_conference"),
     url(r"^presentations/(\d+)/", "schedule_presentation", name="schedule_presentation"),
     
     url(r"slot/(\d+)/edit/$", "schedule_slot_edit", name="schedule_slot_edit"),
