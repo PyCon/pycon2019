@@ -3,6 +3,7 @@ import itertools
 
 from django.conf import settings
 from django.core.context_processors import csrf
+from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -407,7 +408,10 @@ def session_detail(request, session_id):
 def schedule_user_slot_manage(request, presentation_id):
     if request.method == "POST":
         if request.POST["action"] == "add":
-            UserBookmark.objects.create(user=request.user, presentation_id=presentation_id)
+            try:
+                UserBookmark.objects.create(user=request.user, presentation_id=presentation_id)
+            except IntegrityError:
+                pass
         elif request.POST["action"] == "delete":
             UserBookmark.objects.filter(user=request.user, presentation=presentation_id).delete()
         else:
