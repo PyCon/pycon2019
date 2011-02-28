@@ -67,11 +67,27 @@
         td.colspan-1.rowspan-2 {
             background: #FDA;
         }
+        .slot div.badges {
+            float: left;
+        }
+        .slot div.badges .badge {
+            float: none;
+            width: 15px;
+            height: 15px;
+            font-size: 7pt;
+            line-height: 15px;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
     <h1>Conference Schedule</h1>
+    
+    <div class="badges legend">
+        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+        <div class="clear"></div>
+        <div class="badge invited">I</div><div class="label"> = Invited</div>
+    </div>
     
     {% schedule_cache %}
         <h2>Friday</h2>
