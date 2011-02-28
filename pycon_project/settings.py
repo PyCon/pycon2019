@@ -153,6 +153,7 @@ INSTALLED_APPS = [
     "wakawaka",
     "biblion",
     "fixture_generator",
+    "sorl.thumbnail",
     
     # Pinax
     "pinax.templatetags",
@@ -219,6 +220,8 @@ MARKITUP_MEDIA_URL = STATIC_URL
 ACCEPTING_PROPOSALS = True
 
 SCHEDULE_TIMEZONE = "US/Eastern"
+
+REDIS_PARAMS = dict(host="127.0.0.1")
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

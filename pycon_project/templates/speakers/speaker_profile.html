@@ -1,6 +1,7 @@
 {% extends "speakers/base.html" %}
 
 {% load timezone_filters %}
+{% load thumbnail %}
 
 {% block body_class %}full schedule{% endblock %}
 
@@ -10,7 +11,7 @@
     <h2>{{ speaker.name }}</h2>
     
     {% if speaker.photo %}
-    <div class="photo"><img src="{{ speaker.photo.url }}" alt="{{ speaker.name }}" /></div>
+        <div class="photo"><img src="{% thumbnail speaker.photo 256x256 %}" alt="{{ speaker.name }}" /></div>
     {% endif %}
     
     <div class="bio">{{ speaker.biography_html|safe }}</div>
