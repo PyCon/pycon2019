@@ -1,16 +1,9 @@
 from __future__ import with_statement
 
 from django import template
-from django.conf import settings
 
-import redis
+from schedule.cache import db, cache_key, cache_key_user
 
-
-db = redis.Redis(**settings.REDIS_PARAMS)
-try:
-    db.ping()
-except redis.ConnectionError:
-    db = None
 
 register = template.Library()
 
@@ -29,20 +22,16 @@ class ScheduleCacheNode(template.Node):
     def render(self, context):
         if db:
             user = context["user"]
-            if not user.is_authenticated():
-                prefix = "pycon2011-schedule"
-                key = "%s-%d" % (prefix, user.id) if user.is_authenticated() else prefix
-                output = db.get(key)
-                if output is None:
-                    with db.lock("%s-lock" % key):
-                        # check for cached data if we lost lock acquisition and
-                        # if nothing was returned we can be sure we own the lock
-                        output = db.get(key)
-                        if output is None:
-                            output = self.nodelist.render(context)
-                            db.set(key, output)
-            else:
-                output = self.nodelist.render(context)
+            key = cache_key_user(user) if user.is_authenticated() else cache_key()
+            output = db.get(key)
+            if output is None:
+                with db.lock("%s-lock" % key):
+                    # check for cached data if we lost lock acquisition and
+                    # if nothing was returned we can be sure we own the lock
+                    output = db.get(key)
+                    if output is None:
+                        output = self.nodelist.render(context)
+                        db.set(key, output)
         else:
             output = self.nodelist.render(context)
         return output
