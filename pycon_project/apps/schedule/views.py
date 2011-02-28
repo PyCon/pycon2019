@@ -10,6 +10,7 @@ from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
+from schedule.cache import db, cache_key_user
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
 from schedule.models import Slot, Presentation, Track, Session, SessionRole, UserBookmark
 
@@ -416,6 +417,7 @@ def schedule_user_slot_manage(request, presentation_id):
             UserBookmark.objects.filter(user=request.user, presentation=presentation_id).delete()
         else:
             return HttpResponse(status=400)
+        db.delete(cache_key_user(request.user))
         return HttpResponse(status=202)
     else:
         return HttpResponseNotAllowed(["POST"])
