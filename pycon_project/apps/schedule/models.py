@@ -186,3 +186,9 @@ class Recess(models.Model):
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="recess")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=400, blank=True)
+
+
+class UserSlot(models.Model):
+    
+    user = models.ForeignKey(User)
+    slot = models.ForeignKey(Slot)
