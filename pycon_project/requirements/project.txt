@@ -24,3 +24,5 @@ django-wakawaka==0.4.dev4
 django-markitup==0.6.1
 django-fixture-generator==0.2.0
 nashvegas==0.5
+redis==2.2.2
+sorl-thumbnail==3.2.5

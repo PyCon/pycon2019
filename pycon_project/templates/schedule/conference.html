@@ -1,0 +1,175 @@
+{% extends "site_base.html" %}
+
+{% load schedule_tags %}
+
+{% block head_title %}Conference Schedule{% endblock %}
+
+{% block body_class %}full{% endblock %}
+
+{% block right %}
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Helvetica";
+        }
+        #wrapper {
+            width: 960px;
+        }
+        table {
+            border-collapse: collapse;
+            font-weight: normal;
+            line-height: 1.1em;
+        }
+        td {
+            padding: 4px 8px;
+            border: 1px solid #666;
+            vertical-align: top;
+        }
+        td.slot {
+            text-align: center;
+            background: #FFF;
+            font-size: 10pt;
+            width: 180px;
+        }
+        td.slot.recess,
+        td.slot.recess.colspan-1.rowspan-1,
+        td.slot.recess.colspan-1.rowspan-2 {
+            background: #ECFFFF;
+        }
+        td.slot.plenary {
+            background: #DCDCFF;
+        }
+        td.slot div.title {
+            font-weight: bold;
+        }
+        td.slot div.speaker {
+            font-style: italic;
+            font-size: 8pt;
+        }
+        th {
+            font-size: 12pt;
+            background: #FFF;
+            padding: 2px 4px;
+            border: none;
+            border-right: 1px solid #666;
+        }
+        td.time {
+            width: 50px;
+            font-size: 9pt;
+            border: none;
+            border-top: 1px solid #666;
+        }
+        td.colspan-1.rowspan-1 {
+            background: #FFFCC9;
+        }
+        td.colspan-1.rowspan-1.bookmarked {
+            background: #FE7;
+        }
+        td.colspan-1.rowspan-2 {
+            background: #FDA;
+        }
+        td.colspan-1.rowspan-2.bookmarked {
+            background: #F95;
+        }
+        .slot div.badges {
+            float: left;
+        }
+        .slot div.badges .badge {
+            float: none;
+            width: 15px;
+            height: 15px;
+            font-size: 7pt;
+            line-height: 15px;
+        }
+        .slot div.badges .bookmark a {
+            display: block;
+            width: 16px;
+            height: 16px;
+            text-decoration: none;
+            background-image: url(/2011/site_media/static/img/star_unselected.png);
+        }
+        .slot div.badges .bookmarked a {
+            display: block;
+            width: 16px;
+            height: 16px;
+            text-decoration: none;
+            background-image: url(/2011/site_media/static/img/star.png);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Conference Schedule</h1>
+    
+    <div class="badges legend">
+        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+        <div class="clear"></div>
+        <div class="badge invited">I</div><div class="label"> = Invited</div>
+        <div class="clear"></div>
+    </div>
+    
+    {% if user.is_authenticated %}
+        <div>Click <img src="{{ STATIC_URL }}img/star.png" /> to bookmark</div>
+    {% else %}
+        <div><a href="{% url acct_login %}?next={{ request.path }}">Log in</a> to be able to bookmark talks and panels that interest you</div>
+    {% endif %}
+    
+    {% csrf_token %}
+    
+    {% schedule_cache %}
+        <h2>Friday</h2>
+        
+        {% with friday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+        
+        <h2>Saturday</h2>
+        
+        {% with saturday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+        
+        <h2>Sunday</h2>
+        
+        {% with sunday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
+    {% endschedule_cache %}
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".slot .bookmark > a").live("click", function() {
+                divElem = $(this).parent();
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=add;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function() {
+                        divElem.removeClass("bookmark");
+                        divElem.addClass("bookmarked");
+                        divElem.parent().parent().addClass("bookmarked");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+            $(".slot .bookmarked > a").live("click", function() {
+                divElem = $(this).parent();
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=delete;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function(response) {
+                        divElem.removeClass("bookmarked");
+                        divElem.addClass("bookmark");
+                        divElem.parent().parent().removeClass("bookmarked");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
