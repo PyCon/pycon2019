@@ -3,9 +3,9 @@
 {% load timezone_filters %}
 
 {% block subnav %}
-    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
-    |
     <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
+    |
+    <a href="{% url schedule_conference %}">Conference Schedule</a>
 {% endblock %}
 
 {% block body %}
