@@ -188,10 +188,10 @@ class Recess(models.Model):
     description = models.TextField(max_length=400, blank=True)
 
 
-class UserSlot(models.Model):
+class UserBookmark(models.Model):
     
     user = models.ForeignKey(User)
-    slot = models.ForeignKey(Slot)
+    presentation = models.ForeignKey(Presentation)
     
     class Meta:
-        unique_together = [("user", "slot")]
+        unique_together = [("user", "presentation")]
