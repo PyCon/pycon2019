@@ -1,11 +1,12 @@
 from __future__ import with_statement
 
 from django import template
+from django.conf import settings
 
 import redis
 
 
-db = redis.Redis(host="127.0.0.1")
+db = redis.Redis(**settings.REDIS_PARAMS)
 try:
     db.ping()
 except redis.ConnectionError:
