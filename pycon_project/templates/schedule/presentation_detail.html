@@ -11,6 +11,16 @@
 {% block body %}
     <h1>{{ presentation.title }}</h1>
     
+    <div class="badges">
+        {% if presentation.extreme_pycon %}
+            <div class="badge extreme">E</div>
+        {% endif %}
+        {% if presentation.invited %}
+            <div class="badge invited">I</div>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+    
     <div class="presentation_types">{{ presentation.get_audience_level_display }} / {{ presentation.get_presentation_type_display }}</div>
     
     <div class="speakers">
