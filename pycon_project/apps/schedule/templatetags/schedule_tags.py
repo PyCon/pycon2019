@@ -28,7 +28,9 @@ class ScheduleCacheNode(template.Node):
     
     def render(self, context):
         if db:
-            key = "pycon2011-schedule"
+            user = context["user"]
+            prefix = "pycon2011-schedule"
+            key = "%s-%d" % (prefix, user.id) if user.is_authenticated() else prefix
             output = db.get(key)
             if output is None:
                 with db.lock("%s-lock" % key):

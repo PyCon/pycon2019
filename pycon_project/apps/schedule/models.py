@@ -192,3 +192,6 @@ class UserSlot(models.Model):
     
     user = models.ForeignKey(User)
     slot = models.ForeignKey(Slot)
+    
+    class Meta:
+        unique_together = [("user", "slot")]

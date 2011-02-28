@@ -77,6 +77,12 @@
             font-size: 7pt;
             line-height: 15px;
         }
+        .slot div.badges .bookmark {
+            background-color: red;
+        }
+        .slot div.badges .bookmarked {
+            background-color: gray;
+        }
     </style>
 {% endblock %}
 
@@ -88,6 +94,8 @@
         <div class="clear"></div>
         <div class="badge invited">I</div><div class="label"> = Invited</div>
     </div>
+    
+    {% csrf_token %}
     
     {% schedule_cache %}
         <h2>Friday</h2>
@@ -102,4 +110,43 @@
         
         {% with sunday as day %}{% include "schedule/_grid_draft.html" %}{% endwith %}
     {% endschedule_cache %}
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".slot .bookmark > a").live("click", function() {
+                divElem = $(this).parent();
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=add;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function() {
+                        divElem.removeClass("bookmark");
+                        divElem.addClass("bookmarked");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+            $(".slot .bookmarked > a").live("click", function() {
+                divElem = $(this).parent();
+                $.ajax({
+                    type: "POST",
+                    url: this.href,
+                    data: "action=delete;csrfmiddlewaretoken={{ csrf_token }}",
+                    success: function(response) {
+                        divElem.removeClass("bookmarked");
+                        divElem.addClass("bookmark");
+                    },
+                    error: function(xhr, options, error) {
+                        alert(xhr.status);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

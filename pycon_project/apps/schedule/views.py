@@ -2,13 +2,15 @@ import datetime
 import itertools
 
 from django.conf import settings
+from django.core.context_processors import csrf
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
-from schedule.models import Slot, Presentation, Track, Session, SessionRole
+from schedule.models import Slot, Presentation, Track, Session, SessionRole, UserSlot
 
 
 wed_morn_start = datetime.datetime(2011, 3, 9, 9, 0)  # 9AM Eastern
@@ -148,8 +150,13 @@ def pairwise(iterable):
 
 class Timetable(object):
     
-    def __init__(self, slots):
+    def __init__(self, slots, user=None):
         self.slots = slots
+        
+        if user.is_authenticated():
+            self.user = user
+        else:
+            self.user = None
     
     @property
     def tracks(self):
@@ -166,6 +173,11 @@ class Timetable(object):
             for slot in slots:
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
+                    # check if self.user has bookmarked this slot
+                    if self.user and UserSlot.objects.filter(user=self.user, slot=slot).exists():
+                        slot.bookmarked = True
+                    else:
+                        slot.bookmarked = False
                     row["slots"].append(slot)
             if len(row["slots"]) == 1:
                 row["colspan"] = len(self.tracks)
@@ -194,9 +206,10 @@ def schedule_conference_edit(request):
 
 def schedule_conference(request):
     ctx = {
-        "friday": Timetable(Slot.objects.filter(start__week_day=6)),
-        "saturday": Timetable(Slot.objects.filter(start__week_day=7)),
-        "sunday": Timetable(Slot.objects.filter(start__week_day=1)),
+        "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
+        "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
+        "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
+        "csrf_token": csrf(request),
     }
     ctx = RequestContext(request, ctx)
     return render_to_response("schedule/conference.html", ctx)
@@ -382,3 +395,21 @@ def session_detail(request, session_id):
         "runner": runner,
         "runner_denied": runner_denied,
     }, context_instance=RequestContext(request))
+
+
+@login_required
+def schedule_user_slot_manage(request, slot_id):
+    try:
+        if request.method == "POST":
+            if request.POST["action"] == "add":
+                UserSlot.objects.create(user=request.user, slot_id=slot_id)
+            elif request.POST["action"] == "delete":
+                UserSlot.objects.filter(user=request.user, slot=slot_id).delete()
+            else:
+                return HttpResponse(status=400)
+            return HttpResponse(status=202)
+        else:
+            return HttpResponseNotAllowed(["POST"])
+    except:
+        import traceback
+        traceback.print_exc()

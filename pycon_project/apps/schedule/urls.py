@@ -20,6 +20,7 @@ urlpatterns = patterns("schedule.views",
     url(r"slot/(\d+)/edit/$", "schedule_slot_edit", name="schedule_slot_edit"),
     url(r"slot/(\d+)/remove/$", "schedule_slot_remove", name="schedule_slot_remove"),
     url(r"^slot/(\d+)/(\w+)/$", "schedule_slot_add", name="schedule_slot_add"),
+    url(r"^user_slot/(\d+)/$", "schedule_user_slot_manage", name="schedule_user_slot_manage"),
     
     url(r"^tracks/$", "track_list", name="schedule_track_list"),
     url(r"^sessions/$", "session_list", name="schedule_session_list"),
