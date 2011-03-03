@@ -84,7 +84,7 @@ def sponsor_export_data(request):
     sponsors = []
     data = ""
     
-    for sponsor in Sponsor.objects.all():
+    for sponsor in Sponsor.objects.order_by("added"):
         d = {
             "name": sponsor.name,
             "url": sponsor.external_url,
