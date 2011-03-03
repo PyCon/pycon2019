@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 
 from schedule.cache import db, cache_key_user
@@ -421,3 +422,20 @@ def schedule_user_slot_manage(request, presentation_id):
         return HttpResponse(status=202)
     else:
         return HttpResponseNotAllowed(["POST"])
+
+
+@staff_member_required
+def schedule_export_speaker_data(request):
+    speakers = set()
+    data = ""
+    
+    for presentation in Presentation.objects.all():
+        speakers.add(presentation.speaker)
+        for speaker in presentation.additional_speakers.all():
+            speakers.add(speaker)
+    
+    for speaker in speakers:
+        data += "%s\n%s" % (speaker.name.encode("utf-8").strip(), speaker.biography.encode("utf-8").strip())
+        data += "\n\n%s\n\n" % ("-"*80)
+    
+    return HttpResponse(data, content_type="text/plain")
