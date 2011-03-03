@@ -33,7 +33,7 @@ class Command(BaseCommand):
         csv_file = csv.writer(
             open(os.path.join(os.getcwd(), "build", "sponsors.csv"), "wb")
         )
-        csv_file.writerow(["Name", "Url", "Description"])
+        csv_file.writerow(["Name", "URL", "Level", "Description"])
         
         for sponsor in Sponsor.objects.all():
             path = os.path.join(os.getcwd(), "build", slugify(sponsor.name))
@@ -45,6 +45,7 @@ class Command(BaseCommand):
             data = {
                 "name": sponsor.name,
                 "url": sponsor.external_url,
+                "level": sponsor.level.name,
                 "description": "",
             }
             for sponsor_benefit in sponsor.sponsor_benefits.all():
@@ -67,6 +68,7 @@ class Command(BaseCommand):
             csv_file.writerow([
                 data["name"].encode("utf-8"),
                 data["url"].encode("utf-8"),
+                data["level"].encode("utf-8"),
                 data["description"].encode("utf-8")
             ])
             
