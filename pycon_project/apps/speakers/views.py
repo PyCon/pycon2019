@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 
@@ -184,4 +184,3 @@ def speaker_profile(request, pk, template_name="speakers/speaker_profile.html", 
         "sessions": speaker.sessions.exclude(slot=None).order_by("slot__start"),
         "timezone": settings.SCHEDULE_TIMEZONE,
     }, **extra_context), context_instance=RequestContext(request))
-
