@@ -435,7 +435,7 @@ def schedule_export_speaker_data(request):
             speakers.add(speaker)
     
     for speaker in speakers:
-        data += "%s\n\n%s" % (speaker.name.encode("utf-8").strip(), speaker.biography.encode("utf-8").strip())
+        data += "%s\n\n%s" % (speaker.name.strip(), speaker.biography.strip())
         data += "\n\n%s\n\n" % ("-"*80)
     
-    return HttpResponse(data, content_type="text/plain")
+    return HttpResponse(data, content_type="text/plain;charset=UTF-8")
