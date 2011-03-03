@@ -1,5 +1,6 @@
+import itertools
+
 from functools import wraps
-from itertools import groupby
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -96,17 +97,35 @@ def sponsor_export_data(request):
                 d["description"] = sponsor_benefit.text
         sponsors.append(d)
     
+    def izip_longest(*args):
+        fv = None
+        def sentinel(counter=([fv]*(len(args)-1)).pop):
+            yield counter()
+        iters = [itertools.chain(it, sentinel(), itertools.repeat(fv)) for it in args]
+        try:
+            for tup in itertools.izip(*iters):
+                yield tup
+        except IndexError:
+            pass
+    def pairwise(iterable):
+        a, b = itertools.tee(iterable)
+        b.next()
+        return izip_longest(a, b)
+    
     def level_key(s):
         return s["level"]
     
-    for level, level_sponsors in groupby(sorted(sponsors, key=level_key), level_key):
+    for level, level_sponsors in itertools.groupby(sorted(sponsors, key=level_key), level_key):
         data += "%s\n" % ("-" * (len(level[1])+4))
         data += "| %s |\n" % level[1]
         data += "%s\n\n" % ("-" * (len(level[1])+4))
-        for sponsor in level_sponsors:
+        for sponsor, next in pairwise(level_sponsors):
             description = sponsor["description"].strip()
             description = description if description else "-- NO DESCRIPTION FOR THIS SPONSOR --"
             data += "%s\n\n%s" % (sponsor["name"], description)
-            data += "\n\n%s\n\n" % ("-"*80)
+            if next is not None:
+                data += "\n\n%s\n\n" % ("-"*80)
+            else:
+                data += "\n\n"
     
     return HttpResponse(data, content_type="text/plain;charset=utf-8")
