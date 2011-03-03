@@ -22,7 +22,8 @@ class Session(models.Model):
     track = models.ForeignKey(Track, null=True, related_name="sessions")
     
     def sorted_slots(self):
-        return self.slots.order_by("start")
+        ct = ContentType.objects.get_for_model(Presentation)
+        return self.slots.filter(kind=ct).order_by("start")
     
     # @@@ cache?
     def start(self):
@@ -43,8 +44,7 @@ class Session(models.Model):
     def __unicode__(self):
         start = self.start()
         end = self.end()
-        return u"[%s] %s: %s — %s" % (
-            self.track.name,
+        return u"%s: %s — %s" % (
             start.strftime("%a"),
             start.strftime("%X"),
             end.strftime("%X")
