@@ -435,7 +435,10 @@ def schedule_export_speaker_data(request):
             speakers.add(speaker)
     
     for speaker in speakers:
-        data += "%s\n\n%s" % (speaker.name.strip(), speaker.biography.strip())
+        if speaker.user_id is None:
+            data += "NO SPEAKER DATA (contact e-mail: %s)" % speaker.invite_email
+        else:
+            data += "%s\n\n%s" % (speaker.name.strip(), speaker.biography.strip())
         data += "\n\n%s\n\n" % ("-"*80)
     
     return HttpResponse(data, content_type="text/plain;charset=UTF-8")
