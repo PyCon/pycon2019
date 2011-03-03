@@ -44,11 +44,13 @@ class Session(models.Model):
     def __unicode__(self):
         start = self.start()
         end = self.end()
-        return u"%s: %s — %s" % (
-            start.strftime("%a"),
-            start.strftime("%X"),
-            end.strftime("%X")
-        )
+        if start and end:
+            return u"%s: %s — %s" % (
+                start.strftime("%a"),
+                start.strftime("%X"),
+                end.strftime("%X")
+            )
+        return u""
 
 
 class SessionRole(models.Model):
