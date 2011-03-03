@@ -10,28 +10,20 @@
     
     <ul>
         {% for session in track.sessions.all %}
-            <li>
-                <a href="{% url schedule_session_detail session.pk %}">{{ session }}</a>
-                <ul>
-                    {% for slot in session.sorted_slots %}
-                        <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
-                    {% empty %}
-                        <li>No slots in session.</li>
-                    {% endfor %}
-                </ul>
-            </li>
+            {% if session.sorted_slots %}
+                <li>
+                    <a href="{% url schedule_session_detail session.pk %}">{{ session }}</a>
+                    <ul>
+                        {% for slot in session.sorted_slots %}
+                            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+                        {% empty %}
+                            <li>No slots in session.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
         {% empty %}
             <li>No sessions in track.</li>
-        {% endfor %}
-    </ul>
-    
-    <h2>Slots</h2>
-    
-    <ul>
-        {% for slot in track.slots.all %}
-            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
-        {% empty %}
-            <li>No slots in track.</li>
         {% endfor %}
     </ul>
     
