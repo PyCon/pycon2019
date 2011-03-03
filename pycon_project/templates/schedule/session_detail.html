@@ -4,7 +4,7 @@
     
     <p><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> &raquo;</p>
     
-    <h1>{{ session }}</h1>
+    <h1>[{{ session.track.name }}] {{ session }}</h1>
     
     <div>
     {% if chair %}
