@@ -5,7 +5,12 @@
     
     <ul>
         {% for session in sessions %}
-            <li><a href="{% url schedule_session_detail session.pk %}">{{ session }}</a></li>
+            {% if session.sorted_slots %}
+            <li>
+                <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
+                ({% for role in session.sessionrole_set.all %}{{ role.get_role_display }}: {{ role.user }}{% if not forloop.last %}; {% endif %}{% endfor %})
+            </li>
+            {% endif %}
         {% empty %}
             <li>No sessions defined.</li>
         {% endfor %}
