@@ -10,9 +10,9 @@
                     <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
                     <ul>
                         {% for role in session.sessionrole_set.all %}
-                            <li>{{ role.get_role_display }}: {{ role.user }}</li>
+                            <li><b>{{ role.get_role_display }}: {{ role.user }}</b></li>
                         {% empty %}
-                            <li>No volunteers signed up</li>
+                            <li><b>No volunteers signed up</b></li>
                         {% endfor %}
                         {% for slot in session.sorted_slots %}
                             <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
