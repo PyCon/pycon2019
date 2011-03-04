@@ -6,10 +6,21 @@
     <ul>
         {% for session in sessions %}
             {% if session.sorted_slots %}
-            <li>
-                <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
-                ({% for role in session.sessionrole_set.all %}{{ role.get_role_display }}: {{ role.user }}{% if not forloop.last %}; {% endif %}{% endfor %})
-            </li>
+                <li>
+                    <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
+                    <ul>
+                        {% for role in session.sessionrole_set.all %}
+                            <li>{{ role.get_role_display }}: {{ role.user }}</li>
+                        {% empty %}
+                            <li>No volunteers signed up</li>
+                        {% endfor %}
+                        {% for slot in session.sorted_slots %}
+                            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+                        {% empty %}
+                            <li>No slots in session.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             {% endif %}
         {% empty %}
             <li>No sessions defined.</li>
