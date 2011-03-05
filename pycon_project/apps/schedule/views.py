@@ -464,7 +464,7 @@ def schedule_user_bookmarks(request, user_id, user_hash):
     
     user = get_object_or_404(User, id=user_id)
     auth_hash = hash_for_user(user)
-    print auth_hash
+    
     if user_hash != auth_hash:
         raise Http404()
     
