@@ -5,7 +5,23 @@
     
     <ul>
         {% for session in sessions %}
-            <li><a href="{% url schedule_session_detail session.pk %}">{{ session }}</a></li>
+            {% if session.sorted_slots %}
+                <li>
+                    <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
+                    <ul>
+                        {% for role in session.sessionrole_set.all %}
+                            <li><b>{{ role.get_role_display }}: {{ role.user }}</b></li>
+                        {% empty %}
+                            <li><b>No volunteers signed up</b></li>
+                        {% endfor %}
+                        {% for slot in session.sorted_slots %}
+                            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+                        {% empty %}
+                            <li>No slots in session.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
         {% empty %}
             <li>No sessions defined.</li>
         {% endfor %}
