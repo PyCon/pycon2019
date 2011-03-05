@@ -1,15 +1,19 @@
 import datetime
+import hashlib
 import itertools
+
+from icalendar import Calendar, Event
 
 from django.conf import settings
 from django.core.context_processors import csrf
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from schedule.cache import db, cache_key_user
 from schedule.forms import PlenaryForm, RecessForm, PresentationForm
@@ -29,6 +33,11 @@ WEDNESDAY_MORNING = (wed_morn_start, wed_morn_end)
 WEDNESDAY_AFTERNOON = (wed_after_start, wed_after_end)
 THURSDAY_MORNING = (thu_morn_start, thu_morn_end)
 THURSDAY_AFTERNOON = (thu_after_start, thu_after_end)
+
+
+def hash_for_user(user):
+    
+    return hashlib.sha224(settings.SECRET_KEY + user.username).hexdigest()
 
 
 def schedule_list(request, template_name="schedule/schedule_list.html", extra_context=None):
@@ -214,7 +223,14 @@ def schedule_conference_edit(request):
 
 
 def schedule_conference(request):
+    
+    if request.user.is_authenticated():
+        user_hash = hash_for_user(request.user)
+    else:
+        user_hash = None
+    
     ctx = {
+        "user_hash": user_hash,
         "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
         "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
@@ -442,3 +458,30 @@ def schedule_export_speaker_data(request):
         data += "\n\n%s\n\n" % ("-"*80)
     
     return HttpResponse(data, content_type="text/plain;charset=UTF-8")
+
+
+def schedule_user_bookmarks(request, user_id, user_hash):
+    
+    user = get_object_or_404(User, id=user_id)
+    auth_hash = hash_for_user(user)
+    print auth_hash
+    if user_hash != auth_hash:
+        raise Http404()
+    
+    bookmarks = UserBookmark.objects.filter(user=user)
+    
+    cal = Calendar()
+    cal.add("prodid", "-//PyCon 2011 Bookmarks//us.pycon.org//")
+    
+    for bookmark in bookmarks:
+        presentation = bookmark.presentation
+        event = Event()
+        event.add("summary", presentation.title)
+        event.add("dtstart", presentation.slot.start)
+        event.add("dtend", presentation.slot.end)
+        event.add("dtstamp", datetime.datetime.utcnow())
+        event.add("description", presentation.description)
+        event["uid"] = presentation.pk
+        cal.add_component(event)
+    
+    return HttpResponse(cal.as_string(), content_type="text/calendar")
