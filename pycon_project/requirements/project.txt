@@ -26,3 +26,4 @@ django-fixture-generator==0.2.0
 nashvegas==0.5
 redis==2.2.2
 sorl-thumbnail==3.2.5
+icalendar==2.1
