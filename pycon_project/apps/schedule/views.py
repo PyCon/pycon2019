@@ -470,17 +470,25 @@ def schedule_user_bookmarks(request, user_id, user_hash):
     bookmarks = UserBookmark.objects.filter(user=user)
     
     cal = Calendar()
-    cal.add("prodid", "-//PyCon 2011 Bookmarks//us.pycon.org//")
+    cal.add("prodid", "-//PyCon 2011 Bookmarks//us.pycon.org//EN")
+    cal.add("version", "2.0")
+    cal.add("method", "REQUEST")
+    cal.add("calscale", "GREGORIAN")
+    cal.add("X-WR-CALNAME", "PyCon 2011 Bookmarks - %s" % user.username)
+    cal.add("X-WR-TIMEZONE","US/Eastern")
     
     for bookmark in bookmarks:
-        presentation = bookmark.presentation
+        p = bookmark.presentation
+        description = "Presented by: %s\n\n%s" % (p.speaker, p.description)
+        
         event = Event()
-        event.add("summary", presentation.title)
-        event.add("dtstart", presentation.slot.start)
-        event.add("dtend", presentation.slot.end)
+        event.add("summary", p.title)
+        event.add("dtstart", p.slot.start)
+        event.add("dtend", p.slot.end)
         event.add("dtstamp", datetime.datetime.utcnow())
-        event.add("description", presentation.description)
-        event["uid"] = presentation.pk
+        event.add("description", description)
+        event.add("location", p.slot.track)
+        event["uid"] = str(p.pk) + "-2011.us.pycon.org"
         cal.add_component(event)
     
     response = HttpResponse(cal.as_string(), content_type="text/calendar")
