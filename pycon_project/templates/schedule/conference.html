@@ -118,7 +118,7 @@
     
     {% if user.is_authenticated %}
         <div>Click <img src="{{ STATIC_URL }}img/star.png" /> to bookmark</div>
-		<div>Your bookmarks: <a href="{% url schedule_user_bookmarks request.user.id user_hash %}">.ics</a>
+        <div>Your bookmarks: <a href="{% url schedule_user_bookmarks request.user.id user_hash %}">.ics</a>
     {% else %}
         <div><a href="{% url acct_login %}?next={{ request.path }}">Log in</a> to be able to bookmark talks and panels that interest you</div>
     {% endif %}
