@@ -36,7 +36,6 @@ THURSDAY_AFTERNOON = (thu_after_start, thu_after_end)
 
 
 def hash_for_user(user):
-    
     return hashlib.sha224(settings.SECRET_KEY + user.username).hexdigest()
 
 
