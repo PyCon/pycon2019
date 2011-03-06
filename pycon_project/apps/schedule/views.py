@@ -479,14 +479,12 @@ def schedule_user_bookmarks(request, user_id, user_hash):
     
     for bookmark in bookmarks:
         p = bookmark.presentation
-        description = "Presented by: %s\n\n%s" % (p.speaker, p.description)
-        
         event = Event()
         event.add("summary", p.title)
         event.add("dtstart", p.slot.start)
         event.add("dtend", p.slot.end)
         event.add("dtstamp", datetime.datetime.utcnow())
-        event.add("description", description)
+        event.add("description", p.speaker.name + "\n\n" + p.description)
         event.add("location", p.slot.track)
         event["uid"] = str(p.pk) + "-2011.us.pycon.org"
         cal.add_component(event)
