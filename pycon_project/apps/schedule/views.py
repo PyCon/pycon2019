@@ -479,15 +479,16 @@ def schedule_user_bookmarks(request, user_id, user_hash):
     
     for bookmark in bookmarks:
         p = bookmark.presentation
-        event = Event()
-        event.add("summary", p.title)
-        event.add("dtstart", p.slot.start)
-        event.add("dtend", p.slot.end)
-        event.add("dtstamp", datetime.datetime.utcnow())
-        event.add("description", p.speaker.name + "\n\n" + p.description)
-        event.add("location", p.slot.track)
-        event["uid"] = str(p.pk) + "-2011.us.pycon.org"
-        cal.add_component(event)
+        if p.slot is not None:
+            event = Event()
+            event.add("summary", p.title)
+            event.add("dtstart", p.slot.start)
+            event.add("dtend", p.slot.end)
+            event.add("dtstamp", datetime.datetime.utcnow())
+            event.add("description", p.speaker.name + "\n\n" + p.description)
+            event.add("location", p.slot.track)
+            event["uid"] = str(p.pk) + "-2011.us.pycon.org"
+            cal.add_component(event)
     
     response = HttpResponse(cal.as_string(), content_type="text/calendar")
     response["Content-Disposition"] = "filename=pycon2011-%s-bookmarks.ics" % user.username.encode("utf-8")
