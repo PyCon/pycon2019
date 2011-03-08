@@ -442,3 +442,7 @@ table.history td {
 .result.undecided {
     color: #999;
 }
+
+@media print {
+    div.support-pycon { display: none; }
+}
