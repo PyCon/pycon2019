@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, User
 
-from schedule.models import Presentation
+from schedule.models import Presentation, SessionRole
 
 
 # @@@ Would probably be a good idea to consolidate the
@@ -64,6 +64,13 @@ def reviewers_tutorial():
         yield user
 
 
+def session_staff():
+    staff = set()
+    for role in SessionRole.objects.select_related("user"):
+        staff.add(role.user)
+    return iter(staff)
+
+
 def fivesixsix():
     for user in User.objects.filter(username__in=["brosner", "jtauber"]):
         yield user
@@ -78,5 +85,6 @@ user_lists = [
     reviewers,
     reviewers_tutorial,
     fivesixsix,
+    session_staff,
 ]
 user_lists = dict([(f.__name__, f) for f in user_lists])
