@@ -459,6 +459,13 @@ def schedule_export_speaker_data(request):
     return HttpResponse(data, content_type="text/plain;charset=UTF-8")
 
 
+def schedule_export_panels(request):
+    data = ""
+    for presentation in Presentation.objects.filter(presentation_type=Presentation.PRESENTATION_TYPE_PANEL):
+        data += "%s\n" % presentation.title
+    return HttpResponse(data, content_type="text/plain;charset=UTF-8")
+
+
 def schedule_user_bookmarks(request, user_id, user_hash):
     
     user = get_object_or_404(User, id=user_id)
