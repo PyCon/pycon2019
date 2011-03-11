@@ -190,7 +190,7 @@ class Timetable(object):
             for slot in slots:
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
-                    if self.user and slot.kind.name == "presentation":
+                    if self.user and (slot.kind and slot.kind.name == "presentation"):
                         bookmarks = UserBookmark.objects.filter(
                             user=self.user, presentation=slot.content()
                         )
