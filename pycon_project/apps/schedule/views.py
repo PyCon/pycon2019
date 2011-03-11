@@ -11,7 +11,6 @@ from django.http import HttpResponse, HttpResponseNotAllowed, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
-from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -391,22 +390,10 @@ def session_detail(request, session_id):
             # did the current user previously try to apply and got rejected?
             if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_RUNNER, status=False):
                 runner_denied = True
-
+    
     if request.method == "POST" and request.user.is_authenticated():
         role = request.POST.get("role")
-        redirect = True
-        if (role in ["chair", "runner"] and
-            SessionRole.objects.filter(session=session, user=request, status=True).exists()):
-            messages.info(request, "You're already signed up for a session "
-                "chair/runner role in this session, unvolunteer yourself for "
-                "that slot first"
-            )
-            if role == "chair":
-                chair_denied = True
-            elif role == "runner":
-                runner_denied = True
-            redirect = False
-        elif role == "chair":
+        if role == "chair":
             if chair == None and not chair_denied:
                 SessionRole(session=session, role=SessionRole.SESSION_ROLE_CHAIR, user=request.user).save()
         elif role == "runner":
@@ -422,10 +409,9 @@ def session_detail(request, session_id):
                 session_role = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user)
                 if session_role:
                     session_role[0].delete()
-
-        if redirect:
-            return redirect("schedule_session_detail", session_id)
-
+        
+        return redirect("schedule_session_detail", session_id)
+    
     return render_to_response("schedule/session_detail.html", {
         "session": session,
         "chair": chair,
