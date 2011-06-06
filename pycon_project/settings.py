@@ -8,7 +8,7 @@ import pinax
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-PYCON_YEAR = "2011"
+PYCON_YEAR = "2012"
 
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
