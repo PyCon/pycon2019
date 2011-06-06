@@ -1,5 +1,0 @@
-BEGIN;
-
-ALTER TABLE "proposals_proposal" ADD COLUMN "invited" BOOLEAN NOT NULL DEFAULT 'f';
-
-COMMIT;

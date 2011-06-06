@@ -23,7 +23,11 @@ docutils==0.6
 django-wakawaka==0.4.dev4
 django-markitup==0.6.1
 django-fixture-generator==0.2.0
-nashvegas==0.5
+nashvegas==0.6.3
 redis==2.2.2
 sorl-thumbnail==3.2.5
 icalendar==1.2
+
+gondor==1.0b1.post1
+PIL==1.1.7
+psycopg2==2.4
