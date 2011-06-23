@@ -2,21 +2,30 @@
 
 {% load waitinglist_tags %}
 
-{% block head_title_base %}PyCon US 2011{% endblock %}
+{% block head_title_base %}PyCon US 2012{% endblock %}
 
 {% block extra_head_base %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css?2" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/tabs.css?3" />
     <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "general" %}" title="blog feed"/>
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
-{% block heading %}
-    <div id="heading">
-        <img src="{{ STATIC_URL }}img/pycon_logo.gif" alt="pycon logo" />
-        <h1><a href="{% url home %}">PyCon 2011 Atlanta</a></h1>
-        <h2>March 9th&ndash;17th</h2>
-    </div>
+{% block logo_link_image %}<a href="{% url home %}">PyCon 2012</a>{% endblock %}
+{% block slogan %}
+    <h2 id="slogan">Santa Clara, CA</h2>
+    {# <h3>March 7th&ndash;15th</h3> #}
+    {# <h4>Tutorials: March 7th&ndash;8th</h4> #}
+    {# <h4>Talks: March 9th&ndash;11th</h4> #}
+    {# <h4>Sprints: March 12th&ndash;15th</h4> #}
+{% endblock %}
+
+{% block nav %}
+    {% include "_nav.html" %}
+{% endblock %}
+
+{% block login %}
+    {% include "_account_bar.html" %}
 {% endblock %}
 
 {% block extra_body %}
@@ -29,7 +38,7 @@
     var pageTracker = _gat._getTracker("UA-2401894-23");
     pageTracker._trackPageview();
     } catch(err) {}</script>
-    
+
     <script>
         $("#id_email").focus();
     </script>
@@ -38,10 +47,6 @@
 
 {% block body_base %}
     {% block body %}{% endblock %}
-{% endblock %}
-
-{% block right %}
-    {% include "_sponsors.html" %}
 {% endblock %}
 
 {% block footer %}
