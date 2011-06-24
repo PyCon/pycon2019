@@ -8,7 +8,7 @@ import pinax
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-PYCON_YEAR = "2011"
+PYCON_YEAR = "2012"
 
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
@@ -184,7 +184,7 @@ FIXTURE_DIRS = [
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
-SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
+SITE_NAME = "PyCon 2012 Santa Clara - A Conference for the Python Community"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -225,7 +225,7 @@ MARKITUP_MEDIA_URL = STATIC_URL
 
 ACCEPTING_PROPOSALS = True
 
-SCHEDULE_TIMEZONE = "US/Eastern"
+SCHEDULE_TIMEZONE = "US/Pacific"
 
 REDIS_PARAMS = dict(host="127.0.0.1")
 
