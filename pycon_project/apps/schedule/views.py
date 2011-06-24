@@ -190,7 +190,7 @@ class Timetable(object):
             for slot in slots:
                 if slot.start == time:
                     slot.rowspan = Timetable.rowspan(times, slot.start, slot.end)
-                    if self.user and slot.kind.name == "presentation":
+                    if self.user and (slot.kind and slot.kind.name == "presentation"):
                         bookmarks = UserBookmark.objects.filter(
                             user=self.user, presentation=slot.content()
                         )
@@ -456,6 +456,13 @@ def schedule_export_speaker_data(request):
             data += "%s\n\n%s" % (speaker.name.strip(), speaker.biography.strip())
         data += "\n\n%s\n\n" % ("-"*80)
     
+    return HttpResponse(data, content_type="text/plain;charset=UTF-8")
+
+
+def schedule_export_panels(request):
+    data = ""
+    for presentation in Presentation.objects.filter(presentation_type=Presentation.PRESENTATION_TYPE_PANEL):
+        data += "%s\n" % presentation.title
     return HttpResponse(data, content_type="text/plain;charset=UTF-8")
 
 
