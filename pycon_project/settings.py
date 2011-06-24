@@ -75,7 +75,7 @@ STATIC_URL = "/%s/site_media/static/" % PYCON_YEAR
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "media"),
+    os.path.join(PROJECT_ROOT, "static"),
 ]
 
 STATICFILES_FINDERS = [
