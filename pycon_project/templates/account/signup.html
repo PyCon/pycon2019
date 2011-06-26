@@ -7,38 +7,43 @@
 {% block body_class %}full account{% endblock %}
 
 {% block body %}
-    <h1>{% trans "Sign Up" %}</h1>
-    
-    {% if user.is_authenticated %}
-        <p>{% trans "You are already logged in." %}</p>
-    {% else %}
-        <p>{% trans "Already have an account?" %} <a href="{% url acct_login %}">{% trans "Log In" %}</a>!</p>
-        
-        <form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
-            {% csrf_token %}
-            <fieldset class="inlineLabels">
-                {{ form|as_uni_form }}
-                {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <div class="form_block">
-                    <input type="submit" value="{% trans "Sign Up &raquo;" %}" />
-                </div>
-            </fieldset>
-        </form>
-        
-        {% comment %}@@@ currently OpenID signup is not supported via signup codes{% endcomment %}
-        {% if not code %}
-            <p>If you have OpenID, log in using that to begin using this site with OpenID right away:</p>
-            
-            {% include "account/_openid_login.html" %}
-            
+    <div class="span-8">
+        <h1 class="section-title">{% trans "Sign Up" %}</h1>
+        {% if user.is_authenticated %}{% else %}
+            <p>{% trans "Already have an account?" %} <a href="{% url acct_login %}">{% trans "Log In" %}</a>!</p>
         {% endif %}
-        
-        <p>{% blocktrans %}If you have any trouble creating your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
-        
-        {# <a href="{% url oauth_access_login "twitter" %}"><img src="{{ STATIC_URL }}img/twitter-signin.png" /></a> or <a href="{% url oauth_access_login "facebook" %}"><img src="{{ STATIC_URL }}img/facebook-connect.gif" /></a> #}
-    {% endif %}
+    </div>
+    <div class="span-16 last">
+        {% if user.is_authenticated %}
+            <p>{% trans "You are already logged in." %}</p>
+        {% else %}
+
+            <form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
+                {% csrf_token %}
+                <fieldset class="inlineLabels">
+                    {{ form|as_uni_form }}
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <div class="form_block">
+                        <input type="submit" value="{% trans "Sign Up &raquo;" %}" />
+                    </div>
+                </fieldset>
+            </form>
+
+            {% comment %}@@@ currently OpenID signup is not supported via signup codes{% endcomment %}
+            {% if not code %}
+                <p>If you have OpenID, log in using that to begin using this site with OpenID right away:</p>
+
+                {% include "account/_openid_login.html" %}
+
+            {% endif %}
+
+            <p>{% blocktrans %}If you have any trouble creating your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
+
+            {# <a href="{% url oauth_access_login "twitter" %}"><img src="{{ STATIC_URL }}img/twitter-signin.png" /></a> or <a href="{% url oauth_access_login "facebook" %}"><img src="{{ STATIC_URL }}img/facebook-connect.gif" /></a> #}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block right %}
@@ -53,7 +58,7 @@
             var field_divs = $(form).find(".ctrlHolder").filter(".error");
             field_divs.removeClass("error");
             field_divs.find(".errorField").remove();
-            
+
             $.each(data.errors, function(key, val) {
                 var field_div = $(form).find(".ctrlHolder").filter("#div_" + key);
                 field_div.addClass("error");

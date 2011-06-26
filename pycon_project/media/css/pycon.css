@@ -71,6 +71,10 @@ p, ul, ol {
   margin-bottom: 15px;
 }
 
+ul, ol {
+  margin-left:40px;
+}
+
 address {
   font-style: normal;
 }
@@ -91,15 +95,17 @@ address {
 /** forms ** */
 form, form.uniForm {
   padding: 15px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border: 6px solid #f2f2f2;
   margin-bottom: 10px;
   overflow: hidden;
 }
 
 form.uniForm .focused {
-  background: #ececec;
+  background: none;
+}
+
+form.uniForm .ctrlHolder {
+  border:0;
 }
 
 form.uniForm .form_block {
@@ -111,35 +117,46 @@ form.uniForm .form_block {
 }
 
 form.uniForm label {
-  font-size: 85%;
+  font-size: 100%;
   color: #222222;
   line-height: 1.4em;
 }
 
-input[type=text], input[type=password], input[type=file] {
+form.uniForm .inlineLabels label {
+  width:30%;
+}
+
+form.uniForm .inlineLabels input[type=text], form.uniForm .inlineLabels input[type=password],
+form.uniForm .inlineLabels input[type=file] {
   font-size: 85%;
-  padding: 5px 6px;
+  padding: 8px 6px;
   border: 1px solid #dddddd;
+  width:60%;
 }
 
 input[type=submit] {
-  border: 2px solid #01a4e1;
+  border:0;
+  border-left: 1px solid #34879b;
+  border-right: 1px solid #34879b;
   font-size: 85%;
-  background: #0088bb;
-  color: white;
+  background: #57adc1 url(../img/btn-bg.png) repeat-x 0 0;
+  color:#fff;
   margin-top: 5px;
-  padding: 4px 10px;
+  margin-right:6%;
+  padding: 0 10px;
   float: right;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   cursor: pointer;
+  height:31px;
+  line-height:31px;
+  font-weight:bold;
+  text-shadow:0 1px 1px #35707e;
 }
 
 input[type=submit]:hover {
-  background: #02a5e2;
-  color: white;
-  border: 2px solid #01b7fb;
+  background-position:left bottom;
 }
 
 textarea {
@@ -281,30 +298,31 @@ ul#messages .error {
 /** header ** */
 header {
   position: relative;
-  height: 100px;
+  height: 130px;
 }
 
 header .container {
   background: url(../img/blue_stripe.png) repeat-x 0 0;
-  height: 100px;
+  height: 130px;
 }
 
 header h1#logo {
   margin: 0;
   position: absolute;
-  top: 20px;
+  top: 24px;
   left: 0;
 }
 header h1#logo a {
   display: block;
-  width: 160px;
-  height: 57px;
-  background: url(../img/logo.png) no-repeat 0 0;
+  width: 276px;
+  height: 90px;
+  background: url(../img/pycon_2012_sm.png) no-repeat 0 0;
   float: left;
   padding-bottom: 12px;
   color:#fff;
   text-decoration:none;
   font-size:123.1%;
+  text-indent:-9999px;
 }
 header h2#slogan {
   position: absolute;
@@ -354,16 +372,16 @@ section#body .container {
   padding-top:40px;
 }
 
-h2.section-title {
+h1.section-title {
   font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:340%;
   color:#484746;
   text-transform:uppercase;
   text-shadow: 0 1px 0 #f9f2e6;
-  margin-top:17px;
+  line-height:50px;
 }
 
-h2.section-title span {
+h1.section-title span {
   color:#fcb500;
 }
 
