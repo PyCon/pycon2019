@@ -2,7 +2,49 @@
 
 {% load boxes_tags %}
 
-{% block content %}
+{% block body %}
+<div class="span-8">
+    <h1 class="section-title">Pycon <span>Sponsors</span></h1>
+</div>
+<div class="span-16 last">
+    <h3>PyCon relies on corporate sponsors to make PyCon happen every year.</h3>
+
+    <p>PyCon 2011 will bring together an estimated 1500 Python developers and
+    enthusiasts from a variety of backgrounds. Your sponsorship helps keep PyCon
+    affordable and accessible to the widest possible audience - and helps you connect
+    to the Python community. </p>
+
+    <p><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">
+    A wide variety of sponsorships</a> are available to match your goals and your budget.
+    Don't see what you want? Contact us, we are flexible and willing to work with you.</p>
+
+    <p>With your help PyCon 2011 will be the best yet!</p>
+
+    <div class="section" id="available-options-include">
+      <h2><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Available sponsorships include:</a></h2>
+
+      <ul class="simple">
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Diamond level sponsorships (limited)</a></li>
+
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Platinum level sponsorships (limited)</a></li>
+
+
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Gold level sponsorships</a></li>
+
+
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Silver level sponsorships</a></li>
+
+
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Sprint sponsorships</a></li>
+
+
+        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Media sponsorships</a></li>
+
+       <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Lanyard sponsorship</a></li>
+
+      </ul>
+    </div>
+
     {% if user.is_authenticated %}
         {% if user.sponsorship %}
             <p>Your sponsorship application is being processed.</p>
@@ -29,4 +71,6 @@
             <li>await application processing</li>
         </ol>
     {% endif %}
+
+</div>
 {% endblock %}

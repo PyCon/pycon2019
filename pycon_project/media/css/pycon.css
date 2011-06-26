@@ -79,6 +79,15 @@ address {
   font-style: normal;
 }
 
+hr {
+  clear:both;
+  width:100%;
+  margin:15px 0;
+  height:1px;
+  background:#d7cfc1;
+  border-bottom:1px solid #f9f2e6;
+}
+
 /**************************************************************************** library styles ** */
 .hidden {
   display: none;
@@ -127,10 +136,15 @@ form.uniForm .inlineLabels label {
 }
 
 form.uniForm .inlineLabels input[type=text], form.uniForm .inlineLabels input[type=password],
-form.uniForm .inlineLabels input[type=file] {
+form.uniForm .inlineLabels input[type=file],
+input[type=text], input[type=password], input[type=file] {
   font-size: 85%;
   padding: 8px 6px;
   border: 1px solid #dddddd;
+}
+
+form.uniForm .inlineLabels input[type=text], form.uniForm .inlineLabels input[type=password],
+form.uniForm .inlineLabels input[type=file], form.uniForm .inlineLabels select {
   width:60%;
 }
 
@@ -648,6 +662,22 @@ a.btn:hover {
   float:right;
 }
 
+.user-nav {
+  margin-top:20px;
+  border-left:1px solid #d7cfc1;
+}
+
+.user-nav a {
+  border-left:1px solid #f9f2e6;
+  display:block;
+  padding-left:15px;
+}
+
+.note {
+  font-size:93%;
+  line-height:1.45em;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -673,7 +703,7 @@ body.home header h1#logo a {
 
 body.home header h2#slogan {
   top:204px;
-  left:330px;
+  left:335px;
   width: 329px;
   height: 31px;
   background: url(../img/santa_clara.png) no-repeat 0 0;

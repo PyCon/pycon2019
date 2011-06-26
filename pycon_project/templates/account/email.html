@@ -6,10 +6,8 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans "Account" %}</h1>
-    
     <h2>{% trans "E-mail Addresses" %}</h2>
-    
+
     {% if user.emailaddress_set.all %}
         <table class="email_list">
             {% for emailaddress in user.emailaddress_set.all %}
@@ -59,9 +57,11 @@
     {% else %} {# no user.emailaddress_set.all #}
         <p><span class="warning">{% trans "None" %}</span>. {% trans "You should really add one so you can receive notifications, reset your password if you forget it, etc." %}</p>
     {% endif %}
-    
-    <h3>{% trans "Add E-mail Address" %}</h3>
-    
+
+    <hr />
+
+    <h2>{% trans "Add E-mail Address" %}</h2>
+
     <form method="post" action="" class="uniForm">
         {% csrf_token %}
         <fieldset class="inlineLabels">
@@ -72,5 +72,5 @@
             </div>
         </fieldset>
     </form>
-    
+
 {% endblock %}
