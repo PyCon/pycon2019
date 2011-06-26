@@ -3,5 +3,10 @@
 {% block body_class %}blog{% endblock %}
 
 {% block body %}
-    {% block primary %}{% endblock %}
+    <div class="span-8">
+        <h1 class="section-title">Pycon <span>Blog</span></h1>
+    </div>
+    <div class="span-16 last">
+        {% block primary %}{% endblock %}
+    </div>
 {% endblock %}
