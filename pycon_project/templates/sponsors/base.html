@@ -2,4 +2,11 @@
 
 {% block body_class %}sponsors{% endblock %}
 
-{% block right %}{% endblock %}
+{% block body %}
+<div class="span-8">
+    <h1 class="section-title">Pycon <span>Sponsors</span></h1>
+</div>
+<div class="span-16 last">
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}

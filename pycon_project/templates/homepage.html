@@ -12,6 +12,10 @@
     <![endif]-->
 {% endblock %}
 
+{% block slogan %}
+    <h2 id="slogan">Santa Clara, CA</h2>
+{% endblock %}
+
 {% block header_extra_base %}
     <div id="python"></div>
     <div class="dates">
@@ -34,7 +38,7 @@
     </div>
     {#  SECTION: what is pycon #}
     <div class="span-8">
-        <h2 class="section-title">What is <span>Pycon</span>?</h2>
+        <h1 class="section-title">What is <span>Pycon</span>?</h2>
     </div>
     <div class="span-16 last spacer">
         <p>PyCon is the largest annual gathering for the community using and
@@ -46,7 +50,7 @@
     </div>
     {#  SECTION: our sponsors #}
     <div class="span-8">
-        <h2 class="section-title">Our <span>Sponsors</span></h2>
+        <h1 class="section-title">Our <span>Sponsors</span></h2>
     </div>
     <div class="span-16 last spacer">
         <ul id="slider">
@@ -115,7 +119,7 @@
     </div>
     {#  SECTION: blog #}
     <div class="span-8">
-        <h2 class="section-title">Pycon <span>Blog</span></h2>
+        <h1 class="section-title">Pycon <span>Blog</span></h2>
     </div>
     <div class="span-16 last spacer">
         {% latest_blog_posts as posts %}
