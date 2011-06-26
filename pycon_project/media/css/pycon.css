@@ -1,16 +1,26 @@
+@font-face {
+  font-family: 'LeagueGothicRegular';
+  src: url('../fonts/league_gothic-webfont.eot');
+  src: url('../fonts/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/league_gothic-webfont.woff') format('woff'),
+       url('../fonts/league_gothic-webfont.ttf') format('truetype'),
+       url('../fonts/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /**************************************************************************** universal styles ** */
 html, body {
   height: 100%;
 }
 
 body {
-  background: white;
+  background: #eae7df url(../img/bg.png) repeat 0 0;
   color: #444444;
   font: normal 93% "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   line-height: 24px;
-  border-top: 7px solid #033246;
 }
 
 abbr {
@@ -231,7 +241,7 @@ ul#messages .error {
 
 .container {
   position: relative;
-  width: 950px;
+  width: 902px;
   margin: 0 auto;
 }
 
@@ -265,11 +275,15 @@ ul#messages .error {
 /**************************************************************************** general layout styles ** */
 /** header ** */
 header {
-  border-top: 1px solid #366376;
-  background: #055374 url(../img/bg-p.png) repeat;
   position: relative;
   height: 100px;
 }
+
+header .container {
+  background: url(../img/blue_stripe.png) repeat-x 0 0;
+  height: 100px;
+}
+
 header h1#logo {
   margin: 0;
   position: absolute;
@@ -291,7 +305,6 @@ header h2#slogan {
   position: absolute;
   top: 43px;
   left: 140px;
-  border-left: 1px solid #568aa0;
   color: #568aa0;
   font-size: 85%;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -302,24 +315,18 @@ header h2#slogan {
   text-shadow: 0 -1px 0 #033d56;
 }
 header .login {
-  background: #033246;
   float: right;
   color: #7caec3;
   font-size: 77%;
-  margin: -1px 3px 0 0;
-  padding: 0 15px 6px;
-  border: 1px solid #366376;
-  border-top: 0;
-  -moz-border-radius: 0 0 6px 6px;
-  -webkit-border-bottom-right-radius: 6px;
-  -webkit-border-bottom-left-radius: 6px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  margin: 18px 0 0 0;
+  text-shadow: 0 1px 0 #f9f2e6;
   line-height: 1.4em;
 }
 header .login a, header .login a:visited {
-  color: #7caec3;
+  color: #649fae;
   text-decoration: none;
   font-weight: bold;
+  text-transform:uppercase;
 }
 header .login a:hover {
   color: white;
@@ -335,7 +342,10 @@ section#body {
   padding: 30px 0;
   min-height: 400px;
   position: relative;
-  border-top: 10px solid #033246;
+}
+
+section#body .container {
+  background: url(../img/blue_stripe.png) repeat-x 0 0;
 }
 
 /** footer ** */
@@ -441,8 +451,9 @@ body.bidi div.right_panel {
 
 /** main nav ** */
 nav#main-nav {
+  font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: absolute;
-  top: 30px;
+  top: 46px;
   right: -18px;
 }
 nav#main-nav ul {
@@ -453,21 +464,32 @@ nav#main-nav ul li {
 }
 nav#main-nav ul li a {
   display: block;
-  padding: 9px 18px;
+  padding: 0 18px;
   text-decoration: none;
-  color: #ddeeff;
+  color: #484746;
   overflow: hidden;
   position: relative;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 0 #f9f2e6;
+  font-size:174%;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  height:63px;
+  line-height:63px;
 }
 
-nav#main-nav ul li a:hover,
+nav#main-nav ul li a:hover {
+  color: #006e91;
+  cursor: pointer;
+}
+
 nav#main-nav ul li.sfHover a, nav#main-nav ul li.sfhover a,
 body#page-about nav#main-nav ul li a#link-about,
-body#page-team nav#main-nav ul li a#link-team,
-body#page-services nav#main-nav ul li a#link-services,
-body#page-contact nav#main-nav ul li a#link-contact {
-  color: white;
+body#page-tickets nav#main-nav ul li a#link-tickets,
+body#page-venue nav#main-nav ul li a#link-venue,
+body#page-sponsors nav#main-nav ul li a#link-sponsors,
+body#page-blog nav#main-nav ul li a#link-blog {
+  background: url(../img/main_nav_over.png) no-repeat center center;
+  color: #006e91;
   cursor: pointer;
 }
 
@@ -577,6 +599,78 @@ a.btn:hover {
 
 /**************************************************************************** page specific styles */
 /** homepage ** */
+body.home header {
+  height: 360px;
+}
+
+body.home header .container {
+  height: 360px;
+}
+
+body.home header h1#logo {
+  top:135px;
+  left:210px;
+}
+
+body.home header h1#logo a {
+  display: block;
+  width: 388px;
+  height: 45px;
+  background: url(../img/pycon_2012.png) no-repeat 0 0;
+  text-indent:-9999px;
+}
+
+body.home header h2#slogan {
+  top:204px;
+  left:330px;
+  width: 329px;
+  height: 31px;
+  background: url(../img/santa_clara.png) no-repeat 0 0;
+  text-indent:-9999px;
+}
+
+body.home #python {
+  position:absolute;
+  top:30px;
+  left:8px;
+  background: url(../img/snake.png) no-repeat 0 0;
+  width:158px;
+  height:217px;
+}
+
+body.home .dates {
+  position:absolute;
+  top:270px;
+  width:100%;
+  background: url(../img/stripe.png) no-repeat top center;
+  padding-top:38px;
+}
+
+body.home .dates .tutorials {
+  float:left;
+  width:216px;
+  height:55px;
+  background: url(../img/dates/tutorials.png) no-repeat 0 0;
+  text-indent:-9999px;
+  margin-right:106px;
+}
+
+body.home .dates .talks {
+  float:left;
+  width:225px;
+  height:55px;
+  background: url(../img/dates/talks.png) no-repeat 0 0;
+  text-indent:-9999px;
+}
+
+body.home .dates .sprints {
+  float:right;
+  width:244px;
+  height:55px;
+  background: url(../img/dates/sprints.png) no-repeat 0 0;
+  text-indent:-9999px;
+}
+
 body.home .banner {
   background: #055374 url(../img/bg-p.png) repeat;
   padding: 20px 0 0;
