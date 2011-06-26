@@ -38,6 +38,14 @@
 
     <script>
         $("#id_email").focus();
+        $(function () {
+            if(('ul#messages').length > 0) {
+                setTimeout(function() {
+                    $('ul#messages').fadeOut(3000);
+                }, 2000 );
+            }
+        });
+
     </script>
     {% block extra_body %}{% endblock %}
 {% endblock %}
