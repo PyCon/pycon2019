@@ -83,6 +83,10 @@ address {
   clear: both;
 }
 
+.spacer {
+  margin-bottom:40px;
+}
+
 /** forms ** */
 form, form.uniForm {
   padding: 15px;
@@ -339,13 +343,26 @@ header .login a:hover {
 
 /** body ** */
 section#body {
-  padding: 30px 0;
   min-height: 400px;
   position: relative;
 }
 
 section#body .container {
   background: url(../img/blue_stripe.png) repeat-x 0 0;
+  padding-top:30px;
+}
+
+section#body h2 {
+  font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:340%;
+  color:#484746;
+  text-transform:uppercase;
+  text-shadow: 0 1px 0 #f9f2e6;
+  margin-top:17px;
+}
+
+section#body h2 span {
+  color:#fcb500;
 }
 
 /** footer ** */
@@ -483,11 +500,11 @@ nav#main-nav ul li a:hover {
 }
 
 nav#main-nav ul li.sfHover a, nav#main-nav ul li.sfhover a,
-body#page-about nav#main-nav ul li a#link-about,
-body#page-tickets nav#main-nav ul li a#link-tickets,
-body#page-venue nav#main-nav ul li a#link-venue,
-body#page-sponsors nav#main-nav ul li a#link-sponsors,
-body#page-blog nav#main-nav ul li a#link-blog {
+body.about nav#main-nav ul li a#link-about,
+body.tickets nav#main-nav ul li a#link-tickets,
+body.venue nav#main-nav ul li a#link-venue,
+body.sponsors nav#main-nav ul li a#link-sponsors,
+body.blog nav#main-nav ul li a#link-blog {
   background: url(../img/main_nav_over.png) no-repeat center center;
   color: #006e91;
   cursor: pointer;
@@ -597,14 +614,20 @@ a.btn:hover {
   background-color: #02a5e2;
 }
 
+.learn-more {
+  font-style:italic;
+  text-decoration:none;
+  float:right;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
-  height: 360px;
+  height: 394px;
 }
 
 body.home header .container {
-  height: 360px;
+  height: 394px;
 }
 
 body.home header h1#logo {
@@ -755,4 +778,26 @@ body.home .banner a.btn:hover {
   letter-spacing: 0.06em;
   color: #ddeeff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.anythingSlider .sponsor {
+  float:left;
+  margin:30px 20px;
+  position:relative;
+}
+
+.anythingSlider .sponsor.last {
+  margin-right:0;
+}
+
+.anythingSlider .sponsor span {
+  display:block;
+  text-align:center;
+  border-top:1px solid #dcd6cb;
+  text-transform:uppercase;
+  color:#484746;
+  padding-top:10px;
+  position:absolute;
+  top:100px;
+  width:100%;
 }

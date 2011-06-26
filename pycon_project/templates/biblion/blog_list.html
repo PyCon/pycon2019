@@ -1,7 +1,10 @@
 {% extends "biblion/blog_base.html" %}
 
 {% block primary %}
+<div class="span-4">
     <h1>Blog</h1>
+</div>
+<div class="span-20 last">
     {% if posts %}
         {% for post in posts %}
             <div class="blog-post">
@@ -14,5 +17,5 @@
     {% else %}
         <p>No blog posts have been published.</p>
     {% endif %}
-    
+</div>
 {% endblock %}
