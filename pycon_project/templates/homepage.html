@@ -34,7 +34,7 @@
     </div>
     {#  SECTION: what is pycon #}
     <div class="span-8">
-        <h2>What is <span>Pycon</span>?</h2>
+        <h2 class="section-title">What is <span>Pycon</span>?</h2>
     </div>
     <div class="span-16 last spacer">
         <p>PyCon is the largest annual gathering for the community using and
@@ -46,7 +46,7 @@
     </div>
     {#  SECTION: our sponsors #}
     <div class="span-8">
-        <h2>Our <span>Sponsors</span></h2>
+        <h2 class="section-title">Our <span>Sponsors</span></h2>
     </div>
     <div class="span-16 last spacer">
         <ul id="slider">
@@ -115,7 +115,7 @@
     </div>
     {#  SECTION: blog #}
     <div class="span-8">
-        <h2>Pycon <span>Blog</span></h2>
+        <h2 class="section-title">Pycon <span>Blog</span></h2>
     </div>
     <div class="span-16 last spacer">
         {% latest_blog_posts as posts %}
@@ -125,7 +125,7 @@
                     <h2><a href="{{ post.get_absolute_url }}" class="post-link">{{ post.title }}</a></h2>
                     {% include "biblion/dateline.html" %}
                     <p class="teaser">{{ post.teaser_html|safe }}</p>
-                    <p class="more"><a href="{{ post.get_absolute_url }}" class="post-link">read more...</a></p>
+                    <p class="more"><a href="{{ post.get_absolute_url }}" class="post-link">Read more...</a></p>
                 </div>
             {% endfor %}
         {% else %}

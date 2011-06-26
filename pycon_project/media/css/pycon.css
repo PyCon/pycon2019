@@ -28,11 +28,12 @@ abbr {
 }
 
 a, a:visited {
-  color: #0a84c1;
+  color: #65a7c2;
+  text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
+  color: #006e91;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -47,7 +48,7 @@ h1 {
 }
 
 h2 {
-  font-size: 161.6%;
+  font-size: 153.9%;
 }
 
 h3 {
@@ -333,8 +334,8 @@ header .login a, header .login a:visited {
   text-transform:uppercase;
 }
 header .login a:hover {
-  color: white;
-  text-decoration: underline;
+  color: #006e91;
+  text-decoration: none;
 }
 
 #locale_switcher {
@@ -345,14 +346,15 @@ header .login a:hover {
 section#body {
   min-height: 400px;
   position: relative;
+  text-shadow: 0 1px 0 #f9f2e6;
 }
 
 section#body .container {
   background: url(../img/blue_stripe.png) repeat-x 0 0;
-  padding-top:30px;
+  padding-top:40px;
 }
 
-section#body h2 {
+h2.section-title {
   font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:340%;
   color:#484746;
@@ -361,7 +363,7 @@ section#body h2 {
   margin-top:17px;
 }
 
-section#body h2 span {
+h2.section-title span {
   color:#fcb500;
 }
 
@@ -380,19 +382,20 @@ section#body h2 span {
 
 footer {
   height: 20px;
-  padding: 40px 0;
   font-size: 77%;
-  background: #3f4346;
-  color: #7a7a7a;
-  text-shadow: 0px -1px 0px #2a2a2a;
-  border-top: 9px solid #292b2d;
 }
+
+footer .container {
+  background: url(../img/thin_stripe.png) repeat-x 0 0;
+  padding: 25px 0 40px 0;
+}
+
 footer a, footer a:visited {
-  color: #b6b6b6;
   text-decoration: none;
 }
+
 footer a:hover {
-  color: white;
+  color: #006e91;
 }
 
 /**************************************************************************** elements */
@@ -614,7 +617,7 @@ a.btn:hover {
   background-color: #02a5e2;
 }
 
-.learn-more {
+.learn-more, p.more a {
   font-style:italic;
   text-decoration:none;
   float:right;
@@ -694,95 +697,10 @@ body.home .dates .sprints {
   text-indent:-9999px;
 }
 
-body.home .banner {
-  background: #055374 url(../img/bg-p.png) repeat;
-  padding: 20px 0 0;
-  color: white;
-  border-bottom: 1px solid #366376;
-}
-body.home .banner #banner-content {
-  position: relative;
-  overflow: hidden;
-  min-height: 270px;
-}
-body.home .banner #banner-content h1 {
-  font-size: 200%;
-  color: #f1eee5;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.04em;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-style: italic;
-  font-weight: normal;
-}
-body.home .banner #banner-content .blurb {
-  width: 400px;
-  line-height: 1.66em;
-  font-size: 116%;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-}
-body.home .banner #banner-content .blurb a {
-  color: #ddeeff;
-  text-decoration: none;
-  border-bottom: 1px dotted #a6a6a6;
-}
-body.home .banner #banner-content #screenshot {
-  background: url(../img/screenshot.png) no-repeat 0 0;
-  width: 554px;
-  height: 279px;
-  position: absolute;
-  bottom: 0;
-  right: -10px;
-}
-
-body.home .banner a.btn {
-  display: block;
-  font-size: 123.1%;
-  font-weight: bold;
-  background: #02a5e2;
-  padding: 5px 20px 6px;
-  color: white;
-  text-decoration: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  margin-top: 10px;
-  float: left;
-}
-
-body.home .banner a.btn:hover {
-  background: #0bb5f4;
-}
-
-#banner-links span {
-  display: block;
-  float: left;
-  margin: 0 18px;
-  font-weight: bold;
-  font-size: 100%;
-  line-height: 57px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-#banner-links a#learn-more {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  display: block;
-  float: left;
-  font-style: italic;
-  font-size: 108%;
-  line-height: 59px;
-  text-decoration: none;
-  letter-spacing: 0.06em;
-  color: #ddeeff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-}
-
+/* sponsor slideshow */
 .anythingSlider .sponsor {
   float:left;
-  margin:30px 20px;
+  margin:25px 20px;
   position:relative;
 }
 
@@ -800,4 +718,26 @@ body.home .banner a.btn:hover {
   position:absolute;
   top:100px;
   width:100%;
+  font-weight:bold;
+  font-size:77%;
+}
+
+/*** blog ***/
+.blog-post h2 {
+  font-weight:bold;
+  margin-bottom:3px;
+}
+
+.blog-post p.post_dateline {
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:77%;
+  letter-spacing:0.05em;
+  color:#888;
+  text-shadow: 0 1px 0 #f9f2e6;
+  margin-bottom:-10px;
+}
+
+.blog-post p.post_dateline .author {
+  color:#484746;
 }
