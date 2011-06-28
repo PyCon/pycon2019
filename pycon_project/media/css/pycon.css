@@ -805,3 +805,41 @@ body.home .blog-post p.post_dateline {
 .blog-post div.teaser {
   font-style:italic;
 }
+
+/*** wiki pages ***/
+body.wiki section#body hr {
+  clear:both;
+  width:100%;
+  margin:20px 0;
+  height:1px;
+  background:none;
+  border-bottom:0;
+}
+
+body.wiki section#body h1,
+body.wiki section#body h2 {
+  margin-left:-304px;
+  width:294px;
+  float:left;
+  font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:340%;
+  color:#484746;
+  text-transform:uppercase;
+  text-shadow: 0 1px 0 #f9f2e6;
+  line-height:50px;
+}
+
+body.wiki section#body h2 {
+  font-size:240%;
+}
+
+body.wiki section#body table th {
+  text-align:left;
+  padding-right:40px;
+}
+
+body.wiki.about section#body table th {
+  padding-right:40px;
+}
+
+

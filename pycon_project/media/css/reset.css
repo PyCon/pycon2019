@@ -42,8 +42,8 @@ embed {max-width: 100%;}
 
 /*- optional vanity styles ----------*/
 
-::selection {background: #c80000;}
-::-moz-selection {background: #c80000;}
+::selection {background: #d7cfc1;}
+::-moz-selection {background: #d7cfc1;}
 
 img::selection {background: transparent;}
 img::-moz-selection {background: transparent;}
