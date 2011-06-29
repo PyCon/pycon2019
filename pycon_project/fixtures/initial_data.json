@@ -4,7 +4,7 @@
         "model": "sites.site", 
         "fields": {
             "domain": "localhost:8000", 
-            "name": "PyCon 2011 Atlanta"
+            "name": "PyCon 2012 Santa Clara"
         }
     },
     {
@@ -12,7 +12,7 @@
         "model": "sites.site", 
         "fields": {
             "domain": "pycon.eldarion.com", 
-            "name": "PyCon 2011 Atlanta"
+            "name": "PyCon 2012 Santa Clara"
         }
     },
     {
@@ -20,7 +20,7 @@
         "model": "sites.site", 
         "fields": {
             "domain": "us.pycon.org", 
-            "name": "PyCon 2011 Atlanta"
+            "name": "PyCon 2012 Santa Clara"
         }
     }
 ]
