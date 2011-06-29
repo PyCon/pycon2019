@@ -128,7 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "pinax.apps.account.context_processors.account",
     
-    "review.context_processors.permissions",
+    # "review.context_processors.permissions",
 ]
 
 INSTALLED_APPS = [
@@ -160,20 +160,20 @@ INSTALLED_APPS = [
     "biblion",
     "fixture_generator",
     "sorl.thumbnail",
+    "mailout",
     
     # Pinax
     "pinax.templatetags",
     "pinax.apps.waitinglist",
     "pinax.apps.account",
     
+    # symposion
+    # "symposion.proposals",
+    # "symposion.speakers",
+    "symposion.sponsors_pro",
+    
     # project
-    "speakers",
-    "proposals",
-    "sponsors",
-    "review",
     "boxes",
-    "schedule",
-    "user_mailer",
     "wiki",
 ]
 

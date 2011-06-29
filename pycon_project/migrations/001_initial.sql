@@ -211,6 +211,32 @@ CREATE TABLE "biblion_feedhit" (
     "created" timestamp with time zone NOT NULL
 )
 ;
+### New Model: mailout.EmailTemplate
+CREATE TABLE "mailout_emailtemplate" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "label" varchar(100) NOT NULL,
+    "subject" text NOT NULL,
+    "body" text NOT NULL
+)
+;
+### New Model: mailout.Campaign
+CREATE TABLE "mailout_campaign" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "from_address" varchar(150) NOT NULL,
+    "email_template_id" integer NOT NULL REFERENCES "mailout_emailtemplate" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "email_list" varchar(50) NOT NULL,
+    "created" timestamp with time zone NOT NULL,
+    "sent" timestamp with time zone
+)
+;
+### New Model: mailout.CampaignLog
+CREATE TABLE "mailout_campaignlog" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "campaign_id" integer NOT NULL REFERENCES "mailout_campaign" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "email" varchar(75) NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL
+)
+;
 ### New Model: waitinglist.WaitingListEntry
 CREATE TABLE "waitinglist_waitinglistentry" (
     "id" serial NOT NULL PRIMARY KEY,
@@ -244,61 +270,8 @@ CREATE TABLE "account_passwordreset" (
     "reset" boolean NOT NULL
 )
 ;
-### New Model: speakers.Speaker
-CREATE TABLE "speakers_speaker" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "user_id" integer UNIQUE REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "name" varchar(100) NOT NULL,
-    "biography" text NOT NULL,
-    "biography_html" text NOT NULL,
-    "photo" varchar(100) NOT NULL,
-    "twitter_username" varchar(15) NOT NULL,
-    "annotation" text NOT NULL,
-    "invite_email" varchar(200) UNIQUE,
-    "invite_token" varchar(40) NOT NULL,
-    "created" timestamp with time zone NOT NULL
-)
-;
-### New Model: proposals.ProposalSessionType
-CREATE TABLE "proposals_proposalsessiontype" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "name" varchar(100) NOT NULL,
-    "start" timestamp with time zone,
-    "end" timestamp with time zone,
-    "closed" boolean
-)
-;
-### New Model: proposals.Proposal_additional_speakers
-CREATE TABLE "proposals_proposal_additional_speakers" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL,
-    "speaker_id" integer NOT NULL REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("proposal_id", "speaker_id")
-)
-;
-### New Model: proposals.Proposal
-CREATE TABLE "proposals_proposal" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "title" varchar(100) NOT NULL,
-    "description" text NOT NULL,
-    "session_type" integer NOT NULL,
-    "classification" integer NOT NULL,
-    "abstract" text NOT NULL,
-    "abstract_html" text NOT NULL,
-    "audience_level" integer NOT NULL,
-    "additional_notes" text NOT NULL,
-    "submitted" timestamp with time zone NOT NULL,
-    "speaker_id" integer NOT NULL REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "cancelled" boolean NOT NULL,
-    "recording" boolean NOT NULL,
-    "opt_out_ads" boolean,
-    "extreme_pycon" boolean NOT NULL,
-    "invited" boolean NOT NULL
-)
-;
-ALTER TABLE "proposals_proposal_additional_speakers" ADD CONSTRAINT "proposal_id_refs_id_7972021a" FOREIGN KEY ("proposal_id") REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED;
-### New Model: sponsors.SponsorLevel
-CREATE TABLE "sponsors_sponsorlevel" (
+### New Model: sponsors_pro.SponsorLevel
+CREATE TABLE "sponsors_pro_sponsorlevel" (
     "id" serial NOT NULL PRIMARY KEY,
     "name" varchar(100) NOT NULL,
     "order" integer NOT NULL,
@@ -306,8 +279,8 @@ CREATE TABLE "sponsors_sponsorlevel" (
     "description" text NOT NULL
 )
 ;
-### New Model: sponsors.Sponsor
-CREATE TABLE "sponsors_sponsor" (
+### New Model: sponsors_pro.Sponsor
+CREATE TABLE "sponsors_pro_sponsor" (
     "id" serial NOT NULL PRIMARY KEY,
     "applicant_id" integer UNIQUE REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
     "name" varchar(100) NOT NULL,
@@ -315,103 +288,38 @@ CREATE TABLE "sponsors_sponsor" (
     "annotation" text NOT NULL,
     "contact_name" varchar(100) NOT NULL,
     "contact_email" varchar(75) NOT NULL,
-    "level_id" integer REFERENCES "sponsors_sponsorlevel" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "level_id" integer REFERENCES "sponsors_pro_sponsorlevel" ("id") DEFERRABLE INITIALLY DEFERRED,
     "added" timestamp with time zone NOT NULL,
     "active" boolean
 )
 ;
-### New Model: sponsors.Benefit
-CREATE TABLE "sponsors_benefit" (
+### New Model: sponsors_pro.Benefit
+CREATE TABLE "sponsors_pro_benefit" (
     "id" serial NOT NULL PRIMARY KEY,
     "name" varchar(100) NOT NULL,
     "description" text NOT NULL,
     "type" varchar(10) NOT NULL
 )
 ;
-### New Model: sponsors.BenefitLevel
-CREATE TABLE "sponsors_benefitlevel" (
+### New Model: sponsors_pro.BenefitLevel
+CREATE TABLE "sponsors_pro_benefitlevel" (
     "id" serial NOT NULL PRIMARY KEY,
-    "benefit_id" integer NOT NULL REFERENCES "sponsors_benefit" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "level_id" integer NOT NULL REFERENCES "sponsors_sponsorlevel" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "benefit_id" integer NOT NULL REFERENCES "sponsors_pro_benefit" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "level_id" integer NOT NULL REFERENCES "sponsors_pro_sponsorlevel" ("id") DEFERRABLE INITIALLY DEFERRED,
     "max_words" integer CHECK ("max_words" >= 0),
     "other_limits" varchar(200) NOT NULL
 )
 ;
-### New Model: sponsors.SponsorBenefit
-CREATE TABLE "sponsors_sponsorbenefit" (
+### New Model: sponsors_pro.SponsorBenefit
+CREATE TABLE "sponsors_pro_sponsorbenefit" (
     "id" serial NOT NULL PRIMARY KEY,
-    "sponsor_id" integer NOT NULL REFERENCES "sponsors_sponsor" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "benefit_id" integer NOT NULL REFERENCES "sponsors_benefit" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "sponsor_id" integer NOT NULL REFERENCES "sponsors_pro_sponsor" ("id") DEFERRABLE INITIALLY DEFERRED,
+    "benefit_id" integer NOT NULL REFERENCES "sponsors_pro_benefit" ("id") DEFERRABLE INITIALLY DEFERRED,
     "active" boolean NOT NULL,
     "max_words" integer CHECK ("max_words" >= 0),
     "other_limits" varchar(200) NOT NULL,
     "text" text NOT NULL,
     "upload" varchar(100) NOT NULL
-)
-;
-### New Model: review.ReviewAssignment
-CREATE TABLE "review_reviewassignment" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "origin" integer NOT NULL,
-    "assigned_at" timestamp with time zone NOT NULL,
-    "opted_out" boolean NOT NULL
-)
-;
-### New Model: review.ProposalMessage
-CREATE TABLE "review_proposalmessage" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "message" text NOT NULL,
-    "message_html" text NOT NULL,
-    "submitted_at" timestamp with time zone NOT NULL
-)
-;
-### New Model: review.Review
-CREATE TABLE "review_review" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "vote" varchar(2) NOT NULL,
-    "comment" text NOT NULL,
-    "comment_html" text NOT NULL,
-    "submitted_at" timestamp with time zone NOT NULL
-)
-;
-### New Model: review.LatestVote
-CREATE TABLE "review_latestvote" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "vote" varchar(2) NOT NULL,
-    "submitted_at" timestamp with time zone NOT NULL,
-    UNIQUE ("proposal_id", "user_id")
-)
-;
-### New Model: review.ProposalResult
-CREATE TABLE "review_proposalresult" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL UNIQUE REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "score" numeric(5, 2) NOT NULL,
-    "comment_count" integer CHECK ("comment_count" >= 0) NOT NULL,
-    "vote_count" integer CHECK ("vote_count" >= 0) NOT NULL,
-    "plus_one" integer CHECK ("plus_one" >= 0) NOT NULL,
-    "plus_zero" integer CHECK ("plus_zero" >= 0) NOT NULL,
-    "minus_zero" integer CHECK ("minus_zero" >= 0) NOT NULL,
-    "minus_one" integer CHECK ("minus_one" >= 0) NOT NULL,
-    "accepted" boolean
-)
-;
-### New Model: review.Comment
-CREATE TABLE "review_comment" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "proposal_id" integer NOT NULL REFERENCES "proposals_proposal" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "commenter_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "text" text NOT NULL,
-    "public" boolean NOT NULL,
-    "commented_at" timestamp with time zone NOT NULL
 )
 ;
 ### New Model: boxes.Box
@@ -421,118 +329,6 @@ CREATE TABLE "boxes_box" (
     "user_id" integer REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
     "content" text NOT NULL,
     UNIQUE ("label", "user_id")
-)
-;
-### New Model: schedule.Track
-CREATE TABLE "schedule_track" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "name" varchar(65) NOT NULL
-)
-;
-### New Model: schedule.Session
-CREATE TABLE "schedule_session" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "track_id" integer REFERENCES "schedule_track" ("id") DEFERRABLE INITIALLY DEFERRED
-)
-;
-### New Model: schedule.SessionRole
-CREATE TABLE "schedule_sessionrole" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "session_id" integer NOT NULL REFERENCES "schedule_session" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "role" integer NOT NULL,
-    "status" boolean,
-    "submitted" timestamp with time zone NOT NULL,
-    UNIQUE ("session_id", "user_id", "role")
-)
-;
-### New Model: schedule.Slot
-CREATE TABLE "schedule_slot" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "title" varchar(100),
-    "start" timestamp with time zone NOT NULL,
-    "end" timestamp with time zone NOT NULL,
-    "kind_id" integer REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "track_id" integer REFERENCES "schedule_track" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "session_id" integer REFERENCES "schedule_session" ("id") DEFERRABLE INITIALLY DEFERRED
-)
-;
-### New Model: schedule.Presentation_additional_speakers
-CREATE TABLE "schedule_presentation_additional_speakers" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "presentation_id" integer NOT NULL,
-    "speaker_id" integer NOT NULL REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("presentation_id", "speaker_id")
-)
-;
-### New Model: schedule.Presentation
-CREATE TABLE "schedule_presentation" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "slot_id" integer UNIQUE REFERENCES "schedule_slot" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "title" varchar(100) NOT NULL,
-    "description" text NOT NULL,
-    "presentation_type" integer NOT NULL,
-    "abstract" text NOT NULL,
-    "abstract_html" text NOT NULL,
-    "audience_level" integer NOT NULL,
-    "submitted" timestamp with time zone NOT NULL,
-    "speaker_id" integer NOT NULL REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "cancelled" boolean NOT NULL,
-    "extreme_pycon" boolean NOT NULL,
-    "invited" boolean NOT NULL
-)
-;
-ALTER TABLE "schedule_presentation_additional_speakers" ADD CONSTRAINT "presentation_id_refs_id_87e9a6e4" FOREIGN KEY ("presentation_id") REFERENCES "schedule_presentation" ("id") DEFERRABLE INITIALLY DEFERRED;
-### New Model: schedule.Plenary_additional_speakers
-CREATE TABLE "schedule_plenary_additional_speakers" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "plenary_id" integer NOT NULL,
-    "speaker_id" integer NOT NULL REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("plenary_id", "speaker_id")
-)
-;
-### New Model: schedule.Plenary
-CREATE TABLE "schedule_plenary" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "slot_id" integer UNIQUE REFERENCES "schedule_slot" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "title" varchar(100) NOT NULL,
-    "speaker_id" integer REFERENCES "speakers_speaker" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "description" text NOT NULL
-)
-;
-ALTER TABLE "schedule_plenary_additional_speakers" ADD CONSTRAINT "plenary_id_refs_id_e737e1c0" FOREIGN KEY ("plenary_id") REFERENCES "schedule_plenary" ("id") DEFERRABLE INITIALLY DEFERRED;
-### New Model: schedule.Recess
-CREATE TABLE "schedule_recess" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "slot_id" integer UNIQUE REFERENCES "schedule_slot" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "title" varchar(100) NOT NULL,
-    "description" text NOT NULL
-)
-;
-### New Model: schedule.UserBookmark
-CREATE TABLE "schedule_userbookmark" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "presentation_id" integer NOT NULL REFERENCES "schedule_presentation" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("user_id", "presentation_id")
-)
-;
-### New Model: user_mailer.EmailTemplate
-CREATE TABLE "user_mailer_emailtemplate" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "label" varchar(100) NOT NULL,
-    "subject" text NOT NULL,
-    "body" text NOT NULL
-)
-;
-### New Model: user_mailer.Campaign
-CREATE TABLE "user_mailer_campaign" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "from_address" varchar(150) NOT NULL,
-    "email_template_id" integer NOT NULL REFERENCES "user_mailer_emailtemplate" ("id") DEFERRABLE INITIALLY DEFERRED,
-    "user_list" varchar(50) NOT NULL,
-    "created" timestamp with time zone NOT NULL,
-    "sent" timestamp with time zone
 )
 ;
 ### New Model: django_openid.Nonce
@@ -584,44 +380,16 @@ CREATE INDEX "biblion_post_author_id" ON "biblion_post" ("author_id");
 CREATE INDEX "biblion_revision_post_id" ON "biblion_revision" ("post_id");
 CREATE INDEX "biblion_revision_author_id" ON "biblion_revision" ("author_id");
 CREATE INDEX "biblion_image_post_id" ON "biblion_image" ("post_id");
+CREATE INDEX "mailout_campaign_email_template_id" ON "mailout_campaign" ("email_template_id");
+CREATE INDEX "mailout_campaignlog_campaign_id" ON "mailout_campaignlog" ("campaign_id");
 CREATE INDEX "account_otherserviceinfo_user_id" ON "account_otherserviceinfo" ("user_id");
 CREATE INDEX "account_passwordreset_user_id" ON "account_passwordreset" ("user_id");
-CREATE INDEX "speakers_speaker_invite_token" ON "speakers_speaker" ("invite_token");
-CREATE INDEX "speakers_speaker_invite_token_like" ON "speakers_speaker" ("invite_token" varchar_pattern_ops);
-CREATE INDEX "proposals_proposal_additional_speakers_proposal_id" ON "proposals_proposal_additional_speakers" ("proposal_id");
-CREATE INDEX "proposals_proposal_additional_speakers_speaker_id" ON "proposals_proposal_additional_speakers" ("speaker_id");
-CREATE INDEX "proposals_proposal_speaker_id" ON "proposals_proposal" ("speaker_id");
-CREATE INDEX "sponsors_sponsor_level_id" ON "sponsors_sponsor" ("level_id");
-CREATE INDEX "sponsors_benefitlevel_benefit_id" ON "sponsors_benefitlevel" ("benefit_id");
-CREATE INDEX "sponsors_benefitlevel_level_id" ON "sponsors_benefitlevel" ("level_id");
-CREATE INDEX "sponsors_sponsorbenefit_sponsor_id" ON "sponsors_sponsorbenefit" ("sponsor_id");
-CREATE INDEX "sponsors_sponsorbenefit_benefit_id" ON "sponsors_sponsorbenefit" ("benefit_id");
-CREATE INDEX "review_reviewassignment_proposal_id" ON "review_reviewassignment" ("proposal_id");
-CREATE INDEX "review_reviewassignment_user_id" ON "review_reviewassignment" ("user_id");
-CREATE INDEX "review_proposalmessage_proposal_id" ON "review_proposalmessage" ("proposal_id");
-CREATE INDEX "review_proposalmessage_user_id" ON "review_proposalmessage" ("user_id");
-CREATE INDEX "review_review_proposal_id" ON "review_review" ("proposal_id");
-CREATE INDEX "review_review_user_id" ON "review_review" ("user_id");
-CREATE INDEX "review_latestvote_proposal_id" ON "review_latestvote" ("proposal_id");
-CREATE INDEX "review_latestvote_user_id" ON "review_latestvote" ("user_id");
-CREATE INDEX "review_comment_proposal_id" ON "review_comment" ("proposal_id");
-CREATE INDEX "review_comment_commenter_id" ON "review_comment" ("commenter_id");
+CREATE INDEX "sponsors_pro_sponsor_level_id" ON "sponsors_pro_sponsor" ("level_id");
+CREATE INDEX "sponsors_pro_benefitlevel_benefit_id" ON "sponsors_pro_benefitlevel" ("benefit_id");
+CREATE INDEX "sponsors_pro_benefitlevel_level_id" ON "sponsors_pro_benefitlevel" ("level_id");
+CREATE INDEX "sponsors_pro_sponsorbenefit_sponsor_id" ON "sponsors_pro_sponsorbenefit" ("sponsor_id");
+CREATE INDEX "sponsors_pro_sponsorbenefit_benefit_id" ON "sponsors_pro_sponsorbenefit" ("benefit_id");
 CREATE INDEX "boxes_box_label" ON "boxes_box" ("label");
 CREATE INDEX "boxes_box_label_like" ON "boxes_box" ("label" varchar_pattern_ops);
 CREATE INDEX "boxes_box_user_id" ON "boxes_box" ("user_id");
-CREATE INDEX "schedule_session_track_id" ON "schedule_session" ("track_id");
-CREATE INDEX "schedule_sessionrole_session_id" ON "schedule_sessionrole" ("session_id");
-CREATE INDEX "schedule_sessionrole_user_id" ON "schedule_sessionrole" ("user_id");
-CREATE INDEX "schedule_slot_kind_id" ON "schedule_slot" ("kind_id");
-CREATE INDEX "schedule_slot_track_id" ON "schedule_slot" ("track_id");
-CREATE INDEX "schedule_slot_session_id" ON "schedule_slot" ("session_id");
-CREATE INDEX "schedule_presentation_additional_speakers_presentation_id" ON "schedule_presentation_additional_speakers" ("presentation_id");
-CREATE INDEX "schedule_presentation_additional_speakers_speaker_id" ON "schedule_presentation_additional_speakers" ("speaker_id");
-CREATE INDEX "schedule_presentation_speaker_id" ON "schedule_presentation" ("speaker_id");
-CREATE INDEX "schedule_plenary_additional_speakers_plenary_id" ON "schedule_plenary_additional_speakers" ("plenary_id");
-CREATE INDEX "schedule_plenary_additional_speakers_speaker_id" ON "schedule_plenary_additional_speakers" ("speaker_id");
-CREATE INDEX "schedule_plenary_speaker_id" ON "schedule_plenary" ("speaker_id");
-CREATE INDEX "schedule_userbookmark_user_id" ON "schedule_userbookmark" ("user_id");
-CREATE INDEX "schedule_userbookmark_presentation_id" ON "schedule_userbookmark" ("presentation_id");
-CREATE INDEX "user_mailer_campaign_email_template_id" ON "user_mailer_campaign" ("email_template_id");
 CREATE INDEX "django_openid_useropenidassociation_user_id" ON "django_openid_useropenidassociation" ("user_id");

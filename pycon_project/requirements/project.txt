@@ -32,3 +32,4 @@ icalendar==1.2
 PIL==1.1.7
 psycopg2==2.4.1
 gondor==1.0b1.post10
+symposion==1.0a1.dev5
