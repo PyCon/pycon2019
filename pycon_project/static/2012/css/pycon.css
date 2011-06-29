@@ -882,9 +882,11 @@ nav.sidenav ul li {
   border-left:1px solid #f9f2e6;
   display:block;
   padding-left:15px;
+  margin-bottom:10px;
+  line-height:1.2em;
 }
 
-nav.sidenav ul li a {
+nav.sidenav.venue-sidenav ul li a {
   display:block;
   height:34px;
   line-height:34px;

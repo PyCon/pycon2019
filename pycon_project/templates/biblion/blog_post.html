@@ -2,13 +2,25 @@
 
 {% block head_title %}{{ post.title }}{% endblock %}
 
+{% block extra_sidebar %}
+<nav class="sidenav">
+    <ul>
+        <li><strong>Recent Posts</strong></li>
+        <li><a href="#">PyCon 2011: Outside the Talks: Poster Session</a></li>
+        <li><a href="#">PyCon 2011: Outside the Talks: Poster Session</a></li>
+        <li><a href="#">PyCon 2011: Outside the Talks: Poster Session</a></li>
+    </ul>
+</nav>
+{# <a href="#" class="learn-more">See all posts...</a> #}
+{% endblock %}
+
 {% block primary %}
     <div class="blog-post">
         <h1>{{ post.title }}</h1>
         {% include "biblion/dateline.html" %}
-        
+
         <div class="teaser">{{ post.teaser_html|safe }}</div>
-        
+
         <div class="content">{{ post.content_html|safe }}</div>
     </div>
 {% endblock %}
