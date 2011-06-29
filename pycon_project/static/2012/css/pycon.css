@@ -28,7 +28,7 @@ abbr {
 }
 
 a, a:visited {
-  color: #52a1c1;
+  color: #409cc1;
   text-decoration: none;
 }
 
@@ -392,7 +392,7 @@ section#body .container {
   padding-top:40px;
 }
 
-h1.section-title {
+h1.section-title, h2.section-title {
   font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:340%;
   color:#484746;
@@ -401,7 +401,11 @@ h1.section-title {
   line-height:50px;
 }
 
-h1.section-title span {
+h2.section-title {
+  font-size:240%;
+}
+
+h1.section-title span, h2.section-title span {
   color:#fcb500;
 }
 
@@ -841,6 +845,18 @@ body.wiki.about section#body table th {
   padding-right:40px;
 }
 
+body.wiki.tickets section#body table th {
+  text-transform:uppercase;
+  font-weight:normal;
+  padding:10px 20px 10px;
+}
+
+body.wiki.tickets section#body table td {
+  font-weight:bold;
+  padding:10px 20px 10px;
+  font-size:108%;
+}
+
 /*** venue detail ***/
 .map iframe {
   border: 6px solid #f2f2f2;
@@ -892,3 +908,38 @@ nav.sidenav ul li a#l-shopping {
   background-position:0 -72px;
 }
 
+/*** sponsors ***/
+ol.steps {
+  list-style-type:none;
+  margin-left:-2px;
+  text-shadow:none;
+}
+
+ol.steps li {
+  display:block;
+  height:34px;
+  line-height:34px;
+  padding-left:40px;
+  background-image:url(../img/steps.png);
+  background-repeat: no-repeat;
+  margin-bottom:10px;
+  font-weight:bold;
+  font-size:108%;
+}
+
+ol.steps li.first {
+  background-position: 0 0;
+}
+
+ol.steps li.second {
+  background-position: 0 -42px;
+}
+
+ol.steps li.third {
+  background-position: 0 -86px;
+}
+
+ol.steps li.done {
+  color:#666;
+  text-decoration: line-through;
+}

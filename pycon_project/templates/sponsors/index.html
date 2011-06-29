@@ -19,10 +19,11 @@
     Don't see what you want? Contact us, we are flexible and willing to work with you.</p>
 
     <p>With your help PyCon 2011 will be the best yet!</p>
-
-    <div class="section" id="available-options-include">
-      <h2><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Available sponsorships include:</a></h2>
-
+</div>
+<div class="span-8">
+      <h2 class="section-title">Available sponsorships</h2>
+</div>
+<div class="span-16 last">
       <ul class="simple">
         <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Diamond level sponsorships (limited)</a></li>
 
@@ -43,34 +44,32 @@
        <li><a title="Sponsorship Prospectus - Click me!" href="/2011/sponsors/prospectus">Lanyard sponsorship</a></li>
 
       </ul>
-    </div>
-
+</div>
+<div class="span-8">
+    <h2 class="section-title">Sponsor PyCon 2011</h2>
+</div>
+<div class="span-16 last">
     {% if user.is_authenticated %}
         {% if user.sponsorship %}
             <p>Your sponsorship application is being processed.</p>
         {% else %}
             <p>{% box "sponsorship-info" %}</p>
 
-            <p>To sponsor PyCon 2011:</p>
-
             <ol class="steps">
-                <li class="done">sign up and log in</li>
-                <li class="next"><a href="{% url sponsor_apply %}">apply to be a sponsor</a></li>
-                <li>await application processing</li>
+                <li class="first done">Sign up and log in</li>
+                <li class="second next"><a href="{% url sponsor_apply %}">Apply to be a sponsor</a></li>
+                <li class="third">Await application processing</li>
             </ol>
 
         {% endif %}
     {% else %}
         <p>{% box "sponsorship-info" %}</p>
 
-        <p>To sponsor PyCon 2011:</p>
-
         <ol class="steps">
-            <li class="next"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
-            <li>apply to be a sponsor</li>
-            <li>await application processing</li>
+            <li class="first next"><a href="{% url acct_signup %}?next={{ request.path }}">Sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
+            <li class="second">Apply to be a sponsor</li>
+            <li class="third">Await application processing</li>
         </ol>
     {% endif %}
-
 </div>
 {% endblock %}
