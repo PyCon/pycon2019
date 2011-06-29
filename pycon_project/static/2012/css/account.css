@@ -1,0 +1,31 @@
+/** ACCOUNT **/
+
+/* EMAIL ADDRESS */
+
+.verified {
+    color: #0A0;
+    font-weight: bold;
+    text-shadow: none;
+}
+.remove {
+    color: #C00;
+    font-weight: bold;
+    text-shadow: none;
+}
+.unverified {
+    color: #999;
+    text-shadow: none;
+}
+.primary {
+    font-weight: bold;
+}
+table.email_list td {
+    padding: 5px 10px;
+    border: none;
+}
+
+/* OPEN ID */
+
+.openid {
+    font-size: 16pt;
+}

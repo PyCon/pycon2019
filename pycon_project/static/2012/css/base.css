@@ -1,0 +1,140 @@
+p {
+    margin: 1em 0;
+}
+
+h1 {
+    font-size: 24pt;
+    line-height: 28pt;
+    margin: 24pt 0 16pt;
+}
+
+h2 {
+    font-size: 20pt;
+    line-height: 24pt;
+}
+h3 {
+    font-size: 16pt;
+}
+
+body {
+    line-height: 1.4em;
+}
+ol {
+    margin: 1em 0;
+    margin-left: 2em;
+    list-style-type: decimal;
+}
+ul {
+    margin: 1em 0;
+    margin-left: 2em;
+    list-style-type: disc;
+}
+
+#tabhead .account-bar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: #222;
+    text-shadow: none;
+    color: #FFF;
+    font-size: 11pt;
+    padding: 4px 12px 6px;
+    color: #FFF;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+#tabhead .account-bar a, #tabhead .account-bar a:visited {
+    text-decoration: none;
+    color: #BBB;
+}
+#tabhead .account-bar a:hover {
+    color: #FFF;
+}
+
+/* FORMS */
+
+form.uniForm {
+    background: #CCC;
+    padding: 15px;
+    text-shadow: 0px 1px 0px #EEE;
+}
+form.uniForm .focused {
+    background: #EEE;
+}
+.form_block {
+    padding: 10px 5px;
+}
+
+#errorMsg ul {
+    margin: 5px;
+    list-style-type: none;
+}
+form label {
+    font-size: 16pt;
+    color: #222;
+}
+
+form.uniForm input[type=text], form.uniForm input[type=password] {
+    font-size: 14pt;
+    padding: 3px 6px;
+}
+form.uniForm input[type=submit] {
+    float: right;
+    margin: 0;
+    color: #DEF;
+    font-size: 12pt;
+    background: #222;
+    padding: 6px 12px 5px;
+    border: none;
+    cursor: pointer;
+}
+form.uniForm input[type=submit]:hover {
+    background: #444;
+    color: #FFF;
+    border: 1px #444;
+}
+form.uniForm textarea {
+    font-size: 14pt;
+    padding: 2px;
+}
+form.uniForm select {
+    font-size: 14pt;
+}
+
+
+/* MESSAGES */
+
+ul#messages {
+    margin: 0 0 10px 0;
+    padding: 0;
+    list-style: none;
+}
+ul#messages li {
+    padding: 5px 10px;
+    margin: 3px;
+}
+ul#messages li a {
+    float: right;
+    color: #693;
+}
+ul#messages .debug {
+    background: #EEE;
+    border: 1px solid #BBB;
+}
+ul#messages .info {
+    background: #DEF;
+    border: 1px solid #9BC;
+}
+ul#messages .success {
+    background: #EFD;
+    border: 1px solid #BC9;
+}
+ul#messages .warning {
+    background: #FED;
+    border: 1px solid #CB9;
+}
+ul#messages .error {
+    background: #FDD;
+    border: 1px solid #C99;
+}
+
