@@ -12,7 +12,7 @@
         {% block account_nav %}
             {% if user.is_authenticated %}
             <div class="user-nav">
-                <a href="{% url acct_email %}">{% trans "E-Mail Addresses" %}</a>
+                <a href="{% url acct_email %}">{% trans "Email Addresses" %}</a>
                 <a href="{% url openid-associations %}">{% trans "OpenID Associations" %}</a>
                 {% if user.password %}
                     <a href="{% url acct_passwd %}">{% trans "Change Password" %}</a>
