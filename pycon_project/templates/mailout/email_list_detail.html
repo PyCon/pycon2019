@@ -1,0 +1,55 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block head_title %}User Mailer Email List {{ email_list_name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <section id="title-bar" class="span-24 last">
+        <div class="holder">
+            <h1><a href="{% url user_mailer_dashboard %}">User Mailer</a> &raquo; Email List {{ email_list_name }}</h1>
+        </div>
+    </section>
+    <section id="main" class="span-16">
+        <div class="holder">
+            <div class="block bdr sh">
+                <h3>Eligible ({{ email_list|length }})</h3>
+                <div class="pd">
+                    {% if email_list %}
+                        <ul class="bl">
+                            {% for email, ctx in email_list %}
+                                <li>{{ email }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>empty</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="block bdr sh">
+                <h3>Campaign <a href="{% url campaign_create %}?email_list={{ email_list_name }}" class="title-link">+ create</a></h3>
+                <div class="pd">
+                    {% if campaigns %}
+                        <ul class="bl">
+                            {% for campaign in campaigns %}
+                                <li><a href="{% url campaign_detail campaign.pk %}">{{ campaign.created }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>empty</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside id="sidebar" class="span-8 last">
+        <p>Email templates are created <a href="/admin/user_mailer/emailtemplate/">via admin</a> for now.</p>
+    </aside>
+</div>
+{% endblock %}
+
+
+
+

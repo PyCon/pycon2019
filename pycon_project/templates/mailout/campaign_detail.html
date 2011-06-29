@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block head_title %}User Mailer Email List {{ email_list_name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <section id="title-bar" class="span-24 last">
+        <div class="holder">
+            <h1><a href="{% url user_mailer_dashboard %}">User Mailer</a> &raquo; Email List {{ email_list_name }}</h1>
+        </div>
+    </section>
+    <section id="main" class="span-16">
+        <div class="holder">
+            <div class="block bdr sh">
+                <h3>{{ campaign.result_counts.0 }} / {{ campaign.result_counts.1 }}</h3>
+                <div class="pd">
+                    <ul>
+                        {% for email, converted in campaign.results %}
+                            <li>{% if converted %}<b>{% endif %}{{ email }}{% if converted %}</b>{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside id="sidebar" class="span-8 last">
+        <div class="block bdr sh">
+            <div class="pd">
+                Email List: <b>{{ campaign.email_list }}</b><br />
+                Created: {{ campaign.created }}<br />
+                Sent: {{ campaign.sent }}
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

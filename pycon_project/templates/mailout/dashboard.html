@@ -1,0 +1,34 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block head_title %}User Mailer Dashboard{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <section id="title-bar" class="span-24 last">
+        <div class="holder">
+            <h1>User Mailer Dashboard</h1>
+        </div>
+    </section>
+    <section id="main" class="span-16">
+        <div class="holder">
+            <div class="block bdr sh">
+                <h3>Email Lists</h3>
+                <div class="pd">
+                    <ul class="bl">
+                        {% for email_list in email_lists %}
+                            <li><a href="{% url email_list_detail email_list %}">{{ email_list }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside id="sidebar" class="span-8 last">
+        <a href="{% url campaign_create %}" class="create-reg">Create Campaign</a>
+        <p>Email templates are created <a href="/admin/user_mailer/emailtemplate/">via admin</a> for now.</p>
+    </aside>
+</div>
+{% endblock %}

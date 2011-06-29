@@ -227,6 +227,10 @@ ACCEPTING_PROPOSALS = True
 
 SCHEDULE_TIMEZONE = "US/Pacific"
 
+MAILOUT_MODULES = [
+    "symposion.email_lists.organizers",
+]
+
 REDIS_PARAMS = dict(host="127.0.0.1")
 
 # local_settings.py can be used to override environment-specific settings

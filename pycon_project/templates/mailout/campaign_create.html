@@ -1,0 +1,37 @@
+{% extends "site_base.html" %}
+
+{% load uni_form_tags %}
+
+{% block head_title %}Create a Mail Out{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <section id="title-bar" class="span-24 last">
+        <div class="holder">
+            <h1>Create a Mail Out</h1>
+        </div>
+    </section>
+    <section id="main" class="span-16">
+        <div class="holder">
+            <div class="block bdr sh">
+                <div class="pd">
+                    <form class="uniForm" method="POST" action="{% url campaign_create %}">
+                        {% csrf_token %}
+                        <fieldset class="inlineLabels">
+                            {{ form|as_uni_form }}
+                            <div class="form_block">
+                                <input type="submit" value="create" />
+                            </div>
+                        </fieldset>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside id="sidebar" class="span-8 last">
+        <p>Email templates are created <a href="{% url admin:mailout_emailtemplate_changelist %}">via admin</a> for now.</p>
+    </aside>
+</div>
+{% endblock %}
