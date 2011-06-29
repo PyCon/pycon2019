@@ -1,0 +1,47 @@
+[
+    {
+        "pk": 1, 
+        "model": "biblion.post", 
+        "fields": {
+            "view_count": 26, 
+            "updated": "2011-06-26 10:56:26", 
+            "author": 2, 
+            "section": 2, 
+            "title": "PyCon 2011: Outside the Talks: Poster Session", 
+            "tweet_text": "", 
+            "slug": "pycon-2011-outside-talks-poster-session", 
+            "created": "2011-06-26 10:40:40", 
+            "published": "2011-06-26 10:40:40", 
+            "content_html": "<p>With twice as many posters as last year, the session is packed with such a wide variety of topics that there\u2019s no easy way to classify it. Education, games, medical, government, scientific, web; there\u2019s a lot to show and learn.\r</p>\n<p>What do you use for all of your Hydro-Geo-Chemical Modeling problems? I know I use Python, and so do Mike M\u00fcller and Fei Luo. It\u2019s a staple of their sub-surface environmental research. They make use of matplotlib, so get ready for some fancy diagrams. Thanks to Python, they say \u201cnearly impossible tasks become simple.\u201d\r</p>\n<p>Every time I run a neutron scattering experiment, I do it with Python. Same with Piotr Adam Zolnierczuk. Thankfully he made a poster to show you what it\u2019s about. Oak Ridge National Laboratory has the world\u2019s most powerful pulsed spallation neutron source, and the PyDAS package makes it easy to integrate the many parts of the system. Piotr plans to show an overview of the system along with examples of its use.\r</p>\n<p>We all know that cloud computing is all the rage, but G\u00f6khan Sever is working with literal cloud computing as an atmospheric scientist. Python with Cython, NumPy, SciPy, and Matplotlib all come together to support G\u00f6khan\u2019s cloud modelling application. From the processing to analysis to visualization, he does it all with the open source tools we all use. Yay cloud.\r</p>\n<p>If you were wondering how one might solve hyperbolic partial differential equations and work with computational fluid dynamics, Python is a correct answer. Yung-Yu Chen put together a poster showing why Python and C is a viable replacement for the venerable FORTRAN, as commonly seen in the science world. Yung-Yu\u2019s SOLVCON framework shows that Python is on its way to becoming a mainstream tool in this field.\r</p>\n<p>Be sure to check out the Poster Session Sunday at 10:05!</p>\n", 
+            "teaser_html": "<p>Back for a second year is the Poster Session, a more intimate approach to presentation in the form of a poster on the wall. Attendees are welcome to the session to peruse around, check out what people are doing, view demos, trade experiences, and talk one-on-one with the presenter.</p>\n"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "biblion.revision", 
+        "fields": {
+            "view_count": 0, 
+            "updated": "2011-06-26 10:40:40", 
+            "author": 1, 
+            "title": "PyCon 2011: Outside the Talks: Poster Session", 
+            "content": "With twice as many posters as last year, the session is packed with such a wide variety of topics that there\u2019s no easy way to classify it. Education, games, medical, government, scientific, web; there\u2019s a lot to show and learn.\r\n\r\nWhat do you use for all of your Hydro-Geo-Chemical Modeling problems? I know I use Python, and so do Mike M\u00fcller and Fei Luo. It\u2019s a staple of their sub-surface environmental research. They make use of matplotlib, so get ready for some fancy diagrams. Thanks to Python, they say \u201cnearly impossible tasks become simple.\u201d\r\n\r\nEvery time I run a neutron scattering experiment, I do it with Python. Same with Piotr Adam Zolnierczuk. Thankfully he made a poster to show you what it\u2019s about. Oak Ridge National Laboratory has the world\u2019s most powerful pulsed spallation neutron source, and the PyDAS package makes it easy to integrate the many parts of the system. Piotr plans to show an overview of the system along with examples of its use.\r\n\r\nWe all know that cloud computing is all the rage, but G\u00f6khan Sever is working with literal cloud computing as an atmospheric scientist. Python with Cython, NumPy, SciPy, and Matplotlib all come together to support G\u00f6khan\u2019s cloud modelling application. From the processing to analysis to visualization, he does it all with the open source tools we all use. Yay cloud.\r\n\r\nIf you were wondering how one might solve hyperbolic partial differential equations and work with computational fluid dynamics, Python is a correct answer. Yung-Yu Chen put together a poster showing why Python and C is a viable replacement for the venerable FORTRAN, as commonly seen in the science world. Yung-Yu\u2019s SOLVCON framework shows that Python is on its way to becoming a mainstream tool in this field.\r\n\r\nBe sure to check out the Poster Session Sunday at 10:05!", 
+            "teaser": "Back for a second year is the Poster Session, a more intimate approach to presentation in the form of a poster on the wall. Attendees are welcome to the session to peruse around, check out what people are doing, view demos, trade experiences, and talk one-on-one with the presenter.", 
+            "published": "2011-06-26 10:40:40", 
+            "post": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "biblion.revision", 
+        "fields": {
+            "view_count": 26, 
+            "updated": "2011-06-26 10:56:26", 
+            "author": 2, 
+            "title": "PyCon 2011: Outside the Talks: Poster Session", 
+            "content": "With twice as many posters as last year, the session is packed with such a wide variety of topics that there\u2019s no easy way to classify it. Education, games, medical, government, scientific, web; there\u2019s a lot to show and learn.\r\n\r\nWhat do you use for all of your Hydro-Geo-Chemical Modeling problems? I know I use Python, and so do Mike M\u00fcller and Fei Luo. It\u2019s a staple of their sub-surface environmental research. They make use of matplotlib, so get ready for some fancy diagrams. Thanks to Python, they say \u201cnearly impossible tasks become simple.\u201d\r\n\r\nEvery time I run a neutron scattering experiment, I do it with Python. Same with Piotr Adam Zolnierczuk. Thankfully he made a poster to show you what it\u2019s about. Oak Ridge National Laboratory has the world\u2019s most powerful pulsed spallation neutron source, and the PyDAS package makes it easy to integrate the many parts of the system. Piotr plans to show an overview of the system along with examples of its use.\r\n\r\nWe all know that cloud computing is all the rage, but G\u00f6khan Sever is working with literal cloud computing as an atmospheric scientist. Python with Cython, NumPy, SciPy, and Matplotlib all come together to support G\u00f6khan\u2019s cloud modelling application. From the processing to analysis to visualization, he does it all with the open source tools we all use. Yay cloud.\r\n\r\nIf you were wondering how one might solve hyperbolic partial differential equations and work with computational fluid dynamics, Python is a correct answer. Yung-Yu Chen put together a poster showing why Python and C is a viable replacement for the venerable FORTRAN, as commonly seen in the science world. Yung-Yu\u2019s SOLVCON framework shows that Python is on its way to becoming a mainstream tool in this field.\r\n\r\nBe sure to check out the Poster Session Sunday at 10:05!", 
+            "teaser": "Back for a second year is the Poster Session, a more intimate approach to presentation in the form of a poster on the wall. Attendees are welcome to the session to peruse around, check out what people are doing, view demos, trade experiences, and talk one-on-one with the presenter.", 
+            "published": "2011-06-26 10:40:40", 
+            "post": 1
+        }
+    }
+]
