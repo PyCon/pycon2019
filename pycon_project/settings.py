@@ -8,7 +8,7 @@ import pinax
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-PYCON_YEAR = "2011"
+PYCON_YEAR = "2012"
 
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
@@ -58,24 +58,24 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media", PYCON_YEAR)
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = "/%s/site_media/media/" % PYCON_YEAR
+MEDIA_URL = "/%s/site_media/media/%s/" % (PYCON_YEAR, PYCON_YEAR)
 
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static", PYCON_YEAR)
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
-STATIC_URL = "/%s/site_media/static/" % PYCON_YEAR
+STATIC_URL = "/%s/site_media/static/%s/" % (PYCON_YEAR, PYCON_YEAR)
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, "static", PYCON_YEAR),
 ]
 
 STATICFILES_FINDERS = [
