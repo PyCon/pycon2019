@@ -1,46 +1,23 @@
-{% extends "site_base.html" %}
-
-{% block body_class %}venue{% endblock %}
+{% extends "venue/base.html" %}
 
 {% load boxes_tags %}
 
-{% block body %}
-    <div class="span-8">
-        <h1 class="section-title">PyCon <span>Venue</span></h1>
-        <ul>
-            <li><a href="travel#traveling to atlanta">Traveling to Atlanta</a>  <br>
-            </li>
-            <li><a href="directions#directions to the venue">Directions to the Venue</a> <br>
-            </li>
-            <li><a href="transit#directions to the venue">Getting Around Atlanta</a> <br>
-            </li>
-            <li><a href="weather#directions to the venue">Weather</a> <br>
-            </li>
-            <li><a href="explore#directions to the venue">Explore Atlanta</a> <br>
-            </li>
-            <li><a href="restaurants#directions to the venue">Restaurants</a> <br>
-            </li>
-            <li><a href="bars#directions to the venue">Bars</a> <br>
-            </li>
-            <li><a href="shopping#directions to the venue">Shopping</a> <br>
-            </li>
-            <li><a href="http://us.pycon.org/2011/tickets/room_sharing">Need to share a room?</a></li>
-        </ul>
-    </div>
-    <div class="span-16 last spacer">
+{% block body_id %}venue-info{% endblock %}
+
+{% block section_title %}PyCon <span>Venue</span>{% endblock %}
+
+{% block content %}
+    <div class="map">
         <iframe width="586" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Santa+Clara,+CA,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=46.812293,93.076172&amp;ie=UTF8&amp;hq=&amp;hnear=Santa+Clara,+California&amp;ll=37.35474,-121.953735&amp;spn=0.027291,0.100422&amp;z=13&amp;output=embed&iwloc=near"></iframe>
-        <br />
-        <small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Santa+Clara,+CA,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=46.812293,93.076172&amp;ie=UTF8&amp;hq=&amp;hnear=Santa+Clara,+California&amp;ll=37.35474,-121.953735&amp;spn=0.027291,0.100422&amp;z=13" style="color:#0000FF;text-align:left">View Larger Map</a></small>
-
-        <h4>Hyatt Regency Atlanta, GA</h4>
-        <p>All events are being held at the <a href="http://atlantaregency.hyatt.com/hyatt/hotels/index.jsp?null">Hyatt Regency Atlanta</a>. Need to register for the hotel? Registration is being handled through <a href="https://www.cteusa.com/pycon4/">the PyCon registration bureau here</a>.
-        </p>
-        <p>Hyatt Regency Atlanta <br>
-         265 Peachtree Street NE <br>
-         Atlanta, Georgia, USA 30303 <br>
-         Tel: +1 404 577 1234 Fax: +1 404 588 4137 <br>
-         Hotel location on <a href="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=265+Peachtree+Street+NE,+Atlanta,+Georgia,+USA+30303+&amp;sll=37.0625,-95.677068&amp;sspn=39.86519,91.757813&amp;ie=UTF8&amp;hq=&amp;hnear=265+Peachtree+St,+Atlanta,+Fulton,+Georgia+30303&amp;z=16">Google Maps</a> <br>
-        </p>
-
+        <a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Santa+Clara,+CA,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=46.812293,93.076172&amp;ie=UTF8&amp;hq=&amp;hnear=Santa+Clara,+California&amp;ll=37.35474,-121.953735&amp;spn=0.027291,0.100422&amp;z=13">View Larger Map</a>
     </div>
+    <h4>Hyatt Regency Atlanta, GA</h4>
+    <p>All events are being held at the <a href="http://atlantaregency.hyatt.com/hyatt/hotels/index.jsp?null">Hyatt Regency Atlanta</a>. Need to register for the hotel? Registration is being handled through <a href="https://www.cteusa.com/pycon4/">the PyCon registration bureau here</a>.
+    </p>
+    <p>Hyatt Regency Atlanta <br>
+     265 Peachtree Street NE <br>
+     Atlanta, Georgia, USA 30303 <br>
+     Tel: +1 404 577 1234 Fax: +1 404 588 4137 <br>
+     Hotel location on <a href="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=265+Peachtree+Street+NE,+Atlanta,+Georgia,+USA+30303+&amp;sll=37.0625,-95.677068&amp;sspn=39.86519,91.757813&amp;ie=UTF8&amp;hq=&amp;hnear=265+Peachtree+St,+Atlanta,+Fulton,+Georgia+30303&amp;z=16">Google Maps</a> <br>
+    </p>
 {% endblock %}

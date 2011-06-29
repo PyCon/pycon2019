@@ -72,7 +72,7 @@ p, ul, ol {
 }
 
 ul, ol {
-  margin-left:40px;
+  margin-left:17px;
 }
 
 address {
@@ -104,7 +104,6 @@ hr {
 /** forms ** */
 form, form.uniForm {
   padding: 15px;
-  border: 6px solid #f2f2f2;
   margin-bottom: 10px;
   overflow: hidden;
 }
@@ -842,4 +841,54 @@ body.wiki.about section#body table th {
   padding-right:40px;
 }
 
+/*** venue detail ***/
+.map iframe {
+  border: 6px solid #f2f2f2;
+  margin:0;
+}
+
+.map a {
+  text-align:right;
+  font-size:77%;
+  display:block;
+  margin:-5px 0 15px;
+}
+
+/** subnav **/
+nav.sidenav ul {
+  margin:20px 0 0 0;
+  border-left:1px solid #d7cfc1;
+  list-style-type:none;
+}
+
+nav.sidenav ul li {
+  list-style-type:none;
+  border-left:1px solid #f9f2e6;
+  display:block;
+  padding-left:15px;
+}
+
+nav.sidenav ul li a {
+  display:block;
+  height:34px;
+  line-height:34px;
+  padding-left:40px;
+  background:url(../img/icons/icons.png) no-repeat left bottom;
+}
+
+nav.sidenav ul li a#l-bars {
+  background-position:0 -117px;
+}
+
+nav.sidenav ul li a#l-travel {
+  background-position:0 5px;
+}
+
+nav.sidenav ul li a#l-weather {
+  background-position:0 -35px;
+}
+
+nav.sidenav ul li a#l-shopping {
+  background-position:0 -72px;
+}
 
