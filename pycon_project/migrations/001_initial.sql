@@ -572,6 +572,7 @@ CREATE INDEX "auth_user_user_permissions_permission_id" ON "auth_user_user_permi
 CREATE INDEX "auth_user_groups_user_id" ON "auth_user_groups" ("user_id");
 CREATE INDEX "auth_user_groups_group_id" ON "auth_user_groups" ("group_id");
 CREATE INDEX "auth_message_user_id" ON "auth_message" ("user_id");
+CREATE INDEX "django_session_expire_date" ON "django_session" ("expire_date");
 CREATE INDEX "emailconfirmation_emailaddress_user_id" ON "emailconfirmation_emailaddress" ("user_id");
 CREATE INDEX "emailconfirmation_emailconfirmation_email_address_id" ON "emailconfirmation_emailconfirmation" ("email_address_id");
 CREATE INDEX "wakawaka_wikipage_content_type_id" ON "wakawaka_wikipage" ("content_type_id");

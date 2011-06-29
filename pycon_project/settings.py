@@ -58,24 +58,30 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media", PYCON_YEAR)
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = "/%s/site_media/media/" % PYCON_YEAR
+MEDIA_URL = "/%s/site_media/media/%s/" % (PYCON_YEAR, PYCON_YEAR)
 
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static", PYCON_YEAR)
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
-STATIC_URL = "/%s/site_media/static/" % PYCON_YEAR
+STATIC_URL = "/%s/site_media/static/%s/" % (PYCON_YEAR, PYCON_YEAR)
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "media"),
+    os.path.join(PROJECT_ROOT, "static", PYCON_YEAR),
+]
+
+STATICFILES_FINDERS = [
+    "staticfiles.finders.FileSystemFinder",
+    "staticfiles.finders.AppDirectoriesFinder",
+    # "staticfiles.finders.LegacyAppDirectoriesFinder",
 ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -178,7 +184,7 @@ FIXTURE_DIRS = [
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 CONTACT_EMAIL = "pycon@eldarion.com" # @@@ temporary
-SITE_NAME = "PyCon 2011 Atlanta - A Conference for the Python Community"
+SITE_NAME = "PyCon 2012 Santa Clara - A Conference for the Python Community"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -219,7 +225,7 @@ MARKITUP_MEDIA_URL = STATIC_URL
 
 ACCEPTING_PROPOSALS = True
 
-SCHEDULE_TIMEZONE = "US/Eastern"
+SCHEDULE_TIMEZONE = "US/Pacific"
 
 REDIS_PARAMS = dict(host="127.0.0.1")
 

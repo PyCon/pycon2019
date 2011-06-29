@@ -37,6 +37,7 @@ urlpatterns = patterns("",
         url(r"^export_data/speakers\.txt$", "schedule.views.schedule_export_speaker_data"),
         url(r"^export_data/sponsors\.txt$", "sponsors.views.sponsor_export_data"),
         url(r"^venue/", direct_to_template, {"template": "venue/detail.html"}, name="venue_detail"),
+        url(r"^export_data/panels\.txt$", "schedule.views.schedule_export_panels"),
         url(r"^", include("wakawaka.urls")),
     ))),
 )
