@@ -3,6 +3,10 @@
 {% load i18n %}
 {% load openid_tags %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/accounts.css" />
+{% endblock %}
+
 {% block body_class %}account{% endblock %}
 
 {% block body_base %}

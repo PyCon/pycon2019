@@ -76,12 +76,13 @@ STATIC_URL = "/%s/site_media/static/" % PYCON_YEAR
 # Additional directories which hold static files
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static", PYCON_YEAR),
+    os.path.join(PINAX_ROOT, "themes", PINAX_THEME, "static"),
 ]
 
 STATICFILES_FINDERS = [
     "staticfiles.finders.FileSystemFinder",
     "staticfiles.finders.AppDirectoriesFinder",
-    # "staticfiles.finders.LegacyAppDirectoriesFinder",
+    "staticfiles.finders.LegacyAppDirectoriesFinder",
 ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a

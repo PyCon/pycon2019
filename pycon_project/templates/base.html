@@ -9,13 +9,8 @@
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/facebox.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/announcements.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/accounts.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/account.css" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
         {% block css_framework %}{% endblock %}
         {% block extra_head_base %}
             {% block extra_head %}{% endblock %}
@@ -24,20 +19,6 @@
 
     <body class="{% block body_class %}{% endblock %} {% if LANGUAGE_BIDI %}bidi{% endif %}" id="{% block body_id %}{% endblock %}">
         <div class="wrapper">
-            {% if site_wide_announcements %}
-                <div class="container">
-                    <div id="site_wide_announcements">
-                        <ul>
-                          {% for announcement in site_wide_announcements %}
-                          <li>
-                              <a href="{{ announcement.get_absolute_url }}">{{ announcement }}</a> -
-                              <a href="{% url announcement_hide announcement.pk %}?next={{ request.path }}">{% trans "Hide announcement" %}</a>
-                          </li>
-                          {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
 
             <div class="msg-container">
                 {% if messages %}
