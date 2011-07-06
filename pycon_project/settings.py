@@ -217,11 +217,9 @@ WAKAWAKA_SLUG_REGEX = r"((\w{2,})(/\w{2,})*)" # allow lower case wiki page names
 WAKAWAKA_LOCK_TIMEOUT = 10*60
 
 MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/creole"
+MARKITUP_SET = "markitup/sets/markdown"
 MARKITUP_SKIN = "markitup/skins/simple"
-# FIXME at some point we may need multiple filters, if we need
-# creole parsing for things that don't use wiki-style links.
-MARKITUP_FILTER = ("wiki.creole_parser.parse", {})
+MARKITUP_FILTER = ("wiki.markdown_parser.parse", {})
 MARKITUP_MEDIA_URL = STATIC_URL
 
 ACCEPTING_PROPOSALS = True
