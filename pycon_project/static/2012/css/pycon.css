@@ -787,7 +787,7 @@ body.home .dates .sprints {
 /*** blog ***/
 .blog-post h1, .blog-post h2 {
   font-weight:bold;
-  margin-bottom:3px;
+  margin-bottom:0;
   line-height:1.2em;
 }
 
@@ -802,7 +802,7 @@ body.home .dates .sprints {
 }
 
 body.home .blog-post p.post_dateline {
-  margin-bottom:-10px;
+  margin-bottom:3px;
 }
 
 .blog-post p.post_dateline .author {
