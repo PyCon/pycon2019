@@ -3,12 +3,14 @@ from django.template import Template, Context
 
 from django.contrib.auth.models import User
 
+from markitup.fields import MarkupField
+
 
 class Box(models.Model):
     
     label = models.CharField(max_length=100, db_index=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    content = models.TextField()
+    content = MarkupField()
     
     class Meta:
         verbose_name_plural = "boxes"
