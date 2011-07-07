@@ -36,23 +36,9 @@
     <div class="mainbox">
         {% box "mainbox" %}
     </div>
-    {#  SECTION: what is pycon #}
-    <div class="span-8">
-        <h1 class="section-title">What is <span>PyCon</span>?</h1>
-    </div>
-    <div class="span-16 last spacer">
-        <p>PyCon is the largest annual gathering for the community using and
-        developing the open-source Python programming language. PyCon is organized
-        by the Python community for the community. We try to keep registration far
-        cheaper than most comparable technology conferences, to keep PyCon
-        accessible to the widest group possible.</p>
-        <p><a href="{% url wakawaka_page 'about' %}" class="learn-more">Learn more...</a></p>
-    </div>
     {#  SECTION: our sponsors #}
-    <div class="span-8">
-        <h1 class="section-title">Our <span>Sponsors</span></h1>
-    </div>
-    <div class="span-16 last spacer">
+    <div class="span-24 last">
+        <h1 class="hidden">Our Sponsors</h1>
         <ul id="slider">
             <li>
                 <div class="sponsor">
@@ -67,14 +53,6 @@
                     </a>
                     <span>Diamond</span>
                 </div>
-                <div class="sponsor last">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/pycon-sponsorship_3.png" width="160" height="80" alt="PyCon Sponsorship 3" />
-                    </a>
-                    <span>Platinum</span>
-                </div>
-            </li>
-            <li>
                 <div class="sponsor">
                     <a href="#">
                         <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
@@ -97,6 +75,38 @@
             <li>
                 <div class="sponsor">
                     <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/New_Rackspace_Logo_1.jpg" width="160" height="80" alt="New Rackspace Logo 1" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/pycon-sponsorship_3.png" width="160" height="80" alt="PyCon Sponsorship 3" />
+                    </a>
+                    <span>Platinum</span>
+                </div>
+                <div class="sponsor last">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/google.png" width="160" height="80" alt="Google" />
+                    </a>
+                    <span>Diamond</span>
+                </div>
+            </li>
+            <li>
+                <div class="sponsor">
+                    <a href="#">
                         <img src="{{ STATIC_URL }}img/sponsors/PCbyJB.png" width="160" alt="PCbyJB" />
                     </a>
                     <span>Gold</span>
@@ -107,15 +117,39 @@
                     </a>
                     <span>Gold</span>
                 </div>
-                <div class="sponsor last">
+                <div class="sponsor">
                     <a href="#">
                         <img src="{{ STATIC_URL }}img/sponsors/linode_logo10.png" width="160" height="80" alt="Linode Logo10" />
                     </a>
                     <span>Gold</span>
                 </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor last">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
+                    </a>
+                    <span>Gold</span>
+                </div>
             </li>
         </ul>
-        <p><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
+        <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
+    </div>
+    {#  SECTION: what is pycon #}
+    <div class="span-8">
+        <h1 class="section-title">What is <span>PyCon</span>?</h1>
+    </div>
+    <div class="span-16 last spacer">
+        <p>PyCon is the largest annual gathering for the community using and
+        developing the open-source Python programming language. PyCon is organized
+        by the Python community for the community. We try to keep registration far
+        cheaper than most comparable technology conferences, to keep PyCon
+        accessible to the widest group possible.</p>
+        <p><a href="{% url wakawaka_page 'about' %}" class="learn-more">Learn more...</a></p>
     </div>
     {#  SECTION: blog #}
     <div class="span-8">
@@ -145,8 +179,8 @@
                 buildNavigation : false,
                 startText       : "",
                 stopText       : "",
-                delay          : 5000,
-                animationTime  : 1000
+                delay          : 10000,
+                animationTime  : 3000
             });
         });
     </script>

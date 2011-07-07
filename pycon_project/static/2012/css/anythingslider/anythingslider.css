@@ -8,8 +8,8 @@
 /******* SET DEFAULT DIMENSIONS HERE ********/
 div.anythingSlider {
   display: block;
-  width: 598px;
-  height: 185px;
+  width: 902px;
+  height: 153px;
   margin:0 0 0 -25px;
   overflow: hidden; /* needed for Opera and Safari */
 }
@@ -95,8 +95,8 @@ div.anythingSlider .arrow {
 }
 div.anythingSlider .arrow a {
   display: block;
-  height: 120px;
-  margin: -23px 0 0 0; /* half height of image */
+  height: 40px;
+  margin: -13px 0 0 0; /* half height of image */
   width: 25px;
   text-align: center;
   outline: 0;
