@@ -19,9 +19,8 @@
 .primary {
     font-weight: bold;
 }
-table.email_list td {
-    padding: 5px 10px;
-    border: none;
+table.email_list {
+    border-top:1px solid #D7CFC1;
 }
 
 /* OPEN ID */
