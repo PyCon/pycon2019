@@ -927,6 +927,10 @@ nav.sidenav ul li {
   line-height:1.2em;
 }
 
+nav.sidenav.venue-sidenav {
+  margin-bottom:60px;
+}
+
 nav.sidenav.venue-sidenav ul li a {
   display:block;
   height:34px;
