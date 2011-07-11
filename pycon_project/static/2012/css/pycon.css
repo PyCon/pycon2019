@@ -356,6 +356,10 @@ dl dd {
   padding:0 0 0 25px;
 }
 
+pre.changes {
+  white-space: pre-line;
+}
+
 /**************************************************************************** general layout styles ** */
 /** header ** */
 header {
@@ -931,21 +935,16 @@ nav.sidenav.venue-sidenav ul li a {
   background:url(../img/icons/icons.png) no-repeat left bottom;
 }
 
-nav.sidenav ul li a#l-bars {
-  background-position:0 -117px;
-}
-
-nav.sidenav ul li a#l-travel {
-  background-position:0 5px;
-}
-
-nav.sidenav ul li a#l-weather {
-  background-position:0 -35px;
-}
-
-nav.sidenav ul li a#l-shopping {
-  background-position:0 -72px;
-}
+nav.sidenav ul li a#l-info {background-position:0 0;}
+nav.sidenav ul li a#l-travel {background-position:0 -40px;}
+nav.sidenav ul li a#l-directions {background-position:0 -90px;}
+nav.sidenav ul li a#l-around {background-position:0 -135px;}
+nav.sidenav ul li a#l-weather {background-position:0 -181px;}
+nav.sidenav ul li a#l-explore {background-position:0 -227px;}
+nav.sidenav ul li a#l-restaurants {background-position:0 -269px;}
+nav.sidenav ul li a#l-bars {background-position:0 -315px;}
+nav.sidenav ul li a#l-shopping {background-position:0 -360px;}
+nav.sidenav ul li a#l-share {background-position:0 -405px;}
 
 /*** sponsors ***/
 ol.steps {
