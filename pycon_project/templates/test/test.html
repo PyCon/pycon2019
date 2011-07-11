@@ -1,0 +1,178 @@
+{% extends "site_base.html" %}
+
+{% load boxes_tags %}
+{% load biblion_tags %}
+
+{% block body_class %}home{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/cycle.css" />
+{% endblock %}
+
+{% block slogan %}
+    <h2 id="slogan">Santa Clara, CA</h2>
+{% endblock %}
+
+{% block header_extra_base %}
+    <div id="python"></div>
+    <div class="dates">
+        <div class="tutorials">
+            <h4>Tutorials: March 7th&ndash;8th</h4>
+        </div>
+        <div class="talks">
+            <h4>Talks: March 9th&ndash;11th</h4>
+        </div>
+        <div class="sprints">
+            <h4>Sprints: March 12th&ndash;15th</h4>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="mainbox">
+        {% box "mainbox" %}
+    </div>
+    {#  SECTION: our sponsors #}
+    <div class="span-24 last">
+        <h1 class="hidden">Our Sponsors</h1>
+        <ul id="slider">
+            <li>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/google.png" width="160" height="80" alt="Google" />
+                    </a>
+                    <span>Diamond</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/qnx_logo-160x80.jpg" width="160" height="80" alt="Qnx Logo 160x80" />
+                    </a>
+                    <span>Diamond</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor last">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/New_Rackspace_Logo_1.jpg" width="160" height="80" alt="New Rackspace Logo 1" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+            </li>
+            <li>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/New_Rackspace_Logo_1.jpg" width="160" height="80" alt="New Rackspace Logo 1" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/pycon-sponsorship_3.png" width="160" height="80" alt="PyCon Sponsorship 3" />
+                    </a>
+                    <span>Platinum</span>
+                </div>
+                <div class="sponsor last">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/google.png" width="160" height="80" alt="Google" />
+                    </a>
+                    <span>Diamond</span>
+                </div>
+            </li>
+            <li>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/PCbyJB.png" width="160" alt="PCbyJB" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/ccp-stor.jpg" width="160" height="80" alt="Ccp Stor" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/linode_logo10.png" width="160" height="80" alt="Linode Logo10" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+                <div class="sponsor last">
+                    <a href="#">
+                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
+                    </a>
+                    <span>Gold</span>
+                </div>
+            </li>
+        </ul>
+        <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
+    </div>
+    {#  SECTION: what is pycon #}
+    <div class="span-8">
+        <h1 class="section-title">What is <span>PyCon</span>?</h1>
+    </div>
+    <div class="span-16 last spacer">
+        <p>PyCon is the largest annual gathering for the community using and
+        developing the open-source Python programming language. PyCon is organized
+        by the Python community for the community. We try to keep registration far
+        cheaper than most comparable technology conferences, to keep PyCon
+        accessible to the widest group possible.</p>
+        <p><a href="{% url wakawaka_page 'about' %}" class="learn-more">Learn more...</a></p>
+    </div>
+    {#  SECTION: blog #}
+    <div class="span-8">
+        <h1 class="section-title"><span>Announcements</span></h1>
+    </div>
+    <div class="span-16 last spacer">
+        {% latest_blog_posts as posts %}
+        {% if posts %}
+            {% for post in posts %}
+                <div class="blog-post">
+                    <h2>{{ post.title }}</h2>
+                    {% include "biblion/dateline.html" %}
+                    <p class="teaser">{{ post.teaser_html|safe }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No blog posts have been published.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
+    <script>
+        $(function(){
+            $('#slider').cycle();
+        });
+    </script>
+{% endblock %}
