@@ -318,6 +318,44 @@ ul#messages .error {
   margin-right: 0;
 }
 
+/*** tables ***/
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: separate;
+  border-bottom: 1px solid #f9f2e6;
+  margin-bottom:15px;
+}
+
+table th {
+  border-bottom: 1px solid #d7cfc1;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-bottom: 2px;
+  padding:3px 4px;
+  font-size:93%;
+}
+
+table td {
+  vertical-align: middle;
+  border-bottom: 1px solid #d7cfc1;
+  border-top: 1px solid #f9f2e6;
+  padding:8px 4px;
+}
+
+/*** dl, dt, dd ***/
+dl {
+  margin-bottom: 15px;
+}
+
+dl dt {
+  font-weight:bold;
+}
+
+dl dd {
+  padding:0 0 0 25px;
+}
+
 /**************************************************************************** general layout styles ** */
 /** header ** */
 header {
@@ -814,26 +852,21 @@ body.home .blog-post p.post_dateline {
 }
 
 /*** wiki pages ***/
-body.wiki section#body hr {
-  clear:both;
-  width:100%;
-  margin:20px 0;
-  height:1px;
-  background:none;
-  border-bottom:0;
-}
-
 body.wiki section#body h1,
 body.wiki section#body h2 {
-  margin-left:-304px;
-  width:294px;
-  float:left;
   font-family: LeagueGothicRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:340%;
   color:#484746;
   text-transform:uppercase;
   text-shadow: 0 1px 0 #f9f2e6;
   line-height:50px;
+}
+
+body.wiki section#body h1.shift,
+body.wiki section#body h2.shift {
+  margin-left:-304px;
+  width:294px;
+  float:left;
 }
 
 body.wiki section#body h2 {
