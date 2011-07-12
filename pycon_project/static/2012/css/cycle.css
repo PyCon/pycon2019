@@ -6,14 +6,16 @@
 */
 
 /******* SET DEFAULT DIMENSIONS HERE ********/
-#slider {
+ul#slider {
   display: block;
-  width: 850px;
+  width: 902px;
   height: 153px;
-  margin:0 0 0 0;
   overflow: hidden; /* needed for Opera and Safari */
   border: 1px solid #dad7cf;
   background:#fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /****** SET COLORS HERE *******/
@@ -190,4 +192,25 @@
   width:100%;
   font-weight:bold;
   font-size:77%;
+}
+
+/* slideshow nav */
+nav#slider-nav {
+  float:left;
+  height:19px;
+  margin:5px 0 20px;
+}
+
+nav#slider-nav a {
+  text-indent:-9999px;
+  display:block;
+  float:left;
+  width:19px;
+  height:19px;
+  margin-right:3px;
+  background: url(../img/dots.png) repeat 0 0;
+}
+
+nav#slider-nav a.activeSlide {
+  background-position:-22px 0;
 }

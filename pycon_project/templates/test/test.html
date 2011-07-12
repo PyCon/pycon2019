@@ -134,6 +134,7 @@
                 </div>
             </li>
         </ul>
+        <nav id="slider-nav"></nav>
         <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}
@@ -172,7 +173,9 @@
     <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
     <script>
         $(function(){
-            $('#slider').cycle();
+            $('#slider').cycle({
+                pager:      '#slider-nav'
+            });
         });
     </script>
 {% endblock %}
