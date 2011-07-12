@@ -22,7 +22,7 @@ django-atomformat==0.1.1.dev1
 Pygments==1.4
 docutils==0.6
 django-wakawaka==0.4.dev4
-django-markitup==0.6.1
+django-markitup==1.0.0
 django-fixture-generator==0.2.0
 nashvegas==0.6.3
 redis==2.2.4
