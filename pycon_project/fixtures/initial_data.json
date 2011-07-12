@@ -11,7 +11,7 @@
         "pk": 2, 
         "model": "sites.site", 
         "fields": {
-            "domain": "pycon.eldarion.com", 
+            "domain": "cl071.o1.gondor.io",
             "name": "PyCon 2012 Santa Clara"
         }
     },
