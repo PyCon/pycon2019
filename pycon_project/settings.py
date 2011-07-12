@@ -143,7 +143,6 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     
     # external
-    "mailer",
     "uni_form",
     "staticfiles",
     "debug_toolbar",

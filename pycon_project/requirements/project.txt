@@ -20,7 +20,6 @@ biblion==0.1.dev10
 creole==1.2
 django-atomformat==0.1.1.dev1
 Pygments==1.4
-django-mailer==0.2a1.dev3
 docutils==0.6
 django-wakawaka==0.4.dev4
 django-markitup==0.6.1
