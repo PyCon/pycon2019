@@ -190,6 +190,7 @@ DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
 
+BIBLION_PARSER = ["wiki.markdown_parser.parse", {}]
 BIBLION_SECTIONS = [
     ("general", "General"),
 ]
