@@ -802,17 +802,29 @@ body.home .dates .sprints {
 }
 
 /* sponsor slideshow */
-.anythingSlider .sponsor {
+ul#slider {
+  display: block;
+  width: 902px;
+  height: 153px;
+  overflow: hidden;
+  border: 1px solid #dad7cf;
+  background:#fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sponsor {
   float:left;
   margin:10px;
   position:relative;
 }
 
-.anythingSlider .sponsor.last {
+.sponsor.last {
   margin-right:0;
 }
 
-.anythingSlider .sponsor span {
+.sponsor span {
   display:block;
   text-align:center;
   border-top:1px solid #dcd6cb;
@@ -824,6 +836,27 @@ body.home .dates .sprints {
   width:100%;
   font-weight:bold;
   font-size:77%;
+}
+
+/* slideshow nav */
+nav#slider-nav {
+  float:left;
+  height:19px;
+  margin:5px 0 20px;
+}
+
+nav#slider-nav a {
+  text-indent:-9999px;
+  display:block;
+  float:left;
+  width:19px;
+  height:19px;
+  margin-right:3px;
+  background: url(../img/dots.png) repeat 0 0;
+}
+
+nav#slider-nav a.activeSlide {
+  background-position:-22px 0;
 }
 
 /*** blog ***/

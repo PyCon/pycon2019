@@ -5,13 +5,6 @@
 
 {% block body_class %}home{% endblock %}
 
-{% block extra_head %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/anythingslider/anythingslider.css" />
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/anythingslider-ie.css" type="text/css" media="screen" />
-    <![endif]-->
-{% endblock %}
-
 {% block slogan %}
     <h2 id="slogan">Santa Clara, CA</h2>
 {% endblock %}
@@ -137,6 +130,7 @@
                 </div>
             </li>
         </ul>
+        <nav id="slider-nav"></nav>
         <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}
@@ -168,15 +162,11 @@
 {% endblock %}
 
 {% block extra_body %}
-    <script src="{{ STATIC_URL }}js/jquery.anythingslider.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
     <script>
         $(function(){
-            $('#slider').anythingSlider({
-                buildNavigation : false,
-                startText       : "",
-                stopText       : "",
-                delay          : 10000,
-                animationTime  : 3000
+            $('#slider').cycle({
+                pager:      '#slider-nav'
             });
         });
     </script>
