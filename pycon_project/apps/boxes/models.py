@@ -9,12 +9,16 @@ from markitup.fields import MarkupField
 class Box(models.Model):
     
     label = models.CharField(max_length=100, db_index=True)
-    user = models.ForeignKey(User, null=True, blank=True)
     content = MarkupField()
+    
+    created_by = models.ForeignKey(User, related_name="boxes")
+    last_updated_by = models.ForeignKey(User, related_name="updated_boxes")
+    
+    def __unicode__(self):
+        return self.label
     
     class Meta:
         verbose_name_plural = "boxes"
-        unique_together = [("label", "user")]
     
     def render(self):
         """
