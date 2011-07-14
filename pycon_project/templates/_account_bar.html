@@ -9,6 +9,8 @@
     {% if user.is_staff %}
         <a href="{% url admin:index %}">Admin</a>
         |
+        <a href="#" onclick="$('a.boxes-edit-link').toggle();return false;">Edit Content</a>
+        |
     {% endif %}
     <a href="{% if request.openid %}{% url openid-logout %}?next={% url acct_logout %}{% else %}{% url acct_logout %}{% endif %}">Logout</a>
 {% else %}
