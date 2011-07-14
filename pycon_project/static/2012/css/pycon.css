@@ -1055,3 +1055,8 @@ ol.steps li.done {
   color:#666;
   text-decoration: line-through;
 }
+
+
+a.boxes-edit-link {
+    display: none;
+}

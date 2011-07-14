@@ -1,50 +1,27 @@
-<script src="{{ STATIC_URL }}pinax/js/facebox.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/facebox.js" type="text/javascript"></script>
 <script type="text/javascript">
-jQuery(document).ready(function($) {
- $('a[rel*=facebox]').facebox({
-     loadingImage: '{{ STATIC_URL }}img/facebox/loading.gif',
-     closeImage: '{{ STATIC_URL }}img/facebox/closelabel.gif'
- });
- $(document).bind('reveal.facebox', function() {
-     $("form.in_facebox").submit(function() {
-         form = this;
-         jQuery.facebox(function($) {
-             params = {};
-             
-             fields = jQuery(form).find("input[type='text'], input[type=hidden], textarea");
-             fields.each(function() {
-                 params[this.name] = this.value;
-             });
-             
-             checkboxes = jQuery(form).find("input[type='checkbox']").filter(":enabled").filter(":checked");
-             checkboxes.each(function() {
-                 if (params[this.name] == undefined) { params[this.name] = []; }
-                 params[this.name][params[this.name].length] = this.value;
-             });
-             
-             selects = jQuery(form).find("select").filter(":enabled");
-             selects.each(function() {
-               params[this.name] = this.value;
-             });
-             
-             radios = jQuery(form).find("input:radio").filter(":checked");
-             radios.each(function() {
-               params[this.name] = this.value;
-             });
-             jQuery.post(form.action, params,
-                 function(data, textStatus) {
-                     jQuery.facebox(data);
-                 }
-             );
-         });
-         return false;
+    jQuery(document).ready(function($) {
+        $('a[rel*=facebox]').facebox({
+            loadingImage: '{{ STATIC_URL }}img/facebox/loading.gif',
+            closeImage: '{{ STATIC_URL }}img/facebox/closelabel.png'
+        });
+        $(document).bind('reveal.facebox', function() {
+            $("form.in_facebox").submit(function() {
+                form = this;
+                jQuery.facebox(function($) {
+                    fields = jQuery(form).find("input[type='text']").filter(":enabled");
+                    params = {}
+                    fields.each(function() {
+                        params[this.name] = this.value;
+                    });
+                    jQuery.post(form.action, params,
+                        function(data, textStatus) {
+                            jQuery.facebox(data);
+                        }
+                    );
+                });
+                return false;
+            });
+        });
      });
-     
-     $(".cancel").click(function() {
-         $.facebox.close();
-         return false;
-     });
- });
-});
 </script>
-

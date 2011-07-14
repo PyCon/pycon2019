@@ -65,11 +65,10 @@ class BoxNode(template.Node):
             box = None
             content = ""
         
-        if len(content) == 0:
-            content = _("<p>No content for this box has been created yet.</p>")
-        
         # @@@ encode args/kwargs into querystring
         if show_edit_link:
+            if len(content) == 0:
+                content = _("<p>No content for this box has been created yet.</p>")
             if box is None:
                 url = reverse("box_create", args=[label])
                 link_text = unicode(_("Create"))
