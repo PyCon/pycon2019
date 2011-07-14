@@ -3,6 +3,8 @@ from django.template import Template, Context
 
 from django.contrib.auth.models import User
 
+import reversion
+
 from markitup.fields import MarkupField
 
 
@@ -30,3 +32,6 @@ class Box(models.Model):
         ctx = Context({})
         self._rendered_content = t.render(ctx)
         return self._rendered_content
+
+
+reversion.register(Box)
