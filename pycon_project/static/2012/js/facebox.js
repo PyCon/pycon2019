@@ -1,14 +1,13 @@
 /*
  * Facebox (for jQuery)
- * version: 1.2 (05/05/2008)
+ * version: 1.3
  * @requires jQuery v1.2 or later
- *
- * Examples at http://famspam.com/facebox/
+ * @homepage https://github.com/defunkt/facebox
  *
  * Licensed under the MIT:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
+ * Copyright Forever Chris Wanstrath, Kyle Neath
  *
  * Usage:
  *
@@ -59,6 +58,7 @@
  *    beforeReveal.facebox
  *    reveal.facebox (aliased as 'afterReveal.facebox')
  *    init.facebox
+ *    afterClose.facebox
  *
  *  Simply bind a function to any of these hooks:
  *
@@ -82,37 +82,17 @@
 
   $.extend($.facebox, {
     settings: {
-      opacity      : 0,
+      opacity      : 0.2,
       overlay      : true,
       loadingImage : '/facebox/loading.gif',
-      closeImage   : '/facebox/closelabel.gif',
+      closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
-        <table> \
-          <tbody> \
-            <tr> \
-              <td class="tl"/><td class="b"/><td class="tr"/> \
-            </tr> \
-            <tr> \
-              <td class="b"/> \
-              <td class="body"> \
-                <div class="content"> \
-                </div> \
-                <div class="footer"> \
-                  <a href="#" class="close"> \
-                    <img title="close" class="close_image" /> \
-                  </a> \
-                </div> \
-              </td> \
-              <td class="b"/> \
-            </tr> \
-            <tr> \
-              <td class="bl"/><td class="b"/><td class="br"/> \
-            </tr> \
-          </tbody> \
-        </table> \
+        <div class="content"> \
+        </div> \
+        <a href="#" class="close"></a> \
       </div> \
     </div>'
     },
@@ -122,14 +102,13 @@
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
 
-      $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
+      $('#facebox .content').empty().
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
-      $('#facebox').css({
+      $('#facebox').show().css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - 205
-      }).show()
+        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+      })
 
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) $.facebox.close()
@@ -141,10 +120,9 @@
     reveal: function(data, klass) {
       $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
-      $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
+      $('#facebox .content').empty().append(data)
+      $('#facebox .popup').children().fadeIn('normal')
+      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 
@@ -191,7 +169,7 @@
     makeCompatible()
 
     var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
+    $.facebox.settings.imageTypesRegexp = new RegExp('\\.(' + imageTypes + ')(\\?.*)?$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
     $('body').append($.facebox.settings.faceboxHtml)
@@ -200,13 +178,16 @@
     preload[0].src = $.facebox.settings.closeImage
     preload[1].src = $.facebox.settings.loadingImage
 
-    $('#facebox').find('.b:first, .bl, .br, .tl, .tr').each(function() {
+    $('#facebox').find('.b:first, .bl').each(function() {
       preload.push(new Image())
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
     })
 
-    $('#facebox .close').click($.facebox.close)
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
+    $('#facebox .close')
+      .click($.facebox.close)
+      .append('<img src="'
+              + $.facebox.settings.closeImage
+              + '" class="close_image" title="close">')
   }
 
   // getPageScroll() by quirksmode.com
@@ -319,9 +300,10 @@
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
-      hideOverlay()
       $('#facebox .loading').remove()
+      $(document).trigger('afterClose.facebox')
     })
+    hideOverlay()
   })
 
 })(jQuery);
