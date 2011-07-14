@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n markitup_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
@@ -12,6 +12,7 @@
         {# <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" /> #}
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/facebox.css" />
+        {% markitup_css %}
         {% block css_framework %}{% endblock %}
         {% block extra_head_base %}
             {% block extra_head %}{% endblock %}
@@ -138,6 +139,8 @@
                 });
             });
         </script>
+        
+        {% markitup_js %}
         
         {% include "_facebox_js.html" %}
         
