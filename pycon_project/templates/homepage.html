@@ -32,105 +32,31 @@
     {#  SECTION: our sponsors #}
     <div class="span-24 last">
         <h1 class="hidden">Our Sponsors</h1>
-        <ul id="slider">
-            <li>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/google.png" width="160" height="80" alt="Google" />
-                    </a>
-                    <span>Diamond</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/qnx_logo-160x80.jpg" width="160" height="80" alt="Qnx Logo 160x80" />
-                    </a>
-                    <span>Diamond</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor last">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/New_Rackspace_Logo_1.jpg" width="160" height="80" alt="New Rackspace Logo 1" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-            </li>
-            <li>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/New_Rackspace_Logo_1.jpg" width="160" height="80" alt="New Rackspace Logo 1" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/pycon-sponsorship_3.png" width="160" height="80" alt="PyCon Sponsorship 3" />
-                    </a>
-                    <span>Platinum</span>
-                </div>
-                <div class="sponsor last">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/google.png" width="160" height="80" alt="Google" />
-                    </a>
-                    <span>Diamond</span>
-                </div>
-            </li>
-            <li>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/PCbyJB.png" width="160" alt="PCbyJB" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/ccp-stor.jpg" width="160" height="80" alt="Ccp Stor" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/linode_logo10.png" width="160" height="80" alt="Linode Logo10" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/WDAS_logo.jpg" width="160" height="80" alt="WDAS Logo" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-                <div class="sponsor last">
-                    <a href="#">
-                        <img src="{{ STATIC_URL }}img/sponsors/nasuni.png" width="160" height="80" alt="Nasuni" />
-                    </a>
-                    <span>Gold</span>
-                </div>
-            </li>
-        </ul>
-        <nav id="slider-nav"></nav>
+        {# {% if sponsors %} #}
+        {#     {% if forloop.first %} #}
+        {#         <ul id="slider"> #}
+        {#             <li> #}
+        {#     {% endif %} #}
+        {#     {% if sponsor.count|divisibleby:"6" %}<li>{% endif %} #}
+        {#         {% for sponsor in sponsors %} #}
+        {#             <div class="sponsor {% if sponsor.count|divisibleby:"5" %}last{% endif %}"> #}
+        {#                 <a href="{{ sponsor.get_absolute_url }}"> #}
+        {#                     <img src="{{ STATIC_URL }}{{ sponsor.logo }}" width="160" height="80" alt="{{ sponsor.name }}" /> #}
+        {#                 </a> #}
+        {#                 <span>{{ sponsor.level }}</span> #}
+        {#             </div> #}
+        {#         {% endfor %} #}
+        {#     {% if sponsor.count|divisibleby:"5" %}</li>{% endif %} #}
+        {#     {% if forloop.last %} #}
+                    {# {% if sponsor.length|divisibleby:"5" %}{% else %} #}
+        {#             </li> #}
+                    {# {% endif %} #}
+        {#         </ul> #}
+        {#     {% endif %} #}
+        {#     <nav id="slider-nav"></nav> #}
+        {# {% else %} #}
+            {% box "sponsors_intro" %}
+        {# {% endif %}         #}
         <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}
