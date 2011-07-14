@@ -7,29 +7,7 @@
 {% block body %}
     <div class="span-8">
         <h1 class="section-title">{% block section_title %}PyCon <span>Venue</span>{% endblock %}</h1>
-        <nav class="sidenav venue-sidenav">
-            <ul>
-                <li><a id="l-info" href="travel#traveling to santa clara">Venue Info</a>
-                </li>
-                <li><a id="l-travel" href="travel#traveling to santa clara">Traveling to Santa Clara</a>
-                </li>
-                <li><a id="l-directions" href="directions#directions to the venue">Directions to the Venue</a>
-                </li>
-                <li><a id="l-around" href="transit#directions to the venue">Getting Around Santa Clara</a>
-                </li>
-                <li><a id="l-weather" href="weather#directions to the venue">Weather</a>
-                </li>
-                <li><a id="l-explore" href="explore#directions to the venue">Explore Santa Clara</a>
-                </li>
-                <li><a id="l-restaurants" href="restaurants#directions to the venue">Restaurants</a>
-                </li>
-                <li><a id="l-bars" href="bars#directions to the venue">Bars</a>
-                </li>
-                <li><a id="l-shopping" href="shopping#directions to the venue">Shopping</a>
-                </li>
-                <li><a id="l-share" href="http://us.pycon.org/2011/tickets/room_sharing">Need to share a room?</a></li>
-            </ul>
-        </nav>
+        {% include "venue/_subnav.html" %}
     </div>
     <div class="span-16 last spacer">
         {% block content %}{% endblock %}
