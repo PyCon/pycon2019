@@ -949,15 +949,23 @@ body.wiki section#body .info {
 /*** explore ***/
 body#explore .main-content h6 {
   font-weight:bold;
-  margin:28px 0 2px;
+  margin:18px 0 2px;
 }
 
-body#explore .main-content p {
+body#explore .main-content p,
+body#shopping .main-content p,
+body#bars .main-content p {
   margin-bottom:3px;
 }
 
-body#explore .main-content address {
-  margin:8px 0 0 25px;
+body#explore .main-content address,
+body#shopping .main-content address {
+  margin:8px 0 10px 25px;
+}
+
+body#bars .main-content h6, body#shopping .main-content h6 {
+  font-weight:bold;
+  margin:18px 0 2px;
 }
 
 /*** venue detail ***/
