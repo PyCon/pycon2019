@@ -946,6 +946,20 @@ body.wiki section#body .info {
   text-decoration:underline;
 }
 
+/*** explore ***/
+body#explore .main-content h6 {
+  font-weight:bold;
+  margin:28px 0 2px;
+}
+
+body#explore .main-content p {
+  margin-bottom:3px;
+}
+
+body#explore .main-content address {
+  margin:8px 0 0 25px;
+}
+
 /*** venue detail ***/
 .map iframe {
   border: 6px solid #f2f2f2;
