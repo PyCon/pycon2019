@@ -37,13 +37,13 @@
 		{{ form.as_p }}
 		<p>
             <input type="submit" value="{% trans "Save changes" %}" />
-            {% trans "or" %} <a href="
+            <a href="
 			{% if page.is_initial %}
 				javascript:window.history.go(-1);
 			{% else %}
 				?cancel_lock=true
 			{% endif %}
-			">{% trans "Cancel" %}</a>
+			" class="cancel">{% trans "Cancel" %}</a>
 		</p>
 	</form>
 	{% else %}
@@ -55,6 +55,7 @@
 	{% endif %}
 
 	{% if not page.is_initial and delete_form %}
+	<div class="spacer"></div>
 	<form class="wakawaka_delete_form" method="POST" action="" onsubmit="return confirm('{% trans "Please confirm deletion" %}');">
 	    {% csrf_token %}
 		{{ delete_form.as_p }}
@@ -63,8 +64,8 @@
 		</p>
 	</form>
 	{% endif %}
-
-	<h2>{% trans "Revisions for this page" %}</h2>
+    <div class="spacer"></div>
+	<h4>{% trans "Revisions for this page" %}</h4>
 
 	{% include "wakawaka/revision_table.html" %}
 {% endblock %}

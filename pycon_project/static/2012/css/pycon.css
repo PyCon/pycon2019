@@ -931,6 +931,21 @@ body.wiki.tickets section#body table td {
   font-size:108%;
 }
 
+body.wiki section#body .info {
+  color:#434343;
+  margin-top:20px;
+  font-size:85%;
+  background: url(../img/thin_stripe.png) repeat-x 0 0;
+  padding-top:15px;
+}
+
+.cancel {
+  float:right;
+  line-height:36px;
+  margin-right:20px;
+  text-decoration:underline;
+}
+
 /*** venue detail ***/
 .map iframe {
   border: 6px solid #f2f2f2;
