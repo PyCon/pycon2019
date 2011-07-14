@@ -6,34 +6,3 @@
         <input type="submit" value="Submit" />
     </form>
 </div>
-<script type="text/javascript" charset="utf-8">
-    $("div.content-box textarea").each(function() {
-        var content = $(this).attr("id");
-        if (CKEDITOR.instances[content]) {
-            delete CKEDITOR.instances[content]
-        };
-        CKEDITOR.replace(content, {
-            toolbar: [
-                [      'Undo', 'Redo',
-                  '-', 'Bold', 'Italic', 'Underline',
-                  '-', 'Link', 'Unlink', 'Anchor',
-                  '-', 'Format',
-                  '-', 'HorizontalRule',
-                  '-', 'Table',
-                  '-', 'BulletedList', 'NumberedList'
-                ],
-                [
-                    'SpellChecker', 'Scayt'
-                ],
-                [
-                  'Maximize'
-                ]
-            ]
-        });
-    });
-    $("#edit_form").submit(function(){
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-    });
-</script>

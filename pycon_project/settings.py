@@ -107,6 +107,7 @@ MIDDLEWARE_CLASSES = [
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
+    "reversion.middleware.RevisionMiddleware",
     #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -161,6 +162,7 @@ INSTALLED_APPS = [
     "fixture_generator",
     "sorl.thumbnail",
     "mailout",
+    "reversion",
     
     # Pinax
     "pinax.templatetags",

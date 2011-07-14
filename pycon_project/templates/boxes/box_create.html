@@ -5,30 +5,3 @@
         <input type="submit" value="Submit" />
     </form>
 </div>
-<script type="text/javascript" charset="utf-8">
-    $("div.content-box textarea").each(function() {
-        CKEDITOR.replace($(this).attr("id"), {
-            toolbar: [
-                [      'Undo', 'Redo',
-                  '-', 'Bold', 'Italic', 'Underline',
-                  '-', 'Link', 'Unlink', 'Anchor',
-                  '-', 'Format',
-                  '-', 'HorizontalRule',
-                  '-', 'Table',
-                  '-', 'BulletedList', 'NumberedList'
-                ],
-                [
-                    'SpellChecker', 'Scayt'
-                ],
-                [
-                  'Maximize'
-                ]
-            ]
-        });
-    });
-    $("#edit_form").submit(function(){
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-    });
-</script>

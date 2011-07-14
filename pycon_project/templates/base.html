@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n markitup_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
@@ -11,6 +11,8 @@
         <![endif]-->
         {# <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" /> #}
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/facebox.css" />
+        {% markitup_css %}
         {% block css_framework %}{% endblock %}
         {% block extra_head_base %}
             {% block extra_head %}{% endblock %}
@@ -112,7 +114,36 @@
                 }
             });
         </script>
-        {# {% include "facebox_js.html" %} #}
+        
+        <script type="text/javascript">
+            $(document).ready(function($) {
+                $("a.box_editor").click(function() {
+                    $.facebox.settings.loadingImage = "/site_media/static/img/loading.gif";
+                    $.facebox.settings.closeImage = "/site_media/static/img/closelabel.png";
+                    $(document).bind("beforeReveal.facebox", function() {
+                        $("#facebox .content").css("width", "600px");
+                    });
+                    var editable = this;
+                    $(document).bind("reveal.facebox", function() {
+                        $("#edit_form").submit(function() {
+                            $.post(editable.href, $(this).serialize(), function(data) {
+                                $(document).trigger("close.facebox");
+                                $(editable).load(data);
+                                $(document).unbind("reveal.facebox");
+                            });
+                            return false;
+                        });
+                    });
+                    $.facebox({ajax: this.href});
+                    return false;
+                });
+            });
+        </script>
+        
+        {% markitup_js %}
+        
+        {% include "_facebox_js.html" %}
+        
         {% block extra_body_base %}
             {% block extra_body %}{% endblock %}
         {% endblock %}

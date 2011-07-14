@@ -3,18 +3,24 @@ from django.template import Template, Context
 
 from django.contrib.auth.models import User
 
+import reversion
+
 from markitup.fields import MarkupField
 
 
 class Box(models.Model):
     
     label = models.CharField(max_length=100, db_index=True)
-    user = models.ForeignKey(User, null=True, blank=True)
     content = MarkupField()
+    
+    created_by = models.ForeignKey(User, related_name="boxes")
+    last_updated_by = models.ForeignKey(User, related_name="updated_boxes")
+    
+    def __unicode__(self):
+        return self.label
     
     class Meta:
         verbose_name_plural = "boxes"
-        unique_together = [("label", "user")]
     
     def render(self):
         """
@@ -26,3 +32,6 @@ class Box(models.Model):
         ctx = Context({})
         self._rendered_content = t.render(ctx)
         return self._rendered_content
+
+
+reversion.register(Box)

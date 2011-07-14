@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account_tags %}
+{% load boxes_tags %}
 
 {% block head_title %}{% trans "Confirm Email" %}{% endblock %}
 
@@ -10,6 +11,7 @@
         <h1>{% trans "Email Confirmed" %}</h1>
         {% user_display email_address.user as user_display %}
         <p>{% blocktrans with email_address.email as email %}You have confirmed that {{ email }} is an email address for user '{{ user_display }}'.{% endblocktrans %}</p>
+        {% box "what_next" %}
     {% else %}
         <p>{% trans "Invalid confirmation key." %}</p>
     {% endif %}
