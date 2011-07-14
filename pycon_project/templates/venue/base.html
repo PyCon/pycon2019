@@ -6,10 +6,10 @@
 
 {% block body %}
     <div class="span-8">
-        <h1 class="section-title">{% block section_title %}PyCon <span>Venue</span>{% endblock %}</h1>
         {% include "venue/_subnav.html" %}
     </div>
     <div class="span-16 last spacer">
+        <h1 class="section-title">{% block subpage_title %}PyCon <span>Venue</span>{% endblock %}</h1>
         {% block content %}{% endblock %}
     </div>
 {% endblock %}
