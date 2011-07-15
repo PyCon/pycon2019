@@ -968,6 +968,28 @@ body#bars .main-content h6, body#shopping .main-content h6 {
   margin:18px 0 2px;
 }
 
+body#restaurants .main-content .place {
+  display:block;
+  width:47%;
+  float:left;
+  overflow:hidden;
+  padding-bottom:10px;
+}
+
+body#restaurants  h6 {
+  font-weight:bold;
+  margin:0 0 2px;
+}
+
+body#restaurants div.place i {
+  display:block;
+  background: url(../img/icons/walking.png) no-repeat 0 0;
+  padding-left:20px;
+  line-height:22px;
+  font-size:85%;
+  margin-top:5px;
+}
+
 /*** venue detail ***/
 .map iframe {
   border: 6px solid #f2f2f2;
