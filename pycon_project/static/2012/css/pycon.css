@@ -983,11 +983,76 @@ body#restaurants  h6 {
 
 body#restaurants div.place i {
   display:block;
-  background: url(../img/icons/walking.png) no-repeat 0 0;
-  padding-left:20px;
   line-height:22px;
   font-size:85%;
   margin-top:5px;
+}
+
+body#restaurants div.place i.walking {
+  background: url(../img/icons/walking.png) no-repeat 0 0;
+  padding-left:20px;
+}
+
+body#restaurants .main-content h2 {
+  clear:both;
+  color:#FCB500;
+  font-weight:bold;
+}
+
+.icon-walking {
+  background: url(../img/icons/walking.png) no-repeat 0 0;
+  padding-left:20px;
+}
+
+.icon-star {
+  margin-bottom:20px;
+}
+
+/** restaurant filter **/
+.filter {
+  position:relative;
+  background: url(../img/thin_stripe.png) repeat-x 0 0;
+  margin-bottom:20px;
+  padding:15px 0 0;
+}
+
+.filter h4 {
+  margin-bottom:6px;
+}
+
+.filter ul {
+  padding-bottom:15px;
+  margin:0;
+  display: block;
+  list-style: none;
+  position:relative;
+  width: 100%;
+  overflow:hidden;
+  background: url(../img/thin_stripe.png) repeat-x left bottom;
+}
+
+.filter li {
+  float: left;
+}
+
+.filter li a {
+  display:block;
+  position:relative;
+  overflow: hidden;
+  cursor: pointer;
+  width:180px;
+}
+
+.filter ul li a {
+  font-size:93%;
+  display:block;
+  height: 24px;
+  line-height: 24px;
+  margin:0;
+  padding-left:20px;
+  width: 165px;
+  text-shadow:none;
+  float:left;
 }
 
 /*** venue detail ***/
