@@ -74,7 +74,7 @@ class BoxNode(template.Node):
                 url = reverse("box_edit", args=[box.pk])
                 link_text = unicode(_("Edit"))
             
-            content += " <a href=\"%s\" class=\"boxes-edit-link\" rel=\"facebox\">%s</a>" % (url, link_text)
+            content += " <a href=\"%s\" class=\"boxes-edit-link\" rel=\"facebox\">%s content for %s</a>" % (url, link_text, label)
         
         return mark_safe(content)
 
