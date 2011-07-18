@@ -1068,6 +1068,24 @@ body#restaurants .main-content h2 {
   margin:-5px 0 15px;
 }
 
+body#venue-info .main-content h5 {
+  font-size:100%;
+  font-style:italic;
+  margin-bottom:6px;
+}
+
+body#venue-info .main-content h4 {
+  margin-bottom:3px;
+}
+
+body#venue-info .main-content .place {
+  display:block;
+  width:49%;
+  float:left;
+  overflow:hidden;
+  padding-bottom:10px;
+}
+
 /** subnav **/
 nav.sidenav ul {
   margin:20px 0 0 0;
@@ -1095,6 +1113,17 @@ nav.sidenav.venue-sidenav ul li a {
   padding-left:40px;
   background:url(../img/icons/icons.png) no-repeat left bottom;
 }
+
+nav.sidenav ul li a#l-info {background-position:0 4px;}
+nav.sidenav ul li a#l-travel {background-position:0 -40px;}
+nav.sidenav ul li a#l-directions {background-position:0 -87px;}
+nav.sidenav ul li a#l-around {background-position:0 -134px;}
+nav.sidenav ul li a#l-weather {background-position:0 -179px;}
+nav.sidenav ul li a#l-explore {background-position:0 -224px;}
+nav.sidenav ul li a#l-restaurants {background-position:0 -269px;}
+nav.sidenav ul li a#l-bars {background-position:0 -315px;}
+nav.sidenav ul li a#l-shopping {background-position:0 -360px;}
+nav.sidenav ul li a#l-share {background-position:0 -405px;}
 
 nav.sidenav ul li a#l-info {background-position:0 4px;}
 nav.sidenav ul li a#l-travel {background-position:0 -40px;}
