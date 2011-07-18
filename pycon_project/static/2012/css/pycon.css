@@ -470,7 +470,8 @@ h1.section-title span, h2.section-title span {
 
 footer {
   height: 20px;
-  font-size: 77%;
+  font-size: 8pt;
+  line-height: 11pt;
 }
 
 footer .container {
