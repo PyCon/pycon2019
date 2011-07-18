@@ -234,6 +234,8 @@ MAILOUT_MODULES = [
 
 REDIS_PARAMS = dict(host="127.0.0.1")
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
