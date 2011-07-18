@@ -1,1 +1,1 @@
-PyCon 2011: {{ sponsor.name }} has applied to be a sponsor
+PyCon 2011: New PyCon Sponsor Application
