@@ -32,31 +32,7 @@
     {#  SECTION: our sponsors #}
     <div class="span-24 last">
         <h1 class="hidden">Our Sponsors</h1>
-        {# {% if sponsors %} #}
-        {#     {% if forloop.first %} #}
-        {#         <ul id="slider"> #}
-        {#             <li> #}
-        {#     {% endif %} #}
-        {#     {% if sponsor.count|divisibleby:"6" %}<li>{% endif %} #}
-        {#         {% for sponsor in sponsors %} #}
-        {#             <div class="sponsor {% if sponsor.count|divisibleby:"5" %}last{% endif %}"> #}
-        {#                 <a href="{{ sponsor.get_absolute_url }}"> #}
-        {#                     <img src="{{ STATIC_URL }}{{ sponsor.logo }}" width="160" height="80" alt="{{ sponsor.name }}" /> #}
-        {#                 </a> #}
-        {#                 <span>{{ sponsor.level }}</span> #}
-        {#             </div> #}
-        {#         {% endfor %} #}
-        {#     {% if sponsor.count|divisibleby:"5" %}</li>{% endif %} #}
-        {#     {% if forloop.last %} #}
-                    {# {% if sponsor.length|divisibleby:"5" %}{% else %} #}
-        {#             </li> #}
-                    {# {% endif %} #}
-        {#         </ul> #}
-        {#     {% endif %} #}
-        {#     <nav id="slider-nav"></nav> #}
-        {# {% else %} #}
-            {% box "sponsors_intro" %}
-        {# {% endif %}         #}
+        {% include "_sponsors.html" %}
         <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}

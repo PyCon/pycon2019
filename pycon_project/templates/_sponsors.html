@@ -1,22 +1,18 @@
-{% load sponsors_tags %}
+{% load sponsors_pro_tags %}
 
-<div class="support-pycon">
-    
-    <h2>Sponsors</h2>
-    
-    {% sponsors as sponsors %}
-    
-    {% for sponsor in sponsors %}
-        {% if sponsor.website_logo_url %}
-            {% ifchanged sponsor.level %}
-                <h3>{{ sponsor.level }}</h3>
-            {% endifchanged %}
-            <div class="sponsor">
-                <a href="{{ sponsor.external_url }}">
-                    {# @@@ sane resizing with sorl-thumbnail #}
-                    <img src="{{ sponsor.website_logo_url }}" alt="{{ sponsor.name }}"/>
-                </a>
-            </div>
-        {% endif %}
-    {% endfor %}
-</div>
+{% sponsors as sponsors %}
+<ul id="slider">
+{% for sponsor in sponsors %}
+    {% if forloop.first or forloop.counter|divisibleby:"6" %}
+        <li>
+    {% endif %}
+    <div class="sponsor {% if forloop.counter|divisibleby:"5" %}last{% endif %}">
+        <a href="{{ sponsor.get_absolute_url }}">
+            <img src="{{ sponsor.website_logo_url }}" width="160" height="80" alt="{{ sponsor.name }}" />
+        </a>
+        <span>{{ sponsor.level }}</span>
+    </div>
+    {% if forloop.counter|divisibleby:"5" or forloop.last %}</li>{% endif %}
+{% endfor %}
+</ul>
+<nav id="slider-nav"></nav>
