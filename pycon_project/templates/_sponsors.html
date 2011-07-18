@@ -7,9 +7,13 @@
         <li>
     {% endif %}
     <div class="sponsor {% if forloop.counter|divisibleby:"5" %}last{% endif %}">
-        <a href="{{ sponsor.get_absolute_url }}">
+        {% if sponsor.external_url %}
+            <a href="{{ sponsor.external_url }}">
+                <img src="{{ sponsor.website_logo_url }}" width="160" height="80" alt="{{ sponsor.name }}" />
+            </a>
+        {% else %}
             <img src="{{ sponsor.website_logo_url }}" width="160" height="80" alt="{{ sponsor.name }}" />
-        </a>
+        {% endif %}
         <span>{{ sponsor.level }}</span>
     </div>
     {% if forloop.counter|divisibleby:"5" or forloop.last %}</li>{% endif %}
