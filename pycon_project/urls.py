@@ -59,5 +59,8 @@ if settings.SERVE_MEDIA:
         url(r"^favicon.ico$", redirect_to, {
             "url": settings.STATIC_URL + "img/favicon.ico",
         }),
+        url(r"^%s/site_media/media/(?P<path>.*)$" % settings.PYCON_YEAR, "django.views.static.serve", {
+            "document_root": settings.MEDIA_ROOT,
+        }),
         url(r"", include("staticfiles.urls")),
     )
