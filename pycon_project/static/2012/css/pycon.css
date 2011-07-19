@@ -1125,16 +1125,16 @@ nav.sidenav ul li a#l-bars {background-position:0 -315px;}
 nav.sidenav ul li a#l-shopping {background-position:0 -360px;}
 nav.sidenav ul li a#l-share {background-position:0 -405px;}
 
-nav.sidenav ul li a#l-info {background-position:0 4px;}
-nav.sidenav ul li a#l-travel {background-position:0 -40px;}
-nav.sidenav ul li a#l-directions {background-position:0 -87px;}
-nav.sidenav ul li a#l-around {background-position:0 -134px;}
-nav.sidenav ul li a#l-weather {background-position:0 -179px;}
-nav.sidenav ul li a#l-explore {background-position:0 -224px;}
-nav.sidenav ul li a#l-restaurants {background-position:0 -269px;}
-nav.sidenav ul li a#l-bars {background-position:0 -315px;}
-nav.sidenav ul li a#l-shopping {background-position:0 -360px;}
-nav.sidenav ul li a#l-share {background-position:0 -405px;}
+body#venue-info nav.sidenav ul li a#l-info, nav.sidenav ul li a#l-info:hover {background-position:0 -457px;color:#006e91;}
+body#traveling nav.sidenav ul li a#l-travel, nav.sidenav ul li a#l-travel:hover {background-position:0 -501px;color:#006e91;}
+body#directions nav.sidenav ul li a#l-directions, nav.sidenav ul li a#l-directions:hover {background-position:0 -548px;color:#006e91;}
+body#getting-around nav.sidenav ul li a#l-around, nav.sidenav ul li a#l-around:hover {background-position:0 -595px;color:#006e91;}
+body#weather nav.sidenav ul li a#l-weather, nav.sidenav ul li a#l-weather:hover {background-position:0 -640px;color:#006e91;}
+body#explore nav.sidenav ul li a#l-explore, nav.sidenav ul li a#l-explore:hover {background-position:0 -685px;color:#006e91;}
+body#restaurants nav.sidenav ul li a#l-restaurants, nav.sidenav ul li a#l-restaurants:hover {background-position:0 -730px;color:#006e91;}
+body#bars nav.sidenav ul li a#l-bars, nav.sidenav ul li a#l-bars:hover {background-position:0 -776px;color:#006e91;}
+body#shopping nav.sidenav ul li a#l-shopping, nav.sidenav ul li a#l-shopping:hover {background-position:0 -821px;color:#006e91;}
+body#share-room nav.sidenav ul li a#l-share, nav.sidenav ul li a#l-share:hover {background-position:0 -866px;color:#006e91;}
 
 /*** sponsors ***/
 ol.steps {
