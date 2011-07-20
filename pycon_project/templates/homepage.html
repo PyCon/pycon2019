@@ -54,7 +54,7 @@
                 <div class="blog-post">
                     <h2>{{ post.title }}</h2>
                     {% include "biblion/dateline.html" %}
-                    <p class="teaser">{{ post.teaser_html|safe }}</p>
+                    <div class="teaser">{{ post.teaser_html|safe }}</div>
                 </div>
             {% endfor %}
         {% else %}
@@ -64,12 +64,12 @@
 {% endblock %}
 
 {% block extra_body %}
-    {% if sponsors.length > 5 %}
+    {% if sponsors|length > 5 %}
         <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
         <script>
             $(function(){
-                $('#slider').cycle({
-                    pager:      '#slider-nav'
+                $('#slider li:first').fadeIn(1000, function() {
+                    $('#slider').cycle({ pager: '#slider-nav', timeout: 7000 });
                 });
             });
         </script>

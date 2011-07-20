@@ -814,6 +814,14 @@ ul#slider {
   padding: 0;
 }
 
+ul#slider li {
+  display:none;
+}
+
+ul#slider li.first {
+  display:block;
+}
+
 .sponsor {
   float:left;
   margin:10px;
@@ -831,10 +839,8 @@ ul#slider {
   text-transform:uppercase;
   color:#484746;
   padding-top:6px;
-  position:absolute;
-  top:100px;
-  left:0;
-  width:100%;
+  margin:13px 0 0 0;
+  width:160px;
   font-weight:bold;
   font-size:77%;
 }
