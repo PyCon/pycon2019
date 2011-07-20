@@ -26,7 +26,7 @@ django-markitup==1.0.0
 django-fixture-generator==0.2.0
 nashvegas==0.6.3
 redis==2.2.4
-sorl-thumbnail==3.2.5
+sorl-thumbnail==11.05.2
 icalendar==1.2
 PIL==1.1.7
 psycopg2==2.4.1
