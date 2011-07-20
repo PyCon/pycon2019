@@ -8,7 +8,7 @@
 {% block body %}
     <h1>{% trans "Choose a Username" %}</h1>
     
-    <p>{% blocktrans %}Now that you have logged in with your OpenID, we need you to choose a username for this site.{% endblocktrans %}</p>
+    <p>{% blocktrans %}Now that you have logged in with your OpenID, we need you to choose a username and email for this site.{% endblocktrans %}</p>
     
     <form class="uniForm signup" id="edit-profile" method="POST" action="">
         {% csrf_token %}
