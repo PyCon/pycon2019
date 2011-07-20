@@ -492,7 +492,7 @@ footer a:hover {
 #subnav {
   margin: 0;
   padding: 0;
-  background: #eeeeee;
+  background: none;
   font-size: 85%;
   overflow: hidden;
 }
@@ -709,7 +709,7 @@ a.btn:hover {
 .learn-more, p.more a {
   font-style:italic;
   text-decoration:none;
-  float:right;
+  text-align:right;
 }
 
 .user-nav {
@@ -833,6 +833,7 @@ ul#slider {
   padding-top:6px;
   position:absolute;
   top:100px;
+  left:0;
   width:100%;
   font-weight:bold;
   font-size:77%;

@@ -33,7 +33,7 @@
     <div class="span-24 last">
         <h1 class="hidden">Our Sponsors</h1>
         {% include "_sponsors.html" %}
-        <p class="spacer"><a href="{% url wakawaka_page 'sponsors' %}" class="learn-more">Learn how to become a sponsor...</a></p>
+        <p class="spacer learn-more"><a href="{% url wakawaka_page 'sponsors' %}">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}
     <div class="span-8">
@@ -41,7 +41,7 @@
     </div>
     <div class="span-16 last spacer">
         {% box "homepage_main" %}
-        <p><a href="{% url wakawaka_page 'about' %}" class="learn-more">Learn more...</a></p>
+        <p class="learn-more"><a href="{% url wakawaka_page 'about' %}">Learn more...</a></p>
     </div>
     {#  SECTION: blog #}
     <div class="span-8">
@@ -64,12 +64,14 @@
 {% endblock %}
 
 {% block extra_body %}
-    <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
-    <script>
-        $(function(){
-            $('#slider').cycle({
-                pager:      '#slider-nav'
+    {% if sponsors.length > 5 %}
+        <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
+        <script>
+            $(function(){
+                $('#slider').cycle({
+                    pager:      '#slider-nav'
+                });
             });
-        });
-    </script>
+        </script>
+    {% endif %}
 {% endblock %}
