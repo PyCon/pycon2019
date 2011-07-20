@@ -593,7 +593,7 @@ nav#main-nav ul li a:hover {
 
 nav#main-nav ul li.sfHover a, nav#main-nav ul li.sfhover a,
 body.about nav#main-nav ul li a#link-about,
-body.tickets nav#main-nav ul li a#link-tickets,
+body.registration nav#main-nav ul li a#link-registration,
 body.venue nav#main-nav ul li a#link-venue,
 body.sponsors nav#main-nav ul li a#link-sponsors,
 body.blog nav#main-nav ul li a#link-blog {
@@ -926,13 +926,13 @@ body.wiki.about section#body table th {
   padding-right:40px;
 }
 
-body.wiki.tickets section#body table th {
+body.wiki.registration section#body table th {
   text-transform:uppercase;
   font-weight:normal;
   padding:10px 20px 10px;
 }
 
-body.wiki.tickets section#body table td {
+body.wiki.registration section#body table td {
   font-weight:bold;
   padding:10px 20px 10px;
   font-size:108%;
