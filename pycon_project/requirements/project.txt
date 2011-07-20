@@ -32,7 +32,7 @@ PIL==1.1.7
 psycopg2==2.4.1
 gondor==1.0b1.post10
 #symposion==1.0a1.dev16
-git+git://github.com/pinax/symposion.git#egg=symposion
+-e git+git://github.com/pinax/symposion.git#egg=symposion
 mailout==1.0a1.dev2
 markdown==2.0.3
 html5lib==0.90
