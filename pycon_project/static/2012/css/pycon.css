@@ -869,6 +869,10 @@ nav#slider-nav a.activeSlide {
   background-position:-22px 0;
 }
 
+body.home .blog-post div.teaser {
+  font-style: normal;
+}
+
 /*** blog ***/
 .blog-post h1, .blog-post h2 {
   font-weight:bold;
