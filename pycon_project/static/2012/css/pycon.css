@@ -223,6 +223,9 @@ ul#messages {
   list-style-type: none;
   width: 902px;
   margin-bottom: 20px;
+  box-shadow:0 0 4px #c9c2b5;
+  -moz-box-shadow:0 0 4px #c9c2b5;
+  -webkit-box-shadow:0 0 4px #c9c2b5;
 }
 ul#messages li {
   padding: 3px 10px;
@@ -251,9 +254,9 @@ ul#messages .info {
   text-shadow: 0px 1px 0px #f4fcff;
 }
 ul#messages .success {
-  border: 1px solid #b7e6bc;
-  background: #e9ffeb;
-  color: #82a586;
+  border: 1px solid #9ADF8F;
+  background: #d5ffce;
+  color: #556652;
   text-shadow: 0px 1px 0px #f7fff8;
 }
 ul#messages .warning {
