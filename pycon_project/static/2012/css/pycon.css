@@ -920,6 +920,11 @@ body.wiki section#body h2.shift {
   float:left;
 }
 
+body.wiki section#body h1.shift span,
+body.wiki section#body h2.shift span {
+  color:#fcb500;
+}
+
 body.wiki section#body h2 {
   font-size:240%;
 }
