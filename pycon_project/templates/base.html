@@ -1,4 +1,4 @@
-{% load i18n markitup_tags %}
+{% load analytics_tags i18n markitup_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
@@ -142,6 +142,8 @@
                 });
             });
         </script>
+        
+        {% analytics %}
         
         {% block extra_body_base %}
             {% block extra_body %}{% endblock %}

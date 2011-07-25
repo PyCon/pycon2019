@@ -168,6 +168,7 @@ INSTALLED_APPS = [
     "pinax.templatetags",
     "pinax.apps.waitinglist",
     "pinax.apps.account",
+    "pinax.apps.analytics",
     
     # symposion
     # "symposion.proposals",
@@ -233,6 +234,13 @@ MAILOUT_MODULES = [
 ]
 
 REDIS_PARAMS = dict(host="127.0.0.1")
+
+ANALYTICS_SETTINGS = {
+    "google": {
+        "2": "UA-2401894-29", # staging
+        "3": "UA-2401894-29", # production
+    }
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
