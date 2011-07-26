@@ -170,8 +170,9 @@ INSTALLED_APPS = [
     "pinax.apps.account",
     
     # symposion
-    # "symposion.proposals",
-    # "symposion.speakers",
+    "symposion.conference",
+    "symposion.proposals",
+    "symposion.speakers",
     "symposion.sponsors_pro",
     
     # project
