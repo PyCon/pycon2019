@@ -251,3 +251,5 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+DEFAULT_FROM_EMAIL = "mailer@us.pycon.org"
