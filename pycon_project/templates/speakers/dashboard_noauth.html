@@ -11,9 +11,9 @@
         <p>To submit a talk:</p>
         
         <ol class="steps">
-            <li class="next"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
-            <li>create a speaker profile</li>
-            <li>submit one or more talk proposals</li>
+            <li class="next first"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
+            <li class="second">create a speaker profile</li>
+            <li class="third">submit one or more talk proposals</li>
         </ol>
     {% else %}
         <p>Talk submissions are now closed and the <a href="{% url schedule_list %}">schedule has been announced</a>.</p>
