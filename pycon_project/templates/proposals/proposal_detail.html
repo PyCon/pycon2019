@@ -25,7 +25,7 @@
     <p><b>Type</b>: {{ proposal.get_session_type_display }}</p>
     
     <div>
-        {{ proposal.abstract_html|safe }}
+        {{ proposal.abstract|safe }}
     </div>
     
     <p><b>Audience level</b>: {{ proposal.get_audience_level_display }}</p>
@@ -55,7 +55,7 @@
     
     {% for message in proposal.messages.all %}
         <div class="review-box">
-            <div class="comment">{{ message.message_html|safe }}</div>
+            <div class="comment">{{ message.message|safe }}</div>
             <div class="dateline"><b>{{ message.user }}</b> {{ message.submitted_at|timesince }} ago</div>
         </div>
         <div class="clear"></div>
