@@ -598,7 +598,7 @@ nav#main-nav ul li.sfHover a, nav#main-nav ul li.sfhover a,
 body.about nav#main-nav ul li a#link-about,
 body.registration nav#main-nav ul li a#link-registration,
 body.venue nav#main-nav ul li a#link-venue,
-body.sponsors nav#main-nav ul li a#link-sponsors,
+body.sponsorship nav#main-nav ul li a#link-sponsors,
 body.blog nav#main-nav ul li a#link-blog {
   background: url(../img/main_nav_over.png) no-repeat center center;
   color: #006e91;
