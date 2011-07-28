@@ -23,4 +23,12 @@
             "name": "PyCon 2012 Santa Clara"
         }
     }
+    {
+        "pk": 4,
+        "model": "sites.site",
+        "fields": {
+            "domain": "fg296.o1.gondor.io",
+            "name": "PyCon 2012 Santa Clara"
+        }
+    }
 ]
