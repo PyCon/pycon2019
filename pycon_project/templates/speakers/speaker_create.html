@@ -1,5 +1,6 @@
 {% extends "speakers/base.html" %}
 
+{% load markitup_tags %}
 {% load uni_form_tags %}
 
 {% block extra_head %}
@@ -9,6 +10,7 @@
 {% block body %}
     <h1>Create Speaker Profile</h1>
     
+    {% markitup_media %}
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
         <fieldset class="inlineLabels">
