@@ -22,7 +22,7 @@
             "domain": "us.pycon.org", 
             "name": "PyCon 2012 Santa Clara"
         }
-    }
+    },
     {
         "pk": 4,
         "model": "sites.site",
