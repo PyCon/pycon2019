@@ -1,0 +1,42 @@
+[
+    {
+        "pk": 1, 
+        "model": "conference.presentationkind", 
+        "fields": {
+            "start": "2011-07-27 20:00:00", 
+            "end": "2012-03-02 5:00:00", 
+            "name": "Tutorial", 
+            "closed": null
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "conference.presentationkind", 
+        "fields": {
+            "start": "2011-07-27 20:00:00", 
+            "end": "2012-03-02 5:00:00", 
+            "name": "Talk", 
+            "closed": null
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "conference.presentationkind", 
+        "fields": {
+            "start": "2011-07-27 20:00:00", 
+            "end": "2012-03-02 5:00:00", 
+            "name": "Panel", 
+            "closed": null
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "conference.presentationkind", 
+        "fields": {
+            "start": "2011-07-27 20:00:00", 
+            "end": "2012-03-02 5:00:00", 
+            "name": "Poster", 
+            "closed": null
+        }
+    }
+]
