@@ -1,5 +1,6 @@
 {% extends "proposals/base.html" %}
 
+{% load markitup_tags %}
 {% load uni_form_tags %}
 
 {% block extra_head %}
@@ -27,6 +28,7 @@
     
     <p><a href="{% url proposal_speaker_manage proposal.pk %}">Manage speakers</a></p>
     
+    {% markitup_media %}
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
         <fieldset>
