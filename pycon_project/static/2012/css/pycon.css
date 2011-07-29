@@ -72,7 +72,8 @@ p, ul, ol {
 }
 
 ul, ol {
-  margin-left:17px;
+  margin-left:34px;
+  list-style-type:circle;
 }
 
 address {
@@ -87,6 +88,13 @@ hr {
   background:none;
   border:0;
   background: url(../img/thin_stripe.png) repeat-x 0 0;
+}
+
+blockquote {
+  margin-left:20px;
+  border-left:1px solid #006e91;
+  padding-left:20px;
+  font-style:italic;
 }
 
 /**************************************************************************** library styles ** */
