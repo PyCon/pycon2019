@@ -47,9 +47,12 @@ urlpatterns = patterns("",
         url(r"^venue/bars/", direct_to_template, {"template": "venue/bars.html"}, name="bars"),
         url(r"^venue/shopping/", direct_to_template, {"template": "venue/shopping.html"}, name="shopping"),
         url(r"^venue/share-room/", direct_to_template, {"template": "venue/share_room.html"}, name="share_room"),
+        url(r"^sponsors/about/$", direct_to_template, {"template": "sponsors/about.html"}, name="about"),
+
         url(r"^boxes/", include("boxes.urls")),
-        
+
         url(r"^", include("wakawaka.urls")),
+
     ))),
 )
 

@@ -1199,7 +1199,50 @@ ol.steps li.done {
   text-decoration: line-through;
 }
 
-
 a.boxes-edit-link {
     display: none;
+}
+
+/*** sponsors: about ***/
+.sponsor-details {
+  clear:both;
+  width:100%;
+  position: relative;
+  overflow:hidden;
+  border-bottom:1px dotted #d7cfc1;
+  padding-bottom:7px;
+  margin-bottom:17px;
+}
+
+.sponsor-details.last {
+  border-bottom:0;
+  padding-bottom:0;
+  margin-bottom:15px;
+}
+
+.sponsor-details .col-1 {
+  float:left;
+  width:180px;
+  display:inline;
+}
+
+.sponsor-details .col-2 {
+  float:left;
+  width:560px;
+  display:inline;
+}
+
+.sponsor-details h2 {
+  margin-bottom:2px;
+}
+
+.sponsor-details p.site-link {
+  margin-bottom:8px;
+  font-size:85%;
+  font-weight:bold;
+}
+
+nav.sponsor-sidenav {
+  font-weight:bold;
+  font-size:85%;
 }
