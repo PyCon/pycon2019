@@ -748,7 +748,9 @@ a.btn:hover {
 
 .sponsors-side .level {
   overflow:hidden;
+  padding-bottom:5px;
   margin-bottom:5px;
+  border-bottom:1px dotted #d7cfc1;
 }
 
 .sponsors-side .level.last {
