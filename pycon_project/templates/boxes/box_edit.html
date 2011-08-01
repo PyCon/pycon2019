@@ -1,0 +1,8 @@
+<div class="content-box">
+    <form id="edit_form" method="POST" class="in_facebox" action="{% url box_edit box.pk %}">
+        {% csrf_token %}
+        {{ form.content }}
+        <input type="hidden" name="boxes_auth_test_var" value="crap-no-other-context">
+        <input type="submit" value="Submit" />
+    </form>
+</div>

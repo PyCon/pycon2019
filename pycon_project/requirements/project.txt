@@ -1,0 +1,39 @@
+# project.txt is a pip requirements file which describes the distributions
+# required by your project to run.
+
+--requirement=base.txt
+
+--extra-index-url=http://dist.pinaxproject.com/fresh-start/
+
+# Put project-specific requirements here.
+# See http://pip-installer.org/requirement-format.html for more information.
+
+django-email-confirmation==0.2.dev2
+django-timezones==0.2.dev2
+django-ajax-validation==0.1.3
+django-oauth-access==0.1.dev6
+pytz==2011g
+django-openid==0.2.3.dev1
+python-openid==2.2.5
+oauth2==1.1.3
+biblion==0.1.dev11
+creole==1.2
+django-atomformat==0.1.1.dev1
+Pygments==1.4
+docutils==0.6
+django-wakawaka==0.4.dev6
+django-markitup==1.0.0
+django-fixture-generator==0.2.0
+nashvegas==0.6.3
+redis==2.2.4
+sorl-thumbnail==11.05.2
+icalendar==1.2
+PIL==1.1.7
+psycopg2==2.4.1
+gondor==1.0b1.post10
+#symposion==1.0a1.dev16
+-e git+git://github.com/pinax/symposion.git#egg=symposion
+mailout==1.0a1.dev2
+markdown==2.0.3
+html5lib==0.90
+django-reversion==1.4

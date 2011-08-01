@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+
+{% load wakawaka_tags %}
+{% load i18n %}
+
+{% block extrahead %}
+    {{ block.super }}
+
+    {# Don't let search engines scan this old revision #}
+    {% if rev.is_not_current %}
+        <meta name="robots" content="noindex" />
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}wiki {{ page.slug }}{% endblock %}
+
+{% block title %}
+    {{ page.slug }}
+{% endblock %}
+
+{% block body_base %}
+    <div class="span-8">
+        &nbsp;
+    </div>
+    <div class="span-16 last spacer">
+        {% if rev.is_not_current %}
+        <p class="revert-warning">
+            {% trans "You are viewing an older revision!" %}
+            <a href="{% url wakawaka_page slug=page.slug %}">
+              {% trans "See the latest version" %}
+            </a>
+        </p>
+        {% endif %}
+
+        <div class="page">
+            {% include "wakawaka/page_content.html" %}
+        </div>
+
+        {% spaceless %}
+        <div class="info">
+            <span>
+                <strong>{{ page.slug }}</strong>
+            </span>
+            <span>
+                {% blocktrans with page.current.creator as creator and rev.modified|date:_("DATETIME_FORMAT") as modified %}
+                    Recently modified by <em>{{ creator }}</em>: {{ modified }}
+                {% endblocktrans %}
+                (<a href="{% url wakawaka_revision_list slug=page.slug %}">{% trans "History" %}</a>)
+            </span>
+
+            {% if perms.wakawaka.change_wikipage %}
+            <span>
+                <a href="{% url wakawaka_edit slug=page.slug %}">{% trans "Edit" %}</a>
+            </span>
+            {% endif %}
+            <div><a href="{% url wakawaka_page_list %}">Index</a></div>
+        </div>
+        {% endspaceless %}
+    </div>
+{% endblock %}

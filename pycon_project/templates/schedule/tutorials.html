@@ -1,0 +1,47 @@
+{% extends "schedule/base.html" %}
+
+{% block extra_head %}
+    <style>
+        .presentation {
+            margin-top: 10px;
+        }
+        .title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Tutorial Schedule</h1>
+    
+    <h2>Wednesday, March 9th</h2>
+    
+    <h3>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h3>
+    
+    {% for presentation in tutorials.wed.morning.presentations %}
+        {% include "schedule/_presentation.html" %}
+    {% endfor %}
+    
+    <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h3>
+    
+    {% for presentation in tutorials.wed.afternoon.presentations %}
+        {% include "schedule/_presentation.html" %}
+    {% endfor %}
+    
+    <h2>Thursday, March 10th</h2>
+    
+    <h3>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h3>
+    
+    {% for presentation in tutorials.thurs.morning.presentations %}
+        {% include "schedule/_presentation.html" %}
+    {% endfor %}
+    
+    <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h3>
+    
+    {% for presentation in tutorials.thurs.afternoon.presentations %}
+        {% include "schedule/_presentation.html" %}
+    {% endfor %}
+    
+    
+{% endblock %}

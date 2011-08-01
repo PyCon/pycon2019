@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+
+{% block body_class %}full schedule{% endblock %}
+
+{% block subnav %}
+    <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
+    |
+    <a href="{% url schedule_conference %}">Conference Schedule</a>
+    |
+    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
+    |
+    <a href="{% url schedule_list_posters %}">List of Accepted Posters</a>
+    |
+    <a href="{% url wakawaka_page 'openspaces/index' %}">OpenSpaces</a>
+{% endblock %}
+
+
+{% block right %}{% endblock %}

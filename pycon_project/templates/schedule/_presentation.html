@@ -1,0 +1,15 @@
+<div class="presentation">
+    <div class="title">
+        <a href="{% url schedule_presentation presentation.pk %}">{{ presentation.title }}</a>
+    </div>
+    <div class="metadata">
+        {{ presentation.get_audience_level_display }}
+        {{ presentation.get_presentation_type_display }}
+        by
+        {{ presentation.speaker }}
+        {% if presentation.additional_speakers.all %}
+            with
+            {{ presentation.additional_speakers.all|join:", " }}
+        {% endif %}
+    </div>
+</div>

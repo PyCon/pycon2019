@@ -1,0 +1,26 @@
+[
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "localhost:8000", 
+            "name": "PyCon 2012 Santa Clara"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "cl071.o1.gondor.io",
+            "name": "PyCon 2012 Santa Clara"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "us.pycon.org", 
+            "name": "PyCon 2012 Santa Clara"
+        }
+    }
+]

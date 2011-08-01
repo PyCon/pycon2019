@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load waitinglist_tags %}
+
+{% block head_title_base %}PyCon US 2012{% endblock %}
+
+{% block extra_head_base %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pycon.css?3" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css?3" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
+    <link rel="alternate" type="application/atom+xml" href="{% url blog_feed "general" %}" title="blog feed"/>
+    {% block extra_head %}{% endblock %}
+{% endblock %}
+
+{% block css_framework %}
+    {% include "_blueprint_css.html" %}
+{% endblock %}
+
+{% block logo_link_image %}<a href="{% url home %}">PyCon 2012</a>{% endblock %}
+
+{% block nav %}
+    {% include "_nav.html" %}
+{% endblock %}
+
+{% block login %}
+    {% include "_account_bar.html" %}
+{% endblock %}
+
+{% block extra_body_base %}
+    <script type="text/javascript" charset="utf-8">
+      $(function(){
+          $("#id_email").focus();
+          $(function () {
+              if(('ul#messages').length > 0) {
+                  setTimeout(function() {
+                      $('ul#messages').fadeOut(3000);
+                  }, 2000 );
+              }
+          });
+      });
+    </script>
+    {% block extra_body %}{% endblock %}
+{% endblock %}
+
+
+{% block body_base %}
+    {% block body %}{% endblock %}
+{% endblock %}
+
+{% block footer %}
+    <p>
+        PyCon US 2012 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+    <br />
+        Site built by <a href="http://eldarion.com">Eldarion</a> using <a href="http://djangoproject.com">Django</a> and <a href="http://pinaxproject.com">Pinax</a>. Hosting provided by <a href="http://gondor.io">Gondor</a>.
+    <br />
+        Questions? Comments? Contact <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>
+    </p>
+{% endblock %}

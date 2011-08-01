@@ -1,0 +1,1 @@
+ALTER TABLE "boxes_box" ADD "_content_rendered" text NOT NULL;

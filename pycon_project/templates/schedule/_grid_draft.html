@@ -1,0 +1,47 @@
+{% load theme_tags %}
+<table>
+    <tr>
+        <th>&nbsp;</th>
+        {% for track in day.tracks %}
+            <th>{{ track.name }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in day %}
+        <tr>
+            <td class="time">{{ row.time|date:"h:iA" }}</td>
+            {% for slot in row.slots %}
+                <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot {{ slot.kind.name }} rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}{% if slot.bookmarked %} bookmarked{% endif %}">
+                    {% if slot.kind.name == "recess" %}
+                        <div class="title">{{ slot.content.title }}</div>
+                    {% else %}
+                        {% if slot.kind.name == "plenary" %}
+                            <div class="title">{{ slot.content.title }}</div>
+                            {% if slot.content.speaker %}
+                                <div class="speaker">{{ slot.content.speaker }}</div>
+                            {% endif %}
+                        {% else %}
+                            <div class="badges">
+                                {% if slot.content.extreme_pycon %}
+                                    <div class="badge extreme">E</div>
+                                {% endif %}
+                                {% if slot.content.invited %}
+                                    <div class="badge invited">I</div>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                    {% if slot.content %}
+                                        <div class="badge {% if not slot.bookmarked %}bookmark{% else %}bookmarked{% endif %}"><a href="{% url schedule_user_slot_manage slot.content.id %}">&nbsp;</a></div>
+                                    {% endif %}
+                                {% endif %}
+                                <div class="badge session"><a href="{% url schedule_session_detail slot.session.id %}">S</a></div>
+                            </div>
+                            <div class="title"><a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content.title }}</a></div>
+                            {% if slot.content.speaker %}
+                                <div class="speaker">{{ slot.content.speaker }}</div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

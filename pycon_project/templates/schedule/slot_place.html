@@ -1,0 +1,7 @@
+<h3>Place {{ kind.title }}</h3>
+<form method="POST" action="{% if add %}{% url schedule_slot_add slot.pk kind %}{% else %}{% url schedule_slot_edit slot.pk %}{% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% if add %}Add{% else %}Edit{% endif %}" />
+    <input type="button" value="Cancel" onclick="$.facebox.close();" />
+</form>

@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+
+{% block body_class %}{{ flatpage.title|slugify }}{% endblock %}
+
+{% block head_title %}{{ flatpage.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ flatpage.title }}</h1>
+    
+    <div>
+        {{ flatpage.content }}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "proposals/base.html" %}
+
+{% load uni_form_tags %}
+
+{% block body %}
+    <h1>Cancel: {{ proposal.title }}</h1>
+    
+    <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
+        {% csrf_token %}
+        <p>Are you sure you want to cancel <b>{{ proposal.title }}</b>?</p>
+        <input type="submit" value="I am sure" />
+    </form>
+{% endblock %}

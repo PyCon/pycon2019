@@ -1,0 +1,46 @@
+{% extends "schedule/base.html" %}
+
+{% block extra_head %}
+    <style>
+        .session {
+            margin-top: 10px;
+        }
+        .title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block subnav %}
+    <a href="{% url schedule_list_talks %}">List of Accepted Talks and Panels</a>
+    |
+    <a href="{% url schedule_tutorials %}">Tutorial Schedule</a>
+    |
+    <a href="{% url schedule_list_posters %}">List of Accepted Posters</a>
+{% endblock %}
+
+{% block body %}
+    <h1>Accepted Tutorials</h1>
+    
+    {% for tutorial in tutorials %}
+        <div class="session">
+            <div class="title">
+                <a href="{% url schedule_presentation tutorial.pk %}">{{ tutorial.title }}</a>
+            </div>
+            <div class="metadata">
+                {{ tutorial.get_audience_level_display }}
+                {{ tutorial.get_session_type_display }}
+                by
+                {{ tutorial.speaker }}
+                {% if tutorial.additional_speakers.all %}
+                    with
+                    {{ tutorial.additional_speakers.all|join:", " }}
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No accepted tutorials yet.</p>
+    {% endfor %}
+    
+{% endblock %}

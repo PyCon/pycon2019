@@ -1,0 +1,53 @@
+{% extends "schedule/base.html" %}
+
+{% block extra_head %}
+    <style>
+        .session {
+            margin-top: 10px;
+        }
+        .title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Accepted Talks and Panels</h1>
+    
+    <div class="badges legend">
+        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+        <div class="clear"></div>
+        <div class="badge invited">I</div><div class="label"> = Invited</div>
+    </div>
+    
+    {% for talk in talks %}
+        <div class="session">
+            <div class="title">
+                <a href="{% url schedule_presentation talk.pk %}">{{ talk.title }}</a>
+            </div>
+            <div class="metadata">
+                {{ talk.get_audience_level_display }}
+                {{ talk.get_session_type_display }}
+                by
+                {{ talk.speaker }}
+                {% if talk.additional_speakers.all %}
+                    with
+                    {{ talk.additional_speakers.all|join:", " }}
+                {% endif %}
+                <div class="badges">
+                    {% if talk.extreme_pycon %}
+                        <div class="badge extreme">E</div>
+                    {% endif %}
+                    {% if talk.invited %}
+                        <div class="badge invited">I</div>
+                    {% endif %}
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No accepted talks or panels yet.</p>
+    {% endfor %}
+    
+{% endblock %}

@@ -1,0 +1,448 @@
+body {
+    font-family: "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    color: #222;
+
+    min-width: 840px;
+}
+#heading {
+    background: #366386 url(/2011/site_media/static/img/header_background.gif);
+    margin: 0;
+    height: 94px;
+}
+#heading h1 {
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 28pt;
+    font-weight: 400;
+}
+#heading h2 {
+    margin: 0;
+    color: #EEE;
+    font-size: 20pt;
+    font-weight: normal;
+    text-shadow: 1px 1px 0px #000;
+}
+#heading img {
+    height: 78px;
+    width: 60px;
+    padding: 8px 16px;
+    float: left;
+}
+#heading h1 a {
+    color: #EEE;
+    text-shadow: 1px 1px 0px #000;
+    text-decoration: none;
+}
+
+#nav {
+    text-align: center;
+    padding: 10px 20px 5px;
+    background: #222;
+    font-size: 14pt;
+}
+#nav a {
+    color: #ffcc11;
+    text-decoration: none;
+    padding: 6px 12px;
+}
+#nav a:hover {
+    color: #FFF;
+}
+#nav ul {
+    margin: 0;
+    list-style: none;
+}
+#nav li {
+    display: inline;
+}
+
+#body {
+    margin: 0;
+    padding: 40px 20px 60px;
+    background: #FFF;
+    color: #222;
+}
+#body a:hover {
+    color: #666;
+}
+#wrapper {
+    margin: 0 auto;
+    width: 840px;
+}
+#main {
+    float: left;
+    width: 640px;
+}
+#right {
+    float: left;
+    width: 200px;
+}
+#footer {
+    margin: 0;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 10pt;
+    line-height: 1.2em;
+    font-weight: 400;
+    color: #EEE;
+    background: #366386;
+}
+
+#footer-content {
+  margin: 0 auto;
+  width: 840px;
+}
+#footer a {
+    color: #CCC;
+    text-decoration: none;
+}
+#footer a:hover {
+    color: #FFF;
+}
+body.full #main {
+    float: none;
+    width: 100%;
+}
+p {
+}
+b, strong {
+    font-weight: bold;
+}
+p.main {
+    margin-top: 30px;
+    font-size: 16pt;
+}
+p.success {
+    padding: 5px 10px;
+    background: #9C9;
+    color: #366386;
+    font-size: 18pt;
+}
+p.error {
+    padding: 5px 10px;
+    background: #999;
+    color: #866336;
+    font-size: 18pt;
+}
+a {
+    color: #222;
+}
+a:hover {
+    color: #BBB;
+}
+a img {
+    border: 0;
+}
+.mainbox {
+    color: #666;
+    background: #222;
+    padding: 25px 20px 5px;
+    margin: 10px 0;
+    font-size: 16pt;
+}
+.mainbox b {
+    color: #FFF;
+}
+.mainbox a {
+    color: #FFF;
+}
+.outerbox {
+    text-align: center;
+    width: 840px;
+    margin: 0 auto 50px;
+}
+.box {
+    color: #666;
+    background: #222;
+    padding: 25px 20px 5px;
+    width: 220px;
+    height: 160px;
+    margin: 10px;
+    float: left;
+    font-size: 16pt;
+}
+.mainbox h2, .box h2 {
+    font-weight: 500;
+    font-size: 24pt;
+    margin: 0;
+    color: #BBB;
+}
+.box p {
+    margin: 10px 0 0;
+}
+.waitinglist {
+    text-align: center;
+}
+.waitinglist input[type=text] {
+    margin: 0;
+    border: none;
+    font-size: 14pt;
+    padding: 4px 12px 3px;
+    color: #666;
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+}
+.waitinglist input[type=submit] {
+    margin: 0;
+    color: #DEF;
+    font-size: 12pt;
+    background: #222;
+    padding: 6px 12px 5px;
+    border: none;
+    cursor: pointer;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+}
+.waitinglist input[type=submit]:hover {
+    background: #366386;
+}
+
+ol.steps {
+    font-size: 16pt;
+    color: #666;
+}
+ol.steps li.next {
+    font-weight: bold;
+    color: #222;
+}
+ol.steps li.done {
+    text-decoration: line-through;
+}
+
+.map {
+    background: #CCC;
+    padding: 10px;
+    margin: 0 0 10px 20px;
+    float: right;
+}
+th, td {
+    padding: 4px 8px;
+    font-size: 14pt;
+}
+th {
+    color: #444;
+    background: #EEE;
+    border: 1px solid #CCC;
+}
+td {
+    border: 1px solid #CCC;
+}
+.ticket-prices {
+    margin-top: 2em;
+}
+.ticket-prices th, .ticket-prices td {
+    text-align: center;
+}
+
+h2 {
+    color: #666;
+    margin: 30px 0 10px;
+}
+h3 {
+    color: #888;
+    margin: 30px 0 0;
+}
+
+
+.blog-post .author {
+    font-weight: bold;
+}
+.blog-post .date {
+    font-weight: bold;
+}
+.blog-post h1, .blog-post h2 {
+    margin-bottom: 0;
+}
+.blog-post h2 a {
+    text-decoration: none;
+    color: #666;
+}
+.blog-post .post_dateline {
+    margin: 5px 0 0;
+}
+.blog-post .more {
+    font-size: 11pt;
+}
+.blog-post .teaser {
+    font-weight: normal;
+    font-size: 120%;
+}
+
+.popup {
+}
+.popup td {
+    border: none;
+}
+
+div.support-pycon {
+   margin: 20px 0 0 50px;
+}
+div.support-pycon h2 {
+   font-size: 14pt;
+   text-align: center;
+}
+
+div.support-pycon h3 {
+   margin-top: 20px;
+   font-size: 12pt;
+   text-align: center;
+   border-bottom: 1px solid;
+}
+
+div.support-pycon .sponsor img {
+   width: 160px;
+}
+
+body.review .proposal {
+    padding: 20px;
+    border: 1px solid #000;
+}
+body.review .proposal h2 {
+    margin: 0;
+}
+body.schedule .abstract,
+body.review .proposal .abstract,
+body.review .proposal .additional_notes
+{
+    font-size: 11pt;
+    line-height: 14pt;
+}
+
+.vote-count-box {
+    float: left;
+    background: #EEE;
+    text-align: center;
+    width: 108px;
+    padding: 5px 5px 10px;
+    margin: 5px;
+}
+.vote-count-box.total {
+    background: #CCC;
+}
+.vote-count-box .label {
+    margin: -5px -5px 5px -5px;
+}
+.vote-count-box .number {
+    font-size: 32pt;
+    line-height: 32pt;
+    font-weight: bold;
+}
+
+.review-list .title {
+    font-size: 12pt;
+    font-weight: normal;
+}
+.review-list .metadata {
+    font-size: 11pt;
+    line-height: 12pt;
+}
+.review-list .count {
+    font-size: 16pt;
+    vertical-align: middle;
+    text-align: center;
+}
+.review-list .result {
+    font-size: 12pt;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.stat-def {
+    font-size: 12pt;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+tr.plus-one .count.plus-one,
+tr.plus-zero .count.plus-zero,
+tr.minus-zero .count.minus-zero,
+tr.minus-one .count.minus-one
+{
+    background: #666;
+    color: #FFF;
+}
+
+body.schedule dl.sessions dt {
+    margin-top: 15px;
+}
+body.schedule dl.sessions dd {
+    margin-left: 10px;
+}
+body.schedule div.session_types {
+    float:right;
+}
+
+body.schedule div.slot {
+    padding: 10px 0px;
+}
+
+.schedule-table tr.conf-date th {
+    background: #CCC;
+    border: 1px solid #CCC;
+}
+
+.schedule-table td {
+    font-size: 10pt;
+}
+.schedule-table td.title {
+    font-weight: 400;
+    font-size: 12pt;
+}
+.schedule-table td.other {
+    font-weight: 600;
+    font-size: 12pt;
+}
+
+.stats-section {
+    border-top: 1px solid #ccc;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+.stats-section h2 {
+    margin-top: 0;
+}
+
+div.badges .badge {
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    margin: 3px 5px 5px 0;
+    float: left;
+}
+div.badges div.extreme {
+    background: black;
+}
+div.badges div.invited {
+    background: green;
+}
+
+table.history td {
+    font-size: 10pt;
+    font-weight: 400;
+}
+
+.result.accepted {
+    color: #0C0;
+}
+.result.rejected {
+    color: #C00;
+}
+.result.undecided {
+    color: #999;
+}
+
+@media print {
+    div.support-pycon { display: none; }
+}

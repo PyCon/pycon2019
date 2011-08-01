@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+
+{% block body_class %}full review{% endblock %}
+
+{% block subnav %}
+    <a href="{% url review_assignments %}">your assignments</a>
+    |
+    <a href="{% url review_list %}">all reviews</a>
+    |
+    <a href="{% url review_list_user user.username %}">your reviews</a>
+    |
+    <a href="{% url review_stats %}">stats</a>
+    {% if is_reviewer_admin %}
+        |
+        <a href="{% url review_admin %}">admin</a>
+    {% endif %}
+    {% if is_reviewer_tutorials %}
+        <br />
+        <a href="{% url review_tutorial_list %}">all tutorial reviews</a>
+        |
+        <a href="{% url review_tutorial_list_user user.username %}">your tutorial reviews</a>
+    {% endif %}
+{% endblock %}
+
+{% block right %}{% endblock %}

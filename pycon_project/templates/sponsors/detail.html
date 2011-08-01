@@ -1,0 +1,40 @@
+{% extends "sponsors/base.html" %}
+
+{% load uni_form_tags %}
+
+{% block head_title %}{{ sponsor }}{% endblock %}
+
+{% block body %}
+
+<h3>{{ sponsor.level }} Sponsor: {{ sponsor }}</h3>
+
+    <form enctype="multipart/form-data" method="POST" action="" class="uniForm">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ form|as_uni_form }}
+        </fieldset>
+
+        <h4>{{ sponsor.level }} Sponsor Benefits</h4>
+
+        {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+
+        <ul id="sponsor_benefits">
+            {% for form in formset.forms %}
+            <li>
+                <h5>{{ form.instance.benefit }}</h5>
+                <p>{{ form.instance.benefit.description }}</p>
+
+                <fieldset>
+                    {{ form|as_uni_form }}
+                </fieldset>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="form_block">
+            <input type="submit" value="save" />
+        </div>
+
+    </form>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "site_base.html" %}
+
+{% load boxes_tags %}
+{% load biblion_tags %}
+
+{% block body_class %}home{% endblock %}
+
+{% block slogan %}
+    <h2 id="slogan">Santa Clara, CA</h2>
+{% endblock %}
+
+{% block header_extra_base %}
+    <div id="python"></div>
+    <div class="dates">
+        <div class="tutorials">
+            <h4>Tutorials: March 7th&ndash;8th</h4>
+        </div>
+        <div class="talks">
+            <h4>Talks: March 9th&ndash;11th</h4>
+        </div>
+        <div class="sprints">
+            <h4>Sprints: March 12th&ndash;15th</h4>
+        </div>
+    </div>
+    {# @@@ show diamond sponsor #}
+    <div class="diamond-sponsor">
+        <span>Presented by</span>
+        <a href="#">
+            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" width="130px" alt="" />
+        </a>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="mainbox">
+        {% box "mainbox" %}
+    </div>
+    {#  SECTION: our platinum and gold sponsors #}
+    {# @@@ show platinum and gold sponsors #}
+    <div class="span-24 last">
+        <h1 class="hidden">Our Platinum and Gold Sponsors</h1>
+        {% include "_sponsors.html" %}
+        <p class="spacer learn-more"><a href="{% url wakawaka_page 'sponsors' %}">Learn how to become a sponsor...</a></p>
+    </div>
+    {#  SECTION: what is pycon #}
+    <div class="span-8">
+        <h1 class="section-title">What is <span>PyCon</span>?</h1>
+    </div>
+    <div class="span-16 last spacer">
+        {% box "homepage_main" %}
+        <p class="learn-more"><a href="{% url wakawaka_page 'about' %}">Learn more...</a></p>
+    </div>
+    {#  SECTION: blog #}
+    <div class="span-8">
+        <h1 class="section-title"><span>Announcements</span></h1>
+    </div>
+    <div class="span-16 last spacer">
+        {% latest_blog_posts as posts %}
+        {% if posts %}
+            {% for post in posts %}
+                <div class="blog-post">
+                    <h2>{{ post.title }}</h2>
+                    {% include "biblion/dateline.html" %}
+                    <div class="teaser">{{ post.teaser_html|safe }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No blog posts have been published.</p>
+        {% endif %}
+    </div>
+    {#  SECTION: silver and media sponsors #}
+    {# @@@ show silver and media sponsors #}
+    <div class="span-24 last">
+        <hr />
+        <div class="other-sponsors">
+            <h6>Silver Sponsors</h6>
+            <a href="#">
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
+            </a>
+        </div>
+        <div class="other-sponsors">
+            <h6>Media Sponsors</h6>
+            <a href="#">
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    {% if sponsors|length > 5 %}
+        <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
+        <script>
+            $(function(){
+                $('#slider li:first').fadeIn(1000, function() {
+                    $('#slider').cycle({ pager: '#slider-nav', timeout: 7000 });
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

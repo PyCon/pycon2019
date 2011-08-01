@@ -1,0 +1,27 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}{% trans "Choose a Username" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Choose a Username" %}</h1>
+    
+    <p>{% blocktrans %}Now that you have logged in with your OpenID, we need you to choose a username and email for this site.{% endblocktrans %}</p>
+    
+    <form class="uniForm signup" id="edit-profile" method="POST" action="">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ form|as_uni_form }}
+            <div class="form_block">
+                <input type="submit" value="{% trans "Sign Up &raquo;" %}"/>
+            </div>
+        </fieldset>
+    </form>
+    
+    {% url acct_login_openid as acct_login_openid_url %}
+    <p>{% blocktrans %}<strong>Already have an account?</strong> <a href="{{ acct_login_openid_url }}">Log in here</a> to associate your OpenID with your existing account.{% endblocktrans %}</p>
+    
+    <p>{% blocktrans %}If you have any trouble creating your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
+{% endblock %}

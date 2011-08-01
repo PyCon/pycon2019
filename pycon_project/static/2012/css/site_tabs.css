@@ -1,0 +1,19 @@
+body.about #nav li.about_tab a,
+body.speaker #nav li.speaker_tab a,
+body.review #nav li.reviewer_tab a,
+body.schedule #nav li.schedule_tab a,
+body.tickets #nav li.tickets_tab a,
+body.volunteer #nav li.volunteer_tab a,
+body.venue #nav li.venue_tab a,
+body.sponsorship #nav li.sponsors_tab a,
+body.sprints #nav li.sprints_tab a,
+body.blog #nav li.blog_tab a
+{
+    font-weight: bold;
+    color: #000;
+    background: #FFF;
+    -moz-border-radius-topleft: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-right-radius: 3px;
+}

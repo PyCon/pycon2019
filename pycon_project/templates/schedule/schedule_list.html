@@ -1,0 +1,32 @@
+{% extends "schedule/base.html" %}
+
+{% load timezone_filters %}
+
+{% block body %}
+<h1>Schedule</h1>
+    <table class="schedule-table">
+        {% for slot in slots %}
+            {% ifchanged %}
+                <tr class="conf-date"><th colspan="3">{{ slot.start|localtime:timezone|date:"F jS" }}</th></tr>
+                <tr><th>Time</th><th>Track 1</th><th>Track 2</th></tr>
+            {% endifchanged %}
+            <tr>
+                <td nowrap>{{ slot.start|localtime:timezone|date:"P" }} &ndash; {{ slot.end|localtime:timezone|date:"P" }}</td>
+                {% for session in slot.sessions %}
+                    {% if session.plenary %}
+                        <td colspan="2" class="title">
+                            <a href="{% url schedule_presentation session.id %}">{{ session.title }}</a>
+                        </td>
+                    {% else %}
+                        <td class="title">
+                            <a href="{% url schedule_presentation session.id %}">{{ session.title }}</a>
+                        </td>
+                    {% endif %}
+                {% endfor %}
+                {% ifequal slot.sessions.count 0 %}
+                    <td colspan="2" class="other title">{{ slot.title }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
