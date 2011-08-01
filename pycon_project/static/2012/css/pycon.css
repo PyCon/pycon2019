@@ -748,8 +748,6 @@ a.btn:hover {
 
 .sponsors-side .level {
   overflow:hidden;
-  background: url(../img/thin_stripe.png) repeat-x left bottom;
-  padding-bottom:5px;
   margin-bottom:5px;
 }
 
