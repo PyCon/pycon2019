@@ -1,10 +1,17 @@
 {% extends "sponsors/base.html" %}
 
+{% load sponsors_pro_tags %}
+
 {% block body %}
     <div class="span-20 spacer main-content">
         <h1 class="section-title">{% block subpage_title %}About PyCon <span>Sponsors</span>{% endblock %}</h1>
         <div class="sponsor-list">
-            <h5 class="sponsor-level">Diamond</h5>
+            {% sponsors as sponsors %}
+            {% regroup sponsors by level as level_list %}
+            {% for level in level_list %}
+                <h5 class="sponsor-level">{{ level.grouper }}</h5>
+
+            {% for sponsor in level.list %}
             <div class="sponsor-details">
                 <div class="col-1">
                     <a href="#">
@@ -12,69 +19,15 @@
                     </a>
                 </div>
                 <div class="col-2">
-                    <h2>Google</h2>
-                    <p class="site-link"><a href="#">http://google.com</a></p>
+                    <h2>{{ sponsor.name }}</h2>
+                    <p class="site-link"><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Proin eu nulla mi, at tincidunt nisl. Nam
-                        vestibulum nibh ut lorem malesuada id egestas massa
-                        fringilla. Duis augue nisi, ornare at pulvinar sit
-                        amet, pellentesque vel odio. Morbi facilisis ipsum in
-                        nunc tempor in semper nulla tincidunt. Duis convallis
-                        tincidunt vulputate. Vivamus egestas sodales eros, et
-                        iaculis massa ullamcorper adipiscing. Morbi euismod
-                        laoreet hendrerit. Ut venenatis orci cursus diam
-                        tincidunt viverra.
+                        {{ sponsor.annotation }}
                     </p>
                 </div>
             </div>
-            <h5 class="sponsor-level">Platinum</h5>
-            <div class="sponsor-details">
-                <div class="col-1">
-                    <a href="#">
-                        <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" />
-                    </a>
-                </div>
-                <div class="col-2">
-                    <h2>nasuni</h2>
-                    <p class="site-link"><a href="#">http://nasuni.com</a></p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Proin eu nulla mi, at tincidunt nisl. Nam
-                        vestibulum nibh ut lorem malesuada id egestas massa
-                        fringilla. Duis augue nisi, ornare at pulvinar sit
-                        amet, pellentesque vel odio. Morbi facilisis ipsum in
-                        nunc tempor in semper nulla tincidunt. Duis convallis
-                        tincidunt vulputate. Vivamus egestas sodales eros, et
-                        iaculis massa ullamcorper adipiscing. Morbi euismod
-                        laoreet hendrerit. Ut venenatis orci cursus diam
-                        tincidunt viverra.
-                    </p>
-                </div>
-            </div>
-            <div class="sponsor-details last">
-                <div class="col-1">
-                    <a href="#">
-                        <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" />
-                    </a>
-                </div>
-                <div class="col-2">
-                    <h2>Mirosoft</h2>
-                    <p class="site-link"><a href="#">http://microsoft.com</a></p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Proin eu nulla mi, at tincidunt nisl. Nam
-                        vestibulum nibh ut lorem malesuada id egestas massa
-                        fringilla. Duis augue nisi, ornare at pulvinar sit
-                        amet, pellentesque vel odio. Morbi facilisis ipsum in
-                        nunc tempor in semper nulla tincidunt. Duis convallis
-                        tincidunt vulputate. Vivamus egestas sodales eros, et
-                        iaculis massa ullamcorper adipiscing. Morbi euismod
-                        laoreet hendrerit. Ut venenatis orci cursus diam
-                        tincidunt viverra.
-                    </p>
-                </div>
-            </div>
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
     <div class="span-4 last">
