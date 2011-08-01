@@ -30,7 +30,7 @@
         {% for sponsor in header_sponsors %}
 
         <a href="{{ sponsor.external_url }}">
-            {% thumbnail sponsor.website_logo "130" as logo %}
+            {% thumbnail sponsor.website_logo "130" format="PNG" as logo %}
                 <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
             {% endthumbnail %}
         </a>
@@ -86,7 +86,7 @@
             <a href="#">
             {% for sponsor in level.items %}
                 <span>
-                    {% thumbnail sponsor.website_logo "80" as logo %}
+                    {% thumbnail sponsor.website_logo "80" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 </span>

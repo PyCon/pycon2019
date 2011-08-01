@@ -11,27 +11,27 @@
             {% for sponsor in level.list %}
             <a href="{{ sponsor.external_url }}">
                 {% if forloop.parentloop.counter == 1 %}
-                    {% thumbnail sponsor.website_logo "140" as logo %}
+                    {% thumbnail sponsor.website_logo "140" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 2 %}
-                    {% thumbnail sponsor.website_logo "115" as logo %}
+                    {% thumbnail sponsor.website_logo "115" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 3 %}
-                    {% thumbnail sponsor.website_logo "115" as logo %}
+                    {% thumbnail sponsor.website_logo "115" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 4 %}
-                    {% thumbnail sponsor.website_logo "75" as logo %}
+                    {% thumbnail sponsor.website_logo "75" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 5 %}
-                    {% thumbnail sponsor.website_logo "75" as logo %}
+                    {% thumbnail sponsor.website_logo "75" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
