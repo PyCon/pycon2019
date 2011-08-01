@@ -22,6 +22,13 @@
             <h4>Sprints: March 12th&ndash;15th</h4>
         </div>
     </div>
+    {# @@@ show diamond sponsor #}
+    <div class="diamond-sponsor">
+        <span>Presented by</span>
+        <a href="#">
+            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" width="130px" alt="" />
+        </a>
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -29,9 +36,10 @@
     <div class="mainbox">
         {% box "mainbox" %}
     </div>
-    {#  SECTION: our sponsors #}
+    {#  SECTION: our platinum and gold sponsors #}
+    {# @@@ show platinum and gold sponsors #}
     <div class="span-24 last">
-        <h1 class="hidden">Our Sponsors</h1>
+        <h1 class="hidden">Our Platinum and Gold Sponsors</h1>
         {% include "_sponsors.html" %}
         <p class="spacer learn-more"><a href="{% url wakawaka_page 'sponsors' %}">Learn how to become a sponsor...</a></p>
     </div>
@@ -60,6 +68,27 @@
         {% else %}
             <p>No blog posts have been published.</p>
         {% endif %}
+    </div>
+    {#  SECTION: silver and media sponsors #}
+    {# @@@ show silver and media sponsors #}
+    <div class="span-24 last">
+        <hr />
+        <div class="other-sponsors">
+            <h6>Silver Sponsors</h6>
+            <a href="#">
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
+            </a>
+        </div>
+        <div class="other-sponsors">
+            <h6>Media Sponsors</h6>
+            <a href="#">
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
+                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
+            </a>
+        </div>
     </div>
 {% endblock %}
 
