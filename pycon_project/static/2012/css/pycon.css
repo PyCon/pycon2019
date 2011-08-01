@@ -739,6 +739,31 @@ a.btn:hover {
   line-height:1.45em;
 }
 
+/*** sponsor sidebar ***/
+.sponsors-side {
+  margin-left:5px;
+}
+
+.sponsors-side .level {
+  overflow:hidden;
+  background: url(../img/thin_stripe.png) repeat-x left bottom;
+  padding-bottom:5px;
+  margin-bottom:5px;
+}
+
+.sponsors-side .level.last {
+  background: none;
+}
+
+.sponsors-side .level h6 {
+  display:block;
+  text-transform:uppercase;
+  color:#484746;
+  font-size:77%;
+  letter-spacing:0.08em;
+  margin-bottom:0;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {

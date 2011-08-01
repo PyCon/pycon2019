@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block body_base %}
+    <div class="span-17">
+        {% block main_content %}{% endblock %}
+    </div>
+    <div class="span-7 last">
+        {% include "sponsors/_sponsors_sidebar.html" %}
+    </div>
+{% endblock %}
