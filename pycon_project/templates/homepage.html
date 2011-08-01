@@ -29,7 +29,7 @@
         <span>Presented by</span>
         {% for sponsor in header_sponsors %}
 
-        <a href="{{ sponsor.external_url }}">
+        <a href="{% url about_sponsors %}">
             {% thumbnail sponsor.website_logo "130" format="PNG" as logo %}
                 <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
             {% endthumbnail %}
@@ -83,7 +83,7 @@
         {% for level in footer_sponsors %}
         <div class="other-sponsors">
             <h6>{{ level.grouper }} Sponsors</h6>
-            <a href="#">
+            <a href="{% url about_sponsors %}">
             {% for sponsor in level.list %}
                 {% thumbnail sponsor.website_logo "80" format="PNG" as logo %}
                     <span><img src="{{ logo.url }}" alt="{{ sponsor.name }}" /></span>
