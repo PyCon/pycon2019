@@ -813,6 +813,27 @@ body.home .dates .sprints {
   text-indent:-9999px;
 }
 
+/* diamond sponsor */
+.diamond-sponsor {
+  position:absolute;
+  top:180px;
+  right:0;
+  width:150px;
+}
+
+.diamond-sponsor span {
+  display:block;
+  text-transform:uppercase;
+  color:#484746;
+  font-weight:bold;
+  font-size:77%;
+  letter-spacing:0.09em;
+}
+
+.diamond-sponsor img {
+  margin:-3px 0 0 -10px;
+}
+
 /* sponsor slideshow */
 ul#slider {
   display: block;
@@ -1204,6 +1225,14 @@ a.boxes-edit-link {
 }
 
 /*** sponsors: about ***/
+h5.sponsor-level {
+  text-transform:uppercase;
+  font-size:93%;
+  font-weight:bold;
+  color:#FCB500;
+  margin-left:180px;
+}
+
 .sponsor-details {
   clear:both;
   width:100%;
