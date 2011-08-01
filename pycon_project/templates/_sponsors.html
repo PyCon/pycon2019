@@ -16,6 +16,8 @@
         {% else %}
             <img style="margin:{{ logo|margin:"160x80" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
         {% endif %}
+        {% empty %}
+            <img src="http://placehold.it/160x80/E9E6DD/333.png&text={{ sponsor.name }}" />
         {% endthumbnail %}
         <span>{{ sponsor.level }}</span>
     </div>
