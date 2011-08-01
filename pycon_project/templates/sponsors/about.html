@@ -1,36 +1,44 @@
 {% extends "sponsors/base.html" %}
 
 {% load sponsors_pro_tags %}
+{% load thumbnail %}
 
 {% block body %}
+    {% sponsors as sponsors %}
     <div class="span-20 spacer main-content">
         <h1 class="section-title">{% block subpage_title %}About PyCon <span>Sponsors</span>{% endblock %}</h1>
         <div class="sponsor-list">
-            {% sponsors as sponsors %}
             {% regroup sponsors by level as level_list %}
             {% for level in level_list %}
                 <h5 class="sponsor-level">{{ level.grouper }}</h5>
-
-            {% for sponsor in level.list %}
-            <div class="sponsor-details">
-                <div class="col-1">
-                    <a href="#">
-                        <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" />
-                    </a>
+                {% for sponsor in level.list %}
+                {% thumbnail sponsor.website_logo "160x80" format="PNG" as logo %}
+                <div class="sponsor-details">
+                    <div class="col-1">
+                        <a href="#">
+                            <img src="{{ logo.url }}" alt="" />
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <h2>{{ sponsor.name }}<a name="sponsor-{{ sponsor.id }}">&nbsp;</a></h2>
+                        <p class="site-link"><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
+                        <p>
+                            {{ sponsor.annotation }}
+                        </p>
+                    </div>
                 </div>
-                <div class="col-2">
-                    <h2>{{ sponsor.name }}</h2>
-                    <p class="site-link"><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
-                    <p>
-                        {{ sponsor.annotation }}
-                    </p>
-                </div>
-            </div>
-            {% endfor %}
+                {% endthumbnail %}
+                {% endfor %}
             {% endfor %}
         </div>
     </div>
     <div class="span-4 last">
-        {% include "sponsors/_subnav.html" %}
+        <nav class="sidenav sponsor-sidenav">
+            <ul>
+                {% for sponsor in sponsors %}
+                    <li><a href="#sponsor-{{ sponsor.id }}">{{ sponsor.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
     </div>
 {% endblock %}

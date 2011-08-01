@@ -2,6 +2,7 @@
 
 {% load boxes_tags %}
 {% load biblion_tags %}
+{% load sponsors_pro_tags %}
 
 {% block body_class %}home{% endblock %}
 
@@ -22,12 +23,14 @@
             <h4>Sprints: March 12th&ndash;15th</h4>
         </div>
     </div>
-    {# @@@ show diamond sponsor #}
+    {% sponsors header as header_sponsors %}
     <div class="diamond-sponsor">
         <span>Presented by</span>
+        {% for sponsor in header_sponsors %}
         <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" width="130px" alt="" />
+            <img src="{{ sponsor.website_logo.url }}" width="130" alt="" />
         </a>
+        {% endfor %}
     </div>
 {% endblock %}
 
@@ -37,7 +40,6 @@
         {% box "mainbox" %}
     </div>
     {#  SECTION: our platinum and gold sponsors #}
-    {# @@@ show platinum and gold sponsors #}
     <div class="span-24 last">
         <h1 class="hidden">Our Platinum and Gold Sponsors</h1>
         {% include "_sponsors.html" %}
@@ -70,25 +72,20 @@
         {% endif %}
     </div>
     {#  SECTION: silver and media sponsors #}
-    {# @@@ show silver and media sponsors #}
+    {% sponsors footer as footer_sponsors %}
+    {% regroup footer_sponsors by level as footer_sponsors %}
     <div class="span-24 last">
         <hr />
+        {% for level in footer_sponsors %}
         <div class="other-sponsors">
-            <h6>Silver Sponsors</h6>
+            <h6>{{ level.grouper }} Sponsors</h6>
             <a href="#">
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
+            {% for sponsor in level.items %}
+                <span><img src="{{ sponsor.website_logo.url }}" alt="{{ sponsor.name }}" width="80" /></span>
+            {% endfor %}
             </a>
         </div>
-        <div class="other-sponsors">
-            <h6>Media Sponsors</h6>
-            <a href="#">
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="80px" /></span>
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/1d/e3/1de3a78ce78840275101892f09bab9cd.png" alt="" width="80px" /></span>
-                <span><img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/c3/6c/c36ccf29ab6f62523f42caf232ebdd28.png" alt="" width="80px" /></span>
-            </a>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}
 

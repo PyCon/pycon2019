@@ -1,7 +1,7 @@
 {% load sponsors_pro_tags %}
 {% load thumbnail %}
 
-{% web_sponsors as sponsors %}
+{% sponsors scroll as sponsors %}
 <ul id="slider">
 {% for sponsor in sponsors %}
     {% if forloop.first or forloop.counter|divisibleby:"6" %}

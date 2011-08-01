@@ -1,38 +1,32 @@
+{% load sponsors_pro_tags %}
+
+{% sponsors as sponsors %}
+{% regroup sponsors by level as level_list %}
+
 <div class="sponsors-side">
-    <div class="level first">
-        <h6>Diamond</h6>
-        <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="140" />
-        </a>
-    </div>
-    <div class="level">
-        <h6>Platinum</h6>
-        <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="115" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="115" />
-        </a>
-    </div>
-    <div class="level">
-        <h6>Gold</h6>
-        <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="115" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="115" />
-        </a>
-    </div>
-    <div class="level silver">
-        <h6>Silver</h6>
-        <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-        </a>
-    </div>
-    <div class="level last">
-        <h6>Media</h6>
-        <a href="#">
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-            <img src="http://cl071.o1.gondor.io/2012/site_media/media/cache/23/9b/239bc07c43ef2c821e617bb8cf6cf796.png" alt="" width="75" />
-        </a>
-    </div>
+    {% for level in level_list %}
+        <div class="level {{ level.grouper|lower }}">
+            <h6>{{ level.grouper }}</h6>
+            {% for sponsor in level.list %}
+            <a href="{{ sponsor.external_url }}">
+                {% if forloop.parentloop.counter == 1 %}
+                    <img src="{{ sponsor.website_logo.url }}" width="140" />
+                {% endif %}
+                {% if forloop.parentloop.counter == 2 %}
+                    <img src="{{ sponsor.website_logo.url }}" width="115" />
+                {% endif %}
+                {% if forloop.parentloop.counter == 3 %}
+                    <img src="{{ sponsor.website_logo.url }}" width="115" />
+                {% endif %}
+                {% if forloop.parentloop.counter == 4 %}
+                    <img src="{{ sponsor.website_logo.url }}" width="75" />
+                {% endif %}
+                {% if forloop.parentloop.counter == 5 %}
+                    <img src="{{ sponsor.website_logo.url }}" width="75" />
+                {% endif %}
+            </a>
+            {% endfor %}
+            
+        </div>
+    {% endfor %}
 </div>
