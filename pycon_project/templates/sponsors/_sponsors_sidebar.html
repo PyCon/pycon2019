@@ -1,4 +1,5 @@
 {% load sponsors_pro_tags %}
+{% load thumbnail %}
 
 {% sponsors as sponsors %}
 {% regroup sponsors by level as level_list %}
@@ -10,19 +11,29 @@
             {% for sponsor in level.list %}
             <a href="{{ sponsor.external_url }}">
                 {% if forloop.parentloop.counter == 1 %}
-                    <img src="{{ sponsor.website_logo.url }}" width="140" />
+                    {% thumbnail sponsor.website_logo "140" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 2 %}
-                    <img src="{{ sponsor.website_logo.url }}" width="115" />
+                    {% thumbnail sponsor.website_logo "115" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 3 %}
-                    <img src="{{ sponsor.website_logo.url }}" width="115" />
+                    {% thumbnail sponsor.website_logo "115" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 4 %}
-                    <img src="{{ sponsor.website_logo.url }}" width="75" />
+                    {% thumbnail sponsor.website_logo "75" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
                 {% endif %}
                 {% if forloop.parentloop.counter == 5 %}
-                    <img src="{{ sponsor.website_logo.url }}" width="75" />
+                    {% thumbnail sponsor.website_logo "75" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
                 {% endif %}
             </a>
             {% endfor %}

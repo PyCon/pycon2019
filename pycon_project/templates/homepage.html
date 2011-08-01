@@ -3,6 +3,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 {% load sponsors_pro_tags %}
+{% load thumbnail %}
 
 {% block body_class %}home{% endblock %}
 
@@ -27,8 +28,11 @@
     <div class="diamond-sponsor">
         <span>Presented by</span>
         {% for sponsor in header_sponsors %}
-        <a href="#">
-            <img src="{{ sponsor.website_logo.url }}" width="130" alt="" />
+
+        <a href="{{ sponsor.external_url }}">
+            {% thumbnail sponsor.website_logo "130" as logo %}
+                <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+            {% endthumbnail %}
         </a>
         {% endfor %}
     </div>
@@ -81,7 +85,11 @@
             <h6>{{ level.grouper }} Sponsors</h6>
             <a href="#">
             {% for sponsor in level.items %}
-                <span><img src="{{ sponsor.website_logo.url }}" alt="{{ sponsor.name }}" width="80" /></span>
+                <span>
+                    {% thumbnail sponsor.website_logo "80" as logo %}
+                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                    {% endthumbnail %}
+                </span>
             {% endfor %}
             </a>
         </div>
