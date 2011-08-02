@@ -85,8 +85,8 @@
             <h6>{{ level.grouper }} Sponsors</h6>
             <a href="{% url about_sponsors %}">
             {% for sponsor in level.list %}
-                {% thumbnail sponsor.website_logo "80" format="PNG" as logo %}
-                    <span><img src="{{ logo.url }}" alt="{{ sponsor.name }}" /></span>
+                {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
+                    <span><img src="{{ logo.url }}" style="{{ logo|margin:"100x60" }}" alt="{{ sponsor.name }}" width="{{ logo.x }}" height="{{ logo.y }}" /></span>
                 {% endthumbnail %}
             {% endfor %}
             </a>
