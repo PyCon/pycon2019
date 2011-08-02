@@ -3,7 +3,7 @@
 
 <ul id="slider">
 {% for sponsor in sponsors %}
-    {% if forloop.first or forloop.counter|divisibleby:"7" %}
+    {% if forloop.first or forloop.counter0|divisibleby:"6" %}
         <li {% if forloop.first %}class="first"{% endif %}>
     {% endif %}
     <div class="sponsor {% if forloop.counter|divisibleby:"6" %}last{% endif %}">
