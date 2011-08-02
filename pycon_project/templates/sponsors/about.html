@@ -15,7 +15,7 @@
                 {% thumbnail sponsor.website_logo "160x80" format="PNG" as logo %}
                 <div class="sponsor-details">
                     <div class="col-1">
-                        <a href="#">
+                        <a href="{{ sponsor.external_url }}">
                             <img src="{{ logo.url }}" alt="" />
                         </a>
                     </div>
