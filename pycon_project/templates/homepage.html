@@ -40,6 +40,7 @@
 
 {% block body %}
 
+    {% sponsors as sponsors %}
     <div class="mainbox">
         {% box "mainbox" %}
     </div>
@@ -76,8 +77,7 @@
         {% endif %}
     </div>
     {#  SECTION: silver and media sponsors #}
-    {% sponsors footer as footer_sponsors %}
-    {% regroup footer_sponsors by level as footer_sponsors %}
+    {% regroup sponsors by level as footer_sponsors %}
     <div class="span-24 last">
         <hr />
         {% for level in footer_sponsors %}
@@ -96,7 +96,6 @@
 {% endblock %}
 
 {% block extra_body %}
-    {% sponsors scroll as sponsors %}
     {% if sponsors|length > 6 %}
         <script src="{{ STATIC_URL }}js/jquery.cycle.all.js" type="text/javascript"></script>
         <script>
