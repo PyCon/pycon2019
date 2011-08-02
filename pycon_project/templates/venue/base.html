@@ -19,6 +19,7 @@
         <hr />
         <div class="other-sponsors">
             <h6>Sponsors</h6>
+            {% sponsors as sponsors %}
             <a href="{% url about_sponsors %}">
             {% for sponsor in sponsors %}
                 {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
