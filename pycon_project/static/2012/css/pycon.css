@@ -446,7 +446,7 @@ section#body {
 
 section#body .container {
   background: url(../img/blue_stripe.png) repeat-x 0 0;
-  padding-top:30px;
+  padding-top:20px;
 }
 
 h1.section-title, h2.section-title {
@@ -885,7 +885,7 @@ body.home .dates .sprints {
 ul#slider {
   display: block;
   width: 902px;
-  height: 153px;
+  height: 133px;
   overflow: hidden;
   background: url(../img/thin_stripe.png) repeat-x left bottom;
   list-style: none;
