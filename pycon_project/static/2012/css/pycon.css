@@ -866,7 +866,7 @@ body.home section#body .container {
 
 .other-sponsors {
   clear:both;
-  margin-bottom:10px;
+  margin:0 -20px 10px 0;
   overflow:hidden;
 }
 
