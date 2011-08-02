@@ -845,14 +845,14 @@ body.home section#body .container {
 }
 
 /* diamond sponsor */
-.diamond-sponsor {
+.diamond-sponsors {
   position:absolute;
-  top:195px;
+  top:127px;
   right:0;
   width:150px;
 }
 
-.diamond-sponsor span {
+.diamond-sponsors span {
   display:block;
   text-transform:uppercase;
   color:#484746;
@@ -860,8 +860,8 @@ body.home section#body .container {
   letter-spacing:0.08em;
 }
 
-.diamond-sponsor img {
-  margin:-3px 0 0 -10px;
+.diamond-sponsors img {
+  margin:-3px 0 -10px 0;
 }
 
 .other-sponsors {
