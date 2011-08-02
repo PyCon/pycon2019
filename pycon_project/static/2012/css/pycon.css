@@ -15,7 +15,7 @@ html, body {
 }
 
 body {
-  background: #eae7df url(../img/bg.png) repeat 0 0;
+  background: #eae7df url(../img/bg.png) repeat 0 0 !important;
   color:#222;
   font: normal 93% "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
