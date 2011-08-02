@@ -1324,3 +1324,27 @@ nav.sponsor-sidenav {
   font-weight:bold;
   font-size:85%;
 }
+
+a.btn-sponsor {
+  display:block;
+  width:139px;
+  height:51px;
+  background: url(../img/arrow_bg.png) no-repeat 0 0;
+  color:#fff;
+  text-decoration:none;
+  text-shadow:0 1px 1px rgba(76,154,172,0.75);
+  font-size:85%;
+  cursor:pointer;
+  margin:10px 0;
+}
+
+a.btn-sponsor span {
+  display:block;
+  padding:9px 0 0 12px;
+  line-height:1.3em;
+}
+
+a.btn-sponsor:hover {
+  background-position: 0 -51px;
+}
+
