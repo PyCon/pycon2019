@@ -29,7 +29,7 @@
         <span>Presented by</span>
         {% for sponsor in header_sponsors %}
 
-        <a href="{% url about_sponsors %}">
+        <a href="{% url sponsor_list %}">
             {% thumbnail sponsor.website_logo "130" format="PNG" as logo %}
                 <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
             {% endthumbnail %}
@@ -48,7 +48,7 @@
     <div class="span-24 last">
         <h1 class="hidden">Our Platinum and Gold Sponsors</h1>
         {% include "_sponsors.html" %}
-        <p class="spacer learn-more"><a href="{% url wakawaka_page 'sponsors' %}">Learn how to become a sponsor...</a></p>
+        <p class="spacer learn-more"><a href="{% url sponsor_info %}">Learn how to become a sponsor...</a></p>
     </div>
     {#  SECTION: what is pycon #}
     <div class="span-8">
@@ -81,7 +81,7 @@
         <hr />
         <div class="other-sponsors">
             <h6>Sponsors</h6>
-            <a href="{% url about_sponsors %}">
+            <a href="{% url sponsor_list %}">
             {% for sponsor in sponsors %}
                 {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
                     <span><img src="{{ logo.url }}" style="margin:{{ logo|margin:"100x60" }}" alt="{{ sponsor.name }}" width="{{ logo.x }}" height="{{ logo.y }}" /></span>

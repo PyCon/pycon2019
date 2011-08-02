@@ -20,7 +20,7 @@
         <div class="other-sponsors">
             <h6>Sponsors</h6>
             {% sponsors as sponsors %}
-            <a href="{% url about_sponsors %}">
+            <a href="{% url sponsor_list %}">
             {% for sponsor in sponsors %}
                 {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
                     <span><img src="{{ logo.url }}" style="margin:{{ logo|margin:"100x60" }}" alt="{{ sponsor.name }}" width="{{ logo.x }}" height="{{ logo.y }}" /></span>
