@@ -77,21 +77,18 @@
         {% endif %}
     </div>
     {#  SECTION: silver and media sponsors #}
-    {% regroup sponsors by level as footer_sponsors %}
     <div class="span-24 last">
         <hr />
-        {% for level in footer_sponsors %}
         <div class="other-sponsors">
-            <h6>{{ level.grouper }} Sponsors</h6>
+            <h6>Sponsors</h6>
             <a href="{% url about_sponsors %}">
-            {% for sponsor in level.list %}
+            {% for sponsor in sponsors %}
                 {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
                     <span><img src="{{ logo.url }}" style="margin:{{ logo|margin:"100x60" }}" alt="{{ sponsor.name }}" width="{{ logo.x }}" height="{{ logo.y }}" /></span>
                 {% endthumbnail %}
             {% endfor %}
             </a>
         </div>
-        {% endfor %}
     </div>
 {% endblock %}
 
