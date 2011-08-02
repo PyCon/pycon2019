@@ -25,12 +25,7 @@
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
                 {% endif %}
-                {% if forloop.parentloop.counter == 4 %}
-                    {% thumbnail sponsor.website_logo "75" format="PNG" as logo %}
-                        <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
-                    {% endthumbnail %}
-                {% endif %}
-                {% if forloop.parentloop.counter == 5 %}
+                {% if forloop.parentloop.counter >= 4 %}
                     {% thumbnail sponsor.website_logo "75" format="PNG" as logo %}
                         <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
