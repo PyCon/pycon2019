@@ -10,21 +10,9 @@
             <h6>{{ level.grouper }}</h6>
             {% for sponsor in level.list %}
             <a href="{{ sponsor.external_url }}">
-                {% if forloop.parentloop.counter == 1 or forloop.parentloop.counter == 2 %}
-                    {% thumbnail sponsor.website_logo "120x70" format="PNG" as logo %}
-                        <img style="margin:{{ logo|margin:"120x70" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
-                    {% endthumbnail %}
-                {% endif %}
-                {% if forloop.parentloop.counter == 3 %}
-                    {% thumbnail sponsor.website_logo "90x60" format="PNG" as logo %}
-                        <img style="margin:{{ logo|margin:"90x60" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
-                    {% endthumbnail %}
-                {% endif %}
-                {% if forloop.parentloop.counter >= 4 %}
-                    {% thumbnail sponsor.website_logo "75x50" format="PNG" as logo %}
-                        <img style="margin:{{ logo|margin:"75x50" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
-                    {% endthumbnail %}
-                {% endif %}
+                {% thumbnail sponsor.website_logo "75x50" format="PNG" as logo %}
+                    <img style="margin:{{ logo|margin:"75x50" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
+                {% endthumbnail %}
             </a>
             {% endfor %}
             
