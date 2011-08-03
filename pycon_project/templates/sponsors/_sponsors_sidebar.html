@@ -10,7 +10,7 @@
             <h6>{{ level.grouper }}</h6>
             {% for sponsor in level.list %}
             <a href="{{ sponsor.external_url }}">
-                {% if forloop.parentloop.counter == 1 or if forloop.parentloop.counter == 2 %}
+                {% if forloop.parentloop.counter == 1 or forloop.parentloop.counter == 2 %}
                     {% thumbnail sponsor.website_logo "120x70" format="PNG" as logo %}
                         <img style="margin:{{ logo|margin:"120x70" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
                     {% endthumbnail %}
