@@ -27,7 +27,7 @@
     {% sponsors header as header_sponsors %}
     <div class="diamond-sponsors">
         <span>Presented by</span>
-        {% for sponsor in header_sponsors %}
+        {% for sponsor in header_sponsors reversed %}
 
         <a href="{% url sponsor_list %}">
             {% thumbnail sponsor.website_logo "130" format="PNG" as logo %}
