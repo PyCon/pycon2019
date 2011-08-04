@@ -15,7 +15,7 @@ html, body {
 }
 
 body {
-  background: #eae7df url(../img/bg.png) repeat 0 0;
+  background: #eae7df url(../img/bg.png) repeat 0 0 !important;
   color:#222;
   font: normal 93% "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
@@ -72,7 +72,8 @@ p, ul, ol {
 }
 
 ul, ol {
-  margin-left:17px;
+  margin-left:34px;
+  list-style-type:circle;
 }
 
 address {
@@ -87,6 +88,13 @@ hr {
   background:none;
   border:0;
   background: url(../img/thin_stripe.png) repeat-x 0 0;
+}
+
+blockquote {
+  margin-left:20px;
+  border-left:1px solid #006e91;
+  padding-left:20px;
+  font-style:italic;
 }
 
 /**************************************************************************** library styles ** */
@@ -731,6 +739,33 @@ a.btn:hover {
   line-height:1.45em;
 }
 
+/*** sponsor sidebar ***/
+.sponsors-side {
+  margin: 20px 0 20px 3px;
+  padding-left:15px;
+  background: url(../img/thin_stripe_v.png) repeat-y left top;
+}
+
+.sponsors-side .level {
+  overflow:hidden;
+  padding-bottom:5px;
+  margin-bottom:5px;
+  border-bottom:1px dotted #d7cfc1;
+}
+
+.sponsors-side .level.last {
+  background: none;
+}
+
+.sponsors-side .level h6 {
+  display:block;
+  text-transform:uppercase;
+  color:#484746;
+  font-size:77%;
+  letter-spacing:0.08em;
+  margin-bottom:0;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -805,11 +840,56 @@ body.home .dates .sprints {
   text-indent:-9999px;
 }
 
+body.home section#body .container {
+  padding-top:20px;
+}
+
+/* diamond sponsor */
+.diamond-sponsors {
+  position:absolute;
+  top:127px;
+  right:0;
+  width:150px;
+}
+
+.diamond-sponsors span {
+  display:block;
+  text-transform:uppercase;
+  color:#484746;
+  font-size:77%;
+  letter-spacing:0.08em;
+}
+
+.diamond-sponsors img {
+  margin:-3px 0 -10px 0;
+}
+
+.other-sponsors {
+  clear:both;
+  margin:0 -20px 10px 0;
+  overflow:hidden;
+}
+
+.other-sponsors h6 {
+  display:block;
+  text-transform:uppercase;
+  color:#484746;
+  font-size:77%;
+  font-weight:bold;
+  margin-bottom:3px;
+}
+
+.other-sponsors span {
+  float:left;
+  margin-right:15px;
+  height:60px;
+}
+
 /* sponsor slideshow */
 ul#slider {
   display: block;
   width: 902px;
-  height: 153px;
+  height: 133px;
   overflow: hidden;
   background: url(../img/thin_stripe.png) repeat-x left bottom;
   list-style: none;
@@ -843,7 +923,7 @@ ul#slider li.first {
   color:#484746;
   padding-top:6px;
   margin:13px 0 0 0;
-  width:160px;
+  width:130px;
   font-weight:bold;
   font-size:77%;
 }
@@ -1084,7 +1164,7 @@ body#restaurants .main-content h2 {
   text-align:right;
   font-size:77%;
   display:block;
-  margin:-5px 0 15px;
+  margin:-5px 11px 15px;
 }
 
 body#venue-info .main-content h5 {
@@ -1122,6 +1202,7 @@ nav.sidenav ul li {
 }
 
 nav.sidenav.venue-sidenav {
+  margin-left:3px;
   margin-bottom:60px;
 }
 
@@ -1191,7 +1272,83 @@ ol.steps li.done {
   text-decoration: line-through;
 }
 
-
 a.boxes-edit-link {
     display: none;
 }
+
+/*** sponsors: about ***/
+h5.sponsor-level {
+  text-transform:uppercase;
+  font-size:93%;
+  font-weight:bold;
+  color:#FCB500;
+  margin-top:30px;
+  margin-left:180px;
+}
+
+.sponsor-details {
+  clear:both;
+  width:100%;
+  position: relative;
+  overflow:hidden;
+  border-bottom:1px dotted #d7cfc1;
+  padding-bottom:7px;
+  margin-bottom:17px;
+}
+
+.sponsor-details.last {
+  border-bottom:0;
+  padding-bottom:0;
+  margin-bottom:15px;
+}
+
+.sponsor-details .col-1 {
+  float:left;
+  width:180px;
+  display:inline;
+}
+
+.sponsor-details .col-2 {
+  float:left;
+  width:560px;
+  display:inline;
+}
+
+.sponsor-details h2 {
+  margin-bottom:2px;
+}
+
+.sponsor-details p.site-link {
+  margin-bottom:8px;
+  font-size:85%;
+  font-weight:bold;
+}
+
+nav.sponsor-sidenav {
+  font-weight:bold;
+  font-size:85%;
+}
+
+a.btn-sponsor {
+  display:block;
+  width:139px;
+  height:51px;
+  background: url(../img/arrow_bg.png) no-repeat 0 0;
+  color:#fff;
+  text-decoration:none;
+  text-shadow:0 1px 1px rgba(76,154,172,0.75);
+  font-size:85%;
+  cursor:pointer;
+  margin:0 0 10px;
+}
+
+a.btn-sponsor span {
+  display:block;
+  padding:9px 0 0 12px;
+  line-height:1.3em;
+}
+
+a.btn-sponsor:hover {
+  background-position: 0 -51px;
+}
+

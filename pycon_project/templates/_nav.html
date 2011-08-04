@@ -1,7 +1,7 @@
 {% load wakawaka_tags %}
 <nav id="main-nav">
     <ul>
-        <li><a href="{% url wakawaka_page 'about' %}" id="link-about">About</a></li>
+        <li><a href="{% url about %}" id="link-about">About</a></li>
         {# <li><a href="{% url schedule_conference %}" id="link-schedule">Schedule</a></li> #}
         {# <li><a href="{% url speaker_dashboard %}" id="link-speakers">Speakers</a></li> #}
         {# {% if is_reviewer or is_reviewer_tutorials %} #}
@@ -9,7 +9,7 @@
         {# {% endif %} #}
         {# <li><a href="{% url wakawaka_page 'sprints' %}" id="link-sprints">Sprints</a></li> #}
         {# <li><a href="{% url wakawaka_page 'volunteer' %}" id="link-volunteer">Volunteer</a></li> #}
-        <li><a href="{% url wakawaka_page 'registration' %}" id="link-registration">Registration</a></li>
+        <li><a href="{% url registration %}" id="link-registration">Registration</a></li>
         <li><a href="{% url venue_detail %}" id="link-venue">Venue</a></li>
         <li><a href="{% url wakawaka_page 'sponsors' %}" id="link-sponsors">Sponsors</a></li>
         <li><a href="http://pycon.blogspot.com/" id="link-blog">Blog</a></li>

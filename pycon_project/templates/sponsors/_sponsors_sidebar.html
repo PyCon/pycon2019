@@ -1,0 +1,21 @@
+{% load sponsors_pro_tags %}
+{% load thumbnail %}
+
+{% sponsors as sponsors %}
+{% regroup sponsors by level as level_list %}
+
+<div class="sponsors-side">
+    {% for level in level_list %}
+        <div class="level {{ level.grouper|lower }}">
+            <h6>{{ level.grouper }}</h6>
+            {% for sponsor in level.list %}
+            <a href="{{ sponsor.external_url }}">
+                {% thumbnail sponsor.website_logo "75x50" format="PNG" as logo %}
+                    <img style="margin:{{ logo|margin:"75x50" }}" src="{{ logo.url }}" width="{{ logo.x }}" height="{{ logo.y }}" alt="{{ sponsor.name }}" />
+                {% endthumbnail %}
+            </a>
+            {% endfor %}
+            
+        </div>
+    {% endfor %}
+</div>

@@ -1,15 +1,32 @@
 {% extends "site_base.html" %}
 
+{% load sponsors_pro_tags %}
+{% load thumbnail %}
+
 {% block body_class %}venue{% endblock %}
 
 {% load boxes_tags %}
 
 {% block body %}
-    <div class="span-8">
-        {% include "venue/_subnav.html" %}
-    </div>
-    <div class="span-16 last spacer main-content">
+    <div class="span-17 spacer main-content">
         <h1 class="section-title">{% block subpage_title %}PyCon <span>Venue</span>{% endblock %}</h1>
         {% block content %}{% endblock %}
+    </div>
+    <div class="span-7 last">
+        {% include "venue/_subnav.html" %}
+    </div>
+    <div class="span-24 last">
+        <hr />
+        <div class="other-sponsors">
+            <h6>Sponsors</h6>
+            {% sponsors as sponsors %}
+            <a href="{% url sponsor_list %}">
+            {% for sponsor in sponsors %}
+                {% thumbnail sponsor.website_logo "100x60" format="PNG" as logo %}
+                    <span><img src="{{ logo.url }}" style="margin:{{ logo|margin:"100x60" }}" alt="{{ sponsor.name }}" width="{{ logo.x }}" height="{{ logo.y }}" /></span>
+                {% endthumbnail %}
+            {% endfor %}
+            </a>
+        </div>
     </div>
 {% endblock %}
