@@ -1,0 +1,29 @@
+form.uniForm fieldset div.ctrlHolder {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#div_id_abstract,
+#div_id_description{
+    padding-top: 42px;
+}
+
+#div_id_additional_notes {
+    padding-top: 55px;
+}
+
+#div_id_abstract label,
+#div_id_description label,
+#div_id_additional_notes label {
+    position: absolute;
+    top: 0px;
+}
+
+#div_id_abstract p.formHint,
+#div_id_description p.formHint,
+#div_id_additional_notes p.formHint {
+    position: absolute;
+    top: 13px;
+    width: 100%;
+}
+
