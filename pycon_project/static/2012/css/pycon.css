@@ -1352,3 +1352,12 @@ a.btn-sponsor:hover {
   background-position: 0 -51px;
 }
 
+
+body.full.speaker .formHint {
+  margin-left: 0;
+  width: 30%;
+}
+
+body.full.speaker form.uniForm ul {
+  list-style: none;
+}

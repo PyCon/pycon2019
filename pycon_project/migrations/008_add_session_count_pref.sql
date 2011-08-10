@@ -1,0 +1,1 @@
+ALTER TABLE "speakers_speaker" ADD COLUMN "sessions_preference" integer;
