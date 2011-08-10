@@ -1,5 +1,6 @@
 {% extends "proposals/base.html" %}
 
+{% load boxes_tags %}
 {% load markitup_tags %}
 {% load uni_form_tags %}
 
@@ -25,6 +26,8 @@
 
 {% block body %}
     <h1>Submit A Proposal</h1>
+    
+    {% box "example_proposal" %}
     
     {% markitup_media %}
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
