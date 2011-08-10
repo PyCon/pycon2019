@@ -1361,3 +1361,8 @@ body.full.speaker .formHint {
 body.full.speaker form.uniForm ul {
   list-style: none;
 }
+
+textarea.markItUpEditor {
+  font-family: "Droid Sans Mono", fixed;
+  font-size: 14px;
+}
