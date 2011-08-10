@@ -1,0 +1,19 @@
+
+#div_id_sessions_preference ul li {
+    display: block;
+}
+
+form.uniForm fieldset div.ctrlHolder {
+    position: relative;
+}
+
+#div_id_biography textarea {
+    width:100%;
+    float:none;
+    border: 0px;
+}
+
+#div_id_biography .markItUp {
+    width: 507px;
+    margin-left: 270px;
+}
