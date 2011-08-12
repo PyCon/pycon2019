@@ -1,41 +1,233 @@
 [
     {
-        "pk": 1, 
-        "model": "conference.presentationkind", 
         "fields": {
-            "start": "2011-07-27 20:00:00", 
-            "end": "2012-03-02 5:00:00", 
-            "name": "Tutorial", 
+            "name": "Community",
+            "slug": "community"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "Distributed Computing",
+            "slug": "distributed-computing"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "name": "Systems Administration",
+            "slug": "systems-administration"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "name": "Packaging",
+            "slug": "packaging"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "name": "Testing",
+            "slug": "testing"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "name": "Databases/NoSQL",
+            "slug": "databasesnosql"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "name": "Best Practices/Patterns",
+            "slug": "best-practicespatterns"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "name": "High Performance Computing",
+            "slug": "high-performance-computing"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "name": "Education",
+            "slug": "education"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "name": "Science",
+            "slug": "science"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "name": "Industry Uses",
+            "slug": "industry-uses"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "name": "Web Frameworks",
+            "slug": "web-frameworks"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "name": "Core Python Language",
+            "slug": "core-python-language"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "name": "Documentation",
+            "slug": "documentation"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "name": "Concurrency",
+            "slug": "concurrency"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "name": "Python Internals",
+            "slug": "python-internals"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "name": "Embedded Systems",
+            "slug": "embedded-systems"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "name": "Other",
+            "slug": "other"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "name": "GUI Programming",
+            "slug": "gui-programming"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "name": "Useful libraries",
+            "slug": "useful-libraries"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "name": "Gaming",
+            "slug": "gaming"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "name": "Mobile",
+            "slug": "mobile"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "name": "Big Data",
+            "slug": "big-data"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "name": "Cloud",
+            "slug": "cloud"
+        },
+        "model": "conference.presentationcategory",
+        "pk": 27
+    },
+    {
+        "pk": 1,
+        "model": "conference.presentationkind",
+        "fields": {
+            "start": "2011-07-27 20:00:00",
+            "end": "2012-03-02 5:00:00",
+            "name": "Tutorial",
             "closed": null
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "conference.presentationkind", 
+        "pk": 2,
+        "model": "conference.presentationkind",
         "fields": {
-            "start": "2011-07-27 20:00:00", 
-            "end": "2012-03-02 5:00:00", 
-            "name": "Talk", 
+            "start": "2011-07-27 20:00:00",
+            "end": "2012-03-02 5:00:00",
+            "name": "Talk",
             "closed": null
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "conference.presentationkind", 
+        "pk": 3,
+        "model": "conference.presentationkind",
         "fields": {
-            "start": "2011-07-27 20:00:00", 
-            "end": "2012-03-02 5:00:00", 
-            "name": "Panel", 
+            "start": "2011-07-27 20:00:00",
+            "end": "2012-03-02 5:00:00",
+            "name": "Panel",
             "closed": null
         }
-    }, 
+    },
     {
-        "pk": 4, 
-        "model": "conference.presentationkind", 
+        "pk": 4,
+        "model": "conference.presentationkind",
         "fields": {
-            "start": "2011-07-27 20:00:00", 
-            "end": "2012-03-02 5:00:00", 
-            "name": "Poster", 
+            "start": "2011-07-27 20:00:00",
+            "end": "2012-03-02 5:00:00",
+            "name": "Poster",
             "closed": null
         }
     }
