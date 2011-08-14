@@ -8,9 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/speakers.css" />
 {% endblock %}
 
-{% block body %}
-    <h1>Create Speaker Profile</h1>
     
+{% block content %}
     {% markitup_media %}
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}

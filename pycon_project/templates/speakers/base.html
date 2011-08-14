@@ -2,4 +2,12 @@
 
 {% block body_class %}full speaker{% endblock %}
 
+{% block body %}
+	<div class="span-24 main-content last">
+        <h1 class="section-title">{% block subpage_title %}Speaker <span>Information</span>{% endblock %}</h1>
+        {% block content %}{% endblock %}
+    </div>
+{% endblock body %}
+
+
 {% block right %}{% endblock %}
