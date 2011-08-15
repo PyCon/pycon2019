@@ -1371,6 +1371,10 @@ form p.errorField {
   width: 100px;
 }
 
+.uniForm .blockLabels .label{
+  display: inline;
+}
+
 textarea.markItUpEditor {
   font-family: "Droid Sans Mono", fixed;
   font-size: 14px;
