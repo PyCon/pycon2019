@@ -51,6 +51,7 @@
         <p>{{ proposal.additional_notes }}</p>
     {% endif %}
     
+    {% comment %}
     <h2>Conversation with Reviewers</h2>
     
     {% for message in proposal.messages.all %}
@@ -74,4 +75,5 @@
             </div>
         </fieldset>
     </form>
+    {% endcomment %}
 {% endblock %}
