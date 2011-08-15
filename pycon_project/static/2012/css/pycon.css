@@ -140,6 +140,7 @@ form.uniForm label {
   font-size: 100%;
   color: #222222;
   line-height: 1.4em;
+  font-weight: bold;
 }
 
 form.uniForm .inlineLabels label {
