@@ -22,7 +22,7 @@
         {{ proposal.description }}
     </div>
     
-    <p><b>Type</b>: {{ proposal.get_session_type_display }}</p>
+    <p><b>Type</b>: {{ proposal.kind.name }}</p>
     
     <div>
         {{ proposal.abstract|safe }}
