@@ -40,7 +40,7 @@
             {% for proposal in proposals %}
             <tr>
                 <td><a href="{% url proposal_detail proposal.pk %}">{{ proposal.title }}</a></td>
-                <td>{{ proposal.get_session_type_display }}</td>
+                <td>{{ proposal.kind.name }}</td>
                 <td>{{ proposal.get_audience_level_display }}</td>
                 <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}Accepted{% else %}Submitted{% endif %}{% else %}Associated{% endif %}{% endif %}</td>
                 <td>{{ proposal.messages.all.count }}</td>
