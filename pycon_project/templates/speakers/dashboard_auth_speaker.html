@@ -2,10 +2,6 @@
 
 {% load boxes_tags %}
 
-{% block subnav %}
-    <p><a href="{% url speaker_edit %}">Edit your speaker profile</a></p>
-{% endblock %}
-
 {% block content %}
     
     {% if accepting_proposals %}
@@ -18,6 +14,8 @@
             <li class="done second">create a speaker profile</li>
             <li class="next third"><a href="{% url proposal_submit %}">{{ proposal_text }}</a></li>
         </ol>
+
+        <p><a href="{% url speaker_edit %}">Edit your speaker profile</a></p>
         
         <p>You will be able to come back and revise your submission until the deadline.
             Remember that speakers must register and pay to attend the conference.</p>
