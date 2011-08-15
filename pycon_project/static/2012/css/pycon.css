@@ -1362,6 +1362,15 @@ body.full.speaker form.uniForm ul {
   list-style: none;
 }
 
+form p.errorField {
+  background-color:pink;
+}
+
+#div_id_kind ul li {
+  float: left;
+  width: 100px;
+}
+
 textarea.markItUpEditor {
   font-family: "Droid Sans Mono", fixed;
   font-size: 14px;
