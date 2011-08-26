@@ -7,7 +7,7 @@
     {% if accepting_proposals %}
         <p>{% box "talk-proposals" %}</p>
         
-        <p>To submit a talk:</p>
+        <h3>To submit a talk:</h3>
         
         <ol class="steps">
             <li class="next first"><a href="{% url acct_signup %}?next={{ request.path }}">sign up</a> and <a href="{% url acct_login %}?next={{ request.path }}">log in</a></li>
