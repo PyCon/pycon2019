@@ -24,7 +24,7 @@
             {% for form in formset.forms %}
             <li>
                 <h5>{{ form.instance.benefit }}</h5>
-                <p>{{ form.instance.benefit.description }}</p>
+                <p>{{ form.instance.benefit.description|safe }}</p>
 
                 <fieldset>
                     {{ form|as_uni_form }}
