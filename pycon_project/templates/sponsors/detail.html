@@ -1,6 +1,7 @@
 {% extends "sponsors/base.html" %}
 
 {% load uni_form_tags %}
+{% load markitup_tags %}
 
 {% block head_title %}{{ sponsor }}{% endblock %}
 
@@ -37,4 +38,9 @@
         </div>
 
     </form>
+{% endblock %}
+
+{% block extra_body %}
+    {% markitup_media "no-jquery" %}
+    {% markitup_editor "id_sponsor_benefits-0-text" %}
 {% endblock %}
