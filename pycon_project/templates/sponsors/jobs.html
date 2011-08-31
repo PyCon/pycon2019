@@ -1,0 +1,47 @@
+{% extends "sponsors/base.html" %}
+
+{% load sponsors_pro_tags %}
+{% load markitup_tags %}
+{% load thumbnail %}
+
+{% block body %}
+    {% sponsors jobs as sponsors %}
+    <div class="span-20 spacer main-content">
+        <h1 class="section-title">{% block subpage_title %}PyCon <span>Jobs Fair</span>{% endblock %}</h1>
+        <div class="sponsor-list">
+            {% regroup sponsors by level as level_list %}
+            {% for level in level_list %}
+                <h5 class="sponsor-level">{{ level.grouper }}</h5>
+                {% for sponsor in level.list %}
+                {% if sponsor.joblisting_text %}
+                    {% thumbnail sponsor.website_logo "160x80" format="PNG" as logo %}
+                    <div class="sponsor-details">
+                        <div class="col-1">
+                            <a href="{{ sponsor.external_url }}">
+                                <img src="{{ logo.url }}" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            <h2>{{ sponsor.name }}<a name="sponsor-{{ sponsor.id }}">&nbsp;</a></h2>
+                            <p>
+                                {{ sponsor.joblisting_text|render_markup }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endthumbnail %}
+                {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="span-4 last">
+        <p><a href="{% url sponsor_info %}" class="btn-sponsor"><span>Learn how to<br />become a <b>sponsor</b></span></a></p>
+        <nav class="sidenav sponsor-sidenav">
+            <ul>
+                {% for sponsor in sponsors %}
+                    <li><a href="#sponsor-{{ sponsor.id }}">{{ sponsor.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
