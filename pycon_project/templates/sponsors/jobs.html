@@ -24,7 +24,7 @@
                         <div class="col-2">
                             <h2>{{ sponsor.name }}<a name="sponsor-{{ sponsor.id }}">&nbsp;</a></h2>
                             <p>
-                                {{ sponsor.joblisting_text|render_markup }}
+                                {{ sponsor.joblisting_text|render_markup|safe }}
                             </p>
                         </div>
                     </div>
