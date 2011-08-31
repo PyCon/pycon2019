@@ -1,5 +1,6 @@
 {% extends "sponsors/base.html" %}
 
+{% load boxes_tags %}
 {% load sponsors_pro_tags %}
 {% load markitup_tags %}
 {% load thumbnail %}
@@ -8,6 +9,7 @@
     {% sponsors jobs as sponsors %}
     <div class="span-20 spacer main-content">
         <h1 class="section-title">{% block subpage_title %}PyCon <span>Jobs Fair</span>{% endblock %}</h1>
+        {% box "sponsors_jobspage" %}
         <div class="sponsor-list">
             {% regroup sponsors by level as level_list %}
             {% for level in level_list %}
@@ -22,7 +24,8 @@
                             </a>
                         </div>
                         <div class="col-2">
-                            <h2>{{ sponsor.name }}<a name="sponsor-{{ sponsor.id }}">&nbsp;</a></h2>
+                            <a name="sponsor-{{ sponsor.id }}">&nbsp;</a>
+                            <p class="site-link"><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
                             <p>
                                 {{ sponsor.joblisting_text|render_markup|safe }}
                             </p>
