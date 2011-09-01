@@ -6,6 +6,10 @@
     |
     <a href="{% url acct_email %}">Account</a>
     |
+    {% if user.sponsorship and user.sponsorship.active %}
+    <a href="{% url sponsor_detail user.sponsorship.pk %}">Manage Sponsorship</a>
+    |
+    {% endif %}
     {% if user.is_staff %}
         <a href="{% url admin:index %}">Admin</a>
         |
