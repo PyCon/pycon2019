@@ -175,6 +175,7 @@ INSTALLED_APPS = [
     "symposion.proposals",
     "symposion.speakers",
     "symposion.sponsors_pro",
+    "symposion.review",
     
     # project
     "boxes",
