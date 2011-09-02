@@ -2,24 +2,28 @@
 
 {% block body_class %}full review{% endblock %}
 
-{% block subnav %}
-    <a href="{% url review_assignments %}">your assignments</a>
-    |
-    <a href="{% url review_list %}">all reviews</a>
-    |
-    <a href="{% url review_list_user user.username %}">your reviews</a>
-    |
-    <a href="{% url review_stats %}">stats</a>
-    {% if is_reviewer_admin %}
-        |
-        <a href="{% url review_admin %}">admin</a>
-    {% endif %}
-    {% if is_reviewer_tutorials %}
-        <br />
-        <a href="{% url review_tutorial_list %}">all tutorial reviews</a>
-        |
-        <a href="{% url review_tutorial_list_user user.username %}">your tutorial reviews</a>
-    {% endif %}
-{% endblock %}
+{% block body %}
+    <div class="span-8">
+        <h1 class="section-title">Review</h1>
+        {% block extra_sidebar %}{% endblock %}
+        {% block subnav %}
+        <ul>
+            <li><a href="{% url review_assignments %}">your assignments</a></li>
+            <li><a href="{% url review_list %}">all reviews</a></li>
+            <li><a href="{% url review_list_user user.username %}">your reviews</a></li>
+            <li><a href="{% url review_stats %}">stats</a></li>
+        {% if is_reviewer_tutorials %}
+            <li><a href="{% url review_tutorial_list %}">all tutorial reviews</a></li>
+            <li><a href="{% url review_tutorial_list_user user.username %}">your tutorial reviews</a></li>
+        {% endif %}
+        {% if is_reviewer_admin %}
+            <li><a href="{% url review_admin %}">admin</a></li>
+        {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
 
-{% block right %}{% endblock %}
+    <div class="span-16 last">
+        {% block primary %}{% endblock %}
+    </div>
+{% endblock %}
