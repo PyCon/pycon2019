@@ -1,2 +1,3 @@
-MEDIA_URL = "/site_media/media/2011/"
-STATIC_URL = "/site_media/static/2011/"
+MEDIA_URL = "/2011/site_media/media/"
+STATIC_URL = "/2011/site_media/static/"
+ADMIN_MEDIA_PREFIX = "/2011/site_media/static/admin/"

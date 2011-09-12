@@ -29,4 +29,4 @@ sorl-thumbnail==3.2.5
 icalendar==1.2
 PIL==1.1.7
 psycopg2==2.4.1
-gondor==1.0b1.post2
+gondor==1.0
