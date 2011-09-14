@@ -6,7 +6,6 @@
     <div class="span-8">
         <h1 class="section-title">Review</h1>
         {% block extra_sidebar %}{% endblock %}
-        {% block subnav %}
         <ul>
             <li><a href="{% url review_assignments %}">your assignments</a></li>
             <li><a href="{% url review_list %}">all reviews</a></li>
@@ -20,7 +19,6 @@
             <li><a href="{% url review_admin %}">admin</a></li>
         {% endif %}
         </ul>
-        {% endblock %}
     </div>
 
     <div class="span-16 last">
