@@ -782,6 +782,31 @@ ul.side-nav li {
   padding-left:15px;
 }
 
+dl.inline {
+  line-height:1.25em;
+  margin-top:20px;
+}
+
+dl.inline dt {
+  float: left;
+  width:20%;
+  clear:both;
+  margin-bottom:10px;
+}
+
+dl.inline dt span {
+  font-size:12px;
+  display:block;
+  font-weight:normal;
+}
+
+dl.inline dd {
+  float: left;
+  width:75%;
+  padding:0;
+  margin-bottom:10px;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -1517,4 +1542,77 @@ table.review-list td.result {
 
 .dataTables_length {
   font-size:13px;
+}
+
+/*** review details ***/
+/* results */
+form.result-form {
+  padding:0;
+  border:0;
+  float:left;
+  width:30%;
+}
+
+.result {
+  border:6px solid #f2f2f2;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.result h6 {
+  float:left;
+  width:30%;
+  padding-top:8px;
+}
+
+.result.accepted h6 span {
+  color: #0C0;
+}
+
+.result.rejected h6 span {
+  color: #C00;
+}
+
+.result.undecided h6 span {
+  color: #999;
+}
+
+.result-form input[type="submit"] {
+  border: none;
+  background: #CCC;
+  text-shadow:none;
+  float:left;
+}
+
+.result-form input:hover {
+  border: none;
+  background: #000;
+  color: #FFF;
+}
+
+.result-form input[type="submit"].accept { background: #56e256; }
+.result-form input[type="submit"].reject { background: #d46c6c; }
+.result-form input[type="submit"].undecide { background: #999; }
+
+.result-form input[type="submit"].accept:hover { background: #0c0; }
+.result-form input[type="submit"].reject:hover { background: #c00; }
+.result-form input[type="submit"].undecide:hover { background: #666; }
+
+h2.proposal-title {
+  line-height:1.3em;
+}
+
+.votes-box {
+  margin-bottom:25px;
+  text-align:right;
+}
+
+.votes-box .vote-count-box {
+  float:left;
+  width:15%;
+  margin-right:5%;
+}
+
+.votes-box .vote-count-box .label {
+  border-bottom:1px solid #fefefe;
 }
