@@ -2,6 +2,10 @@
 
 {% block body_class %}full review{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/dataTables.css" />
+{% endblock %}
+
 {% block body %}
     <div class="span-5">
         <h1 class="section-title">Review</h1>
@@ -24,4 +28,13 @@
     <div class="span-19 last">
         {% block primary %}{% endblock %}
     </div>
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("table.review").dataTable();
+        });
+    </script>
 {% endblock %}

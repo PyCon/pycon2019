@@ -1396,6 +1396,11 @@ textarea.markItUpEditor {
 }
 
 /*** proposals ***/
+div.badges {
+  margin-bottom:15px;
+  font-size:13px;
+}
+
 div.badges .badge {
   width: 20px;
   height: 20px;
@@ -1415,13 +1420,33 @@ div.badges .badge.invited {
   background:#555;
 }
 
+div.badges .label {
+  float:left;
+  margin-right:20px;
+}
+
 /* review table */
-table.review-list, table.review-list tr.last td {
-  border-bottom:0;
+table.review-list {
+  font-size:13px;
+}
+
+table.review-list th {
+  background-color:#fff;
+  border-right: 1px solid #eee;
+  border-bottom:1px solid #eee;
+  text-shadow:none;
 }
 
 table.review-list td {
   vertical-align: top;
+}
+
+table.review-list tr.first td {
+  border-top:0;
+}
+
+table.review-list td.pr-details {
+  width:250px;
 }
 
 table.review-list td .title {
@@ -1431,10 +1456,6 @@ table.review-list td .title {
 }
 
 /* level */
-table.review-list td {
-  font-size:13px;
-}
-
 table.review-list .level {
   text-align: center;
   padding: 3px 5px;
@@ -1465,3 +1486,35 @@ table.review-list td.count {
   text-align:right;
 }
 
+table.review-list th.comments,
+table.review-list td.comments {
+  width:37px;
+}
+
+table.review-list th.comments span {
+  display:block;
+  text-indent:-9999px;
+  background: url(../img/icons/comments.png) no-repeat left center;
+}
+
+table.review-list td.result {
+  width:64px;
+}
+
+.dataTables_filter {
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+.dataTables_filter input[type="text"] {
+  font-size: 85%;
+  padding: 3px 6px;
+}
+
+.dataTables_info {
+  font-size:12px;
+}
+
+.dataTables_length {
+  font-size:13px;
+}

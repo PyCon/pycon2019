@@ -7,52 +7,58 @@
         <a href="#type-poster">Posters</a>
 </div>
 {% endcomment %}
-<div class="badges legend">
+<div class="badges legend mod">
     <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
-    <div class="clear"></div>
     <div class="badge invited">I</div><div class="label"> = Invited</div>
 </div>
 
 {% for type, props in proposals.iteritems %}
     {% for proposal in props %}
         {% if forloop.first %}
-            <h3 id="type-{{ proposal.get_session_type_display|slugify|lower }}">{{ proposal.get_session_type_display }}{{ props|length|pluralize }}</h3>
-            <table class="review-list">
-                <tr>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Result
-                    </th>
-                    <th>
-                        Comments
-                    </td>
-                    <th>
-                        +1
-                    </th>
-                    <th>
-                        +0
-                    </th>
-                    <th>
-                        &minus;0
-                    </th>
-                    <th>
-                        &minus;1
-                    </th>
-                    <th>
-                        Total
-                    </th>
-                </tr>
+            {% if proposal.get_session_type_display %}
+                <h3 id="type-{{ proposal.get_session_type_display|slugify|lower }}">
+                    {{ proposal.get_session_type_display }}{{ props|length|pluralize }}
+                </h3>
+            {% endif %}
+            <table class="review review-list">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th class="comments">
+                            <span>Comments</span>
+                        </td>
+                        <th>
+                            +1
+                        </th>
+                        <th>
+                            +0
+                        </th>
+                        <th>
+                            &minus;0
+                        </th>
+                        <th>
+                            &minus;1
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Result
+                        </th>
+                    </tr>
+                <thead>
+                <tbody>
         {% endif %}
-        <tr class="{{ proposal.latest_vote }} {% if forloop.last %}last{% endif %}">
+        <tr class="{{ proposal.latest_vote }} {% if forloop.first %}first{% endif %}">
             <td>
                 {{ proposal.number }}
             </td>
-            <td>
+            <td class="pr-details">
                 <div class="title">
                     <a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a>
                 </div>
@@ -77,9 +83,6 @@
                     </div>
                 </div>
             </td>
-            <td class="result {{ proposal.result.get_accepted_display }}">
-                {{ proposal.result.get_accepted_display }}
-            </td>
             <td class="count">
                 {{ proposal.comment_count }}
             </td>
@@ -98,8 +101,12 @@
             <td class="count">
                 {{ proposal.total_votes }}
             </td>
+            <td class="result {{ proposal.result.get_accepted_display }}">
+                {{ proposal.result.get_accepted_display }}
+            </td>
         </tr>
         {% if forloop.last %}
+        </tbody>
             </table>
         {% endif %}
     {% endfor %}
