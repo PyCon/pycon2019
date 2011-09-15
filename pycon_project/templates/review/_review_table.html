@@ -25,7 +25,7 @@
             <table class="review review-list">
                 <thead>
                     <tr>
-                        <th>
+                        <th class="pr-number">
                             #
                         </th>
                         <th>
@@ -57,7 +57,7 @@
                 <tbody>
         {% endif %}
         <tr class="{{ proposal.latest_vote }} {% if forloop.first %}first{% endif %}">
-            <td>
+            <td class="pr-number">
                 {{ proposal.number }}
             </td>
             <td class="pr-details">
