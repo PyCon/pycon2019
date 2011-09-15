@@ -1553,27 +1553,27 @@ form.result-form {
   width:30%;
 }
 
-.result {
+.result-box {
   border:6px solid #f2f2f2;
   padding:15px;
   margin-bottom:15px;
 }
 
-.result h6 {
+.result-box h6 {
   float:left;
   width:30%;
   padding-top:8px;
 }
 
-.result.accepted h6 span {
+.result-box.accepted h6 span {
   color: #0C0;
 }
 
-.result.rejected h6 span {
+.result-box.rejected h6 span {
   color: #C00;
 }
 
-.result.undecided h6 span {
+.result-box.undecided h6 span {
   color: #999;
 }
 
