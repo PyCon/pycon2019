@@ -1538,6 +1538,7 @@ table.review-list td.result {
 
 .dataTables_info {
   font-size:12px;
+  margin-bottom:35px;
 }
 
 .dataTables_length {
@@ -1615,4 +1616,12 @@ h2.proposal-title {
 
 .votes-box .vote-count-box .label {
   border-bottom:1px solid #fefefe;
+}
+
+.stat-def {
+  margin-bottom:15px;
+}
+
+.breadcrumbs {
+  margin:-10px 0 15px 0;
 }
