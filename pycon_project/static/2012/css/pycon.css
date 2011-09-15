@@ -769,6 +769,19 @@ a.btn:hover {
   margin-bottom:0;
 }
 
+/*** side nav ***/
+ul.side-nav {
+  list-style-type:none;
+  margin:20px 0 0;
+  border-left:1px solid #d7cfc1;
+}
+
+ul.side-nav li {
+  border-left:1px solid #f9f2e6;
+  display:block;
+  padding-left:15px;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -1381,3 +1394,74 @@ textarea.markItUpEditor {
   font-family: "Droid Sans Mono", fixed;
   font-size: 14px;
 }
+
+/*** proposals ***/
+div.badges .badge {
+  width: 20px;
+  height: 20px;
+  color: white;
+  line-height: 20px;
+  text-align: center;
+  margin: 3px 5px 5px 0;
+  float: left;
+  text-shadow:none;
+}
+
+div.badges .badge.extreme {
+  background:#555;
+}
+
+div.badges .badge.invited {
+  background:#555;
+}
+
+/* review table */
+table.review-list, table.review-list tr.last td {
+  border-bottom:0;
+}
+
+table.review-list td {
+  vertical-align: top;
+}
+
+table.review-list td .title {
+  font-weight:bold;
+  line-height:1.3em;
+  font-size:15px;
+}
+
+/* level */
+table.review-list td {
+  font-size:13px;
+}
+
+table.review-list .level {
+  text-align: center;
+  padding: 3px 5px;
+  text-shadow:none;
+  text-transform:uppercase;
+  font-size:10px;
+  background:#555;
+  margin-right:5px;
+}
+
+table.review-list .level.novice {
+  background:#acdbee;
+}
+
+table.review-list .level.intermediate {
+  background:#afe6af;
+}
+
+table.review-list .level.experienced {
+  background:#f5d8ae;
+}
+
+table.review-list .author {
+  font-size:12px;
+}
+
+table.review-list td.count {
+  text-align:right;
+}
+

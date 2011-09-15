@@ -20,6 +20,9 @@
             <table class="review-list">
                 <tr>
                     <th>
+                        #
+                    </th>
+                    <th>
                         Title
                     </th>
                     <th>
@@ -45,17 +48,21 @@
                     </th>
                 </tr>
         {% endif %}
-        <tr class="{{ proposal.latest_vote }}">
+        <tr class="{{ proposal.latest_vote }} {% if forloop.last %}last{% endif %}">
+            <td>
+                {{ proposal.number }}
+            </td>
             <td>
                 <div class="title">
-                    <b>#{{ proposal.number }}</b>:
                     <a href="{% url review_detail proposal.pk %}">{{ proposal.title }}</a>
                 </div>
                 <div class="metadata">
-                    {{ proposal.get_audience_level_display }}
+                    <span class="level {{ proposal.get_audience_level_display|lower }}">
+                        {{ proposal.get_audience_level_display }}
+                    </span>
                     {{ proposal.get_session_type_display }}
-                    by
-                    {{ proposal.speaker }}
+                    <span class="author">by
+                    <b>{{ proposal.speaker }}</b></span>
                     {% if proposal.additional_speakers.all %}
                         with
                         {{ proposal.additional_speakers.all|join:", " }}

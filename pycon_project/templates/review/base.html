@@ -3,10 +3,10 @@
 {% block body_class %}full review{% endblock %}
 
 {% block body %}
-    <div class="span-8">
+    <div class="span-5">
         <h1 class="section-title">Review</h1>
         {% block extra_sidebar %}{% endblock %}
-        <ul>
+        <ul class="side-nav">
             <li><a href="{% url review_assignments %}">your assignments</a></li>
             <li><a href="{% url review_list %}">all reviews</a></li>
             <li><a href="{% url review_list_user user.username %}">your reviews</a></li>
@@ -21,7 +21,7 @@
         </ul>
     </div>
 
-    <div class="span-16 last">
+    <div class="span-19 last">
         {% block primary %}{% endblock %}
     </div>
 {% endblock %}
