@@ -850,8 +850,8 @@ body.home section#body .container {
 /* diamond sponsor */
 .diamond-sponsors {
   position:absolute;
-  top:127px;
-  right:0;
+  top:117px;
+  right:10px;
   width:150px;
 }
 
@@ -864,7 +864,8 @@ body.home section#body .container {
 }
 
 .diamond-sponsors img {
-  margin:-3px 0 -10px 0;
+  margin:-3px 0 0;
+  width:100px;
 }
 
 .other-sponsors {
