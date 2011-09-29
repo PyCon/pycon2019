@@ -1,5 +1,6 @@
 {% extends "review/base.html" %}
 
+{% load markitup_tags %}
 {% load uni_form_tags %}
 
 {% block primary %}
@@ -47,7 +48,7 @@
         {% endif %}
 
         <div>
-            {{ proposal.description }}
+            {{ proposal.description|urlize }}
         </div>
 
         <dl class="inline mod">
@@ -55,7 +56,7 @@
             <dd>{{ proposal.get_session_type_display }}</dd>
 
             <dt>Abstract:</dt>
-            <dd>{{ proposal.abstract_html|safe }}</dd>
+            <dd>{{ proposal.abstract|safe|urlize }}</dd>
 
             <dt>Audience level:</dt>
             <dd>{{ proposal.get_audience_level_display }}</dd>
@@ -64,7 +65,7 @@
             <dd>{{ proposal.speaker }}</dd>
 
             <dt>About speaker:</dt>
-            <dd>{{ proposal.speaker.biography_html|safe }}</dd>
+            <dd>{{ proposal.speaker.biography|safe|urlize }}</dd>
 
             {% if proposal.additional_speakers.all %}
                 <dt>Additional speakers:</dt>
@@ -86,7 +87,7 @@
                     <span>(private from submitter)</span>
                 </dt>
                 <dd class="additional_notes">
-                    {{ proposal.additional_notes|linebreaksbr|urlize }}
+                    {{ proposal.additional_notes|safe|urlize }}
                 </dd>
             {% endif %}
 
@@ -124,7 +125,7 @@
         {% for review in reviews %}
             <div class="review-box">
                 <div class="vote">{{ review.vote }}</div>
-                <div class="comment">{{ review.comment_html|safe }}</div>
+                <div class="comment">{{ review.comment|safe }}</div>
                 <div class="dateline">
                     <b>{{ review.user }}</b> {{ review.submitted_at|timesince }} ago
                     {% if is_reviewer_admin %}<form method="POST" action="{% url review_delete review.pk %}">{% csrf_token %}<input type="submit" value="delete" /></form>{% endif %}
@@ -136,6 +137,8 @@
         <h3>Vote and Comment</h3>
 
         <p>You can revise your vote or comment multiple times with an existing vote.</p>
+
+        {% markitup_media %}
 
         <form method="POST" action="" class="uniForm">
             {% csrf_token %}
@@ -151,7 +154,7 @@
             <h3>Conversation with Proposer</h3>
             {% for message in proposal.messages.all %}
                 <div class="review-box">
-                    <div class="comment">{{ message.message_html|safe }}</div>
+                    <div class="comment">{{ message.message|safe }}</div>
                     <div class="dateline"><b>{{ message.user }}</b> {{ message.submitted_at|timesince }} ago</div>
                 </div>
                 <div class="clear"></div>
@@ -174,26 +177,4 @@
         </form>
         <div class="spacer"></div>
     {% endif %}
-{% endblock %}
-
-{% block extra_body %}
-    <script src="{{ STATIC_URL }}js/facebox.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $.facebox.settings.loadingImage = '{{ STATIC_URL }}img/facebox/loading.gif';
-            $.facebox.settings.closeImage = '{{ STATIC_URL }}img/facebox/closelabel.gif';
-            $('#preview').click(function() {
-                var raw = $("#id_comment").val();
-                $.facebox.loading();
-                $.post(
-                    '{% url creole_preview %}',
-                    {raw: raw},
-                    function(data) {
-                        $.facebox(data)
-                    }
-                );
-                return false;
-            });
-        });
-    </script>
 {% endblock %}
