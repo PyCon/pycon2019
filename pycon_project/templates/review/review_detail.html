@@ -140,15 +140,20 @@
 
         {% markitup_media %}
 
-        <form method="POST" action="" class="uniForm">
-            {% csrf_token %}
-            <fieldset>
-                {{ review_form|as_uni_form }}
-                <div class="form_block">
-                    <input type="submit" name="vote_submit" value="submit" />
-                </div>
-            </fieldset>
-        </form>
+        {% if review_form %}
+            <form method="POST" action="" class="uniForm">
+                {% csrf_token %}
+                <fieldset>
+                    {{ review_form|as_uni_form }}
+                    <div class="form_block">
+                        <input type="submit" name="vote_submit" value="submit" />
+                    </div>
+                </fieldset>
+            </form>
+        {% else %}
+            <p>You do not have permission to vote on this proposal.</p>
+        {% endif %}
+
         {% if proposal.messages.all %}
             <div class="spacer"></div>
             <h3>Conversation with Proposer</h3>
