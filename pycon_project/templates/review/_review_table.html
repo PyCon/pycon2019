@@ -14,13 +14,19 @@
 
 <hr />
 
+<h3>Proposal Types: 
+{% for type, props in proposals.iteritems %}
+    <a href="#type-{{ type|slugify|lower }}">{{ type }}{{ props|length|pluralize }} ({{ props|length }})</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</h3>
+
 {% for type, props in proposals.iteritems %}
     {% for proposal in props %}
         {% if forloop.first %}
-            {% if proposal.get_session_type_display %}
-                <h3 id="type-{{ proposal.get_session_type_display|slugify|lower }}">
-                    {{ proposal.get_session_type_display }}{{ props|length|pluralize }}
-                </h3>
+            {% if proposal.kind.name %}
+                <h2 id="type-{{ proposal.kind.name|slugify|lower }}">
+                    {{ proposal.kind.name }}{{ props|length|pluralize }}
+                </h2>
             {% endif %}
             <table class="review review-list">
                 <thead>
@@ -68,7 +74,7 @@
                     <span class="level {{ proposal.get_audience_level_display|lower }}">
                         {{ proposal.get_audience_level_display }}
                     </span>
-                    {{ proposal.get_session_type_display }}
+                    {{ proposal.kind.name }}
                     <span class="author">by
                     <b>{{ proposal.speaker }}</b></span>
                     {% if proposal.additional_speakers.all %}
@@ -118,6 +124,7 @@
         {% if forloop.last %}
         </tbody>
             </table>
+            <hr />
         {% endif %}
     {% endfor %}
 {% empty %}
