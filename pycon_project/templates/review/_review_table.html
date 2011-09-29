@@ -84,6 +84,14 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="description" style="display:none">
+                    <div>
+                        {{ proposal.description }}
+                    </div>
+                    <div>
+                        {{ proposal.abstract|safe }}
+                    </div>
+                </div>
             </td>
             <td class="count">
                 {{ proposal.comment_count }}
