@@ -857,6 +857,7 @@ body.home .dates {
 }
 
 body.home .dates .tutorials {
+  display:block;
   float:left;
   width:216px;
   height:55px;
@@ -866,6 +867,7 @@ body.home .dates .tutorials {
 }
 
 body.home .dates .talks {
+  display:block;
   float:left;
   width:225px;
   height:55px;
@@ -874,6 +876,7 @@ body.home .dates .talks {
 }
 
 body.home .dates .sprints {
+  display:block;
   float:right;
   width:244px;
   height:55px;

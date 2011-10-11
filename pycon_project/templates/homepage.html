@@ -14,15 +14,19 @@
 {% block header_extra_base %}
     <div id="python"></div>
     <div class="dates">
-        <div class="tutorials">
-            <h4>Tutorials: March 7th&ndash;8th</h4>
-        </div>
-        <div class="talks">
-            <h4>Talks: March 9th&ndash;11th</h4>
-        </div>
-        <div class="sprints">
+        <a href="{% url speaker_dashboard %}">
+            <span class="tutorials">
+                <h4>Tutorials: March 7th&ndash;8th</h4>
+            </span>
+        </a>
+        <a href="{% url speaker_dashboard %}">
+            <span class="talks">
+                <h4>Talks: March 9th&ndash;11th</h4>
+            </span>
+        </a>
+        <span class="sprints">
             <h4>Sprints: March 12th&ndash;15th</h4>
-        </div>
+        </span>
     </div>
     {% sponsors header as header_sponsors %}
     <div class="diamond-sponsors">
