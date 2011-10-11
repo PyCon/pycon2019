@@ -1629,6 +1629,42 @@ h2.proposal-title {
   border-bottom:1px solid #fefefe;
 }
 
+/* review comments */
+.review-box {
+  border:1px solid #f8f8f8;
+  padding:15px;
+  margin-bottom:10px;
+  position:relative;
+}
+
+.review-box .dateline {
+  font-size:12px;
+  color:#666;
+  font-style:italic;
+}
+
+form.delete-comment {
+  border:0;
+  margin:0;
+  position:absolute;
+  top:-8px;
+  right:0;
+}
+
+form.delete-comment input[type="submit"] {
+  border:0;
+  background:none;
+  color:#aaa;
+  text-shadow:none;
+  text-decoration:underline;
+  padding:0;
+  margin:0;
+}
+
+form.delete-comment input[type="submit"]:hover {
+  color:#666;
+}
+
 .stat-def {
   margin-bottom:15px;
 }

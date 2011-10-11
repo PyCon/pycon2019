@@ -122,17 +122,20 @@
             </div>
         </div>
 
-        {% for review in reviews %}
-            <div class="review-box">
-                <div class="vote">{{ review.vote }}</div>
-                <div class="comment">{{ review.comment|safe }}</div>
-                <div class="dateline">
-                    <b>{{ review.user }}</b> {{ review.submitted_at|timesince }} ago
-                    {% if is_reviewer_admin %}<form method="POST" action="{% url review_delete review.pk %}">{% csrf_token %}<input type="submit" value="delete" /></form>{% endif %}
+        {% if reviews %}
+            <h3>Review Comments</h3>
+            {% for review in reviews %}
+                <div class="review-box">
+                    <div class="vote">Vote: <b>{{ review.vote }}</b></div>
+                    <div class="comment">{{ review.comment|safe }}</div>
+                    <div class="dateline">
+                        <b>{{ review.user }}</b> {{ review.submitted_at|timesince }} ago
+                        {% if is_reviewer_admin %}<form method="POST" action="{% url review_delete review.pk %}" class="delete-comment">{% csrf_token %}<input type="submit" value="delete" /></form>{% endif %}
+                    </div>
                 </div>
-            </div>
-            <div class="clear"></div>
-        {% endfor %}
+                <div class="clear"></div>
+            {% endfor %}
+        {% endif %}
 
         <h3>Vote and Comment</h3>
 
