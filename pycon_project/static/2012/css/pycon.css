@@ -1455,6 +1455,7 @@ table.review-list {
   font-size:13px;
   background-color:#f7f6f4;
   border-bottom: 1px solid #e9e8e4;
+  clear: both;
 }
 
 table.review-list th {
