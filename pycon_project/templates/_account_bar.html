@@ -10,6 +10,10 @@
     <a href="{% url sponsor_detail user.sponsorship.pk %}">Manage Sponsorship</a>
     |
     {% endif %}
+    {% if is_reviewer or is_reviewer_tutorials %}
+        <a href="{% url review_list %}">Review</a>
+        |
+    {% endif %}
     {% if user.is_staff %}
         <a href="{% url admin:index %}">Admin</a>
         |

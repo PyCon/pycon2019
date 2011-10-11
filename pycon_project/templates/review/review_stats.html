@@ -1,33 +1,30 @@
-{% extends "reviews/base.html" %}
+{% extends "review/base.html" %}
 
-{% block extra_head %}
-{% endblock %}
-
-{% block body %}
+{% block primary %}
     <h1>Proposal Review Stats</h1>
-    
+
     {% if key %}
-        <div><a href="{% url review_stats %}">Go back to stats</a></div>
+        <div class="breadcrumbs"><a href="{% url review_stats %}">See all proposal review stats</a></div>
         <div>
             {% if key == "good" %}
-                <h2>Good ({{ good_proposals|length }})</h2>
+                <h3>Good ({{ good_proposals|length }})</h3>
                 <div class="stat-def">proposals with at least one +1 and no &minus;1s</div>
             {% endif %}
             {% if key == "bad" %}
-                <h2>Bad ({{ bad_proposals|length }})</h2>
+                <h3>Bad ({{ bad_proposals|length }})</h3>
                 <div class="stat-def">proposals with at least one &minus;1 and no +1s</div>
             {% endif %}
             {% if key == "indifferent" %}
-                <h2>Indifferent ({{ indifferent_proposals|length }})</h2>
+                <h3>Indifferent ({{ indifferent_proposals|length }})</h3>
                 <div class="stat-def">proposals with neither a +1 or a &minus;1</div>
             {% endif %}
             {% if key == "controversial" %}
-                <h2>Controversial ({{ controversial_proposals|length }})</h2>
+                <h3>Controversial ({{ controversial_proposals|length }})</h3>
                 <div class="stat-def">proposals with both a +1 and &minus;1</div>
             {% endif %}
-            
-            {% include "reviews/_review_table.html" %}
-            
+
+            {% include "review/_review_table.html" %}
+
         </div>
     {% else %}
         <b>Proposals</b>:

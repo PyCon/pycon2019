@@ -30,7 +30,7 @@ sorl-thumbnail==11.05.2
 icalendar==1.2
 PIL==1.1.7
 psycopg2==2.4.1
-gondor==1.0b1.post10
+gondor==1.0
 #symposion==1.0a1.dev16
 -e git+git://github.com/pinax/symposion.git#egg=symposion
 mailout==1.0a1.dev2

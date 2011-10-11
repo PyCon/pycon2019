@@ -130,7 +130,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "pinax.apps.account.context_processors.account",
     
-    # "review.context_processors.permissions",
+    "symposion.review.context_processors.permissions",
 ]
 
 INSTALLED_APPS = [
@@ -175,6 +175,7 @@ INSTALLED_APPS = [
     "symposion.proposals",
     "symposion.speakers",
     "symposion.sponsors_pro",
+    "symposion.review",
     
     # project
     "boxes",

@@ -769,6 +769,44 @@ a.btn:hover {
   margin-bottom:0;
 }
 
+/*** side nav ***/
+ul.side-nav {
+  list-style-type:none;
+  margin:20px 0 0;
+  border-left:1px solid #d7cfc1;
+}
+
+ul.side-nav li {
+  border-left:1px solid #f9f2e6;
+  display:block;
+  padding-left:15px;
+}
+
+dl.inline {
+  line-height:1.25em;
+  margin-top:20px;
+}
+
+dl.inline dt {
+  float: left;
+  width:20%;
+  clear:both;
+  margin-bottom:10px;
+}
+
+dl.inline dt span {
+  font-size:12px;
+  display:block;
+  font-weight:normal;
+}
+
+dl.inline dd {
+  float: left;
+  width:75%;
+  padding:0;
+  margin-bottom:10px;
+}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -1381,4 +1419,217 @@ form p.errorField {
 textarea.markItUpEditor {
   font-family: "Droid Sans Mono", fixed;
   font-size: 14px;
+}
+
+/*** proposals ***/
+div.badges {
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+div.badges .badge {
+  width: 20px;
+  height: 20px;
+  color: white;
+  line-height: 20px;
+  text-align: center;
+  margin: 3px 5px 5px 0;
+  float: left;
+  text-shadow:none;
+}
+
+div.badges .badge.extreme {
+  background:#555;
+}
+
+div.badges .badge.invited {
+  background:#555;
+}
+
+div.badges .label {
+  float:left;
+  margin-right:20px;
+}
+
+/* review table */
+table.review-list {
+  font-size:13px;
+  background-color:#f7f6f4;
+  border-bottom: 1px solid #e9e8e4;
+  clear: both;
+}
+
+table.review-list th {
+  background-color:#fff;
+  border-right: 1px solid #eee;
+  border-bottom:1px solid #eee;
+  text-shadow:none;
+}
+
+table.review-list td {
+  vertical-align: top;
+  border-top: 1px solid #e9e8e4;
+  border-bottom: 0;
+}
+
+table.review-list tr.first td {
+  border-top:0;
+}
+
+table.review-list td.pr-number {
+  text-align:right;
+}
+
+table.review-list td.pr-details {
+  width:250px;
+}
+
+table.review-list td .title {
+  line-height:1.3em;
+}
+
+/* level */
+table.review-list .level {
+  text-align: center;
+  padding: 3px 5px;
+  text-shadow:none;
+  text-transform:uppercase;
+  font-size:10px;
+  background:#555;
+  margin-right:5px;
+}
+
+table.review-list .level.novice {
+  background:#acdbee;
+}
+
+table.review-list .level.intermediate {
+  background:#afe6af;
+}
+
+table.review-list .level.experienced {
+  background:#f5d8ae;
+}
+
+table.review-list .author {
+  font-size:12px;
+}
+
+table.review-list td.count {
+  text-align:right;
+}
+
+table.review-list th.comments,
+table.review-list td.comments {
+  width:37px;
+}
+
+table.review-list th.comments span {
+  display:block;
+  text-indent:-9999px;
+  background: url(../img/icons/comments.png) no-repeat left center;
+}
+
+table.review-list td.result {
+  width:64px;
+}
+
+.dataTables_filter {
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+.dataTables_filter input[type="text"] {
+  font-size: 85%;
+  padding: 3px 6px;
+}
+
+.dataTables_info {
+  font-size:12px;
+  margin-bottom:35px;
+}
+
+.dataTables_length {
+  font-size:13px;
+}
+
+/*** review details ***/
+/* results */
+form.result-form {
+  padding:0;
+  border:0;
+  float:left;
+  width:30%;
+}
+
+.result-box {
+  border:6px solid #f2f2f2;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.result-box h6 {
+  float:left;
+  width:30%;
+  padding-top:8px;
+}
+
+.result-box.accepted h6 span {
+  color: #0C0;
+}
+
+.result-box.rejected h6 span {
+  color: #C00;
+}
+
+.result-box.undecided h6 span {
+  color: #999;
+}
+
+.result-form input[type="submit"] {
+  border: none;
+  background: #CCC;
+  text-shadow:none;
+  float:left;
+}
+
+.result-form input:hover {
+  border: none;
+  background: #000;
+  color: #FFF;
+}
+
+.result-form input[type="submit"].accept { background: #56e256; }
+.result-form input[type="submit"].reject { background: #d46c6c; }
+.result-form input[type="submit"].undecide { background: #999; }
+
+.result-form input[type="submit"].accept:hover { background: #0c0; }
+.result-form input[type="submit"].reject:hover { background: #c00; }
+.result-form input[type="submit"].undecide:hover { background: #666; }
+
+h2.proposal-title {
+  line-height:1.3em;
+}
+
+.votes-box {
+  margin-bottom:25px;
+  text-align:right;
+}
+
+.votes-box .vote-count-box {
+  float:left;
+  width:15%;
+  margin-right:5%;
+}
+
+.votes-box .vote-count-box .label {
+  border-bottom:1px solid #fefefe;
+}
+
+.stat-def {
+  margin-bottom:15px;
+}
+
+.breadcrumbs {
+  margin:-10px 0 15px 0;
 }
