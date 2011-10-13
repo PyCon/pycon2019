@@ -31,14 +31,27 @@
     {% sponsors header as header_sponsors %}
     <div class="diamond-sponsors">
         <span>Presented by</span>
-        {% for sponsor in header_sponsors reversed %}
-
-        <a href="{% url sponsor_list %}">
-            {% thumbnail sponsor.website_logo "100" format="PNG" as logo %}
-                <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
-            {% endthumbnail %}
-        </a>
-        {% endfor %}
+        {% with header_sponsors.1 as sponsor %}
+            <a href="{% url sponsor_list %}">
+                {% thumbnail sponsor.website_logo "100" format="PNG" as logo %}
+                    <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                {% endthumbnail %}
+            </a>
+        {% endwith %}
+        {% with header_sponsors.2 as sponsor %}
+            <a href="{% url sponsor_list %}">
+                {% thumbnail sponsor.website_logo "100" format="PNG" as logo %}
+                    <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                {% endthumbnail %}
+            </a>
+        {% endwith %}
+        {% with header_sponsors.0 as sponsor %}
+            <a href="{% url sponsor_list %}">
+                {% thumbnail sponsor.website_logo "100" format="PNG" as logo %}
+                    <img src="{{ logo.url }}" alt="{{ sponsor.name }}" />
+                {% endthumbnail %}
+            </a>
+        {% endwith %}
     </div>
 {% endblock %}
 
