@@ -48,7 +48,7 @@
         {% endif %}
 
         <div>
-            {{ proposal.description|urlize }}
+            {{ proposal.description }}
         </div>
 
         <dl class="inline mod">
@@ -56,7 +56,7 @@
             <dd>{{ proposal.kind.name }}</dd>
 
             <dt>Abstract:</dt>
-            <dd>{{ proposal.abstract|safe|urlize }}</dd>
+            <dd>{{ proposal.abstract|safe }}</dd>
 
             <dt>Audience level:</dt>
             <dd>{{ proposal.get_audience_level_display }}</dd>
@@ -65,7 +65,7 @@
             <dd>{{ proposal.speaker }}</dd>
 
             <dt>About speaker:</dt>
-            <dd>{{ proposal.speaker.biography|safe|urlize }}</dd>
+            <dd>{{ proposal.speaker.biography|safe }}</dd>
 
             {% if proposal.additional_speakers.all %}
                 <dt>Additional speakers:</dt>
@@ -87,7 +87,7 @@
                     <span>(private from submitter)</span>
                 </dt>
                 <dd class="additional_notes">
-                    {{ proposal.additional_notes|safe|urlize }}
+                    {{ proposal.additional_notes|safe }}
                 </dd>
             {% endif %}
 
