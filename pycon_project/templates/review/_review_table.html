@@ -52,7 +52,7 @@
                             &minus;1
                         </th>
                         <th>
-                            Total
+                            Rated
                         </th>
                         <th>
                             Result
@@ -114,7 +114,7 @@
                 {{ proposal.minus_one }}
             </td>
             <td class="count">
-                {{ proposal.total_votes }}
+                {% if proposal in rated_proposals %}Yes{% else %}No{% endif %}
             </td>
             <td class="result {{ proposal.result.get_accepted_display }}">
                 {{ proposal.result.get_accepted_display }}
