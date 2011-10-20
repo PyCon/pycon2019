@@ -36,6 +36,9 @@
                         <th>
                             Title
                         </th>
+                        <th>
+                            Category
+                        </th>
                         <th class="comments">
                             <span>Comments</span>
                         </td>
@@ -97,6 +100,9 @@
                         {{ proposal.abstract|safe }}
                     </div>
                 </div>
+            </td>
+            <td>
+                {{ proposal.category.name }}
             </td>
             <td class="count">
                 {{ proposal.comment_count }}
