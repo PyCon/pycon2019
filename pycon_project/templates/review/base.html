@@ -3,7 +3,8 @@
 {% block body_class %}full review{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/dataTables.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/dataTables.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/TableTools.css" />
 {% endblock %}
 
 {% block body %}
@@ -31,10 +32,16 @@
 
 {% block extra_body %}
     <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/TableTools.min.js"></script>
     <script type="text/javascript">
         $(function() {
             $("table.review").dataTable({
-                "bStateSave": true
+                "bStateSave": true,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+                    "sSwfPath": "{{ STATIC_URL }}swf/copy_cvs_xls.swf",
+                    "aButtons": ["copy", "csv", "xls", "print"]
+                }
             });
         });
     </script>
