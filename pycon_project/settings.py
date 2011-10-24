@@ -253,7 +253,7 @@ try:
 except ImportError:
     pass
 
-DEFAULT_FROM_EMAIL = "mailer@us.pycon.org"
+DEFAULT_FROM_EMAIL = "PyCon 2012 <no-reply@us.pycon.org>"
 MEDIA_URL = "/2012/site_media/media/"
 STATIC_URL = "/2012/site_media/static/"
 ADMIN_MEDIA_PREFIX = "/2012/site_media/static/admin/"
