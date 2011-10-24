@@ -32,16 +32,10 @@
 
 {% block extra_body %}
     <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/TableTools.min.js"></script>
     <script type="text/javascript">
         $(function() {
             $("table.review").dataTable({
-                "bStateSave": true,
-                "sDom": 'T<"clear">lfrtip',
-                "oTableTools": {
-                    "sSwfPath": "{{ STATIC_URL }}swf/copy_cvs_xls.swf",
-                    "aButtons": ["copy", "csv", "xls", "print"]
-                }
+                "bStateSave": true
             });
         });
     </script>
