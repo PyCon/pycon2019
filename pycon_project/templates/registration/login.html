@@ -10,13 +10,8 @@
 </head>
 <body>
     <form action="https://www.cteusa.com/pycon5/auth/verify.reg" method="POST" accept-charset="utf-8">
-        
         <input type="hidden" name="pycon_id" value="{{ request.user.id }}">
-        <input type="hidden" name="fname" value="{{ request.user.first_name }}">
-        <input type="hidden" name="lname" value="{{ request.user.last_name }}">
-        <input type="hidden" name="email" value="{{ request.user.email }}">
-        
-        <p><input type="submit" value="Click"></p>
+        <input type="hidden" name="token" value="{{ token }}">
     </form>
     <script type="text/javascript" src="{% block jquery_src %}https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js{% endblock %}"></script>
     <script type="text/javascript" charset="utf-8">

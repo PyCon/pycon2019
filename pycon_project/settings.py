@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     # project
     "boxes",
     "wiki",
+    "registration",
 ]
 
 FIXTURE_DIRS = [
