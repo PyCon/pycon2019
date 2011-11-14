@@ -163,6 +163,8 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "mailout",
     "reversion",
+    "constance",
+    "constance.backends.database",
     
     # Pinax
     "pinax.templatetags",
@@ -227,6 +229,8 @@ MARKITUP_SKIN = "markitup/skins/simple"
 MARKITUP_FILTER = ("wiki.markdown_parser.parse", {})
 MARKITUP_MEDIA_URL = STATIC_URL
 
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+
 ACCEPTING_PROPOSALS = True
 
 SCHEDULE_TIMEZONE = "US/Pacific"
@@ -242,6 +246,10 @@ ANALYTICS_SETTINGS = {
         "2": "UA-2401894-29", # staging
         "3": "UA-2401894-29", # production
     }
+}
+
+CONSTANCE_CONFIG = {
+    "CTE_SECRET": ("", "Shared secret for CTE integration"),
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
