@@ -56,6 +56,9 @@ urlpatterns = patterns("",
         url(r"^venue/shopping/", direct_to_template, {"template": "venue/shopping.html"}, name="shopping"),
         url(r"^venue/share-room/", direct_to_template, {"template": "venue/share_room.html"}, name="share_room"),
         
+        url(r"^register/$", direct_to_template, {"template": "account/register.html"}, name="cte_registration"),
+        url(r"^register/cte/$", direct_to_template, {"template": "account/cte.html" }, name="cte_login"),
+        
         url(r"^boxes/", include("boxes.urls")),
         
         url(r"^", include("wakawaka.urls")),

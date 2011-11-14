@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Registration and Housing" %}{% endblock %}
+{% block body_class %}full{% endblock %}
+
+{% block body %}
+    <div class="span-24 last">
+		<iframe src="{% url cte_login %}" width="100%" height="1000"></iframe>
+    </div>
+{% endblock %}
