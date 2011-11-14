@@ -12,6 +12,7 @@
     <form action="https://www.cteusa.com/pycon5/auth/verify.reg" method="POST" accept-charset="utf-8">
         <input type="hidden" name="pycon_id" value="{{ request.user.id }}">
         <input type="hidden" name="token" value="{{ token }}">
+        <p>Please wait while we redirect you to registration.</p>
     </form>
     <script type="text/javascript" src="{% block jquery_src %}https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js{% endblock %}"></script>
     <script type="text/javascript" charset="utf-8">
