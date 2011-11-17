@@ -44,7 +44,6 @@ urlpatterns = patterns("",
         # url(r"^export_data/panels\.txt$", "schedule.views.schedule_export_panels"),
         
         url(r"^about/$", direct_to_template, {"template": "pycon/about.html"}, name="about"),
-        url(r"^registration/$", direct_to_template, {"template": "pycon/registration.html"}, name="registration"),
         url(r"^venue/$", direct_to_template, {"template": "venue/detail.html"}, name="venue_detail"),
         url(r"^venue/traveling/", direct_to_template, {"template": "venue/traveling.html"}, name="traveling"),
         url(r"^venue/directions/", direct_to_template, {"template": "venue/directions.html"}, name="directions"),
@@ -56,7 +55,7 @@ urlpatterns = patterns("",
         url(r"^venue/shopping/", direct_to_template, {"template": "venue/shopping.html"}, name="shopping"),
         url(r"^venue/share-room/", direct_to_template, {"template": "venue/share_room.html"}, name="share_room"),
         
-        url(r"^register/", include("registration.urls")),
+        url(r"^registration/", include("registration.urls")),
         url(r"^boxes/", include("boxes.urls")),
         
         url(r"^", include("wakawaka.urls")),
