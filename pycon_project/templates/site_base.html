@@ -2,7 +2,7 @@
 
 {% load waitinglist_tags %}
 
-{% block head_title_base %}PyCon US 2012{% endblock %}
+{% block head_title_base %}PyCon US 2012 {% block head_title %}{% endblock %}{% endblock %}
 
 {% block extra_head_base %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" />
