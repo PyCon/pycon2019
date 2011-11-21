@@ -178,6 +178,7 @@ INSTALLED_APPS = [
     "symposion.speakers",
     "symposion.sponsors_pro",
     "symposion.review",
+    "symposion.schedule",
     
     # project
     "boxes",
