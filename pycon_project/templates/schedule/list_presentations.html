@@ -15,10 +15,6 @@
 {% block body %}
     <h1>{{ kind }}</h1>
     
-    <div class="badges legend">
-        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
-    </div>
-    
     {% for talk in talks %}
         <div class="session">
             <div class="title">
@@ -44,6 +40,11 @@
                 </div>
             </div>
         </div>
+        <hr />
     {% endfor %}
     
+    <div class="badges legend">
+        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+    </div>
+
 {% endblock %}
