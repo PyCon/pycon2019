@@ -1,0 +1,49 @@
+{% extends "schedule/base.html" %}
+
+{% block extra_head %}
+    <style>
+        .session {
+            margin-top: 10px;
+        }
+        .title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ kind }}</h1>
+    
+    <div class="badges legend">
+        <div class="badge extreme">E</div><div class="label"> = EXTREME PyCon</div>
+    </div>
+    
+    {% for talk in talks %}
+        <div class="session">
+            <div class="title">
+                <a href="{% url schedule_presentation talk.pk %}">{{ talk.title }}</a>
+            </div>
+            <div class="metadata">
+                {{ talk.get_audience_level_display }}
+                {{ talk.kind.name }}
+                by
+                {{ talk.speaker }}
+                {% if talk.additional_speakers.all %}
+                    with
+                    {{ talk.additional_speakers.all|join:", " }}
+                {% endif %}
+                <div class="badges">
+                    {% if talk.extreme_pycon %}
+                        <div class="badge extreme">E</div>
+                    {% endif %}
+                    <div class="clear"></div>
+                </div>
+                <div>
+                    <p>{{ talk.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+{% endblock %}
