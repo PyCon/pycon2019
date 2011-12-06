@@ -100,6 +100,7 @@ TEMPLATE_LOADERS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+    "djangosecure.middleware.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -165,6 +166,7 @@ INSTALLED_APPS = [
     "reversion",
     "constance",
     "constance.backends.database",
+    "djangosecure",
     
     # Pinax
     "pinax.templatetags",
