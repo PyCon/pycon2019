@@ -38,7 +38,11 @@ urlpatterns = patterns("",
         url(r"^proposal/", include("symposion.proposals.urls")),
         url(r"^review/", include("symposion.review.urls")),
         url(r"^sponsors/", include("symposion.sponsors_pro.urls")),
-        # url(r"^schedule/", include("schedule.urls")),
+
+        url(r"^schedule/lists/(\w+)/$", "symposion.schedule.views.schedule_presentation_list", name="schedule_presentation_list"),
+        url(r"^schedule/presentation/(\d+)/$", "symposion.schedule.views.schedule_presentation", name="schedule_presentation"),
+
+        # url(r"^schedule/", include("symposion.schedule.urls")),
         # url(r"^export_data/speakers\.txt$", "schedule.views.schedule_export_speaker_data"),
         # url(r"^export_data/sponsors\.txt$", "sponsors.views.sponsor_export_data"),
         # url(r"^export_data/panels\.txt$", "schedule.views.schedule_export_panels"),
