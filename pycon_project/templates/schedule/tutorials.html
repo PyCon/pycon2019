@@ -14,30 +14,30 @@
 
 {% block body %}
     <h1 class="section-title">Schedule <span>Tutorials</span></h1>
+    <hr />
+    <h1 class="section-title">Wednesday, <span>March 7th</span></h1>
     
-    <h2>Wednesday, March 7th</h2>
-    
-    <h3>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h3>
+    <h2>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h2>
     
     {% for presentation in tutorials.wed.morning.presentations %}
         {% include "schedule/_presentation.html" %}
     {% endfor %}
     
-    <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h3>
+    <h2>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h2>
     
     {% for presentation in tutorials.wed.afternoon.presentations %}
         {% include "schedule/_presentation.html" %}
     {% endfor %}
     
-    <h2>Thursday, March 8th</h2>
+    <h1 class="section-title">Thursday, <span>March 8th</span></h1>
     
-    <h3>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h3>
+    <h2>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h2>
     
     {% for presentation in tutorials.thurs.morning.presentations %}
         {% include "schedule/_presentation.html" %}
     {% endfor %}
     
-    <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h3>
+    <h2>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h2>
     
     {% for presentation in tutorials.thurs.afternoon.presentations %}
         {% include "schedule/_presentation.html" %}
