@@ -4,7 +4,7 @@
     </div>
     <div class="metadata">
         {{ presentation.get_audience_level_display }}
-        {{ presentation.get_presentation_type_display }}
+        {{ presentation.kind.name }}
         by
         {{ presentation.speaker }}
         {% if presentation.additional_speakers.all %}
