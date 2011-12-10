@@ -1673,9 +1673,32 @@ form.delete-comment input[type="submit"]:hover {
   margin:-10px 0 15px 0;
 }
 
+/*** registration ***/
+.register-block {
+  text-align:center;
+  margin:15px 0  25px;
+}
+
+.register-block .note {
+  font-size:12px;
+  margin:10px 0;
+}
+
+.ribbon {
+  background: url(../img/ribbon.png) no-repeat 0 0;
+  width:488px;
+  height:48px;
+  margin:20px auto;
+  text-align:center;
+  line-height:40px;
+  color:#000;
+  text-shadow:0 1px 0 #75d4eb;
+  font-size:16px;
+
+}
+
 /********** Call To Action Buttons ************/
 .cta {
-    float: left;
     display: inline-block;
     padding: 0 20px;
     color: #fff;
