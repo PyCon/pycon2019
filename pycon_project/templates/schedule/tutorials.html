@@ -1,5 +1,7 @@
 {% extends "schedule/base.html" %}
 
+{% load timezone_filters %}
+
 {% block extra_head %}
     <style>
         .presentation {
@@ -21,13 +23,13 @@
             <h2 class="shift">Schedule <span>Tutorials</span></h1>
             <h2>Wednesday, March 7th</h2>
             
-            <h3>Morning ({{ tutorials.wed.morning.slot.0|time }} &ndash; {{ tutorials.wed.morning.slot.1|time }})</h3>
+            <h3>Morning ({{ tutorials.wed.morning.slot.0|localtime:timezone|time }} &ndash; {{ tutorials.wed.morning.slot.1|localtime:timezone|time }})</h3>
             
             {% for presentation in tutorials.wed.morning.presentations %}
                 {% include "schedule/_presentation.html" %}
             {% endfor %}
             
-            <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|time }})</h3>
+            <h3>Afternoon ({{ tutorials.wed.afternoon.slot.0|localtime:timezone|time }} &ndash; {{ tutorials.wed.afternoon.slot.1|localtime:timezone|time }})</h3>
             
             {% for presentation in tutorials.wed.afternoon.presentations %}
                 {% include "schedule/_presentation.html" %}
@@ -35,13 +37,13 @@
             
             <h2>Thursday, March 8th</h2>
             
-            <h3>Morning ({{ tutorials.thurs.morning.slot.0|time }} &ndash; {{ tutorials.thurs.morning.slot.1|time }})</h3>
+            <h3>Morning ({{ tutorials.thurs.morning.slot.0|localtime:timezone|time }} &ndash; {{ tutorials.thurs.morning.slot.1|localtime:timezone|time }})</h3>
             
             {% for presentation in tutorials.thurs.morning.presentations %}
                 {% include "schedule/_presentation.html" %}
             {% endfor %}
             
-            <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|time }})</h3>
+            <h3>Afternoon ({{ tutorials.thurs.afternoon.slot.0|localtime:timezone|time }} &ndash; {{ tutorials.thurs.afternoon.slot.1|localtime:timezone|time }})</h3>
             
             {% for presentation in tutorials.thurs.afternoon.presentations %}
                 {% include "schedule/_presentation.html" %}
