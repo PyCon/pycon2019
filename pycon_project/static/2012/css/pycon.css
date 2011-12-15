@@ -1680,8 +1680,7 @@ form.delete-comment input[type="submit"]:hover {
 }
 
 .register-block .note {
-  font-size:12px;
-  margin:10px 0;
+  margin:20px 0 15px;
 }
 
 .ribbon {
