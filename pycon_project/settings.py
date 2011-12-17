@@ -213,7 +213,7 @@ ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = True
 
 AUTHENTICATION_BACKENDS = [
-    "pinax.apps.account.auth_backends.AuthenticationBackend",
+    "auth_backends.MixedAuthenticationBackend",
 ]
 
 LOGIN_REDIRECT_URLNAME = "home"
