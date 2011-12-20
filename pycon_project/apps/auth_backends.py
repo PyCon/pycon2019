@@ -36,4 +36,4 @@ class MixedAuthenticationBackend(ModelBackend):
         ]
         if perm in wakawaka_perms:
             return True
-        return super(AuthenticationBackend, self).has_perm(user, perm)
+        return super(MixedAuthenticationBackend, self).has_perm(user, perm)
