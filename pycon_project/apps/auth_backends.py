@@ -34,6 +34,6 @@ class MixedAuthenticationBackend(ModelBackend):
             "wakawaka.change_wikipage",
             "wakawaka.change_revision"
         ]
-        if perm in wakawaka_perms:
+        if perm in wakawaka_perms and user.groups.filter(name="wiki-editors").exists():
             return True
         return super(MixedAuthenticationBackend, self).has_perm(user, perm)
