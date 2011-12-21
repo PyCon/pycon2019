@@ -1695,6 +1695,41 @@ form.delete-comment input[type="submit"]:hover {
   font-size:16px;
 }
 
+a.btn-register {
+  display:block;
+  margin:10px auto;
+  width:163px;
+  height:47px;
+  background: url(../img/btn_register.png) no-repeat 0 0;
+  text-indent:-9999px;
+}
+
+a.btn-register:hover {
+  background-position:0 -48px;
+}
+
+.financial-aid {
+  border:1px solid #4aabc2;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  padding:15px;
+  background: url(../img/icons/lighthouse.png) no-repeat 24px center;
+  margin-bottom:25px;
+}
+
+.financial-aid h2, .financial-aid p {
+  margin-left:68px;
+}
+
+.financial-aid h2 {
+  margin-bottom:8px;
+}
+
+.financial-aid p {
+  margin-bottom:0;
+}
+
 /********** Call To Action Buttons ************/
 .cta {
     display: inline-block;
