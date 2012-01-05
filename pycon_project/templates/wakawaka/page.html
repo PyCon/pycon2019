@@ -48,7 +48,7 @@
                 (<a href="{% url wakawaka_revision_list slug=page.slug %}">{% trans "History" %}</a>)
             </span>
 
-            {% if perms.wakawaka.change_wikipage %}
+            {% if perms.wakawaka.change_wikipage or page.is_community %}
             <span>
                 <a href="{% url wakawaka_edit slug=page.slug %}">{% trans "Edit" %}</a>
             </span>
