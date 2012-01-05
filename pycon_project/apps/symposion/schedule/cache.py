@@ -16,7 +16,7 @@ else:
     db = None
 
 
-prefix = "pycon2011-schedule"
+prefix = "pycon2012-schedule"
 
 
 def cache_key():
