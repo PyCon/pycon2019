@@ -258,12 +258,21 @@ CONSTANCE_CONFIG = {
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+GONDOR_REDIS_HOST = None
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
     from local_settings import *
 except ImportError:
     pass
+
+if GONDOR_REDIS_HOST:
+    REDIS_PARAMS = dict(
+        host = GONDOR_REDIS_HOST,
+        port = GONDOR_REDIS_PORT,
+        password = GONDOR_REDIS_PASSWORD
+    )
 
 DEFAULT_FROM_EMAIL = "PyCon 2012 <no-reply@us.pycon.org>"
 MEDIA_URL = "/2012/site_media/media/"
