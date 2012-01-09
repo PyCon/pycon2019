@@ -208,8 +208,6 @@ def schedule_conference_edit(request):
 
 def schedule_conference(request):
     
-    if not request.user.is_staff:
-        return redirect("home")
     if request.user.is_authenticated():
         user_hash = hash_for_user(request.user)
     else:
