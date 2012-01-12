@@ -1,4 +1,5 @@
 {% load theme_tags %}
+{% load timezone_filters %}
 <table>
     <tr>
         <th>&nbsp;</th>
@@ -8,7 +9,7 @@
     </tr>
     {% for row in day %}
         <tr>
-            <td class="time">{{ row.time|date:"h:iA" }}</td>
+            <td class="time">{{ row.time|localtime:timezone|date:"h:iA" }}</td>
             {% for slot in row.slots %}
                 <td colspan="{{ row.colspan }}" rowspan="{{ slot.rowspan }}" class="slot {{ slot.kind.name }} rowspan-{{ slot.rowspan }} colspan-{{ row.colspan }}{% if slot.bookmarked %} bookmarked{% endif %}">
                     {% if slot.kind.name == "recess" %}
