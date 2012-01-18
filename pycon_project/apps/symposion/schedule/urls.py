@@ -22,5 +22,5 @@ urlpatterns = patterns("symposion.schedule.views",
     url(r"^session/(\d+)/$", "session_detail", name="schedule_session_detail"),
     url(r"^tutorials/", "schedule_tutorials", name="schedule_tutorials"),
     url(r"^bookmarks/(\d+)/(\w+)/$", "schedule_user_bookmarks", name="schedule_user_bookmarks"),
-    url(r"^json/$", "schedule_json", name="schedule_json"),
+    #url(r"^json/$", "schedule_json", name="schedule_json"),
 )
