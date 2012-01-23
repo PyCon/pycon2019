@@ -10,19 +10,19 @@
     {% if chair %}
         Chair: {{ chair }}
         {% if request.user == chair %}
-            <form method="POST">
+            <form method="POST" style="border: none; padding: 0">
                 {% csrf_token %}
                 <input type="hidden" name="role" value="un-chair" />
-                <input type="submit" value="opt out" />
+                <input type="submit" value="opt out" style="float: left;"/>
             </form>
         {% endif %}
     {% else %}
         {% if user.is_authenticated %}
             {% if not chair_denied %}
-                <form method="POST">
+				<form method="POST" style="border: none; padding: 0">
                     {% csrf_token %}
                     <input type="hidden" name="role" value="chair" />
-                    <input type="submit" value="volunteer" /> to be session chair
+                    <input type="submit" value="volunteer to be session chair" style="float: left;"/>
                 </form>
             {% endif %}
         {% else %}
@@ -35,19 +35,19 @@
     {% if runner %}
         Runner: {{ runner }}
         {% if request.user == runner %}
-            <form method="POST">
+			<form method="POST" style="border: none; padding: 0">
                 {% csrf_token %}
                 <input type="hidden" name="role" value="un-runner" />
-                <input type="submit" value="opt out" />
+                <input type="submit" value="opt out" style="float: left;" />
             </form>
         {% endif %}
     {% else %}
         {% if user.is_authenticated %}
             {% if not runner_denied %}
-                <form method="POST">
+				<form method="POST" style="border: none; padding: 0">
                     {% csrf_token %}
                     <input type="hidden" name="role" value="runner" />
-                    <input type="submit" value="volunteer" /> to be session runner
+                    <input type="submit" value="volunteer to be session runner" style="float: left;"/>
                 </form>
             {% endif %}
         {% else %}
