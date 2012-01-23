@@ -1,12 +1,15 @@
 # encoding: utf-8
 import datetime
 
+from django.conf import settings
 from django.db import models
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from markitup.fields import MarkupField
+
+from timezones.utils import localtime_for_timezone
 
 from symposion.conference.models import PresentationKind, PresentationCategory
 
@@ -31,7 +34,7 @@ class Session(models.Model):
     def start(self):
         slots = self.sorted_slots()
         if slots:
-            return list(slots)[0].start
+            return localtime_for_timezone(list(slots)[0].start, settings.SCHEDULE_TIMEZONE)
         else:
             return None
     
@@ -39,12 +42,12 @@ class Session(models.Model):
     def end(self):
         slots = self.sorted_slots()
         if slots:
-            return list(slots)[-1].end
+            return localtime_for_timezone(list(slots)[-1].end, settings.SCHEDULE_TIMEZONE)
         else:
             return None
     
     def __unicode__(self):
-        start = self.start()
+        start = self.start() 
         end = self.end()
         if start and end:
             return u"%s: %s — %s" % (
@@ -109,7 +112,13 @@ class Slot(models.Model):
         self.save()
     
     def __unicode__(self):
-        return u"%s (%s: %s — %s)" % (self.title, self.start.strftime("%a"), self.start.strftime("%X"), self.end.strftime("%X"))
+        start = localtime_for_timezone(self.start, settings.SCHEDULE_TIMEZONE)
+        end = localtime_for_timezone(self.end, settings.SCHEDULE_TIMEZONE)
+        
+        if self.title:
+            return u"%s (%s: %s — %s)" % (self.title, start.strftime("%a"), start.strftime("%X"), end.strftime("%X"))
+        else:
+            return u"%s: %s — %s" % (start.strftime("%a"), start.strftime("%X"), end.strftime("%X"))
 
 
 class Presentation(models.Model):
