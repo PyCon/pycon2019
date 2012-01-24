@@ -28,7 +28,7 @@ django-fixture-generator==0.2.0
 nashvegas==0.6.3
 redis==2.2.4
 sorl-thumbnail==11.05.2
-icalendar==1.2
+icalendar==2.2
 PIL==1.1.7
 psycopg2==2.4.4
 gondor==1.0.1
