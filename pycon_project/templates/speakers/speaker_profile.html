@@ -11,7 +11,7 @@
     <h2>{{ speaker.name }}</h2>
     
     {% if speaker.photo %}
-        {% thumbnail speaker.photo "128" format="JPG" as speakerphoto %}
+        {% thumbnail speaker.photo "128" as speakerphoto %}
             <div class="photo"><img src="{{ speakerphoto.url }}" width="128" height="128" alt="{{ speaker.name }}" /></div>
         {% endthumbnail %}
     {% endif %}
