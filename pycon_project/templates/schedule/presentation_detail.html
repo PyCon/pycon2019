@@ -38,7 +38,7 @@
 
     <div class="speakers">
         {% for speaker in presentation.speakers %}
-        {{ speaker }}
+            <a href="{% url speaker_profile speaker.id %}">{{ speaker }}</a>
         {% if not forloop.last %}, {% endif %}{% endfor %}
     </div>
     
