@@ -151,6 +151,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "markitup",
     "nashvegas",
+    "mptt",
     
     "emailconfirmation",
     "timezones",
