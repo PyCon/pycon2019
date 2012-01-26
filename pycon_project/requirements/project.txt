@@ -38,6 +38,7 @@ html5lib==0.90
 django-reversion==1.4
 django-constance==0.3
 django-picklefield==0.1.9
+django-mptt==0.5.2
 
 # SSL Requirements
 django-secure==0.1.1
