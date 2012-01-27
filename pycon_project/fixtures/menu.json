@@ -3,7 +3,7 @@
         "pk": 2, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 8, 
+            "rght": 10, 
             "name": "About", 
             "parent": null, 
             "level": 0, 
@@ -64,6 +64,22 @@
         }
     }, 
     {
+        "pk": 28, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 9, 
+            "name": "What is Pycon?", 
+            "parent": 2, 
+            "level": 1, 
+            "url": "/2012/about/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 8, 
+            "published": true, 
+            "slug": "what-pycon"
+        }
+    }, 
+    {
         "pk": 7, 
         "model": "menu.menuitem", 
         "fields": {
@@ -99,7 +115,7 @@
         "pk": 1, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 18, 
+            "rght": 20, 
             "name": "Schedule", 
             "parent": null, 
             "level": 0, 
@@ -128,17 +144,33 @@
         }
     }, 
     {
-        "pk": 12, 
+        "pk": 29, 
         "model": "menu.menuitem", 
         "fields": {
             "rght": 5, 
+            "name": "Conference Schedule", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/schedule/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 4, 
+            "published": true, 
+            "slug": "conference-schedule"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 7, 
             "name": "Keynote Speakers", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/schedule/keynotes/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 4, 
+            "lft": 6, 
             "published": true, 
             "slug": "keynote-speakers"
         }
@@ -147,14 +179,14 @@
         "pk": 24, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 7, 
+            "rght": 9, 
             "name": "Language Summit", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/community/languagesummit/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 6, 
+            "lft": 8, 
             "published": true, 
             "slug": "language-summit"
         }
@@ -163,14 +195,14 @@
         "pk": 26, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 9, 
+            "rght": 11, 
             "name": "Open Spaces", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/community/openspaces/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 8, 
+            "lft": 10, 
             "published": true, 
             "slug": "open-spaces"
         }
@@ -179,14 +211,14 @@
         "pk": 23, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 11, 
+            "rght": 13, 
             "name": "Pycon 5K", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/5k/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 10, 
+            "lft": 12, 
             "published": true, 
             "slug": "pycon-5k"
         }
@@ -195,14 +227,14 @@
         "pk": 27, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 13, 
+            "rght": 15, 
             "name": "Sprints", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/community/sprints/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 12, 
+            "lft": 14, 
             "published": true, 
             "slug": "sprints"
         }
@@ -211,14 +243,14 @@
         "pk": 11, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 15, 
+            "rght": 17, 
             "name": "Tutorials", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/schedule/tutorials/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 14, 
+            "lft": 16, 
             "published": true, 
             "slug": "tutorials"
         }
@@ -227,14 +259,14 @@
         "pk": 25, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 17, 
+            "rght": 19, 
             "name": "WebDev Summit", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/community/webdevsummit/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 16, 
+            "lft": 18, 
             "published": true, 
             "slug": "webdev-summit"
         }
@@ -243,7 +275,7 @@
         "pk": 5, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 4, 
+            "rght": 6, 
             "name": "Sponsors", 
             "parent": null, 
             "level": 0, 
@@ -256,17 +288,33 @@
         }
     }, 
     {
-        "pk": 6, 
+        "pk": 30, 
         "model": "menu.menuitem", 
         "fields": {
             "rght": 3, 
+            "name": "About Pycon Sponsors", 
+            "parent": 5, 
+            "level": 1, 
+            "url": "/2012/sponsors/", 
+            "login_required": false, 
+            "tree_id": 6, 
+            "lft": 2, 
+            "published": true, 
+            "slug": "about-pycon-sponsors"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 5, 
             "name": "Jobs Fair", 
             "parent": 5, 
             "level": 1, 
             "url": "/2012/sponsors/jobs/", 
             "login_required": false, 
             "tree_id": 6, 
-            "lft": 2, 
+            "lft": 4, 
             "published": true, 
             "slug": "jobs-fair"
         }
