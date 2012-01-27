@@ -600,7 +600,7 @@ nav#main-nav ul li a {
 
 nav#main-nav ul li a:hover {
   color: #006e91;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 nav#main-nav ul li.sfHover a, nav#main-nav ul li.sfhover a,
@@ -619,15 +619,15 @@ body.schedule nav#main-nav ul li a#link-schedule {
 
 /* subnav */
 nav#main-nav ul li ul {
-  margin: 1px 0 0 0;
+  margin: -15px 0 0 0;
   display: block;
   left: -9999px;
   list-style: none;
   position: absolute;
   z-index: 10000;
   width: 150px;
-  background: white;
-  padding-top: 5px;
+  background: #f2f2f2;
+  padding: 10px 0;
   -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
@@ -635,6 +635,7 @@ nav#main-nav ul li ul {
   border-radius: 0;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
+  border:3px solid #e3dfd4;
 }
 
 nav#main-nav ul li:hover ul, nav#main-nav ul li.sfhover ul {
@@ -652,11 +653,16 @@ nav#main-nav ul li.sfhover ul li a, nav#main-nav ul li ul li a {
   font-weight: normal;
   padding: 2px 15px;
   border: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height:24px;
+  line-height:24px;
+  text-transform:none;
+  text-shadow:0 1px 0 #fff;
 }
 
 /* subnav rollover effects */
 nav#main-nav ul li ul li a:hover {
-  color: #444444;
+  color: #006e91;
   background: none;
 }
 
