@@ -59,7 +59,7 @@
             "login_required": false, 
             "tree_id": 1, 
             "lft": 6, 
-            "published": true, 
+            "published": false, 
             "slug": "volunteers"
         }
     }, 
@@ -139,7 +139,7 @@
             "login_required": false, 
             "tree_id": 5, 
             "lft": 2, 
-            "published": true, 
+            "published": false, 
             "slug": "accepted-posters"
         }
     }, 
@@ -171,7 +171,7 @@
             "login_required": false, 
             "tree_id": 5, 
             "lft": 6, 
-            "published": true, 
+            "published": false, 
             "slug": "keynote-speakers"
         }
     }, 
@@ -187,7 +187,7 @@
             "login_required": false, 
             "tree_id": 5, 
             "lft": 8, 
-            "published": true, 
+            "published": false, 
             "slug": "language-summit"
         }
     }, 
@@ -267,7 +267,7 @@
             "login_required": false, 
             "tree_id": 5, 
             "lft": 18, 
-            "published": true, 
+            "published": false, 
             "slug": "webdev-summit"
         }
     }, 
