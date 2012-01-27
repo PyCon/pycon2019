@@ -99,7 +99,7 @@
         "pk": 1, 
         "model": "menu.menuitem", 
         "fields": {
-            "rght": 8, 
+            "rght": 18, 
             "name": "Schedule", 
             "parent": null, 
             "level": 0, 
@@ -119,7 +119,7 @@
             "name": "Accepted Posters", 
             "parent": 1, 
             "level": 1, 
-            "url": "/2012/schedule/accepted-posters/", 
+            "url": "/2012/schedule/acceptedposters/", 
             "login_required": false, 
             "tree_id": 5, 
             "lft": 2, 
@@ -144,19 +144,99 @@
         }
     }, 
     {
-        "pk": 11, 
+        "pk": 24, 
         "model": "menu.menuitem", 
         "fields": {
             "rght": 7, 
+            "name": "Language Summit", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/languagesummit/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 6, 
+            "published": true, 
+            "slug": "language-summit"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 9, 
+            "name": "Open Spaces", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/openspaces/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 8, 
+            "published": true, 
+            "slug": "open-spaces"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 11, 
+            "name": "Pycon 5K", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/5k/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 10, 
+            "published": true, 
+            "slug": "pycon-5k"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 13, 
+            "name": "Sprints", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/sprints/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 12, 
+            "published": true, 
+            "slug": "sprints"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 15, 
             "name": "Tutorials", 
             "parent": 1, 
             "level": 1, 
             "url": "/2012/schedule/tutorials/", 
             "login_required": false, 
             "tree_id": 5, 
-            "lft": 6, 
+            "lft": 14, 
             "published": true, 
             "slug": "tutorials"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 17, 
+            "name": "WebDev Summit", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/webdevsummit/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 16, 
+            "published": true, 
+            "slug": "webdev-summit"
         }
     }, 
     {
