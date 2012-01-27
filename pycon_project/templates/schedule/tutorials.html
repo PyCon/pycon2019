@@ -17,10 +17,9 @@
 {% block body_class %}wiki{% endblock body_class %}
 
 {% block body %}
-    <div class="span-8">&nbsp;</div>
-    <div class="span-16 last spacer">
+    <div class="span-17">
+        <h1 class="section-title">Schedule <span>Tutorials</span></h1>
         <div class="page">
-            <h2 class="shift">Schedule <span>Tutorials</span></h1>
             <h2>Wednesday, March 7th</h2>
             
             <h3>Morning ({{ tutorials.wed.morning.slot.0|localtime:timezone|time }} &ndash; {{ tutorials.wed.morning.slot.1|localtime:timezone|time }})</h3>
@@ -49,6 +48,9 @@
                 {% include "schedule/_presentation.html" %}
             {% endfor %}
         </div>
+    </div>
+    <div class="span-7 last">
+        {% include "schedule/_subnav.html" %}
     </div>
 
 {% endblock %}
