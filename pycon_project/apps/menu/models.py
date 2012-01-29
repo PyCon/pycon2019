@@ -11,9 +11,10 @@ class MenuItem(MPTTModel):
     url = models.CharField(max_length=200)
     published = models.BooleanField(default=True)
     login_required = models.BooleanField(default=False)
+    ordering = models.PositiveIntegerField(default=1)
 
     def __unicode__(self):
         return self.name
 
     class MPTTMeta:
-        order_insertion_by = ["name"]
+        order_insertion_by = ["ordering", "name"]

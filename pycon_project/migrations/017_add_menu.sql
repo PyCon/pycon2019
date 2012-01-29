@@ -7,6 +7,7 @@ CREATE TABLE "menu_menuitem" (
     "url" varchar(200) NOT NULL,
     "published" boolean NOT NULL,
     "login_required" boolean NOT NULL,
+    "ordering" integer CHECK ("ordering" >= 0) NOT NULL,
     "lft" integer CHECK ("lft" >= 0) NOT NULL,
     "rght" integer CHECK ("rght" >= 0) NOT NULL,
     "tree_id" integer CHECK ("tree_id" >= 0) NOT NULL,
