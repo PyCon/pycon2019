@@ -1,4 +1,3 @@
-BEGIN;
 CREATE TABLE "menu_menuitem" (
     "id" serial NOT NULL PRIMARY KEY,
     "name" varchar(50) NOT NULL UNIQUE,
@@ -22,4 +21,3 @@ CREATE INDEX "menu_menuitem_lft" ON "menu_menuitem" ("lft");
 CREATE INDEX "menu_menuitem_rght" ON "menu_menuitem" ("rght");
 CREATE INDEX "menu_menuitem_tree_id" ON "menu_menuitem" ("tree_id");
 CREATE INDEX "menu_menuitem_level" ON "menu_menuitem" ("level");
-COMMIT;
