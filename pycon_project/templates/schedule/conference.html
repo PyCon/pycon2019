@@ -109,15 +109,6 @@
 {% block body %}
     <div class="span-17">
         <h1 class="section-title">Conference <span>Schedule</span></h1>
-
-<<<<<<< HEAD
-    <div class="financial-aid">
-        <h2>Tutorial Schedule</h2>
-        <p>
-            PyCon Tutorials happen on March 7th and 8th - the two days prior to the main conference. 
-            Looking for the list and schedule for tutorials? Check out the <a href="/2012/schedule/tutorials/">Tutorials Page</a>
-        </p>
-=======
         <div class="financial-aid">
             <h2>Tutorial Schedule</h2>
             <p>PyCon Tutorials happen on March 7th and 8th - the two days prior to the main conference. 
@@ -135,7 +126,6 @@
         {% else %}
             <div><a href="{% url acct_login %}?next={{ request.path }}">Log in</a> to be able to bookmark talks and panels that interest you</div>
         {% endif %}
->>>>>>> nav
     </div>
     <div class="span-7 last">
         {% include "schedule/_subnav.html" %}
