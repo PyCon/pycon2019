@@ -9,7 +9,7 @@
 
 {% block body %}
     {% sponsors jobs as sponsors %}
-    <div class="span-20 spacer main-content">
+    <div class="span-17 spacer main-content">
         <h1 class="section-title">{% block subpage_title %}PyCon <span>Jobs Fair</span>{% endblock %}</h1>
         {% box "sponsors_jobspage" %}
         <div class="sponsor-list">
@@ -39,7 +39,8 @@
             {% endfor %}
         </div>
     </div>
-    <div class="span-4 last">
+    <div class="span-7 last">
+        {% include "sponsors/_subnav1.html" %}
         <p><a href="{% url sponsor_info %}" class="btn-sponsor"><span>Learn how to<br />become a <b>sponsor</b></span></a></p>
         <nav class="sidenav sponsor-sidenav">
             <ul>

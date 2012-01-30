@@ -1,0 +1,482 @@
+[
+    {
+        "pk": 2, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 10, 
+            "name": "About", 
+            "parent": null, 
+            "level": 0, 
+            "url": "/2012/about/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "about"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 3, 
+            "name": "Code of Conduct", 
+            "parent": 2, 
+            "level": 1, 
+            "url": "/2012/codeofconduct/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 2, 
+            "published": true, 
+            "slug": "code-conduct"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 5, 
+            "name": "Diversity", 
+            "parent": 2, 
+            "level": 1, 
+            "url": "/2012/diversity/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 4, 
+            "published": true, 
+            "slug": "diversity"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 7, 
+            "name": "Volunteers", 
+            "parent": 2, 
+            "level": 1, 
+            "url": "/2012/volunteers/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 6, 
+            "published": false, 
+            "slug": "volunteers"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 9, 
+            "name": "What is Pycon?", 
+            "parent": 2, 
+            "level": 1, 
+            "url": "/2012/about/", 
+            "login_required": false, 
+            "tree_id": 1, 
+            "lft": 8, 
+            "published": true, 
+            "slug": "what-pycon"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 2, 
+            "name": "Blog", 
+            "parent": null, 
+            "level": 0, 
+            "url": "http://pycon.blogspot.com/", 
+            "login_required": false, 
+            "tree_id": 2, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "blog"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 2, 
+            "name": "Registration", 
+            "parent": null, 
+            "level": 0, 
+            "url": "/2012/registration/", 
+            "login_required": false, 
+            "tree_id": 4, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "registration"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 20, 
+            "name": "Schedule", 
+            "parent": null, 
+            "level": 0, 
+            "url": "/2012/schedule/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "schedule"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 3, 
+            "name": "Accepted Posters", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/schedule/acceptedposters/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 2, 
+            "published": false, 
+            "slug": "accepted-posters"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 5, 
+            "name": "Conference Schedule", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/schedule/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 4, 
+            "published": true, 
+            "slug": "conference-schedule"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 7, 
+            "name": "Keynote Speakers", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/schedule/keynotes/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 6, 
+            "published": false, 
+            "slug": "keynote-speakers"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 9, 
+            "name": "Language Summit", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/languagesummit/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 8, 
+            "published": false, 
+            "slug": "language-summit"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 11, 
+            "name": "Open Spaces", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/openspaces/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 10, 
+            "published": true, 
+            "slug": "open-spaces"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 13, 
+            "name": "Pycon 5K", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/5k/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 12, 
+            "published": true, 
+            "slug": "pycon-5k"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 15, 
+            "name": "Sprints", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/sprints/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 14, 
+            "published": true, 
+            "slug": "sprints"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 17, 
+            "name": "Tutorials", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/schedule/tutorials/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 16, 
+            "published": true, 
+            "slug": "tutorials"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 19, 
+            "name": "WebDev Summit", 
+            "parent": 1, 
+            "level": 1, 
+            "url": "/2012/community/webdevsummit/", 
+            "login_required": false, 
+            "tree_id": 5, 
+            "lft": 18, 
+            "published": false, 
+            "slug": "webdev-summit"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 6, 
+            "name": "Sponsors", 
+            "parent": null, 
+            "level": 0, 
+            "url": "/2012/sponsors/", 
+            "login_required": false, 
+            "tree_id": 6, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "sponsors"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 3, 
+            "name": "About Pycon Sponsors", 
+            "parent": 5, 
+            "level": 1, 
+            "url": "/2012/sponsors/", 
+            "login_required": false, 
+            "tree_id": 6, 
+            "lft": 2, 
+            "published": true, 
+            "slug": "about-pycon-sponsors"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 5, 
+            "name": "Jobs Fair", 
+            "parent": 5, 
+            "level": 1, 
+            "url": "/2012/sponsors/jobs/", 
+            "login_required": false, 
+            "tree_id": 6, 
+            "lft": 4, 
+            "published": true, 
+            "slug": "jobs-fair"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 20, 
+            "name": "Venue", 
+            "parent": null, 
+            "level": 0, 
+            "url": "/2012/venue/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 1, 
+            "published": true, 
+            "slug": "venue"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 3, 
+            "name": "Bars", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/bars/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 2, 
+            "published": true, 
+            "slug": "bars"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 5, 
+            "name": "Directions to the Venue", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/directions/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 4, 
+            "published": true, 
+            "slug": "directions-venue"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 7, 
+            "name": "Explore Santa Clara", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/explore/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 6, 
+            "published": true, 
+            "slug": "explore-santa-clara"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 9, 
+            "name": "Getting Around Santa Clara ", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/getting-around/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 8, 
+            "published": true, 
+            "slug": "getting-around-santa-clara"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 11, 
+            "name": "Needs to Share a Room?", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/community/roomsharing/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 10, 
+            "published": true, 
+            "slug": "needs-share-room"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 13, 
+            "name": "Restaurants", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/restaurants/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 12, 
+            "published": true, 
+            "slug": "restaurants"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 15, 
+            "name": "Shopping", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/shopping/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 14, 
+            "published": true, 
+            "slug": "shopping"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 17, 
+            "name": "Traveling to Santa Clara", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/traveling/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 16, 
+            "published": true, 
+            "slug": "traveling-santa-clara"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "menu.menuitem", 
+        "fields": {
+            "rght": 19, 
+            "name": "Weather", 
+            "parent": 4, 
+            "level": 1, 
+            "url": "/2012/venue/weather/", 
+            "login_required": false, 
+            "tree_id": 7, 
+            "lft": 18, 
+            "published": true, 
+            "slug": "weather"
+        }
+    }
+]

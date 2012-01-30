@@ -7,3 +7,24 @@
 {% block main_content %}
     {% box "about" %}
 {% endblock %}
+
+{% block sidenav %}
+	<nav class="sidenav">
+	    <ul>
+	        <li>
+	            <a href="{% url about %}" class="active">What is Pycon?</a>
+	        </li>
+	        <li>
+	            <a href="/2012/codeofconduct/">Code of Conduct</a>
+	        </li>
+	        <li>
+	            <a href="/2012/diversity/">Conference Diversity</a>
+	        </li>
+	        {% comment %}
+	        	<li>
+	        	    <a href="/2012/volunteers/">Volunteers</a>
+	        	</li>
+	        {% endcomment %}
+	    </ul>
+	</nav>
+{% endblock %}

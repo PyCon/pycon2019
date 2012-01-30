@@ -132,6 +132,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "pinax.apps.account.context_processors.account",
     
     "symposion.review.context_processors.permissions",
+    "menu.context_processors.menuitems",
 ]
 
 INSTALLED_APPS = [
@@ -150,6 +151,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "markitup",
     "nashvegas",
+    "mptt",
     
     "emailconfirmation",
     "timezones",
@@ -186,6 +188,7 @@ INSTALLED_APPS = [
     "boxes",
     "wiki",
     "registration",
+    "menu",
 ]
 
 FIXTURE_DIRS = [
