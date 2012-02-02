@@ -817,6 +817,8 @@ dl.inline dd {
   margin-bottom:10px;
 }
 
+.sold {text-decoration: line-through;}
+
 /**************************************************************************** page specific styles */
 /** homepage ** */
 body.home header {
@@ -1279,6 +1281,7 @@ nav.sidenav ul li a#l-restaurants {background-position:0 -269px;}
 nav.sidenav ul li a#l-bars {background-position:0 -315px;}
 nav.sidenav ul li a#l-shopping {background-position:0 -360px;}
 nav.sidenav ul li a#l-share {background-position:0 -405px;}
+nav.sidenav ul li a#l-hotel {background-position:0 -917px;}
 
 body#venue-info nav.sidenav ul li a#l-info, nav.sidenav ul li a#l-info:hover {background-position:0 -457px;color:#006e91;}
 body#traveling nav.sidenav ul li a#l-travel, nav.sidenav ul li a#l-travel:hover {background-position:0 -501px;color:#006e91;}
@@ -1290,6 +1293,7 @@ body#restaurants nav.sidenav ul li a#l-restaurants, nav.sidenav ul li a#l-restau
 body#bars nav.sidenav ul li a#l-bars, nav.sidenav ul li a#l-bars:hover {background-position:0 -776px;color:#006e91;}
 body#shopping nav.sidenav ul li a#l-shopping, nav.sidenav ul li a#l-shopping:hover {background-position:0 -821px;color:#006e91;}
 body#share-room nav.sidenav ul li a#l-share, nav.sidenav ul li a#l-share:hover {background-position:0 -866px;color:#006e91;}
+body#hotels nav.sidenav ul li a#l-hotel, nav.sidenav ul li a#l-hotel:hover {background-position:0 -961px;color:#006e91;}
 
 nav.sidenav a.active {color:#006e91;}
 
