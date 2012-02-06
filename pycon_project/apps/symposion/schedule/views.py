@@ -495,12 +495,12 @@ def json_serializer(obj):
 
 def schedule_json(request):
     slots = Slot.objects.all().order_by("start")
-
+    
     data = []
     for slot in slots:
         try:
             tags = []
-            tags.append(slot.presentation.presentation_type.slug)
+            tags.append(str(slot.presentation.kind))
             tags.append(Presentation.AUDIENCE_LEVELS[slot.presentation.audience_level - 1][1].lower())
             tags.extend(CONFERENCE_TAGS)
             data.append({
@@ -515,12 +515,12 @@ def schedule_json(request):
                     slot.presentation.speakers()
                 )),
                 "description": slot.presentation.description,
-                "abstract": slot.presentation.abstract,
+                "abstract": slot.presentation.abstract.rendered,
                 "id": slot.pk,
                 "url": "http://%s%s" % (Site.objects.get_current().domain, slot.presentation.get_absolute_url()),
                 "tags": ", ".join(tags),
                 "last_updated": slot.presentation.last_updated,
-
+                
                 # Add some fields for Carl
                 "license": "",
                 "conf_url": "",
@@ -554,7 +554,7 @@ def schedule_json(request):
                     "url": None,
                     "tags": "plenary",
                     "last_updated": slot.plenary.last_updated,
-
+                    
                     # Add some fields for Carl
                     "license": "",
                     "conf_url": "",
@@ -568,7 +568,6 @@ def schedule_json(request):
                     )),
                     "last_updated_iso": slot.plenary.last_updated,
                     "contact": "", # not sure if this is ok to be shared.
-
                 })
             except Plenary.DoesNotExist:
                 pass

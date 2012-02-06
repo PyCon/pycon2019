@@ -2,6 +2,7 @@
 import datetime
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -121,19 +122,24 @@ class Slot(models.Model):
             return u"%s: %s — %s" % (start.strftime("%a"), start.strftime("%X"), end.strftime("%X"))
 
 
-class Presentation(models.Model):
+class SpeakerSlotBase(models.Model):
     
-    PRESENTATION_TYPE_TALK = 1
-    PRESENTATION_TYPE_PANEL = 2
-    PRESENTATION_TYPE_TUTORIAL = 3
-    PRESENTATION_TYPE_POSTER = 4
+    last_updated = models.DateTimeField(default=datetime.datetime.now, editable=False)
     
-    PRESENTATION_TYPES = [
-        (PRESENTATION_TYPE_TALK, "Talk"),
-        (PRESENTATION_TYPE_PANEL, "Panel"),
-        (PRESENTATION_TYPE_TUTORIAL, "Tutorial"),
-        (PRESENTATION_TYPE_POSTER, "Poster")
-    ]
+    def save(self, *args, **kwargs):
+        self.last_updated = datetime.datetime.now()
+        return super(SpeakerSlotBase, self).save(*args, **kwargs)
+    
+    def speakers(self):
+        yield self.speaker
+        for speaker in self.additional_speakers.all():
+            yield speaker
+    
+    class Meta:
+        abstract = True
+
+
+class Presentation(SpeakerSlotBase):
     
     AUDIENCE_LEVEL_NOVICE = 1
     AUDIENCE_LEVEL_EXPERIENCED = 2
@@ -144,7 +150,7 @@ class Presentation(models.Model):
         (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
-
+    
     DURATION_CHOICES = [
         (0, "No preference"),
         (1, "I prefer a 30 minute slot"),
@@ -177,16 +183,14 @@ class Presentation(models.Model):
     extreme_pycon = models.BooleanField(u"EXTREME PyCon!", default=False)
     invited = models.BooleanField(default=False)
     
-    def speakers(self):
-        yield self.speaker
-        for speaker in self.additional_speakers.all():
-            yield speaker
+    def get_absolute_url(self):
+        return reverse("schedule_presentation", args=[self.pk])
     
     def __unicode__(self):
         return u"%s" % self.title
 
 
-class Plenary(models.Model):
+class Plenary(SpeakerSlotBase):
     
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="plenary")
     title = models.CharField(max_length=100)
