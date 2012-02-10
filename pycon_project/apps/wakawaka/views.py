@@ -168,11 +168,13 @@ def edit(request, slug, rev_id=None, template_name='wakawaka/edit.html',
     # Note that it's not saved here
     except WikiPage.DoesNotExist:
 
+        page = WikiPage(slug=slug)
+
         # Do not allow adding wiki pages if the user has no permission
-        if not request.user.has_perms(('wakawaka.add_wikipage', 'wakawaka.add_revision',)):
+        has_permission = request.user.has_perms(('wakawaka.add_wikipage', 'wakawaka.add_revision',))
+        if not has_permission and not page.is_community:
             return HttpResponseForbidden(ugettext('You don\'t have permission to add wiki pages.'))
 
-        page = WikiPage(slug=slug)
         page.is_initial = True
         rev = None
         initial = {'content': _('Describe your new page %s here...' % slug),
