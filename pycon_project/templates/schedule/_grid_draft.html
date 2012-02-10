@@ -33,7 +33,7 @@
                                         <div class="badge {% if not slot.bookmarked %}bookmark{% else %}bookmarked{% endif %}"><a href="{% url schedule_user_slot_manage slot.content.id %}">&nbsp;</a></div>
                                     {% endif %}
                                 {% endif %}
-                                <!--<div class="badge session"><a href="#">S</a></div>-->
+                                <div class="badge session"><a href="{% url schedule_session_detail slot.session.id %}">S</a></div>
                             </div>
                             {% if slot.content %}
                                 <div class="title"><a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content.title }}</a></div>

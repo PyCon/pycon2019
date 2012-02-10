@@ -1,69 +1,72 @@
 {% extends "schedule/base.html" %}
 
 {% block body %}
-    
-    <p><a href="{% url schedule_track_detail session.track.pk %}">{{ session.track }}</a> &raquo;</p>
-    
-    <h1>[{{ session.track.name }}] {{ session }}</h1>
-    
-    <div>
-    {% if chair %}
-        Chair: {{ chair }}
-        {% if request.user == chair %}
-            <form method="POST" style="border: none; padding: 0">
-                {% csrf_token %}
-                <input type="hidden" name="role" value="un-chair" />
-                <input type="submit" value="opt out" style="float: left;"/>
-            </form>
-        {% endif %}
-    {% else %}
-        {% if user.is_authenticated %}
-            {% if not chair_denied %}
-				<form method="POST" style="border: none; padding: 0">
-                    {% csrf_token %}
-                    <input type="hidden" name="role" value="chair" />
-                    <input type="submit" value="volunteer to be session chair" style="float: left;"/>
-                </form>
+    <div class="span-17">
+        <h1 class="section-title">{{ session.track.name }}</h1>
+        <h1 class="section-title"><span>{{ session }}</span></h1>
+        <div class="page">
+            <div>
+            {% if chair %}
+                Chair: {{ chair }}
+                {% if request.user == chair %}
+                    <form method="POST" style="border: none; padding: 0">
+                        {% csrf_token %}
+                        <input type="hidden" name="role" value="un-chair" />
+                        <input type="submit" value="opt out" style="float: left;"/>
+                    </form>
+                {% endif %}
+            {% else %}
+                {% if user.is_authenticated %}
+                    {% if not chair_denied %}
+                        <form method="POST" style="border: none; padding: 0">
+                            {% csrf_token %}
+                            <input type="hidden" name="role" value="chair" />
+                            <input type="submit" value="volunteer to be session chair" style="float: left;"/>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
+                {% endif %}
             {% endif %}
-        {% else %}
-            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
-        {% endif %}
-    {% endif %}
-    </div>
-    
-    <div>
-    {% if runner %}
-        Runner: {{ runner }}
-        {% if request.user == runner %}
-			<form method="POST" style="border: none; padding: 0">
-                {% csrf_token %}
-                <input type="hidden" name="role" value="un-runner" />
-                <input type="submit" value="opt out" style="float: left;" />
-            </form>
-        {% endif %}
-    {% else %}
-        {% if user.is_authenticated %}
-            {% if not runner_denied %}
-				<form method="POST" style="border: none; padding: 0">
-                    {% csrf_token %}
-                    <input type="hidden" name="role" value="runner" />
-                    <input type="submit" value="volunteer to be session runner" style="float: left;"/>
-                </form>
+            </div>
+                
+            <div>
+            {% if runner %}
+                Runner: {{ runner }}
+                {% if request.user == runner %}
+                    <form method="POST" style="border: none; padding: 0">
+                        {% csrf_token %}
+                        <input type="hidden" name="role" value="un-runner" />
+                        <input type="submit" value="opt out" style="float: left;" />
+                    </form>
+                {% endif %}
+            {% else %}
+                {% if user.is_authenticated %}
+                    {% if not runner_denied %}
+                        <form method="POST" style="border: none; padding: 0">
+                            {% csrf_token %}
+                            <input type="hidden" name="role" value="runner" />
+                            <input type="submit" value="volunteer to be session runner" style="float: left;"/>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
+                {% endif %}
             {% endif %}
-        {% else %}
-            Sign up and <a href="{% url acct_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
-        {% endif %}
-    {% endif %}
+            </div>
+                
+            <h2>Slots</h2>
+            
+            <ul>
+                {% for slot in session.slots.all %}
+                    <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
+                {% empty %}
+                    <li>No slots in session.</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    
-    <h2>Slots</h2>
-    
-    <ul>
-        {% for slot in session.slots.all %}
-            <li>{{ slot }}: {% if slot.content %}<a href="{% url schedule_presentation slot.content.pk %}">{{ slot.content }}</a>{% endif %}</li>
-        {% empty %}
-            <li>No slots in session.</li>
-        {% endfor %}
-    </ul>
-    
+    <div class="span-7 last">
+        {% include "schedule/_subnav.html" %}
+    </div>
 {% endblock %}
