@@ -30,6 +30,17 @@ def presentation_queryset(include=None):
     return qs
 
 
+def tutorial_queryset(include=None):
+    qs = Presentation.objects.all()
+    qs = qs.filter(kind__name__iexact="tutorial")
+    if include:
+        qs = qs.filter(Q(slot=None) | Q(pk=include.pk))
+    else:
+        qs = qs.filter(slot=None)
+    qs = qs.order_by("pk")
+    return qs
+
+
 class PresentationModelChoiceField(forms.ModelChoiceField):
     
     def __init__(self, *args, **kwargs):
@@ -51,6 +62,22 @@ class PresentationForm(forms.Form):
             self.fields["presentation"].queryset = presentation_queryset(include=presentation)
         else:
             self.fields["presentation"].queryset = presentation_queryset()
+    
+    def save(self, commit=True):
+        return self.cleaned_data["presentation"]
+
+
+class TutorialForm(forms.Form):
+    
+    presentation = PresentationModelChoiceField()
+    
+    def __init__(self, *args, **kwargs):
+        presentation = kwargs.get("initial", {}).get("presentation", None)
+        super(TutorialForm, self).__init__(*args, **kwargs)
+        if presentation:
+            self.fields["presentation"].queryset = tutorial_queryset(include=presentation)
+        else:
+            self.fields["presentation"].queryset = tutorial_queryset()
     
     def save(self, commit=True):
         return self.cleaned_data["presentation"]

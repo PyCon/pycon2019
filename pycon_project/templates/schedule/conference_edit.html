@@ -89,6 +89,14 @@
 {% block body %}
     <h1>Conference Schedule Edit</h1>
     
+    <h2>Wednesday</h2>
+    
+    {% with wednesday as day %}{% include "schedule/_grid.html" %}{% endwith %}
+    
+    <h2>Thursday</h2>
+    
+    {% with thursday as day %}{% include "schedule/_grid.html" %}{% endwith %}
+    
     <h2>Friday</h2>
     
     {% with friday as day %}{% include "schedule/_grid.html" %}{% endwith %}
