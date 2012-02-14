@@ -20,7 +20,7 @@ from django.contrib.sites.models import Site
 from symposion.conference.models import PresentationKind
 
 from symposion.schedule.cache import db, cache_key_user
-from symposion.schedule.forms import PlenaryForm, RecessForm, PresentationForm
+from symposion.schedule.forms import PlenaryForm, RecessForm, PresentationForm, TutorialForm
 from symposion.schedule.models import (Slot, Presentation, Track, Session, SessionRole,
     UserBookmark, Plenary)
 
@@ -197,6 +197,8 @@ def schedule_conference_edit(request):
     if not request.user.is_staff:
         return redirect("schedule_conference")
     ctx = {
+        "wednesday": Timetable(Slot.objects.filter(start__week_day=4), user=request.user),
+        "thursday": Timetable(Slot.objects.filter(start__week_day=5), user=request.user),
         "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
         "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
@@ -215,6 +217,8 @@ def schedule_conference(request):
     
     ctx = {
         "user_hash": user_hash,
+        "wednesday": Timetable(Slot.objects.filter(start__week_day=4), user=request.user),
+        "thursday": Timetable(Slot.objects.filter(start__week_day=5), user=request.user),
         "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
         "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
@@ -237,6 +241,7 @@ def schedule_slot_add(request, slot_id, kind):
         "plenary": PlenaryForm,
         "break": RecessForm,
         "presentation": PresentationForm,
+        "tutorial": TutorialForm
     }[kind]
     
     if request.method == "POST":
@@ -271,7 +276,7 @@ def schedule_slot_edit(request, slot_id):
     form_tuple = {
         "plenary": (PlenaryForm, {"instance": slot.content()}),
         "recess": (RecessForm, {"instance": slot.content()}),
-        "presentation": (PresentationForm, {"initial": {"presentation": slot.content()}}),
+        "presentation": (PresentationForm, {"initial": {"presentation": slot.content()}})
     }[kind]
     
     if request.method == "POST":
