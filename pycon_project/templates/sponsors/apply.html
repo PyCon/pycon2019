@@ -1,19 +1,9 @@
 {% extends "sponsors/base.html" %}
 
-{% load uni_form_tags %}
+{% load uni_form_tags boxes_tags %}
 
 {% block section_title %}Apply to Be a <span>Sponsor</span>{% endblock %}
 
 {% block content %}
-    <h2>Apply to become a sponsor for PyCon 2012</h2>
-    <form method="POST" action="" class="uniForm">
-        {% csrf_token %}
-        <fieldset class="inlineLabels">
-            {{ form|as_uni_form }}
-            <div class="form_block">
-                <input type="submit" value="submit" />
-            </div>
-        </fieldset>
-    </form>
-    <small>By submitting this sponsor application you are agreeing to the <a href="{% url sponsor_terms %}" target="_blank">terms and conditions</a>.</small>
+    {% box "sponsorship-apply" %}
 {% endblock %}
