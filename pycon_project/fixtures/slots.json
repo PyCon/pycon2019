@@ -1,5 +1,53 @@
 [
     {
+        "pk": 108, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 18:20:00", 
+            "title": "", 
+            "track": 12, 
+            "start": "2012-03-09 17:40:00", 
+            "session": 40
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-09 19:40:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 9, 
+            "start": "2012-03-09 19:05:00", 
+            "session": 5
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 19:05:00", 
+            "title": "", 
+            "track": 9, 
+            "start": "2012-03-09 18:20:00", 
+            "session": 4
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 19:05:00", 
+            "title": "", 
+            "track": 11, 
+            "start": "2012-03-09 18:20:00", 
+            "session": 28
+        }
+    }, 
+    {
         "pk": 160, 
         "model": "schedule.slot", 
         "fields": {
@@ -69,606 +117,6 @@
             "track": 1, 
             "start": "2012-03-07 12:00:00", 
             "session": null
-        }
-    }, 
-    {
-        "pk": 78, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-11 17:10:00", 
-            "title": "", 
-            "track": 10, 
-            "start": "2012-03-11 16:30:00", 
-            "session": 25
-        }
-    }, 
-    {
-        "pk": 102, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-11 17:55:00", 
-            "title": "", 
-            "track": 11, 
-            "start": "2012-03-11 17:10:00", 
-            "session": 37
-        }
-    }, 
-    {
-        "pk": 79, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-11 17:55:00", 
-            "title": "", 
-            "track": 10, 
-            "start": "2012-03-11 17:10:00", 
-            "session": 25
-        }
-    }, 
-    {
-        "pk": 13, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM II", 
-            "track": 2, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 16, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM V", 
-            "track": 5, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM III", 
-            "track": 3, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 12, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM VIII", 
-            "track": 8, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 11, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM VII", 
-            "track": 7, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 22, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM IV", 
-            "track": 4, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM I", 
-            "track": 1, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM II", 
-            "track": 2, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 21, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM III", 
-            "track": 3, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM I", 
-            "track": 1, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 19, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM VIII", 
-            "track": 8, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 20, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM II", 
-            "track": 2, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 18, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM VII", 
-            "track": 7, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 15, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM IV", 
-            "track": 4, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 23, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM V", 
-            "track": 5, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM I", 
-            "track": 1, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 24, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM VI", 
-            "track": 6, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 7, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM IV", 
-            "track": 4, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 8, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM V", 
-            "track": 5, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 10, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 15:20:00", 
-            "title": "Wednesday AM VI", 
-            "track": 6, 
-            "start": "2012-03-07 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 14, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM III", 
-            "track": 3, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 17, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-07 19:40:00", 
-            "title": "Wednesday PM VI", 
-            "track": 6, 
-            "start": "2012-03-07 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 90, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:05:00", 
-            "title": null, 
-            "track": 11, 
-            "start": "2012-03-10 13:25:00", 
-            "session": 31
-        }
-    }, 
-    {
-        "pk": 29, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM IV", 
-            "track": 4, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 25, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM VII", 
-            "track": 7, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 32, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM VII", 
-            "track": 7, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 33, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM VIII", 
-            "track": 8, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 26, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 15:20:00", 
-            "title": "Thursday AM VIII", 
-            "track": 8, 
-            "start": "2012-03-08 12:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 28, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM III", 
-            "track": 3, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 30, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM V", 
-            "track": 5, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 27, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM II", 
-            "track": 2, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 31, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-08 19:40:00", 
-            "title": "Thursday PM VI", 
-            "track": 6, 
-            "start": "2012-03-08 16:20:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 64, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-09 19:00:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 10, 
-            "start": "2012-03-09 18:25:00", 
-            "session": 17
-        }
-    }, 
-    {
-        "pk": 87, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-09 19:15:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 11, 
-            "start": "2012-03-09 18:40:00", 
-            "session": 29
-        }
-    }, 
-    {
-        "pk": 110, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-09 19:00:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 12, 
-            "start": "2012-03-09 18:25:00", 
-            "session": 41
-        }
-    }, 
-    {
-        "pk": 133, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-09 19:15:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 13, 
-            "start": "2012-03-09 18:40:00", 
-            "session": 53
-        }
-    }, 
-    {
-        "pk": 93, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-10 16:35:00", 
-            "title": "Lunch", 
-            "track": 11, 
-            "start": "2012-03-10 15:30:00", 
-            "session": 32
-        }
-    }, 
-    {
-        "pk": 51, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-10 19:15:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 9, 
-            "start": "2012-03-10 18:40:00", 
-            "session": 10
-        }
-    }, 
-    {
-        "pk": 176, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-11 11:30:00", 
-            "title": "", 
-            "track": null, 
-            "start": "2012-03-11 11:00:00", 
-            "session": null
-        }
-    }, 
-    {
-        "pk": 67, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:05:00", 
-            "title": null, 
-            "track": 10, 
-            "start": "2012-03-10 13:25:00", 
-            "session": 19
-        }
-    }, 
-    {
-        "pk": 113, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:05:00", 
-            "title": null, 
-            "track": 12, 
-            "start": "2012-03-10 13:25:00", 
-            "session": 43
-        }
-    }, 
-    {
-        "pk": 136, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:05:00", 
-            "title": null, 
-            "track": 13, 
-            "start": "2012-03-10 13:25:00", 
-            "session": 55
-        }
-    }, 
-    {
-        "pk": 45, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:45:00", 
-            "title": null, 
-            "track": 9, 
-            "start": "2012-03-10 14:05:00", 
-            "session": 7
-        }
-    }, 
-    {
-        "pk": 68, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:45:00", 
-            "title": null, 
-            "track": 10, 
-            "start": "2012-03-10 14:05:00", 
-            "session": 19
-        }
-    }, 
-    {
-        "pk": 91, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:45:00", 
-            "title": null, 
-            "track": 11, 
-            "start": "2012-03-10 14:05:00", 
-            "session": 31
-        }
-    }, 
-    {
-        "pk": 114, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:45:00", 
-            "title": null, 
-            "track": 12, 
-            "start": "2012-03-10 14:05:00", 
-            "session": 43
-        }
-    }, 
-    {
-        "pk": 137, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-10 14:45:00", 
-            "title": null, 
-            "track": 13, 
-            "start": "2012-03-10 14:05:00", 
-            "session": 55
         }
     }, 
     {
@@ -1116,54 +564,6 @@
         }
     }, 
     {
-        "pk": 40, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:40:00", 
-            "title": "", 
-            "track": 9, 
-            "start": "2012-03-09 18:20:00", 
-            "session": 4
-        }
-    }, 
-    {
-        "pk": 86, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:40:00", 
-            "title": "", 
-            "track": 11, 
-            "start": "2012-03-09 18:20:00", 
-            "session": 28
-        }
-    }, 
-    {
-        "pk": 132, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:40:00", 
-            "title": "", 
-            "track": 13, 
-            "start": "2012-03-09 18:20:00", 
-            "session": 52
-        }
-    }, 
-    {
-        "pk": 109, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:25:00", 
-            "title": "", 
-            "track": 12, 
-            "start": "2012-03-09 18:20:00", 
-            "session": 40
-        }
-    }, 
-    {
         "pk": 65, 
         "model": "schedule.slot", 
         "fields": {
@@ -1401,18 +801,6 @@
             "track": null, 
             "start": "2012-03-10 20:30:00", 
             "session": null
-        }
-    }, 
-    {
-        "pk": 41, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 57, 
-            "end": "2012-03-09 19:15:00", 
-            "title": "Afternoon Break with Snacks in Expo Hall", 
-            "track": 9, 
-            "start": "2012-03-09 18:40:00", 
-            "session": 5
         }
     }, 
     {
@@ -1752,30 +1140,6 @@
         }
     }, 
     {
-        "pk": 108, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:20:00", 
-            "title": "", 
-            "track": 12, 
-            "start": "2012-03-09 17:40:00", 
-            "session": 40
-        }
-    }, 
-    {
-        "pk": 63, 
-        "model": "schedule.slot", 
-        "fields": {
-            "kind": 55, 
-            "end": "2012-03-09 18:25:00", 
-            "title": "", 
-            "track": 10, 
-            "start": "2012-03-09 18:20:00", 
-            "session": 16
-        }
-    }, 
-    {
         "pk": 88, 
         "model": "schedule.slot", 
         "fields": {
@@ -1944,6 +1308,618 @@
         }
     }, 
     {
+        "pk": 132, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 19:05:00", 
+            "title": "", 
+            "track": 13, 
+            "start": "2012-03-09 18:20:00", 
+            "session": 52
+        }
+    }, 
+    {
+        "pk": 109, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 18:50:00", 
+            "title": "", 
+            "track": 12, 
+            "start": "2012-03-09 18:20:00", 
+            "session": 40
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-09 18:50:00", 
+            "title": "", 
+            "track": 10, 
+            "start": "2012-03-09 18:20:00", 
+            "session": 16
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-09 19:25:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 10, 
+            "start": "2012-03-09 18:50:00", 
+            "session": 17
+        }
+    }, 
+    {
+        "pk": 110, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-09 19:25:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 12, 
+            "start": "2012-03-09 18:50:00", 
+            "session": 41
+        }
+    }, 
+    {
+        "pk": 133, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-09 19:40:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 13, 
+            "start": "2012-03-09 19:05:00", 
+            "session": 53
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-11 17:10:00", 
+            "title": "", 
+            "track": 10, 
+            "start": "2012-03-11 16:30:00", 
+            "session": 25
+        }
+    }, 
+    {
+        "pk": 102, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-11 17:55:00", 
+            "title": "", 
+            "track": 11, 
+            "start": "2012-03-11 17:10:00", 
+            "session": 37
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-11 17:55:00", 
+            "title": "", 
+            "track": 10, 
+            "start": "2012-03-11 17:10:00", 
+            "session": 25
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM II", 
+            "track": 2, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM V", 
+            "track": 5, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM III", 
+            "track": 3, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM VIII", 
+            "track": 8, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM VII", 
+            "track": 7, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM IV", 
+            "track": 4, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM I", 
+            "track": 1, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM II", 
+            "track": 2, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM III", 
+            "track": 3, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM I", 
+            "track": 1, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM VIII", 
+            "track": 8, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM II", 
+            "track": 2, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM VII", 
+            "track": 7, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM IV", 
+            "track": 4, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM V", 
+            "track": 5, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM I", 
+            "track": 1, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM VI", 
+            "track": 6, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM IV", 
+            "track": 4, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM V", 
+            "track": 5, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 15:20:00", 
+            "title": "Wednesday AM VI", 
+            "track": 6, 
+            "start": "2012-03-07 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM III", 
+            "track": 3, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-07 19:40:00", 
+            "title": "Wednesday PM VI", 
+            "track": 6, 
+            "start": "2012-03-07 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:05:00", 
+            "title": null, 
+            "track": 11, 
+            "start": "2012-03-10 13:25:00", 
+            "session": 31
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM IV", 
+            "track": 4, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM VII", 
+            "track": 7, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM VII", 
+            "track": 7, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM VIII", 
+            "track": 8, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 15:20:00", 
+            "title": "Thursday AM VIII", 
+            "track": 8, 
+            "start": "2012-03-08 12:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM III", 
+            "track": 3, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM V", 
+            "track": 5, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM II", 
+            "track": 2, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-08 19:40:00", 
+            "title": "Thursday PM VI", 
+            "track": 6, 
+            "start": "2012-03-08 16:20:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-10 16:35:00", 
+            "title": "Lunch", 
+            "track": 11, 
+            "start": "2012-03-10 15:30:00", 
+            "session": 32
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-10 19:15:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 9, 
+            "start": "2012-03-10 18:40:00", 
+            "session": 10
+        }
+    }, 
+    {
+        "pk": 176, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-11 11:30:00", 
+            "title": "", 
+            "track": null, 
+            "start": "2012-03-11 11:00:00", 
+            "session": null
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:05:00", 
+            "title": null, 
+            "track": 10, 
+            "start": "2012-03-10 13:25:00", 
+            "session": 19
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:05:00", 
+            "title": null, 
+            "track": 12, 
+            "start": "2012-03-10 13:25:00", 
+            "session": 43
+        }
+    }, 
+    {
+        "pk": 136, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:05:00", 
+            "title": null, 
+            "track": 13, 
+            "start": "2012-03-10 13:25:00", 
+            "session": 55
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:45:00", 
+            "title": null, 
+            "track": 9, 
+            "start": "2012-03-10 14:05:00", 
+            "session": 7
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:45:00", 
+            "title": null, 
+            "track": 10, 
+            "start": "2012-03-10 14:05:00", 
+            "session": 19
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:45:00", 
+            "title": null, 
+            "track": 11, 
+            "start": "2012-03-10 14:05:00", 
+            "session": 31
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:45:00", 
+            "title": null, 
+            "track": 12, 
+            "start": "2012-03-10 14:05:00", 
+            "session": 43
+        }
+    }, 
+    {
         "pk": 147, 
         "model": "schedule.slot", 
         "fields": {
@@ -2013,6 +1989,30 @@
             "track": 9, 
             "start": "2012-03-11 17:10:00", 
             "session": 13
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 57, 
+            "end": "2012-03-09 19:40:00", 
+            "title": "Afternoon Break with Snacks in Expo Hall", 
+            "track": 11, 
+            "start": "2012-03-09 19:05:00", 
+            "session": 29
+        }
+    }, 
+    {
+        "pk": 137, 
+        "model": "schedule.slot", 
+        "fields": {
+            "kind": 55, 
+            "end": "2012-03-10 14:45:00", 
+            "title": null, 
+            "track": 13, 
+            "start": "2012-03-10 14:05:00", 
+            "session": 55
         }
     }, 
     {
