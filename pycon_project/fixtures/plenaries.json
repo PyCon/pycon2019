@@ -1,0 +1,254 @@
+[
+    {
+        "pk": 3, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 151, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Introduction and Welcome", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": null, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Registration and speaker lounge opens at 7:00 am", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": null, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Breakfast put out at 8:00am", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": null, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Registration and speaker lounge open (7:00 am)", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 158, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Lightning talks", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 159, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Introduction and Welcome", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 164, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Lightning talks (60 minutes)", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 167, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Introduction and Welcome", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": null, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote (continued)", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": null, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote (continued)", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 174, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Lightning talks (60 minutes)", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 175, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Intro to Sprints", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 166, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Lightning talks", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 172, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Poster Session", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 168, 
+            "last_updated": "2012-02-06 18:18:21", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote: Guido Van Rossum", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 155, 
+            "last_updated": "2012-02-15 16:26:34", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "End of Day Address", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 152, 
+            "last_updated": "2012-02-15 16:54:42", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote: Stormy Peters, Mozilla Corporation", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 153, 
+            "last_updated": "2012-02-15 16:55:01", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote: Paul Graham, YCombinator", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 160, 
+            "last_updated": "2012-02-15 16:55:43", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Python Software Foundation Chairman's Address", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 163, 
+            "last_updated": "2012-02-15 16:56:02", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Keynote: David Beasley", 
+            "speaker": null
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "schedule.plenary", 
+        "fields": {
+            "slot": 178, 
+            "last_updated": "2012-02-15 17:12:20", 
+            "description": "", 
+            "additional_speakers": [], 
+            "title": "Closing Address", 
+            "speaker": null
+        }
+    }
+]

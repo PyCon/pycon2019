@@ -1,0 +1,299 @@
+[
+    {
+        "pk": 3, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 154, 
+            "description": "", 
+            "title": "Break with snacks in expo hall"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": null, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 37, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 60, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 106, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 129, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 41, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 64, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 87, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 110, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 133, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 163, 
+            "description": "", 
+            "title": "Break with snacks in expo hall"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 47, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 70, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 93, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 116, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 139, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 51, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 74, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 97, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 120, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 143, 
+            "description": "", 
+            "title": "Break"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 171, 
+            "description": "", 
+            "title": "Break with snacks in expo hall"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 173, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 150, 
+            "description": "", 
+            "title": "Breakfast"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 149, 
+            "description": "", 
+            "title": "Registration and speaker lounge open"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 156, 
+            "description": "", 
+            "title": "Registration and speaker lounge open"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 157, 
+            "description": "", 
+            "title": "Breakfast"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 165, 
+            "description": "", 
+            "title": "Registration and speaker lounge open"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 176, 
+            "description": "", 
+            "title": "Breakfast"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": null, 
+            "description": "", 
+            "title": "Lightning talks (30 minutes)"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 83, 
+            "description": "", 
+            "title": "Lunch"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "schedule.recess", 
+        "fields": {
+            "slot": 177, 
+            "description": "", 
+            "title": "Break"
+        }
+    }
+]
