@@ -112,6 +112,9 @@ class Slot(models.Model):
         self.kind = None
         self.save()
     
+    class Meta:
+        ordering = ["start"]
+    
     def __unicode__(self):
         start = localtime_for_timezone(self.start, settings.SCHEDULE_TIMEZONE)
         end = localtime_for_timezone(self.end, settings.SCHEDULE_TIMEZONE)
