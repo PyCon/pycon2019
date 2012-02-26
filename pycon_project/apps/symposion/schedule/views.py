@@ -581,3 +581,49 @@ def schedule_json(request):
         json.dumps(data, default=json_serializer),
         content_type="application/json"
     )
+
+
+def schedule_posters_json(request):
+    data = []
+    for poster in Presentation.objects.filter(kind__slug="posters", cancelled=False):
+        tags = []
+        tags.append(str(poster.kind))
+        tags.append(Presentation.AUDIENCE_LEVELS[poster.audience_level - 1][1].lower())
+        tags.extend(CONFERENCE_TAGS)
+        data.append({
+            # "room": slot.track.name,
+            # "start": slot.start,
+            # "duration": (slot.end - slot.start).seconds // 60,
+            # "end": slot.end,
+            "title": poster.title,
+            "name": poster.title,
+            "presenters": ", ".join(map(
+                lambda s: s.name,
+                poster.speakers()
+            )),
+            "description": poster.description,
+            "abstract": poster.abstract.rendered,
+            # "id": slot.pk,
+            "url": "http://%s%s" % (Site.objects.get_current().domain, poster.get_absolute_url()),
+            "tags": ", ".join(tags),
+            "last_updated": poster.last_updated,
+            
+            # Add some fields for Carl
+            # "license": "",
+            # "conf_url": "",
+            # "conf_key": "",
+            # "released": True,
+            # "start_iso": slot.start.isoformat(),
+            # "end_iso": slot.end.isoformat(),
+            "authors": ", ".join(map(
+                lambda s: s.name,
+                poster.speakers()
+            )),
+            "last_updated_iso": poster.last_updated.isoformat(),
+            # "contact": "", # not sure if this is ok to be shared.
+        })
+    
+    return HttpResponse(
+        json.dumps(data, default=json_serializer),
+        content_type="application/json"
+    )
