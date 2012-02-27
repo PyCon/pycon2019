@@ -7,6 +7,7 @@ from icalendar import Calendar, Event
 from django.conf import settings
 from django.core.context_processors import csrf
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotAllowed, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -221,7 +222,7 @@ def schedule_conference(request):
         "thursday": Timetable(Slot.objects.filter(start__week_day=5), user=request.user),
         "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
-        "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
+        "sunday": Timetable(Slot.objects.filter(Q(start__week_day=1), Q(track__pk__lt=14) | Q(track=None)), user=request.user),
         "timezone": settings.SCHEDULE_TIMEZONE,
         "csrf_token": csrf(request),
     }
