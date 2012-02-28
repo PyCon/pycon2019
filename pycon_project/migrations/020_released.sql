@@ -1,0 +1,1 @@
+ALTER TABLE "schedule_presentation" ADD COLUMN "released" boolean;

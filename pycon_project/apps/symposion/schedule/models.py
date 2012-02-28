@@ -182,6 +182,7 @@ class Presentation(SpeakerSlotBase):
     speaker = models.ForeignKey("speakers.Speaker", related_name="sessions")
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
     cancelled = models.BooleanField(default=False)
+    released = models.BooleanField(default=False)
     
     extreme_pycon = models.BooleanField(u"EXTREME PyCon!", default=False)
     invited = models.BooleanField(default=False)

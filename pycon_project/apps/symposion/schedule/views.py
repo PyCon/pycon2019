@@ -531,7 +531,7 @@ def schedule_json(request):
                 "license": "",
                 "conf_url": "",
                 "conf_key": "",
-                "released": True,
+                "released": slot.presentation.released,
                 "start_iso": slot.start.isoformat(),
                 "end_iso": slot.end.isoformat(),
                 "authors": ", ".join(map(
@@ -613,7 +613,7 @@ def schedule_posters_json(request):
             # "license": "",
             # "conf_url": "",
             # "conf_key": "",
-            # "released": True,
+            "released": poster.released,
             # "start_iso": slot.start.isoformat(),
             # "end_iso": slot.end.isoformat(),
             "authors": ", ".join(map(
