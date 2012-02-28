@@ -202,7 +202,7 @@ def schedule_conference_edit(request):
         "thursday": Timetable(Slot.objects.filter(start__week_day=5), user=request.user),
         "friday": Timetable(Slot.objects.filter(start__week_day=6), user=request.user),
         "saturday": Timetable(Slot.objects.filter(start__week_day=7), user=request.user),
-        "sunday": Timetable(Slot.objects.filter(start__week_day=1), user=request.user),
+        "sunday": Timetable(Slot.objects.filter(Q(start__week_day=1), Q(track__pk__lt=14) | Q(track=None)), user=request.user),
         "timezone": settings.SCHEDULE_TIMEZONE,
     }
     ctx = RequestContext(request, ctx)
