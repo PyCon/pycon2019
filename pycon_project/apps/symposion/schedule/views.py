@@ -511,6 +511,7 @@ def schedule_json(request):
             tags.extend(CONFERENCE_TAGS)
             data.append({
                 "room": slot.track.name,
+                "room_name": slot.track.room,
                 "start": slot.start,
                 "duration": (slot.end - slot.start).seconds // 60,
                 "end": slot.end,

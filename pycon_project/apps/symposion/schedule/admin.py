@@ -10,7 +10,7 @@ admin.site.register(SessionRole,
 )
 
 admin.site.register(Track,
-    list_display = ["pk", "name"]
+    list_display = ["pk", "name", "room"]
 )
 
 admin.site.register(Slot,

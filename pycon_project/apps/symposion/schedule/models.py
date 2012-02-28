@@ -18,6 +18,7 @@ from symposion.conference.models import PresentationKind, PresentationCategory
 class Track(models.Model):
     
     name = models.CharField(max_length=65)
+    room = models.CharField(max_length=100, blank=True)
     
     def __unicode__(self):
         return self.name
