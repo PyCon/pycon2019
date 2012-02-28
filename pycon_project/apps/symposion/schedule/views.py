@@ -357,6 +357,15 @@ def session_list(request):
     }, context_instance=RequestContext(request))
 
 
+@login_required
+def session_staff_email(request):
+    if not request.user.is_staff:
+        return redirect("schedule_session_list")
+    
+    data = "\n".join(user.email for user in User.objects.filter(sessionrole__isnull=False).distinct())
+    
+    return HttpResponse(data, content_type="text/plain;charset=UTF-8")
+
 def session_detail(request, session_id):
     
     session = get_object_or_404(Session, id=session_id)
