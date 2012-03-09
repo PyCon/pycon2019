@@ -7,7 +7,7 @@
         <div class="page">
             <div>
             {% if chair %}
-                Chair: {{ chair }}
+                Chair: {{ chair.get_full_name }} ({{ chair }})
                 {% if request.user == chair %}
                     <form method="POST" style="border: none; padding: 0">
                         {% csrf_token %}
@@ -32,7 +32,7 @@
                 
             <div>
             {% if runner %}
-                Runner: {{ runner }}
+                Runner: {{ runner.get_full_name }} ({{ runner }})
                 {% if request.user == runner %}
                     <form method="POST" style="border: none; padding: 0">
                         {% csrf_token %}

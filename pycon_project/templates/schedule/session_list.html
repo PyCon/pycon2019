@@ -10,7 +10,7 @@
                     <a href="{% url schedule_session_detail session.pk %}">[{{ session.track }}] {{ session }}</a>
                     <ul>
                         {% for role in session.sessionrole_set.all %}
-                            <li><b>{{ role.get_role_display }}: {{ role.user }}</b></li>
+                            <li><b>{{ role.get_role_display }}: {{ role.user.get_full_name }} ({{ role.user }})</b></li>
                         {% empty %}
                             <li><b>No volunteers signed up</b></li>
                         {% endfor %}
