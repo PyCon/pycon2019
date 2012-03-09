@@ -9,7 +9,7 @@
 	<th>{% trans "Modified by" %}</th>
 	<th>&nbsp;</th>
 </tr>
-{% for rev in page.revisions.all %}
+{% for rev in page.revisions.all|slice:":5" %}
 <tr>
 	<td class="compare">
 		<input type="radio" name="a" value="{{ rev.pk }}"
