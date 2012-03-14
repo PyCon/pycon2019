@@ -549,7 +549,7 @@ def schedule_json(request):
                     slot.presentation.speakers()
                 )),
                 "last_updated_iso": slot.presentation.last_updated.isoformat(),
-                "contact": "", # not sure if this is ok to be shared.
+                "contact": slot.presentation.speaker.email, # not sure if this is ok to be shared.
             })
         except Presentation.DoesNotExist:
             try:
