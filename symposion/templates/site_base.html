@@ -1,5 +1,7 @@
 {% extends "theme_base.html" %}
 
+{% load url from future %}
+
 {% load metron_tags %}
 {% load i18n %}
 
@@ -14,4 +16,33 @@
 {% block extra_body_base %}
     {% analytics %}
     {% block extra_body %}{% endblock %}
+{% endblock %}
+
+{% block topbar_base %}
+    <div class="container">
+        {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+        <div class="hero-unit">
+            <h1>MoonCon 2019</h1>
+            <h2>Sea of Tranquility, July 16th&ndash;24th</h2>
+        </div>
+        <div class="navbar">
+            <div class="navbar-inner">
+                {% block topbar %}
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+                        {% block nav %}
+                            <ul class="nav">
+                                <li><a href="#tab_one">One</a></li>
+                                <li><a href="#tab_two">Two</a></li>
+                            </ul>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
