@@ -24,7 +24,8 @@
 {% block topbar_base %}
     <header class="main">
         <div class="container">
-            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+            <h3 class="logo"><a href="/">PyCon 2013</a></h3>
+            <div class="account-bar">{% block account_bar %}{% include "_account_bar.html" %}{% endblock %}</div>
             <div class="navbar">
                 <div class="navbar-inner">
                     {% block topbar %}
@@ -51,7 +52,7 @@
                                     <li><a href="#">Registration</a></li>
                                     <li><a href="#">Schedule</a></li>
                                     <li><a href="#">Sponsors</a></li>
-                                    <li><a href="#">Venue</a></li>
+                                    <li><a href="{% url 'venue' %}">Venue</a></li>
                                 </ul>
                             {% endblock %}
                         </div>
