@@ -1,0 +1,67 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Venue" %}{% endblock %}
+
+{% block body_class %}venue{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="span12">
+        <div class="page-head">
+            <h1>Venue</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Home</a> <span class="divider">/</span>
+              </li>
+              <li class="active">Venue</li>
+            </ul>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="box">
+            <div class="box-content">
+                <p class="intro">All Tutorial and Conference events are being held at the Santa Clara Convention Center. The Sprints are being held at the Hyatt Regency Santa Clara, which is connected to the Santa Clara Convention Center.</p>
+
+                <div class="map">
+                    <iframe width="658" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Santa+Clara+Convention+Center+5001+Great+America+Parkway+Santa+Clara,+California+USA+95054+&amp;aq=&amp;sll=37.404085,-121.975408&amp;sspn=0.011114,0.022724&amp;ie=UTF8&amp;hq=Santa+Clara+Convention+Center&amp;hnear=5001+Great+America+Pkwy,+Santa+Clara,+California+95054&amp;cid=13973534836186469092&amp;ll=37.406574,-121.974506&amp;spn=0.027272,0.100422&amp;z=13&amp;output=embed&iwloc=near"></iframe>
+                    <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Santa+Clara+Convention+Center+5001+Great+America+Parkway+Santa+Clara,+California+USA+95054+&amp;aq=&amp;sll=37.404085,-121.975408&amp;sspn=0.011114,0.022724&amp;ie=UTF8&amp;hq=Santa+Clara+Convention+Center&amp;hnear=5001+Great+America+Pkwy,+Santa+Clara,+California+95054&amp;cid=13973534836186469092&amp;ll=37.406574,-121.974506&amp;spn=0.027272,0.100422&amp;z=13">View Larger Map</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span45">
+                <div class="box">
+                    <div class="box-content place">
+                        <h5>Conference Venue</h5>
+
+                        <h4>Santa Clara Convention Center</h4>
+
+                        <p>5001 Great America Parkway<br/>
+                        Santa Clara, California USA 95054<br/>
+                        Tel: <i>800-272-6822</i></p>
+                    </div>
+                </div>
+            </div>
+            <div class="span45">
+                <div class="box">
+                    <div class="box-content place">
+                        <h5>Sprint Venue</h5>
+
+                        <h4>Hyatt Regency Santa Clara</h4>
+
+                        <p>5101 Great America Parkway<br/>
+                        Santa Clara, California USA 95054<br/>
+                        Tel: <i>408-200-1234</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="span3"></div>
+</div>
+{% endblock %}
+
