@@ -18,6 +18,9 @@ urlpatterns = patterns("",
     url(r"^about/", include("symposion.about.urls")),
     url(r"^account/", include("account.urls")),
     # url(r"^openid/", include(PinaxConsumer().urls)),
+
+    #temp
+    url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
 )
 
 
