@@ -1,6 +1,7 @@
 @import "bootstrap/bootstrap.less";
 
 @darkBlue: #014354;
+@blueGray: #b2bbbe;
 
 body {
   background:#f2ebdf url(../img/bg.png) repeat 0 0;
@@ -265,7 +266,7 @@ nav#slider-nav {
   .date {
     display:block;
     float:left;
-    background:#b2bbbe;
+    background:@blueGray;
     text-align:center;
     color:@white;
     font-size:@baseFontSize + 5;
@@ -328,11 +329,18 @@ nav#slider-nav {
   padding:15px 0;
   margin-bottom:20px;
   background:url(../img/dotted_ln_b.png) repeat-x left bottom;
+  position:relative;
 
   h1 {
     text-transform:uppercase;
     font-weight:normal;
     font-size:@baseFontSize + 18;
+  }
+
+  a.read-more {
+    position:absolute;
+    top:20px;
+    right:0;
   }
 }
 
@@ -346,11 +354,13 @@ nav#slider-nav {
 
   li {
     color:#6f7578;
+    text-shadow:none;
   }
 
   a {
     color:#6f7578;
     text-decoration:underline;
+    text-shadow:none;
   }
 
   a:hover {
@@ -442,7 +452,7 @@ body.venue {
 
 .place {
   h5 {
-    background:#b2bbbe;
+    background:@blueGray;
     color:#fff;
     float:left;
     font-weight:normal;
