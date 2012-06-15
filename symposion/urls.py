@@ -20,8 +20,10 @@ urlpatterns = patterns("",
     # url(r"^openid/", include(PinaxConsumer().urls)),
 
     #temp
-    url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
+    # url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
     url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
+    
+    url(r"^sponsors/", include("pycon.sponsorship.urls")),
 )
 
 

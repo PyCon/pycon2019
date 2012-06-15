@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+
+{% block body_class %}sponsors{% endblock %}
+
+{% block body %}
+    <form method="POST" action="" class="uniForm">
+        {% csrf_token %}
+        <legend>Apply to Be a Sponsor</legend>
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="submit" />
+        </div>
+    </form>
+    <small>By submitting this sponsor application you are agreeing to the <a href="{% url sponsor_terms %}" target="_blank">terms and conditions</a>.</small>
+    
+{% endblock %}

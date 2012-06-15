@@ -152,14 +152,14 @@ INSTALLED_APPS = [
     "timezones",
     "metron",
     "easy_thumbnails",
-    
-    # Pinax
     "account",
     
-    # project
+    # symposion
     "symposion.about",
-    "symposion.sponsorship",
     "symposion.conference",
+    
+    # custom
+    "pycon.sponsorship",
 ]
 
 FIXTURE_DIRS = [
