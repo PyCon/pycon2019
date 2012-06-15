@@ -335,6 +335,12 @@ nav#slider-nav {
     text-transform:uppercase;
     font-weight:normal;
     font-size:@baseFontSize + 18;
+
+    span {
+      font-size:@baseFontSize + 1;
+      display:block;
+      line-height:15px;
+    }
   }
 
   a.read-more {
@@ -422,6 +428,7 @@ nav#slider-nav {
   .box-content {
     border:3px solid #f7f7f3;
     padding:15px;
+    overflow:hidden;
   }
 }
 
@@ -472,5 +479,25 @@ body.venue {
     margin-left:20px;
   }
 }
+
+// speaker profile
+.avatar {
+  float:left;
+  margin:0 20px 0 0;
+  border:1px solid #d2d2cb;
+  padding:2px;
+}
+
+.speaker-details {
+  float:left;
+  width:430px;
+}
+
+.presentation {
+  border-left: 2px solid @yellow;
+  padding-left:10px;
+  margin-bottom:5px;
+}
+
 
 

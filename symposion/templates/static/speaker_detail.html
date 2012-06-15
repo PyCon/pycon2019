@@ -1,0 +1,44 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Speaker Name" %}{% endblock %}
+
+{% block body_class %}speaker{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="span12">
+        <div class="page-head">
+            <h1><span>Speaker Profile</span> Jonathan Brendon</h1>
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">Home</a> <span class="divider">/</span>
+              </li>
+              <li class="active">Speakers</li>
+            </ul>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="box">
+            <div class="box-content">
+                <img src="{{ STATIC_URL }}img/temp/speaker.jpg" width="200" alt="Speaker" class="avatar" />
+                <div class="speaker-details">
+                    <h2>About Jonathan Brendon</h2>
+                    <p>Jean-Paul is a freelance programmer based in the north-eastern United States. He has been programming for over fifteen years and programming in Python for over ten - just long enough that he is beginning to get the hang of it. He was Divmod, Inc.'s second employee and worked there for years building context-sensitive, highly integrated communications servers. He also did brief stints at NIH and Deutsche Bank. He is best known as a core developer on the Twisted project.</p>
+                    <h2>Presentations</h2>
+                    <div class="presentation">
+                        <h4><a href="#">Introduction to Event Driven Programming Using Twisted</a></h4>
+                        <p>March 7th 9 a.m. – 12:20 p.m.</p>
+                    </div>
+                    <div class="presentation">
+                        <h4><a href="#">Introduction to Event Driven Programming Using Twisted</a></h4>
+                        <p>March 7th 9 a.m. – 12:20 p.m.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3"></div>
+</div>
+{% endblock %}
