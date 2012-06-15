@@ -23,6 +23,7 @@ urlpatterns = patterns("",
     url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
     url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
     url(r"^speaker/", direct_to_template, { "template": "static/speaker_detail.html", }, name="speaker"),
+    url(r"^cms/", direct_to_template, { "template": "static/simple.html", }, name="cms"),
 )
 
 
