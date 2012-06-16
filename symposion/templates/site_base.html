@@ -5,6 +5,7 @@
 {% load static %}
 {% load metron_tags %}
 {% load i18n %}
+{% load sitetree %}
 
 {% block extra_head_base %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
@@ -57,24 +58,7 @@
                         </a>
                         <div class="nav-collapse">
                             {% block nav %}
-                                <ul class="nav">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            About
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Code of Conduct</a></li>
-                                            <li><a href="#">Diversity</a></li>
-                                            <li><a href="#" class="last">PyCon Mobile Guide</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Registration</a></li>
-                                    <li><a href="#">Schedule</a></li>
-                                    <li><a href="{% url 'sponsor_list' %}">Sponsors</a></li>
-                                    <li><a href="{% url 'venue' %}">Venue</a></li>
-                                </ul>
+                                {% sitetree_menu from "pycon" include "trunk" %}
                             {% endblock %}
                         </div>
                     {% endblock %}
