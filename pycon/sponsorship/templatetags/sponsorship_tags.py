@@ -1,6 +1,7 @@
 from django import template
 
-from pycon.sponsorship.models import Sponsor
+from symposion.conference.models import current_conference
+from pycon.sponsorship.models import Sponsor, SponsorLevel
 
 
 register = template.Library()
@@ -11,37 +12,63 @@ class SponsorsNode(template.Node):
     @classmethod
     def handle_token(cls, parser, token):
         bits = token.split_contents()
-        section = "all"
-        if len(bits) != 3 and len(bits) != 4:
-            raise template.TemplateSyntaxError("%r takes two to three arguments "
-                "(second to last argument must be 'as')" % bits[0])
-        if bits[-2] != "as":
-            raise template.TemplateSyntaxError("Second to last argument to %r must be "
-                "'as'" % bits[0])
-        if len(bits) == 4:
-            section = bits[1]
-        return cls(bits[-1], section)
+        if len(bits) == 3 and bits[1] == "as":
+            return cls(bits[2])
+        elif len(bits) == 4 and bits[2] == "as":
+            return cls(bits[3], bits[1])
+        else:
+            raise template.TemplateSyntaxError("%r takes 'as var' or 'level as var'" % bits[0])
     
-    def __init__(self, context_var, section):
-        self.section = section
+    def __init__(self, context_var, level=None):
+        if level:
+            self.level = template.Variable(level)
+        else:
+            self.level = None
         self.context_var = context_var
     
     def render(self, context):
-        queryset = Sponsor.objects.active()
-        queryset = queryset.select_related("level", "sponsor_logo")
-        if self.section == "header":
-            queryset = queryset.filter(level__in=[1])
-        if self.section == "scroll":
-            queryset = queryset.filter(level__in=[2, 3])
-        if self.section == "footer":
-            queryset = queryset.filter(level__in=[4, 10])
+        conference = current_conference()
+        if self.level:
+            level = self.level.resolve(context)
+            queryset = Sponsor.objects.filter(level__conference = conference, level__name__iexact = level, active = True).order_by("added")
+        else:
+            queryset = Sponsor.objects.filter(level__conference = conference, active = True).order_by("level__order", "added")
         context[self.context_var] = queryset
+        return u""
+
+
+class SponsorLevelNode(template.Node):
+    
+    @classmethod
+    def handle_token(cls, parser, token):
+        bits = token.split_contents()
+        if len(bits) == 3 and bits[1] == "as":
+            return cls(bits[2])
+        else:
+            raise template.TemplateSyntaxError("%r takes 'as var'" % bits[0])
+    
+    def __init__(self, context_var):
+        self.context_var = context_var
+    
+    def render(self, context):
+        conference = current_conference()
+        context[self.context_var] = SponsorLevel.objects.filter(conference=conference)
         return u""
 
 
 @register.tag
 def sponsors(parser, token):
     """
-    {% sponsors [header, scroll, footer, all] as sponsors %}
+    {% sponsors as all_sponsors %}
+    or
+    {% sponsors "gold" as gold_sponsors %}
     """
     return SponsorsNode.handle_token(parser, token)
+
+
+@register.tag
+def sponsor_levels(parser, token):
+    """
+    {% sponsor_levels as levels %}
+    """
+    return SponsorLevelNode.handle_token(parser, token)
