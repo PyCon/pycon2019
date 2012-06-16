@@ -20,6 +20,8 @@ urlpatterns = patterns("",
     url(r"^about/", include("symposion.about.urls")),
     url(r"^account/signup/$", symposion.views.SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
+    url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
+    
     # url(r"^openid/", include(PinaxConsumer().urls)),
 
     #temp
