@@ -39,11 +39,11 @@ class Sponsor(models.Model):
     
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True)
     
-    name = models.CharField(_("name"), max_length=100)
+    name = models.CharField(_("Sponsor Name"), max_length=100)
     external_url = models.URLField(_("external URL"))
     annotation = models.TextField(_("annotation"), blank=True)
-    contact_name = models.CharField(_("contact_name"), max_length=100)
-    contact_email = models.EmailField(_(u"Contact e\u2011mail"))
+    contact_name = models.CharField(_("Contact Name"), max_length=100)
+    contact_email = models.EmailField(_(u"Contact Email"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
     added = models.DateTimeField(_("added"), default=datetime.datetime.now)
     active = models.BooleanField(_("active"), default=False)
