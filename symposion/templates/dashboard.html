@@ -10,8 +10,14 @@
     {% if sponsorships %}
         {% for sponsorship in sponsorships %}
             <li>
-                <a href="{% url sponsor_detail sponsorship.pk %}">{{ sponsorship.name }}</a>
-                ({{ sponsorship.level }}) active: {{ sponsorship.active }}
+                {% if sponsorship.active %}
+                    <a href="{% url sponsor_detail sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
+                    ({{ sponsorship.level }})
+                {% else %}
+                    <b>{{ sponsorship.name }}</b>
+                    ({{ sponsorship.level }})
+                    <i>awaiting approval</i>
+                {% endif %}
             </li>
         {% endfor %}
     {% else %}
