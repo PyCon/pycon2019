@@ -153,10 +153,16 @@ INSTALLED_APPS = [
     "metron",
     "easy_thumbnails",
     "account",
+    "sitetree",
+    "markitup",
+    "taggit",
+    "reversion",
     
     # symposion
     "symposion.about",
     "symposion.conference",
+    "symposion.cms",
+    "symposion.boxes",
     
     # custom
     "pycon.sponsorship",
@@ -191,6 +197,11 @@ EMAIL_DEBUG = DEBUG
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+MARKITUP_FILTER = ("markdown.markdown", {"safe_mode": True})
+MARKITUP_SET = "markitup/sets/markdown"
+
+SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 
 CONFERENCE_ID = 1
 

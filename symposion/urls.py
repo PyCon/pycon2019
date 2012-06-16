@@ -12,6 +12,8 @@ import symposion.views
 # from pinax.apps.account.openid_consumer import PinaxConsumer
 
 
+PAGE_RE = settings.SYMPOSION_PAGE_REGEX
+
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
         "template": "homepage.html",
@@ -29,6 +31,10 @@ urlpatterns = patterns("",
     url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
     
     url(r"^sponsors/", include("pycon.sponsorship.urls")),
+
+    url(r"^boxes/", include("symposion.boxes.urls")),
+    url(r"^(?P<path>%s)$" % PAGE_RE, "symposion.cms.views.page", name="cms_page"),
+
 )
 
 

@@ -1,17 +1,17 @@
 {% extends "site_base.html" %}
 
-{# load boxes_tags #}
+{% load boxes_tags %}
 
 {% block body %}
     <div class="row">
         <div class="span8">
             <h1 class="section-title">PyCon <span>Sponsors</span></h1>
-            {# box "sponsors_main" #}
+            {% box "sponsors_main" %}
             <h2 class="section-title">Sponsor PyCon 2012</h2>
             {% if user.is_authenticated %}
                 {% if user.sponsorship %}
                     {% if user.sponsorship.active %}
-                        <p>{# box "sponsorship-info" #}</p>
+                        <p>{% box "sponsorship-info" %}</p>
 
                         <ol class="steps">
                             <li class="first done">Sign up and log in</li>
@@ -19,7 +19,7 @@
                             <li class="third"><a href="{% url sponsor_detail user.sponsorship.pk %}">Manage sponsorship details</a></li>
                         </ol>
                     {% else %}
-                    <p>{# box "sponsorship-info" #}</p>
+                    <p>{% box "sponsorship-info" %}</p>
 
                     <ol class="steps">
                         <li class="first done">Sign up and log in</li>
@@ -28,7 +28,7 @@
                     </ol>
                     {% endif %}
                 {% else %}
-                    <p>{# box "sponsorship-info" #}</p>
+                    <p>{% box "sponsorship-info" %}</p>
 
                     <ol class="steps">
                         <li class="first done">Sign up and log in</li>
@@ -38,7 +38,7 @@
 
                 {% endif %}
             {% else %}
-                <p>{# box "sponsorship-info" #}</p>
+                <p>{% box "sponsorship-info" %}</p>
 
                 <ol class="steps">
                     <li class="first next"><a href="{% url account_signup %}?next={{ request.path }}">Sign up</a> and <a href="{% url account_login %}?next={{ request.path }}">log in</a></li>
