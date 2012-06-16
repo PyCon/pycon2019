@@ -7,6 +7,8 @@ from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 admin.autodiscover()
 
+import symposion.views
+
 # from pinax.apps.account.openid_consumer import PinaxConsumer
 
 
@@ -16,6 +18,7 @@ urlpatterns = patterns("",
     }, name="home"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("symposion.about.urls")),
+    url(r"^account/signup/$", symposion.views.SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
     # url(r"^openid/", include(PinaxConsumer().urls)),
 
