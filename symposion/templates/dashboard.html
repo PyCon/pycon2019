@@ -1,6 +1,20 @@
 {% extends "site_base.html" %}
 
+{% load sponsorship_tags %}
+
 {% block body %}
     <h1>Dashboard</h1>
     
+    <h2>Sponsorship</h2>
+    {% sponsorships user as sponsorships %}
+    {% if sponsorships %}
+        {% for sponsorship in sponsorships %}
+            <li>
+                <a href="{% url sponsor_detail sponsorship.pk %}">{{ sponsorship.name }}</a>
+                ({{ sponsorship.level }}) active: {{ sponsorship.active }}
+            </li>
+        {% endfor %}
+    {% else %}
+        <p><a href="{% url sponsor_info %}">Learn more</a> about sponsorship.</p>
+    {% endif %}
 {% endblock %}
