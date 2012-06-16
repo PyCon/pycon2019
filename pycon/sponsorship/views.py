@@ -62,7 +62,7 @@ def sponsor_detail(request, pk):
         form = SponsorDetailsForm(instance=sponsor)
         formset = SponsorBenefitsFormSet(**formset_kwargs)
     
-    return render_to_response("sponsors/detail.html", {
+    return render_to_response("sponsorship/detail.html", {
         "sponsor": sponsor,
         "form": form,
         "formset": formset,
