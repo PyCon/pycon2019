@@ -6,9 +6,9 @@ from django.utils.encoding import smart_str
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaulttags import kwarg_re
 
-from boxes.models import Box
-from boxes.forms import BoxForm
-from boxes.authorization import load_can_edit
+from symposion.boxes.models import Box
+from symposion.boxes.forms import BoxForm
+from symposion.boxes.authorization import load_can_edit
 
 
 register = template.Library()

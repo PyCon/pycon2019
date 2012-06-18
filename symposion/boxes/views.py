@@ -2,9 +2,9 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 
-from boxes.authorization import load_can_edit
-from boxes.forms import BoxForm
-from boxes.models import Box
+from symposion.boxes.authorization import load_can_edit
+from symposion.boxes.forms import BoxForm
+from symposion.boxes.models import Box
 
 
 # @@@ problem with this is that the box_edit.html and box_create.html won't have domain objects in context

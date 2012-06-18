@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from boxes.utils import load_path_attr
+from symposion.boxes.utils import load_path_attr
 
 
 def default_can_edit(request, *args, **kwargs):

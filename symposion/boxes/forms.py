@@ -1,6 +1,6 @@
 from django import forms
 
-from boxes.models import Box
+from symposion.boxes.models import Box
 
 
 class BoxForm(forms.ModelForm):
