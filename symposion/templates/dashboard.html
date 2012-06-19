@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+
+{% load sponsorship_tags %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+    
+    <h2>Speaking</h2>
+    
+    {% if user.speaker_profile %}
+        <p><a href="{% url speaker_edit %}">Edit speaker profile</a></p>
+        <p><a href="#">Submit a new proposal</a></p>
+    {% else %}
+        <p>To submit a proposal, first <a href="{% url speaker_create %}">create a speaker profile</a>.</p>
+    {% endif %}
+    
+    
+    <h2>Sponsorship</h2>
+    {% sponsorships user as sponsorships %}
+    {% if sponsorships %}
+        {% for sponsorship in sponsorships %}
+            <li>
+                {% if sponsorship.active %}
+                    <a href="{% url sponsor_detail sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
+                    ({{ sponsorship.level }})
+                {% else %}
+                    <b>{{ sponsorship.name }}</b>
+                    ({{ sponsorship.level }})
+                    <i>awaiting approval</i>
+                {% endif %}
+            </li>
+        {% endfor %}
+    {% else %}
+        <p><a href="{% url sponsor_info %}">Learn more</a> about sponsorship.</p>
+    {% endif %}
+{% endblock %}

@@ -7,8 +7,12 @@ from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 admin.autodiscover()
 
+import symposion.views
+
 # from pinax.apps.account.openid_consumer import PinaxConsumer
 
+
+PAGE_RE = settings.SYMPOSION_PAGE_REGEX
 
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
@@ -16,14 +20,22 @@ urlpatterns = patterns("",
     }, name="home"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("symposion.about.urls")),
+    url(r"^account/signup/$", symposion.views.SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
+    url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
+
     # url(r"^openid/", include(PinaxConsumer().urls)),
 
     #temp
-    url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
+    # url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
     url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
-    url(r"^speaker/", direct_to_template, { "template": "static/speaker_detail.html", }, name="speaker"),
-    url(r"^cms/", direct_to_template, { "template": "static/simple.html", }, name="cms"),
+
+    url(r"^speaker/", include("symposion.speakers.urls")),
+
+    url(r"^sponsors/", include("pycon.sponsorship.urls")),
+
+    url(r"^boxes/", include("symposion.boxes.urls")),
+    url(r"^(?P<path>%s)$" % PAGE_RE, "symposion.cms.views.page", name="cms_page"),
 )
 
 

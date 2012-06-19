@@ -1,0 +1,43 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+
+{% block head_title %}{{ sponsor }}{% endblock %}
+
+{% block body %}
+    
+    <ul class="breadcrumb">
+        <li><a href="{% url dashboard %}">Dashboard</a></li>
+    </ul>
+    
+    <h1>Sponsorship</h1>
+    <h2>{{ sponsor.name }} ({{ sponsor.level }})</h2>
+
+    <form enctype="multipart/form-data" method="POST" action="">
+        {% csrf_token %}
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
+
+        <h3>{{ sponsor.level }} Sponsor Benefits</h3>
+
+        {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+
+        {% for form in formset.forms %}
+            <div>
+                <h4>{{ form.instance.benefit }}</h4>
+                <p>{{ form.instance.benefit.description }}</p>
+
+                <fieldset>
+                    {{ form|as_bootstrap }}
+                </fieldset>
+            </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="save" />
+        </div>
+
+    </form>
+{% endblock %}
