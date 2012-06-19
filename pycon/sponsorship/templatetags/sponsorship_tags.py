@@ -56,26 +56,6 @@ class SponsorLevelNode(template.Node):
         return u""
 
 
-class SponsorshipsNode(template.Node):
-    
-    @classmethod
-    def handle_token(cls, parser, token):
-        bits = token.split_contents()
-        if len(bits) == 4 and bits[2] == "as":
-            return cls(bits[1], bits[3])
-        else:
-            raise template.TemplateSyntaxError("%r takes 'user as var'" % bits[0])
-    
-    def __init__(self, user, context_var):
-        self.user = template.Variable(user)
-        self.context_var = context_var
-    
-    def render(self, context):
-        user = self.user.resolve(context)
-        context[self.context_var] = user.sponsorships.all()
-        return u""
-
-
 @register.tag
 def sponsors(parser, token):
     """
@@ -92,11 +72,3 @@ def sponsor_levels(parser, token):
     {% sponsor_levels as levels %}
     """
     return SponsorLevelNode.handle_token(parser, token)
-
-
-@register.tag
-def sponsorships(parser, token):
-    """
-    {% sponsorships user as sponsorships %}
-    """
-    return SponsorshipsNode.handle_token(parser, token)

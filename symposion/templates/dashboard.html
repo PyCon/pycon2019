@@ -1,7 +1,5 @@
 {% extends "site_base.html" %}
 
-{% load sponsorship_tags %}
-
 {% block body %}
     <h1>Dashboard</h1>
     
@@ -21,21 +19,24 @@
     
     
     <h2>Sponsorship</h2>
-    {% sponsorships user as sponsorships %}
-    {% if sponsorships %}
-        {% for sponsorship in sponsorships %}
-            <li>
-                {% if sponsorship.active %}
-                    <a href="{% url sponsor_detail sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
-                    ({{ sponsorship.level }})
-                {% else %}
-                    <b>{{ sponsorship.name }}</b>
-                    ({{ sponsorship.level }})
-                    <i>awaiting approval</i>
-                {% endif %}
-            </li>
-        {% endfor %}
+    <p><a href="{% url sponsor_info %}">Learn more</a> about sponsorship.</p>
+    {% if user.sponsorships.exists %}
+        <p>Your sponsorship:</p>
+        <ul>
+            {% for sponsorship in user.sponsorships.all %}
+                <li>
+                    {% if sponsorship.active %}
+                        <a href="{% url sponsor_detail sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
+                        ({{ sponsorship.level }})
+                    {% else %}
+                        <b>{{ sponsorship.name }}</b>
+                        ({{ sponsorship.level }})
+                        <i>awaiting approval</i>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
-        <p><a href="{% url sponsor_info %}">Learn more</a> about sponsorship.</p>
+        <p><a href="{% url sponsor_apply %}">Apply to be a sponsor</a></p>
     {% endif %}
 {% endblock %}

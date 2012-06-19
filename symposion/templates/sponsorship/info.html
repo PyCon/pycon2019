@@ -7,45 +7,7 @@
         <div class="span8">
             <h1 class="section-title">PyCon <span>Sponsors</span></h1>
             {% box "sponsors_main" %}
-            <h2 class="section-title">Sponsor PyCon 2012</h2>
-            {% if user.is_authenticated %}
-                {% if user.sponsorship %}
-                    {% if user.sponsorship.active %}
-                        <p>{% box "sponsorship-info" %}</p>
-
-                        <ol class="steps">
-                            <li class="first done">Sign up and log in</li>
-                            <li class="second done">Apply to be a sponsor</li>
-                            <li class="third"><a href="{% url sponsor_detail user.sponsorship.pk %}">Manage sponsorship details</a></li>
-                        </ol>
-                    {% else %}
-                    <p>{% box "sponsorship-info" %}</p>
-
-                    <ol class="steps">
-                        <li class="first done">Sign up and log in</li>
-                        <li class="second done">Apply to be a sponsor</li>
-                        <li class="third next">Await application processing</li>
-                    </ol>
-                    {% endif %}
-                {% else %}
-                    <p>{% box "sponsorship-info" %}</p>
-
-                    <ol class="steps">
-                        <li class="first done">Sign up and log in</li>
-                        <li class="second next"><a href="{% url sponsor_apply %}">Apply to be a sponsor</a></li>
-                        <li class="third">Await application processing</li>
-                    </ol>
-
-                {% endif %}
-            {% else %}
-                <p>{% box "sponsorship-info" %}</p>
-
-                <ol class="steps">
-                    <li class="first next"><a href="{% url account_signup %}?next={{ request.path }}">Sign up</a> and <a href="{% url account_login %}?next={{ request.path }}">log in</a></li>
-                    <li class="second">Apply to be a sponsor</li>
-                    <li class="third">Await application processing</li>
-                </ol>
-            {% endif %}
+            <p>{% box "sponsorship-info" %}</p>
         </div>
         <div class="span4">
             {# include "sponsors/_sponsors_sidebar.html" #}

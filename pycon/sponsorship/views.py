@@ -25,7 +25,7 @@ def sponsor_apply(request):
         form = SponsorApplicationForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect("sponsor_info")
+            return redirect("dashboard")
     else:
         form = SponsorApplicationForm(user=request.user)
     
