@@ -1,9 +1,15 @@
 {% extends "site_base.html" %}
 
 {% load sitetree %}
+{% load i18n %}
+
+{% block body_class %}cms-page{% endblock %}
+
+{% block head_title %}{{ page.title }}{% endblock %}
+
+{% block page_title %}{{ page.title }}{% endblock %}
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
-    {% sitetree_breadcrumbs from "main" %}
-    <h1>{{ page.title }}</h1>
     {{ page.body }}
 {% endblock %}
