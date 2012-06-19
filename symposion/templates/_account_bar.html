@@ -3,11 +3,13 @@
 <div class="row">
     <div class="pull-right">
         {% if user.is_authenticated %}
-            <a href="{% url "account_logout" %}">Log out</a>
-        {% else %}
-            <a href="{% url "account_login" %}">Log in</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
             /
-            <a href="{% url "account_signup" %}">Sign up</a>
+            <a href="{% url 'account_logout' %}">Log out</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Log in</a>
+            /
+            <a href="{% url 'account_signup' %}">Sign up</a>
         {% endif %}
     </div>
 </div>
