@@ -17,9 +17,10 @@
         <p>To submit a proposal, first <a href="{% url speaker_create %}">create a speaker profile</a>.</p>
     {% endif %}
     
-    
     <h2>Sponsorship</h2>
+    
     <p><a href="{% url sponsor_info %}">Learn more</a> about sponsorship.</p>
+    
     {% if user.sponsorships.exists %}
         <p>Your sponsorship:</p>
         <ul>
@@ -41,8 +42,8 @@
     {% endif %}
     
     {% if user.is_staff %}
-    <h2>Staff</h2>
-    
-    <p>Go to Django <a href="{% url admin:index %}">Admin</a></p>
+        <h2>Staff</h2>
+        
+        <p>Go to Django <a href="{% url admin:index %}">Admin</a></p>
     {% endif %}
 {% endblock %}
