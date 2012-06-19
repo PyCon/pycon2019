@@ -1,0 +1,19 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+
+{% block body %}
+    
+    {# box "speaker-profile" #}
+    
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <legend>Create Speaker Profile</legend>
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </div>
+    </form>
+{% endblock %}

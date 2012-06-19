@@ -30,6 +30,8 @@ urlpatterns = patterns("",
     # url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
     url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
     
+    url(r"^speaker/", include("symposion.speakers.urls")),
+
     url(r"^sponsors/", include("pycon.sponsorship.urls")),
 
     url(r"^boxes/", include("symposion.boxes.urls")),

@@ -5,6 +5,16 @@
 {% block body %}
     <h1>Dashboard</h1>
     
+    <h2>Speaking</h2>
+    
+    {% if user.speaker_profile %}
+        <p><a href="{% url speaker_edit %}">Edit speaker profile</a></p>
+        <p><a href="#">Submit a new proposal</a></p>
+    {% else %}
+        <p>To submit a proposal, first <a href="{% url speaker_create %}">create a speaker profile</a>.</p>
+    {% endif %}
+    
+    
     <h2>Sponsorship</h2>
     {% sponsorships user as sponsorships %}
     {% if sponsorships %}
