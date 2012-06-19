@@ -39,4 +39,10 @@
     {% else %}
         <p><a href="{% url sponsor_apply %}">Apply to be a sponsor</a></p>
     {% endif %}
+    
+    {% if user.is_staff %}
+    <h2>Staff</h2>
+    
+    <p>Go to Django <a href="{% url admin:index %}">Admin</a></p>
+    {% endif %}
 {% endblock %}
