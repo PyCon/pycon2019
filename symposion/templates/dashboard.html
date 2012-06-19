@@ -11,8 +11,35 @@
     <h2>Speaking</h2>
     
     {% if user.speaker_profile %}
-        <p><a href="{% url speaker_edit %}">Edit speaker profile</a></p>
-        <p><a href="#">Submit a new proposal</a></p>
+        <p><a href="{% url speaker_edit %}">Edit your speaker profile</a></p>
+        
+        {% if user.speaker_profile.proposals.exists %}
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Session type</th>
+                    <th>Audience level</th>
+                    <th>Status</th>
+                    <th>Messages</th>
+                    <th>Actions</th>
+                </tr>
+                {% for proposal in user.speaker_profile.proposals.all %}
+                <tr>
+                    <td><a href="{% url proposal_detail proposal.pk %}">{{ proposal.title }}</a></td>
+                    <td>{{ proposal.kind.name }}</td>
+                    <td>{{ proposal.get_audience_level_display }}</td>
+                    <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}Accepted{% else %}Submitted{% endif %}{% else %}Associated{% endif %}{% endif %}</td>
+                    <td>{{ proposal.messages.all.count }}</td>
+                    {# <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user %}<a href="{% url proposal_edit proposal.pk %}">Edit</a>{% endif %}{% if request.user == proposal.speaker.user %} | <a href="{% url proposal_cancel proposal.pk %}">Cancel</a>{% else %}<a href="{% url proposal_leave proposal.pk %}">Leave</a>{% endif %}{% endif %}</td> #}
+                    <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user and proposal.can_edit %}<a href="{% url proposal_edit proposal.pk %}">Edit</a> | <a href="{% url proposal_speaker_manage proposal.id %}">Add/Remove Speakers</a>{% endif %}{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No proposals submitted yet.</p>
+        {% endif %}
+        
+        <p><a href="{% url proposal_submit %}">Submit a new proposal</a></p>
     {% else %}
         <p>To submit a proposal, first <a href="{% url speaker_create %}">create a speaker profile</a>.</p>
     {% endif %}

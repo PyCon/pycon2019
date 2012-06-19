@@ -164,6 +164,7 @@ INSTALLED_APPS = [
     "symposion.cms",
     "symposion.boxes",
     "symposion.speakers",
+    "symposion.proposals",
     
     # custom
     "pycon.sponsorship",
