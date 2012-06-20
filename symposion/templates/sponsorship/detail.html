@@ -7,12 +7,6 @@
 
 {% block page_title %}{% trans "Sponsorship" %}{% endblock %}
 
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li><a href="{% url dashboard %}">Dashboard</a></li>
-    </ul>
-{% endblock %}
-
 {% block body %}
     <h2>{{ sponsor.name }} ({{ sponsor.level }})</h2>
 
