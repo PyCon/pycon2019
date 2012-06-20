@@ -1,14 +1,16 @@
-{% extends "site_base.html" %}
+{% extends "auth_base.html" %}
 
 {% load bootstrap_tags %}
+{% load i18n %}
+
+{% block page_title %}{% trans "Edit Speaker Profile" %}{% endblock %}
 
 {% block body %}
-    
     {# box "speaker-profile" #}
-    
-    <form method="POST" action="" enctype="multipart/form-data">
+
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
-        <legend>Edit Speaker Profile</legend>
+        <legend>{% trans "Edit Speaker Profile" %}</legend>
         <fieldset>
             {{ form|as_bootstrap }}
         </fieldset>
