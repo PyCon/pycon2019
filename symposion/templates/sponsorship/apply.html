@@ -8,7 +8,7 @@
 {% block body %}
     <h1>{% trans "Apply to Be a Sponsor" %}</h1>
 
-    {# box "sponsorship-apply" #}
+    {% box "sponsorship-apply" %}
 
     <form method="POST" action="" class="form-horizontal">
         {% csrf_token %}
