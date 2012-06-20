@@ -1,6 +1,8 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load sponsorship_tags %}
+{% load thumbnail %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
@@ -58,62 +60,19 @@
     <div class="span12">
         <h3>Sponsors</h3>
         <ul id="slider">
-            <li class="first">
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-            </li>
-            <li>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-                <a href="#"><img src="{{ STATIC_URL }}img/temp/logo.png" width="91" height="48" alt="Logo" /></a>
-            </li>
+            {% sponsor_levels as levels %}
+            {% for level in levels %}
+                {% sponsors level as sponsors %}
+                {% if sponsors %}
+                    <li>
+                        {% for sponsor in sponsors %}
+                            <a href="{{ sponsor.external_url }}">
+                                <img src="{% thumbnail sponsor.logo '91x48' %}" alt="{{ sponsor.name }}" />
+                            </a>
+                        {% endfor %}
+                    </li>
+                {% endif %}
+            {% endfor %}
         </ul>
         <nav id="slider-nav"></nav>
     </div>
