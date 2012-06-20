@@ -28,13 +28,12 @@
         {{ formset.non_form_errors }}
 
         {% for form in formset.forms %}
-            <div>
-                <h4>{{ form.instance.benefit }}</h4>
-                <p>{{ form.instance.benefit.description }}</p>
-
-                <fieldset>
-                    {{ form|as_bootstrap }}
-                </fieldset>
+            <div class="control-group">
+                <label class="control-label">{{ form.instance.benefit }}</label>
+                <div class="controls">
+                    {{ form }}
+                    <p class="help-block">{{ form.instance.benefit.description }}</p>
+                </div>
             </div>
         {% endfor %}
 
