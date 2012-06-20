@@ -8,3 +8,7 @@
 
 PIL==1.1.7
 easy-thumbnails==1.0-alpha-21
+
+gondor==1.1
+psycopg2==2.4.5
+gunicorn==0.14.3
