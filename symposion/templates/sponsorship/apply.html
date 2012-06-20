@@ -1,16 +1,18 @@
 {% extends "site_base.html" %}
 
 {% load bootstrap_tags %}
+{% load i18n %}
 
-{% block body_class %}sponsors{% endblock %}
+{% block body_class %}auth sponsors{% endblock %}
 
 {% block body %}
-    
+    <h1>{% trans "Apply to Be a Sponsor" %}</h1>
+
     {# box "sponsorship-apply" #}
 
-    <form method="POST" action="" class="uniForm">
+    <form method="POST" action="" class="form-horizontal">
         {% csrf_token %}
-        <legend>Apply to Be a Sponsor</legend>
+        <legend>{% trans "Apply to Be a Sponsor" %}</legend>
         <fieldset>
             {{ form|as_bootstrap }}
         </fieldset>
@@ -19,5 +21,5 @@
         </div>
     </form>
     <small>By submitting this sponsor application you are agreeing to the <a href="{% url sponsor_terms %}" target="_blank">terms and conditions</a>.</small>
-    
+
 {% endblock %}
