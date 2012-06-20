@@ -534,22 +534,16 @@ body.venue {
 
 // auth pages
 body.auth {
-  .box-content {
-    h2 {
-      margin: 0;
-      font-size: 16px;
-      background: url('../img/box1.png') repeat-x 0 0;
-      padding: 6px 15px;
-      border-top: 1px solid white;
-      border-bottom: 1px solid #CCC;
-      text-shadow: 0px 1px 0px white;
-    }
-  }
-
   form.form-horizontal legend { display:none; }
 
-  .form-horizontal .help-block {
-    color:@grayLight;
+  .form-horizontal {
+    .help-block {
+      color:@grayLight;
+    }
+
+    textarea {
+      width:500px;
+    }
   }
 
   .box {
@@ -557,32 +551,18 @@ body.auth {
     border:0;
     .box-shadow(none);
 
-    .box-head {
-      position: relative;
-      height: 40px;
-      line-height: 40px;
-      #gradient > .vertical(#FAFAFA, #E9E9E9);
-      border: 1px solid #D5D5D5;
-      .border-radius(4px 4px 0 0);
-
-      h2 {
-        position: relative;
-        top: 2px;
-        left: 10px;
-        display: inline-block;
-        margin-right: 3em;
-        font-size:@baseFontSize + 3;
-        font-weight: 800;
-        line-height: 18px;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, .5);
-      }
-    }
-
     .box-content {
       padding: 40px 15px 15px;
       border: 1px solid #D5D5D5;
       .border-radius(5px);
       .box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+
+      h2 {
+        font-size:@baseFontSize + 6;
+        font-weight: 800;
+        line-height: 20px;
+        margin-bottom:20px;
+      }
 
       .actions {
 
@@ -622,6 +602,27 @@ body.auth {
       border-top: none;
       padding-top: 20px;
       .border-radius(0 0 4px 4px);
+    }
+  }
+
+  .box > .box-head {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    #gradient > .vertical(#FAFAFA, #E9E9E9);
+    border: 1px solid #D5D5D5;
+    .border-radius(4px 4px 0 0);
+
+    h2 {
+      position: relative;
+      top: 2px;
+      left: 10px;
+      display: inline-block;
+      margin-right: 3em;
+      font-size:@baseFontSize + 3;
+      font-weight: 800;
+      line-height: 18px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, .5);
     }
   }
 

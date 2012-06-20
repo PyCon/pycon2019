@@ -1,19 +1,22 @@
-{% extends "site_base.html" %}
+{% extends "auth_base.html" %}
 
 {% load bootstrap_tags %}
+{% load i18n %}
 
 {% block head_title %}{{ sponsor }}{% endblock %}
 
-{% block body %}
-    
+{% block page_title %}{% trans "Sponsorship" %}{% endblock %}
+
+{% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{% url dashboard %}">Dashboard</a></li>
     </ul>
-    
-    <h1>Sponsorship</h1>
+{% endblock %}
+
+{% block body %}
     <h2>{{ sponsor.name }} ({{ sponsor.level }})</h2>
 
-    <form enctype="multipart/form-data" method="POST" action="">
+    <form enctype="multipart/form-data" method="POST" action="" class="form-horizontal">
         {% csrf_token %}
         <fieldset>
             {{ form|as_bootstrap }}
