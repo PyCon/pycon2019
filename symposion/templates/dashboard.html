@@ -51,10 +51,10 @@
                                         <td><a href="{% url proposal_detail proposal.pk %}">{{ proposal.title }}</a></td>
                                         <td>{{ proposal.kind.name }}</td>
                                         <td>{{ proposal.get_audience_level_display }}</td>
-                                        <td>{% if proposal.cancelled %}Cancelled{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}Accepted{% else %}Submitted{% endif %}{% else %}Associated{% endif %}{% endif %}</td>
+                                        <td>{% if proposal.cancelled %}<span class="label label-important">Cancelled</span>{% else %}{% if request.user == proposal.speaker.user %}{% if proposal.result.accepted %}<span class="label label-success">Accepted</span>{% else %}<span class="label">Submitted</span>{% endif %}{% else %}<span class="label">Associated</span>{% endif %}{% endif %}</td>
                                         <td>{{ proposal.messages.all.count }}</td>
                                         {# <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user %}<a href="{% url proposal_edit proposal.pk %}">Edit</a>{% endif %}{% if request.user == proposal.speaker.user %} | <a href="{% url proposal_cancel proposal.pk %}">Cancel</a>{% else %}<a href="{% url proposal_leave proposal.pk %}">Leave</a>{% endif %}{% endif %}</td> #}
-                                        <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user and proposal.can_edit %}<a href="{% url proposal_edit proposal.pk %}">Edit</a> | <a href="{% url proposal_speaker_manage proposal.id %}">Add/Remove Speakers</a>{% endif %}{% endif %}</td>
+                                        <td>{% if not proposal.cancelled %}{% if request.user == proposal.speaker.user and proposal.can_edit %}<a href="{% url proposal_edit proposal.pk %}" class="btn btn-mini"><i class="icon-pencil"></i> Edit</a> <a href="{% url proposal_speaker_manage proposal.id %}" class="btn btn-mini"><i class="icon-user"></i> Add/Remove Speakers</a>{% endif %}{% endif %}</td>
                                     </tr>
                                     {% endfor %}
                                 </table>
