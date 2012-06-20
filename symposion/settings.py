@@ -185,15 +185,16 @@ ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 
-# AUTHENTICATION_BACKENDS = [
-#     "pinax.apps.account.auth_backends.AuthenticationBackend",
-# ]
+AUTHENTICATION_BACKENDS = [
+    "account.auth_backends.EmailAuthenticationBackend",
+]
 
 LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
 
 ACCOUNT_SIGNUP_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+ACCOUNT_USER_DISPLAY = lambda user: user.email
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
