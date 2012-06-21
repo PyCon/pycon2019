@@ -7,7 +7,12 @@
 
 {% block head_title %}{{ page.title }}{% endblock %}
 
-{% block page_title %}{{ page.title }}{% endblock %}
+{% block page_title %}
+    {{ page.title }}
+    <div class="pull-right">
+        <a href="{% url cms_page_edit page.path %}" class="btn"><i class="icon-pencil icon-large"></i></a>
+    </div>
+{% endblock %}
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
