@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from symposion.cms.models import Page
+from .models import Page
 
 
 admin.site.register(Page)

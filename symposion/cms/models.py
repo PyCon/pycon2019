@@ -12,7 +12,7 @@ from taggit.managers import TaggableManager
 
 import reversion
 
-from symposion.cms.managers import PublishedPageManager
+from .managers import PublishedPageManager
 
 
 class Page(models.Model):

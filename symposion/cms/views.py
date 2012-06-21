@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.template import RequestContext
 
-from symposion.cms.models import Page
+from .models import Page
 
 
 def page(request, path):
