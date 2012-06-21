@@ -8,7 +8,7 @@ def default_can_edit(request, *args, **kwargs):
     This is meant to be overridden in your project per domain specific
     requirements.
     """
-    return request.user.is_staff
+    return request.user.is_staff or request.user.is_superuser
 
 
 def load_can_edit():
