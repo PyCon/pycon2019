@@ -24,6 +24,7 @@ urlpatterns = patterns("",
     url(r"^account/login/$", symposion.views.LoginView.as_view(), name="account_login"),
     url(r"^account/", include("account.urls")),
     url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
+    url(r"^markitup/", include("markitup.urls")),
 
     # url(r"^openid/", include(PinaxConsumer().urls)),
 
