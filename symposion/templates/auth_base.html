@@ -22,3 +22,19 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+        $(function() {
+            // Prepend @ symbol to any twitter username fields
+            var twitterInput = $("#id_twitter_username");
+            if (twitterInput) {
+                var wrapperdiv = $("<div class='input-prepend'/>");
+                var twitterInput = $("#id_twitter_username");
+
+                twitterInput.parent("div.controls").prepend(wrapperdiv);
+                wrapperdiv.append("<span class='add-on'>@</span>", twitterInput);
+            };
+        });
+    </script>
+{% endblock %}

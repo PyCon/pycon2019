@@ -22,7 +22,7 @@ class Speaker(models.Model):
     twitter_username = models.CharField(
         max_length = 15,
         blank = True,
-        help_text = "Your Twitter account, with or without the @"
+        help_text = "Your Twitter account"
     )
     annotation = models.TextField() # staff only
     invite_email = models.CharField(max_length=200, unique=True, null=True, db_index=True)
