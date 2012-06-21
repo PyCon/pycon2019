@@ -15,7 +15,7 @@
             {% user_display request.user %}
         {% else %}
             <a href="{% url 'account_login' %}">Log in</a>
-            /
+            |
             <a href="{% url 'account_signup' %}">Sign up</a>
         {% endif %}
     </div>
