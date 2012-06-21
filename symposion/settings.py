@@ -204,8 +204,8 @@ DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
 
-MARKITUP_FILTER = ("markdown.markdown", {"safe_mode": True})
 MARKITUP_SET = "markitup/sets/markdown"
+MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
 
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 
