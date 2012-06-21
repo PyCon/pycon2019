@@ -32,22 +32,22 @@ def page_edit(request, path):
     if not can_edit(request.user):
         raise Http404
     
+    try:
+        page = Page.published.get(path=path)
+    except Page.DoesNotExist:
+        page = None
+    
     if request.method == "POST":
-        form = PageForm(request.POST)
+        form = PageForm(request.POST, instance=page)
         if form.is_valid():
             page = form.save(commit=False)
             page.path = path
             page.save()
             return redirect(page)
-    else:
-        try:
-            page = Page.published.get(path=path)
-        except Page.DoesNotExist:
-            page = None
-        if page:
-            form = PageForm(instance=page)
         else:
-            form = PageForm(initial={ "path": path})
+            print form.errors
+    else:
+        form = PageForm(instance=page, initial={"path": path})
     
     return render(request, "cms/page_edit.html", {
         "path": path,
