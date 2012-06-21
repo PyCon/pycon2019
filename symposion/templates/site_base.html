@@ -6,6 +6,7 @@
 {% load metron_tags %}
 {% load i18n %}
 {% load sitetree %}
+{% load markitup_tags %}
 
 {% block head_title_base %}{% block head_title %}{% endblock %} | PyCon US 2013{% endblock %}
 
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
 
     <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
+    {% markitup_media "no-jquery" %}
     {% block extra_head %}{% endblock %}
 {% endblock %}
 

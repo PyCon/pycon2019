@@ -2,8 +2,6 @@
 {% load i18n %}
 
 {% if form %}
-    {% markitup_media "no-jquery" %}
-
     <div id="edit_{{ label }}" class="modal fade hide">
         <form id="edit_form_{{ label }}" accept-charset="UTF-8" class="modal-form" method="POST" action="{{ form_action }}?next={{ request.path }}">
             <div class="modal-header">
@@ -24,8 +22,6 @@
         </form>
     </div>
 {% endif %}
-
-
 
 <div id="content_{{ label }}" class="content-box {% if form %}editable{% endif %}">
     {% if form %}
