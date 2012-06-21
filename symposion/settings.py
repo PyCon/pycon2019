@@ -158,6 +158,7 @@ INSTALLED_APPS = [
     "markitup",
     "taggit",
     "reversion",
+    "biblion",
     
     # symposion
     "symposion.about",
@@ -206,6 +207,11 @@ DEBUG_TOOLBAR_CONFIG = {
 
 MARKITUP_SET = "markitup/sets/markdown"
 MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
+
+BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
+BIBLION_SECTIONS = [
+    ("general", "General"),
+]
 
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 

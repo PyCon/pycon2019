@@ -18,6 +18,7 @@ pytz==2011n
 django-openid==0.3a1
 python-openid==2.2.5
 django_compressor==1.2a1
+biblion==0.1.dev11
 
 django-taggit==0.9.3
 django-reversion==1.6.0
