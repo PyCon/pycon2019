@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
+{% load boxes_tags %}
 
 {% block head_title_base %}PyCon US 2013 | Santa Clara, CA | March 13th &ndash; March 21st{% endblock %}
 
@@ -113,10 +114,7 @@
 
     </div>
     <div class="span4">
-        <h3>About</h3>
-        <p>PyCon is the largest annual gathering for the community using and developing the open-source Python programming language. PyCon is organized by the Python community for the community. We try to keep registration far cheaper than most comparable technology conferences, to keep PyCon accessible to the widest group possible. PyCon is a diverse conference dedicated to providing an enjoyable experience to everyone. Our code of conduct is intended to help everyone maintain the PyCon spirit. We thank all attendees and staff for observing it.</p>
-        <p>PyCon has an amazing variety of speakers, subjects and keynote speakers</p>
-        <a href="#" class="read-more">Read more <span class="arrow"></span></a>
+        {% box "homepage-about" %}
     </div>
 </div>
 {% endblock %}
