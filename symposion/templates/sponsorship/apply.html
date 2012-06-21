@@ -15,13 +15,13 @@
     <form method="POST" action="" class="form-horizontal">
         {% csrf_token %}
         <legend>{% trans "Apply to Be a Sponsor" %}</legend>
-        <fieldset>
-            {{ form|as_bootstrap }}
-        </fieldset>
+        {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="submit" />
+            <input class="btn btn-primary" type="submit" value="Apply" />
+            <p class="help-block">
+                <small>By submitting this sponsor application you are agreeing to the <a href="{% url sponsor_terms %}" target="_blank">terms and conditions</a>.</small>
+            </p>
         </div>
     </form>
-    <small>By submitting this sponsor application you are agreeing to the <a href="{% url sponsor_terms %}" target="_blank">terms and conditions</a>.</small>
 
 {% endblock %}
