@@ -39,6 +39,7 @@ urlpatterns = patterns("",
     url(r"^sponsors/", include("pycon.sponsorship.urls")),
 
     url(r"^boxes/", include("symposion.boxes.urls")),
+    url(r"^sitemap/", direct_to_template, { "template": "static/sitemap.html", }, name="sitemap"),
     url(r"^(?P<path>%s)$" % PAGE_RE, "symposion.cms.views.page", name="cms_page"),
 )
 
