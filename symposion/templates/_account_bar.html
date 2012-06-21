@@ -1,15 +1,18 @@
 {% load url from future %}
+{% load account_tags %}
 
 <div class="row">
     <div class="pull-right">
         {% if user.is_authenticated %}
             <a href="{% url 'dashboard' %}">Dashboard</a>
-            /
+            |
             <a href="{% url 'account_settings' %}">Settings</a>
-            /
+            |
             <form action="{% url 'account_logout' %}" method="post">{% csrf_token %}
                 <button type="submit">Log out</button>
             </form>
+            | 
+            {% user_display request.user %}
         {% else %}
             <a href="{% url 'account_login' %}">Log in</a>
             /
