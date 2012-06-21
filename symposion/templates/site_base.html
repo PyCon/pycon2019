@@ -16,25 +16,6 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
 
     <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
-    <style type="text/css">
-        .modal div.markItUp {
-            width: 500px;
-        }
-        .modal textarea.markItUpEditor {
-            width: 500px;
-            height: 250px;
-        }
-        .content-box.editable {
-            border: 1px dashed #bbb;
-            padding: 5px;
-            min-height: 30px;
-        }
-        .edit-toggle {
-            position: relative;
-            float: left;
-            left: -40px;
-        }
-    </style>
     {% block extra_head %}{% endblock %}
 {% endblock %}
 

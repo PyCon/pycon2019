@@ -29,7 +29,7 @@
 
 <div id="content_{{ label }}" class="content-box {% if form %}editable{% endif %}">
     {% if form %}
-        <a href="#edit_{{ label }}" data-toggle="modal" class="btn btn-small edit-toggle">Edit</a>
+        <a href="#edit_{{ label }}" data-toggle="modal" class="btn edit-toggle"><i class="icon-pencil"></i></a>
     {% endif %}
     {{ box.content|safe }}
 </div>
