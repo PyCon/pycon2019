@@ -62,7 +62,7 @@
         <ul id="slider">
             {% sponsor_levels as levels %}
             {% for level in levels %}
-                {% sponsors level as sponsors %}
+                {% sponsors level.name as sponsors %}
                 {% if sponsors %}
                     <li>
                         {% for sponsor in sponsors %}
