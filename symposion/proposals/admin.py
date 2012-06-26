@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # from symposion.proposals.actions import export_as_csv_action
-from symposion.proposals.models import ProposalSection, ProposalKind
-from symposion.proposals.models import PyConProposalCategory, PyConProposal
+from symposion.proposals.models import ProposalSection
 
 
 # admin.site.register(Proposal,
@@ -30,9 +29,3 @@ from symposion.proposals.models import PyConProposalCategory, PyConProposal
 
 
 admin.site.register(ProposalSection)
-admin.site.register(ProposalKind,
-    prepopulated_fields = {"slug": ("name",)},
-    list_display = ("name", "section", "proposal_model"),
-)
-admin.site.register(PyConProposalCategory)
-admin.site.register(PyConProposal)

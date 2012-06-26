@@ -1,4 +1,5 @@
 import random
+import sys
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,10 +15,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from symposion.proposals.forms import PyConProposalForm, AddSpeakerForm
-from symposion.proposals.models import PyConProposal
+# from symposion.proposals.forms import PyConProposalForm, AddSpeakerForm
+from symposion.proposals.models import ProposalSection, ProposalKind
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
+
+def get_form(name):
+    dot = name.rindex('.')
+    mod_name, form_name = name[:dot], name[dot+1:]
+    __import__(mod_name)
+    return getattr(sys.modules[mod_name], form_name)
 
 
 def proposal_submit(request):
@@ -29,8 +36,32 @@ def proposal_submit(request):
         except ObjectDoesNotExist:
             return redirect("dashboard")
     
+    kinds = []
+    for proposal_section in ProposalSection.available():
+        for kind in proposal_section.section.proposal_kinds.all():
+            kinds.append(kind)
+    
+    return render(request, "proposals/proposal_submit.html", {
+        "kinds": kinds,
+    })
+
+
+def proposal_submit_kind(request, kind_slug):
+    
+    kind = get_object_or_404(ProposalKind, slug=kind_slug)
+    
+    if not request.user.is_authenticated():
+        return redirect("home") # @@@ unauth'd speaker info page?
+    else:
+        try:
+            speaker_profile = request.user.speaker_profile
+        except ObjectDoesNotExist:
+            return redirect("dashboard")
+    
+    form_class = get_form(settings.PROPOSAL_FORMS[kind_slug])
+    
     if request.method == "POST":
-        form = PyConProposalForm(request.POST)
+        form = form_class(request.POST)
         if form.is_valid():
             proposal = form.save(commit=False)
             proposal.speaker = speaker_profile
@@ -41,9 +72,10 @@ def proposal_submit(request):
                 return redirect("proposal_speaker_manage", proposal.pk)
             return redirect("dashboard")
     else:
-        form = PyConProposalForm()
+        form = form_class()
     
-    return render(request, "proposals/proposal_submit.html", {
+    return render(request, "proposals/proposal_submit_kind.html", {
+        "kind": kind,
         "form": form,
     })
 

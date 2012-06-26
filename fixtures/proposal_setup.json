@@ -1,0 +1,65 @@
+[
+    {
+        "pk": 1, 
+        "model": "proposals.proposalsection", 
+        "fields": {
+            "start": null, 
+            "section": 1, 
+            "end": null, 
+            "closed": null, 
+            "published": null
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "proposals.proposalsection", 
+        "fields": {
+            "start": null, 
+            "section": 2, 
+            "end": null, 
+            "closed": null, 
+            "published": null
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "proposals.proposalsection", 
+        "fields": {
+            "start": null, 
+            "section": 3, 
+            "end": null, 
+            "closed": null, 
+            "published": null
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "proposals.proposalkind", 
+        "fields": {
+            "section": 1, 
+            "name": "tutorial", 
+            "proposal_model": 48, 
+            "slug": "tutorial"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "proposals.proposalkind", 
+        "fields": {
+            "section": 2, 
+            "name": "talk", 
+            "proposal_model": 47, 
+            "slug": "talk"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "proposals.proposalkind", 
+        "fields": {
+            "section": 3, 
+            "name": "poster", 
+            "proposal_model": 49, 
+            "slug": "poster"
+        }
+    }
+]
