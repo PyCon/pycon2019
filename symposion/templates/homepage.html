@@ -69,7 +69,7 @@
                     <li>
                         {% for sponsor in sponsors %}
                             <a href="{{ sponsor.external_url }}">
-                                <img src="{% thumbnail sponsor.logo '91x48' %}" alt="{{ sponsor.name }}" />
+                                <img src="{% thumbnail sponsor.website_logo '91x48' %}" alt="{{ sponsor.name }}" />
                             </a>
                         {% endfor %}
                     </li>
