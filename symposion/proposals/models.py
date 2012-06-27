@@ -7,6 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 
 from markitup.fields import MarkupField
 
+from model_utils.managers import InheritanceManager   
+
 from symposion.conference.models import Section
 
 
@@ -58,6 +60,10 @@ class ProposalKind(models.Model):
 
 
 class ProposalBase(models.Model):
+    
+    objects = InheritanceManager()
+    
+    kind = models.ForeignKey(ProposalKind)
     
     title = models.CharField(max_length=100)
     description = models.TextField(

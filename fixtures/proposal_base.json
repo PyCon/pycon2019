@@ -38,7 +38,6 @@
         "fields": {
             "section": 1, 
             "name": "tutorial", 
-            "proposal_model": 48, 
             "slug": "tutorial"
         }
     }, 
@@ -48,7 +47,6 @@
         "fields": {
             "section": 2, 
             "name": "talk", 
-            "proposal_model": 47, 
             "slug": "talk"
         }
     }, 
@@ -58,7 +56,6 @@
         "fields": {
             "section": 3, 
             "name": "poster", 
-            "proposal_model": 49, 
             "slug": "poster"
         }
     }

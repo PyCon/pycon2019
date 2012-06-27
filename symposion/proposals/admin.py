@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # from symposion.proposals.actions import export_as_csv_action
-from symposion.proposals.models import ProposalSection
+from symposion.proposals.models import ProposalSection, ProposalKind
 
 
 # admin.site.register(Proposal,
@@ -29,3 +29,4 @@ from symposion.proposals.models import ProposalSection
 
 
 admin.site.register(ProposalSection)
+admin.site.register(ProposalKind)

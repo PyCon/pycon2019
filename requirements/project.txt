@@ -13,3 +13,5 @@ html5lib==0.95
 gondor==1.1
 psycopg2==2.4.5
 gunicorn==0.14.3
+
+django-model-utils==1.1.0
