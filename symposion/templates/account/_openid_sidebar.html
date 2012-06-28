@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load url from future %}
+
+<h4>{% trans "Sign in with another account:" %}</h4>
+<ul>
+    <li>
+        <a href="{% url "socialauth_begin" "google" %}">Sign-in using Google</a>
+    </li>
+    <li>
+        <a href="{% url "socialauth_begin" "yahoo" %}">Sign-in using Yahoo!</a>
+    </li>
+</ul>
+
+<h4>{% trans "Sign in with OpenID" %}</h4>
+<form action="{% url "socialauth_begin" "openid" %}" method="POST" autocapitalize="off" class"form-inline">
+    {% csrf_token %}
+    <input class="openid" type="text" name="openid_identifier" placeholder="Your OpenID Identifier" />
+    <input type="submit" value="{% trans "Sign in" %}" class="btn btn-primary" />
+</form>

@@ -9,6 +9,7 @@
 PIL==1.1.7
 easy-thumbnails==1.0-alpha-21
 html5lib==0.95
+django-social-auth==0.7.0
 
 gondor==1.1
 psycopg2==2.4.5
