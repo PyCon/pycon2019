@@ -9,9 +9,11 @@
 
 {% block page_title %}
     {{ page.title }}
-    <div class="pull-right">
-        <a href="{% url cms_page_edit page.path %}" class="btn"><i class="icon-pencil icon-large"></i></a>
-    </div>
+    {% if editable %}
+        <div class="pull-right">
+            <a href="{% url cms_page_edit page.path %}" class="btn"><i class="icon-pencil icon-large"></i></a>
+        </div>
+    {% endif %}
 {% endblock %}
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 

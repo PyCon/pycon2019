@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{% trans "Create an account" %}{% endblock %}
+
+{% block body %}
+    <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        <legend>{% trans "Create a new account" %}</legend>
+        <fieldset>
+            {% csrf_token %}
+            {{ form|as_bootstrap }}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{% trans "Create Account" %}</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block sidebar %}
+    {% include "account/_openid_sidebar.html" %}
+{% endblock %}

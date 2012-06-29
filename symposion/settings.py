@@ -4,6 +4,9 @@
 import os.path
 import posixpath
 
+from django.core.urlresolvers import reverse_lazy
+
+
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -125,6 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.tz",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
+    "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
 ]
@@ -159,6 +163,7 @@ INSTALLED_APPS = [
     "taggit",
     "reversion",
     "biblion",
+    "social_auth",
     
     # symposion
     "symposion.about",
@@ -187,17 +192,38 @@ ACCOUNT_REQUIRED_EMAIL = False
 ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
+ACCOUNT_CREATE_ON_SAVE = True
 
 AUTHENTICATION_BACKENDS = [
+
+    # Social Auth Backends
+    "social_auth.backends.google.GoogleBackend",
+    "social_auth.backends.yahoo.YahooBackend",
+    "social_auth.backends.OpenIDBackend",
+    
+    # Django User Accounts
     "account.auth_backends.EmailAuthenticationBackend",
 ]
 
-LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
+SOCIAL_AUTH_PIPELINE = [
+    "social_auth.backends.pipeline.social.social_auth_user",
+    "social_auth.backends.pipeline.user.get_username",
+    "symposion.social_auth.pipeline.user.create_user",
+    "social_auth.backends.pipeline.social.associate_user",
+    "social_auth.backends.pipeline.social.load_extra_data",
+    "social_auth.backends.pipeline.user.update_user_details",
+]
+
+LOGIN_URL = reverse_lazy("account_login")
 
 ACCOUNT_SIGNUP_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.email
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/dashboard/"
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/dashboard/"
+SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
