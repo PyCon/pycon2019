@@ -128,25 +128,26 @@ def proposal_speaker_manage(request, pk):
                     speaker, token = create_speaker_token(email_address)
                     message_ctx["token"] = token
                     # fire off email to user to create profile
-                    send_email(
-                        [email_address], "speaker_no_profile",
-                        context = message_ctx
-                    )
+                    # send_email(
+                    #     [email_address], "speaker_no_profile",
+                    #     context = message_ctx
+                    # )
                 else:
+                    pass
                     # fire off email to user letting them they are loved.
-                    send_email(
-                        [email_address], "speaker_addition",
-                        context = message_ctx
-                    )
+                    # send_email(
+                    #     [email_address], "speaker_addition",
+                    #     context = message_ctx
+                    # )
             else:
                 speaker, token = create_speaker_token(email_address)
                 message_ctx["token"] = token
                 # fire off email letting user know about site and to create
                 # account and speaker profile
-                send_email(
-                    [email_address], "speaker_invite",
-                    context = message_ctx
-                )
+                # send_email(
+                #     [email_address], "speaker_invite",
+                #     context = message_ctx
+                # )
             proposal.additional_speakers.add(speaker)
             messages.success(request, "Speaker added to proposal.")
             return redirect("proposal_speaker_manage", proposal.pk)
