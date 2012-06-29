@@ -198,53 +198,5 @@
         }, 
         "model": "pycon.pyconproposalcategory", 
         "pk": 29
-    }, 
-    {
-        "fields": {
-            "closed": true, 
-            "end": "2011-10-13 00:00:00", 
-            "name": "Tutorial", 
-            "published": true, 
-            "slug": "tutorials", 
-            "start": "2011-07-27 20:00:00"
-        }, 
-        "model": "conference.presentationkind", 
-        "pk": 1
-    }, 
-    {
-        "fields": {
-            "closed": true, 
-            "end": "2012-01-16 05:00:00", 
-            "name": "Panel", 
-            "published": true, 
-            "slug": "panels", 
-            "start": "2011-07-27 20:00:00"
-        }, 
-        "model": "conference.presentationkind", 
-        "pk": 3
-    }, 
-    {
-        "fields": {
-            "closed": true, 
-            "end": "2011-10-14 00:00:00", 
-            "name": "Talk", 
-            "published": true, 
-            "slug": "talks", 
-            "start": "2011-07-27 20:00:00"
-        }, 
-        "model": "conference.presentationkind", 
-        "pk": 2
-    }, 
-    {
-        "fields": {
-            "closed": false, 
-            "end": "2012-02-04 05:00:00", 
-            "name": "Poster", 
-            "published": true, 
-            "slug": "posters", 
-            "start": "2011-07-27 20:00:00"
-        }, 
-        "model": "conference.presentationkind", 
-        "pk": 4
     }
 ]
