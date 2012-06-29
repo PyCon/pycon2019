@@ -28,3 +28,9 @@ class AddSpeakerForm(forms.Form):
                 "This email address has already been added to your talk proposal"
             )
         return value
+
+
+class SupportingDocumentCreateForm(forms.Form):
+    
+    file = forms.FileField()
+    description = forms.CharField(max_length=140)
