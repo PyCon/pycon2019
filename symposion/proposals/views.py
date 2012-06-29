@@ -15,7 +15,7 @@ from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKi
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
 
-from symposion.proposal.forms import AddSpeakerForm
+from symposion.proposals.forms import AddSpeakerForm
 
 
 def get_form(name):
