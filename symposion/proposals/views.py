@@ -15,7 +15,7 @@ from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKi
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
 
-from symposion.proposal.forms import AddSpeakerForm
+from symposion.proposals.forms import AddSpeakerForm, SupportingDocumentCreateForm
 
 
 def get_form(name):
@@ -245,3 +245,49 @@ def proposal_leave(request, pk):
         "proposal": proposal,
     }
     return render(request, "proposals/proposal_leave.html", ctx)
+
+
+@login_required
+def document_create(request):
+    if request.method == "POST":
+        form = SupportingDocumentCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            with transaction.commit_on_success():
+                bytes = form.cleaned_data["file"].size
+                kwargs = {
+                    "name": form.cleaned_data["file"].name,
+                    "description": form.cleaned_data["description"],
+                    "author": request.user,
+                    "file": form.cleaned_data["file"],
+                }
+                document = SupportingDocumentCreateForm.objects.create(**kwargs)
+            return redirect("documents_index")
+    else:
+        form = SupportingDocumentCreateForm()
+    ctx = {
+        "form": form,
+    }
+    return render(request, "documents/document_create.html", ctx)
+
+
+@login_required
+def document_download(request, pk, *args):
+    document = get_object_or_404(SupportingDocumentCreateForm, pk=pk, author=request.user)
+    if settings.DOCUMENTS_USE_X_ACCEL_REDIRECT:
+        response = HttpResponse()
+        response["X-Accel-Redirect"] = document.file.url
+        # delete content-type to allow Gondor to determine the filetype and
+        # we definitely don't want Django's crappy default :-)
+        del response["content-type"]
+    else:
+        response = static.serve(request, document.file.name, document_root=settings.MEDIA_ROOT)
+    return response
+
+
+@login_required
+def document_delete(request, pk):
+    document = get_object_or_404(SupportingDocumentCreateForm, pk=pk, author=request.user)
+    if request.method == "POST":
+        document.delete()
+        # @@@ message
+    return redirect("documents_index")

@@ -116,7 +116,7 @@ class SupportingDocument(models.Model):
     proposal = models.ForeignKey(ProposalBase, related_name="supporting_documents")
     
     uploaded_by = models.ForeignKey(User)
-    created_at = models.DatTimeField(default=datetime.datetime.now)
+    created_at = models.DateTimeField(default=datetime.datetime.now)
     
     file = models.FileField(upload_to=uuid_filename)
     description = models.CharField(max_length=140)
