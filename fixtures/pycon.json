@@ -1,0 +1,250 @@
+[
+    {
+        "fields": {
+            "name": "Community", 
+            "slug": "community"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "name": "Distributed Computing", 
+            "slug": "distributed-computing"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "name": "Systems Administration", 
+            "slug": "systems-administration"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 3
+    }, 
+    {
+        "fields": {
+            "name": "Packaging", 
+            "slug": "packaging"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 5
+    }, 
+    {
+        "fields": {
+            "name": "Testing", 
+            "slug": "testing"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 6
+    }, 
+    {
+        "fields": {
+            "name": "Databases/NoSQL", 
+            "slug": "databasesnosql"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 7
+    }, 
+    {
+        "fields": {
+            "name": "Best Practices/Patterns", 
+            "slug": "best-practicespatterns"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 8
+    }, 
+    {
+        "fields": {
+            "name": "High Performance Computing", 
+            "slug": "high-performance-computing"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 9
+    }, 
+    {
+        "fields": {
+            "name": "Education", 
+            "slug": "education"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 10
+    }, 
+    {
+        "fields": {
+            "name": "Science", 
+            "slug": "science"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 11
+    }, 
+    {
+        "fields": {
+            "name": "Industry Uses", 
+            "slug": "industry-uses"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 12
+    }, 
+    {
+        "fields": {
+            "name": "Web Frameworks", 
+            "slug": "web-frameworks"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 15
+    }, 
+    {
+        "fields": {
+            "name": "Documentation", 
+            "slug": "documentation"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 17
+    }, 
+    {
+        "fields": {
+            "name": "Concurrency", 
+            "slug": "concurrency"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 18
+    }, 
+    {
+        "fields": {
+            "name": "Python Internals", 
+            "slug": "python-internals"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 19
+    }, 
+    {
+        "fields": {
+            "name": "Embedded Systems", 
+            "slug": "embedded-systems"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 20
+    }, 
+    {
+        "fields": {
+            "name": "Other", 
+            "slug": "other"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 21
+    }, 
+    {
+        "fields": {
+            "name": "GUI Programming", 
+            "slug": "gui-programming"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 22
+    }, 
+    {
+        "fields": {
+            "name": "Useful libraries", 
+            "slug": "useful-libraries"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 23
+    }, 
+    {
+        "fields": {
+            "name": "Gaming", 
+            "slug": "gaming"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 24
+    }, 
+    {
+        "fields": {
+            "name": "Mobile", 
+            "slug": "mobile"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 25
+    }, 
+    {
+        "fields": {
+            "name": "Big Data", 
+            "slug": "big-data"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 26
+    }, 
+    {
+        "fields": {
+            "name": "Cloud", 
+            "slug": "cloud"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 27
+    }, 
+    {
+        "fields": {
+            "name": "Core Python (Language, Stdlib)", 
+            "slug": "core-python-language-stdlib"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 28
+    }, 
+    {
+        "fields": {
+            "name": "Business", 
+            "slug": "business"
+        }, 
+        "model": "pycon.pyconproposalcategory", 
+        "pk": 29
+    }, 
+    {
+        "fields": {
+            "closed": true, 
+            "end": "2011-10-13 00:00:00", 
+            "name": "Tutorial", 
+            "published": true, 
+            "slug": "tutorials", 
+            "start": "2011-07-27 20:00:00"
+        }, 
+        "model": "conference.presentationkind", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "closed": true, 
+            "end": "2012-01-16 05:00:00", 
+            "name": "Panel", 
+            "published": true, 
+            "slug": "panels", 
+            "start": "2011-07-27 20:00:00"
+        }, 
+        "model": "conference.presentationkind", 
+        "pk": 3
+    }, 
+    {
+        "fields": {
+            "closed": true, 
+            "end": "2011-10-14 00:00:00", 
+            "name": "Talk", 
+            "published": true, 
+            "slug": "talks", 
+            "start": "2011-07-27 20:00:00"
+        }, 
+        "model": "conference.presentationkind", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "closed": false, 
+            "end": "2012-02-04 05:00:00", 
+            "name": "Poster", 
+            "published": true, 
+            "slug": "posters", 
+            "start": "2011-07-27 20:00:00"
+        }, 
+        "model": "conference.presentationkind", 
+        "pk": 4
+    }
+]
