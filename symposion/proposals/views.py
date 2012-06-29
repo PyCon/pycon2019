@@ -11,6 +11,8 @@ from django.utils.hashcompat import sha_constructor
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from account.models import EmailAddress
+
 from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
