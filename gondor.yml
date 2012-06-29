@@ -14,7 +14,7 @@ requirements_file: requirements/project.txt
 # moving static files into place. Accepts same parameters as gondor run.
 on_deploy:
     - manage.py collectstatic --noinput
-#     - manage.py syncdb --noinput
+    - manage.py upgradedb --execute
 
 # URLs which should be served by Gondor mapping to a filesystem location
 # relative to your writable storage area.
