@@ -71,6 +71,17 @@ h3.logo {
   }
 }
 
+.tagline {
+  position:absolute;
+  top:12px;
+  left:225px;
+  border-left:1px solid @white;
+  color:@white;
+  font-style:italic;
+  text-shadow:0 1px 0 rgba(0,0,0,0.5);
+  padding-left:9px;
+}
+
 .account-bar {
   color:#fff;
   position:absolute;
@@ -113,7 +124,9 @@ h3.logo {
 }
 
 // homepage
-body.home h3.logo { display:none; }
+body.home {
+  h3.logo, .tagline { display:none; }
+}
 
 body.home .account-bar {
   color:@linkColor;
@@ -136,6 +149,17 @@ body.home header.main {
 
   h2 {
     display:none;
+  }
+
+  h3 {
+    text-align:center;
+    margin-bottom:0;
+    line-height:15px;
+    font-size:18px;
+    color:@darkBlue;
+    text-transform:none;
+    font-weight:normal;
+    font-style:italic;
   }
 
   p.intro {
@@ -187,6 +211,40 @@ body.home header.main {
       right:20px;
     }
 
+    p {
+      font-size:@baseFontSize + 2;
+      margin:10px 30px 0 0;
+      line-height:20px;
+    }
+
+    .bracket {
+      display:block;
+      width:12px;
+      height:34px;
+    }
+
+    .bracket-left {
+      .bracket;
+      float:left;
+      background:url(../img/bracket_left.png) no-repeat 0 0;
+    }
+
+    .bracket-right {
+      .bracket;
+      float:left;
+      background:url(../img/bracket_right.png) no-repeat 0 0;
+    }
+
+    .in-brackets {
+      padding:6px 12px;
+      display:block;
+      float:left;
+    }
+
+    .more {
+      color:#0b819e;
+    }
+
     a img {
       margin-right:20px;
     }
@@ -201,7 +259,7 @@ body.home header.main {
       width:82px;
       height:75px;
       top:-40px;
-      right:40px;
+      right:30px;
     }
 
     p {
