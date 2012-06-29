@@ -164,6 +164,7 @@ INSTALLED_APPS = [
     "reversion",
     "biblion",
     "social_auth",
+    "nashvegas",
     
     # symposion
     "symposion.about",
@@ -249,6 +250,8 @@ PROPOSAL_FORMS = {
     "talk": "pycon.forms.PyConTalkProposalForm",
     "poster": "pycon.forms.PyConPosterProposalForm",
 }
+
+NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
