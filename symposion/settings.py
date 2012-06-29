@@ -174,6 +174,7 @@ INSTALLED_APPS = [
     "symposion.proposals",
     
     # custom
+    "pycon",
     "pycon.sponsorship",
 ]
 
@@ -242,6 +243,12 @@ BIBLION_SECTIONS = [
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 
 CONFERENCE_ID = 1
+
+PROPOSAL_FORMS = {
+    "tutorial": "pycon.forms.PyConTutorialProposalForm",
+    "talk": "pycon.forms.PyConTalkProposalForm",
+    "poster": "pycon.forms.PyConPosterProposalForm",
+}
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

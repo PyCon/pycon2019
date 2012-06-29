@@ -7,6 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 
 from markitup.fields import MarkupField
 
+from model_utils.managers import InheritanceManager   
+
 from symposion.conference.models import Section
 
 
@@ -48,19 +50,20 @@ class ProposalKind(models.Model):
     to distinguish the section as well as the kind.
     """
     
-    section = models.ForeignKey(Section)
+    section = models.ForeignKey(Section, related_name="proposal_kinds")
     
     name = models.CharField("name", max_length=100)
     slug = models.SlugField()
-    
-    # content type of ProposalBase sub-class
-    proposal_model = models.ForeignKey(ContentType)
     
     def __unicode__(self):
         return self.name
 
 
 class ProposalBase(models.Model):
+    
+    objects = InheritanceManager()
+    
+    kind = models.ForeignKey(ProposalKind)
     
     title = models.CharField(max_length=100)
     description = models.TextField(
@@ -82,9 +85,6 @@ class ProposalBase(models.Model):
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
     cancelled = models.BooleanField(default=False)
     
-    class Meta:
-        abstract = True
-    
     def can_edit(self):
         return True
     
@@ -102,40 +102,3 @@ class ProposalBase(models.Model):
             yield speaker
 
 
-# @@@ the following should go under pycon
-
-
-class PyConProposalCategory(models.Model):
-
-    name = models.CharField(max_length=100)
-    slug = models.SlugField()
-    
-    def __unicode__(self):
-        return self.name
-
-
-class PyConProposal(ProposalBase):
-    
-    AUDIENCE_LEVEL_NOVICE = 1
-    AUDIENCE_LEVEL_EXPERIENCED = 2
-    AUDIENCE_LEVEL_INTERMEDIATE = 3
-    
-    AUDIENCE_LEVELS = [
-        (AUDIENCE_LEVEL_NOVICE, "Novice"),
-        (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
-        (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
-    ]
-
-    DURATION_CHOICES = [
-        (0, "No preference"),
-        (1, "I prefer a 30 minute slot"),
-        (2, "I prefer a 45 minute slot"),
-    ]
-    
-    category = models.ForeignKey(PyConProposalCategory)
-    audience_level = models.IntegerField(choices=AUDIENCE_LEVELS)
-    extreme = models.BooleanField(
-        default=False,
-        help_text = "'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2012/speaker/extreme/' target='_blank'>http://us.pycon.org/2012/speaker/extreme/</a> for details."
-    )
-    duration = models.IntegerField(choices=DURATION_CHOICES)
