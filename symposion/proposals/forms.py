@@ -10,7 +10,7 @@ from django.db.models import Q
 class AddSpeakerForm(forms.Form):
     
     email = forms.EmailField(
-        label = "Email address of new speaker (use their email address, not yours)"
+        label="Email address of new speaker (use their email address, not yours)"
     )
     
     def __init__(self, *args, **kwargs):

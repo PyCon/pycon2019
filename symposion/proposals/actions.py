@@ -30,7 +30,7 @@ def export_as_csv_action(description="Export selected objects as CSV file",
         if header:
             writer.writerow(list(field_names))
         for obj in queryset:
-            writer.writerow([unicode(getattr(obj, field)).encode("utf-8","replace") for field in field_names])
+            writer.writerow([unicode(getattr(obj, field)).encode("utf-8", "replace") for field in field_names])
         return response
     export_as_csv.short_description = description
     return export_as_csv

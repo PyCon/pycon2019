@@ -6,32 +6,31 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template import RequestContext
-from django.template.loader import render_to_string
 from django.utils.hashcompat import sha_constructor
-from django.utils.html import strip_tags
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
 
+from symposion.proposal.forms import AddSpeakerForm
+
+
 def get_form(name):
     dot = name.rindex('.')
-    mod_name, form_name = name[:dot], name[dot+1:]
+    mod_name, form_name = name[:dot], name[dot + 1:]
     __import__(mod_name)
     return getattr(sys.modules[mod_name], form_name)
 
 
 def proposal_submit(request):
     if not request.user.is_authenticated():
-        return redirect("home") # @@@ unauth'd speaker info page?
+        return redirect("home")  # @@@ unauth'd speaker info page?
     else:
         try:
-            speaker_profile = request.user.speaker_profile
+            request.user.speaker_profile
         except ObjectDoesNotExist:
             return redirect("dashboard")
     
@@ -50,7 +49,7 @@ def proposal_submit_kind(request, kind_slug):
     kind = get_object_or_404(ProposalKind, slug=kind_slug)
     
     if not request.user.is_authenticated():
-        return redirect("home") # @@@ unauth'd speaker info page?
+        return redirect("home")  # @@@ unauth'd speaker info page?
     else:
         try:
             speaker_profile = request.user.speaker_profile
@@ -82,7 +81,7 @@ def proposal_submit_kind(request, kind_slug):
 
 @login_required
 def proposal_speaker_manage(request, pk):
-    queryset = Proposal.objects.select_related("speaker")
+    queryset = ProposalBase.objects.select_related("speaker")
     proposal = get_object_or_404(queryset, pk=pk)
     proposal = ProposalBase.objects.get_subclass(pk=proposal.pk)
     
@@ -95,6 +94,7 @@ def proposal_speaker_manage(request, pk):
             message_ctx = {
                 "proposal": proposal,
             }
+            
             def create_speaker_token(email_address):
                 # create token and look for an existing speaker to prevent
                 # duplicate tokens and confusing the pending speaker
@@ -104,10 +104,10 @@ def proposal_speaker_manage(request, pk):
                     )
                 except Speaker.DoesNotExist:
                     salt = sha_constructor(str(random.random())).hexdigest()[:5]
-                    token = sha_constructor(salt+email_address).hexdigest()
+                    token = sha_constructor(salt + email_address).hexdigest()
                     pending = Speaker.objects.create(
-                        invite_email = email_address,
-                        invite_token = token,
+                        invite_email=email_address,
+                        invite_token=token,
                     )
                 else:
                     token = pending.invite_token
@@ -155,8 +155,7 @@ def proposal_speaker_manage(request, pk):
         "speakers": proposal.speakers(),
         "add_speaker_form": add_speaker_form,
     }
-    ctx = RequestContext(request, ctx)
-    return render_to_response("proposals/proposal_speaker_manage.html", ctx)
+    return render(request, "proposals/proposal_speaker_manage.html", ctx)
 
 
 @login_required
@@ -169,11 +168,11 @@ def proposal_edit(request, pk):
         raise Http404()
     
     if not proposal.can_edit():
-        ctx = RequestContext(request, {
+        ctx = {
             "title": "Proposal editing closed",
             "body": "Proposal editing is closed for this session type."
-        })
-        return render_to_response("proposals/proposal_error.html", ctx)
+        }
+        return render(request, "proposals/proposal_error.html", ctx)
     
     form_class = get_form(settings.PROPOSAL_FORMS[proposal.kind.slug])
 
@@ -245,5 +244,4 @@ def proposal_leave(request, pk):
     ctx = {
         "proposal": proposal,
     }
-    ctx = RequestContext(request, ctx)
-    return render_to_response("proposals/proposal_leave.html", ctx)
+    return render(request, "proposals/proposal_leave.html", ctx)

@@ -3,11 +3,9 @@ import datetime
 from django.db import models
 from django.db.models import Q
 
-from django.contrib.contenttypes.models import ContentType
-
 from markitup.fields import MarkupField
 
-from model_utils.managers import InheritanceManager   
+from model_utils.managers import InheritanceManager
 
 from symposion.conference.models import Section
 
@@ -67,19 +65,19 @@ class ProposalBase(models.Model):
     
     title = models.CharField(max_length=100)
     description = models.TextField(
-        max_length = 400, # @@@ need to enforce 400 in UI
-        help_text = "If your talk is accepted this will be made public and printed in the program. Should be one paragraph, maximum 400 characters."
+        max_length=400,  # @@@ need to enforce 400 in UI
+        help_text="If your talk is accepted this will be made public and printed in the program. Should be one paragraph, maximum 400 characters."
     )
     abstract = MarkupField(
-        help_text = "Detailed description and outline. Will be made public if your talk is accepted. Edit using <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a>."
+        help_text="Detailed description and outline. Will be made public if your talk is accepted. Edit using <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a>."
     )
     additional_notes = MarkupField(
         blank=True,
-        help_text = "Anything else you'd like the program committee to know when making their selection: your past speaking experience, open source community experience, etc. Edit using <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a>."
+        help_text="Anything else you'd like the program committee to know when making their selection: your past speaking experience, open source community experience, etc. Edit using <a href='http://warpedvisions.org/projects/markdown-cheat-sheet/' target='_blank'>Markdown</a>."
     )
     submitted = models.DateTimeField(
-        default = datetime.datetime.now,
-        editable = False,
+        default=datetime.datetime.now,
+        editable=False,
     )
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
     additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
@@ -100,5 +98,3 @@ class ProposalBase(models.Model):
         yield self.speaker
         for speaker in self.additional_speakers.all():
             yield speaker
-
-
