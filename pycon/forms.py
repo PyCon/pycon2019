@@ -35,6 +35,7 @@ class PyConTalkProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "recording_release",
         ]
         widgets = {
             "abstract": MarkItUpWidget(),
@@ -53,6 +54,8 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "recording_release",
+
         ]
         widgets = {
             "abstract": MarkItUpWidget(),
@@ -71,6 +74,8 @@ class PyConPosterProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "recording_release",
+
         ]
         widgets = {
             "abstract": MarkItUpWidget(),

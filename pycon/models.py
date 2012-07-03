@@ -30,9 +30,14 @@ class PyConProposal(ProposalBase):
 
     category = models.ForeignKey(PyConProposalCategory)
     audience_level = models.IntegerField(choices=AUDIENCE_LEVELS)
-
+    
+    recording_release = models.BooleanField(
+        default=True,
+        help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box."
+    )
+    
     class Meta:
-        abstract=True
+        abstract = True
 
 
 class PyConTalkProposal(PyConProposal):
@@ -45,7 +50,7 @@ class PyConTalkProposal(PyConProposal):
     
     extreme = models.BooleanField(
         default=False,
-        help_text = "'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2012/speaker/extreme/' target='_blank'>http://us.pycon.org/2012/speaker/extreme/</a> for details."
+        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2012/speaker/extreme/' target='_blank'>http://us.pycon.org/2012/speaker/extreme/</a> for details."
     )
     duration = models.IntegerField(choices=DURATION_CHOICES)
     

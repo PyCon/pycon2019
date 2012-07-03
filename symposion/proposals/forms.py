@@ -1,6 +1,7 @@
 from django import forms
 from django.db.models import Q
 
+from symposion.proposals.models import SupportingDocument
 # from markitup.widgets import MarkItUpWidget
 
 
@@ -28,3 +29,13 @@ class AddSpeakerForm(forms.Form):
                 "This email address has already been added to your talk proposal"
             )
         return value
+
+
+class SupportingDocumentCreateForm(forms.ModelForm):
+    
+    class Meta:
+        model = SupportingDocument
+        fields = [
+            "file",
+            "description",
+        ]

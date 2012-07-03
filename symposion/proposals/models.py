@@ -1,7 +1,12 @@
 import datetime
+import os
+import uuid
 
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+
+from django.contrib.auth.models import User
 
 from markitup.fields import MarkupField
 
@@ -98,3 +103,23 @@ class ProposalBase(models.Model):
         yield self.speaker
         for speaker in self.additional_speakers.all():
             yield speaker
+
+
+def uuid_filename(instance, filename):
+    ext = filename.split(".")[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join("document", filename)
+
+
+class SupportingDocument(models.Model):
+    
+    proposal = models.ForeignKey(ProposalBase, related_name="supporting_documents")
+    
+    uploaded_by = models.ForeignKey(User)
+    created_at = models.DateTimeField(default=datetime.datetime.now)
+    
+    file = models.FileField(upload_to=uuid_filename)
+    description = models.CharField(max_length=140)
+
+    def download_url(self):
+        return reverse("proposal_document_download", args=[self.pk, os.path.basename(self.file.name).lower()])

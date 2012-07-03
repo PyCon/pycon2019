@@ -251,6 +251,8 @@ PROPOSAL_FORMS = {
     "poster": "pycon.forms.PyConPosterProposalForm",
 }
 
+USE_X_ACCEL_REDIRECT = False
+
 NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
 # local_settings.py can be used to override environment-specific settings

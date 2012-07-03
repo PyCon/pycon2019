@@ -4,20 +4,20 @@ import sys
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.hashcompat import sha_constructor
+from django.views import static
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from account.models import EmailAddress
-
-from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind
+from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind, SupportingDocument
 from symposion.speakers.models import Speaker
 # from symposion.utils.mail import send_email
 
-from symposion.proposals.forms import AddSpeakerForm
+from symposion.proposals.forms import AddSpeakerForm, SupportingDocumentCreateForm
 
 
 def get_form(name):
@@ -248,3 +248,51 @@ def proposal_leave(request, pk):
         "proposal": proposal,
     }
     return render(request, "proposals/proposal_leave.html", ctx)
+
+
+@login_required
+def document_create(request, proposal_pk):
+    queryset = ProposalBase.objects.select_related("speaker")
+    proposal = get_object_or_404(queryset, pk=proposal_pk)
+    proposal = ProposalBase.objects.get_subclass(pk=proposal.pk)
+    
+    if request.method == "POST":
+        form = SupportingDocumentCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            document = form.save(commit=False)
+            document.proposal = proposal
+            document.uploaded_by = request.user
+            document.save()
+            return redirect("proposal_detail", proposal.pk)
+    else:
+        form = SupportingDocumentCreateForm()
+        
+    return render(request, "proposals/document_create.html", {
+        "proposal": proposal,
+        "form": form,
+    })
+
+
+@login_required
+def document_download(request, pk, *args):
+    document = get_object_or_404(SupportingDocument, pk=pk)
+    if settings.USE_X_ACCEL_REDIRECT:
+        response = HttpResponse()
+        response["X-Accel-Redirect"] = document.file.url
+        # delete content-type to allow Gondor to determine the filetype and
+        # we definitely don't want Django's crappy default :-)
+        del response["content-type"]
+    else:
+        response = static.serve(request, document.file.name, document_root=settings.MEDIA_ROOT)
+    return response
+
+
+@login_required
+def document_delete(request, pk):
+    document = get_object_or_404(SupportingDocument, pk=pk, uploaded_by=request.user)
+    proposal_pk = document.proposal.pk
+    
+    if request.method == "POST":
+        document.delete()
+    
+    return redirect("proposal_detail", proposal_pk)
