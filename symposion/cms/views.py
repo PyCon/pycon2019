@@ -7,7 +7,11 @@ from .forms import PageForm
 
 
 def can_edit(user):
-    return user.is_staff or user.is_superuser
+    if user.is_staff or user.is_superuser:
+        return True
+    if user.has_perm("cms.change_page"):
+        return True
+    return False
 
 
 def page(request, path):
