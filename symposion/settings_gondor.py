@@ -33,6 +33,8 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 FILE_UPLOAD_PERMISSIONS = 0640
 
+USE_X_ACCEL_REDIRECT = True
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

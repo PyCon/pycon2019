@@ -122,4 +122,4 @@ class SupportingDocument(models.Model):
     description = models.CharField(max_length=140)
 
     def download_url(self):
-        return reverse("documents_document_download", args=[self.pk, os.path.basename(self.file.name).lower()])
+        return reverse("proposal_document_download", args=[self.pk, os.path.basename(self.file.name).lower()])

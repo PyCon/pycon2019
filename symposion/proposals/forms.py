@@ -1,6 +1,7 @@
 from django import forms
 from django.db.models import Q
 
+from symposion.proposals.models import SupportingDocument
 # from markitup.widgets import MarkItUpWidget
 
 
@@ -30,7 +31,11 @@ class AddSpeakerForm(forms.Form):
         return value
 
 
-class SupportingDocumentCreateForm(forms.Form):
+class SupportingDocumentCreateForm(forms.ModelForm):
     
-    file = forms.FileField()
-    description = forms.CharField(max_length=140)
+    class Meta:
+        model = SupportingDocument
+        fields = [
+            "file",
+            "description",
+        ]

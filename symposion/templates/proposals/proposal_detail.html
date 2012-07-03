@@ -50,4 +50,27 @@
     
         <p>{{ proposal.additional_notes }}</p>
     {% endif %}
+    
+    {% if request.user == proposal.speaker.user %}
+        <h2>Supporting Documents</h2>
+        
+        {% if proposal.supporting_documents.exists %}
+            <table class="table table-striped">
+                {% for document in proposal.supporting_documents.all %}
+                    <tr>
+                        <td><a href="{{ document.download_url }}">{{ document.description }}</a></td>
+                        <td>
+                        <form style="margin: 0;" method="post" action="{% url proposal_document_delete document.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-mini">delete</button>
+                        </form>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No supporting documents attached to this proposal.</p>
+        {% endif %}
+        <a class="btn btn-small" href="{% url proposal_document_create proposal.pk %}"><i class="icon-plus"></i> add document</a>
+    {% endif %}
 {% endblock %}
