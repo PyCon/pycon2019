@@ -18,8 +18,8 @@
 {% endblock %}
 
 {% block extra_head_base %}
+    <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
-
     <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
     {% markitup_media "no-jquery" %}
     {% block extra_head %}{% endblock %}
