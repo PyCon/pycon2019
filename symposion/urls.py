@@ -12,8 +12,12 @@ import symposion.views
 # from pinax.apps.account.openid_consumer import PinaxConsumer
 
 
+URL_PREFIX = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
+
+
 urlpatterns = patterns("",
-    url(r"^%s/" % settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID], include(patterns("",
+    url(r"^$", redirect_to, {"url": "/%s/" % URL_PREFIX}),
+    url(r"^%s/" % URL_PREFIX, include(patterns("",
         url(r"^$", direct_to_template, {
             "template": "homepage.html",
         }, name="home"),
@@ -46,4 +50,4 @@ urlpatterns = patterns("",
 )
 
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += 
