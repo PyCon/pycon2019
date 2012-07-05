@@ -523,7 +523,7 @@
             "description": "", 
             "insitetree": true, 
             "hint": "", 
-            "url": "sponsors", 
+            "url": "sponsor_list", 
             "inbreadcrumbs": true, 
             "title": "PyCon Sponsors", 
             "tree": 1, 
