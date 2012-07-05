@@ -14,11 +14,6 @@ from pycon.sponsorship.forms import SponsorApplicationForm, SponsorDetailsForm, 
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
-def sponsor_info(request):
-    return render_to_response("sponsorship/info.html", {
-    }, context_instance=RequestContext(request))
-
-
 @login_required
 def sponsor_apply(request):
     if request.method == "POST":
@@ -39,7 +34,7 @@ def sponsor_detail(request, pk):
     sponsor = get_object_or_404(Sponsor, pk=pk)
     
     if not sponsor.active or sponsor.applicant != request.user:
-        return redirect("sponsor_info")
+        return redirect("sponsor_list")
     
     formset_kwargs = {
         "instance": sponsor,
