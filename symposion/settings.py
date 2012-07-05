@@ -245,6 +245,9 @@ BIBLION_SECTIONS = [
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 
 CONFERENCE_ID = 1
+CONFERENCE_URL_PREFIXES = {
+    1: "2013",
+}
 
 PROPOSAL_FORMS = {
     "tutorial": "pycon.forms.PyConTutorialProposalForm",
