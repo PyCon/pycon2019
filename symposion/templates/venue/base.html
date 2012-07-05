@@ -1,4 +1,5 @@
-{% extends "cms/page_detail.html" %}
+{% extends "site_base.html" %}
 
-{% block body_class %}cms-page venue {% block extra_class %}{% endblock %}{% endblock %}
+{% block body_class %}venue {% block extra_class %}{% endblock %}{% endblock %}
 
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
