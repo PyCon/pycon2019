@@ -72,7 +72,7 @@ MEDIA_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "media")
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = "/%s/site_media/media/" % settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
+MEDIA_URL = "/%s/site_media/media/" % CONFERENCE_URL_PREFIXES[CONFERENCE_ID]
 
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
@@ -80,7 +80,7 @@ STATIC_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "static")
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
-STATIC_URL = "/%s/site_media/static/" % settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
+STATIC_URL = "/%s/site_media/static/" % CONFERENCE_URL_PREFIXES[CONFERENCE_ID]
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
