@@ -3,7 +3,7 @@ import urlparse
 
 from .settings import *
 
-DEBUG = True
+DEBUG = {"primary": False}[os.environ["GONDOR_INSTANCE"])
 TEMPLATE_DEBUG = DEBUG
 
 if "GONDOR_DATABASE_URL" in os.environ:
