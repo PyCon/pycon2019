@@ -54,6 +54,13 @@ LANGUAGE_CODE = "en-us"
 
 SITE_ID = 1
 
+# Conference ID and any URL prefixes
+CONFERENCE_ID = 1
+CONFERENCE_URL_PREFIXES = {
+    1: "2013",
+}
+
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = False
@@ -65,7 +72,7 @@ MEDIA_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "media")
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = "/site_media/media/"
+MEDIA_URL = "/%s/site_media/media/" % settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
 
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
@@ -73,7 +80,7 @@ STATIC_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "static")
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
-STATIC_URL = "/site_media/static/"
+STATIC_URL = "/%s/site_media/static/" % settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
 
 # Additional directories which hold static files
 STATICFILES_DIRS = [
@@ -243,11 +250,6 @@ BIBLION_SECTIONS = [
 ]
 
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
-
-CONFERENCE_ID = 1
-CONFERENCE_URL_PREFIXES = {
-    1: "2013",
-}
 
 PROPOSAL_FORMS = {
     "tutorial": "pycon.forms.PyConTutorialProposalForm",
