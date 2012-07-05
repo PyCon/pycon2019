@@ -293,7 +293,7 @@ h1 a.logo {
 ul#slider {
   display: block;
   width: 100%;
-  height: 260px;
+  height:120px; /* 260px - actual height */
   overflow: hidden;
   list-style: none;
   margin: 0;
@@ -301,7 +301,7 @@ ul#slider {
   border-bottom:1px solid #0092b7;
 
   li {
-    margin-left:-9px;
+    margin-left:-19px;
     display:none;
   }
 
@@ -309,11 +309,32 @@ ul#slider {
     display:block;
   }
 
-  a img {
-    margin:20px 12px 10px;
+  a {
+    display:block;
+    float:left;
+
+    .sp-logo {
+      display:block;
+      height:70px;
+    }
+
+    img {
+      margin:0 0 10px 19px;
+    }
+
+    .level {
+      display:block;
+      margin:0 0 10px 19px;
+      padding:5px 0 0 0;
+      width:100px;
+      text-align:center;
+      background:url(../img/dotted_ln_b.png) repeat-x left top;
+      text-transform:uppercase;
+      color:#666;
+      font-size:11px;
+    }
   }
 }
-
 
 /* slideshow nav */
 nav#slider-nav {

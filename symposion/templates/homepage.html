@@ -71,19 +71,71 @@
     <div class="span12">
         <h3>Sponsors</h3>
         <ul id="slider">
-            {% sponsor_levels as levels %}
-            {% for level in levels %}
-                {% sponsors level.name as sponsors %}
-                {% if sponsors %}
-                    <li>
-                        {% for sponsor in sponsors %}
-                            <a href="{{ sponsor.external_url }}">
-                                <img src="{% thumbnail sponsor.website_logo '91x48' %}" alt="{{ sponsor.name }}" />
-                            </a>
-                        {% endfor %}
-                    </li>
-                {% endif %}
-            {% endfor %}
+            {# sponsors without levels, 8 per each li #}
+            <li>
+                <a href="#">
+                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286">
+                    <span class="level">Diamond</span>
+                </a>
+            </li>
+
+            {% comment %}
+                # sponsors by level
+
+                {% sponsor_levels as levels %}
+                {% for level in levels %}
+                    {% sponsors level.name as sponsors %}
+                    {% if sponsors %}
+                        <li>
+                            {% for sponsor in sponsors %}
+                                <a href="{{ sponsor.external_url }}">
+                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
+                                </a>
+                            {% endfor %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+            {% endcomment %}
+
         </ul>
         <nav id="slider-nav"></nav>
     </div>
@@ -94,7 +146,7 @@
             {% for post in posts %}
                 <div class="blog-post">
                     <div class="date">
-                        <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"n" }} 
+                        <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"n" }}
                         <span class="year">{{ post.published|date:"Y" }}</span>
                     </div>
                     <div class="post-content">
