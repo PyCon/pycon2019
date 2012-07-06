@@ -111,6 +111,7 @@ TEMPLATE_LOADERS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+    "djangosecure.middleware.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -172,6 +173,7 @@ INSTALLED_APPS = [
     "biblion",
     "social_auth",
     "nashvegas",
+    "djangosecure",
     
     # symposion
     "symposion.about",

@@ -15,5 +15,6 @@ gondor==1.1
 psycopg2==2.4.5
 gunicorn==0.14.3
 nashvegas==0.7
+django-secure==0.1.2
 
 django-model-utils==1.1.0
