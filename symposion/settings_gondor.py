@@ -67,6 +67,8 @@ LOGGING = {
     }
 }
 
+DEFAULT_FROM_EMAIL = "PyCon 2013 <no-reply@us.pycon.org>"
+
 if "GONDOR_SENDGRID_USER" in os.environ:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "smtp.sendgrid.net"
