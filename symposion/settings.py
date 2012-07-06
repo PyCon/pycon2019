@@ -230,8 +230,10 @@ ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.email
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/dashboard/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/dashboard/"
+# Need these to be reversed urls, currently breaks if using reverse_lazy
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2013/dashboard/"
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2013/dashboard/"
+
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
 EMAIL_CONFIRMATION_DAYS = 2
