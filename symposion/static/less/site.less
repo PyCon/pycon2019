@@ -762,3 +762,40 @@ section.widget {
     font-size:16px;
   }
 }
+
+/*  Retina media query.
+  Overrides styles for devices with a
+  device-pixel-ratio of 2+, such as iPhone 4.
+-----------------------------------------------    */
+
+@media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-device-pixel-ratio: 2) {
+  
+  body {
+    background-image: url(../img/bg@2x.png);
+    background-size: 93px 93px;
+  }
+  
+  h3.logo a {
+    width: 213px;
+    height: 63px;
+    background-image: url(../img/logo_sub@2x.png);
+    background-size: 213px 63px;
+  }
+  
+  h1 a.logo {
+    background-image: url(../img/logo@2x.png);
+    background-size: 534px 145px;
+  }
+  
+  body.home header.main {
+    background-image: url(../img/hd_home@2x.png);
+    background-size: 30px 83px;
+  }
+  header.main {
+    background:url(../img/hd_sub.png) repeat-x 0 0;
+    background-size: 1px 83px;
+  }
+  
+}
