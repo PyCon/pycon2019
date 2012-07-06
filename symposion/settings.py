@@ -174,6 +174,7 @@ INSTALLED_APPS = [
     "social_auth",
     "nashvegas",
     "djangosecure",
+    "raven.contrib.django",
     
     # symposion
     "symposion.about",
