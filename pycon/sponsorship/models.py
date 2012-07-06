@@ -81,7 +81,7 @@ class Sponsor(models.Model):
     def listing_text(self):
         if not hasattr(self, "_listing_text"):
             self._listing_text = None
-            benefits = self.sponsor_benefits.filter(benefit__id=8)
+            benefits = self.sponsor_benefits.filter(benefit__id=7)
             if benefits.count():
                 self._listing_text = benefits[0].text
         return self._listing_text
