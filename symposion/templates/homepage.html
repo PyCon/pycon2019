@@ -71,51 +71,17 @@
     <div class="span12">
         <h3>Sponsors</h3>
         <ul id="slider">
+            {% sponsors as all_sponsors %}
             {# sponsors without levels, 8 per each li #}
-            <li>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
+            {% for sponsor in all_sponsors %}
+                {% if forloop.first or forloop.counter0|divisibleby:"8" %}
+                    <li>
+                {% endif %}
+                <a href="{{ sponsor.external_url }}">
+                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
                 </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-                <a href="#">
-                    <span class="sp-logo"><img src="{{ STATIC_URL }}img/temp/14c9a9f82732cd57242401955764a286.png" width="100" alt="14c9a9f82732cd57242401955764a286"></span>
-                    <span class="level">Diamond</span>
-                </a>
-            </li>
+                {% if forloop.counter|divisibleby:"8" or forloop.last %}</li>{% endif %}
+            {% endfor %}
 
             {% comment %}
                 # sponsors by level
