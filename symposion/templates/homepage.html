@@ -74,9 +74,7 @@
             {% sponsors as all_sponsors %}
             {# sponsors without levels, 8 per each li #}
             {% for sponsor in all_sponsors %}
-                {% if forloop.first or forloop.counter0|divisibleby:"8" %}
-                    <li>
-                {% endif %}
+                {% if forloop.first or forloop.counter0|divisibleby:"8" %}<li>{% endif %}
                 <a href="{{ sponsor.external_url }}">
                     <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
                 </a>
