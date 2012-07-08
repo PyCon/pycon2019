@@ -248,6 +248,10 @@ DEBUG_TOOLBAR_CONFIG = {
 
 MARKITUP_SET = "markitup/sets/markdown"
 MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
+MARKITUP_AUTO_PREVIEW = True
+MARKITUP_SET = "markitup/sets/markdown-custom"
+MARKITUP_SKIN = "markitup/skins/simple"
+MARKITUP_MEDIA_URL = STATIC_URL
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
 BIBLION_SECTIONS = [
