@@ -95,12 +95,12 @@
                         <div class="sponsor-list">
                             {% for level in levels %}
                                 {% if level.sponsors %}
-                                    <h3>{{ level.name }}</h3>
+                                    <h3 style="margin-top: 1.5em;">{{ level.name }}</h3>
                                     
                                     {% for sponsor in level.sponsors %}
-                                        <div>
+                                        <div style="margin: 5px;">
                                             <a href="{{ sponsor.external_url }}">
-                                                <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
+                                                <img width="100" height="60" src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
                                             </a>
                                         </div>
                                     {% endfor %}
