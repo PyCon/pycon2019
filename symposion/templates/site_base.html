@@ -5,6 +5,8 @@
 {% load static %}
 {% load metron_tags %}
 {% load i18n %}
+{% load sponsorship_tags %}
+{% load thumbnail %}
 {% load sitetree %}
 {% load markitup_tags %}
 
@@ -87,7 +89,25 @@
                     </div>
                 </div>
                 <div class="span3">
-                    {% block sidebar %}{% endblock %}
+                    {% block sidebar %}
+                        <h2>Sponsors</h2>
+                        {% sponsor_levels as levels %}
+                        <div class="sponsor-list">
+                            {% for level in levels %}
+                                {% if level.sponsors %}
+                                    <h3>{{ level.name }}</h3>
+                                    
+                                    {% for sponsor in level.sponsors %}
+                                        <div>
+                                            <a href="{{ sponsor.external_url }}">
+                                                <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endblock %}
                 </div>
             </div>
         {% endblock %}
