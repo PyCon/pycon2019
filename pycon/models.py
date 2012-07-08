@@ -50,7 +50,7 @@ class PyConTalkProposal(PyConProposal):
     
     extreme = models.BooleanField(
         default=False,
-        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2013/speaker/extreme/' target='_blank'>http://us.pycon.org/2012/speaker/extreme/</a> for details."
+        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2013/speaker/extreme/' target='_blank'>Extreme Talks</a> for details."
     )
     duration = models.IntegerField(choices=DURATION_CHOICES)
     
