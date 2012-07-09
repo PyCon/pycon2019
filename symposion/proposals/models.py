@@ -119,7 +119,7 @@ class AdditionalSpeaker(models.Model):
     
     speaker = models.ForeignKey("speakers.Speaker")
     proposalbase = models.ForeignKey(ProposalBase)
-    status = models.IntegerField(choices=SPEAKING_STATUS)
+    status = models.IntegerField(choices=SPEAKING_STATUS, default=SPEAKING_STATUS_PENDING)
     
     class Meta:
         db_table = "proposals_proposalbase_additional_speakers"
