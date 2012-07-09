@@ -8,8 +8,8 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# from symposion.proposals.models import Proposal
-from symposion.speakers.forms import SpeakerForm #, SignupForm
+from symposion.proposals.models import ProposalBase
+from symposion.speakers.forms import SpeakerForm
 from symposion.speakers.models import Speaker
 
 
@@ -43,82 +43,6 @@ def speaker_create(request):
     return render(request, "speakers/speaker_create.html", {
         "form": form,    
     })
-
-
-def speaker_create_token(request, token):
-    speaker = get_object_or_404(Speaker, invite_token=token)
-    if request.user.is_authenticated():
-        # check for speaker profile
-        try:
-            existing_speaker = request.user.speaker_profile
-        except ObjectDoesNotExist:
-            pass
-        else:
-            additional_speakers = Proposal.additional_speakers.through
-            additional_speakers._default_manager.filter(
-                speaker = speaker
-            ).update(
-                speaker = existing_speaker
-            )
-            messages.info(request, "You have been associated with all pending "
-                "talk proposals")
-            return redirect("speaker_dashboard")
-    if request.method == "POST":
-        if "login" in request.POST:
-            login_form = LoginForm(request.POST)
-            if login_form.is_valid():
-                login_form.login(request)
-                return redirect("speaker_create_token", token)
-            else:
-                signup_form = SignupForm(initial={"email": speaker.invite_email}, prefix="signup")
-                speaker_form = None
-        elif "signup" in request.POST:
-            login_form = None
-            forms = []
-            if not request.user.is_authenticated():
-                login_form = None
-                signup_form = SignupForm(request.POST, prefix="signup")
-                forms.append(signup_form)
-            speaker_form = SpeakerForm(request.POST, request.FILES,
-                prefix = "speaker",
-                instance = speaker
-            )
-            forms.append(speaker_form)
-            if all([f.is_valid() for f in forms]):
-                if not request.user.is_authenticated():
-                    user = signup_form.save(speaker, request=request)
-                else:
-                    user = request.user
-                speaker = speaker_form.save(commit=False)
-                speaker.user = user
-                speaker.save()
-                if not request.user.is_authenticated():
-                    if user.email != speaker.invite_email:
-                        ctx = {
-                            "email": user.email,
-                            "success_url": "/",
-                        }
-                        ctx = RequestContext(request, ctx)
-                        return render_to_response("account/verification_sent.html", ctx)
-                    else:
-                        signup_form.login(request, user)
-                return redirect("speaker_dashboard")
-        else:
-            raise Exception("wtf?")
-    else:
-        if not request.user.is_authenticated():
-            login_form = LoginForm()
-            signup_form = SignupForm(initial={"email": speaker.invite_email}, prefix="signup")
-        else:
-            login_form, signup_form = None, None
-        speaker_form = SpeakerForm(prefix="speaker")
-    ctx = {
-        "login_form": login_form,
-        "signup_form": signup_form,
-        "speaker_form": speaker_form,
-    }
-    ctx = RequestContext(request, ctx)
-    return render_to_response("speakers/speaker_create_token.html", ctx)
 
 
 @login_required
@@ -164,8 +88,10 @@ def speaker_profile(request, pk, template_name="speakers/speaker_profile.html", 
     if not sessions:
         raise Http404()
     
-    return render_to_response(template_name, dict({
+    ctx = {
         "speaker": speaker,
         "sessions": sessions,
         "timezone": settings.SCHEDULE_TIMEZONE,
-    }, **extra_context), context_instance=RequestContext(request))
+    }
+    
+    return render(request, template_name, dict(ctx, **extra_context))
