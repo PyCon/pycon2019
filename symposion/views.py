@@ -1,7 +1,7 @@
 import hashlib
 import random
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -44,4 +44,6 @@ class LoginView(account.views.LoginView):
 
 @login_required
 def dashboard(request):
+    if request.session.get("pending-token"):
+        return redirect("speaker_create_token", request.session["pending-token"])
     return render(request, "dashboard.html")

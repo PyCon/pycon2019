@@ -148,8 +148,8 @@ def proposal_speaker_manage(request, pk):
                     [email_address], "speaker_invite",
                     context = message_ctx
                 )
-            proposal.additional_speakers.add(speaker)
-            messages.success(request, "Speaker added to proposal.")
+            invitation, created = AdditionalSpeaker.objects.get_or_create(proposalbase=proposal.proposalbase_ptr, speaker=speaker)
+            messages.success(request, "Speaker invited to proposal.")
             return redirect("proposal_speaker_manage", proposal.pk)
     else:
         add_speaker_form = AddSpeakerForm(proposal=proposal)
