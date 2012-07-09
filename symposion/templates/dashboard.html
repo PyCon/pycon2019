@@ -56,23 +56,39 @@
                             {% endif %}
                         </section>
                         
+                        {% associated_proposals as associated_proposals %}
+                        {% if associated_proposals %}
+                            <section class="subsection">
+                                <h4>Proposals you have joined as an additional speaker</h4>
+                                <table class="table">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Session type</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for proposal in associated_proposals %}
+                                        {% include "proposals/_proposal_row.html" %}
+                                    {% endfor %}
+                                </table>
+                            </section>
+                        {% endif %}
+                        
                         {% pending_proposals as pending_proposals %}
                         {% if pending_proposals %}
                             <section class="subsection">
                                 <h4>Proposals you have been invited to join</h4>
-                                {% if user.speaker_profile.proposals.exists %}
-                                    <table class="table">
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Session type</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                        {% for proposal in user.speaker_profile.proposals.all %}
-                                            {% include "proposals/_pending_proposal_row.html" %}
-                                        {% endfor %}
-                                    </table>
-                                {% endif %}
+                                <table class="table">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Session type</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for proposal in pending_proposals %}
+                                        {% include "proposals/_pending_proposal_row.html" %}
+                                    {% endfor %}
+                                </table>
                             </section>
                         {% endif %}
                     
