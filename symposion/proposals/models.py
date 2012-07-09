@@ -85,7 +85,7 @@ class ProposalBase(models.Model):
         editable=False,
     )
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
-    additional_speakers = models.ManyToManyField("speakers.Speaker", blank=True)
+    additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
     cancelled = models.BooleanField(default=False)
     
     def can_edit(self):
@@ -101,8 +101,29 @@ class ProposalBase(models.Model):
     
     def speakers(self):
         yield self.speaker
-        for speaker in self.additional_speakers.all():
+        for speaker in self.additional_speakers.exclude(additionalspeaker__status=AdditionalSpeaker.SPEAKING_STATUS_DECLINED):
             yield speaker
+
+
+class AdditionalSpeaker(models.Model):
+    
+    SPEAKING_STATUS_PENDING = 1
+    SPEAKING_STATUS_ACCEPTED = 2
+    SPEAKING_STATUS_DECLINED = 3
+    
+    SPEAKING_STATUS = [
+        (SPEAKING_STATUS_PENDING, "Pending"),
+        (SPEAKING_STATUS_ACCEPTED, "Accepted"),
+        (SPEAKING_STATUS_DECLINED, "Declined"),
+    ]
+    
+    speaker = models.ForeignKey("speakers.Speaker")
+    proposalbase = models.ForeignKey(ProposalBase)
+    status = models.IntegerField(choices=SPEAKING_STATUS)
+    
+    class Meta:
+        db_table = "proposals_proposalbase_additional_speakers"
+        unique_together = ("speaker", "proposalbase")
 
 
 def uuid_filename(instance, filename):

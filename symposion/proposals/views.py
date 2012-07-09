@@ -13,7 +13,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from account.models import EmailAddress
-from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind, SupportingDocument
+from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind
+from symposion.proposals.models import SupportingDocument, AdditionalSpeaker
 from symposion.speakers.models import Speaker
 from symposion.utils.mail import send_email
 
@@ -247,6 +248,32 @@ def proposal_leave(request, pk):
         "proposal": proposal,
     }
     return render(request, "proposals/proposal_leave.html", ctx)
+
+
+@login_required
+def proposal_pending_join(request, pk):
+    proposal = get_object_or_404(ProposalBase, pk=pk)
+    speaking = get_object_or_404(AdditionalSpeaker, speaker=request.user.speaker_profile, proposalbase=proposal)
+    if speaking.status == AdditionalSpeaker.SPEAKING_STATUS_PENDING:
+        speaking.status = AdditionalSpeaker.SPEAKING_STATUS_ACCEPTED
+        speaking.save()
+        messages.success(request, "You have accepted the invitation to join %s" % proposal.title)
+        return redirect("dashboard")
+    else:
+        return redirect("dashboard")
+
+
+@login_required
+def proposal_pending_decline(request, pk):
+    proposal = get_object_or_404(ProposalBase, pk=pk)
+    speaking = get_object_or_404(AdditionalSpeaker, speaker=request.user.speaker_profile, proposalbase=proposal)
+    if speaking.status == AdditionalSpeaker.SPEAKING_STATUS_PENDING:
+        speaking.status = AdditionalSpeaker.SPEAKING_STATUS_DECLINED
+        speaking.save()
+        messages.success(request, "You have declined to speak on %s" % proposal.title)
+        return redirect("dashboard")
+    else:
+        return redirect("dashboard")
 
 
 @login_required

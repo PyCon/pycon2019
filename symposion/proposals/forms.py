@@ -26,7 +26,7 @@ class AddSpeakerForm(forms.Form):
         ).exists()
         if exists:
             raise forms.ValidationError(
-                "This email address has already been added to your talk proposal"
+                "This email address has already been invited to your talk proposal"
             )
         return value
 

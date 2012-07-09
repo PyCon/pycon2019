@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load proposal_tags %}
 
 {% block head_title %}Dashboard{% endblock %}
 
@@ -54,7 +55,27 @@
                                 <p>No proposals submitted yet.</p>
                             {% endif %}
                         </section>
-
+                        
+                        {% pending_proposals as pending_proposals %}
+                        {% if pending_proposals %}
+                            <section class="subsection">
+                                <h4>Proposals you have been invited to join</h4>
+                                {% if user.speaker_profile.proposals.exists %}
+                                    <table class="table">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Session type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {% for proposal in user.speaker_profile.proposals.all %}
+                                            {% include "proposals/_pending_proposal_row.html" %}
+                                        {% endfor %}
+                                    </table>
+                                {% endif %}
+                            </section>
+                        {% endif %}
+                    
                     {% else %}
                         <p>To submit a proposal, first create a speaker profile.</p>
                         <div class="actions">

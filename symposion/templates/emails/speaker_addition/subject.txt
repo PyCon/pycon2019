@@ -1,1 +1,1 @@
-{{ proposal.speaker.name }} has added you as a speaker on {{ proposal.title }}
+{{ proposal.speaker.name }} has invited you to join as a speaker on {{ proposal.title }}
