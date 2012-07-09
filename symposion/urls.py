@@ -31,6 +31,7 @@ urlpatterns = patterns("",
         url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
         url(r"^markitup/", include("markitup.urls")),
         url(r"^blog/", include("biblion.urls")),
+        url(r"^force500/", lambda request: xxx),
         
         # url(r"^openid/", include(PinaxConsumer().urls)),
         
