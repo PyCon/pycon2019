@@ -33,10 +33,7 @@ urlpatterns = patterns("",
         url(r"^blog/", include("biblion.urls")),
         url(r"^force500/", lambda request: xxx),
         
-        # url(r"^openid/", include(PinaxConsumer().urls)),
-        
         #temp
-        # url(r"^sponsors/", direct_to_template, { "template": "static/sponsors.html", }, name="sponsors"),
         url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
         
         url(r"^speaker/", include("symposion.speakers.urls")),
