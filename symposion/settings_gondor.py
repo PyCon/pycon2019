@@ -70,6 +70,12 @@ LOGGING = {
     }
 }
 
+METRON_SETTINGS = {
+    "google": {
+        1: os.environ.get("GONDOR_ANALYTICS_KEY"),
+    }
+}
+
 DEFAULT_FROM_EMAIL = "PyCon 2013 <no-reply@us.pycon.org>"
 
 if "GONDOR_SENDGRID_USER" in os.environ:
