@@ -345,6 +345,46 @@ ul#slider {
   }
 }
 
+.scroll-title {
+    margin-bottom: 5px;
+}
+
+.carousel-inner div.item {
+    width: 100%;
+    border-bottom: 1px solid #0092b7;
+    padding-bottom: 40px;
+    height: 40px;
+    background: #f2ebdf url(../img/bg.png) repeat 0 0;
+}
+
+.sponsor-scroll-item {
+    cursor: pointer;
+    float:left;
+    width:115px;
+    height: 60px;
+    background-size: 100px auto;
+    background: none center center no-repeat;
+}
+
+.carousel {
+
+  .item {
+    .transition(.7s ease-in-out opacity);
+    left: 0 !important;
+  }
+
+  .next.left, .prev.right {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .active.left, .active.right {
+    opacity: 0;
+    z-index: 2;
+  }
+
+}
+
 /* slideshow nav */
 nav#slider-nav {
   float:left;
@@ -784,6 +824,11 @@ section.widget {
   only screen and (min-device-pixel-ratio: 2) {
   
   body {
+    background-image: url(../img/bg@2x.png);
+    background-size: 93px 93px;
+  }
+  
+  .carousel-inner div.item {
     background-image: url(../img/bg@2x.png);
     background-size: 93px 93px;
   }
