@@ -220,34 +220,14 @@ body.home header.main {
       right:20px;
     }
 
+    h6 {
+      margin-bottom:5px;
+    }
+
     p {
       font-size:@baseFontSize + 2;
       margin:10px 30px 0 0;
       line-height:20px;
-    }
-
-    .bracket {
-      display:block;
-      width:12px;
-      height:34px;
-    }
-
-    .bracket-left {
-      .bracket;
-      float:left;
-      background:url(../img/bracket_left.png) no-repeat 0 0;
-    }
-
-    .bracket-right {
-      .bracket;
-      float:left;
-      background:url(../img/bracket_right.png) no-repeat 0 0;
-    }
-
-    .in-brackets {
-      padding:6px 12px;
-      display:block;
-      float:left;
     }
 
     .more {
@@ -256,6 +236,16 @@ body.home header.main {
 
     a img {
       margin-right:20px;
+    }
+
+    .sponsorship-link {
+      float:right;
+      width:56%;
+      margin-right:20px;
+    }
+
+    .in-brackets em {
+      display:block;
     }
   }
 
@@ -277,6 +267,46 @@ body.home header.main {
       line-height:20px;
     }
   }
+}
+
+.sponsor-crawl {
+  position:relative;
+
+  .sponsorship-link {
+    position:absolute;
+    top:0;
+    right:0;
+
+    .in-brackets {
+      padding:6px 12px;
+    }
+  }
+}
+
+.bracket {
+  display:block;
+  width:12px;
+  height:34px;
+}
+
+.bracket-left {
+  .bracket;
+  float:left;
+  background:url(../img/bracket_left.png) no-repeat 0 0;
+}
+
+.bracket-right {
+  .bracket;
+  float:left;
+  background:url(../img/bracket_right.png) no-repeat 0 0;
+}
+
+.in-brackets {
+  padding:0 12px;
+  display:block;
+  float:left;
+
+  em { font-style:normal; }
 }
 
 h1 a.logo {
@@ -822,29 +852,29 @@ section.widget {
 @media
   only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (min-device-pixel-ratio: 2) {
-  
+
   body {
     background-image: url(../img/bg@2x.png);
     background-size: 93px 93px;
   }
-  
+
   .carousel-inner div.item {
     background-image: url(../img/bg@2x.png);
     background-size: 93px 93px;
   }
-  
+
   h3.logo a {
     width: 213px;
     height: 63px;
     background-image: url(../img/logo_sub@2x.png);
     background-size: 213px 63px;
   }
-  
+
   h1 a.logo {
     background-image: url(../img/logo@2x.png);
     background-size: 534px 145px;
   }
-  
+
   body.home header.main {
     background-image: url(../img/hd_home@2x.png);
     background-size: 30px 83px;
@@ -853,5 +883,5 @@ section.widget {
     background-image: url(../img/hd_sub@2x.png);
     background-size: 1px 83px;
   }
-  
+
 }
