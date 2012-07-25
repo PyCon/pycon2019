@@ -179,6 +179,7 @@ class Benefit(models.Model):
         _("type"),
         choices=[
             ("text", "Text"),
+            ("richtext", "Rich Text"),
             ("file", "File"),
             ("weblogo", "Web Logo"),
             ("simple", "Simple")
@@ -252,7 +253,7 @@ class SponsorBenefit(models.Model):
         """
         if self.benefit.type == "file" or self.benefit.type == "weblogo":
             return ["upload"]
-        elif self.benefit.type == "text":
+        elif self.benefit.type == "text" or self.benefit.type == "richtext":
             return ["text"]
         return []
 
