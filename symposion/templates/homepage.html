@@ -46,27 +46,24 @@
                     <div class="presented">
                         <div class="bdr"></div>
                         <h6>Presented By</h6>
-
-                        {% comment %}
-                            if there are zero diamond sponsors, include the file below:
-                        {% endcomment %}
-
-                        {% include "_sponsorship_link.html" %}
-
-                        {% comment %}
-                            else if there is one diamond sponsor:
-
-                                <a href="#"><img src="https://us.pycon.org/2013/site_media/media/sponsor_files/milotrans_1_1.png.100x60_q85.png" alt="" /></a>
+                        
+                        {% sponsors "diamond" as diamond_sponsors %}
+                        
+                        {% if diamond_sponsors|length == 0 %}
+                            {% include "_sponsorship_link.html" %}
+                        {% else %}
+                            {% for sponsor in diamond_sponsors %}
+                                <a href="{{ sponsor.external_url }}">
+                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="" />
+                                </a>
+                            {% endfor %}
+                            
+                            {% if diamond_sponsors|length == 1 %}
                                 <div class="sponsorship-link">
                                     {% include "_sponsorship_link.html" %}
                                 </div>
-
-                            else if there are more than 1 diamond sponsors:
-
-                                <a href="#"><img src="https://us.pycon.org/2013/site_media/media/sponsor_files/milotrans_1_1.png.100x60_q85.png" alt="" /></a>
-                                <a href="#"><img src="https://us.pycon.org/2013/site_media/media/sponsor_files/milotrans_1_1.png.100x60_q85.png" alt="" /></a>
-                        {% endcomment %}
-
+                            {% endif %}
+                        {% endif %}
                         <div class="bdr bdr-r"></div>
                     </div>
                 </div>
@@ -85,13 +82,12 @@
 <div class="row">
     <div class="span12 sponsor-crawl">
         <h3 class="scroll-title">Sponsors</h3>
-        {% comment %}
-            if there are more than 1 diamond sponsor:
-
+        {% sponsors "diamond" as diamond_sponsors %}
+        {% if diamond_sponsors|length > 1 %}
             <div class="sponsorship-link">
                 {% include "_sponsorship_link.html" %}
             </div>
-        {% endcomment %}
+        {% endif %}
         <div id="sponsorslider" class="carousel slide">
           <!-- Carousel items -->
           <div class="carousel-inner">
