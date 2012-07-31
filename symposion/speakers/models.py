@@ -35,7 +35,7 @@ class Speaker(models.Model):
         choices=SESSION_COUNT_CHOICES,
         null=True,
         blank=True,
-        help_text="If you've submitted multiple proposals, please let us know if you only want to give one or if you'd like to give two talks. You may submit more than two proposals."
+        help_text="If you wish to submit multiple proposals, please let us know if you only want to give one or if you'd like to give two talks. You may submit more than two proposals."
     )
     
     def __unicode__(self):
