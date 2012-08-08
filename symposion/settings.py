@@ -177,7 +177,6 @@ INSTALLED_APPS = [
     "raven.contrib.django",
     
     # symposion
-    "symposion.about",
     "symposion.conference",
     "symposion.cms",
     "symposion.boxes",
