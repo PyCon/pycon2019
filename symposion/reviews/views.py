@@ -68,6 +68,7 @@ def review_section(request, section_slug, assigned=False):
     proposals = proposals_generator(request, queryset)
     ctx = {
         "proposals": proposals,
+        "section": section,
     }
     return render(request, "reviews/review_list.html", ctx)
 
