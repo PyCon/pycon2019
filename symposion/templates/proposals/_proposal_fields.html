@@ -7,6 +7,14 @@
     <dt>{% trans "Category" %}</dt>
     <dd>{{ proposal.category }}&nbsp;</dd>
     
+    {% if proposal.kind.name == "talk" %}
+        <dt>Extreme?</dt>
+        <dd>{% if proposal.extreme %}Yes{% else %}No{% endif %}</dd>
+        
+        <dt>Duration</dt>
+        <dd>{{ proposal.get_duration_display }}</dd>
+    {% endif %}
+    
     {% if proposal.additional_speakers.all %}
         <dt>{% trans "Addl Speakers" %}</dt>
         <dd>
