@@ -139,6 +139,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
+    "symposion.reviews.context_processors.reviews",
 ]
 
 INSTALLED_APPS = [
@@ -182,6 +183,8 @@ INSTALLED_APPS = [
     "symposion.boxes",
     "symposion.speakers",
     "symposion.proposals",
+    "symposion.reviews",
+    "symposion.teams",
     
     # custom
     "pycon",
@@ -206,6 +209,8 @@ ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 ACCOUNT_CREATE_ON_SAVE = True
 
 AUTHENTICATION_BACKENDS = [
+    # Permissions backends
+    "symposion.teams.backends.TeamPermissionsBackend",
 
     # Social Auth Backends
     "social_auth.backends.google.GoogleBackend",

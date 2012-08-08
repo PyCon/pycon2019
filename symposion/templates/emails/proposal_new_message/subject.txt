@@ -1,1 +1,1 @@
-New message on "{{ proposal.title }}" from {{ message.user }}
+{% load account_tags %}New message on "{{ proposal.title }}" from {% user_display message.user %}
