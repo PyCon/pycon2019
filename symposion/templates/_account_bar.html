@@ -4,6 +4,9 @@
 <div class="row">
     <div class="pull-right">
         {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}" class="action">Admin</a> |
+            {% endif %}
             <a href="{% url 'dashboard' %}">Dashboard</a>
             |
             <a href="{% url 'account_settings' %}">Settings</a>

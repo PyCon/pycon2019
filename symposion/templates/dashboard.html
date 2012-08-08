@@ -21,11 +21,12 @@
                 {% block breadcrumbs %}{% endblock %}
             </div>
 
-            <div class="box">
-                <div class="box-head">
-                    <h2>Speaking</h2>
+            <div class="dashboard-panel">
+                <div class="dashboard-panel-header">
+                    <i class="icon-bullhorn"></i>
+                    <h3>Speaking</h3>
                 </div>
-                <div class="box-content">
+                <div class="dashboard-panel-content">
                     {% if user.speaker_profile %}
                         <div class="actions">
                             <a href="{% url speaker_edit %}" class="action">
@@ -107,11 +108,12 @@
             </div>
 
 
-            <div class="box">
-                <div class="box-head">
-                    <h2>Sponsorship</h2>
+            <div class="dashboard-panel">
+                <div class="dashboard-panel-header">
+                    <i class="icon-briefcase"></i>
+                    <h3>Sponsorship</h3>
                 </div>
-                <div class="box-content">
+                <div class="dashboard-panel-content">
                     <div class="actions">
                         <a href="{% url cms_page "sponsors/prospectus/" %}" class="action">
                             <i class="widget-icon icon-info-sign"></i>
@@ -146,22 +148,6 @@
                     {% endif %}
                 </div>
             </div>
-
-            {% if user.is_staff %}
-                <div class="box">
-                    <div class="box-head">
-                        <h2>Staff</h2>
-                    </div>
-                    <div class="box-content">
-                        <div class="actions">
-                            <a href="{% url admin:index %}" class="action">
-                                <i class="widget-icon icon-key"></i>
-                                <span class="widget-label">Go to Django admin</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
             
             {% if review_sections %}
                 <div class="dashboard-panel">
