@@ -23,26 +23,22 @@
             <div class="span12">
                 <h3>{{ level.name }}</h3>
 
-                <div class="row">
-                    {% for sponsor in level.sponsors %}
-                        {% if sponsor.joblisting_text %}
-                            <div class="span4">
-                                <div class="sponsor" id="sponsor-{{ sponsor.id }}">
-                                    <div class="sponsor-content">
-                                        <h2>
-                                            <a href="{{ sponsor.external_url }}">
-                                                <img src="{% thumbnail sponsor.website_logo '150x80' %}" alt="{{ sponsor.name }}" />
-                                            </a>
-                                        </h2>
-                                        <h5>{{ sponsor.name }}</h5>
-                                        <p><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
-                                        {{ sponsor.joblisting_text|render_markup|safe }}
-                                    </div>
-                                </div>
+                {% for sponsor in level.sponsors %}
+                    {% if sponsor.joblisting_text %}
+                        <div class="job-post" id="sponsor-{{ sponsor.id }}">
+                            <div class="post-content">
+                                <h2>
+                                    <a href="{{ sponsor.external_url }}">
+                                        <img src="{% thumbnail sponsor.website_logo '150x80' %}" alt="{{ sponsor.name }}" />
+                                    </a>
+                                </h2>
+                                <h5>{{ sponsor.name }}</h5>
+                                <p><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
+                                {{ sponsor.joblisting_text|render_markup|safe }}
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% endfor %}
     </div>
