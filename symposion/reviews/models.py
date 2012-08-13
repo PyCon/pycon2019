@@ -166,6 +166,10 @@ class Review(models.Model):
             self.VOTES.MINUS_ZERO: "minus-zero",
             self.VOTES.MINUS_ONE: "minus-one",
         }[self.vote]
+    
+    @property
+    def section(self):
+        return self.proposal.kind.section.slug
 
 
 class LatestVote(models.Model):

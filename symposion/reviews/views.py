@@ -1,13 +1,14 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from symposion.proposals.models import ProposalBase, ProposalSection
-from symposion.reviews.forms import ReviewForm, ReviewCommentForm, SpeakerCommentForm
+from symposion.reviews.forms import ReviewForm, SpeakerCommentForm
 from symposion.reviews.forms import BulkPresentationForm
-from symposion.reviews.models import ReviewAssignment, Review, LatestVote, VOTES
+from symposion.reviews.models import ReviewAssignment, Review, LatestVote, ProposalResult
+from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
 
@@ -15,14 +16,19 @@ def access_not_permitted(request):
     return render(request, "reviews/access_not_permitted.html")
 
 
-def proposals_generator(request, queryset, username=None, check_speaker=True):
+def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
+    
     for obj in queryset:
         # @@@ this sucks; we can do better
         if check_speaker:
             if request.user in [s.user for s in obj.speakers()]:
                 continue
-        if obj.result is None:
+        
+        try:
+            obj.result
+        except ProposalResult.DoesNotExist:
             continue
+        
         obj.comment_count = obj.result.comment_count
         obj.total_votes = obj.result.vote_count
         obj.plus_one = obj.result.plus_one
@@ -30,26 +36,18 @@ def proposals_generator(request, queryset, username=None, check_speaker=True):
         obj.minus_zero = obj.result.minus_zero
         obj.minus_one = obj.result.minus_one
         lookup_params = dict(proposal=obj)
-        if username:
-            lookup_params["user__username"] = username
+        
+        if user_pk:
+            lookup_params["user__pk"] = user_pk
         else:
             lookup_params["user"] = request.user
+        
         try:
             obj.latest_vote = LatestVote.objects.get(**lookup_params).css_class()
         except LatestVote.DoesNotExist:
             obj.latest_vote = "no-vote"
+        
         yield obj
-
-
-def group_proposals(proposals):
-    grouped = {}
-    for proposal in proposals:
-        kind = proposal.kind
-        if kind in grouped:
-            grouped[kind].append(proposal)
-        else:
-            grouped[kind] = [proposal]
-    return grouped
 
 
 @login_required
@@ -64,79 +62,81 @@ def review_section(request, section_slug, assigned=False):
     if assigned:
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
         queryset = queryset.filter(id__in=assignments)
+    
     queryset = queryset.select_related("result").select_subclasses()
+    
     proposals = proposals_generator(request, queryset)
+    
     ctx = {
         "proposals": proposals,
-        "section": section,
     }
+    
     return render(request, "reviews/review_list.html", ctx)
 
 
 @login_required
-def review_list(request, username=None):
+def review_list(request, section_slug, user_pk):
     
-    if username:
-        # if they're not a reviewer admin and they aren't the person whose
-        # review list is being asked for, don't let them in
-        if not request.user.groups.filter(name="reviewers-admins").exists():
-            if not request.user.username == username:
-                return access_not_permitted(request)
-    else:
-        if not request.user.groups.filter(name="reviewers").exists():
+    # if they're not a reviewer admin and they aren't the person whose
+    # review list is being asked for, don't let them in
+    if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
+        if not request.user.pk == user_pk:
             return access_not_permitted(request)
     
     queryset = ProposalBase.objects.select_related("speaker__user", "result")
-    if username:
-        reviewed = LatestVote.objects.filter(user__username=username).values_list("proposal", flat=True)
-        queryset = queryset.filter(pk__in=reviewed)
-    queryset = queryset.order_by("submitted")
+    reviewed = LatestVote.objects.filter(user__pk=user_pk).values_list("proposal", flat=True)
+    queryset = queryset.filter(pk__in=reviewed)
+    proposals = queryset.order_by("submitted")
     
-    # filter out tutorials for now
-    queryset = queryset.exclude(kind__name__iexact="tutorial")
+    admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
     
-    admin = request.user.groups.filter(name="reviewers-admins").exists()
+    proposals = proposals_generator(request, proposals, user_pk=user_pk, check_speaker=not admin)
     
-    proposals = group_proposals(proposals_generator(request, queryset, username=username, check_speaker=not admin))
-    rated_proposals = queryset.filter(reviews__user=request.user)
-
     ctx = {
         "proposals": proposals,
-        "rated_proposals": rated_proposals,
-        "username": username,
     }
     return render(request, "reviews/review_list.html", ctx)
 
 
 @login_required
-def review_admin(request):
+def review_admin(request, section_slug):
     
-    if not request.user.groups.filter(name="reviewers-admins").exists():
+    if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
         return access_not_permitted(request)
     
     def reviewers():
-        queryset = User.objects.distinct().filter(groups__name="reviewers")
-        for obj in queryset:
-            obj.comment_count = Review.objects.filter(user=obj).count()
-            obj.total_votes = LatestVote.objects.filter(user=obj).count()
-            obj.plus_one = LatestVote.objects.filter(
-                user = obj,
-                vote = LatestVote.VOTES.PLUS_ONE
-            ).count()
-            obj.plus_zero = LatestVote.objects.filter(
-                user = obj,
-                vote = LatestVote.VOTES.PLUS_ZERO
-            ).count()
-            obj.minus_zero = LatestVote.objects.filter(
-                user = obj,
-                vote = LatestVote.VOTES.MINUS_ZERO
-            ).count()
-            obj.minus_one = LatestVote.objects.filter(
-                user = obj,
-                vote = LatestVote.VOTES.MINUS_ONE
-            ).count()
-            yield obj
+        already_seen = set()
+        
+        for team in Team.objects.filter(permissions__codename="can_review_%s" % section_slug):
+            for membership in team.memberships.filter(Q(state="member") | Q(state="manager")):
+                user = membership.user
+                if user.pk in already_seen:
+                    continue
+                already_seen.add(user.pk)
+                
+                user.comment_count = Review.objects.filter(user=user).count()
+                user.total_votes = LatestVote.objects.filter(user=user).count()
+                user.plus_one = LatestVote.objects.filter(
+                    user = user,
+                    vote = LatestVote.VOTES.PLUS_ONE
+                ).count()
+                user.plus_zero = LatestVote.objects.filter(
+                    user = user,
+                    vote = LatestVote.VOTES.PLUS_ZERO
+                ).count()
+                user.minus_zero = LatestVote.objects.filter(
+                    user = user,
+                    vote = LatestVote.VOTES.MINUS_ZERO
+                ).count()
+                user.minus_one = LatestVote.objects.filter(
+                    user = user,
+                    vote = LatestVote.VOTES.MINUS_ONE
+                ).count()
+                
+                yield user
+    
     ctx = {
+        "section_slug": section_slug,
         "reviewers": reviewers(),
     }
     return render(request, "reviews/review_admin.html", ctx)
@@ -258,10 +258,15 @@ def review_detail(request, pk):
 @login_required
 @require_POST
 def review_delete(request, pk):
-    if not request.user.groups.filter(name="reviewers-admins").exists():
+    review = get_object_or_404(Review, pk=pk)
+    section_slug = review.section.slug
+    
+    if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
         return access_not_permitted(request)
+    
     review = get_object_or_404(Review, pk=pk)
     review.delete()
+    
     return redirect("review_detail", pk=review.proposal.pk)
 
 
@@ -287,7 +292,7 @@ def review_stats(request, section_slug=None, key=None):
         "controversial": queryset.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
     }
     
-    admin = request.user.groups.filter(name="reviewers-admins").exists()
+    admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
     
     if key:
         ctx.update({
@@ -329,8 +334,8 @@ def review_assignment_opt_out(request, pk):
 
 
 @login_required
-def review_bulk_accept(request):
-    if not request.user.groups.filter(name="reviewers-admins").exists():
+def review_bulk_accept(request, section_slug):
+    if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
         return access_not_permitted(request)
     if request.method == "POST":
         form = BulkPresentationForm(request.POST)
