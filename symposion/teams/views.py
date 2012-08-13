@@ -127,7 +127,7 @@ def team_apply(request, slug):
         membership, created = Membership.objects.get_or_create(team=team, user=request.user)
         membership.state = "applied"
         membership.save()
-        managers = [m.user for m in team.managers()]
+        managers = [m.user.email for m in team.managers()]
         send_email(managers, "teams_user_applied", context={
             "team": team,
             "user": request.user
