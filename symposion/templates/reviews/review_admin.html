@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Reviewers</h1>
     
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>
                 Reviewer
@@ -30,7 +30,7 @@
         {% for reviewer in reviewers %}
         <tr>
             <td>
-                <a href="{% url review_list_user reviewer.username %}">{{ reviewer }}</a>
+                <a href="{% url review_list_user section_slug reviewer.pk %}">{{ reviewer.get_full_name }}</a>
             </td>
             <td>
                 {{ reviewer.total_votes }}
