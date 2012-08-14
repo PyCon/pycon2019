@@ -272,7 +272,7 @@ def review_delete(request, pk):
 
 
 @login_required
-def review_stats(request, section_slug=None, key=None):
+def review_status(request, section_slug=None, key=None):
     
     ctx = {
         "section_slug": section_slug
@@ -283,14 +283,16 @@ def review_stats(request, section_slug=None, key=None):
         queryset = queryset.filter(kind__section__slug=section_slug)
     
     proposals = {
-        # proposals with at least one +1 and no -1s, sorted by the 'score'
-        "good": queryset.filter(result__plus_one__gt=0, result__minus_one=0).order_by("-result__score"),
-        # proposals with at least one -1 and no +1s, reverse sorted by the 'score'
-        "bad": queryset.filter(result__minus_one__gt=0, result__plus_one=0).order_by("result__score"),
-        # proposals with neither a +1 or a -1, sorted by total votes (lowest first)
-        "indifferent": queryset.filter(result__minus_one=0, result__plus_one=0).order_by("result__vote_count"),
-        # proposals with both a +1 and -1, sorted by total votes (highest first)
-        "controversial": queryset.filter(result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
+        # proposals with at least 3 reviews and at least one +1 and no -1s, sorted by the 'score'
+        "positive": queryset.filter(result__vote_count__gte=3, result__plus_one__gt=0, result__minus_one=0).order_by("-result__score"),
+        # proposals with at least 3 reviews and at least one -1 and no +1s, reverse sorted by the 'score'
+        "negative": queryset.filter(result__vote_count__gte=3, result__minus_one__gt=0, result__plus_one=0).order_by("result__score"),
+        # proposals with at least 3 reviews and neither a +1 or a -1, sorted by total votes (lowest first)
+        "indifferent": queryset.filter(result__vote_count__gte=3, result__minus_one=0, result__plus_one=0).order_by("result__vote_count"),
+        # proposals with at least 3 reviews and both a +1 and -1, sorted by total votes (highest first)
+        "controversial": queryset.filter(result__vote_count__gte=3, result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
+        # proposals with fewer than 3 reviews
+        "too_few": queryset.filter(result__vote_count__lt=3).order_by("result__vote_count"),
     }
     
     admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
