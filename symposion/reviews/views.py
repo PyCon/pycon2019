@@ -27,7 +27,7 @@ def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
         try:
             obj.result
         except ProposalResult.DoesNotExist:
-            continue
+            ProposalResult.objects.get_or_create(proposal=obj)
         
         obj.comment_count = obj.result.comment_count
         obj.total_votes = obj.result.vote_count

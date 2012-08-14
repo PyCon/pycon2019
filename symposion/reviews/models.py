@@ -278,16 +278,6 @@ class Comment(models.Model):
     commented_at = models.DateTimeField(default=datetime.now)
 
 
-def create_proposal_result(sender, instance=None, **kwargs):
-    if instance is None:
-        return
-    ProposalResult.objects.get_or_create(proposal=instance)
-
-
-for subclass in ProposalBase.__subclasses__():
-    post_save.connect(create_proposal_result, sender=subclass, dispatch_uid="proposal_post_save_" + subclass.__name__)
-
-
 def promote_proposal(proposal):
     raise NotImplementedError()
     # presentation, created = Presentation.objects.get_or_create(
