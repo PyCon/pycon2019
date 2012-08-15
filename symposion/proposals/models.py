@@ -35,6 +35,16 @@ class ProposalSection(models.Model):
     closed = models.NullBooleanField()
     published = models.NullBooleanField()
     
+    def is_available(self):
+        if self.closed:
+            return False
+        now = datetime.datetime.now()
+        if self.start and self.start > now:
+            return False
+        if self.end and self.end < now:
+            return False
+        return True
+    
     @classmethod
     def available(cls):
         now = datetime.datetime.now()
