@@ -1,0 +1,58 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load url from future %}
+{% block head_title %}{% trans "Associations" %}{% endblock %}
+
+{% block body %}
+  <h1 class="account-heading">{% trans "Associations" %}</h1>
+
+  <div class="row">
+    <div class="span10">
+      <table class="table table-striped">
+        {% for object in object_list %}
+          <tr>
+            <td>{{ object.provider }}</td>
+            <td><a class="remove" href="{% url "socialauth_disconnect_individual" backend=object.provider association_id=object.pk %}?next={{ request.path }}">{% trans "Remove" %}</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td>{% trans "You don't have any social accounts associated." %}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span5">
+      <form action="{% url "socialauth_begin" "openid" %}?next={{ request.path }}" method="POST" autocapitalize="off" class="form-horizontal">
+        <legend>Associate an OpenID</legend>
+
+        {% csrf_token %}
+
+        <div class="control-group">
+          <label class="control-label" for="openid_url">OpenID Identifier</label>
+          <div class="controls">
+            <input class="openid" type="text" name="openid_identifier" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <input type="submit" value="Sign in with OpenID" class="btn btn-primary" />
+        </div>
+      </form>
+    </div>
+
+    <div class="span5 sidebyside">
+      <h4>{% trans "Sign in with another account:" %}</h4>
+      <ul class="unstyled">
+          <li>
+              <a href="{% url "socialauth_begin" "google" %}?next={{ request.path }}">Sign-in using Google</a>
+          </li>
+          <li>
+              <a href="{% url "socialauth_begin" "yahoo" %}?next={{ request.path }}">Sign-in using Yahoo!</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
