@@ -7,6 +7,9 @@
     <dt>{% trans "Category" %}</dt>
     <dd>{{ proposal.category }}&nbsp;</dd>
     
+    <dt>{% trans "Audience Level" %}</dt>
+    <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
+    
     {% if proposal.kind.name == "talk" %}
         <dt>Extreme?</dt>
         <dd>{% if proposal.extreme %}Yes{% else %}No{% endif %}</dd>
@@ -38,9 +41,6 @@
     
     <dt>{% trans "Notes" %}</dt>
     <dd>{{ proposal.additional_notes|safe }}&nbsp;</dd>
-    
-    <dt>{% trans "Audience Level" %}</dt>
-    <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
     
     <dt>{% trans "Documents" %}</dt>
     <dd>
