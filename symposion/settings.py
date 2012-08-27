@@ -235,7 +235,7 @@ LOGIN_URL = reverse_lazy("account_login")
 ACCOUNT_SIGNUP_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
-ACCOUNT_USER_DISPLAY = lambda user: user.email
+ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2013/dashboard/"
