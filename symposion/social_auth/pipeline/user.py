@@ -33,7 +33,6 @@ def create_user(backend, details, response, uid, username, user=None, *args, **k
         raise AuthException(backend, message)
     else:
         user = User.objects.create_user(username=username, email=email)
-        EmailAddress.objects.add_email(user, user.email, primary=True)
 
     return {
         "user": user,
