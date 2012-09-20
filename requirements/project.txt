@@ -17,5 +17,7 @@ gunicorn==0.14.3
 nashvegas==0.7
 django-secure==0.1.2
 raven==2.0.0
+django-constance==0.4
+django-picklefield==0.2.1
 
 django-model-utils==1.1.0

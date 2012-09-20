@@ -176,6 +176,8 @@ INSTALLED_APPS = [
     "nashvegas",
     "djangosecure",
     "raven.contrib.django",
+    "constance",
+    "constance.backends.database",
     
     # symposion
     "symposion.conference",
@@ -189,6 +191,7 @@ INSTALLED_APPS = [
     # custom
     "pycon",
     "pycon.sponsorship",
+    "pycon.registration",
 ]
 
 FIXTURE_DIRS = [
@@ -255,6 +258,11 @@ MARKITUP_AUTO_PREVIEW = True
 MARKITUP_SET = "markitup/sets/markdown-custom"
 MARKITUP_SKIN = "markitup/skins/simple"
 MARKITUP_MEDIA_URL = STATIC_URL
+
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+CONSTANCE_CONFIG = {
+    "CTE_SECRET": ("", "Shared secret for CTE integration"),
+}
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
 BIBLION_SECTIONS = [

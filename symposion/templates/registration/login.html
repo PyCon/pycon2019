@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Redirecting to CTE...</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css?1337" type="text/css" media="screen" />
+    <script src="{% static "pinax/js/jquery.js" %}"></script>
+</head>
+<body>
+    <form action="https://www.cteusa.com/pycon6/auth/verify.reg" method="POST" accept-charset="utf-8">
+        <input type="hidden" name="pycon_id" value="{{ request.user.id }}" />
+        <input type="hidden" name="token" value="{{ token }}" />
+        <input type="hidden" name="email" value="{{ request.user.email }}" />
+        <p>Please wait while we redirect you to registration.</p>
+    </form>
+    <script type="text/javascript" charset="utf-8">
+        $(function(){
+            $("form").submit();
+        });
+    </script>
+</body>
+</html>

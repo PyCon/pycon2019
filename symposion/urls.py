@@ -32,6 +32,8 @@ urlpatterns = patterns("",
         url(r"^blog/", include("biblion.urls")),
         url(r"^force500/", lambda request: xxx),
         
+        url(r"^registration/", include("pycon.registration.urls")),
+        
         #temp
         url(r"^venue/", direct_to_template, { "template": "static/venue.html", }, name="venue"),
         
