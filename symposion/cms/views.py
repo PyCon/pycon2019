@@ -7,20 +7,23 @@ from .models import Page
 from .forms import PageForm
 
 
-def can_edit(user):
-    if user.is_staff or user.is_superuser:
+def can_edit(page, user):
+    if page and page.is_community:
         return True
-    if user.has_perm("cms.change_page"):
-        return True
-    return False
+    else:
+        return user.has_perm("cms.change_page")
 
 
 def page(request, path):
     
-    editable = can_edit(request.user)
     try:
         page = Page.published.get(path=path)
     except Page.DoesNotExist:
+        page = None
+    
+    editable = can_edit(page, request.user)
+    
+    if page is None:
         if editable:
             return redirect("cms_page_edit", path=path)
         else:
@@ -35,13 +38,13 @@ def page(request, path):
 @login_required
 def page_edit(request, path):
     
-    if not can_edit(request.user):
-        raise Http404
-    
     try:
         page = Page.published.get(path=path)
     except Page.DoesNotExist:
         page = None
+    
+    if not can_edit(page, request.user):
+        raise Http404
     
     if request.method == "POST":
         form = PageForm(request.POST, instance=page)
