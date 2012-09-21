@@ -1,6 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
 
+from django.contrib.auth.decorators import login_required
+
 from .models import Page
 from .forms import PageForm
 
@@ -30,6 +32,7 @@ def page(request, path):
     })
 
 
+@login_required
 def page_edit(request, path):
     
     if not can_edit(request.user):
