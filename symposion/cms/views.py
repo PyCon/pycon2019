@@ -1,6 +1,5 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
-from django.template import RequestContext
 
 from .models import Page
 from .forms import PageForm
