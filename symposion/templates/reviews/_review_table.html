@@ -30,7 +30,7 @@
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
                 <td>{{ proposal.minus_one }}</td>
-                <td>{{ proposal.user_vote|default:"-" }}</td>
+                <td>{{ proposal.user_vote|default:"" }}</td>
             </tr>
         {% endfor %}
     </tbody>
