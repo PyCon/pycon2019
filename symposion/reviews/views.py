@@ -161,6 +161,7 @@ def review_detail(request, pk):
     if not request.user.is_superuser and request.user in speakers:
         return access_not_permitted(request)
     
+    is_manager = request.user.has_perm("reviews.can_manage_%s" % proposal.kind.section.slug)
     admin = request.user.is_staff
     
     try:
@@ -255,7 +256,8 @@ def review_detail(request, pk):
         "reviews": reviews,
         "review_messages": messages,
         "review_form": review_form,
-        "message_form": message_form
+        "message_form": message_form,
+        "is_manager": is_manager
     })
 
 
