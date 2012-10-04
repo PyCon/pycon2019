@@ -298,7 +298,8 @@ def proposal_leave(request, pk):
     except ObjectDoesNotExist:
         return HttpResponseForbidden()
     if request.method == "POST":
-        proposal.additional_speakers.remove(speaker)
+        speaking = get_object_or_404(AdditionalSpeaker, speaker=request.user.speaker_profile, proposalbase=proposal)
+        speaking.delete()
         # @@@ fire off email to submitter and other speakers
         messages.success(request, "You are no longer speaking on %s" % proposal.title)
         return redirect("dashboard")
