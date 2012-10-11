@@ -18,7 +18,9 @@
             {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
         </div>
         <div class="span9">
-            {% block body %}{% endblock %}
+            <div class="{% block content_class %}box{% endblock %}">
+                {% block body %}{% endblock %}
+            </div>
         </div>
     </div>
 {% endblock %}
