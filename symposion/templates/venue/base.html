@@ -14,13 +14,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="span3 sidebar">
-            {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
-        </div>
         <div class="span9">
             <div class="{% block content_class %}box{% endblock %}">
                 {% block body %}{% endblock %}
             </div>
+        </div>
+        <div class="span3 sidebar">
+            {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
         </div>
     </div>
 {% endblock %}
