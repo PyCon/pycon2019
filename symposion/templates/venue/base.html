@@ -1,5 +1,18 @@
 {% extends "site_base.html" %}
 
-{% block body_class %}venue {% block extra_class %}{% endblock %}{% endblock %}
+{% load sitetree %}
+
+{% block body_class %}venue{% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body_outer %}
+    <div class="row">
+        <div class="span3 sidebar">
+            {% include "venue/_subnav.html" %}
+        </div>
+        <div class="span9">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
