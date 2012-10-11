@@ -7,9 +7,15 @@
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body_outer %}
+    <div class="span12">
+        <div class="page-head">
+            <h1>{% sitetree_page_title from "main" %}</h1>
+            {% sitetree_breadcrumbs from "main" %}
+        </div>
+    </div>
     <div class="row">
         <div class="span3 sidebar">
-            {% include "venue/_subnav.html" %}
+            {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
         </div>
         <div class="span9">
             {% block body %}{% endblock %}
