@@ -1,6 +1,11 @@
 from django.contrib import admin
 
+import reversion
+
 from .models import Page
 
 
-admin.site.register(Page)
+class PageAdmin(reversion.VersionAdmin):
+    pass
+
+admin.site.register(Page, PageAdmin)
