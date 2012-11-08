@@ -95,7 +95,7 @@
           <!-- Carousel items -->
           <div class="carousel-inner">
           {% sponsors as all_sponsors %}
-            sponsors without levels, 24 per each slide
+            {# sponsors without levels, 24 per each slide #}
             {% for sponsor in all_sponsors %}
                 {% if forloop.first or forloop.counter0|divisibleby:"24" %}
                     <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
@@ -122,7 +122,7 @@
           <!-- Carousel items -->
           <div class="carousel-inner">
           {% sponsors as all_sponsors %}
-            sponsors without levels, 24 per each slide
+            {# sponsors without levels, 24 per each slide #}
             {% for sponsor in all_sponsors %}
                 {% if forloop.first or forloop.counter0|divisibleby:"24" %}
                     <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
