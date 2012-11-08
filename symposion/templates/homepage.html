@@ -46,9 +46,9 @@
                     <div class="presented">
                         <div class="bdr"></div>
                         <h6>Presented By</h6>
-                        
+
                         {% sponsors "diamond" as diamond_sponsors %}
-                        
+
                         {% if diamond_sponsors|length == 0 %}
                             {% include "_sponsorship_link.html" %}
                         {% else %}
@@ -57,7 +57,7 @@
                                     <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="" />
                                 </a>
                             {% endfor %}
-                            
+
                             {% if diamond_sponsors|length == 1 %}
                                 <div class="sponsorship-link">
                                     {% include "_sponsorship_link.html" %}
@@ -95,7 +95,7 @@
           <!-- Carousel items -->
           <div class="carousel-inner">
           {% sponsors as all_sponsors %}
-            {# sponsors without levels, 24 per each slide #}
+            sponsors without levels, 24 per each slide
             {% for sponsor in all_sponsors %}
                 {% if forloop.first or forloop.counter0|divisibleby:"24" %}
                     <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
@@ -116,6 +116,34 @@
             {% endfor %}
           </nav>
         </div>
+
+        {#  test #}
+        <div id="sponsorslider1" class="carousel slide1">
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+          {% sponsors as all_sponsors %}
+            sponsors without levels, 24 per each slide
+            {% for sponsor in all_sponsors %}
+                {% if forloop.first or forloop.counter0|divisibleby:"24" %}
+                    <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                {% endif %}
+
+                <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '100x60' %}')" data-background-2x="{% thumbnail sponsor.website_logo '200x120' %}"></div>
+                </a>
+                {% if forloop.counter|divisibleby:"24" or forloop.last %}</div>{% endif %}
+            {% endfor %}
+          </div>
+          <!-- Carousel nav -->
+          <nav id="slider-nav">
+            {% for sponsor in all_sponsors %}
+                {% if forloop.first or forloop.counter0|divisibleby:"24" %}
+                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
+                {% endif %}
+            {% endfor %}
+          </nav>
+        </div>
+        {#  end test #}
     </div>
 
     {% latest_blog_posts as posts %}
@@ -166,6 +194,30 @@
                     $('<img/>')[0].src = retinaimage;
                 })
             };
+
+
+            // test
+            var slider = $("#sponsorslider1").carousel({interval: 7000});
+            slider.bind("slid", function() {
+                var index = $(this).find(".active").index();
+                $(this).find("#slider-nav a").removeClass("activeSlide").eq(index).addClass("activeSlide");
+            });
+            $("#slider-nav a").click(function(e){
+                var index = $(this).index();
+                slider.carousel(index);
+                e.preventDefault();
+            });
+
+            var retina = window.devicePixelRatio > 1.5 ? true : false;
+            if (retina) {
+                $("div.sponsor-scroll-item").each(function() {
+                    var retinaimage = $(this).data("background-2x");
+                    $(this).css("background-image", "url("+retinaimage+")");
+                    // preload image
+                    $('<img/>')[0].src = retinaimage;
+                })
+            };
+            // end test
         });
     </script>
 {% endblock %}
