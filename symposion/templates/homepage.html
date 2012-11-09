@@ -102,7 +102,7 @@
                 {% endif %}
 
                 <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '100x60' %}')" data-background-2x="{% thumbnail sponsor.website_logo '200x120' %}"></div>
+                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '90x90' %}')" data-background-2x="{% thumbnail sponsor.website_logo '180x180' %}"></div>
                 </a>
                 {% if forloop.counter|divisibleby:"24" or forloop.last %}</div>{% endif %}
             {% endfor %}
