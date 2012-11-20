@@ -95,22 +95,22 @@
           <!-- Carousel items -->
           <div class="carousel-inner">
           {% sponsors as all_sponsors %}
-            {# sponsors without levels, 24 per each slide #}
+            {# sponsors without levels, 21 per each slide #}
             {% for sponsor in all_sponsors %}
-                {% if forloop.first or forloop.counter0|divisibleby:"24" %}
+                {% if forloop.first or forloop.counter0|divisibleby:"21" %}
                     <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
                 {% endif %}
 
                 <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '90x90' %}')" data-background-2x="{% thumbnail sponsor.website_logo '180x180' %}"></div>
+                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '95x95' %}')" data-background-2x="{% thumbnail sponsor.website_logo '190x190' %}"></div>
                 </a>
-                {% if forloop.counter|divisibleby:"24" or forloop.last %}</div>{% endif %}
+                {% if forloop.counter|divisibleby:"21" or forloop.last %}</div>{% endif %}
             {% endfor %}
           </div>
           <!-- Carousel nav -->
           <nav id="slider-nav">
             {% for sponsor in all_sponsors %}
-                {% if forloop.first or forloop.counter0|divisibleby:"24" %}
+                {% if forloop.first or forloop.counter0|divisibleby:"21" %}
                     <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
                 {% endif %}
             {% endfor %}
