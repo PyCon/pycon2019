@@ -5452,16 +5452,16 @@ ul#slider a .level {
   width: 100%;
   border-bottom: 1px solid #0092b7;
   padding-bottom: 40px;
-  height: 240px;
+  height: 250px;
   background: #f2ebdf url(../img/bg.png) repeat 0 0;
 }
 .sponsor-scroll-item {
   cursor: pointer;
   float: left;
-  width: 115px;
-  height: 90px;
+  width: 133px;
+  height: 95px;
   background: none center center no-repeat;
-  background-size: 90px auto;
+  background-size: 95px auto;
 }
 .carousel .item {
   -webkit-transition: 0.7s ease-in-out opacity;
