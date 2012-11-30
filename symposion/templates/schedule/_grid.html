@@ -1,0 +1,32 @@
+<div class="box">
+    <table class="table table-condensed table-schedule">
+        <tr>
+            <th>&nbsp;</th>
+            {% for room in timetable.rooms %}
+                <th>{{ room.name }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in timetable %}
+            <tr>
+                <td class="time">{{ row.time|date:"h:iA" }}</td>
+                {% for slot in row.slots %}
+                    <td class="slot slot-{{ slot.kind.label }}" colspan="{{ slot.colspan }}" rowspan="{{ slow.rowspan }}">
+                        {% if slot.kind.label == "talk" or slot.kind.label == "tutorial" %}
+                            {% if not slot.content %}
+                            {% else %}
+                                <div class="title"><a href="{% url schedule_presentation_detail slot.content.pk %}">{{ slot.content.title }}</a></div>
+                                <div class="speaker">{{ slot.content.speaker }}</div>
+                            {% endif %}
+                        {% else %}
+                            {% if slot.content_override.raw %}
+                                {{ slot.content_override.rendered|safe }}
+                            {% else %}
+                                {{ slot.kind.label }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
