@@ -10,7 +10,7 @@
         <th>{% trans "+0" %}</th>
         <th>{% trans "-0" %}</th>
         <th>{% trans "-1" %}</th>
-        <th><a class="tip" title="Your Rating"><i class="icon-user"></i></a></th>
+        <th>{% trans "Status" %}</th>
     </thead>
     
     <tbody>
@@ -30,7 +30,15 @@
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
                 <td>{{ proposal.minus_one }}</td>
-                <td>{{ proposal.user_vote|default:"" }}</td>
+                <td>
+                    {% with proposal.result.status as status %}
+                        <div class="{{ status }}">
+                            {% if status != "undecided" %}
+                                <span>{{ status }}</span>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>
