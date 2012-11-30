@@ -17,6 +17,12 @@ def can_edit(page, user):
         return user.has_perm("cms.change_page")
 
 
+def can_upload(user):
+    if user.is_staff or user.is_superuser:
+        return True
+    return False
+
+
 def page(request, path):
     
     try:
