@@ -16,25 +16,56 @@
 {% endblock %}
 
 {% block body %}
-    {% comment %}
-    <div class="pull-right">
-        <form class="result-form form-inline" method="POST" action="">
-            {% csrf_token %}
-            {% if proposal.result.get_accepted_display == "accepted" %}
-                <input type="submit" name="result_submit" value="reject" class="btn btn-danger" />
-                <input type="submit" name="result_submit" value="undecide" class="btn" />
-            {% else %}
-                {% if proposal.result.get_accepted_display == "rejected" %}
-                    <input type="submit" name="result_submit" value="accept" class="btn btn-success" />
-                    <input type="submit" name="result_submit" value="undecide" class="btn" />
-                {% else %}
-                    <input type="submit" name="result_submit" value="accept" class="btn btn-success" />
-                    <input type="submit" name="result_submit" value="reject" class="btn btn-danger" />
-                {% endif %}
-            {% endif %}
-        </form>
-    </div>
-    {% endcomment %}
+    {% if request.user.is_staff %}
+        <div class="pull-right">
+            <form class="result-form form-inline" method="POST" action="">
+                {% csrf_token %}
+                <div class="btn-group">
+                    {% if proposal.result.status == "accepted" %}
+                        <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">Accepted <span class="caret"></span></a>
+                        <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                            <div class="btn-group">
+                                <input type="submit" name="result_submit" value="reject" class="btn btn-mini btn-danger" />
+                                <input type="submit" name="result_submit" value="standby" class="btn btn-mini" />
+                                <input type="submit" name="result_submit" value="undecide" class="btn btn-mini" />
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if proposal.result.status == "rejected" %}
+                            <a class="btn dropdown-toggle btn-danger" data-toggle="dropdown" href="#">Rejected <span class="caret"></span></a>
+                            <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                                <div class="btn-group">
+                                    <input type="submit" name="result_submit" value="accept" class="btn btn-mini btn-success" />
+                                    <input type="submit" name="result_submit" value="standby" class="btn btn-mini" />
+                                    <input type="submit" name="result_submit" value="undecide" class="btn btn-mini" />
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if proposal.result.status == "standby" %}
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Standby <span class="caret"></span></a>
+                                <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                                    <div class="btn-group">
+                                        <input type="submit" name="result_submit" value="accept" class="btn btn-mini btn-success" />
+                                        <input type="submit" name="result_submit" value="reject" class="btn btn-mini btn-danger" />
+                                        <input type="submit" name="result_submit" value="undecide" class="btn btn-mini" />
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Undecided <span class="caret"></span></a>
+                                <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                                    <div class="btn-group">
+                                        <input type="submit" name="result_submit" value="accept" class="btn btn-mini btn-success" />
+                                        <input type="submit" name="result_submit" value="reject" class="btn btn-mini btn-danger" />
+                                        <input type="submit" name="result_submit" value="standby" class="btn btn-mini" />
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    {% endif %}
     
     <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}, Category: {{ proposal.category }})</h3>
     
@@ -102,13 +133,9 @@
                                 </div>
                             {% endif %}
                             <div class="review-content">
-                                <b>
-                                    {% if review.user.speaker_profile %}
-                                        {{ review.user.speaker_profile }}
-                                    {% else %}
-                                        {% user_display review.user %}
-                                    {% endif %}</b> {{ review.submitted_at|timesince }} ago <br />
-                                {{ review.comment|safe }}<br />
+                                <b>{% user_display review.user %}</b>
+                                {{ review.submitted_at|timesince }} ago <br />
+                                {{ review.comment|safe }}
                             </div>
                         </div>
                     {% endfor %}
@@ -117,6 +144,20 @@
                 {% markitup_media "no-jquery" %}
             </div>
             <div class="tab-pane" id="proposal-feedback">
+                {% if review_messages %}
+                    <h3>{% trans "Conversation with the submitter" %}</h3>
+                    {% for message in review_messages %}
+                        <div class="comment-box">
+                            <div class="commment-content">
+                                <b>{% user_display message.user %}</b>
+                                {{ message.submitted_at|timesince }} ago <br />
+                                {{ message.message|safe }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <hr />
+                {% endif %}
+                
                 <form action="" method="POST"accept-charset="utf-8">
                     <legend>{% trans "Send a message" %}</legend>
                     <p>
@@ -131,24 +172,6 @@
                         <input type="submit" class="btn btn-primary" name="message_submit" value="Send Message" />
                     </div>
                 </form>
-                {% if review_messages %}
-                    <hr />
-                    
-                    <h3>{% trans "Conversation with the submitter" %}</h3>
-                    {% for message in review_messages %}
-                        <div class="comment-box">
-                            <div class="commment-content">
-                                <b>
-                                    {% if message.user.speaker_profile %}
-                                        {{ message.user.speaker_profile }}
-                                    {% else %}
-                                        {% user_display message.user %}
-                                    {% endif %}</b> {{ message.submitted_at|timesince }} ago <br />
-                                {{ message.message|safe }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
             </div>
         </div>
     </div>
