@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from markitup.fields import MarkupField
 
 from symposion.proposals.models import ProposalBase
-# from symposion.schedule.models import Presentation
+from symposion.schedule.models import Presentation
 
 
 class ProposalScoreExpression(object):
@@ -210,6 +210,12 @@ class ProposalResult(models.Model):
         (False, "rejected"),
         (None, "undecided"),
     ], default=None)
+    status = models.CharField(max_length=20, choices=[
+        ("accepted", "accepted"),
+        ("rejected", "rejected"),
+        ("undecided", "undecided"),
+        ("standby", "standby"),
+    ], default="undecided")
     
     @classmethod
     def full_calculate(cls):
@@ -279,32 +285,60 @@ class Comment(models.Model):
     commented_at = models.DateTimeField(default=datetime.now)
 
 
+class NotificationTemplate(models.Model):
+    
+    label = models.CharField(max_length=100)
+    from_address = models.EmailField()
+    subject = models.CharField(max_length=100)
+    body = models.TextField()
+
+
+class ResultNotification(models.Model):
+    
+    proposal = models.ForeignKey("proposals.ProposalBase", related_name="notifications")
+    template = models.ForeignKey(NotificationTemplate, null=True, blank=True, on_delete=models.SET_NULL)
+    timestamp = models.DateTimeField(default=datetime.now)
+    to_address = models.EmailField()
+    from_address = models.EmailField()
+    subject = models.CharField(max_length=100)
+    body = models.TextField()
+    
+    @property
+    def email_args(self):
+        return (self.subject, self.body, self.from_address, [self.to_address])
+
+
 def promote_proposal(proposal):
-    raise NotImplementedError()
-    # presentation, created = Presentation.objects.get_or_create(
-    #     pk=proposal.pk,
-    #     defaults=dict(
-    #         title=proposal.title,
-    #         description=proposal.description,
-    #         kind=proposal.kind,
-    #         category=proposal.category,
-    #         duration=proposal.duration,
-    #         abstract=proposal.abstract,
-    #         audience_level=proposal.audience_level,
-    #         submitted=proposal.submitted,
-    #         speaker=proposal.speaker,
-    #     )
-    # )
-    # if created:
-    #     for speaker in proposal.additional_speakers.all():
-    #         presentation.additional_speakers.add(speaker)
-    #         presentation.save()
-    # return presentation
+    if hasattr(proposal, "presentation") and proposal.presentation:
+        # already promoted
+        presentation = proposal.presentation
+    else:
+        presentation = Presentation(
+            title = proposal.title,
+            description = proposal.description,
+            abstract = proposal.abstract,
+            speaker = proposal.speaker,
+            section = proposal.section,
+            proposal_base = proposal,
+        )
+        presentation.save()
+        for speaker in proposal.additional_speakers.all():
+            presentation.additional_speakers.add(speaker)
+            presentation.save()
+    
+    return presentation
+
+
+def unpromote_proposal(proposal):
+    if hasattr(proposal, "presentation") and proposal.presentation:
+        proposal.presentation.delete()
 
 
 def accepted_proposal(sender, instance=None, **kwargs):
     if instance is None:
         return
-    if instance.accepted == True:
+    if instance.status == "accepted":
         promote_proposal(instance.proposal)
+    else:
+        unpromote_proposal(instance.proposal)
 post_save.connect(accepted_proposal, sender=ProposalResult)

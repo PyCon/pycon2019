@@ -1,0 +1,1 @@
+ALTER TABLE "schedule_presentation" RENAME COLUMN "_proposal_id" TO "proposal_base_id";

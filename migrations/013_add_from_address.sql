@@ -1,0 +1,1 @@
+ALTER TABLE "reviews_notificationtemplate" ADD COLUMN "from_address" VARCHAR(75) NOT NULL DEFAULT 'no-reply@us.pycon.org';
