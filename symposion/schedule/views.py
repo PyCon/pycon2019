@@ -26,6 +26,10 @@ def fetch_schedule(slug):
 
 
 def schedule_detail(request, slug=None):
+    
+    if not request.user.is_staff:
+        raise Http404()
+    
     schedule = fetch_schedule(slug)
     
     days_qs = Day.objects.filter(schedule=schedule)
