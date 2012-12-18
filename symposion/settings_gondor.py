@@ -30,7 +30,7 @@ if "GONDOR_REDIS_URL" in os.environ:
             "BACKEND": "redis_cache.RedisCache",
             "LOCATION": "%s:%s" % (url.hostname, url.port),
             "OPTIONS": {
-                "DB": 1,
+                "DB": 0,
                 "PASSWORD": url.password,
                 "PARSER_CLASS": "redis.connection.HiredisParser"
             },
