@@ -4,12 +4,18 @@
 
 {% block body %}
 
-    <h1>{{ presentation.title }}</h1>
+    {% if presentation.slot %}
+        <h4>
+            {{ presentation.slot.day.date|date:"l" }}
+            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+        </h4>
+    {% endif %}
+    <h2>{{ presentation.title }}</h2>
 
-    <h2>
+    <h4>
         {% for speaker in presentation.speakers %}
             <a href="{% url speaker_profile speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
-    </h2>
+    </h4>
 
     <dl class="dl-horizontal">
         <dt>Audience level:</dt>
@@ -17,15 +23,6 @@
         <dt>Category:</dt>
         <dd>{{ presentation.proposal.category }}</dd>
     </dl>
-
-    {% if presentation.slot %}
-        <h2>
-            {{ presentation.slot.day.date|date:"l" }}
-            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-            in
-            {{ presentation.slot.rooms|join:", " }}
-        </h2>
-    {% endif %}
 
     <h3>Description</h3>
 
