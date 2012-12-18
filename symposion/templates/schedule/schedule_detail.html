@@ -24,7 +24,7 @@
            
             {% box "schedule_top" %}
             
-            {% cache 20 "schedule-table" schedule.section %}
+            {% cache 600 "schedule-table" schedule.section %}
                 {% for timetable in days %}
                     <h3>{{ timetable.day.date }}</h3>
                     {% include "schedule/_grid.html" %}
