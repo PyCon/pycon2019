@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load cache %}
 
 {% block head_title %}Presentation Listing{% endblock %}
 
@@ -25,21 +26,23 @@
 
 {% block body %}
     <h1>Accepted {{ schedule.section.name }}</h1>
-    {% for presentation in presentations %}
-        <div class="row">
-            <div class="span8 presentation well">
-                <h3><a href="{% url schedule_presentation_detail presentation.pk %}">{{ presentation.title }}</a></h3>
-                <h4>{{ presentation.speaker }} in {{ presentation.proposal.category }}</h4>
-                {{ presentation.description }}
-                {% if presentation.slot %}
-                    <h4>
-                        {{ presentation.slot.day.date|date:"l" }}
-                        {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-                        in
-                        {{ presentation.slot.rooms|join:", " }}
-                    </h4>
-                {% endif %}
+    {% cache 600 "schedule-list" schedule.section.name %}
+        {% for presentation in presentations %}
+            <div class="row">
+                <div class="span8 presentation well">
+                    <h3><a href="{% url schedule_presentation_detail presentation.pk %}">{{ presentation.title }}</a></h3>
+                    <h4>{{ presentation.speaker }} in {{ presentation.proposal.category }}</h4>
+                    {{ presentation.description }}
+                    {% if presentation.slot %}
+                        <h4>
+                            {{ presentation.slot.day.date|date:"l" }}
+                            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+                            in
+                            {{ presentation.slot.rooms|join:", " }}
+                        </h4>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endcache %}
 {% endblock %}

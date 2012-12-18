@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load bootstrap_tags %}
 {% load boxes_tags %}
+{% load cache %}
 
 {% block head_title %}Conference Schedule{% endblock %}
 
@@ -45,10 +46,12 @@
            
             {% box "schedule_top" %}
             
-            {% for timetable in days %}
-                <h2>{{ timetable.day.date }}</h2>
-                {% include "schedule/_grid.html" %}
-            {% endfor %}
+            {% cache 20 "schedule-table" schedule.section %}
+                {% for timetable in days %}
+                    <h2>{{ timetable.day.date }}</h2>
+                    {% include "schedule/_grid.html" %}
+                {% endfor %}
+            {% endcache %}
             
             {% box "schedule_bottom" %}
         </div>
