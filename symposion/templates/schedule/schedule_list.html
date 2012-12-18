@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Accepted {{ schedule.section.name }}</h1>
+    <h2>Accepted {{ schedule.section.name }}</h2>
     {% cache 600 "schedule-list" schedule.section.name %}
         {% for presentation in presentations %}
             <div class="row">
