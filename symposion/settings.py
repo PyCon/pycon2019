@@ -178,6 +178,7 @@ INSTALLED_APPS = [
     "raven.contrib.django",
     "constance",
     "constance.backends.database",
+    "redis_cache",
     
     # symposion
     "symposion.conference",
