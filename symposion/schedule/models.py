@@ -93,6 +93,9 @@ class Slot(models.Model):
     
     def __unicode__(self):
         return "%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
+    
+    class Meta:
+        ordering = ["day", "start", "end"]
 
 
 class SlotRoom(models.Model):
@@ -108,6 +111,7 @@ class SlotRoom(models.Model):
     
     class Meta:
         unique_together = [("slot", "room")]
+        ordering = ["slot", "room__order"]
 
 
 class Presentation(models.Model):
