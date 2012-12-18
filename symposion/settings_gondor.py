@@ -22,6 +22,21 @@ if "GONDOR_DATABASE_URL" in os.environ:
         }
     }
 
+if "GONDOR_REDIS_URL" in os.environ:
+    urlparse.uses_netloc.append("redis")
+    url = urlparse.urlparse(os.environ["GONDOR_REDIS_URL"])
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.RedisCache",
+            "LOCATION": "%s:%s" % (url.hostname, url.port),
+            "OPTIONS": {
+                "DB": 1,
+                "PASSWORD": url.password,
+                "PARSER_CLASS": "redis.connection.HiredisParser"
+            },
+        },
+    }
+
 SITE_ID = 1 # set this to match your Sites setup
 
 MEDIA_ROOT = os.path.join(os.environ["GONDOR_DATA_DIR"], "site_media", "media")

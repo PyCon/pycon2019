@@ -21,3 +21,6 @@ django-constance==0.4
 django-picklefield==0.2.1
 
 django-model-utils==1.1.0
+django-redis-cache==0.9.5
+redis==2.7.2
+hiredis==0.1.1
