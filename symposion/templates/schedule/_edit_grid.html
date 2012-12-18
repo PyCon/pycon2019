@@ -1,11 +1,13 @@
-<div class="box">
-    <table class="table table-condensed table-schedule">
+<table class="calendar table table-bordered">
+    <thead>
         <tr>
-            <th>&nbsp;</th>
+            <th class="time">&nbsp;</th>
             {% for room in timetable.rooms %}
                 <th>{{ room.name }}</th>
             {% endfor %}
         </tr>
+    </thead>
+    <tbody>
         {% for row in timetable %}
             <tr>
                 <td class="time">{{ row.time|date:"h:iA" }}</td>
@@ -15,8 +17,8 @@
                             {% if not slot.content %}
                                 <a class="btn btn-mini edit-slot" data-action="{% url schedule_slot_edit schedule.section.slug slot.pk %}" href="#">+</a>
                             {% else %}
-                                <div class="title"><a class="edit-slot" data-action="{% url schedule_slot_edit schedule.section.slug slot.pk %}" href="#">{{ slot.content.title }}</a></div>
-                                <div class="speaker">{{ slot.content.speaker }}</div>
+                                <span class="title"><a class="edit-slot" data-action="{% url schedule_slot_edit schedule.section.slug slot.pk %}" href="#">{{ slot.content.title }}</a></span>
+                                <span class="speaker">{{ slot.content.speaker }}</span>
                             {% endif %}
                         {% else %}
                             {% if slot.content_override.raw %}
@@ -28,7 +30,10 @@
                         {% endif %}
                     </td>
                 {% endfor %}
+                {% if forloop.last %}
+                    <td colspan="{{ timetable.rooms|length }}"></td>
+                {% endif %}
             </tr>
         {% endfor %}
-    </table>
-</div>
+    </tbody>
+</table>

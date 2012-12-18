@@ -1,11 +1,13 @@
-<div class="box">
-    <table class="table table-condensed table-schedule">
+<table class="calendar table table-bordered">
+    <thead>
         <tr>
-            <th>&nbsp;</th>
+            <th class="time">&nbsp;</th>
             {% for room in timetable.rooms %}
                 <th>{{ room.name }}</th>
             {% endfor %}
         </tr>
+    </thead>
+    <tbody>
         {% for row in timetable %}
             <tr>
                 <td class="time">{{ row.time|date:"h:iA" }}</td>
@@ -14,8 +16,12 @@
                         {% if slot.kind.label == "talk" or slot.kind.label == "tutorial" %}
                             {% if not slot.content %}
                             {% else %}
-                                <div class="title"><a href="{% url schedule_presentation_detail slot.content.pk %}">{{ slot.content.title }}</a></div>
-                                <div class="speaker">{{ slot.content.speaker }}</div>
+                                <span class="title">
+                                    <a href="{% url schedule_presentation_detail slot.content.pk %}" title="{{ slot.content.description|striptags|cut:"\"" }}">{{ slot.content.title }}</a>
+                                </span>
+                                <span class="speaker">
+                                    {{ slot.content.speaker }}
+                                </span>
                             {% endif %}
                         {% else %}
                             {% if slot.content_override.raw %}
@@ -26,7 +32,10 @@
                         {% endif %}
                     </td>
                 {% endfor %}
+                {% if forloop.last %}
+                    <td colspan="{{ timetable.rooms|length }}"></td>
+                {% endif %}
             </tr>
         {% endfor %}
-    </table>
-</div>
+    </tbody>
+</table>

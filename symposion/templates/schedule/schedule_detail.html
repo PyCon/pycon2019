@@ -12,28 +12,6 @@
 {% block right %}
 {% endblock %}
 
-{% block extra_head %}
-    <style>
-        .table td {
-            font-size: 9pt;
-        }
-        .table th, td.slot {
-            text-align: center;
-            vertical-align: middle;
-        }
-        td.time {
-            vertical-align: top;
-            width: 50px;
-            font-size: 8pt;
-            padding-top: 0;
-        }
-        td.slot .title {
-            font-weight: bold;
-            line-height: 10pt;
-        }
-    </style>
-{% endblock %}
-
 {% block body_outer %}
     <div class="row">
         <div class="span12">
@@ -48,7 +26,7 @@
             
             {% cache 20 "schedule-table" schedule.section %}
                 {% for timetable in days %}
-                    <h2>{{ timetable.day.date }}</h2>
+                    <h3>{{ timetable.day.date }}</h3>
                     {% include "schedule/_grid.html" %}
                 {% endfor %}
             {% endcache %}
@@ -56,4 +34,12 @@
             {% box "schedule_bottom" %}
         </div>
     </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+        $(function() {
+            $(".talk-description-popover").popover();
+        });
+    </script>
 {% endblock %}
