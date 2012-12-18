@@ -56,7 +56,7 @@
                             {% else %}
                                 {% for sponsor in diamond_sponsors %}
                                     <a href="{{ sponsor.external_url }}">
-                                        <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="" />
+                                        <img src="{% thumbnail sponsor.website_logo '200x120' %}" alt="{{ sponsor.name }}" class="diamond-sponsors" />
                                     </a>
                                 {% endfor %}
 
