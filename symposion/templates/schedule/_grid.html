@@ -20,7 +20,7 @@
                                     <a href="{% url schedule_presentation_detail slot.content.pk %}" title="{{ slot.content.description|striptags|cut:"\"" }}">{{ slot.content.title }}</a>
                                 </span>
                                 <span class="speaker">
-                                    {{ slot.content.speaker }}
+                                    {{ slot.content.speakers|join:", " }}
                                 </span>
                             {% endif %}
                         {% else %}
