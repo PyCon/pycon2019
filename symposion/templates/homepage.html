@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load cache %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
 {% load boxes_tags %}
@@ -46,24 +47,26 @@
                     <div class="presented">
                         <div class="bdr"></div>
                         <h6>Presented By</h6>
+                        
+                        {% cache 600 "homepage-sponsors-diamond" %}
+                            {% sponsors "diamond" as diamond_sponsors %}
 
-                        {% sponsors "diamond" as diamond_sponsors %}
+                            {% if diamond_sponsors|length == 0 %}
+                                {% include "_sponsorship_link.html" %}
+                            {% else %}
+                                {% for sponsor in diamond_sponsors %}
+                                    <a href="{{ sponsor.external_url }}">
+                                        <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="" />
+                                    </a>
+                                {% endfor %}
 
-                        {% if diamond_sponsors|length == 0 %}
-                            {% include "_sponsorship_link.html" %}
-                        {% else %}
-                            {% for sponsor in diamond_sponsors %}
-                                <a href="{{ sponsor.external_url }}">
-                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="" />
-                                </a>
-                            {% endfor %}
-
-                            {% if diamond_sponsors|length == 1 %}
-                                <div class="sponsorship-link">
-                                    {% include "_sponsorship_link.html" %}
-                                </div>
+                                {% if diamond_sponsors|length == 1 %}
+                                    <div class="sponsorship-link">
+                                        {% include "_sponsorship_link.html" %}
+                                    </div>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
+                        {% endcache %}
                         <div class="bdr bdr-r"></div>
                     </div>
                 </div>
@@ -84,38 +87,40 @@
 {% block body_outer %}
 <div class="row">
     <div class="span12 sponsor-crawl">
-        <h3 class="scroll-title">Sponsors</h3>
-        {% sponsors "diamond" as diamond_sponsors %}
-        {% if diamond_sponsors|length > 1 %}
-            <div class="sponsorship-link">
-                {% include "_sponsorship_link.html" %}
-            </div>
-        {% endif %}
-        <div id="sponsorslider" class="carousel slide">
-          <!-- Carousel items -->
-          <div class="carousel-inner">
-          {% sponsors as all_sponsors %}
-            {# sponsors without levels, 21 per each slide #}
-            {% for sponsor in all_sponsors %}
-                {% if forloop.first or forloop.counter0|divisibleby:"21" %}
-                    <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                {% endif %}
+        {% cache 600 "homepage-sponsor-slider" %}
+            <h3 class="scroll-title">Sponsors</h3>
+            {% sponsors "diamond" as diamond_sponsors %}
+            {% if diamond_sponsors|length > 1 %}
+                <div class="sponsorship-link">
+                    {% include "_sponsorship_link.html" %}
+                </div>
+            {% endif %}
+            <div id="sponsorslider" class="carousel slide">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+              {% sponsors as all_sponsors %}
+                {# sponsors without levels, 21 per each slide #}
+                {% for sponsor in all_sponsors %}
+                    {% if forloop.first or forloop.counter0|divisibleby:"21" %}
+                        <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                    {% endif %}
 
-                <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                    <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '95x95' %}')" data-background-2x="{% thumbnail sponsor.website_logo '190x190' %}"></div>
-                </a>
-                {% if forloop.counter|divisibleby:"21" or forloop.last %}</div>{% endif %}
-            {% endfor %}
-          </div>
-          <!-- Carousel nav -->
-          <nav id="slider-nav">
-            {% for sponsor in all_sponsors %}
-                {% if forloop.first or forloop.counter0|divisibleby:"21" %}
-                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
-                {% endif %}
-            {% endfor %}
-          </nav>
-        </div>
+                    <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                        <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '95x95' %}')" data-background-2x="{% thumbnail sponsor.website_logo '190x190' %}"></div>
+                    </a>
+                    {% if forloop.counter|divisibleby:"21" or forloop.last %}</div>{% endif %}
+                {% endfor %}
+              </div>
+              <!-- Carousel nav -->
+              <nav id="slider-nav">
+                {% for sponsor in all_sponsors %}
+                    {% if forloop.first or forloop.counter0|divisibleby:"21" %}
+                        <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
+                    {% endif %}
+                {% endfor %}
+              </nav>
+            </div>
+        {% endcache %}
     </div>
 
     {% latest_blog_posts as posts %}

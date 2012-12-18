@@ -2,6 +2,7 @@
 
 {% load url from future %}
 
+{% load cache %}
 {% load static %}
 {% load metron_tags %}
 {% load i18n %}
@@ -81,23 +82,25 @@
                 </div>
                 <div class="span3">
                     {% block sidebar %}
-                        <h2>Sponsors</h2>
-                        {% sponsor_levels as levels %}
-                        <div class="sponsor-list">
-                            {% for level in levels %}
-                                {% if level.sponsors %}
-                                    <h3 style="margin-top: 3em;">{{ level.name }}</h3>
-                                    
-                                    {% for sponsor in level.sponsors %}
-                                        <div style="margin: 10px 0;">
-                                            <a href="{{ sponsor.external_url }}">
-                                                <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
-                                            </a>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                        {% cache 600 "sidebar" %}
+                            <h2>Sponsors</h2>
+                            {% sponsor_levels as levels %}
+                            <div class="sponsor-list">
+                                {% for level in levels %}
+                                    {% if level.sponsors %}
+                                        <h3 style="margin-top: 3em;">{{ level.name }}</h3>
+                                        
+                                        {% for sponsor in level.sponsors %}
+                                            <div style="margin: 10px 0;">
+                                                <a href="{{ sponsor.external_url }}">
+                                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endcache %}
                     {% endblock %}
                 </div>
             </div>
