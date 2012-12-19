@@ -1,6 +1,10 @@
 {% extends "site_base.html" %}
 
+{% load sitetree %}
+
 {% block head_title %}Presentation: {{ presentation.title }}{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
 

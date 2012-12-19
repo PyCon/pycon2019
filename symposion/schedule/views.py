@@ -148,5 +148,6 @@ def schedule_presentation_detail(request, pk):
     
     ctx = {
         "presentation": presentation,
+        "schedule": presentation.slot.day.schedule,
     }
     return render(request, "schedule/presentation_detail.html", ctx)

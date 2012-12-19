@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load cache %}
+{% load sitetree %}
 
 {% block head_title %}Presentation Listing{% endblock %}
 
@@ -23,6 +24,8 @@
         }
     </style>
 {% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
     <h2>Accepted {{ schedule.section.name }}</h2>

@@ -4,6 +4,7 @@
 {% load bootstrap_tags %}
 {% load boxes_tags %}
 {% load cache %}
+{% load sitetree %}
 
 {% block head_title %}Conference Schedule{% endblock %}
 
@@ -17,7 +18,7 @@
         <div class="span12">
             <div class="page-head">
                 <h1>{{ schedule.section }} Schedule</h1>
-                {% block breadcrumbs %}{% endblock %}
+                {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
             </div>
         </div>
         <div class="span12">
