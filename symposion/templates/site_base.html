@@ -123,9 +123,5 @@
 {% block script_base %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
-    <script type="text/javascript">
-        // Stupid fix until bootstrap fixes mobile nav menus
-        $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
-    </script>
     {% block extra_script %}{% endblock %}
 {% endblock %}
