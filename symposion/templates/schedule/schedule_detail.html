@@ -22,7 +22,6 @@
             </div>
         </div>
         <div class="span12">
-           
             {% box "schedule_top" %}
             
             {% cache 600 "schedule-table" schedule.section %}
@@ -35,12 +34,4 @@
             {% box "schedule_bottom" %}
         </div>
     </div>
-{% endblock %}
-
-{% block extra_script %}
-    <script type="text/javascript">
-        $(function() {
-            $(".talk-description-popover").popover();
-        });
-    </script>
 {% endblock %}

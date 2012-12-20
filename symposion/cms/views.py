@@ -9,7 +9,6 @@ from .models import Page, File
 from .forms import PageForm, FileUploadForm
 
 
-
 def can_edit(page, user):
     if page and page.is_community:
         return True
