@@ -13,20 +13,24 @@
 
 {% block banner %}
     <div class="banner">
-        <div class="container">
+        <div class="container" itemscope itemtype="http://data-vocabulary.org/Event">
             <div class="row">
                 <div class="span7">
-                    <h1><a href="/" class="logo">PyCon 2013</a></h1>
-                    <h2>Santa Clara, CA, March 13&ndash;21</h2>
+                    <h1 itemprop="summary"><a href="/" class="logo">PyCon 2013</a></h1>
+                    <h2><span itemprop="locality">Santa Clara</span>, <span itemprop="region">CA</span>, <time itemprop="startDate" datetime="2013-3-13">March 13</time>&ndash;<time itemprop="endDate" datetime="2013-3-21">21</time></h2>
                 </div>
                 <div class="span5">
-                    <p class="intro">
+                    <p class="intro" itemprop="description">
                         The largest annual gathering<br />
                         for the community using and developing<br />
                         the open-source<br />
                         <strong>Python programming language</strong>
                     </p>
                 </div>
+                <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
+                    <meta itemprop="latitude" content="37.405364" />
+                    <meta itemprop="longitude" content="-121.975408" />
+                </span>
             </div>
             <div class="dotted-ln"></div>
             <div class="row">
@@ -70,12 +74,12 @@
                         <div class="bdr bdr-r"></div>
                     </div>
                 </div>
-                <div class="span3 tickets-info">
+                <div class="span3 tickets-info" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                     <div class="tickets"></div>
                     <h6>Registration</h6>
                     <p>
                         <strong>Now Open!</strong> <br />
-                        <a href="{% url registration_start %}">Click here to register.</a>
+                        <a href="{% url registration_start %}" itemprop="offerurl">Click here to register.</a>
                     </p>
                 </div>
             </div>
