@@ -11,6 +11,7 @@ from symposion.conference.models import Section
 class Schedule(models.Model):
     
     section = models.OneToOneField(Section)
+    published = models.BooleanField(default=True)
     
     def __unicode__(self):
         return "%s Schedule" % self.section
