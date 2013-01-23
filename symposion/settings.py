@@ -277,6 +277,7 @@ PROPOSAL_FORMS = {
     "tutorial": "pycon.forms.PyConTutorialProposalForm",
     "talk": "pycon.forms.PyConTalkProposalForm",
     "poster": "pycon.forms.PyConPosterProposalForm",
+    "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
 }
 
 USE_X_ACCEL_REDIRECT = False

@@ -3,6 +3,7 @@ from django import forms
 from markitup.widgets import MarkItUpWidget
 
 from pycon.models import PyConProposalCategory, PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
+from pycon.models import PyConSponsorTutorialProposal
 
 
 class PyConProposalForm(forms.ModelForm):
@@ -67,6 +68,26 @@ class PyConPosterProposalForm(PyConProposalForm):
 
     class Meta:
         model = PyConPosterProposal
+        fields = [
+            "title",
+            "category",
+            "audience_level",
+            "description",
+            "abstract",
+            "additional_notes",
+            "recording_release",
+
+        ]
+        widgets = {
+            "abstract": MarkItUpWidget(),
+            "additional_notes": MarkItUpWidget(),
+        }
+
+
+class PyConSponsorTutorialForm(PyConProposalForm):
+
+    class Meta:
+        model = PyConSponsorTutorialProposal
         fields = [
             "title",
             "category",
