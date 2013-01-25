@@ -20,12 +20,14 @@
             <a href="{% url speaker_profile speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
     </h4>
 
-    <dl class="dl-horizontal">
-        <dt>Audience level:</dt>
-        <dd style="margin-bottom: 0;">{{ presentation.proposal.get_audience_level_display }}</dd>
-        <dt>Category:</dt>
-        <dd>{{ presentation.proposal.category }}</dd>
-    </dl>
+    {% if presentation.proposal.category  %}
+        <dl class="dl-horizontal">
+            <dt>Audience level:</dt>
+            <dd style="margin-bottom: 0;">{{ presentation.proposal.get_audience_level_display }}</dd>
+            <dt>Category:</dt>
+            <dd>{{ presentation.proposal.category }}</dd>
+        </dl>
+    {% endif %}
 
     <h3>Description</h3>
 
