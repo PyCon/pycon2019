@@ -68,6 +68,6 @@ class PyConPosterProposal(PyConProposal):
         verbose_name = "PyCon poster proposal"
 
 
-class PyConSponsorTutorialProposal(PyConProposal):
+class PyConSponsorTutorialProposal(ProposalBase):
     class Meta:
         verbose_name = "PyCon Sponsor Tutorial proposal"
