@@ -52,6 +52,7 @@ urlpatterns = patterns("",
         url(r"^reviews/", include("symposion.reviews.urls")),
         url(r"^teams/", include("symposion.teams.urls")),
         url(r"^schedule/", include("symposion.schedule.urls")),
+        url(r"^conference/", include("symposion.conference.urls")),
         
         url(r"^sponsors/", include("pycon.sponsorship.urls")),
         
