@@ -10,7 +10,7 @@
 Django==1.4.3
 pinax-theme-bootstrap==2.2.2
 django-user-accounts==1.0b4
-metron==0.1 # 0.2.dev3
+metron==1.1
 pinax-utils==1.0b1.dev3
 django-debug-toolbar==0.9.4
 django-mailer==0.2a1
