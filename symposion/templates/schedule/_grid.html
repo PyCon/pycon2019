@@ -22,6 +22,11 @@
                                 <span class="speaker">
                                     {{ slot.content.speakers|join:", " }}
                                 </span>
+                                <div class="badges">
+                                    {% for session in slot.sessions.all %}
+                                        <a href="{% url schedule_session_detail session.id %}" class="btn btn-mini" style="margin-right: 10px" title="Session Information">S</a>
+                                    {% endfor %}
+                                </div>
                             {% endif %}
                         {% else %}
                             {% if slot.content_override.raw %}

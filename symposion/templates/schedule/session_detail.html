@@ -1,0 +1,83 @@
+{% extends "site_base.html" %}
+{% load sitetree %}
+
+
+{% block body_outer %}
+    <div class="row">
+        <div class="span12">
+            <div class="page-head">
+                <h2>Session Detail</h2>
+                {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class="span12">
+        <h2>{{ session }}</h2>
+        
+        <dl class="dl-horizontal">
+            <dt>Session Chair</dt>
+            <dd>
+                {% if chair %}
+                    {{ chair.get_full_name }}
+                    {% if request.user == chair %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="role" value="un-chair" />
+                            <input type="submit" value="Opt out" class="btn"/>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    {% if user.is_authenticated %}
+                        {% if not chair_denied %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="role" value="chair" />
+                                <input type="submit" class="btn" value="Volunteer to be session chair"/>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        Sign up and <a href="{% url account_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
+                    {% endif %}
+                {% endif %}
+            </dd>
+            <dt>Session Runner</dt>
+            <dd>
+                {% if runner %}
+                    {{ runner.get_full_name }}
+                    {% if request.user == runner %}
+                        <form method="POST" style="border: none; padding: 0">
+                            {% csrf_token %}
+                            <input type="hidden" name="role" value="un-runner" />
+                            <input type="submit" class="btn" value="opt out" />
+                        </form>
+                    {% endif %}
+                {% else %}
+                    {% if user.is_authenticated %}
+                        {% if not runner_denied %}
+                            <form method="POST" style="border: none; padding: 0">
+                                {% csrf_token %}
+                                <input type="hidden" name="role" value="runner" />
+                                <input type="submit" class="btn" value="Volunteer to be session runner"/>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        Sign up and <a href="{% url account_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
+                    {% endif %}
+                {% endif %}
+            </dd>
+        </dl>
+            
+        <h2>Slots</h2>
+        
+        <table class="table">
+            {% for slot in session.slots.all %}
+                <tr>
+                    <td>{{ slot }}</td>
+                    <td>{% if slot.content %}<a href="{% url schedule_presentation_detail slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
+                </tr>
+            {% empty %}
+                <li>No slots in session.</li>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
