@@ -48,6 +48,7 @@ urlpatterns = patterns("",
         url(r"^venue/hotels/", direct_to_template, {"template": "venue/hotels.html"}, name="hotels"),
         
         url(r"^schedule/", include("pycon.schedule.urls")),
+        url(r"^profile/", include("pycon.profile.urls")),
         
         url(r"^speaker/", include("symposion.speakers.urls")),
         url(r"^proposals/", include("symposion.proposals.urls")),

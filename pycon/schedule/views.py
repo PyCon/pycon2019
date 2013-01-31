@@ -56,6 +56,11 @@ def session_detail(request, session_id):
                 runner_denied = True
     
     if request.method == "POST" and request.user.is_authenticated():
+        if not hasattr(request.user, "profile") or not request.user.profile.is_complete:
+            response = redirect("profile_edit")
+            response["Location"] += "?next=%s" % request.path
+            return response
+        
         role = request.POST.get("role")
         if role == "chair":
             if chair == None and not chair_denied:
