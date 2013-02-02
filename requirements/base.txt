@@ -22,7 +22,7 @@ django_compressor==1.2a1
 biblion==0.1.dev11
 
 django-taggit==0.9.3
-django-reversion==1.6.0
+django-reversion==1.6.5
 django-markitup==1.0.0
 markdown==2.1.1
 django-sitetree==0.9.1
