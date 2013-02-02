@@ -31,7 +31,7 @@
                 {% endfor %}
             {% endcache %}
             
-            {% box "schedule_bottom" %}
+            {% box "schedule_bottom_"|add:schedule.section.name|slugify %}
         </div>
     </div>
 {% endblock %}
