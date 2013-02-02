@@ -118,6 +118,7 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "reversion.middleware.RevisionMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
