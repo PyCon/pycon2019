@@ -140,7 +140,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
-    "symposion.reviews.context_processors.reviews",
+    #"symposion.reviews.context_processors.reviews",
 ]
 
 INSTALLED_APPS = [
