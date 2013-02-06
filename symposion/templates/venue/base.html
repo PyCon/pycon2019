@@ -22,7 +22,9 @@
                 {% sitetree_breadcrumbs from "main" %}
             </div>
             <div class="{% block content_class %}box{% endblock %}">
-                {% block body %}{% endblock %}
+                <div class="box-content">
+                    {% block body %}{% endblock %}
+                </div>
             </div>
         </div>
     </div>
