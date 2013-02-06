@@ -90,13 +90,9 @@ class PyConSponsorTutorialForm(PyConProposalForm):
         model = PyConSponsorTutorialProposal
         fields = [
             "title",
-            "category",
-            "audience_level",
             "description",
             "abstract",
             "additional_notes",
-            "recording_release",
-
         ]
         widgets = {
             "abstract": MarkItUpWidget(),
