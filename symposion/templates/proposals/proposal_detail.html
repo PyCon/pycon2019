@@ -7,24 +7,31 @@
 {% block head_title %}{{ proposal.title }}{% endblock %}
 
 {% block body %}
-    <div class="pull-right">
-        {% if not proposal.cancelled %}
-            {% if request.user == proposal.speaker.user %}
-                <a href="{% url proposal_edit proposal.pk %}" class="btn">
-                    {% trans "Edit this proposal" %}
-                </a>
-                <a href="{% url proposal_cancel proposal.pk %}" class="btn">
-                    {% trans "Cancel this proposal" %}
-                </a>
+    {% if proposal.can_edit %}
+        <div class="pull-right">
+            {% if not proposal.cancelled %}
+                {% if request.user == proposal.speaker.user %}
+                    <a href="{% url proposal_edit proposal.pk %}" class="btn">
+                        {% trans "Edit this proposal" %}
+                    </a>
+                    <a href="{% url proposal_cancel proposal.pk %}" class="btn">
+                        {% trans "Cancel this proposal" %}
+                    </a>
+                {% else %}
+                    <a href="{% url proposal_leave proposal.pk %}" class="btn">
+                        {% trans "Remove me from this proposal" %}
+                    </a>
+                {% endif %}
             {% else %}
-                <a href="{% url proposal_leave proposal.pk %}" class="btn">
-                    {% trans "Remove me from this proposal" %}
-                </a>
+                Cancelled
             {% endif %}
-        {% else %}
-            Cancelled
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <strong><i class="icon-lock"></i> Proposal Locked</strong> This proposal is locked as the review period for this section has ended. Edits of proposals after acceptance will not be reflected on the official schedule.
+        </div>
+    {% endif %}
+
     
     <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}, Track: {{ proposal.track }})</h3>
     

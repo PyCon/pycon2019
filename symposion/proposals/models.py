@@ -104,7 +104,10 @@ class ProposalBase(models.Model):
     cancelled = models.BooleanField(default=False)
     
     def can_edit(self):
-        return True
+        if hasattr(self, "presentation") and self.presentation:
+            return False
+        else:
+            return True
     
     @property
     def section(self):
