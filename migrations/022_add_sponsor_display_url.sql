@@ -1,0 +1,1 @@
+ALTER TABLE "sponsorship_sponsor" ADD COLUMN "display_url" varchar(200) NOT NULL DEFAULT '';

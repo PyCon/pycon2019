@@ -35,7 +35,7 @@
                                             </a>
                                         </h2>
                                         <h5>{{ sponsor.name }}</h5>
-                                        <p><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
+                                        <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
                                         <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                                     </div>
                                 </div>

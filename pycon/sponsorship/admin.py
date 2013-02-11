@@ -32,6 +32,7 @@ class SponsorAdmin(admin.ModelAdmin):
                 ("name", "applicant"),
                 ("level", "active"),
                 "external_url",
+                "display_url",
                 "annotation",
                 ("contact_name", "contact_email")
             ]
