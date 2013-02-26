@@ -12,4 +12,5 @@ urlpatterns = patterns("symposion.schedule.views",
     url(r"^([\w\-]+)/list/$", "schedule_list", name="schedule_list"),
     url(r"^([\w\-]+)/presentations.csv$", "schedule_list_csv", name="schedule_list_csv"),
     url(r"^([\w\-]+)/edit/slot/(\d+)/", "schedule_slot_edit", name="schedule_slot_edit"),
+    url(r"^conference.json", "schedule_json", name="schedule_json"),
 )

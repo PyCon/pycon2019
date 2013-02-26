@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
@@ -76,6 +78,13 @@ class Slot(models.Model):
         if self.content and self.content.slot_id:
             self.content.slot = None
             self.content.save()
+    
+    @property
+    def duration(self):
+        start_dt = datetime.strptime(self.start.isoformat(), "%H:%M:%S")
+        end_dt = datetime.strptime(self.end.isoformat(), "%H:%M:%S")
+        delta = end_dt - start_dt
+        return delta.seconds // 60
     
     @property
     def content(self):

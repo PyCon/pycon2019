@@ -1,8 +1,13 @@
+import json
+import datetime
+
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader, Context
 
+from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 
 from symposion.schedule.forms import SlotEditForm
@@ -158,3 +163,63 @@ def schedule_presentation_detail(request, pk):
         "schedule": schedule,
     }
     return render(request, "schedule/presentation_detail.html", ctx)
+
+
+
+def json_serializer(obj):
+    if isinstance(obj, datetime.time):
+        return obj.strftime("%H:%M")
+    raise TypeError
+
+def schedule_json(request):
+    slots = Slot.objects.all().order_by("start")
+    print slots
+    data = []
+    for slot in slots:
+        print slot.kind
+        if slot.kind.label in ["talk", "tutorial"] and slot.content:
+            slot_data = {
+                "name": slot.content.title,
+                "room": ", ".join(room["name"] for room in slot.rooms.values()),
+                "start": slot.start,
+                "end": slot.end,
+                "duration": slot.duration,
+                "authors": [s.name for s in slot.content.speakers()],
+                "released": slot.content.proposal.recording_release,
+                "license": "CC",
+                "contact": "",
+                "description": slot.content.abstract.rendered,
+                "conf_key": slot.pk,
+                "conf_url": "https://%s%s" % (
+                    Site.objects.get_current().domain,
+                    reverse("schedule_presentation_detail", args=[slot.content.pk])
+                ),
+                "tags": "",
+            }
+        elif slot.kind.label in ["plenary"]:
+            slot_data = {
+                "name": slot.content_override.rendered,
+                "room": "Plenary",
+                "start": slot.start,
+                "end": slot.end,
+                "duration": slot.duration,
+                "authors": slot.content_override.rendered,
+                "license": "CC",
+                "contact": "",
+                "released": True,
+                "description": slot.content_override.rendered,
+                "conf_key": slot.pk,
+                "conf_url": "https://%s" % (
+                    Site.objects.get_current().domain
+                ),
+            }
+        else:
+            continue
+        data.append(slot_data)
+    print data
+    return HttpResponse(
+        json.dumps(data, default=json_serializer),
+        content_type="application/json"
+    )
+
+
