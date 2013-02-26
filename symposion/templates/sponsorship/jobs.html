@@ -19,12 +19,10 @@
             </div>
         </div>
         
-        {% box "sponsor_jobs" %}
-        
         {% sponsor_levels as levels %}
 
-        {% for level in levels %}
-            <div class="span12">
+        <div class="span8">
+            {% for level in levels %}
                 <h3>{{ level.name }}</h3>
 
                 {% for sponsor in level.sponsors %}
@@ -43,7 +41,10 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="span4">
+            {% box "sponsor_jobs" %}
+        </div>
     </div>
 {% endblock %}
