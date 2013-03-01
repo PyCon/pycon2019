@@ -34,7 +34,7 @@ class Session(models.Model):
         end = self.end()
         if start and end:
             return u"%s: %s - %s" % (
-                start.strftime("%a"),
+                self.day.date.strftime("%a"),
                 start.strftime("%X"),
                 end.strftime("%X")
             )
