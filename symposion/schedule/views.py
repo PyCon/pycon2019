@@ -188,7 +188,7 @@ def schedule_json(request):
                 "released": slot.content.proposal.recording_release,
                 "license": "CC",
                 "contact": "",
-                "description": slot.content.abstract.rendered,
+                "description": slot.content.abstract.raw,
                 "conf_key": slot.pk,
                 "conf_url": "https://%s%s" % (
                     Site.objects.get_current().domain,
