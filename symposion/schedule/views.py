@@ -177,7 +177,7 @@ def schedule_json(request):
     data = []
     for slot in slots:
         print slot.kind
-        if slot.kind.label in ["talk", "tutorial"] and slot.content:
+        if slot.kind.label in ["talk", "tutorial", "plenary"] and slot.content:
             slot_data = {
                 "name": slot.content.title,
                 "room": ", ".join(room["name"] for room in slot.rooms.values()),
@@ -196,23 +196,6 @@ def schedule_json(request):
                 ),
                 "kind": slot.kind.label,
                 "tags": "",
-            }
-        elif slot.kind.label in ["plenary"]:
-            slot_data = {
-                "name": slot.content_override.rendered,
-                "room": "Plenary",
-                "start": slot.start,
-                "end": slot.end,
-                "duration": slot.duration,
-                "authors": slot.content_override.rendered,
-                "license": "CC",
-                "contact": "",
-                "released": True,
-                "description": slot.content_override.rendered,
-                "conf_key": slot.pk,
-                "conf_url": "https://%s" % (
-                    Site.objects.get_current().domain
-                ),
             }
         else:
             continue
