@@ -200,14 +200,7 @@ def schedule_json(request):
         else:
             continue
         data.append(slot_data)
-    return HttpResponse(
-        json.dumps(data, default=json_serializer),
-        content_type="application/json"
-    )
-
-
-def schedule_posters_json(request):
-    data = []
+    
     for poster in Presentation.objects.filter(section__slug="posters", cancelled=False):
         poster_data = {
             "name": poster.title,
@@ -215,6 +208,9 @@ def schedule_posters_json(request):
             "description": poster.description.raw,
             "abstract": poster.abstract.raw,
             "license": "CC",
+            "room": "Poster Room",
+            "start": datetime.datetime(2013, 03, 17, 10).isoformat(),
+            "end": datetime.datetime(2013, 03, 17, 13, 10).isoformat(),
             "contact": [s.email for s in poster.speakers()],
             "conf_key": 1000 + poster.pk,
             "conf_url": "https://%s%s" % (
