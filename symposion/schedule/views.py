@@ -194,6 +194,7 @@ def schedule_json(request):
                     Site.objects.get_current().domain,
                     reverse("schedule_presentation_detail", args=[slot.content.pk])
                 ),
+                "kind": slot.kind.label,
                 "tags": "",
             }
         elif slot.kind.label in ["plenary"]:
