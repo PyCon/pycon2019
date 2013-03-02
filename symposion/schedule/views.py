@@ -206,3 +206,27 @@ def schedule_json(request):
     )
 
 
+def schedule_posters_json(request):
+    data = []
+    for poster in Presentation.objects.filter(section__slug="posters", cancelled=False):
+        poster_data = {
+            "name": poster.title,
+            "authors": [s.email for s in poster.speakers()],
+            "description": poster.description.raw,
+            "abstract": poster.abstract.raw,
+            "license": "CC",
+            "contact": [s.email for s in poster.speakers()],
+            "conf_key": 1000 + poster.pk,
+            "conf_url": "https://%s%s" % (
+                Site.objects.get_current().domain,
+                reverse("schedule_presentation_detail", args=[poster.pk])
+            ),
+            "kind": "poster",
+            "released": poster.proposal.recording_release,
+        }
+        data.append(poster_data)
+    
+    return HttpResponse(
+        json.dumps(data, default=json_serializer),
+        content_type="application/json"
+    )
