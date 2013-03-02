@@ -173,7 +173,6 @@ def json_serializer(obj):
 
 def schedule_json(request):
     slots = Slot.objects.all().order_by("start")
-    print slots
     data = []
     for slot in slots:
         print slot.kind
