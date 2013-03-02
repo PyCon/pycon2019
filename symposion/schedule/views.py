@@ -181,8 +181,8 @@ def schedule_json(request):
             slot_data = {
                 "name": slot.content.title,
                 "room": ", ".join(room["name"] for room in slot.rooms.values()),
-                "start": slot.start,
-                "end": slot.end,
+                "start": slot.start_date.isoformat(),
+                "end": slot.end_date.isoformat(),
                 "duration": slot.duration,
                 "authors": [s.name for s in slot.content.speakers()],
                 "released": slot.content.proposal.recording_release,
