@@ -187,7 +187,7 @@ def schedule_json(request):
                 "authors": [s.name for s in slot.content.speakers()],
                 "released": slot.content.proposal.recording_release,
                 "license": "CC",
-                "contact": "",
+                "contact": [s.email for s in slot.content.speakers()],
                 "description": slot.content.abstract.raw,
                 "conf_key": slot.pk,
                 "conf_url": "https://%s%s" % (
