@@ -200,7 +200,6 @@ def schedule_json(request):
         else:
             continue
         data.append(slot_data)
-    print data
     return HttpResponse(
         json.dumps(data, default=json_serializer),
         content_type="application/json"
