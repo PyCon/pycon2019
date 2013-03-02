@@ -165,11 +165,11 @@ def schedule_presentation_detail(request, pk):
     return render(request, "schedule/presentation_detail.html", ctx)
 
 
-
 def json_serializer(obj):
     if isinstance(obj, datetime.time):
         return obj.strftime("%H:%M")
     raise TypeError
+
 
 def schedule_json(request):
     slots = Slot.objects.all().order_by("start")
