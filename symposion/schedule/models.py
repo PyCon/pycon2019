@@ -101,6 +101,14 @@ class Slot(models.Model):
     def rooms(self):
         return Room.objects.filter(pk__in=self.slotroom_set.values("room"))
     
+    @property
+    def start_date(self):
+        return datetime.combine(self.day.date, self.start)
+    
+    @property
+    def end_date(self):
+        return datetime.combine(self.day.date, self.end)
+    
     def __unicode__(self):
         return "%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
     
