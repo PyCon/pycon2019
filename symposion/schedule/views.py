@@ -204,7 +204,7 @@ def schedule_json(request):
     for poster in Presentation.objects.filter(section__slug="posters", cancelled=False):
         poster_data = {
             "name": poster.title,
-            "authors": [s.email for s in poster.speakers()],
+            "authors": [s.name for s in poster.speakers()],
             "description": poster.description.raw,
             "abstract": poster.abstract.raw,
             "license": "CC",
