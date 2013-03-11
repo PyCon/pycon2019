@@ -13,7 +13,7 @@
                         <ul class="unstyled">
                             {% for role in session.sessionrole_set.all %}
                                 <li>
-                                    <b>{{ role.get_role_display }}</b>: {% user_display role.user %}
+                                    <b>{{ role.get_role_display }}</b>: {{ role.user.profile.display_name }}
                                 </li>
                             {% empty %}
                                 <li>No volunteers signed up</li>

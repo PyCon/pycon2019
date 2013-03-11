@@ -18,7 +18,7 @@
             <dt>Session Chair</dt>
             <dd>
                 {% if chair %}
-                    {{ chair.get_full_name }}
+                    {{ chair.profile.display_name }}
                     {% if request.user == chair %}
                         <form method="POST">
                             {% csrf_token %}
@@ -47,7 +47,7 @@
             <dt>Session Runner</dt>
             <dd>
                 {% if runner %}
-                    {{ runner.get_full_name }}
+                    {{ runner.profile.display_name }}
                     {% if request.user == runner %}
                         <form method="POST" style="border: none; padding: 0">
                             {% csrf_token %}
