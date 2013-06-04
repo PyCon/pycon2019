@@ -8,17 +8,17 @@
 
 {% block body %}
     {% localtime off %}
-    <p><a href="{% url blog %}">PyCon US 2013 Announcements</a> &raquo;</p>
-    
+    <p><a href="{% url blog %}">PyCon US 2014 Announcements</a> &raquo;</p>
+
     <div class="row">
         <div class="span7">
             <h1>{{ post.title }}</h1>
-            
+
             <div class="newsdate">
                 {% if post.published %}{{ post.published|date }}{% else %}Not published yet{% endif %}
                 by {{ post.author.get_full_name }}
             </div>
-            
+
             <div class="blog-teaser">{{ post.teaser_html|safe }}</div>
             <div class="blog-content">{{ post.content_html|safe }}</div>
         </div>

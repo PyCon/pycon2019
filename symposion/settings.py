@@ -32,8 +32,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-        "NAME": "pycon2013",                       # Or path to database file if using sqlite3.
+        "ENGINE": "django.db.backends.postgresql_psycopg2",  # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
+        "NAME": "pycon2014",                       # Or path to database file if using sqlite3.
         "USER": "",                             # Not used with sqlite3.
         "PASSWORD": "",                         # Not used with sqlite3.
         "HOST": "127.0.0.1",                             # Set to empty string for localhost. Not used with sqlite3.
@@ -57,7 +57,7 @@ SITE_ID = 1
 # Conference ID and any URL prefixes
 CONFERENCE_ID = 1
 CONFERENCE_URL_PREFIXES = {
-    1: "2013",
+    1: "2014",
 }
 
 
@@ -153,12 +153,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
-    
+
     # theme
     "pinax_theme_bootstrap_account",
     "pinax_theme_bootstrap",
     "django_forms_bootstrap",
-    
+
     # external
     "compressor",
     "debug_toolbar",
@@ -180,7 +180,7 @@ INSTALLED_APPS = [
     "constance",
     "constance.backends.database",
     "redis_cache",
-    
+
     # symposion
     "symposion.conference",
     "symposion.cms",
@@ -190,7 +190,7 @@ INSTALLED_APPS = [
     "symposion.reviews",
     "symposion.teams",
     "symposion.schedule",
-    
+
     # custom
     "pycon",
     "pycon.sponsorship",
@@ -223,7 +223,7 @@ AUTHENTICATION_BACKENDS = [
     "social_auth.backends.google.GoogleBackend",
     "social_auth.backends.yahoo.YahooBackend",
     "social_auth.backends.OpenIDBackend",
-    
+
     # Django User Accounts
     "account.auth_backends.EmailAuthenticationBackend",
 ]
@@ -245,8 +245,8 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2013/dashboard/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2013/dashboard/"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2014/dashboard/"
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
