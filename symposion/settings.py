@@ -169,7 +169,6 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "account",
     "sitetree",
-    "markitup",
     "taggit",
     "reversion",
     "biblion",
@@ -256,13 +255,6 @@ EMAIL_DEBUG = DEBUG
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
-
-MARKITUP_SET = "markitup/sets/markdown"
-MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
-MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/markdown-custom"
-MARKITUP_SKIN = "markitup/skins/simple"
-MARKITUP_MEDIA_URL = STATIC_URL
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {

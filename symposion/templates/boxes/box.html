@@ -1,4 +1,3 @@
-{% load markitup_tags %}
 {% load i18n %}
 
 {% if form %}
@@ -11,9 +10,6 @@
             <div class="modal-body">
                 {% csrf_token %}
                 {{ form.content }}
-
-                {% markitup_editor form.content.auto_id %}
-                
             </div>
             <div class="modal-footer">
                  <div class="pull-left">Content is processed using <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a></div>
