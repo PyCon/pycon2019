@@ -19,7 +19,7 @@ on_deploy:
 # URLs which should be served by Gondor mapping to a filesystem location
 # relative to your writable storage area.
 static_urls:
-    - /2014/site_media:
+    - /2013/site_media:
         root: site_media/
 
 wsgi:

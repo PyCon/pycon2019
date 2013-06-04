@@ -4,7 +4,7 @@
         "model": "sitetree.tree",
         "fields": {
             "alias": "main",
-            "title": "PyCon US 2014"
+            "title": "PyCon US 2013"
         }
     },
     {
@@ -431,7 +431,7 @@
             "description": "",
             "insitetree": true,
             "hint": "",
-            "url": "http://guidebook.com/g/pycon2014/",
+            "url": "http://guidebook.com/g/pycon2013/",
             "inbreadcrumbs": true,
             "title": "PyCon Mobile Guide",
             "tree": 1,

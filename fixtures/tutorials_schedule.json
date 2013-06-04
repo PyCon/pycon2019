@@ -10,7 +10,7 @@
         "pk": 1,
         "model": "schedule.day",
         "fields": {
-            "date": "2014-03-13",
+            "date": "2013-03-13",
             "schedule": 1
         }
     },
@@ -18,7 +18,7 @@
         "pk": 2,
         "model": "schedule.day",
         "fields": {
-            "date": "2014-03-14",
+            "date": "2013-03-14",
             "schedule": 1
         }
     },

@@ -33,7 +33,7 @@ class PyConProposal(ProposalBase):
 
     recording_release = models.BooleanField(
         default=True,
-        help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon 2014 Recording Release</a> for details."
+        help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2013/speaking/recording/' target='_blank'>PyCon 2013 Recording Release</a> for details."
     )
 
     class Meta:
@@ -50,7 +50,7 @@ class PyConTalkProposal(PyConProposal):
 
     extreme = models.BooleanField(
         default=False,
-        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2014/speaker/extreme/' target='_blank'>Extreme Talks</a> for details."
+        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2013/speaker/extreme/' target='_blank'>Extreme Talks</a> for details."
     )
     duration = models.IntegerField(choices=DURATION_CHOICES)
 

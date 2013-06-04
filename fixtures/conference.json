@@ -4,9 +4,9 @@
         "model": "conference.conference",
         "fields": {
             "timezone": "US/Pacific",
-            "start_date": "2014-03-13",
-            "end_date": "2014-03-21",
-            "title": "PyCon 2014"
+            "start_date": "2013-03-13",
+            "end_date": "2013-03-21",
+            "title": "PyCon 2013"
         }
     },
     {
@@ -14,9 +14,9 @@
         "model": "conference.section",
         "fields": {
             "conference": 1,
-            "start_date": "2014-03-13",
+            "start_date": "2013-03-13",
             "name": "Tutorials",
-            "end_date": "2014-03-14",
+            "end_date": "2013-03-14",
             "slug": "tutorials"
         }
     },
@@ -25,9 +25,9 @@
         "model": "conference.section",
         "fields": {
             "conference": 1,
-            "start_date": "2014-03-15",
+            "start_date": "2013-03-15",
             "name": "Talks",
-            "end_date": "2014-03-18",
+            "end_date": "2013-03-18",
             "slug": "talks"
         }
     },
@@ -47,9 +47,9 @@
         "model": "conference.section",
         "fields": {
             "conference": 1,
-            "start_date": "2014-03-19",
+            "start_date": "2013-03-19",
             "name": "Sprints",
-            "end_date": "2014-03-21",
+            "end_date": "2013-03-21",
             "slug": "sprints"
         }
     },

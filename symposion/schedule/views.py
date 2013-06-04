@@ -209,8 +209,8 @@ def schedule_json(request):
             "abstract": poster.abstract.raw,
             "license": "CC",
             "room": "Poster Room",
-            "start": datetime.datetime(2014, 03, 17, 10).isoformat(),
-            "end": datetime.datetime(2014, 03, 17, 13, 10).isoformat(),
+            "start": datetime.datetime(2013, 03, 17, 10).isoformat(),
+            "end": datetime.datetime(2013, 03, 17, 13, 10).isoformat(),
             "contact": [s.email for s in poster.speakers()],
             "conf_key": 1000 + poster.pk,
             "conf_url": "https://%s%s" % (
