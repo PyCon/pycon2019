@@ -1,0 +1,5 @@
+# requirements for development of `pycon`
+-r project.txt
+
+nose==1.3.0
+django-nose==1.1
