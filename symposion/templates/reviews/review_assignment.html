@@ -13,12 +13,12 @@
             {% for assignment in assignments %}
                 <tr>
                     <td>
-                        <a href="{% url review_detail assignment.proposal.pk %}">
+                        <a href="{% url 'review_detail' assignment.proposal.pk %}">
                             {{ assignment.proposal.title }}
                         </a>
                     </td>
                     <td>
-                        <form method="post" action="{% url review_assignment_opt_out assignment.pk %}">
+                        <form method="post" action="{% url 'review_assignment_opt_out' assignment.pk %}">
                             {% csrf_token %}
                             <input type="submit" value="Opt-out" />
                         </form>

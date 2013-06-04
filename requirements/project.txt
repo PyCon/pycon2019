@@ -7,20 +7,20 @@
 # See http://pip-installer.org/requirement-format.html for more information.
 
 PIL==1.1.7
-easy-thumbnails==1.0-alpha-21
-html5lib==0.95
-django-social-auth==0.7.0
+easy-thumbnails1.2
+html5lib==1.0b1
+django-social-auth==0.7.23
 
-gondor==1.1
-psycopg2==2.4.5
-gunicorn==0.14.3
-nashvegas==0.7
-django-secure==0.1.2
-raven==2.0.0
-django-constance==0.4
-django-picklefield==0.2.1
+gondor==1.2.4
+psycopg2==2.5
+gunicorn==0.17.4
+nashvegas==0.8b1
+django-secure==1.0
+raven==3.3.7
+django-constance==0.6
+django-picklefield==0.3.0
 
-django-model-utils==1.1.0
-django-redis-cache==0.9.5
-redis==2.7.2
+django-model-utils==1.4.0
+django-redis-cache==0.9.7
+redis==2.7.5
 hiredis==0.1.1

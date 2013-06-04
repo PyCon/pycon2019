@@ -7,25 +7,25 @@
 --extra-index-url=http://dist.pinaxproject.com/alpha/
 --extra-index-url=http://dist.pinaxproject.com/fresh-start/
 
-Django==1.4.5
-pinax-theme-bootstrap==2.2.2
-django-user-accounts==1.0b4
+Django==1.5.1
+pinax-theme-bootstrap==3.0a9
+django-user-accounts==1.0b13
 metron==1.1
 pinax-utils==1.0b1.dev3
 django-debug-toolbar==0.9.4
 django-mailer==0.2a1
 django-timezones==0.2
-pytz==2011n
+pytz==2013b
 django-openid==0.3a1
 python-openid==2.2.5
-django_compressor==1.2a1
-biblion==0.1.dev11
+django_compressor==1.3
+git+git://github.com/caktus/biblion.git@feature/django-1.5#egg=biblion
 
-django-taggit==0.9.3
-django-reversion==1.6.5
+django-taggit==0.10a1
+django-reversion==1.7
 django-markitup==1.0.0
-markdown==2.1.1
-django-sitetree==0.9.1
+Markdown==2.3.1
+django-sitetree==0.9.4
 
 -e git+git://github.com/pinax/pinax-theme-bootstrap-account.git@667e71546746c440f46a4dc179cde877ba1c3ab6#egg=pinax-theme-bootstrap-account
 

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Proposal: {{ proposal.title }}</h1>
     
-    <p><a href="{% url proposal_edit proposal.pk %}">Edit proposal</a></p>
+    <p><a href="{% url 'proposal_edit' proposal.pk %}">Edit proposal</a></p>
     
     <h2>Current Speakers</h2>
     
