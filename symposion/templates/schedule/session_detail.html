@@ -1,6 +1,6 @@
 {% extends "site_base.html" %}
 {% load sitetree %}
-
+{% load url from future %}
 
 {% block body_outer %}
     <div class="row">
@@ -37,10 +37,10 @@
                                 </form>
                             {% endif %}
                         {% else %}
-                            <a href="{% url profile_edit %}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.
+                            <a href="{% url 'profile_edit' %}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.
                         {% endif %}
                     {% else %}
-                        Sign up and <a href="{% url account_login %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
+                        Sign up and <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to volunteer to be session chair.
                     {% endif %}
                 {% endif %}
             </dd>
@@ -66,10 +66,10 @@
                                 </form>
                             {% endif %}
                         {% else %}
-                            <a href="{% url profile_edit %}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.
+                            <a href="{% url 'profile_edit' %}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.
                         {% endif %}
                     {% else %}
-                        Sign up and <a href="{% url account_login %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
+                        Sign up and <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to volunteer to be session runner.
                     {% endif %}
                 {% endif %}
             </dd>
@@ -81,7 +81,7 @@
             {% for slot in session.slots.all %}
                 <tr>
                     <td>{{ slot }}</td>
-                    <td>{% if slot.content %}<a href="{% url schedule_presentation_detail slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
+                    <td>{% if slot.content %}<a href="{% url 'schedule_presentation_detail' slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
                 </tr>
             {% empty %}
                 <li>No slots in session.</li>

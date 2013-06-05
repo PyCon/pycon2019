@@ -12,7 +12,7 @@
         <h1>Update your volunteer profile</h1>
         <p class="lead">A profile is required to volunteer with PyCon.</p>
     </header>
-    <form action="{% url profile_edit %}{% if next %}?next={{ next }}{% endif %}" method="POST" encType="multipart/form-data" accept-charset="utf-8" class="form-horizontal">
+    <form action="{% url 'profile_edit' %}{% if next %}?next={{ next }}{% endif %}" method="POST" encType="multipart/form-data" accept-charset="utf-8" class="form-horizontal">
         {% csrf_token %}
         {{ form|as_bootstrap }}
         <div class="form-actions">
