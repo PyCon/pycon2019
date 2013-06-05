@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_slot" ADD COLUMN "_content_override_rendered" text NOT NULL DEFAULT '';

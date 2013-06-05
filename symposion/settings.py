@@ -36,7 +36,7 @@ DATABASES = {
         "NAME": "pycon2014",                       # Or path to database file if using sqlite3.
         "USER": "",                             # Not used with sqlite3.
         "PASSWORD": "",                         # Not used with sqlite3.
-        "HOST": "127.0.0.1",                             # Set to empty string for localhost. Not used with sqlite3.
+        "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
         "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -174,12 +174,12 @@ INSTALLED_APPS = [
     "reversion",
     "biblion",
     "social_auth",
-    "nashvegas",
     "djangosecure",
     "raven.contrib.django",
     "constance",
     "constance.backends.database",
     "redis_cache",
+    "south",
 
     # symposion
     "symposion.conference",
@@ -284,8 +284,6 @@ PROPOSAL_FORMS = {
 }
 
 USE_X_ACCEL_REDIRECT = False
-
-NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_schedule" DROP COLUMN "slug";

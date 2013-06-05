@@ -14,7 +14,6 @@ django-social-auth==0.7.0
 gondor==1.1
 psycopg2==2.4.5
 gunicorn==0.14.3
-nashvegas==0.7
 django-secure==0.1.2
 raven==2.0.0
 django-constance==0.4
@@ -24,3 +23,4 @@ django-model-utils==1.1.0
 django-redis-cache==0.9.5
 redis==2.7.2
 hiredis==0.1.1
+South==0.8.1
