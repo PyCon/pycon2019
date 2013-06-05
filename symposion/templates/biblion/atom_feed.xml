@@ -2,15 +2,15 @@
 {% localtime off %}
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    
+
     <id>{{ feed_id }}</id>
-    
-    <title>PyCon US 2013 Announcements</title>
-    
-    <link rel="alternate" type="text/html" href="https://us.pycon.org/2013/announcements/" />
-    
+
+    <title>PyCon US 2014 Announcements</title>
+
+    <link rel="alternate" type="text/html" href="https://us.pycon.org/2014/announcements/" />
+
     <updated>{{ feed_updated|date:"Y-m-d\TH:i:s\Z" }}</updated>
-    
+
     {% for entry in entries %}
         {% include "biblion/atom_entry.xml" %}
     {% endfor %}

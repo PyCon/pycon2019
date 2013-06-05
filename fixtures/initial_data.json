@@ -1,10 +1,10 @@
 [
     {
-        "pk": 1, 
-        "model": "sites.site", 
+        "pk": 1,
+        "model": "sites.site",
         "fields": {
-            "domain": "us.pycon.org", 
-            "name": "PyCon US 2013"
+            "domain": "us.pycon.org",
+            "name": "PyCon US 2014"
         }
     }
 ]

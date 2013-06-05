@@ -31,7 +31,7 @@ wsgi:
     # wsgi = the Python module which should be importable
     # application = the callable in the Python module
     entry_point: symposion.wsgi:application
-    
+
     # Options for gunicorn which runs your WSGI project.
     gunicorn:
         # The worker class used to run gunicorn (possible values include:
