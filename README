@@ -4,3 +4,8 @@ Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
 PyCon 2014 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
+
+To run tests
+------------
+
+    python manage.py test
