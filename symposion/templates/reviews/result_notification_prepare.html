@@ -23,7 +23,7 @@
         <div class="span6">
             <h2>Email</h2>
             
-            <form method="post" action="{% url result_notification_send section_slug status %}">
+            <form method="post" action="{% url 'result_notification_send' section_slug status %}">
                 
                 {% csrf_token %}
                 
@@ -42,7 +42,7 @@
                 {% include "reviews/_result_notification_prepare_help.html" %}
                 
                 <button type="submit" class="btn btn-primary">Send {{ proposals|length }} Email{{ proposals|length|pluralize }}</button>
-                <a class="btn" href="{% url result_notification section_slug status %}">Cancel</a>
+                <a class="btn" href="{% url 'result_notification' section_slug status %}">Cancel</a>
             </form>
         </div>
     </form>
