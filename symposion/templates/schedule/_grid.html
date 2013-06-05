@@ -17,14 +17,14 @@
                             {% if not slot.content %}
                             {% else %}
                                 <span class="title">
-                                    <a href="{% url schedule_presentation_detail slot.content.pk %}" title="{{ slot.content.description|striptags|cut:"\"" }}">{{ slot.content.title }}</a>
+                                    <a href="{% url 'schedule_presentation_detail'  slot.content.pk %}" title="{{ slot.content.description|striptags|cut:"\"" }}">{{ slot.content.title }}</a>
                                 </span>
                                 <span class="speaker">
                                     {{ slot.content.speakers|join:", " }}
                                 </span>
                                 <div class="badges">
                                     {% for session in slot.sessions.all %}
-                                        <a href="{% url schedule_session_detail session.id %}" class="btn btn-mini" style="margin-right: 10px" title="Session Information">S</a>
+                                        <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" style="margin-right: 10px" title="Session Information">S</a>
                                     {% endfor %}
                                 </div>
                             {% endif %}

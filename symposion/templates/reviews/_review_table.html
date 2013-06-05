@@ -18,7 +18,7 @@
             <tr class="{{ proposal.user_vote_css }}">
                 <td>{{ proposal.number }}</td>
                 <td>
-                    <a href="{% url review_detail proposal.pk %}">
+                    <a href="{% url 'review_detail' proposal.pk %}">
                         <small><strong>{{ proposal.speaker }}</strong></small>
                         <br />
                         {{ proposal.title }}

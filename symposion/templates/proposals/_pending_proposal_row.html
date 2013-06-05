@@ -1,6 +1,6 @@
 <tr>
     <td>
-        <a href="{% url proposal_detail proposal.pk %}">{{ proposal.title }}</a>
+        <a href="{% url 'proposal_detail' proposal.pk %}">{{ proposal.title }}</a>
     </td>
     
     <td>{{ proposal.kind.name }}</td>
@@ -29,8 +29,8 @@
                 <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{% url proposal_pending_join proposal.id %}">Accept invitation</a></li>
-                    <li><a href="{% url proposal_pending_decline proposal.id %}">Decline invitation</a></li>
+                    <li><a href="{% url 'proposal_pending_join' proposal.id %}">Accept invitation</a></li>
+                    <li><a href="{% url 'proposal_pending_decline' proposal.id %}">Decline invitation</a></li>
                 </ul>
             </div>
         {% endif %}
