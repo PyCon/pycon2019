@@ -40,7 +40,6 @@ class Conference(models.Model):
     class Meta(object):
         verbose_name = _("conference")
         verbose_name_plural = _("conferences")
-import reversion
 
 class Section(models.Model):
     """
