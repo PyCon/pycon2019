@@ -41,6 +41,7 @@ class Conference(models.Model):
         verbose_name = _("conference")
         verbose_name_plural = _("conferences")
 
+
 class Section(models.Model):
     """
     a section of the conference such as "Tutorials", "Workshops",
