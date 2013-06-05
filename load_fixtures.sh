@@ -2,6 +2,15 @@
 
 # Create fresh db, load fixtures in an order that works
 
+read -p "About to blow away DB - answer Y to go ahead, ^C to cancel> "
+case $REPLY in
+  Y*) ;;
+  *)
+   echo "Cancelling (try capital Y if you meant to go ahead)"
+   exit 1
+  ;;
+esac
+
 dropdb pycon2014
 createdb pycon2014
 python manage.py upgradedb --execute
