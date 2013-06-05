@@ -13,7 +13,8 @@ esac
 
 dropdb pycon2014
 createdb pycon2014
-python manage.py upgradedb --execute
+python manage.py syncdb --noinput
+python manage.py migrate
 
 python manage.py loaddata \
   fixtures/auth_user.json \
