@@ -23,6 +23,30 @@
         }
     },
     {
+        "pk": 3,
+        "model": "schedule.day",
+        "fields": {
+            "date": "2014-03-15",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "schedule.day",
+        "fields": {
+            "date": "2014-03-16",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "schedule.day",
+        "fields": {
+            "date": "2014-03-17",
+            "schedule": 1
+        }
+    },
+    {
         "pk": 1,
         "model": "schedule.room",
         "fields": {
@@ -95,10 +119,112 @@
         }
     },
     {
+        "pk": 9,
+        "model": "schedule.room",
+        "fields": {
+            "order": 9,
+            "name": "Tutorials 9",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "schedule.room",
+        "fields": {
+            "order": 10,
+            "name": "Tutorials 10",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 11,
+        "model": "schedule.room",
+        "fields": {
+            "order": 11,
+            "name": "Tutorials 11",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 12,
+        "model": "schedule.room",
+        "fields": {
+            "order": 12,
+            "name": "Tutorials 12",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 13,
+        "model": "schedule.room",
+        "fields": {
+            "order": 13,
+            "name": "Tutorials 13",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 14,
+        "model": "schedule.room",
+        "fields": {
+            "order": 14,
+            "name": "Tutorials 14",
+            "schedule": 1
+        }
+    },
+    {
         "pk": 1,
         "model": "schedule.slotkind",
         "fields": {
             "label": "tutorial",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "poetry slam",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "sermon",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "lightning talk",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "lesson",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 6,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "exhortation",
+            "schedule": 1
+        }
+    },
+    {
+        "pk": 7,
+        "model": "schedule.slotkind",
+        "fields": {
+            "label": "confession",
             "schedule": 1
         }
     },
