@@ -232,7 +232,6 @@
         "pk": 1,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -244,7 +243,7 @@
         "pk": 2,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -256,7 +255,7 @@
         "pk": 3,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -268,7 +267,7 @@
         "pk": 4,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -280,7 +279,7 @@
         "pk": 5,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -292,7 +291,7 @@
         "pk": 6,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -304,7 +303,7 @@
         "pk": 7,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -316,7 +315,7 @@
         "pk": 8,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -328,7 +327,7 @@
         "pk": 9,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -340,7 +339,7 @@
         "pk": 10,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -352,7 +351,7 @@
         "pk": 11,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -364,7 +363,7 @@
         "pk": 12,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -376,7 +375,7 @@
         "pk": 13,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -388,7 +387,7 @@
         "pk": 14,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -400,7 +399,7 @@
         "pk": 15,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -412,7 +411,7 @@
         "pk": 16,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -424,7 +423,7 @@
         "pk": 17,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -436,7 +435,7 @@
         "pk": 18,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -448,7 +447,7 @@
         "pk": 19,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -460,7 +459,7 @@
         "pk": 20,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -472,7 +471,7 @@
         "pk": 21,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -484,7 +483,7 @@
         "pk": 22,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -496,7 +495,7 @@
         "pk": 23,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -508,7 +507,7 @@
         "pk": 24,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "12:20:00",
             "content_override": "",
@@ -520,7 +519,7 @@
         "pk": 25,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -532,7 +531,7 @@
         "pk": 26,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -544,7 +543,7 @@
         "pk": 27,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -556,7 +555,7 @@
         "pk": 28,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -568,7 +567,7 @@
         "pk": 29,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -580,7 +579,7 @@
         "pk": 30,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -592,7 +591,7 @@
         "pk": 31,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
@@ -604,7 +603,7 @@
         "pk": 32,
         "model": "schedule.slot",
         "fields": {
-            "_content_override_rendered": "",
+
             "kind": 1,
             "end": "16:40:00",
             "content_override": "",
