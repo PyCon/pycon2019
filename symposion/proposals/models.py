@@ -102,6 +102,9 @@ class ProposalBase(models.Model):
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
     additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
     cancelled = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.title
     
     def can_edit(self):
         if hasattr(self, "presentation") and self.presentation:

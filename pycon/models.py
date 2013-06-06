@@ -71,3 +71,6 @@ class PyConPosterProposal(PyConProposal):
 class PyConSponsorTutorialProposal(ProposalBase):
     class Meta:
         verbose_name = "PyCon Sponsor Tutorial proposal"
+
+    def __unicode__(self):
+        return self.title

@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit, BenefitLevel, SponsorBenefit
+from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit, \
+    BenefitLevel, SponsorBenefit
 
 
 class BenefitLevelInline(admin.TabularInline):
@@ -24,7 +25,6 @@ class SponsorBenefitInline(admin.StackedInline):
 
 
 class SponsorAdmin(admin.ModelAdmin):
-    
     save_on_top = True
     fieldsets = [
         (None, {
@@ -43,7 +43,9 @@ class SponsorAdmin(admin.ModelAdmin):
         })
     ]
     inlines = [SponsorBenefitInline]
-    
+    list_display = ("name", "level", "added", "active")
+    list_filter = ("level", )
+
     def get_form(self, *args, **kwargs):
         # @@@ kinda ugly but using choices= on NullBooleanField is broken
         form = super(SponsorAdmin, self).get_form(*args, **kwargs)
@@ -56,12 +58,12 @@ class SponsorAdmin(admin.ModelAdmin):
 
 
 class BenefitAdmin(admin.ModelAdmin):
-    
+
     inlines = [BenefitLevelInline]
 
 
 class SponsorLevelAdmin(admin.ModelAdmin):
-    
+
     inlines = [BenefitLevelInline]
 
 
