@@ -4,14 +4,6 @@
 
 {% block head_title %}Editing {{ proposal.title }}{% endblock %}
 
-{% block extra_style %}
-    {% include "markedit/includes/markedit-css.html" %}
-{% endblock %}
-
-{% block extra_head %}
-    {% include "markedit/includes/markedit-js.html" %}
-{% endblock %}
-
 {% block body %}
     <h1>Edit: {{ proposal.title }}</h1>
     <p><a href="{% url 'proposal_speaker_manage' proposal.pk %}">Manage speakers</a></p>

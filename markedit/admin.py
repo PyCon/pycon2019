@@ -9,8 +9,11 @@ class MarkEditAdmin(admin.ModelAdmin):
         options = {}
 
     class Media:
-        css = {'all': 'css/jquery.markedit.css', }
-        js = ('js/jquery-ui-1.10.3.custom.min.js', 'js/showdown.js', '/js/jquery.markedit.js', )
+        css = {'all': ('css/jquery-ui-1.10.3.min.css', 'css/jquery.markedit.css', )}
+        js = ('js/jquery.admin.js',
+              'js/jquery-ui-1.10.3.custom.min.js',
+              'js/jquery.markedit.js',
+              'js/showdown.js', )
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(MarkEditAdmin, self).formfield_for_dbfield(db_field, **kwargs)
