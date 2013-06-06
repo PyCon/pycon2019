@@ -1,5 +1,7 @@
 from django import forms
 
+from markedit.widgets import MarkEdit
+
 from pycon.models import PyConProposalCategory, PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
 from pycon.models import PyConSponsorTutorialProposal
 
@@ -36,6 +38,10 @@ class PyConTalkProposalForm(PyConProposalForm):
             "additional_notes",
             "recording_release",
         ]
+        widgets = {
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
+        }
 
 
 class PyConTutorialProposalForm(PyConProposalForm):
@@ -52,6 +58,10 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "recording_release",
 
         ]
+        widgets = {
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
+        }
 
 
 class PyConPosterProposalForm(PyConProposalForm):
@@ -68,6 +78,10 @@ class PyConPosterProposalForm(PyConProposalForm):
             "recording_release",
 
         ]
+        widgets = {
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
+        }
 
 
 class PyConSponsorTutorialForm(PyConProposalForm):
@@ -80,5 +94,8 @@ class PyConSponsorTutorialForm(PyConProposalForm):
             "abstract",
             "additional_notes",
         ]
-
+        widgets = {
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
+        }
 

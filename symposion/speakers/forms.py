@@ -2,6 +2,8 @@ from django import forms
 
 from django.contrib import messages
 
+from markedit.widgets import MarkEdit
+
 from symposion.speakers.models import Speaker
 
 
@@ -23,6 +25,9 @@ class SpeakerForm(forms.ModelForm):
             "twitter_username",
             "sessions_preference"
         ]
+        widgets = {
+            "biography": MarkEdit(),
+        }
 
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]

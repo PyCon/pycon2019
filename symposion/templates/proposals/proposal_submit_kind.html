@@ -2,10 +2,17 @@
 
 {% load bootstrap_tags %}
 {% load boxes_tags %}
-
 {% load i18n %}
 
 {% block page_title %}Submit a Proposal for a {{ kind.name }}{% endblock %}
+
+{% block extra_style %}
+    {% include "markedit/includes/markedit-css.html" %}
+{% endblock %}
+
+{% block extra_head %}
+    {% include "markedit/includes/markedit-js.html" %}
+{% endblock %}
 
 {% block body %}
     {% box "example_proposal" %}

@@ -133,8 +133,8 @@ class Presentation(models.Model):
 
     slot = models.OneToOneField(Slot, null=True, blank=True, related_name="content_ptr")
     title = models.CharField(max_length=100)
-    description = MarkupField()
-    abstract = MarkupField()
+    description = models.TextField()
+    abstract = models.TextField()
     speaker = models.ForeignKey("speakers.Speaker", related_name="presentations")
     additional_speakers = models.ManyToManyField("speakers.Speaker", related_name="copresentations", blank=True)
     cancelled = models.BooleanField(default=False)
