@@ -10,10 +10,10 @@
     {% include "markedit/includes/markedit-js.html" %}
     <script type="text/javascript">
         $(function () {
-            var mdown = $('.bio').html();
+            var mdown = $('#bio').html();
             var converter = new Attacklab.showdown.converter();
             var html = converter.makeHtml(mdown);
-            $('.bio').html(html);
+            $('#bio').html(html);
         });
     </script>
 {% endblock %}
@@ -32,7 +32,7 @@
                 <a class="btn pull-right" href="{% url 'speaker_edit' speaker.pk %}">Edit</a>
             {% endif %}
             <h1>{{ speaker.name }}</h1>
-            <div class="bio">{{ speaker.biography|safe }}</div>
+            <div id="bio" class="bio">{{ speaker.biography|safe }}</div>
 
             <h2>Presentations</h2>
             {% for presentation in presentations %}

@@ -1,5 +1,7 @@
 from django import forms
 
+from markedit.widgets import MarkEdit
+
 from symposion.reviews.models import Review, Comment, ProposalMessage, VOTES
 
 
@@ -7,6 +9,7 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["vote", "comment"]
+        widgets = {"comment": MarkEdit()}
 
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
@@ -20,12 +23,14 @@ class ReviewCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["text"]
+        widgets = {"text": MarkEdit()}
 
 
 class SpeakerCommentForm(forms.ModelForm):
     class Meta:
         model = ProposalMessage
         fields = ["message"]
+        widgets = {"message": MarkEdit()}
 
 
 class BulkPresentationForm(forms.Form):
