@@ -8,7 +8,7 @@
 
 PIL==1.1.7
 easy-thumbnails==1.2
-html5lib==1.0b1
+html5lib==0.95
 django-social-auth==0.7.23
 
 gondor==1.2.4
