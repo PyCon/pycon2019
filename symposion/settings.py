@@ -280,7 +280,7 @@ USE_X_ACCEL_REDIRECT = False
 
 NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
-MARKEDIT_DEFAULT_SETTINGS = {}
+MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
 
 
 # local_settings.py can be used to override environment-specific settings
