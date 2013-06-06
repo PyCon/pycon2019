@@ -10,6 +10,7 @@ admin.site.register(
     list_display=[
         'title',
         'kind',
+        'status',
         'extreme',
         'duration',
         'submitted',
@@ -25,6 +26,7 @@ admin.site.register(
     list_display=[
         'title',
         'kind',
+        'status',
         'submitted',
         'speaker',
         'category',
@@ -38,6 +40,7 @@ admin.site.register(
     list_display=[
         'title',
         'kind',
+        'status',
         'submitted',
         'speaker',
         'category',
@@ -51,6 +54,7 @@ admin.site.register(
     list_display=[
         'title',
         'kind',
+        'status',
         'submitted',
         'speaker',
         'cancelled',

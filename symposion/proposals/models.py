@@ -105,7 +105,7 @@ class ProposalBase(models.Model):
 
     def __unicode__(self):
         return self.title
-    
+
     def can_edit(self):
         if hasattr(self, "presentation") and self.presentation:
             return False
@@ -123,7 +123,11 @@ class ProposalBase(models.Model):
     @property
     def number(self):
         return str(self.pk).zfill(3)
-    
+
+    @property
+    def status(self):
+        return self.result.status
+
     def speakers(self):
         yield self.speaker
         for speaker in self.additional_speakers.exclude(additionalspeaker__status=AdditionalSpeaker.SPEAKING_STATUS_DECLINED):
