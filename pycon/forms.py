@@ -1,19 +1,19 @@
 from django import forms
 
-from markitup.widgets import MarkItUpWidget
+from markedit.widgets import MarkEdit
 
 from pycon.models import PyConProposalCategory, PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
 from pycon.models import PyConSponsorTutorialProposal
 
 
 class PyConProposalForm(forms.ModelForm):
-    
+
     def __init__(self, *args, **kwargs):
         super(PyConProposalForm, self).__init__(*args, **kwargs)
         self.fields["category"] = forms.ModelChoiceField(
-            queryset = PyConProposalCategory.objects.order_by("name")
+            queryset=PyConProposalCategory.objects.order_by("name")
         )
-    
+
     def clean_description(self):
         value = self.cleaned_data["description"]
         if len(value) > 400:
@@ -39,8 +39,8 @@ class PyConTalkProposalForm(PyConProposalForm):
             "recording_release",
         ]
         widgets = {
-            "abstract": MarkItUpWidget(),
-            "additional_notes": MarkItUpWidget(),
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
         }
 
 
@@ -59,8 +59,8 @@ class PyConTutorialProposalForm(PyConProposalForm):
 
         ]
         widgets = {
-            "abstract": MarkItUpWidget(),
-            "additional_notes": MarkItUpWidget(),
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
         }
 
 
@@ -79,8 +79,8 @@ class PyConPosterProposalForm(PyConProposalForm):
 
         ]
         widgets = {
-            "abstract": MarkItUpWidget(),
-            "additional_notes": MarkItUpWidget(),
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
         }
 
 
@@ -95,7 +95,7 @@ class PyConSponsorTutorialForm(PyConProposalForm):
             "additional_notes",
         ]
         widgets = {
-            "abstract": MarkItUpWidget(),
-            "additional_notes": MarkItUpWidget(),
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
         }
 

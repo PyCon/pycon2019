@@ -169,7 +169,6 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "account",
     "sitetree",
-    "markitup",
     "taggit",
     "reversion",
     "biblion",
@@ -192,6 +191,7 @@ INSTALLED_APPS = [
     "symposion.schedule",
 
     # custom
+    "markedit",
     "pycon",
     "pycon.sponsorship",
     "pycon.registration",
@@ -257,13 +257,6 @@ DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
 
-MARKITUP_SET = "markitup/sets/markdown"
-MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
-MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/markdown-custom"
-MARKITUP_SKIN = "markitup/skins/simple"
-MARKITUP_MEDIA_URL = STATIC_URL
-
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
@@ -286,6 +279,9 @@ PROPOSAL_FORMS = {
 USE_X_ACCEL_REDIRECT = False
 
 NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
+
+MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
+
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
