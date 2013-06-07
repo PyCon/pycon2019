@@ -33,9 +33,7 @@
     {% if form %}
         <a href="#edit_{{ label }}" data-toggle="modal" class="btn edit-toggle"><i class="icon-pencil"></i> Edit this content</a>
     {% endif %}
-    <div class="markdown">
-        {{ box.content|safe }}
-    </div>
+    <div class="markdown">{{ box.content|safe }}</div>
 </div>
 
 
