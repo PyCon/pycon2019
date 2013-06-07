@@ -1,0 +1,4 @@
+<textarea id="{{ id }}" {{ attributes|safe }}>{{ value }}</textarea>
+<script type="text/javascript">// <![CDATA[
+    $('#{{ id }}').markedit({% if options %}{{ options|safe }}{% endif %});
+// ]]> </script>

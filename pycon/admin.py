@@ -1,13 +1,21 @@
 from django.contrib import admin
 
+from markedit.admin import MarkEditAdmin
+
 from pycon.models import PyConProposalCategory, PyConSponsorTutorialProposal,\
     PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
 
-admin.site.register(PyConProposalCategory)
 
-admin.site.register(
-    PyConTalkProposal,
-    list_display=[
+class ProposalMarkEditAdmin(MarkEditAdmin):
+    class MarkEdit:
+        fields = ['abstract', 'additional_notes', ]
+        options = {
+            'preview': 'below'
+        }
+
+
+class TalkAdmin(ProposalMarkEditAdmin):
+    list_display = [
         'title',
         'kind',
         'status',
@@ -19,11 +27,10 @@ admin.site.register(
         'audience_level',
         'cancelled',
     ]
-)
 
-admin.site.register(
-    PyConTutorialProposal,
-    list_display=[
+
+class TutorialAdmin(ProposalMarkEditAdmin):
+    list_display = [
         'title',
         'kind',
         'status',
@@ -33,11 +40,10 @@ admin.site.register(
         'audience_level',
         'cancelled',
     ]
-)
 
-admin.site.register(
-    PyConPosterProposal,
-    list_display=[
+
+class PosterAdmin(ProposalMarkEditAdmin):
+    list_display = [
         'title',
         'kind',
         'status',
@@ -47,11 +53,10 @@ admin.site.register(
         'audience_level',
         'cancelled',
     ]
-)
 
-admin.site.register(
-    PyConSponsorTutorialProposal,
-    list_display=[
+
+class SponsorTutorialAdmin(ProposalMarkEditAdmin):
+    list_display = [
         'title',
         'kind',
         'status',
@@ -59,4 +64,10 @@ admin.site.register(
         'speaker',
         'cancelled',
     ]
-)
+
+
+admin.site.register(PyConProposalCategory)
+admin.site.register(PyConTalkProposal, TalkAdmin)
+admin.site.register(PyConTutorialProposal, TutorialAdmin)
+admin.site.register(PyConPosterProposal, PosterAdmin)
+admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
