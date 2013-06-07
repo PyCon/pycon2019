@@ -144,6 +144,9 @@ TEMPLATE_CONTEXT_PROCESSORS = [
 ]
 
 INSTALLED_APPS = [
+    # Placing at top to allow admin login template override to take priority
+    "pycon",
+
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -181,6 +184,12 @@ INSTALLED_APPS = [
     "constance.backends.database",
     "redis_cache",
 
+    # custom
+    "pycon.sponsorship",
+    "pycon.registration",
+    "pycon.schedule",
+    "pycon.profile",
+
     # symposion
     "symposion.conference",
     "symposion.cms",
@@ -191,12 +200,7 @@ INSTALLED_APPS = [
     "symposion.teams",
     "symposion.schedule",
 
-    # custom
-    "pycon",
-    "pycon.sponsorship",
-    "pycon.registration",
-    "pycon.schedule",
-    "pycon.profile",
+
 ]
 
 FIXTURE_DIRS = [
