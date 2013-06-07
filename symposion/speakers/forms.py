@@ -2,20 +2,20 @@ from django import forms
 
 from django.contrib import messages
 
-from markitup.widgets import MarkItUpWidget
+from markedit.widgets import MarkEdit
 
 from symposion.speakers.models import Speaker
 
 
 class SpeakerForm(forms.ModelForm):
-    
+
     sessions_preference = forms.ChoiceField(
         widget=forms.RadioSelect(),
         choices=Speaker.SESSION_COUNT_CHOICES,
         required=False,
         help_text="If you've submitted multiple proposals, please let us know if you only want to give one or if you'd like to give two talks."
     )
-    
+
     class Meta:
         model = Speaker
         fields = [
@@ -26,15 +26,15 @@ class SpeakerForm(forms.ModelForm):
             "sessions_preference"
         ]
         widgets = {
-            "biography": MarkItUpWidget(),
+            "biography": MarkEdit(),
         }
-    
+
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]
         if value.startswith("@"):
             value = value[1:]
         return value
-    
+
     def clean_sessions_preference(self):
         value = self.cleaned_data["sessions_preference"]
         if not value:
@@ -43,7 +43,7 @@ class SpeakerForm(forms.ModelForm):
 
 
 # class SignupForm(PinaxSignupForm):
-    
+
 #     def save(self, speaker, request=None):
 #         # don't assume a username is available. it is a common removal if
 #         # site developer wants to use email authentication.

@@ -27,13 +27,11 @@ urlpatterns = patterns("",
         url(r"^account/associations/", include("symposion.social_auth.urls")),
         url(r"^account/", include("account.urls")),
         url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
-        url(r"^markitup/", include("markitup.urls")),
         url(r"^blog/", include("biblion.urls")),
         url(r"^force500/", lambda request: xxx),
-        
+
         url(r"^registration/", include("pycon.registration.urls")),
-        
-        #temp
+
         url(r"^venue/$", TemplateView.as_view(template_name="venue/detail.html"), name="venue_detail"),
         url(r"^venue/traveling/", TemplateView.as_view(template_name="venue/traveling.html"), name="traveling"),
         url(r"^venue/directions/", TemplateView.as_view(template_name="venue/directions.html"), name="directions"),
@@ -45,19 +43,19 @@ urlpatterns = patterns("",
         url(r"^venue/shopping/", TemplateView.as_view(template_name="venue/shopping.html"), name="shopping"),
         url(r"^venue/share-room/", TemplateView.as_view(template_name="venue/share_room.html"), name="share_room"),
         url(r"^venue/hotels/", TemplateView.as_view(template_name="venue/hotels.html"), name="hotels"),
-        
+
         url(r"^schedule/", include("pycon.schedule.urls")),
         url(r"^profile/", include("pycon.profile.urls")),
-        
+
         url(r"^speaker/", include("symposion.speakers.urls")),
         url(r"^proposals/", include("symposion.proposals.urls")),
         url(r"^reviews/", include("symposion.reviews.urls")),
         url(r"^teams/", include("symposion.teams.urls")),
         url(r"^schedule/", include("symposion.schedule.urls")),
         url(r"^conference/", include("symposion.conference.urls")),
-        
+
         url(r"^sponsors/", include("pycon.sponsorship.urls")),
-        
+
         url(r"^boxes/", include("symposion.boxes.urls")),
         url(r"^sitemap/", TemplateView.as_view(template_name="static/sitemap.html"), name="sitemap"),
         url(r"^", include("symposion.cms.urls")),
