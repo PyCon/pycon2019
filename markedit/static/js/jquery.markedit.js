@@ -309,7 +309,9 @@
 
             // Create preview pane
             if (options.preview !== false) {
-                var previewPane = $('<div class="markedit-preview ui-widget-content"></div>');
+                var previewId = $(this).attr('id') + '-preview';
+                var label = $('<label for="' + previewId + '">Preview:</label>');
+                var previewPane = $('<div class="markedit-preview ui-widget-content" id="' + previewId + '"></div>');
 
                 // Set initial state for preview if enabled (now that it's created)
                 if (options.preview === 'toolbar') {
@@ -326,6 +328,7 @@
                 }
                 else if (options.preview === 'bottom' || options.preview === 'below') {
 
+                    $(parent).append(label);
                     $(parent).append(previewPane);
                     $(previewPane).addClass('bottom-preview');
                     $(this).markeditBindAutoPreview(previewPane);
@@ -334,6 +337,7 @@
                 else if (options.preview === 'top' || options.preview === 'above') {
 
                     $(parent).prepend(previewPane);
+                    $(parent).prepend(label);
                     $(previewPane).addClass('top-preview');
                     $(this).markeditBindAutoPreview(previewPane);
 
