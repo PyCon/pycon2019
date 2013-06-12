@@ -65,18 +65,20 @@ CONFERENCE_URL_PREFIXES = {
 # to load the internationalization machinery.
 USE_I18N = False
 
-# Absolute path to the directory that holds media.
+# Absolute path to the directory that holds media - this is files uploaded
+# by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "media")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = "/%s/site_media/media/" % CONFERENCE_URL_PREFIXES[CONFERENCE_ID]
 
-# Absolute path to the directory that holds static files like app media.
-# Example: "/home/media/media.lawrence.com/apps/"
-STATIC_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "static")
+# Absolute path to the directory where static files will be gathered
+# at deploy time and served from in production.  Should NOT be
+# in version control, or contain anything before deploying.
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
