@@ -6,6 +6,35 @@ instead look at https://github.com/pinax/symposion which was designed for reuse.
 PyCon 2014 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
 
+To get running locally
+----------------------
+
+* Create a new virtualenv and activate it.
+* Install the requirements for running and testing locally::
+
+    pip install -r requirements/dev.txt
+
+  (For production, install -r requirements/project.txt).
+* Create a ``local_settings.py`` file at the top level of this tree.
+* Copy the ``DATABASES`` setting from ``symposion/settings.py`` into
+  ``local_settings.py``
+* Edit the ``DATABASES`` setting for your own database server. We'll assume
+  you leave the server type as Postgres and the database name as pycon2014.
+* Create your database::
+
+    createdb pycon2014
+
+* Initialize the database and apply migrations::
+
+    python manage.py updatedb --execute
+
+  (This is different from ``syncdb`` because the code currently uses
+  Nashvegas.)
+
+* Run local server::
+
+    python manage.py runserver
+
 To run tests
 ------------
 

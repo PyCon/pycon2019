@@ -22,3 +22,4 @@ symposion/templates_original/sponsorship/_vertical_by_level.html
 symposion/templates_original/sponsorship/_wall.html
 MANIFEST
 .tox
+local_settings.py
