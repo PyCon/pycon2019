@@ -10,9 +10,7 @@
   {% compress css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css?1337" type="text/css" media="screen" />
   {% endcompress %}
-  {% compress js %}
-    <script src="{% static "pinax/js/jquery.js" %}"></script>
-  {% endcompress %}
+  <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
 </head>
 <body>
     <form action="https://www.cteusa.com/pycon6/auth/verify.reg" method="POST" accept-charset="utf-8">
