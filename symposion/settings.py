@@ -181,6 +181,7 @@ INSTALLED_APPS = [
     "constance",
     "constance.backends.database",
     "redis_cache",
+    "uni_form",
 
     # symposion
     "symposion.conference",
@@ -284,6 +285,9 @@ NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
 MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
 
+COMPRESS_PRECOMPILERS = (
+   ('text/less', 'lessc {infile} {outfile}'),
+)
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

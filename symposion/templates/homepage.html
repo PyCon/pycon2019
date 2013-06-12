@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load cache %}
+{% load compress %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
 {% load boxes_tags %}
@@ -155,6 +156,7 @@
 {% endblock %}
 
 {% block extra_body %}
+  {% compress js %}
     <script type="text/javascript">
         $(function(){
             var slider = $("#sponsorslider").carousel({interval: 7000});
@@ -179,5 +181,6 @@
             };
         });
     </script>
+  {% endcompress %}
 {% endblock %}
 
