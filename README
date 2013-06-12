@@ -43,7 +43,7 @@ For production
 * Install ``lessc`` (Go to http://lesscss.org and search for "Server-side usage")
 * Pre-compress everything by running::
 
-    python manage.py compress
+    python manage.py compress --force
 
   That will write compressed css and js files under site_media
 * Arrange to serve the site_media directory as /2014/site_media/whatever.
