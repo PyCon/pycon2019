@@ -8,8 +8,8 @@
 {% block head_title %}{{ speaker.name }}{% endblock %}
 
 {% block extra_head %}
+  {% include "markedit/includes/markedit-js.html" %}
   {% compress js %}
-    {% include "markedit/includes/markedit-js.html" %}
     <script type="text/javascript">
         $(function () {
             var mdown = $('#bio').html();
