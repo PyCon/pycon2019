@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 
+{% load compress %}
 {% load i18n %}
 {% load thumbnail %}
 
@@ -7,6 +8,7 @@
 {% block head_title %}{{ speaker.name }}{% endblock %}
 
 {% block extra_head %}
+  {% compress js %}
     {% include "markedit/includes/markedit-js.html" %}
     <script type="text/javascript">
         $(function () {
@@ -16,6 +18,7 @@
             $('#bio').html(html);
         });
     </script>
+  {% endcompress %}
 {% endblock %}
 
 {% block body %}
