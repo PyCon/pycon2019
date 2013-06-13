@@ -7,10 +7,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Redirecting to CTE...</title>
-  {% compress css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css?1337" type="text/css" media="screen" />
-  {% endcompress %}
-  <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
+  {% if debug %}
+    <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less" />
+    <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
+  {% else %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+    {% endcompress %}
+  {% endif %}
 </head>
 <body>
     <form action="https://www.cteusa.com/pycon6/auth/verify.reg" method="POST" accept-charset="utf-8">
