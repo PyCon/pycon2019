@@ -40,12 +40,17 @@ For production
 
 * Start with instructions above, until you get to `Run local server`
 * Edit ``local_settings.py`` to make sure DEBUG=False.
+* Add an appropriate ALLOWED_HOSTS setting (https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-ALLOWED_HOSTS)
 * Install ``lessc`` (Go to http://lesscss.org and search for "Server-side usage")
 * Pre-compress everything by running::
 
     python manage.py compress --force
 
   That will write compressed css and js files under site_media
+* Gather the static files:
+
+    python manage.py collectstatic --noinput
+
 * Arrange to serve the site_media directory as /2014/site_media/whatever.
 * Arrange to serve the wsgi application in symposion/wsgi.py at /, running
   with the same virtualenv (or equivalent).  It will only handle URLs
