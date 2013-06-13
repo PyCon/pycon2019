@@ -3,6 +3,7 @@
 {% load url from future %}
 
 {% load cache %}
+{% load compress %}
 {% load static %}
 {% load metron_tags %}
 {% load i18n %}
@@ -15,16 +16,29 @@
 {% block viewport %}{% endblock viewport %}
 
 {% block style_base %}
+  {% compress css %}
     <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet" type="text/css">
-    <link href="{% static "css/site.css" %}?1337" rel="stylesheet" type="text/css" />
+  {% endcompress %}
+
+  {% if debug %}
+    <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less" />
+    <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
+  {% else %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+    {% endcompress %}
+  {% endif %}
+
+  {% compress css %}
     {% include "markedit/includes/markedit-css.html" %}
+  {% endcompress %}
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
 {% block extra_head_base %}
     <meta property="og:image" content="https://us.pycon.org/2014/site_media/static/img/logo.png" />
     <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
-    <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
@@ -119,6 +133,7 @@
 {% endblock %}
 
 {% block script_base %}
+  {% compress js %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
     <script type="text/javascript">
@@ -126,5 +141,6 @@
             $(".required-field").prepend("<span style='color:red;'>* </div>");
         });
     </script>
+  {% endcompress %}
     {% block extra_script %}{% endblock %}
 {% endblock %}

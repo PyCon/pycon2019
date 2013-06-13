@@ -1,5 +1,6 @@
 {% extends "reviews/base.html" %}
 
+{% load compress %}
 {% load i18n %}
 
 {% load bootstrap_tags %}
@@ -176,6 +177,7 @@
 {% endblock %}
 
 {% block extra_script %}
+  {% compress js %}
     <script src="{{ STATIC_URL }}symposion/js/jquery.history.js"></script>
     <script type="text/javascript">
         $(function() {
@@ -192,5 +194,5 @@
             });
         });
     </script>
-
+  {% endcompress %}
 {% endblock %}

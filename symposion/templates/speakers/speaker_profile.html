@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 
+{% load compress %}
 {% load i18n %}
 {% load thumbnail %}
 
@@ -7,7 +8,8 @@
 {% block head_title %}{{ speaker.name }}{% endblock %}
 
 {% block extra_head %}
-    {% include "markedit/includes/markedit-js.html" %}
+  {% include "markedit/includes/markedit-js.html" %}
+  {% compress js %}
     <script type="text/javascript">
         $(function () {
             var mdown = $('#bio').html();
@@ -16,6 +18,7 @@
             $('#bio').html(html);
         });
     </script>
+  {% endcompress %}
 {% endblock %}
 
 {% block body %}
