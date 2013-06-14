@@ -29,4 +29,4 @@
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block body %}{{ page.body }}{% endblock %}
+{% block body %}{{ page.body|safe }}{% endblock %}
