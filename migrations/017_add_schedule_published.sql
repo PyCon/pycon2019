@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_schedule" ADD COLUMN "published" boolean NOT NULL DEFAULT 'T';

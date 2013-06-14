@@ -175,12 +175,12 @@ INSTALLED_APPS = [
     "reversion",
     "biblion",
     "social_auth",
-    "nashvegas",
     "djangosecure",
     "raven.contrib.django",
     "constance",
     "constance.backends.database",
     "redis_cache",
+    "south",
     "uni_form",
 
     # symposion
@@ -280,8 +280,6 @@ PROPOSAL_FORMS = {
 }
 
 USE_X_ACCEL_REDIRECT = False
-
-NASHVEGAS_MIGRATIONS_DIRECTORY = os.path.join(PROJECT_ROOT, "migrations")
 
 MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
 
