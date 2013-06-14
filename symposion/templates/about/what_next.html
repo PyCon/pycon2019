@@ -1,7 +1,6 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
-{% load ifsetting_tag %}
 
 {% block head_title %}{% trans "What Next?" %}{% endblock %}
 
@@ -15,24 +14,13 @@
             <dt><a href="{% url 'acct_email' %}">verify an email address</a></dt>
             <dd>so you can receive notifications, reset your password and so people can find you more easily.</dd>
             
-            {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-            {% else %}
-                {% if user.is_staff %}
-                    <dt><a href="{% url 'admin_invite_user' %}">invite more people to the site</a> [admin only]</dt>
-                    <dd>so more people can share in the fun.</dd>
-                {% endif %}
-            {% endifsetting %}
         </dl>
         {% else %}
             {% url 'acct_login' as login_url %}
             
             <p class="what_next">
-                {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-                    {% url 'acct_signup' as signup_url %}
-                    {% blocktrans %}Start by <a href="{{ signup_url }}">signing up</a> and <a href="{{ login_url }}">logging in</a>.{% endblocktrans %}
-                {% else %}
-                    {% blocktrans %}Start by <a href="{{ login_url }}">logging in</a>.{% endblocktrans %}
-                {% endifsetting %}
+                {% url 'acct_signup' as signup_url %}
+                {% blocktrans %}Start by <a href="{{ signup_url }}">signing up</a> and <a href="{{ login_url }}">logging in</a>.{% endblocktrans %}
             </p>
         {% endif %}
 {% endblock %}

@@ -2,7 +2,6 @@
 
 {% load bootstrap_tags %}
 {% load i18n %}
-{% load markitup_tags %}
 
 {% block head_title %}{{ sponsor }}{% endblock %}
 
@@ -40,6 +39,4 @@
 {% endblock %}
 
 {% block extra_script %}
-    {% markitup_media "no-jquery" %}
-    {% markitup_editor "id_sponsor_benefits-7-text" %}
 {% endblock %}

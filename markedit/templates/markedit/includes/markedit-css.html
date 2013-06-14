@@ -1,0 +1,7 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-1.10.3.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.markedit.css' %}" />
+{% endcompress %}

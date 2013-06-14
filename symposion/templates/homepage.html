@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load cache %}
+{% load compress %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
 {% load boxes_tags %}
@@ -77,9 +78,12 @@
                 <div class="span3 tickets-info" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                     <div class="tickets"></div>
                     <h6>Registration</h6>
+                  {% comment %}
                     <p>
-                        <strong>Sold Out</strong>
+                        <strong>Now Open!</strong> <br />
+                        <a href="{% url 'registration_start' %}" itemprop="offerurl">Click here to register.</a>
                     </p>
+                    {% endcomment %}
                 </div>
             </div>
             <div class="dotted-ln no-mrg-btm"></div>
@@ -152,6 +156,7 @@
 {% endblock %}
 
 {% block extra_body %}
+  {% compress js %}
     <script type="text/javascript">
         $(function(){
             var slider = $("#sponsorslider").carousel({interval: 7000});
@@ -176,5 +181,6 @@
             };
         });
     </script>
+  {% endcompress %}
 {% endblock %}
 

@@ -1,0 +1,7 @@
+{% load staticfiles %}
+{% load compress %}
+{% compress js %}
+  <script src="{% static 'js/jquery-ui-1.10.3.custom.min.js' %}"></script>
+  <script src="{% static 'js/jquery.markedit.js' %}"></script>
+  <script src="{% static 'js/showdown.js' %}"></script>
+{% endcompress %}

@@ -1,7 +1,8 @@
 {% extends "reviews/base.html" %}
 
+{% load compress %}
 {% load i18n %}
-{% load markitup_tags %}
+
 {% load bootstrap_tags %}
 {% load account_tags %}
 
@@ -66,9 +67,9 @@
             </form>
         </div>
     {% endif %}
-    
+
     <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}, Category: {{ proposal.category }})</h3>
-    
+
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#proposal-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
@@ -80,7 +81,7 @@
                 {% include "proposals/_proposal_fields.html" %}
             </div>
             <div class="tab-pane" id="proposal-reviews">
-                
+
                 <h4>{% trans "Current Results" %}</h4>
                 <table class="table table-striped">
                     <thead>
@@ -100,9 +101,9 @@
                         </tr>
                     </tbody>
                 </table>
-                
+
                 <hr />
-                
+
                 {% if review_form %}
                     <form method="POST" action="" class="review-form">
                         <legend>{% trans "Submit Review" %}</legend>
@@ -140,8 +141,6 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-
-                {% markitup_media "no-jquery" %}
             </div>
             <div class="tab-pane" id="proposal-feedback">
                 {% if review_messages %}
@@ -157,7 +156,7 @@
                     {% endfor %}
                     <hr />
                 {% endif %}
-                
+
                 <form action="" method="POST"accept-charset="utf-8">
                     <legend>{% trans "Send a message" %}</legend>
                     <p>
@@ -178,15 +177,16 @@
 {% endblock %}
 
 {% block extra_script %}
+  {% compress js %}
     <script src="{{ STATIC_URL }}symposion/js/jquery.history.js"></script>
     <script type="text/javascript">
         $(function() {
             var History = window.History;
-            
+
             $(window).bind("anchorchange", function() {
                 $(".nav-tabs a[href='" + location.hash + "']").click();
             });
-            
+
             $('#.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
                 if (History.enabled) {
                     History.pushState(null, null, $(e.target).attr("href"));
@@ -194,5 +194,5 @@
             });
         });
     </script>
-    
+  {% endcompress %}
 {% endblock %}

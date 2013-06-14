@@ -65,18 +65,20 @@ CONFERENCE_URL_PREFIXES = {
 # to load the internationalization machinery.
 USE_I18N = False
 
-# Absolute path to the directory that holds media.
+# Absolute path to the directory that holds media - this is files uploaded
+# by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "media")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = "/%s/site_media/media/" % CONFERENCE_URL_PREFIXES[CONFERENCE_ID]
 
-# Absolute path to the directory that holds static files like app media.
-# Example: "/home/media/media.lawrence.com/apps/"
-STATIC_ROOT = os.path.join(PACKAGE_ROOT, "site_media", "static")
+# Absolute path to the directory where static files will be gathered
+# at deploy time and served from in production.  Should NOT be
+# in version control, or contain anything before deploying.
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
@@ -155,7 +157,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
 
     # theme
-    "pinax_theme_bootstrap_account",
+    # "pinax_theme_bootstrap_account",
     "pinax_theme_bootstrap",
     "django_forms_bootstrap",
 
@@ -169,7 +171,6 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "account",
     "sitetree",
-    "markitup",
     "taggit",
     "reversion",
     "biblion",
@@ -180,6 +181,7 @@ INSTALLED_APPS = [
     "constance.backends.database",
     "redis_cache",
     "south",
+    "uni_form",
 
     # symposion
     "symposion.conference",
@@ -192,6 +194,7 @@ INSTALLED_APPS = [
     "symposion.schedule",
 
     # custom
+    "markedit",
     "pycon",
     "pycon.sponsorship",
     "pycon.registration",
@@ -257,13 +260,6 @@ DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
 
-MARKITUP_SET = "markitup/sets/markdown"
-MARKITUP_FILTER = ["symposion.markdown_parser.parse", {}]
-MARKITUP_AUTO_PREVIEW = True
-MARKITUP_SET = "markitup/sets/markdown-custom"
-MARKITUP_SKIN = "markitup/skins/simple"
-MARKITUP_MEDIA_URL = STATIC_URL
-
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
@@ -284,6 +280,12 @@ PROPOSAL_FORMS = {
 }
 
 USE_X_ACCEL_REDIRECT = False
+
+MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
+
+COMPRESS_PRECOMPILERS = (
+   ('text/less', 'lessc {infile} {outfile}'),
+)
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

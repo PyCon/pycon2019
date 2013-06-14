@@ -4,7 +4,9 @@ import reversion
 
 from symposion.teams.models import Team, Membership
 
-admin.site.register(Team,
+admin.site.register(
+    Team,
+    list_display=['name', 'access'],
     prepopulated_fields={"slug": ("name",)},
 )
 

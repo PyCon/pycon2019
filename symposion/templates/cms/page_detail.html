@@ -15,8 +15,18 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var mdown = $('.box-content').html();
+            var converter = new Attacklab.showdown.converter();
+            var html = converter.makeHtml(mdown);
+            $('.box-content').html(html);
+        });
+    </script>
+{% endblock %}
+
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block body %}
-    {{ page.body }}
-{% endblock %}
+{% block body %}{{ page.body }}{% endblock %}

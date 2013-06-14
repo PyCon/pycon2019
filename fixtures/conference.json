@@ -3,9 +3,9 @@
         "pk": 1,
         "model": "conference.conference",
         "fields": {
-            "timezone": "US/Pacific",
-            "start_date": "2014-03-13",
-            "end_date": "2014-03-21",
+            "timezone": "Canada/Eastern",
+            "start_date": "2014-04-09",
+            "end_date": "2014-04-17",
             "title": "PyCon 2014"
         }
     },
