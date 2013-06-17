@@ -288,6 +288,12 @@ COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),
 )
 
+# Is somebody clobbering this?  We shouldn't have to set it ourselves,
+# but if we don't, gunicorn's django_wsgi blows up trying to configure
+# logging with an empty dictionary.
+from django.utils.log import DEFAULT_LOGGING
+LOGGING = DEFAULT_LOGGING
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
