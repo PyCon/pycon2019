@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "redis_cache",
     "south",
     "uni_form",
+    "gunicorn",
 
     # symposion
     "symposion.conference",
