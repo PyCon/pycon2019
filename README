@@ -38,7 +38,9 @@ To get running locally
 For production
 --------------
 
-* Start with instructions above, until you get to `Run local server`
+* Start with instructions above, except:
+  * Install requirements from requirements/project.txt instead of requirements/dev.txt
+  * Stop when you get to `Run local server`
 * Edit ``local_settings.py`` to make sure DEBUG=False.
 * Add an appropriate ALLOWED_HOSTS setting (https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-ALLOWED_HOSTS)
 * Install ``lessc`` (Go to http://lesscss.org and search for "Server-side usage")
