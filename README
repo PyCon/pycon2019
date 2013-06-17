@@ -15,6 +15,7 @@ To get running locally
     pip install -r requirements/dev.txt
 
   (For production, install -r requirements/project.txt).
+
 * Create a ``local_settings.py`` file at the top level of this tree.
 * Copy the ``DATABASES`` setting from ``symposion/settings.py`` into
   ``local_settings.py``
@@ -26,10 +27,7 @@ To get running locally
 
 * Initialize the database and apply migrations::
 
-    python manage.py updatedb --execute
-
-  (This is different from ``syncdb`` because the code currently uses
-  Nashvegas.)
+    python manage.py syncdb --migrate
 
 * Run local server::
 
