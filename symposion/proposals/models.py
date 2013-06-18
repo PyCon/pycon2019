@@ -87,11 +87,14 @@ class ProposalBase(models.Model):
     )
     abstract = models.TextField(
         _("Detailed Abstract"),
-        help_text=_("Detailed description and outline. Will be made public if your talk is accepted. Edit using <a href='http://daringfireball.net/projects/markdown/basics' target='_blank'>Markdown</a>.")
+        help_text=_("Detailed description and outline. Will be made public "
+                    "if your talk is accepted.")
     )
     additional_notes = models.TextField(
         blank=True,
-        help_text=_("Anything else you'd like the program committee to know when making their selection: your past speaking experience, open source community experience, etc. Edit using <a href='http://daringfireball.net/projects/markdown/basics' target='_blank'>Markdown</a>.")
+        help_text=_("Anything else you'd like the program committee to know "
+                    "when making their selection: your past speaking "
+                    "experience, open source community experience, etc.")
     )
     submitted = models.DateTimeField(
         default=datetime.datetime.now,
