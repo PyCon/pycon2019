@@ -32,6 +32,27 @@ Symposion can be configured on a per-section basis.
 Each section has an optional ``start_date`` and ``end_date`` similar to the
 overall conference.
 
+Proposals
+---------
+
+Create different kinds of proposals, e.g. `talk` or `tutorial`, by creating
+ProposalKind objects. You'll also need to create a Form in the code for
+that kind of proposal, and update the setting ``PROPOSAL_FORMS`` with
+the ProposalKind's ``slug`` as key, and the full package path to the form
+to use as value.  For example::
+
+    PROPOSAL_FORMS = {
+        "tutorial": "pycon.forms.PyConTutorialProposalForm",
+        "talk": "pycon.forms.PyConTalkProposalForm",
+        "poster": "pycon.forms.PyConPosterProposalForm",
+        "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
+    }
+
+To allow submitting proposals for a particular Section of the conference,
+create a ProposalSection. The site will allow submitting proposals for that
+Section between the ProposalSection's ``start`` and ``end``, unless
+``closed`` has been set.
+
 
 Helper Functions
 ----------------
