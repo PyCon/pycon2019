@@ -28,8 +28,10 @@ class ProposalSection(models.Model):
 
     section = models.OneToOneField(Section)
 
-    start = models.DateTimeField(null=True, blank=True)
-    end = models.DateTimeField(null=True, blank=True)
+    start = models.DateTimeField(null=True, blank=True,
+                                 help_text=_("When submissions open"))
+    end = models.DateTimeField(null=True, blank=True,
+                               help_text=_("When submissions close"))
     closed = models.NullBooleanField()
     published = models.NullBooleanField()
 
