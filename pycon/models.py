@@ -57,7 +57,7 @@ class PyConProposal(ProposalBase):
         (REJECTION_LIGHTNING, 'Suggest lightning talk.'),
         (REJECTION_MOVED, 'Re-submitted under appropriate category.'),
         (REJECTION_DUPLICATE, 'Duplicate'),
-        (REJECTION_ADMIN, 'Adminstrative Action (Other)'),
+        (REJECTION_ADMIN, 'Administrative Action (Other)'),
         (REJECTION_BAD, "No really: rejected. It's just plain bad."),
     ]
 
