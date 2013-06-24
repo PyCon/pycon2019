@@ -25,7 +25,6 @@ class TalkAdmin(ProposalMarkEditAdmin):
         'speaker',
         'category',
         'audience_level',
-        'domain_level',
         'cancelled',
     ]
 
@@ -53,7 +52,6 @@ class PosterAdmin(ProposalMarkEditAdmin):
         'speaker',
         'category',
         'audience_level',
-        'domain_level',
         'cancelled',
     ]
 

@@ -8,16 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'PyConPosterProposal.domain_level'
-        db.add_column(u'pycon_pyconposterproposal', 'domain_level',
-                      self.gf('django.db.models.fields.IntegerField')(default=0),
-                      keep_default=False)
-
-        # Adding field 'PyConTalkProposal.domain_level'
-        db.add_column(u'pycon_pycontalkproposal', 'domain_level',
-                      self.gf('django.db.models.fields.IntegerField')(default=0),
-                      keep_default=False)
-
         # Adding field 'PyConTutorialProposal.domain_level'
         db.add_column(u'pycon_pycontutorialproposal', 'domain_level',
                       self.gf('django.db.models.fields.IntegerField')(default=0),
@@ -25,12 +15,6 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Deleting field 'PyConPosterProposal.domain_level'
-        db.delete_column(u'pycon_pyconposterproposal', 'domain_level')
-
-        # Deleting field 'PyConTalkProposal.domain_level'
-        db.delete_column(u'pycon_pycontalkproposal', 'domain_level')
-
         # Deleting field 'PyConTutorialProposal.domain_level'
         db.delete_column(u'pycon_pycontutorialproposal', 'domain_level')
 
@@ -120,7 +104,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'PyConPosterProposal'},
             'audience_level': ('django.db.models.fields.IntegerField', [], {}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
-            'domain_level': ('django.db.models.fields.IntegerField', [], {}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
             'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
@@ -138,7 +121,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'PyConTalkProposal'},
             'audience_level': ('django.db.models.fields.IntegerField', [], {}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
-            'domain_level': ('django.db.models.fields.IntegerField', [], {}),
             'duration': ('django.db.models.fields.IntegerField', [], {}),
             'extreme': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),

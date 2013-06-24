@@ -29,25 +29,11 @@ class PyConProposal(ProposalBase):
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
 
-    DOMAIN_LEVEL_NOVICE = 1
-    DOMAIN_LEVEL_EXPERIENCED = 2
-    DOMAIN_LEVEL_INTERMEDIATE = 3
-
-    DOMAIN_LEVELS = [
-        (DOMAIN_LEVEL_NOVICE, "Novice"),
-        (DOMAIN_LEVEL_INTERMEDIATE, "Intermediate"),
-        (DOMAIN_LEVEL_EXPERIENCED, "Experienced"),
-    ]
-
     category = models.ForeignKey(PyConProposalCategory)
     audience_level = models.IntegerField(
         choices=AUDIENCE_LEVELS,
         help_text=_('Level of audience expertise assumed in Python.'),
         verbose_name='Python level')
-    domain_level = models.IntegerField(
-        choices=DOMAIN_LEVELS,
-        help_text=_('Level of audience expertise assumed in the '
-                    'presentation\'s domain.'))
 
     recording_release = models.BooleanField(
         default=True,
@@ -77,6 +63,21 @@ class PyConTalkProposal(PyConProposal):
 
 
 class PyConTutorialProposal(PyConProposal):
+    DOMAIN_LEVEL_NOVICE = 1
+    DOMAIN_LEVEL_EXPERIENCED = 2
+    DOMAIN_LEVEL_INTERMEDIATE = 3
+
+    DOMAIN_LEVELS = [
+        (DOMAIN_LEVEL_NOVICE, "Novice"),
+        (DOMAIN_LEVEL_INTERMEDIATE, "Intermediate"),
+        (DOMAIN_LEVEL_EXPERIENCED, "Experienced"),
+    ]
+
+    domain_level = models.IntegerField(
+        choices=DOMAIN_LEVELS,
+        help_text=_('Level of audience expertise assumed in the '
+                    'presentation\'s domain.'))
+
     class Meta:
         verbose_name = "PyCon tutorial proposal"
 
