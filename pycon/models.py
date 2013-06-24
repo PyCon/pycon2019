@@ -29,12 +29,57 @@ class PyConProposal(ProposalBase):
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
 
+    STATUS_UNREVIEWED = 'unreviewed'
+    STATUS_KITTENDOME = 'kittendome'
+    STATUS_THUNDERDOME = 'thunderdome'
+    STATUS_ACCEPTED = 'accepted'
+    STATUS_DAMAGED = 'damaged'
+    STATUS_REJECTED = 'rejected'
+
+    STATUS_OPTIONS = [
+        (STATUS_UNREVIEWED, 'Not Yet Reviewed'),
+        (STATUS_KITTENDOME, 'In Kittendome'),
+        (STATUS_THUNDERDOME, 'In Thunderdome'),
+        (STATUS_ACCEPTED, 'Accepted'),
+        (STATUS_DAMAGED, 'Damaged'),
+        (STATUS_REJECTED, 'Rejected'),
+    ]
+
+    REJECTION_POSTER = 'poster'
+    REJECTION_LIGHTNING = 'lightning'
+    REJECTION_MOVED = 'moved'
+    REJECTION_DUPLICATE = 'duplicate'
+    REJECTION_ADMIN = 'administrative'
+    REJECTION_BAD = 'bad'
+
+    REJECTION_OPTIONS = [
+        (REJECTION_POSTER, 'Suggest re-submission as poster.'),
+        (REJECTION_LIGHTNING, 'Suggest lightning talk.'),
+        (REJECTION_MOVED, 'Re-submitted under appropriate category.'),
+        (REJECTION_DUPLICATE, 'Duplicate'),
+        (REJECTION_ADMIN, 'Adminstrative Action (Other)'),
+        (REJECTION_BAD, "No really: rejected. It's just plain bad."),
+    ]
+
     category = models.ForeignKey(PyConProposalCategory)
     audience_level = models.IntegerField(
         choices=AUDIENCE_LEVELS,
         help_text=_('Level of audience expertise assumed in Python.'),
         verbose_name='Python level')
-
+    overall_status = models.CharField(
+        max_length=20,
+        choices=STATUS_OPTIONS,
+        default=STATUS_UNREVIEWED,
+        help_text=_('The status of the proposal.'))
+    damaged_score = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text=_('The amount of interested in a talk.'))
+    rejection_status = models.CharField(
+        max_length=20,
+        blank=True,
+        choices=REJECTION_OPTIONS,
+        help_text=_('The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
         help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon 2014 Recording Release</a> for details."
