@@ -8,7 +8,7 @@ from pycon.models import PyConProposalCategory, PyConSponsorTutorialProposal,\
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
     class MarkEdit:
-        fields = ['abstract', 'additional_notes', ]
+        fields = ['abstract', 'additional_notes', 'outline', 'more_info']
         options = {
             'preview': 'below'
         }
