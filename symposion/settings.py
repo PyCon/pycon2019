@@ -127,6 +127,7 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = "symposion.urls"
 
 TEMPLATE_DIRS = [
+    os.path.join(PROJECT_ROOT, "pycon/templates"),
     os.path.join(PACKAGE_ROOT, "templates"),
 ]
 
