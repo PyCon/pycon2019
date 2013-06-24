@@ -1,8 +1,35 @@
+// Table of Contents
+// ==================
+
+// Imports
+// Fonts
+// Variables
+// Homepage
+// Sponsor slideshow
+// Slideshow nav
+// Subpage
+// Sponsors
+// Venue
+// Speaker profile
+// Auth pages
+// Boxes
+// Retina
+// Reviews
+// Job fair
+// Retina
+
+
+/* Imports
+==================== */
 @import "bootstrap/bootstrap.less";
 
+/* Variables
+==================== */
 @darkBlue: #014354;
 @blueGray: #b2bbbe;
 
+/* Generic
+==================== */
 body {
   background:#f2ebdf url(../img/bg.png) repeat 0 0;
   padding-top:0;
@@ -138,7 +165,8 @@ h3.logo {
   }
 }
 
-// homepage
+/* Homepage
+==================== */
 body.home {
   h3.logo, .tagline { display:none; }
 }
@@ -343,7 +371,8 @@ h1 a.logo {
   margin-bottom:0;
 }
 
-/* sponsor slideshow */
+/* Sponsor slideshow
+==================== */
 ul#slider {
   display: block;
   width: 100%;
@@ -430,7 +459,8 @@ ul#slider {
 
 }
 
-/* slideshow nav */
+/* Slideshow nav
+==================== */
 nav#slider-nav {
   float:left;
   height:19px;
@@ -525,7 +555,8 @@ nav#slider-nav {
   color:#fff;
 }
 
-// subpage
+/* Subpage
+==================== */
 .page-head {
   padding:0 0 10px;
   margin-bottom:20px;
@@ -575,7 +606,8 @@ nav#slider-nav {
   }
 }
 
-// sponsors
+/* Sponsors
+==================== */
 .sponsor {
   border:1px solid #d2d2cb;
   .box-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
@@ -639,7 +671,8 @@ nav#slider-nav {
   }
 }
 
-// venue
+/* Venue
+==================== */
 body.venue {
 
   p.intro {
@@ -687,7 +720,8 @@ body.venue {
   }
 }
 
-// speaker profile
+/* Speaker profile
+==================== */
 .avatar {
   float:left;
   margin:0 20px 0 0;
@@ -706,7 +740,8 @@ body.venue {
   margin-bottom:5px;
 }
 
-// auth pages
+/* Auth pages
+==================== */
 body.auth {
 
   .form-horizontal {
@@ -811,27 +846,8 @@ body.auth {
   }
 }
 
-// Markitup
-div.box-content .markItUpEditor {
-  font-family: @monoFontFamily;
-  padding:5px;
-  width:600px;
-  height:320px;
-  clear:both; display:block;
-  overflow:auto;
-}
-
-
-// Markitup Modal
-.modal div.markItUp {
-    width: 500px;
-}
-.modal textarea.markItUpEditor {
-    width: 500px;
-    height: 250px;
-}
-
-// Boxes
+/* Boxes
+==================== */
 .content-box.editable {
     border: 1px dashed #bbb;
     padding: 5px;
@@ -861,7 +877,7 @@ section.widget {
 /*  Retina media query.
   Overrides styles for devices with a
   device-pixel-ratio of 2+, such as iPhone 4.
------------------------------------------------    */
+=========================================== */
 
 @media
   only screen and (-webkit-min-device-pixel-ratio: 2),
@@ -900,8 +916,8 @@ section.widget {
 
 }
 
-/* Reviews */
-
+/* Reviews
+==================== */
 .nav {
     margin-bottom: 0px;
 }
@@ -1051,7 +1067,8 @@ div.comment-box {
     }
 }
 
-// job fair
+/* Job fair
+==================== */
 .job-post {
   border:1px solid #d2d2cb;
   .box-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
