@@ -45,7 +45,6 @@ to use as value.  For example::
         "tutorial": "pycon.forms.PyConTutorialProposalForm",
         "talk": "pycon.forms.PyConTalkProposalForm",
         "poster": "pycon.forms.PyConPosterProposalForm",
-        "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
     }
 
 To allow submitting proposals for a particular Section of the conference,
