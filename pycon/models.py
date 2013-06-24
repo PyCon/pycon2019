@@ -29,12 +29,12 @@ class PyConProposal(ProposalBase):
         (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
     ]
 
-    STATUS_UNREVIEWED = 'unreviewed'
-    STATUS_KITTENDOME = 'kittendome'
-    STATUS_THUNDERDOME = 'thunderdome'
-    STATUS_ACCEPTED = 'accepted'
-    STATUS_DAMAGED = 'damaged'
-    STATUS_REJECTED = 'rejected'
+    STATUS_UNREVIEWED = 1
+    STATUS_KITTENDOME = 2
+    STATUS_THUNDERDOME = 3
+    STATUS_ACCEPTED = 4
+    STATUS_DAMAGED = 5
+    STATUS_REJECTED = 6
 
     STATUS_OPTIONS = [
         (STATUS_UNREVIEWED, 'Not Yet Reviewed'),
@@ -45,12 +45,12 @@ class PyConProposal(ProposalBase):
         (STATUS_REJECTED, 'Rejected'),
     ]
 
-    REJECTION_POSTER = 'poster'
-    REJECTION_LIGHTNING = 'lightning'
-    REJECTION_MOVED = 'moved'
-    REJECTION_DUPLICATE = 'duplicate'
-    REJECTION_ADMIN = 'administrative'
-    REJECTION_BAD = 'bad'
+    REJECTION_POSTER = 1
+    REJECTION_LIGHTNING = 2
+    REJECTION_MOVED = 3
+    REJECTION_DUPLICATE = 4
+    REJECTION_ADMIN = 5
+    REJECTION_BAD = 6
 
     REJECTION_OPTIONS = [
         (REJECTION_POSTER, 'Suggest re-submission as poster.'),
@@ -66,18 +66,17 @@ class PyConProposal(ProposalBase):
         choices=AUDIENCE_LEVELS,
         help_text=_('Level of audience expertise assumed in Python.'),
         verbose_name='Python level')
-    overall_status = models.CharField(
-        max_length=20,
+    overall_status = models.IntegerField(
         choices=STATUS_OPTIONS,
         default=STATUS_UNREVIEWED,
         help_text=_('The status of the proposal.'))
     damaged_score = models.IntegerField(
         blank=True,
         null=True,
-        help_text=_('The amount of interested in a talk.'))
-    rejection_status = models.CharField(
-        max_length=20,
+        help_text=_("Numerical indicator of the amount of interest in a talk set to 'damaged' status."))
+    rejection_status = models.IntegerField(
         blank=True,
+        null=True,
         choices=REJECTION_OPTIONS,
         help_text=_('The reason the proposal was rejected.'))
     recording_release = models.BooleanField(

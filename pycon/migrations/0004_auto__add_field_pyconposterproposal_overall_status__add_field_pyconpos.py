@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'PyConPosterProposal.overall_status'
         db.add_column(u'pycon_pyconposterproposal', 'overall_status',
-                      self.gf('django.db.models.fields.CharField')(default='unreviewed', max_length=20),
+                      self.gf('django.db.models.fields.IntegerField')(default=1),
                       keep_default=False)
 
         # Adding field 'PyConPosterProposal.damaged_score'
@@ -20,12 +20,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'PyConPosterProposal.rejection_status'
         db.add_column(u'pycon_pyconposterproposal', 'rejection_status',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=20, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'PyConTalkProposal.overall_status'
         db.add_column(u'pycon_pycontalkproposal', 'overall_status',
-                      self.gf('django.db.models.fields.CharField')(default='unreviewed', max_length=20),
+                      self.gf('django.db.models.fields.IntegerField')(default=1),
                       keep_default=False)
 
         # Adding field 'PyConTalkProposal.damaged_score'
@@ -35,12 +35,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'PyConTalkProposal.rejection_status'
         db.add_column(u'pycon_pycontalkproposal', 'rejection_status',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=20, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'PyConTutorialProposal.overall_status'
         db.add_column(u'pycon_pycontutorialproposal', 'overall_status',
-                      self.gf('django.db.models.fields.CharField')(default='unreviewed', max_length=20),
+                      self.gf('django.db.models.fields.IntegerField')(default=1),
                       keep_default=False)
 
         # Adding field 'PyConTutorialProposal.damaged_score'
@@ -50,7 +50,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'PyConTutorialProposal.rejection_status'
         db.add_column(u'pycon_pycontutorialproposal', 'rejection_status',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=20, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
                       keep_default=False)
 
 
@@ -169,10 +169,10 @@ class Migration(SchemaMigration):
             'audience_level': ('django.db.models.fields.IntegerField', [], {}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
             'damaged_score': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'overall_status': ('django.db.models.fields.CharField', [], {'default': "'unreviewed'", 'max_length': '20'}),
+            'overall_status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
             'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'rejection_status': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'rejection_status': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'pycon.pyconproposalcategory': {
             'Meta': {'object_name': 'PyConProposalCategory'},
@@ -191,10 +191,10 @@ class Migration(SchemaMigration):
             'damaged_score': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'duration': ('django.db.models.fields.IntegerField', [], {}),
             'extreme': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'overall_status': ('django.db.models.fields.CharField', [], {'default': "'unreviewed'", 'max_length': '20'}),
+            'overall_status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
             'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'rejection_status': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'rejection_status': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'pycon.pycontutorialproposal': {
             'Meta': {'object_name': 'PyConTutorialProposal'},
@@ -202,10 +202,12 @@ class Migration(SchemaMigration):
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
             'damaged_score': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'domain_level': ('django.db.models.fields.IntegerField', [], {}),
-            'overall_status': ('django.db.models.fields.CharField', [], {'default': "'unreviewed'", 'max_length': '20'}),
+            'more_info': ('django.db.models.fields.TextField', [], {}),
+            'outline': ('django.db.models.fields.TextField', [], {}),
+            'overall_status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
             'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'rejection_status': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'rejection_status': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'speakers.speaker': {
             'Meta': {'object_name': 'Speaker'},
