@@ -7,8 +7,13 @@
     <dt>{% trans "Category" %}</dt>
     <dd>{{ proposal.category }}&nbsp;</dd>
 
-    <dt>{% trans "Audience Level" %}</dt>
+    <dt>{% trans "Python Level" %}</dt>
     <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
+
+    {% if proposal.kind.slug == "tutorial" %}
+        <dt>{% trans "Domain Level" %}</dt>
+        <dd>{{ proposal.get_domain_level_display }}&nbsp;</dd>
+    {% endif %}
 
     {% if proposal.kind.name == "talk" %}
         <dt>Extreme?</dt>

@@ -38,6 +38,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'speaker',
         'category',
         'audience_level',
+        'domain_level',
         'cancelled',
     ]
 
