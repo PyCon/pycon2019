@@ -44,6 +44,14 @@
     <dt>{% trans "Abstract" %}</dt>
     <dd id="abstract">{{ proposal.abstract|safe }}&nbsp;</dd>
 
+    {% if proposal.kind.slug == "tutorial" %}
+        <dt>{% trans "Outline" %}</dt>
+        <dd id="outline">{{ proposal.outline|safe }}&nbsp;</dd>
+    
+        <dt>{% trans "More info" %}</dt>
+        <dd id="more_info">{{ proposal.more_info|safe }}&nbsp;</dd>
+    {% endif %}
+
     <dt>{% trans "Notes" %}</dt>
     <dd id="additional-notes">{{ proposal.additional_notes|safe }}&nbsp;</dd>
 

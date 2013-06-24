@@ -10,13 +10,11 @@
 {% block extra_head %}
     <script type="text/javascript">
         $(function () {
-            var markedit_fields = ['#abstract', '#additional-notes', '#bio']
-            for (var i = 0; i < markedit_fields.length; i++) {
-                var mdown = $(markedit_fields[i]).html();
-                var converter = new Attacklab.showdown.converter();
-                var html = converter.makeHtml(mdown);
-                $(markedit_fields[i]).html(html);
-            }
+            var converter = new Attacklab.showdown.converter();
+            var ids = '#abstract,#outline,#more_info,#additional-notes,#bio';
+            $(ids).each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })          
         });
     </script>
 {% endblock %}

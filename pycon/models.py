@@ -78,6 +78,17 @@ class PyConTutorialProposal(PyConProposal):
         help_text=_('Level of audience expertise assumed in the '
                     'presentation\'s domain.'))
 
+    outline = models.TextField(
+        _("Outline"),
+        help_text=_("Detailed outline. Will be made public "
+                    "if your talk is accepted.")
+    )
+    more_info = models.TextField(
+        _("More info"),
+        help_text=_("More info. Will be made public "
+                    "if your talk is accepted.")
+    )
+
     class Meta:
         verbose_name = "PyCon tutorial proposal"
 

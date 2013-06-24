@@ -56,12 +56,16 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "domain_level",
             "description",
             "abstract",
+            "outline",
+            "more_info",
             "additional_notes",
             "recording_release",
 
         ]
         widgets = {
             "abstract": MarkEdit(),
+            "outline": MarkEdit(),
+            "more_info": MarkEdit(),
             "additional_notes": MarkEdit(),
         }
 
