@@ -394,7 +394,10 @@
 
         // Locate textarea
         var textarea = MarkEdit.getTextArea(this);
-        textarea.focus();
+
+        // Don't force focus to the Markedit input field. It might be okay
+        // if that's all you have on the page, but in a form, no.
+        // textarea.focus();
 
         // Get IE selection (of course IE would take 5x the amount of code)
         var r;
