@@ -37,6 +37,7 @@ class PyConTalkProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
         ]
         widgets = {
@@ -59,6 +60,7 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "outline",
             "more_info",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
 
         ]
@@ -81,6 +83,7 @@ class PyConPosterProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
 
         ]
