@@ -27,6 +27,12 @@ from symposion.proposals.models import ProposalSection, ProposalKind
 #     ])]
 # )
 
+class ProposalSectionAdmin(admin.ModelAdmin):
+    list_display = ['section', 'start', 'end', 'closed', 'published']
 
-admin.site.register(ProposalSection)
-admin.site.register(ProposalKind)
+
+class ProposalKindAdmin(admin.ModelAdmin):
+    list_display = ['section', 'name', 'slug']
+
+admin.site.register(ProposalSection, ProposalSectionAdmin)
+admin.site.register(ProposalKind, ProposalKindAdmin)
