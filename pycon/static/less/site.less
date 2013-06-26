@@ -140,6 +140,7 @@ img.diamond-sponsors {
 
 .btn {
   border: none;
+  color: @white;
   background: @grayLight;
   padding: 9px 12px 10px;
   line-height: 22px;
@@ -278,12 +279,6 @@ nav {
     }
 
     .nav { 
-      li.dropdown.open > .dropdown-toggle, 
-      li.dropdown.active > .dropdown-toggle, 
-      li.dropdown.open.active > .dropdown-toggle {
-        background-color: @blueDark;
-        .border-radius(8px);
-      }
       li { 
          a {
           font-size: @baseFontSize + 3;
@@ -292,9 +287,25 @@ nav {
           box-shadow: none !important;
           text-shadow: none;
           color: @grayDark;
+          font-weight: 400;
           &:hover {
             background-color: @blueLight;
             .border-radius(6px);
+          }
+          &:active {
+            background-color: darken(@blueLight, 20%);
+          }
+          &:focus {
+            color: @grayDark;
+            background-color: transparent;
+          }
+        }
+        &.dropdown {
+          &.open > .dropdown-toggle,
+          &.active > .dropdown-toggle,
+          &.open.active > .dropdown-toggle {
+            background-color: @blueDark;
+            .border-radius(8px);
           }
         }
       }
@@ -354,9 +365,12 @@ body.home {
   nav .navbar .navbar-inner {
     margin: 0 0 0 40px;
   }
+  .banner {
+    margin-bottom: 25px;
+  }
   .sky {
     background-color: @blueSky;
-    padding-top: 60px;
+    padding-top: 50px;
     .logo {
       background: url("../img/pycon2014-logo.png") no-repeat scroll 0 0 transparent;
       display: block;
@@ -381,19 +395,19 @@ body.home {
   .city {
     position: relative;
     background-color: @blueSky;
-    height: 350px;
+    height: 250px;
     .montreal {
       position: absolute;
       background: url("../img/montreal.png") no-repeat scroll 0 0 transparent;
       height: 230px;
-      margin-left: 55px;
-      bottom: 20px;
+      margin-left: 155px;
+      bottom: -55px;
       width: 827px;
       z-index: 99;
     }
     .water {
       background-color: @blueDark;
-      height: 75px;
+      height: 65px;
       width: 100%;
       position: absolute;
       bottom: 0;
