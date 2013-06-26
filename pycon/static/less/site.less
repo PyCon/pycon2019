@@ -140,6 +140,7 @@ img.diamond-sponsors {
 
 .btn {
   border: none;
+  color: @white;
   background: @grayLight;
   padding: 9px 12px 10px;
   line-height: 22px;
@@ -214,7 +215,7 @@ img.diamond-sponsors {
     .swap-button-color(@yellowBeak, @button-warning-hover, @button-warning-active);
   }
   &.btn-inverse {
-    .swap-button-color(@white, @button-inverse-hover, @button-inverse-active);    
+    .swap-button-color(@white, @button-inverse-hover, @button-inverse-active);
   }
 
   // Button icon
@@ -255,7 +256,7 @@ footer {
   position: relative;
   color: @blueDark;
   font-family: 'Lato', Helvetica, Arial, sans-serif;
-  font-weight:bold;
+  font-weight:400;
   font-size:@baseFontSize - 3;
   text-shadow:0 0 0 rgba(0, 0, 0, 0);
   line-height: 18px;
@@ -279,7 +280,7 @@ footer {
         color: @blueLight;
       }
       font-family: 'Lato', Helvetica, Arial, sans-serif;
-      font-weight:bold;
+      font-weight:400;
       font-size:@baseFontSize - 3;
       text-shadow:0 0 0 rgba(0, 0, 0, 0);
       line-height: 18px;
@@ -313,25 +314,35 @@ nav {
       border: none;
     }
 
-    .nav { 
-      li.dropdown.open > .dropdown-toggle, 
-      li.dropdown.active > .dropdown-toggle, 
-      li.dropdown.open.active > .dropdown-toggle {
-        background-color: @blueDark;
-        .border-radius(8px);
-      }
-      li { 
+    .nav {
+      li {
          a {
           font-size: @baseFontSize + 3;
-          font-weight:bold;
+          font-weight:400;
           margin: 0 20px 0 0;
           padding: 5px 10px 6px;
           box-shadow: none !important;
           text-shadow: none;
           color: @grayDark;
+          font-weight: 400;
           &:hover {
             background-color: @blueLight;
             .border-radius(6px);
+          }
+          &:active {
+            background-color: darken(@blueLight, 20%);
+          }
+          &:focus {
+            color: @grayDark;
+            background-color: transparent;
+          }
+        }
+        &.dropdown {
+          &.open > .dropdown-toggle,
+          &.active > .dropdown-toggle,
+          &.open.active > .dropdown-toggle {
+            background-color: @blueDark;
+            .border-radius(8px);
           }
         }
       }
@@ -370,7 +381,7 @@ nav {
       }
     }
   }
-    
+
     a.logo-small {
       position:absolute;
       top: 5px;
@@ -391,9 +402,12 @@ body.home {
   nav .navbar .navbar-inner {
     margin: 0 0 0 40px;
   }
+  .banner {
+    margin-bottom: 25px;
+  }
   .sky {
     background-color: @blueSky;
-    padding-top: 60px;
+    padding-top: 50px;
     .logo {
       background: url("../img/pycon2014-logo.png") no-repeat scroll 0 0 transparent;
       display: block;
@@ -418,19 +432,19 @@ body.home {
   .city {
     position: relative;
     background-color: @blueSky;
-    height: 350px;
+    height: 250px;
     .montreal {
       position: absolute;
       background: url("../img/montreal.png") no-repeat scroll 0 0 transparent;
       height: 230px;
-      margin-left: 55px;
-      bottom: 20px;
+      margin-left: 155px;
+      bottom: -55px;
       width: 827px;
       z-index: 99;
     }
     .water {
       background-color: @blueDark;
-      height: 75px;
+      height: 65px;
       width: 100%;
       position: absolute;
       bottom: 0;
@@ -906,7 +920,7 @@ body.auth {
 .content-box.editable {
     border: 1px dashed #bbb;
     padding: 5px;
-    min-height: 30px;
+    min-height: 40px;
 }
 .edit-toggle {
     position: relative;
