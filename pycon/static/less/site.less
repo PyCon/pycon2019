@@ -43,18 +43,18 @@
 @button-text:           @white;
 @button-hover:          mix(@grayLight, white, 80%);
 @button-active:         mix(@grayLight, black, 85%);
-@button-primary-hover:  mix(@blueLight, white, 80%);
-@button-primary-active: mix(@blueLight, black, 85%);
-@button-info-hover:     mix(@greenDark, white, 80%);
-@button-info-active:    mix(@greenDark, black, 85%);
-@button-success-hover:  mix(@greenLight, white, 80%);
-@button-success-active: mix(@greenLight, black, 85%);
+@button-primary-hover:  mix(@blueDark, white, 80%);
+@button-primary-active: mix(@blueDark, black, 85%);
+@button-info-hover:     mix(@blueLight, white, 80%);
+@button-info-active:    mix(@blueLight, black, 85%);
+@button-success-hover:  mix(@greenDark, white, 80%);
+@button-success-active: mix(@greenDark, black, 85%);
 @button-danger-hover:   mix(@danger, white, 80%);
 @button-danger-active:  mix(@danger, black, 85%);
 @button-warning-hover:  overlay(@yellowBeak, darken(white, 37.5%));
 @button-warning-active: mix(@yellowBeak, black, 85%);
-@button-inverse-hover:  overlay(@blueDark, darken(white, 37.5%));
-@button-inverse-active: mix(@blueDark, black, 85%);
+@button-white-hover:  overlay(@blueDark, darken(white, 37.5%));
+@button-white-active: mix(@blueDark, black, 85%);
 
 
 /* Mixins
@@ -113,11 +113,16 @@ a {
   cursor: pointer;
   &:hover {
     color: @blueLight;
+    .transition(0.25s);
+    text-decoration: none;
   }
 }
 
-img.diamond-sponsors {
-  width: 100px;
+form {
+  input, button, select, textarea {
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+  }
 }
 
 #skip {
@@ -129,20 +134,24 @@ img.diamond-sponsors {
   width: 1px;
 }
 
+.required-field:before{
+  content: '*';
+  color: @danger;
+}
+
 // Buttons
 .btn,
 .btn-group > .btn,
 .btn-group > .dropdown-menu,
 .btn-group > .popover {
-  font-size: @baseFontSize;
-  font-weight: 500;
+  font-size: @baseFontSize + 1;
+  font-weight: 700;
 }
 
 .btn {
-  border: none;
-  color: @white;
-  background: @grayLight;
-  padding: 9px 12px 10px;
+  border: 3px solid @grayLighter;
+  color: @grayDark;
+  background: @white;
   line-height: 22px;
   text-decoration: none;
   text-shadow: none;
@@ -159,6 +168,7 @@ img.diamond-sponsors {
     color: @button-text;
     outline: none;
     .transition(0.25s);
+    border-color: @white;
   }
 
   // Active State
@@ -201,21 +211,31 @@ img.diamond-sponsors {
   // -------------------------
   &.btn-primary {
     .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    border: none;
+    color: @white;
   }
   &.btn-info    {
     .swap-button-color(@blueLight, @button-info-hover, @button-info-active);
+    border: none;
+    color: @white;
   }
   &.btn-danger  {
     .swap-button-color(@danger, @button-danger-hover, @button-danger-active);
+    border: none;
+    color: @white;
   }
   &.btn-success {
-    .swap-button-color(@greenLight, @button-success-hover, @button-success-active);
+    .swap-button-color(@greenDark, @button-success-hover, @button-success-active);
+    border: none;
+    color: @white;
   }
   &.btn-warning {
     .swap-button-color(@yellowBeak, @button-warning-hover, @button-warning-active);
+    border: none;
+    color: @white;
   }
-  &.btn-inverse {
-    .swap-button-color(@white, @button-inverse-hover, @button-inverse-active);    
+  &.btn-white {
+    .swap-button-color(@white, @button-white-hover, @button-white-active);   
   }
 
   // Button icon
@@ -236,7 +256,7 @@ img.diamond-sponsors {
 footer {
   text-align: center;
   font-size: 13px;
-  padding: 25px 0;
+  padding: 15px 0 20px;
   border-top: 1px solid @grayLighter;
   margin-top: 20px;
   img {
@@ -288,16 +308,21 @@ nav {
           text-shadow: none;
           color: @grayDark;
           font-weight: 400;
+          
           &:hover {
             background-color: @blueLight;
             .border-radius(6px);
+            .transition(0.25s);
+            &:focus {
+              color: @white !important;
+            }
           }
           &:active {
             background-color: darken(@blueLight, 20%);
           }
           &:focus {
             color: @grayDark;
-            background-color: transparent;
+            .transition(0.25s);
           }
         }
         &.dropdown {
@@ -317,12 +342,15 @@ nav {
         border-left: 1px solid @grayLighter;
         border-bottom: 1px solid @grayLighter;
         margin: 8px 0 0 0;
+        .transition(0.5s);
         &:after {
           top: -12px;
           border-bottom: 6px solid @blueLight;
+          .transition(0.5s);
         }
         &:before {
           top: -13px;
+          .transition(0.5s);
         }
         li {
           &.active {
@@ -383,12 +411,15 @@ body.home {
     .promo {
       a {
         .btn;
-        .btn-inverse;
+        .btn-white;
         font-weight: 900;
         padding: 20px 15px 21px;
         font-size: 30px;
         float: right;
         border: 9px solid lighten(@blueLight, 12%);
+        &:hover {
+          color: @white !important;
+        }
       }
     }
   }
@@ -472,7 +503,6 @@ ul#slider {
       padding:5px 0 0 0;
       width:100px;
       text-align:center;
-      background:url(../img/dotted_ln_b.png) repeat-x left top;
       text-transform:uppercase;
       color:#666;
       font-size:11px;
@@ -867,7 +897,6 @@ body.auth {
   }
 
   section.subsection {
-    background:url(../img/dotted_ln_light.png) repeat-x left top;
     padding:15px 0;
     margin-top:10px;
 
@@ -893,7 +922,6 @@ body.auth {
 section.widget {
   padding:0 0 10px 0;
   margin-bottom:20px;
-  background: url(../img/dotted_ln_b.png) repeat-x left bottom;
 
   &.last {
     background:none;
