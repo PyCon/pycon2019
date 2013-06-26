@@ -8,38 +8,85 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon US 2014 | Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+{% block head_title_base %}PyCon US 2014 | Santa Clara, CA | March 13th &ndash; March 21st{% endblock %}
+
 {% block body_class %}home{% endblock %}
 
 {% block banner %}
     <div class="banner">
-        <div class="sky" itemscope itemtype="http://data-vocabulary.org/Event">
-            <div class="container">
-                <div class="row">
-                    <div class="span7">
-                        <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
-                        <div class="details">
-                            <span itemprop="locality">Montreal</span>, 
-                            <span itemprop="country-name">Canada</span>, 
-                            <time itemprop="startDate" datetime="2014-4-9">April 9</time>&ndash;
-                            <time itemprop="endDate" datetime="2014-4-17">17</time>
-                        </div>
-                    </div>
-                    <div class="span5 promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
-                        <a href="#">REGISTER TODAY!</a>
-                    </div>
+        <div class="container" itemscope itemtype="http://data-vocabulary.org/Event">
+            <div class="row">
+                <div class="span7">
+                    <h1 itemprop="summary"><a href="/" class="logo">PyCon 2014</a></h1>
+                    <h2><span itemprop="locality">Santa Clara</span>, <span itemprop="region">CA</span>, <time itemprop="startDate" datetime="2014-3-13">March 13</time>&ndash;<time itemprop="endDate" datetime="2014-3-21">21</time></h2>
+                </div>
+                <div class="span5">
+                    <p class="intro" itemprop="description">
+                        The largest annual gathering<br />
+                        for the community using and developing<br />
+                        the open-source<br />
+                        <strong>Python programming language</strong>
+                    </p>
+                </div>
+                <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
+                    <meta itemprop="latitude" content="37.405364" />
+                    <meta itemprop="longitude" content="-121.975408" />
+                </span>
+            </div>
+            <div class="dotted-ln"></div>
+            <div class="row">
+                <div class="span12">
+                    <h4>Change the future - education, outreach, politeness, respect, tenacity and vision</h4>
                 </div>
             </div>
-        </div>
-        <div class="city">
-            <div class="container">
-                <div class="clouds">
-                    <div id="two-clouds"></div>
-                    <div id="one-cloud"></div>
+            <div class="dotted-ln"></div>
+            <div class="row">
+                <div class="span4">
+                    <ul class="unstyled">
+                        <li><a href="#"><span>Tutorials:</span>  March 13&ndash;14</a></li>
+                        <li><a href="#"><span>Main Conference:</span>  March 15&ndash;17</a></li>
+                        <li><a href="#"><span>Development Sprints:</span>  March 18&ndash;21</a></li>
+                    </ul>
                 </div>
-                <div class="montreal"></div>
+                <div class="span5">
+                    <div class="presented">
+                        <div class="bdr"></div>
+                        <h6>Presented By</h6>
+
+                        {% cache 600 "homepage-sponsors-diamond" %}
+                            {% sponsors "diamond" as diamond_sponsors %}
+
+                            {% if diamond_sponsors|length == 0 %}
+                                {% include "_sponsorship_link.html" %}
+                            {% else %}
+                                {% for sponsor in diamond_sponsors %}
+                                    <a href="{{ sponsor.external_url }}">
+                                        <img src="{% thumbnail sponsor.website_logo '200x120' %}" alt="{{ sponsor.name }}" class="diamond-sponsors" />
+                                    </a>
+                                {% endfor %}
+
+                                {% if diamond_sponsors|length == 1 %}
+                                    <div class="sponsorship-link">
+                                        {% include "_sponsorship_link.html" %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endcache %}
+                        <div class="bdr bdr-r"></div>
+                    </div>
+                </div>
+                <div class="span3 tickets-info" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
+                    <div class="tickets"></div>
+                    <h6>Registration</h6>
+                  {% comment %}
+                    <p>
+                        <strong>Now Open!</strong> <br />
+                        <a href="{% url 'registration_start' %}" itemprop="offerurl">Click here to register.</a>
+                    </p>
+                    {% endcomment %}
+                </div>
             </div>
-            <div class="water"></div>
+            <div class="dotted-ln no-mrg-btm"></div>
         </div>
     </div>
 {% endblock %}

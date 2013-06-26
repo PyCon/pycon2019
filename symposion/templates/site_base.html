@@ -50,33 +50,34 @@
 {% endblock %}
 
 {% block topbar_base %}
-    <a id="skip" href="#content">Skip to main content</a>
-    <div class="account-bar">
+    <header class="main">
         <div class="container">
-            {% block account_bar %}
-            {% include "_account_bar.html" %}
-            {% endblock %}
-        </div>
-    </div>
-    <nav>
-        <div class="container">
-            <a class="logo-small" href="{% url 'home' %}">PyCon 2014</a>
+            <h3 class="logo"><a href="{% url "home" %}">PyCon 2014</a></h3>
+            <div class="tagline">Change the future</div>
+            <div class="account-bar">{% block account_bar %}{% include "_account_bar.html" %}{% endblock %}</div>
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
                     {% block topbar %}
-                        {% block nav %}
-                        {% sitetree_menu from "main" include "trunk" %}
-                        {% endblock %}
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <div class="nav-collapse">
+                            {% block nav %}
+                                {% sitetree_menu from "main" include "trunk" %}
+                            {% endblock %}
+                        </div>
                     {% endblock %}
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
     {% block banner %}{% endblock %}
 {% endblock %}
 
 {% block body_base %}
-    <div id="content" class="container">
+    <div class="container">
         {% include "_messages.html" %}
         {% block body_outer %}
             <div class="row">
@@ -116,37 +117,30 @@
                 </div>
             </div>
         {% endblock %}
-       
-    </div> 
-    <footer>
-        <div class="container">
-        {% block footer %}
-            <a href="{%  url 'home' %}" class="logo">
-                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 Montreal">
-            </a>
-            <p>
-                PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
-            </p>
-            <p>
-                Site built by <a href="http://caktusgroup.com/">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+        <hr />
+        <footer>
+            {% block footer %}
+                <p>
+                    PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                <br />
+                    Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                <br />
+                    Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
                 </p>
-            <p>
-                Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
-            </p>
-        {% endblock %}
-        </div>
-    </footer>
+            {% endblock %}
+        </footer>
+    </div>
 {% endblock %}
 
 {% block script_base %}
+  {% compress js %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-    {% compress js %}
-        <script src="{% static "pinax/js/theme.js" %}"></script>
-        <script type="text/javascript">
-            $(function() {
-                $(".required-field").prepend("<span style='color:red;'>* </div>");
-            });
-        </script>
-    {% endcompress %}
+    <script src="{% static "pinax/js/theme.js" %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(".required-field").prepend("<span style='color:red;'>* </div>");
+        });
+    </script>
+  {% endcompress %}
     {% block extra_script %}{% endblock %}
 {% endblock %}
