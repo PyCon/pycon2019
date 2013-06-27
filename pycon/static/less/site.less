@@ -80,6 +80,34 @@
   *display: inline;
 }
 
+.box-sizing(@boxmodel: border-box) {
+  -webkit-box-sizing: @boxmodel;
+     -moz-box-sizing: @boxmodel;
+          box-sizing: @boxmodel;
+}
+
+.placeholder-color(@color) {
+  &:-moz-placeholder {
+    color: @color;
+  }
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+  &.placeholder {
+    color: @color;
+  }
+}
+
+.input-states(@color) {
+  border-color: @color;
+  color: @color;
+  .box-shadow(none);
+
+  &:focus {
+    .box-shadow(none);
+  }
+}
+
 /* Generic
 ==================== */
 body {
@@ -118,11 +146,185 @@ a {
   }
 }
 
-form {
-  input, button, select, textarea {
-    font-family: 'Lato', Helvetica, Arial, sans-serif;
-    font-weight: normal;
+button, select {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+}
+
+label {
+  text-transform: uppercase;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"]
+input[type="submit"],
+.uneditable-input {
+  border: 2px solid @grayLighter;
+  color: @grayDark;
+  font-family: 'Lato', sans-serif;;
+  font-size: @baseFontSize;
+  text-indent: 6px;
+  padding: 6px 5px;
+  -webkit-appearance: none;
+  .border-radius(6px);
+  .box-shadow(none);
+  .placeholder-color(@grayLight);
+  .transition(~"border .25s linear, color .25s linear");
+
+  // Alternate state
+  // --------------------------------------------------
+  .control-group.focus &,
+  &:focus {
+    border-color: @blueDark;
+    .box-shadow(none);
   }
+  
+  .row-fluid & {
+    height: 41px;
+    width: 100%;
+  }
+
+  // Flat (without border)
+  &.flat {
+    border-color: transparent;
+    &:hover {
+      border-color: @grayLight;
+    }
+    &:focus {
+      border-color: @blueDark;
+    }
+  }
+
+  // Alternate Colors
+  // --------------------------------------------------
+  .control-group.error &   { .input-states(@danger) }
+  .control-group.success & { .input-states(@greenDark) }
+  .control-group.warning & { .input-states(@yellowBeak) }
+  .control-group.info &    { .input-states(@blueLight) }
+
+  .control-group & { margin-bottom: 0; }
+}
+
+// INPUT ICONS
+// ----------------------
+.control-group {
+  position: relative;
+
+  > .input-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    line-height: 37px;
+    vertical-align: middle;
+    font-size: @baseFontSize * 1.428; /* 20px */
+    color: desaturate(lighten(@blueDark, 45%), 15%);
+    background-color: #ffffff;
+    padding: 0 10px;
+    .border-radius(6px);
+  }
+
+  input:focus + .input-icon { color: @blueDark; }
+
+  // Icon Sizes
+  // --------------------------------------------------
+
+  // Huge
+  &.huge {
+    > .input-icon {
+      line-height: 49px;
+    }
+  }
+
+  //Large
+  &.large {
+    > .input-icon {
+      line-height: 41px;
+    }
+  }
+
+  // Small
+  &.small {
+    > .input-icon {
+      font-size: @baseFontSize * 1.142; /* 16px */
+      line-height: 30px;
+    }
+  }
+
+
+  // Icon Colors
+  // --------------------------------------------------
+  &.success {
+    > .input-icon, input + .input-icon {
+      color: @greenDark;
+    }
+  }
+  &.warning {
+    > .input-icon, input + .input-icon {
+      color: @yellowBeak;
+    }
+  }
+  &.error {
+    > .input-icon, input + .input-icon {
+      color: @danger;
+    }
+  }
+  &.disabled {
+    > .input-icon, input + .input-icon {
+      color: mix(@gray, white, 40%);
+      background-color: mix(@gray, white, 10%);
+    }
+  }
+
+}
+
+// Disabled state
+input[disabled],
+input[readonly],
+textarea[disabled],
+textarea[readonly] {
+  background-color: mix(@gray, white, 10%);
+  border-color: mix(@gray, white, 40%);
+  color: mix(@gray, white, 40%);
+  cursor: default;
+}
+
+// Text field grids
+input,
+textarea,
+.uneditable-input {
+  width: 192px;
+}
+
+// Textarea
+textarea {
+  height: auto;
+  font-size: @baseFontSize * 1.071; /* 15px */
+  line-height: 24px;
+  padding: 5px 11px;
+  text-indent: 0;
+  
+  .row-fluid & {
+    height: auto;
+    width: 100% !important;
+  }
+}
+
+textarea[class*="span"] {
+  width: 100% !important;
+  .box-sizing(border-box);
 }
 
 #skip {
@@ -150,14 +352,15 @@ form {
 
 .btn {
   border: 3px solid @grayLighter;
-  color: @grayDark;
-  background: @white;
+  color: @white;
+  background: @grayLight;
   line-height: 22px;
   text-decoration: none;
   text-shadow: none;
   .border-radius(6px);
   .box-shadow(none);
   .transition(0.25s);
+  font-family: 'Lato', sans-serif;
 
   // Alternate states
   // --------------------------------------------------
@@ -302,13 +505,15 @@ footer {
   color: @blueDark;
   font-family: 'Lato', Helvetica, Arial, sans-serif;
   font-weight: 900;
-  font-size:@baseFontSize - 3;
+  font-size:@baseFontSize - 2.5;
   text-shadow: none;
   line-height: 18px;
   vertical-align: top;
   text-transform: uppercase;
-  
-  span { color: @grayDark; }
+  margin-top: 10px; 
+  span { 
+    color: @grayDark; 
+  }
 
   form {
     display: inline;
@@ -325,7 +530,8 @@ footer {
       padding: 0;
       margin: 0;
       font-weight: 900;
-      font-size: @baseFontSize - 3;
+      font-size: 10.5px;
+      .box-shadow(0);
       &:hover {
         color: @blueLight;
       }
@@ -335,6 +541,8 @@ footer {
 
 .breadcrumb {
   margin: 0 0 8px;
+  padding: 0;
+  background: transparent;
 }
 
 nav {
@@ -845,104 +1053,45 @@ body.venue {
 /* Auth pages
 ==================== */
 body.auth {
-
-  .form-horizontal {
-    .help-block {
-      color:@grayLight;
-    }
-
-    textarea {
-      width:500px;
-    }
-  }
-
   .box {
-    padding:0;
-    border:0;
-    .box-shadow(none);
-
-    .box-content {
-      padding: 40px 15px 15px;
-      border: 1px solid #D5D5D5;
-      .border-radius(5px);
-      .box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
-
-      h2 {
-        font-size:@baseFontSize + 6;
-        font-weight: 800;
-        line-height: 20px;
-        margin-bottom:20px;
+    form {
+      .help-block {
+        font-style: italic;
+        color: @grayLight;
       }
-
-      .actions {
-
-        .action {
-          width: 22.50%;
-          display: inline-block;
-          padding: 12px 0;
-          margin: 0 .9% 1em;
-          vertical-align: top;
-          text-decoration: none;
-          background: #F3F3F3;
-          border-radius: 5px;
-          text-align:center;
-
-            .widget-icon {
-              margin-top: .25em;
-              margin-bottom: .25em;
-              font-size: 32px;
-              color: #888;
+      .control-group {
+        .controls {
+          margin-bottom: 25px;
+          .input-prepend {
+            .add-on {
+              padding: 7px 5px;
+              z-index: 999;
+              left: 2px;
+              position: relative;
             }
-
-            .widget-label {
-              display: block;
-              font-weight: 400;
-              color: #666;
+            input {
+              z-index: 1;
             }
+          }
+        }
+        .markedit textarea {
+          width: 600px;
+          .border-radius(0 0 8px 8px);
+          resize: none;
+          margin-bottom: 15px;
         }
 
-        .action:hover {
-          background: #E8E8E8;
+        .markedit-toolbar {
+          width: 615px;
+        }
+
+        .markedit-preview {
+          width: 595px;
+          margin-bottom: 15px;
+          background: transparent;
+          border: 2px dashed @grayLighter;
         }
       }
-
-    }
-
-    .box-head + .box-content {
-      border-top: none;
-      padding-top: 20px;
-      .border-radius(0 0 4px 4px);
-    }
-  }
-
-  .box > .box-head {
-    position: relative;
-    height: 40px;
-    line-height: 40px;
-    #gradient > .vertical(#FAFAFA, #E9E9E9);
-    border: 1px solid #D5D5D5;
-    .border-radius(4px 4px 0 0);
-
-    h2 {
-      position: relative;
-      top: 2px;
-      left: 10px;
-      display: inline-block;
-      margin-right: 3em;
-      font-size:@baseFontSize + 3;
-      font-weight: 800;
-      line-height: 18px;
-      text-shadow: 1px 1px 2px rgba(255, 255, 255, .5);
-    }
-  }
-
-  section.subsection {
-    padding:15px 0;
-    margin-top:10px;
-
-    h4 {
-      font-size:@baseFontSize + 1;
-      margin-bottom:10px;
     }
   }
 }
@@ -971,6 +1120,22 @@ section.widget {
     font-weight:uppercase;
     margin-bottom:10px;
     font-size:16px;
+  }
+}
+
+// Markdown editor styles
+[id*="edit_"] {
+  &.modal {
+    width: 600px;
+    margin-left: -250px;
+    textarea {
+      resize: none;
+      width: 95%;
+    }
+    .bottom-preview {
+      margin-bottom: 50px;
+      width: 95%;
+    }
   }
 }
 
