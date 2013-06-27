@@ -253,6 +253,17 @@ form {
   }
 }
 
+// Datatables buttongroup needs a little padding
+div.DTTT.btn-group {
+  padding: 2px 0px 4px;
+  // and override the button colors that don't seem to get set above
+  .btn {
+    .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    color: fade(@button-text, 75%);
+    font-weight: 600;
+  }
+}
+
 footer {
   text-align: center;
   font-size: 13px;
@@ -276,7 +287,7 @@ footer {
   position: relative;
   color: @blueDark;
   font-family: 'Lato', Helvetica, Arial, sans-serif;
-  font-weight:400;
+  font-weight:600;
   font-size:@baseFontSize - 3;
   text-shadow:0 0 0 rgba(0, 0, 0, 0);
   line-height: 18px;
@@ -284,7 +295,7 @@ footer {
 
   a {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 600;
     font-size: @baseFontSize - 3;
   }
 
@@ -300,7 +311,7 @@ footer {
         color: @blueLight;
       }
       font-family: 'Lato', Helvetica, Arial, sans-serif;
-      font-weight:400;
+      font-weight:600;
       font-size:@baseFontSize - 3;
       text-shadow:0 0 0 rgba(0, 0, 0, 0);
       line-height: 18px;
