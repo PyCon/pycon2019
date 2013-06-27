@@ -481,6 +481,17 @@ textarea[class*="span"] {
   color: @white;
 }
 
+// Datatables buttongroup needs a little padding
+div.DTTT.btn-group {
+  padding: 2px 0px 4px;
+  // and override the button colors that don't seem to get set above
+  .btn {
+    .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    color: fade(@button-text, 75%);
+    font-weight: 600;
+  }
+}
+
 footer {
   text-align: center;
   font-size: 13px;
