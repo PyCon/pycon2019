@@ -1,5 +1,6 @@
 .markedit { clear: both; }
 .markedit textarea, .markedit-preview { width: 100%; }
+.markedit > textarea { padding: 0 9px 0 1em;}
 
 .markedit-toolbar { padding: 0.3em; margin: 0; clear: both; height: 22px; border-radius: 8px 8px 0px 0px; -moz-border-radius: 8px 8px 0px 0px;}
 .markedit-toolbar .toolbar-group { margin-right: 0.5em; padding: 0 0 0 5px; float: left; }
