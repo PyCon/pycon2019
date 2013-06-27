@@ -14,8 +14,13 @@
             <form action="{% url 'account_logout' %}" method="post">{% csrf_token %}
                 <button type="submit">Log out</button>
             </form>
+            {% if request.user.get_full_name%}
             | 
-            {% user_display request.user %}
+            <span>
+                <i class="icon icon-user"></i>
+                <strong>{% user_display request.user %}</strong>
+            </span>
+            {% endif %}
         {% else %}
             <a href="{% url 'account_login' %}">Log in</a>
             |

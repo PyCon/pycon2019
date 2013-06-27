@@ -140,8 +140,6 @@
 
 {% block script_base %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-    {% compress js %}
-        <script src="{% static "pinax/js/theme.js" %}"></script>
-    {% endcompress %}
+    <script src="{% static "pinax/js/theme.js" %}"></script>
     {% block extra_script %}{% endblock %}
 {% endblock %}
