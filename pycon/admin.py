@@ -19,7 +19,6 @@ class TalkAdmin(ProposalMarkEditAdmin):
         'title',
         'kind',
         'status',
-        'extreme',
         'duration',
         'submitted',
         'speaker',
