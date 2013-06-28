@@ -108,6 +108,37 @@
   }
 }
 
+.actions {
+    .action {
+        width: 22.50%;
+        display: inline-block;
+        padding: 12px 0;
+        margin: 0 .9% 1em;
+        vertical-align: top;
+        text-decoration: none;
+        background: #F3F3F3;
+        border-radius: 5px;
+        text-align:center;
+
+        .widget-icon {
+            margin-top: .25em;
+            margin-bottom: .25em;
+            font-size: 32px;
+            color: #888;
+        }
+
+        .widget-label {
+            display: block;
+            font-weight: 400;
+            color: #666;
+        }
+    }
+
+    .action:hover {
+        background: #E8E8E8;
+    }
+}
+
 /* Generic
 ==================== */
 body {
@@ -191,7 +222,7 @@ input[type="submit"],
     border-color: @blueDark;
     .box-shadow(none);
   }
-  
+
   .row-fluid & {
     height: 41px;
     width: 100%;
@@ -315,7 +346,7 @@ textarea {
   line-height: 24px;
   padding: 5px 11px;
   text-indent: 0;
-  
+
   .row-fluid & {
     height: auto;
     width: 100% !important;
@@ -438,7 +469,7 @@ textarea[class*="span"] {
     color: @white;
   }
   &.btn-white {
-    .swap-button-color(@white, @button-white-hover, @button-white-active);   
+    .swap-button-color(@white, @button-white-hover, @button-white-active);
   }
 
   // Button icon
@@ -510,9 +541,9 @@ footer {
   line-height: 18px;
   vertical-align: top;
   text-transform: uppercase;
-  margin-top: 10px; 
-  span { 
-    color: @grayDark; 
+  margin-top: 10px;
+  span {
+    color: @grayDark;
   }
 
   form {
@@ -569,7 +600,7 @@ nav {
           text-shadow: none;
           color: @grayDark;
           font-weight: 400;
-          
+
           &:hover {
             background-color: @blueLight;
             .border-radius(6px);
@@ -726,7 +757,7 @@ body.home {
       background: url("../img/two-clouds.png") no-repeat transparent;
     }
   }
-  
+
   .sponsor-crawl {
     position: relative;
     .sponsorship-link {
@@ -980,6 +1011,7 @@ body.home {
       font-weight:normal;
       margin-bottom:10px;
     }
+    .actions()
   }
 }
 
@@ -1278,36 +1310,7 @@ div.comment-box {
             margin-bottom:20px;
         }
 
-        .actions {
-            .action {
-                width: 22.50%;
-                display: inline-block;
-                padding: 12px 0;
-                margin: 0 .9% 1em;
-                vertical-align: top;
-                text-decoration: none;
-                background: #F3F3F3;
-                border-radius: 5px;
-                text-align:center;
-
-                .widget-icon {
-                    margin-top: .25em;
-                    margin-bottom: .25em;
-                    font-size: 32px;
-                    color: #888;
-                }
-
-                .widget-label {
-                    display: block;
-                    font-weight: 400;
-                    color: #666;
-                }
-            }
-
-            .action:hover {
-                background: #E8E8E8;
-            }
-        }
+        .actions()
     }
 
     .dashboard-panel-header + .dashboard-panel-content {
