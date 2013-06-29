@@ -85,6 +85,7 @@ def get_db_dump(clean=True):
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
     local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
+    local('dropdb pycon2014; createdb pycon2014')
     local('psql pycon2014 -f ~/%s' % dump_file)
 
 
