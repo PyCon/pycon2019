@@ -42,6 +42,7 @@ def setup_path():
     env.root = '/srv/' + env.site_hostname
     env.code_root = os.path.join(env.root, 'current')
     env.virtualenv_root = os.path.join(env.root, 'shared/env')
+    env.media_root = os.path.join(env.root, 'shared', 'media')
 
 @task
 def manage_run(command, sudo=False):
@@ -84,6 +85,14 @@ def get_db_dump(clean=True):
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
     local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
+
+
+@task
+def get_media(root='site_media/media'):
+    """Get sync of remote media."""
+    rsync = 'rsync -rvaz %(user)s@%(host)s:%(media_root)s/' % env
+    cmd = '%s ./%s' % (rsync, root)
+    local(cmd)
 
 
 @task
