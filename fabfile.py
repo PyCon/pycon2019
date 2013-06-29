@@ -76,12 +76,14 @@ def get_db_dump(clean=True):
     if not files.exists("%(home)s/.pgpass" % env):
         abort("Please get a copy of .pgpass and put it in your home dir")
     dump_file = '%(project)s-%(environment)s.sql' % env
-    temp_file = os.path.join(env.home, dump_file)
     flags = '-Ox'
     if clean:
         flags += 'c'
-    run('pg_dump -h %s -U %s %s %s > %s' % (env.db_host, env.db_user, flags, env.db, temp_file))
-    get(temp_file, dump_file)
+    pg_dump = 'pg_dump -h %s -U %s %s %s' % (env.db_host, env.db_user,
+                                             flags, env.db)
+    host = '%s@%s' % (env.user, env.hosts[0])
+    # save pg_dump output to file in local home directory
+    local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
 
 
 @task
