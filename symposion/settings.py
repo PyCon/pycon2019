@@ -281,7 +281,12 @@ PROPOSAL_FORMS = {
 
 USE_X_ACCEL_REDIRECT = False
 
-MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
+MARKEDIT_DEFAULT_SETTINGS = {
+    'preview': 'below', 
+    'toolbar': {
+        'backgroundMode': 'dark',
+    }
+}
 
 COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),
