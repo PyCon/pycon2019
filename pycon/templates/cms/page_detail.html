@@ -3,19 +3,9 @@
 {% load sitetree %}
 {% load i18n %}
 
-{% block body_class %}cms-page{% endblock %}
+{% block body_class %}cms-page {% if editable %}editable{% endif %}{% endblock %}
 
 {% block head_title %}{{ page.title }}{% endblock %}
-
-{% block page_title %}
-    {{ page.title }}
-    {% if editable %}
-        <div class="pull-right">
-            <a href="{% url 'cms_page_edit' page.path %}" class="btn btn-primary">
-                <i class="icon-pencil icon-large"></i> Edit page</a>
-        </div>
-    {% endif %}
-{% endblock %}
 
 {% block extra_head %}
     <script type="text/javascript">
@@ -26,6 +16,15 @@
             $('.box-content').html(html);
         });
     </script>
+{% endblock %}
+
+{% block page_title %}{{ page.title }}{% endblock %}
+
+{% block edit_page %}
+    {% if editable %}
+        <a href="{% url 'cms_page_edit' page.path %}" class="edit-btn">
+                <i class="icon-pencil"></i> Edit page</a>
+    {% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
