@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+
+{% load sitetree %}
+
+{% block body_class %}venue{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <aside class="list span3">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Venue Information</li>
+                </ul>
+                {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
+            </aside>
+            <div class="span8">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

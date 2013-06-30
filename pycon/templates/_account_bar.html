@@ -1,0 +1,26 @@
+{% load url from future %}
+{% load account_tags %}
+
+<div class="account-links row">
+    {% if user.is_authenticated %}
+        {% if request.user.get_full_name%}
+            <span>
+                <i class="icon icon-user"></i>
+                <strong>{% user_display request.user %}</strong>
+            </span>
+            |
+        {% endif %}
+        {% if user.is_staff %}
+            <a href="{% url 'admin:index' %}" class="action">Admin</a> |
+        {% endif %}
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        |
+        <a href="{% url 'account_settings' %}">Settings</a>
+        <form action="{% url 'account_logout' %}" method="post">{% csrf_token %}
+            <button type="submit">Log out</button>
+        </form>
+    {% else %}
+        <a class="login" href="{% url 'account_login' %}">Log in</a>
+        <a class="signup" href="{% url 'account_signup' %}">Sign up</a>
+    {% endif %}
+</div>
