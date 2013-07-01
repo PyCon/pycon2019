@@ -1,0 +1,303 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load proposal_tags %}
+{% load review_tags %}
+{% load teams_tags %}
+{% load boxes_tags %}
+
+{% block head_title %}Dashboard{% endblock %}
+
+{% block body_class %}auth{% endblock %}
+
+{% block page_title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                
+                <div class="dashboard-top">
+                {% box "dashboard_top" %}
+                </div>
+                
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Speaking</h2>
+                    </div>
+                    <div class="box-content">
+                        {% if user.speaker_profile %}
+                            <div class="actions">
+                                <a href="{% url 'speaker_edit' %}" class="action">
+                                    <i class="widget-icon icon-pencil"></i>
+                                    <span class="widget-label">Edit your speaker profile</span>
+                                </a>
+
+                                <a href="{% url 'proposal_submit' %}" class="action">
+                                    <i class="widget-icon  icon-bullhorn"></i>
+                                    <span class="widget-label">Submit a new proposal</span>
+                                </a>
+                            </div>
+
+                            <section class="subsection">
+                                <h4>Your Proposals</h4>
+                                {% if user.speaker_profile.proposals.exists %}
+                                    <table class="table">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Session type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {% for proposal in user.speaker_profile.proposals.all %}
+                                            {% include "proposals/_proposal_row.html" %}
+                                        {% endfor %}
+                                    </table>
+                                {% else %}
+                                    <p>No proposals submitted yet.</p>
+                                {% endif %}
+                            </section>
+
+                            {% associated_proposals as associated_proposals %}
+                            {% if associated_proposals %}
+                                <section class="subsection">
+                                    <h4>Proposals you have joined as an additional speaker</h4>
+                                    <table class="table">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Session type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {% for proposal in associated_proposals %}
+                                            {% include "proposals/_proposal_row.html" %}
+                                        {% endfor %}
+                                    </table>
+                                </section>
+                            {% endif %}
+
+                            {% pending_proposals as pending_proposals %}
+                            {% if pending_proposals %}
+                                <section class="subsection">
+                                    <h4>Proposals you have been invited to join</h4>
+                                    <table class="table">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Session type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {% for proposal in pending_proposals %}
+                                            {% include "proposals/_pending_proposal_row.html" %}
+                                        {% endfor %}
+                                    </table>
+                                </section>
+                            {% endif %}
+
+                        {% else %}
+                            <p>To submit a proposal, first create a speaker profile.</p>
+                            <div class="actions">
+                                <a href="{% url 'speaker_create' %}" class="action">
+                                    <i class="widget-icon icon-user"></i>
+                                    <span class="widget-label">Create a speaker profile</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if user.speaker_profile.all_presentations %}
+                    <div class="dashboard-panel">
+                        <div class="dashboard-panel-header">
+                            <i class="icon-bullhorn"></i>
+                            <h3>Speaking</h3>
+                            <div class="pull-right" style="margin-right: 10px">
+                                <a href="{% url 'speaker_edit' %}" class="btn">
+                                    <i class="widget-icon icon-pencil"></i>
+                                    Edit your speaker profile
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dashboard-panel-content">
+                            {% if user.speaker_profile %}
+                                    <h4>Your Presentations</h4>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Session Type</th>
+                                                <th>Title</th>
+                                                <th>Slot</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for presentation in user.speaker_profile.all_presentations %}
+                                                <tr>
+                                                    <td>{{ presentation.section.name }}</td>
+                                                    <td><a href="{% url 'schedule_presentation_detail' presentation.id %}">{{ presentation.title }}</a></td>
+                                                    <td>{{ presentation.slot.day }}, {{ presentation.slot.start }} – {{ presentation.slot.end }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="dashboard-panel">
+                    <div class="dashboard-panel-header">
+                        <i class="icon-briefcase"></i>
+                        <h3>Sponsorship</h3>
+                    </div>
+                    <div class="dashboard-panel-content">
+                        <div class="actions">
+                            <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="action">
+                                <i class="widget-icon icon-info-sign"></i>
+                                <span class="widget-label">Learn about sponsorship</span>
+                            </a>
+                            {% if not user.sponsorships.exists %}
+                                <a href="{% url 'sponsor_apply' %}" class="action">
+                                    <i class="widget-icon icon-money"></i>
+                                    <span class="widget-label">Apply to be a sponsor</span>
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        {% if user.sponsorships.exists %}
+                            <section class="subsection">
+                                <h4>Your Sponsorship</h4>
+                                <ul>
+                                    {% for sponsorship in user.sponsorships.all %}
+                                        <li>
+                                            {% if sponsorship.active %}
+                                                <a href="{% url 'sponsor_detail' sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
+                                                ({{ sponsorship.level }})
+                                            {% else %}
+                                                <b>{{ sponsorship.name }}</b>
+                                                ({{ sponsorship.level }})
+                                                <span class="label label-warning">awaiting approval</span>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </section>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if review_sections %}
+                    <div class="dashboard-panel">
+                        <div class="dashboard-panel-header">
+                            <i class="icon-briefcase"></i>
+                            <h3>{% trans "Reviews" %}</h3>
+                        </div>
+                        {% user_reviews as user_reviews %}
+                        <div class="dashboard-panel-content">
+                            <h4>Review Sections</h4>
+
+                            <ul>
+                                {% for section in review_sections %}
+                                    <li><a href="{% url 'review_section' section.section.slug %}">{{ section }}</a></li>
+                                {% endfor %}
+                            </ul>
+
+                            <h4>Proposals you have reviewed</h4>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Speaker / Title</th>
+                                    <th>Your Vote</th>
+                                </thead>
+                                <tbody>
+                                    {% for review in user_reviews %}
+                                        <tr>
+                                            <td>{{ review.proposal.number }}</td>
+                                            <td>
+                                                <b>{{ review.proposal.speaker }}</b>
+                                                <br />
+                                                {{ review.proposal.title }}
+                                            </td>
+                                            <td>{{ review.vote }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            {% comment %}
+                            <h4>My Assignments</h4>
+                            <table class="table">
+                                <thead>
+                                    <td>Proposal Title</td>
+                                    <td>Score</td>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Title Three</td>
+                                        <td>-1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Title Four</td>
+                                        <td>+2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% endcomment %}
+
+                        </div>
+                </div>
+                {% endif %}
+
+                {% available_teams as available_teams %}
+                {% if user.memberships.exists or available_teams %}
+                    <div class="dashboard-panel">
+                        <div class="dashboard-panel-header">
+                            <i class="icon-group"></i>
+                            <h3>{% trans "Teams" %}</h3>
+                        </div>
+
+                        <div class="dashboard-panel-content">
+                            {% if user.memberships.exists %}
+                                <h4>Your Teams</h4>
+                                <table class="table table-striped">
+                                    {% for membership in user.memberships.all %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'team_detail' membership.team.slug %}">{{ membership.team.name }}</a>
+                                                {% if membership.team.description %}<br>{{ membership.team.description }}{% endif %}
+                                            </td>
+                                            <td>
+                                                <span class="label{% if membership.state == 'invited' %} label-info{% endif %}">{{ membership.get_state_display }}</span>
+                                            </td>
+                                            <td>
+                                                {% if membership.state == "manager" or user.is_staff %}
+                                                    {% if membership.team.applicants %}{{ membership.team.applicants.count }} applicant{{ membership.team.applicants.count|pluralize }}{% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            {% endif %}
+                            {% if available_teams %}
+                                <h4>Available Teams</h4>
+                                <table class="table table-striped">
+                                    {% for team in available_teams %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'team_detail' team.slug %}">{{ team }}</a>
+                                                {% if team.description %}<br>{{ team.description }}{% endif %}
+                                            </td>
+                                            <td>
+                                                <span class="label">{{ team.get_access_display }}</span>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
