@@ -72,33 +72,34 @@
                     </div>
                 {% endif %}
                 <div id="sponsorslider" class="carousel slide">
-                  <!-- Carousel items -->
-                  <div class="carousel-inner">
-                  {% sponsors as all_sponsors %}
-                    {# sponsors without levels, 12 per each slide #}
-                    {% for sponsor in all_sponsors %}
-                        {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                            <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                        {% endif %}
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        {% sponsors as all_sponsors %}
+                        {# sponsors without levels, 12 per each slide #}
+                        {% for sponsor in all_sponsors %}
+                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                            {% endif %}
 
-                        <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                            <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
-                        </a>
-                        {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
-                    {% endfor %}
-                  </div>
+                            <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                                <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
+                            </a>
+                            {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
+                        {% endfor %}
+                    </div>
                   
+               
+                    {% if all_sponsors.count > 12 %}
+                      <!-- Carousel nav -->
+                      <nav id="slider-nav">
+                        {% for sponsor in all_sponsors %}
+                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
+                            {% endif %}
+                        {% endfor %}
+                      </nav>
+                    {% endif %} 
                 </div>
-                {% if all_sponsors.count > 12 %}
-                  <!-- Carousel nav -->
-                  <nav id="slider-nav">
-                    {% for sponsor in all_sponsors %}
-                        {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                            <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
-                        {% endif %}
-                    {% endfor %}
-                  </nav>
-                  {% endif %}
             {% endcache %}
         </div>
     </div>
