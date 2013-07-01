@@ -102,11 +102,26 @@ class PyConTalkProposal(PyConProposal):
         (2, "I prefer a 45 minute slot"),
     ]
 
-    extreme = models.BooleanField(
-        default=False,
-        help_text="'Extreme' talks are advanced talks with little or no introductory material. See <a href='http://us.pycon.org/2014/speaker/extreme/' target='_blank'>Extreme Talks</a> for details."
-    )
     duration = models.IntegerField(choices=DURATION_CHOICES)
+
+    outline = models.TextField(
+        _("Outline"),
+        help_text=_("Detailed outline. Will be made public "
+                    "if your talk is accepted.")
+    )
+    audience = models.CharField(
+        max_length=150,
+        help_text=_(u'Who is the intended audience for your talk? (Be '
+                    u'specific; "Python programmers" is not a good answer '
+                    u'to this question.)'),
+    )
+    perceived_value = models.TextField(
+        _(u"Objectives"),
+        max_length=500,
+        help_text=_(u"What will attendees get out of your talk? When they "
+                    u"leave the room, what will they know that they didn't "
+                    u"know before?"),
+    )
 
     class Meta:
         verbose_name = "PyCon talk proposal"
@@ -137,6 +152,19 @@ class PyConTutorialProposal(PyConProposal):
         _("More info"),
         help_text=_("More info. Will be made public "
                     "if your talk is accepted.")
+    )
+    audience = models.CharField(
+        max_length=150,
+        help_text=_(u'Who is the intended audience for your talk? (Be '
+                    u'specific; "Python programmers" is not a good answer '
+                    u'to this question.)'),
+    )
+    perceived_value = models.TextField(
+        _(u"Objectives"),
+        max_length=500,
+        help_text=_(u"What will attendees get out of your talk? When they "
+                    u"leave the room, what will they know that they didn't "
+                    u"know before?"),
     )
 
     class Meta:

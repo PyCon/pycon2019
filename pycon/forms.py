@@ -31,11 +31,13 @@ class PyConTalkProposalForm(PyConProposalForm):
         fields = [
             "title",
             "category",
-            "audience_level",
-            "extreme",
             "duration",
             "description",
+            "audience",
+            "audience_level",
+            "perceived_value",
             "abstract",
+            "outline",
             "additional_notes",
             "additional_requirements",
             "recording_release",
@@ -43,6 +45,7 @@ class PyConTalkProposalForm(PyConProposalForm):
         widgets = {
             "abstract": MarkEdit(),
             "additional_notes": MarkEdit(),
+            "outline": MarkEdit(),
         }
 
 
@@ -56,6 +59,8 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "audience_level",
             "domain_level",
             "description",
+            "audience",
+            "perceived_value",
             "abstract",
             "outline",
             "more_info",
