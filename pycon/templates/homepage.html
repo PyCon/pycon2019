@@ -26,8 +26,8 @@
                         </div>
                         <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
                         <div class="details">
-                            <span itemprop="locality">Montreal</span>, 
-                            <span itemprop="country-name">Canada</span>, 
+                            <span itemprop="locality">Montreal</span>,
+                            <span itemprop="country-name">Canada</span>,
                             <time itemprop="startDate" datetime="2014-4-9">April 9</time>&ndash;
                             <time itemprop="endDate" datetime="2014-4-17">17</time>
                         </div>
@@ -91,8 +91,8 @@
                             {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
                         {% endfor %}
                     </div>
-                  
-               
+
+
                     {% if all_sponsors.count > 12 %}
                       <!-- Carousel nav -->
                       <nav id="slider-nav">
@@ -102,7 +102,7 @@
                             {% endif %}
                         {% endfor %}
                       </nav>
-                    {% endif %} 
+                    {% endif %}
                 </div>
             {% endcache %}
         </div>
@@ -115,7 +115,7 @@
                 {% for post in posts %}
                     <div class="blog-post">
                         <div class="date">
-                            <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"n" }}
+                            <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"d" }}
                             <span class="year">{{ post.published|date:"Y" }}</span>
                         </div>
                         <div class="post-content">
