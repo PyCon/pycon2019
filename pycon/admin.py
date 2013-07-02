@@ -2,8 +2,9 @@ from django.contrib import admin
 
 from markedit.admin import MarkEditAdmin
 
-from pycon.models import PyConProposalCategory, PyConSponsorTutorialProposal,\
-    PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
+from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
+    PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal,
+    PyConLightningTalkProposal)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -42,6 +43,17 @@ class TutorialAdmin(ProposalMarkEditAdmin):
     ]
 
 
+class LightningTalkAdmin(ProposalMarkEditAdmin):
+    list_display = [
+        'title',
+        'kind',
+        'status',
+        'submitted',
+        'speaker',
+        'cancelled',
+    ]
+
+
 class PosterAdmin(ProposalMarkEditAdmin):
     list_display = [
         'title',
@@ -71,3 +83,4 @@ admin.site.register(PyConTalkProposal, TalkAdmin)
 admin.site.register(PyConTutorialProposal, TutorialAdmin)
 admin.site.register(PyConPosterProposal, PosterAdmin)
 admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
+admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
