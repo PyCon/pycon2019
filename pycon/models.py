@@ -127,6 +127,25 @@ class PyConTalkProposal(PyConProposal):
         verbose_name = "PyCon talk proposal"
 
 
+class PyConLightningTalkProposal(PyConProposal):
+
+    DURATION_CHOICES = [
+        (0, "No preference"),
+        (1, "I prefer a 5 minute slot"),
+    ]
+
+    duration = models.IntegerField(choices=DURATION_CHOICES)
+
+    outline = models.TextField(
+        _("Outline"),
+        help_text=_("Detailed outline. Will be made public "
+                    "if your talk is accepted.")
+    )
+
+    class Meta:
+        verbose_name = "PyCon lightning talk proposal"
+
+
 class PyConTutorialProposal(PyConProposal):
     DOMAIN_LEVEL_NOVICE = 1
     DOMAIN_LEVEL_EXPERIENCED = 2

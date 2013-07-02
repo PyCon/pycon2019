@@ -278,6 +278,7 @@ PROPOSAL_FORMS = {
     "talk": "pycon.forms.PyConTalkProposalForm",
     "poster": "pycon.forms.PyConPosterProposalForm",
     "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
+    "lightning-talk": "pycon.forms.PyConSponsorLightningTalkForm",
 }
 
 USE_X_ACCEL_REDIRECT = False
