@@ -686,6 +686,7 @@ ul.breadcrumb {
 /* Homepage
 ==================== */
 body.home {
+  width: 100%;
   .logo-small {
     display: none;
   }
@@ -715,25 +716,6 @@ body.home {
       text-indent: -9999px;
       whitespace: nowrap;
       background-position: center center;
-    }
-    ul.schedule {
-      list-style: none;
-      margin: 0 auto;
-      text-align: center;
-      padding: 0 0 0 240px;
-      margin: 40px 10px 0 10px;
-      font-size: 18px;
-      li {
-        float: left;
-        padding: 10px 20px;
-        margin-right: 10px;
-        background-color: lighten(@blueSky, 10%);
-        .border-radius(8px);
-        span {
-          display: block;
-          font-weight: 900;
-        }
-      }
     }
     .details { display: none; }
     .span12 { position: relative; }
@@ -770,6 +752,27 @@ body.home {
       }
     }
   }
+  .schedule {
+    text-align: center;
+    ul {
+      list-style: none;
+      padding: 0 0 0 255px;
+      margin-top: 40px;
+      font-size: 18px;
+      li {
+        float: left;
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: lighten(@blueSky, 10%);
+        .border-radius(8px);
+        line-height: 24px;
+        span {
+          display: block;
+          font-weight: 900;
+        }
+      }
+    }
+  }
   .city {
     position: relative;
     background-color: @blueSky;
@@ -780,7 +783,7 @@ body.home {
       height: 150px;
       margin-left: 185px;
       bottom: 30px;
-      width: 827px;
+      width: 600px;
       z-index: 99;
     }
     .water {
