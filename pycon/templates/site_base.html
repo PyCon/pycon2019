@@ -126,6 +126,9 @@
     
     <footer>
         <div class="hills">
+            <div class="trees-1"></div>
+            <div class="trees-2"></div>
+            <div class="bike"></div>
             <div class="hill-1"></div>
             <div class="hill-2"></div>
         </div>
@@ -134,15 +137,17 @@
             <a href="{%  url 'home' %}" class="logo">
                 <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 Montreal">
             </a>
-            <p>
-                PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
-            </p>
-            <p>
-                Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
-            </p>
-            <p>
-                Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
-            </p>
+            <div class="footer-content">
+                <p>
+                    PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                </p>
+                <p>
+                    Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                </p>
+                <p>
+                    Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
+                </p>
+            </div>
         {% endblock %}
         </footer>
     </div>
