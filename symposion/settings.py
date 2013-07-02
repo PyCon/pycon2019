@@ -255,6 +255,7 @@ SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
+DEFAULT_FROM_EMAIL = "PyCon 2014 <no-reply@us.pycon.org>"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -282,7 +283,7 @@ PROPOSAL_FORMS = {
 USE_X_ACCEL_REDIRECT = False
 
 MARKEDIT_DEFAULT_SETTINGS = {
-    'preview': 'below', 
+    'preview': 'below',
     'toolbar': {
         'backgroundMode': 'dark',
     }
