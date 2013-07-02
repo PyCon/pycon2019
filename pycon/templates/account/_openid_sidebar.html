@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load url from future %}
 
+{% comment %}
 <section class="widget">
     <h4>{% trans "Sign in with another account:" %}</h4>
     <ul class="unstyled">
@@ -21,6 +22,7 @@
         <input type="submit" value="{% trans "Sign in" %}" class="btn btn-primary" />
     </form>
 </section>
+{% endcomment %}
 {% if 'signup' not in request.get_full_path %}
 <section class="widget last">
     <h4>{% trans "Don't have an account? "%}</h4>
