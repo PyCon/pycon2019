@@ -21,7 +21,9 @@
         <input type="submit" value="{% trans "Sign in" %}" class="btn btn-primary" />
     </form>
 </section>
+{% if 'signup' not in request.get_full_path %}
 <section class="widget last">
     <h4>{% trans "Don't have an account? "%}</h4>
     <p><a href="{% url "account_signup" %}">Sign up now!</a></p>
 </section>
+{% endif %}
