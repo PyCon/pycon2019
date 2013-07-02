@@ -32,7 +32,7 @@ def staging():
 @task
 def production():
     env.environment = 'production'
-    env.hosts = ['virt-ak9lsk.psf.osuosl.org'] # FIXME: Add  production server hosts
+    env.hosts = ['virt-ak9lsk.psf.osuosl.org']
     env.site_hostname = 'staging-pycon.python.org'
     env.branch = 'production'
     env.db = 'psf_pycon_2014'
