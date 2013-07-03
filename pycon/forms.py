@@ -56,20 +56,14 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
         model = PyConLightningTalkProposal
         fields = [
             "title",
-            "category",
             "duration",
             "description",
-            "audience_level",
-            "abstract",
-            "outline",
             "additional_notes",
             "additional_requirements",
             "recording_release",
         ]
         widgets = {
-            "abstract": MarkEdit(),
             "additional_notes": MarkEdit(),
-            "outline": MarkEdit(),
         }
 
 
