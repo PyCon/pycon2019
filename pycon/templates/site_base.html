@@ -11,7 +11,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon US 2014{% endblock %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon 2014 in Montr&#233;al{% endblock %}
 
 {% block viewport %}{% endblock viewport %}
 
@@ -60,7 +60,7 @@
         </div>
         <nav>
             <div class="container">
-                <a class="logo-small" href="{% url 'home' %}">PyCon 2014</a>
+                <a class="logo-small" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
                 <div class="navbar navbar-inverse">
                     <div class="navbar-inner">
                         {% block topbar %}
@@ -121,9 +121,9 @@
                 </div>
                 {% endblock %}
             </div>
-        {% endblock %}  
+        {% endblock %}
     </div>
-    
+
     <footer>
         <div class="hills">
             <div class="trees-1"></div>
@@ -135,11 +135,11 @@
         <div class="container">
         {% block footer %}
             <a href="{%  url 'home' %}" class="logo">
-                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 Montreal">
+                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 in Montr&#233;al">
             </a>
             <div class="footer-content">
                 <p>
-                    PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                    PyCon 2014 in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
                 </p>
                 <p>
                     Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
