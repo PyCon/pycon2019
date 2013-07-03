@@ -4,7 +4,7 @@
         "model": "sitetree.tree",
         "fields": {
             "alias": "main",
-            "title": "PyCon US 2014"
+            "title": "PyCon 2014"
         }
     },
     {
