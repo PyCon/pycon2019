@@ -3,7 +3,8 @@ from django import forms
 from markedit.widgets import MarkEdit
 
 from pycon.models import (PyConProposalCategory, PyConTalkProposal,
-                          PyConTutorialProposal, PyConPosterProposal)
+                          PyConTutorialProposal, PyConPosterProposal,
+                          PyConLightningTalkProposal)
 from pycon.models import PyConSponsorTutorialProposal
 
 
@@ -25,6 +26,31 @@ class PyConProposalForm(forms.ModelForm):
 
 
 class PyConTalkProposalForm(PyConProposalForm):
+
+    class Meta:
+        model = PyConTalkProposal
+        fields = [
+            "title",
+            "category",
+            "duration",
+            "description",
+            "audience",
+            "audience_level",
+            "perceived_value",
+            "abstract",
+            "outline",
+            "additional_notes",
+            "additional_requirements",
+            "recording_release",
+        ]
+        widgets = {
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(),
+            "outline": MarkEdit(),
+        }
+
+
+class PyConLightningTalkProposalForm(PyConProposalForm):
 
     class Meta:
         model = PyConTalkProposal
