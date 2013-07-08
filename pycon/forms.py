@@ -41,6 +41,7 @@ class PyConTalkProposalForm(PyConProposalForm):
             "outline",
             "additional_notes",
             "additional_requirements",
+            "slide_deck",
             "recording_release",
         ]
         widgets = {
@@ -68,8 +69,9 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
             "description",
             "additional_notes",
             "additional_requirements",
-            "recording_release",
             "audience_level",
+            "slide_deck",
+            "recording_release",
         ]
         widgets = {
             "additional_notes": MarkEdit(),
@@ -93,8 +95,9 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "more_info",
             "additional_notes",
             "additional_requirements",
+            "slide_deck",
+            "handout",
             "recording_release",
-
         ]
         widgets = {
             "abstract": MarkEdit(),
@@ -117,7 +120,6 @@ class PyConPosterProposalForm(PyConProposalForm):
             "additional_notes",
             "additional_requirements",
             "recording_release",
-
         ]
         widgets = {
             "abstract": MarkEdit(),

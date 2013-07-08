@@ -1,13 +1,15 @@
-{% extends "site_base.html" %}
+{% extends "auth_base.html" %}
 
 {% load bootstrap_tags %}
+{% load i18n %}
 
 {% block head_title %}Editing {{ proposal.title }}{% endblock %}
+{% block page_title %}Edit Proposal{% endblock %}
 
 {% block body %}
-    <h1>Edit: {{ proposal.title }}</h1>
+    <h1>{{ proposal.title }}</h1>
     <p><a href="{% url 'proposal_speaker_manage' proposal.pk %}">Manage speakers</a></p>
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <fieldset>
             {{ form|as_bootstrap }}
