@@ -11,7 +11,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon US 2014{% endblock %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon 2014 in Montr&#233;al{% endblock %}
 
 {% block viewport %}{% endblock viewport %}
 
@@ -38,7 +38,7 @@
 {% block extra_head_base %}
     <meta property="og:image" content="https://us.pycon.org/2014/site_media/static/img/logo.png" />
     <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
@@ -50,92 +50,107 @@
 {% endblock %}
 
 {% block topbar_base %}
-    <a id="skip" href="#content">Skip to main content</a>
-    <div class="account-bar">
-        <div class="container">
+    {% include "_messages.html" %}
+    <header class="main">
+        <a id="skip" href="#content">Skip to main content</a>
+        <div class="account-bar container{% if user.is_authenticated %} loggedin{% endif %}">
             {% block account_bar %}
             {% include "_account_bar.html" %}
             {% endblock %}
         </div>
-    </div>
-    <nav>
-        <div class="container">
-            <a class="logo-small" href="{% url 'home' %}">PyCon 2014</a>
-            <div class="navbar navbar-inverse">
-                <div class="navbar-inner">
-                    {% block topbar %}
-                        {% block nav %}
-                        {% sitetree_menu from "main" include "trunk" %}
+        <nav>
+            <div class="container">
+                <a class="logo-small" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner">
+                        {% block topbar %}
+                            {% block nav %}
+                            {% sitetree_menu from "main" include "trunk" %}
+                            {% endblock %}
                         {% endblock %}
-                    {% endblock %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
     {% block banner %}{% endblock %}
 {% endblock %}
 
 {% block body_base %}
-    <div id="content" class="container">
-        {% include "_messages.html" %}
+    <div id="content">
         {% block body_outer %}
-            <div class="row">
-                <div class="span12">
-                    <div class="page-head">
-                        <h1>{% block page_title %}{% endblock %}</h1>
-                        {% block breadcrumbs %}{% endblock %}
-                    </div>
+            <div class="page-head">
+                <div class="container">
+                    <h1>{% block page_title %}{% endblock %}</h1>
+                    {% block breadcrumbs %}{% endblock %}
+                    <div class="skyline"></div>
                 </div>
-                <div class="span9">
-                    <div class="box">
-                        <div class="box-content">{% block body %}{% endblock %}</div>
-                    </div>
-                </div>
-                <div class="span3">
-                    {% block sidebar %}
-                        {% cache 600 "sidebar" %}
-                            <h2>Sponsors</h2>
-                            {% sponsor_levels as levels %}
-                            <div class="sponsor-list">
-                                {% for level in levels %}
-                                    {% if level.sponsors %}
-                                        <h3 style="margin-top: 3em;">{{ level.name }}</h3>
+            </div>
+            <div class="page-content">
+                {% block page_content %}
+                <div class="container">
 
-                                        {% for sponsor in level.sponsors %}
-                                            <div style="margin: 10px 0;">
+                    <div class="row">
+                        <div class="span9">
+                            {% block edit_page %}{% endblock %}
+                            <div class="box">
+                                <div class="box-content">{% block body %}{% endblock %}</div>
+                            </div>
+                        </div>
+                        <aside class="span2">
+                            {% block sidebar %}
+                            {% cache 600 "sidebar" %}
+                                <div class="sponsor-list">
+                                    <h2>SPONSORS</h2>
+                                    {% sponsor_levels as levels %}
+                                    {% for level in levels %}
+                                        {% if level.sponsors %}
+                                            <h3{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
+                                            {% for sponsor in level.sponsors %}
                                                 <a href="{{ sponsor.external_url }}">
                                                     <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
                                                 </a>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endcache %}
-                    {% endblock %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endcache %}
+                            {% endblock %}
+                        </aside>
+                    </div>
                 </div>
+                {% endblock %}
             </div>
         {% endblock %}
-       
-    </div> 
+    </div>
+
     <footer>
+        <div class="hills">
+            <div class="trees-1"></div>
+            <div class="trees-2"></div>
+            <div class="bike"></div>
+            <div class="hill-1"></div>
+            <div class="hill-2"></div>
+        </div>
         <div class="container">
         {% block footer %}
             <a href="{%  url 'home' %}" class="logo">
-                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 Montreal">
+                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 in Montr&#233;al">
             </a>
-            <p>
-                PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
-            </p>
-            <p>
-                Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+            <div class="footer-content">
+                <p>
+                    PyCon 2014 in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
                 </p>
-            <p>
-                Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
-            </p>
+                <p>
+                    Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                </p>
+                <p>
+                    Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
+                </p>
+            </div>
         {% endblock %}
-        </div>
-    </footer>
+        </footer>
+    </div>
 {% endblock %}
 
 {% block script_base %}

@@ -142,7 +142,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.messages.context_processors.messages",
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
-    "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
 ]
 
@@ -158,7 +157,6 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
 
     # theme
-    # "pinax_theme_bootstrap_account",
     "pinax_theme_bootstrap",
     "django_forms_bootstrap",
 
@@ -257,6 +255,7 @@ SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
+DEFAULT_FROM_EMAIL = "PyCon 2014 <no-reply@us.pycon.org>"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -283,7 +282,12 @@ PROPOSAL_FORMS = {
 
 USE_X_ACCEL_REDIRECT = False
 
-MARKEDIT_DEFAULT_SETTINGS = {'preview': 'below', }
+MARKEDIT_DEFAULT_SETTINGS = {
+    'preview': 'below',
+    'toolbar': {
+        'backgroundMode': 'dark',
+    }
+}
 
 COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),

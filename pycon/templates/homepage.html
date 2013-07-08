@@ -8,25 +8,44 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon US 2014 | Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
-{% block body_class %}home{% endblock %}
+{% block head_title_base %}PyCon 2014 in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+
+{% block body_class %}
+    {{ block.super }}
+    home
+{% endblock %}
 
 {% block banner %}
     <div class="banner">
         <div class="sky" itemscope itemtype="http://data-vocabulary.org/Event">
             <div class="container">
                 <div class="row">
-                    <div class="span7">
+                    <div class="span12">
+                        <div class="promo no-link">
+                            <p>Register Fall 2013</p>
+                        </div>
                         <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
                         <div class="details">
-                            <span itemprop="locality">Montreal</span>, 
-                            <span itemprop="country-name">Canada</span>, 
+                            <span itemprop="locality">Montreal</span>,
+                            <span itemprop="country-name">Canada</span>,
                             <time itemprop="startDate" datetime="2014-4-9">April 9</time>&ndash;
                             <time itemprop="endDate" datetime="2014-4-17">17</time>
                         </div>
                     </div>
+                    {% comment %}
+                    {# Promo with link and the logo above changed to span7 instead of span12 #}
                     <div class="span5 promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                         <a href="#">REGISTER TODAY!</a>
+                    </div>
+                    {% endcomment %}
+                </div>
+                <div class="row">
+                    <div class="span12 schedule">
+                        <ul>
+                            <li><span>Tutorials</span> April 9&ndash;10</li>
+                            <li><span>Conference</span> April 11&ndash;13</li>
+                            <li><span>Sprints</span> April 14&ndash;17</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -45,65 +64,74 @@
 {% endblock %}
 
 {% block body_outer %}
-<div class="row">
-    <div class="span12 sponsor-crawl">
-        {% cache 600 "homepage-sponsor-slider" %}
-            <h3 class="scroll-title">Sponsors</h3>
-            {% sponsors "diamond" as diamond_sponsors %}
-            {% if diamond_sponsors|length > 1 %}
-                <div class="sponsorship-link">
-                    {% include "_sponsorship_link.html" %}
-                </div>
-            {% endif %}
-            <div id="sponsorslider" class="carousel slide">
-              <!-- Carousel items -->
-              <div class="carousel-inner">
-              {% sponsors as all_sponsors %}
-                {# sponsors without levels, 21 per each slide #}
-                {% for sponsor in all_sponsors %}
-                    {% if forloop.first or forloop.counter0|divisibleby:"21" %}
-                        <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                    {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="span12 sponsor-crawl">
+            {% cache 600 "homepage-sponsor-slider" %}
+                <h2 class="scroll-title">Sponsors</h2>
+                {% sponsors "diamond" as diamond_sponsors %}
+                {% if diamond_sponsors|length > 1 %}
+                    <div class="sponsorship-link">
+                        {% include "_sponsorship_link.html" %}
+                    </div>
+                {% endif %}
+                <div id="sponsorslider" class="carousel slide">
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        {% sponsors as all_sponsors %}
+                        {# sponsors without levels, 12 per each slide #}
+                        {% for sponsor in all_sponsors %}
+                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                            {% endif %}
 
-                    <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                        <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '95x95' %}')" data-background-2x="{% thumbnail sponsor.website_logo '190x190' %}"></div>
-                    </a>
-                    {% if forloop.counter|divisibleby:"21" or forloop.last %}</div>{% endif %}
-                {% endfor %}
-              </div>
-              <!-- Carousel nav -->
-              <nav id="slider-nav">
-                {% for sponsor in all_sponsors %}
-                    {% if forloop.first or forloop.counter0|divisibleby:"21" %}
-                        <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
+                            <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                                <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
+                            </a>
+                            {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
+                        {% endfor %}
+                    </div>
+
+
+                    {% if all_sponsors.count > 12 %}
+                      <!-- Carousel nav -->
+                      <nav id="slider-nav">
+                        {% for sponsor in all_sponsors %}
+                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
+                            {% endif %}
+                        {% endfor %}
+                      </nav>
                     {% endif %}
-                {% endfor %}
-              </nav>
-            </div>
-        {% endcache %}
+                </div>
+            {% endcache %}
+        </div>
     </div>
 
-    {% latest_blog_posts as posts %}
-    <div class="span8">
-        <h3>Announcements</h3>
-            {% for post in posts %}
-                <div class="blog-post">
-                    <div class="date">
-                        <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"n" }}
-                        <span class="year">{{ post.published|date:"Y" }}</span>
+    <div class="row">
+        {% latest_blog_posts as posts %}
+        <div class="span8">
+            <h3>Announcements</h3>
+                {% for post in posts %}
+                    <div class="blog-post">
+                        <div class="date">
+                            <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"d" }}
+                            <span class="year">{{ post.published|date:"Y" }}</span>
+                        </div>
+                        <div class="post-content">
+                            <h2>{{ post.title }}</h2>
+                            <p class="post_dateline">by <span class="author">{{ post.author.get_full_name }}</span></p>
+                            <div class="teaser">{{ post.teaser_html|safe }}</div>
+                        </div>
                     </div>
-                    <div class="post-content">
-                        <h2>{{ post.title }}</h2>
-                        <p class="post_dateline">by <span class="author">{{ post.author.get_full_name }}</span></p>
-                        <div class="teaser">{{ post.teaser_html|safe }}</div>
-                    </div>
-                </div>
-            {% empty %}
-                <p>No announcements have been published.</p>
-            {% endfor %}
-    </div>
-    <div class="span4">
-        {% box "homepage-about" %}
+                {% empty %}
+                    <p>No announcements have been published.</p>
+                {% endfor %}
+        </div>
+
+        <div class="span4">
+            {% box "homepage-about" %}
+        </div>
     </div>
 </div>
 {% endblock %}

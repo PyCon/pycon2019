@@ -2,7 +2,8 @@ from django import forms
 
 from markedit.widgets import MarkEdit
 
-from pycon.models import PyConProposalCategory, PyConTalkProposal, PyConTutorialProposal, PyConPosterProposal
+from pycon.models import (PyConProposalCategory, PyConTalkProposal,
+                          PyConTutorialProposal, PyConPosterProposal)
 from pycon.models import PyConSponsorTutorialProposal
 
 
@@ -30,17 +31,21 @@ class PyConTalkProposalForm(PyConProposalForm):
         fields = [
             "title",
             "category",
-            "audience_level",
-            "extreme",
             "duration",
             "description",
+            "audience",
+            "audience_level",
+            "perceived_value",
             "abstract",
+            "outline",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
         ]
         widgets = {
             "abstract": MarkEdit(),
             "additional_notes": MarkEdit(),
+            "outline": MarkEdit(),
         }
 
 
@@ -52,14 +57,22 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "title",
             "category",
             "audience_level",
+            "domain_level",
             "description",
+            "audience",
+            "perceived_value",
             "abstract",
+            "outline",
+            "more_info",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
 
         ]
         widgets = {
             "abstract": MarkEdit(),
+            "outline": MarkEdit(),
+            "more_info": MarkEdit(),
             "additional_notes": MarkEdit(),
         }
 
@@ -75,6 +88,7 @@ class PyConPosterProposalForm(PyConProposalForm):
             "description",
             "abstract",
             "additional_notes",
+            "additional_requirements",
             "recording_release",
 
         ]
@@ -98,4 +112,3 @@ class PyConSponsorTutorialForm(PyConProposalForm):
             "abstract": MarkEdit(),
             "additional_notes": MarkEdit(),
         }
-

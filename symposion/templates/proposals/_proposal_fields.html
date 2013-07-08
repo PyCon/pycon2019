@@ -7,8 +7,13 @@
     <dt>{% trans "Category" %}</dt>
     <dd>{{ proposal.category }}&nbsp;</dd>
 
-    <dt>{% trans "Audience Level" %}</dt>
+    <dt>{% trans "Python Level" %}</dt>
     <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
+
+    {% if proposal.kind.slug == "tutorial" %}
+        <dt>{% trans "Domain Level" %}</dt>
+        <dd>{{ proposal.get_domain_level_display }}&nbsp;</dd>
+    {% endif %}
 
     {% if proposal.kind.name == "talk" %}
         <dt>Extreme?</dt>
@@ -38,6 +43,14 @@
 
     <dt>{% trans "Abstract" %}</dt>
     <dd id="abstract">{{ proposal.abstract|safe }}&nbsp;</dd>
+
+    {% if proposal.kind.slug == "tutorial" %}
+        <dt>{% trans "Outline" %}</dt>
+        <dd id="outline">{{ proposal.outline|safe }}&nbsp;</dd>
+    
+        <dt>{% trans "More info" %}</dt>
+        <dd id="more_info">{{ proposal.more_info|safe }}&nbsp;</dd>
+    {% endif %}
 
     <dt>{% trans "Notes" %}</dt>
     <dd id="additional-notes">{{ proposal.additional_notes|safe }}&nbsp;</dd>

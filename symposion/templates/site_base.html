@@ -11,7 +11,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon US 2014{% endblock %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon 2014 in Montr&#233;al{% endblock %}
 
 {% block viewport %}{% endblock viewport %}
 
@@ -38,7 +38,7 @@
 {% block extra_head_base %}
     <meta property="og:image" content="https://us.pycon.org/2014/site_media/static/img/logo.png" />
     <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
@@ -52,7 +52,7 @@
 {% block topbar_base %}
     <header class="main">
         <div class="container">
-            <h3 class="logo"><a href="{% url "home" %}">PyCon 2014</a></h3>
+            <h3 class="logo"><a href="{% url "home" %}">PyCon 2014 in Montr&#233;al</a></h3>
             <div class="tagline">Change the future</div>
             <div class="account-bar">{% block account_bar %}{% include "_account_bar.html" %}{% endblock %}</div>
             <div class="navbar navbar-inverse">
@@ -121,7 +121,7 @@
         <footer>
             {% block footer %}
                 <p>
-                    PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                    PyCon 2014 in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
                 <br />
                     Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
                 <br />
