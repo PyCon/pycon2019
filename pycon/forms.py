@@ -54,7 +54,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
 
     def __init__(self, *args, **kwargs):
         super(PyConLightningTalkProposalForm, self).__init__(*args, **kwargs)
-        self.fields['duration'].widget.attrs['readonly'] = True
         # TODO: This is a hack to populate the field...
         self.fields['category'].widget = forms.HiddenInput()
         self.fields['category'].initial = PyConProposalCategory.objects.all()[0]
@@ -66,7 +65,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
         fields = [
             "title",
             "category",
-            "duration",
             "description",
             "additional_notes",
             "additional_requirements",
