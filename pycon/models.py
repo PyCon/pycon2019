@@ -136,15 +136,6 @@ class PyConTalkProposal(PyConProposal):
 
 class PyConLightningTalkProposal(PyConProposal):
 
-    DURATION_FIVE = 1
-
-    DURATION_CHOICES = [
-        #(0, "No preference"),
-        (DURATION_FIVE, "I prefer a 5 minute slot"),
-    ]
-
-    duration = models.IntegerField(choices=DURATION_CHOICES, default=DURATION_FIVE)
-
     class Meta:
         verbose_name = "PyCon lightning talk proposal"
 

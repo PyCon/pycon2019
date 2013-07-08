@@ -18,7 +18,6 @@ class Migration(SchemaMigration):
             ('rejection_status', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('recording_release', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('additional_requirements', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('duration', self.gf('django.db.models.fields.IntegerField')(default=1)),
         ))
         db.send_create_signal(u'pycon', ['PyConLightningTalkProposal'])
 
@@ -114,7 +113,6 @@ class Migration(SchemaMigration):
             'audience_level': ('django.db.models.fields.IntegerField', [], {}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
             'damaged_score': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'duration': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'overall_status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
             'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
