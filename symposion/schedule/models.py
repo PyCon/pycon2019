@@ -13,7 +13,7 @@ class Schedule(models.Model):
     published = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return "%s Schedule" % self.section
+        return u"%s Schedule" % self.section
 
 
 class Day(models.Model):
@@ -22,7 +22,7 @@ class Day(models.Model):
     date = models.DateField()
 
     def __unicode__(self):
-        return "%s" % self.date
+        return u"%s" % self.date
 
     class Meta:
         unique_together = [("schedule", "date")]
@@ -107,7 +107,7 @@ class Slot(models.Model):
         return datetime.combine(self.day.date, self.end)
 
     def __unicode__(self):
-        return "%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
+        return u"%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
 
     class Meta:
         ordering = ["day", "start", "end"]
@@ -122,7 +122,7 @@ class SlotRoom(models.Model):
     room = models.ForeignKey(Room)
 
     def __unicode__(self):
-        return "%s %s" % (self.room, self.slot)
+        return u"%s %s" % (self.room, self.slot)
 
     class Meta:
         unique_together = [("slot", "room")]
@@ -158,7 +158,7 @@ class Presentation(models.Model):
                 yield speaker
 
     def __unicode__(self):
-        return "#%s %s (%s)" % (self.number, self.title, self.speaker)
+        return u"#%s %s (%s)" % (self.number, self.title, self.speaker)
 
     class Meta:
         ordering = ["slot"]
