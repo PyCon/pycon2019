@@ -47,7 +47,7 @@
     {% if proposal.kind.slug == "tutorial" %}
         <dt>{% trans "Outline" %}</dt>
         <dd id="outline">{{ proposal.outline|safe }}&nbsp;</dd>
-    
+
         <dt>{% trans "More info" %}</dt>
         <dd id="more_info">{{ proposal.more_info|safe }}&nbsp;</dd>
     {% endif %}
@@ -57,6 +57,26 @@
 
     <dt>{% trans "Speaker Bio" %}</dt>
     <dd id="bio">{{ proposal.speaker.biography|safe }}&nbsp;</dd>
+
+    {% if proposal.kind.slug == "tutorial" %}
+    <dt>{% trans "Student Handout" %}</dt>
+    <dd>
+        {% if proposal.handout %}
+            <a href="{{ proposal.handout.url }}">Download</a>
+        {% else %}
+            No handout attached to this proposal.
+        {% endif %}
+    </dd>
+    {% endif %}
+
+    <dt>{% trans "Slide Deck" %}</dt>
+    <dd>
+        {% if proposal.slide_deck %}
+            <a href="{{ proposal.slide_deck.url }}">Download</a>
+        {% else %}
+            No slide deck attached to this proposal.
+        {% endif %}
+    </dd>
 
     <dt>{% trans "Documents" %}</dt>
     <dd>
