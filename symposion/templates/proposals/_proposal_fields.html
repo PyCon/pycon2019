@@ -4,11 +4,13 @@
     <dt>{% trans "Submitted by" %}</dt>
     <dd>{{ proposal.speaker }}</dd>
 
-    <dt>{% trans "Category" %}</dt>
-    <dd>{{ proposal.category }}&nbsp;</dd>
+    {% if proposal.kind.slug != "lightning-talk" %}
+        <dt>{% trans "Category" %}</dt>
+        <dd>{{ proposal.category }}&nbsp;</dd>
 
-    <dt>{% trans "Python Level" %}</dt>
-    <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
+        <dt>{% trans "Python Level" %}</dt>
+        <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
+    {% endif %}
 
     {% if proposal.kind.slug == "talk" or proposal.kind.slug == "tutorial" %}
         <dt>{% trans "Audience" %}</dt>
@@ -46,8 +48,10 @@
     <dt>{% trans "Description" %}</dt>
     <dd>{{ proposal.description }}&nbsp;</dd>
 
-    <dt>{% trans "Abstract" %}</dt>
-    <dd id="abstract">{{ proposal.abstract|safe }}&nbsp;</dd>
+    {% if proposal.kind.slug != "lightning-talk" %}
+        <dt>{% trans "Abstract" %}</dt>
+        <dd id="abstract">{{ proposal.abstract|safe }}&nbsp;</dd>
+    {% endif %}
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
