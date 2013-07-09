@@ -1,5 +1,4 @@
 {% load i18n %}
-
 <table class="table table-striped table-bordered table-reviews">
     <thead>
         <th>#</th>
@@ -10,9 +9,14 @@
         <th>{% trans "+0" %}</th>
         <th>{% trans "-0" %}</th>
         <th>{% trans "-1" %}</th>
-        <th>{% trans "Status" %}</th>
+        <th>{% trans "Online Result Status" %}</th>
+        <th>{% trans "Overall Status" %}</th>
+        {% if request.user.is_superuser %}
+            <th>{% trans "Rejection Status" %}</th>
+            <th>{% trans "Damage Score" %}</th>
+        {% endif %}
     </thead>
-    
+
     <tbody>
         {% for proposal in proposals %}
             <tr class="{{ proposal.user_vote_css }}">
@@ -39,6 +43,37 @@
                         </div>
                     {% endwith %}
                 </td>
+                <td>{% if can_manage %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="pk" value="{{ proposal.pk }}" />
+                            <select name="status" onChange="this.form.submit();">
+                                {% for k, v in status_options %}
+                                <option value="{{ k }}" {% if proposal.overall_status = k %}selected="selected"{% endif %}>
+                                    {{ v }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    {% else %}
+                        {{ proposal.get_overall_status_display }}
+                    {% endif %}
+
+                </td>
+                {% if request.user.is_superuser %}
+                    <td>
+                        {% with proposal.get_rejection_status_display as status %}
+                            {% if status %}
+                                {{ status }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>
+                        {{ proposal.damage }}
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>

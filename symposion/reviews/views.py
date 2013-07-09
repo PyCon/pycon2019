@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.views.decorators.http import require_POST
 
+from pycon.models import PyConProposal
+
 from symposion.conf import settings
 from symposion.conference.models import Section
 from symposion.proposals.models import ProposalBase
@@ -79,8 +81,20 @@ def review_section(request, section_slug, assigned=False):
     if not request.user.has_perm("reviews.can_review_%s" % section_slug):
         return access_not_permitted(request)
 
+    can_manage = False
+    if request.user.has_perm("reviews.can_manage_%s" % section_slug) or request.user.is_superuser:
+        can_manage = True
     section = get_object_or_404(Section, slug=section_slug)
     queryset = ProposalBase.objects.filter(kind__section=section)
+
+    if request.method == "POST" and can_manage:
+        pk = request.POST['pk']
+        status = request.POST['status']
+        base_obj = queryset.get(pk=pk)
+        p_type = section_slug.rstrip('s').replace('-', '')
+        proposal = getattr(base_obj, 'pycon%sproposal' % p_type)
+        proposal.overall_status = status
+        proposal.save()
 
     if assigned:
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
@@ -89,10 +103,11 @@ def review_section(request, section_slug, assigned=False):
     queryset = queryset.select_related("result").select_subclasses()
 
     proposals = proposals_generator(request, queryset)
-
     ctx = {
         "proposals": proposals,
         "section": section,
+        "can_manage": can_manage,
+        "status_options": PyConProposal.STATUS_OPTIONS
     }
 
     return render(request, "reviews/review_list.html", ctx)
