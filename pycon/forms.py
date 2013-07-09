@@ -3,7 +3,8 @@ from django import forms
 from markedit.widgets import MarkEdit
 
 from pycon.models import (PyConProposalCategory, PyConTalkProposal,
-                          PyConTutorialProposal, PyConPosterProposal)
+                          PyConTutorialProposal, PyConPosterProposal,
+                          PyConLightningTalkProposal)
 from pycon.models import PyConSponsorTutorialProposal
 
 
@@ -46,6 +47,32 @@ class PyConTalkProposalForm(PyConProposalForm):
             "abstract": MarkEdit(),
             "additional_notes": MarkEdit(),
             "outline": MarkEdit(),
+        }
+
+
+class PyConLightningTalkProposalForm(PyConProposalForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PyConLightningTalkProposalForm, self).__init__(*args, **kwargs)
+        # TODO: This is a hack to populate the field...
+        self.fields['category'].widget = forms.HiddenInput()
+        self.fields['category'].initial = PyConProposalCategory.objects.all()[0]
+        self.fields['audience_level'].widget = forms.HiddenInput()
+        self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
+
+    class Meta:
+        model = PyConLightningTalkProposal
+        fields = [
+            "title",
+            "category",
+            "description",
+            "additional_notes",
+            "additional_requirements",
+            "recording_release",
+            "audience_level",
+        ]
+        widgets = {
+            "additional_notes": MarkEdit(),
         }
 
 
