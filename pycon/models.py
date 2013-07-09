@@ -117,7 +117,7 @@ class PyConTalkProposal(PyConProposal):
     )
     perceived_value = models.TextField(
         _(u"Objectives"),
-        max_length=500,
+        max_length=400,
         help_text=_(u"What will attendees get out of your talk? When they "
                     u"leave the room, what will they know that they didn't "
                     u"know before?"),
@@ -125,6 +125,12 @@ class PyConTalkProposal(PyConProposal):
 
     class Meta:
         verbose_name = "PyCon talk proposal"
+
+
+class PyConLightningTalkProposal(PyConProposal):
+
+    class Meta:
+        verbose_name = "PyCon lightning talk proposal"
 
 
 class PyConTutorialProposal(PyConProposal):
