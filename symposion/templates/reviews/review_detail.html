@@ -16,6 +16,19 @@
 
 {% endblock %}
 
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            var ids = '#abstract,#outline,#more_info,#additional-notes,#bio';
+            $(ids).each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+        });
+    </script>
+{% endblock %}
+
+
 {% block body %}
     {% if request.user.is_staff %}
         <div class="pull-right">
