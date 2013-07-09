@@ -44,9 +44,14 @@ class PyConTalkProposalForm(PyConProposalForm):
             "recording_release",
         ]
         widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
+            "audience": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "perceived_value": forms.Textarea(attrs={'rows': '3'}),
             "abstract": MarkEdit(),
-            "additional_notes": MarkEdit(),
             "outline": MarkEdit(),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
 
 
@@ -72,7 +77,10 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
             "audience_level",
         ]
         widgets = {
-            "additional_notes": MarkEdit(),
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
 
 
@@ -97,10 +105,15 @@ class PyConTutorialProposalForm(PyConProposalForm):
 
         ]
         widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
+            "audience": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "perceived_value": forms.Textarea(attrs={'rows': '3'}),
             "abstract": MarkEdit(),
             "outline": MarkEdit(),
             "more_info": MarkEdit(),
-            "additional_notes": MarkEdit(),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
 
 
@@ -120,8 +133,11 @@ class PyConPosterProposalForm(PyConProposalForm):
 
         ]
         widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
             "abstract": MarkEdit(),
-            "additional_notes": MarkEdit(),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
 
 
@@ -136,6 +152,8 @@ class PyConSponsorTutorialForm(PyConProposalForm):
             "additional_notes",
         ]
         widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
             "abstract": MarkEdit(),
-            "additional_notes": MarkEdit(),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
         }
