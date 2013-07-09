@@ -127,9 +127,18 @@
                 "bStateSave": true,
                 "oTableTools": {
                     "aButtons": [
-                        "copy",
-                        "csv",
-                        "print"
+                        {
+                            "sExtends": "copy",
+                            "mColumns": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11]
+                        },
+                        {
+                            "sExtends": "csv",
+                            "mColumns": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11]
+                        },
+                        {
+                            "sExtends": "print",
+                            "mColumns": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11]
+                        },
                     ],
                     "sSwfPath": "{{ STATIC_URL }}tabletools/swf/copy_csv_xls.swf"
                 }
