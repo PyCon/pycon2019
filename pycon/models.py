@@ -127,6 +127,12 @@ class PyConTalkProposal(PyConProposal):
         verbose_name = "PyCon talk proposal"
 
 
+class PyConLightningTalkProposal(PyConProposal):
+
+    class Meta:
+        verbose_name = "PyCon lightning talk proposal"
+
+
 class PyConTutorialProposal(PyConProposal):
     DOMAIN_LEVEL_NOVICE = 1
     DOMAIN_LEVEL_EXPERIENCED = 2
