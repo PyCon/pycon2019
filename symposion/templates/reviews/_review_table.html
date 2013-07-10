@@ -11,6 +11,9 @@
         <th>{% trans "-1" %}</th>
         <th>{% trans "Online Result Status" %}</th>
         <th>{% trans "Overall Status" %}</th>
+        {% if can_manage %}
+            <th>{% trans "Update Overall Status" %}</th>
+        {% endif %}
         {% if request.user.is_superuser %}
             <th>{% trans "Rejection Status" %}</th>
             <th>{% trans "Damage Score" %}</th>
@@ -43,23 +46,22 @@
                         </div>
                     {% endwith %}
                 </td>
-                <td>{% if can_manage %}
+                <td>{{ proposal.get_overall_status_display }}</td>
+                {% if can_manage %}
+                    <td>
                         <form action="" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="pk" value="{{ proposal.pk }}" />
-                            <select name="status" onChange="this.form.submit();">
-                                {% for k, v in status_options %}
-                                <option value="{{ k }}" {% if proposal.overall_status = k %}selected="selected"{% endif %}>
-                                    {{ v }}
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                    {% else %}
-                        {{ proposal.get_overall_status_display }}
-                    {% endif %}
-
-                </td>
+                                {% csrf_token %}
+                                <input type="hidden" name="pk" value="{{ proposal.pk }}" />
+                                <select name="status" onChange="this.form.submit();">
+                                    {% for k, v in status_options %}
+                                    <option value="{{ k }}" {% if proposal.overall_status == k %}selected="selected"{% endif %}>
+                                        {{ v }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                    </td>
+                {% endif %}
                 {% if request.user.is_superuser %}
                     <td>
                         {% with proposal.get_rejection_status_display as status %}

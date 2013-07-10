@@ -82,7 +82,7 @@ def review_section(request, section_slug, assigned=False):
         return access_not_permitted(request)
 
     can_manage = False
-    if request.user.has_perm("reviews.can_manage_%s" % section_slug) or request.user.is_superuser:
+    if request.user.has_perm("reviews.can_manage_%s" % section_slug):
         can_manage = True
     section = get_object_or_404(Section, slug=section_slug)
     queryset = ProposalBase.objects.filter(kind__section=section)
