@@ -142,6 +142,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.messages.context_processors.messages",
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
+    "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
 ]
 

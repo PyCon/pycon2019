@@ -1,5 +1,8 @@
 from django import forms
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
+
+from taggit.forms import TagField
 
 from symposion.proposals.models import SupportingDocument
 
@@ -38,3 +41,8 @@ class SupportingDocumentCreateForm(forms.ModelForm):
             "file",
             "description",
         ]
+
+
+class ProposalTagsForm(forms.Form):
+    tags = TagField(required=False,
+                    help_text=_(u"Comma-separated list of tags"))

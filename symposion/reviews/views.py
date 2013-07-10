@@ -5,9 +5,11 @@ from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.views.decorators.http import require_POST
+from taggit.utils import edit_string_for_tags
 
 from symposion.conf import settings
 from symposion.conference.models import Section
+from symposion.proposals.forms import ProposalTagsForm
 from symposion.proposals.models import ProposalBase
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
@@ -203,6 +205,23 @@ def review_detail(request, pk):
                 return redirect(request.path)
             else:
                 message_form = SpeakerCommentForm()
+        elif "tags_submit" in request.POST:
+            proposal_tags_form = ProposalTagsForm(request.POST)
+            if proposal_tags_form.is_valid():
+
+                tags = proposal_tags_form.cleaned_data['tags']
+                proposal.tags.set(*tags)
+
+                return redirect(request.path)
+            else:
+                message_form = SpeakerCommentForm()
+                if request.user in speakers:
+                    review_form = None
+                else:
+                    initial = {}
+                    if latest_vote:
+                        initial["vote"] = latest_vote.vote
+                    review_form = ReviewForm(initial=initial)
         elif "message_submit" in request.POST:
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
@@ -257,8 +276,11 @@ def review_detail(request, pk):
             initial["vote"] = latest_vote.vote
         if request.user in speakers:
             review_form = None
+            proposal_tags_form = None
         else:
             review_form = ReviewForm(initial=initial)
+            tags = edit_string_for_tags(proposal.tags.all())
+            proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
         message_form = SpeakerCommentForm()
 
     proposal.comment_count = proposal.result.comment_count
@@ -277,6 +299,7 @@ def review_detail(request, pk):
         "reviews": reviews,
         "review_messages": messages,
         "review_form": review_form,
+        "proposal_tags_form": proposal_tags_form,
         "message_form": message_form
     })
 

@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 import reversion
 
 from model_utils.managers import InheritanceManager
+from taggit.managers import TaggableManager
 
 from symposion.conference.models import Section
 
@@ -105,6 +106,7 @@ class ProposalBase(models.Model):
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
     additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
     cancelled = models.BooleanField(default=False)
+    tags = TaggableManager(blank=True)
 
     def __unicode__(self):
         return self.title
@@ -114,6 +116,10 @@ class ProposalBase(models.Model):
             return False
         else:
             return True
+
+    def get_tags_display(self):
+        # No idea why django-taggit doesn't offer this itself
+        return u", ".join(tag.name for tag in self.tags.all())
 
     @property
     def section(self):
