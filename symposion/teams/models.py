@@ -72,5 +72,8 @@ class Membership(models.Model):
     state = models.CharField(max_length=20, choices=MEMBERSHIP_STATE_CHOICES)
     message = models.TextField(blank=True)
 
+    class Meta:
+        unique_together = ('user', 'team')
+
 
 reversion.register(Membership)
