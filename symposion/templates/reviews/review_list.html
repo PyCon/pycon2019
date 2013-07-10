@@ -1,7 +1,8 @@
 {% extends "reviews/base.html" %}
+{% load i18n %}
 
 {% block body %}
     <h3>{{ section }}</h3>
+    <p>{% trans "Use Search to filter by speaker, category, tags, etc." %}</p>
     {% include "reviews/_review_table.html" %}
-  <p>Use Search to filter by speaker, category, tags, etc.</p>
 {% endblock %}
