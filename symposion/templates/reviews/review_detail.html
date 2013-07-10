@@ -91,9 +91,31 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="proposal-detail">
-                {% include "proposals/_proposal_fields.html" %}
+                {% with is_reviewer=True %}
+                    {% include "proposals/_proposal_fields.html" %}
+                {% endwith %}
             </div>
             <div class="tab-pane" id="proposal-reviews">
+
+                {% if proposal_tags_form %}
+                    <h4>{% trans "Edit proposal tags" %}</h4>
+                    <form method="POST" action="" class="form-inline">
+                        {% csrf_token %}
+                        {% if proposal_tags_form.non_field_errors %}
+                            <div class="alert alert-error">
+                                {% for error in proposal_tags_form.non_field_errors %}
+                                    {{ error }}<br />
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {{ proposal_tags_form.tags }}
+                        <button type="submit" class="btn btn-primary" name="tags_submit">{% trans "Submit Tags" %}</button>
+                        {% with field=proposal_tags_form.tags %}
+                            {% include "bootstrap/_field_errors.html" %}
+                            {% include "bootstrap/_field_help_text.html" %}
+                        {% endwith %}
+                    </form>
+                {% endif %}
 
                 <h4>{% trans "Current Results" %}</h4>
                 <table class="table table-striped">
@@ -200,7 +222,7 @@
                 $(".nav-tabs a[href='" + location.hash + "']").click();
             });
 
-            $('#.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
+            $('.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
                 if (History.enabled) {
                     History.pushState(null, null, $(e.target).attr("href"));
                 }
