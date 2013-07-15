@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load compress %}
+{% load static %}
+{% load i18n %}
+{% load boxes_tags %}
+
+{% block head_title %}{% if applying %}{% trans "Apply for Financial Aid" %}{% else %}{% trans "Edit Financial Aid Application" %}{% endif %}{% endblock %}
+
+{% block body_class %}finaid apply{% endblock %}
+
+{% block body %}
+    {% box "finaid-apply" %}
+
+    <form method="POST" action="" class="form-horizontal">
+        {% csrf_token %}
+        <legend>{% if applying %}{% trans "Apply for Financial Aid" %}{% else %}{% trans "Edit Financial Aid Application" %}{% endif %}</legend>
+        {{ form|as_bootstrap }}
+        <div class="form-actions">
+            <input class="btn btn-success" type="submit" value="Apply" />
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_script %}
+  {% compress js %}
+    <script src="{% static "js/finaid.js" %}"></script>
+  {% endcompress %}
+{% endblock %}
