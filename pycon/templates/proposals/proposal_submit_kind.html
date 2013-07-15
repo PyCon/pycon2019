@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="span12">
-        {% box "example_proposal" %}
+        {% box kind.slug|add:"-proposal" %}
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <fieldset>

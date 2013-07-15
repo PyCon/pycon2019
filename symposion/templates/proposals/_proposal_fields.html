@@ -6,7 +6,7 @@
 
     {% if is_reviewer %}
         <dt>{% trans "Tags" %}</dt>
-        <dd>{{ proposal.get_tags_display }}</dd>
+        <dd>{{ proposal.get_tags_display }}&nbsp;</dd>
     {% endif %}
 
     {% if proposal.kind.slug != "lightning-talk" %}
