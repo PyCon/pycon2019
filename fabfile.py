@@ -24,20 +24,20 @@ def staging():
     env.hosts = ['virt-nsz0jn.psf.osuosl.org']
     env.site_hostname = 'staging-pycon.python.org'
     env.branch = 'staging'
-    env.db = 'psf_pycon_2014'
+    env.db = 'psf-pycon-2014-staging'
     env.db_host = 'pg1.osuosl.org'
-    env.db_user = 'psf_pycon_2014'
+    env.db_user = 'psf-pycon-2014-staging'
     setup_path()
 
 @task
 def production():
     env.environment = 'production'
-    env.hosts = ['us.pycon.org']
+    env.hosts = ['virt-ak9lsk.psf.osuosl.org']
     env.site_hostname = 'us.pycon.org'
     env.branch = 'production'
-    env.db = None  # Unknown
-    env.db_host = None  # Unknown
-    env.db_user = None  # Unknown
+    env.db = 'psf_pycon_2014'
+    env.db_host = 'pg1.osuosl.org'
+    env.db_user = 'psf_pycon_2014'
     setup_path()
 
 
@@ -76,11 +76,11 @@ def deploy():
 
 
 @task
-def get_db_dump(clean=True):
-    """Get db dump of remote enviroment."""
+def overwrite_local_db(clean=True, dbname='pycon2014'):
+    """Overwrite your local `dbname` database with the data from the server."""
     require('environment')
     if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir")
+        abort("Please get a copy of .pgpass and put it in your home dir on the server of interest (not your local system)")
     dump_file = '%(project)s-%(environment)s.sql' % env
     flags = '-Ox'
     if clean:
@@ -90,7 +90,7 @@ def get_db_dump(clean=True):
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
     local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
-    local('dropdb pycon2014; createdb pycon2014')
+    local('dropdb %s; createdb %s' % (dbname, dbname))
     local('psql pycon2014 -f ~/%s' % dump_file)
 
 
@@ -104,7 +104,8 @@ def get_media(root='site_media/media'):
 
 @task
 def load_db_dump(dump_file):
-    """Load db dump on a remote environment."""
+    """Given a dump on your home dir on the server, load it to the server's
+    database, overwriting any existing data.  BE CAREFUL!"""
     require('environment')
     if not files.exists("%(home)s/.pgpass" % env):
         abort("Please get a copy of .pgpass and put it in your home dir")
