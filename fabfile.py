@@ -76,8 +76,13 @@ def deploy():
 
 
 @task
-def overwrite_local_db(clean=True, dbname='pycon2014'):
-    """Overwrite your local `dbname` database with the data from the server."""
+def get_db_dump(dbname, clean=True):
+    """Overwrite your local `dbname` database with the data from the server.
+    The name of your local db is required as an argument, e.g.:
+
+        fab staging overwrite_local_db:dbname=mydbname
+
+    """
     require('environment')
     if not files.exists("%(home)s/.pgpass" % env):
         abort("Please get a copy of .pgpass and put it in your home dir on the server of interest (not your local system)")
