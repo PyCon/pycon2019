@@ -24,7 +24,7 @@
   </div>
 
   <div class="row">
-    <div class="span5">
+    <div class="span6">
       <form action="{% url "socialauth_begin" "openid" %}?next={{ request.path }}" method="POST" autocapitalize="off" class="form-horizontal">
         <legend>Associate an OpenID</legend>
 
@@ -43,7 +43,7 @@
       </form>
     </div>
 
-    <div class="span5 sidebyside">
+    <div class="span4">
       <h4>{% trans "Sign in with another account:" %}</h4>
       <ul class="unstyled">
           <li>

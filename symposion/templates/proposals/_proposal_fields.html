@@ -4,6 +4,11 @@
     <dt>{% trans "Submitted by" %}</dt>
     <dd>{{ proposal.speaker }}</dd>
 
+    {% if is_reviewer %}
+        <dt>{% trans "Tags" %}</dt>
+        <dd>{{ proposal.get_tags_display }}&nbsp;</dd>
+    {% endif %}
+
     {% if proposal.kind.slug != "lightning-talk" %}
         <dt>{% trans "Category" %}</dt>
         <dd>{{ proposal.category }}&nbsp;</dd>
@@ -56,7 +61,7 @@
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
         <dd id="outline">{{ proposal.outline|safe }}&nbsp;</dd>
-    
+
         <dt>{% trans "More info" %}</dt>
         <dd id="more_info">{{ proposal.more_info|safe }}&nbsp;</dd>
     {% endif %}
