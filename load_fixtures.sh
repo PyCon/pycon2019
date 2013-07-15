@@ -30,3 +30,6 @@ python manage.py loaddata \
   fixtures/sponsorship_levels.json \
   fixtures/tutorials_schedule.json \
   fixtures/talks_schedule.json \
+  fixtures/permissions.json \
+  fixtures/teams.json \
+
