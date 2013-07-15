@@ -32,12 +32,12 @@ def staging():
 @task
 def production():
     env.environment = 'production'
-    env.hosts = ['virt-ak9lsk.psf.osuosl.org']
-    env.site_hostname = 'staging-pycon.python.org'
+    env.hosts = ['us.pycon.org']
+    env.site_hostname = 'us.pycon.org'
     env.branch = 'production'
-    env.db = 'psf_pycon_2014'
-    env.db_host = 'pg1.osuosl.org'
-    env.db_user = 'psf_pycon_2014'
+    env.db = None  # Unknown
+    env.db_host = None  # Unknown
+    env.db_user = None  # Unknown
     setup_path()
 
 
