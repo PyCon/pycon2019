@@ -9,13 +9,9 @@ from fabric.utils import abort, error
 
 # Directory structure
 PROJECT_ROOT = os.path.dirname(__file__)
-CONF_ROOT = os.path.join(PROJECT_ROOT, 'conf')
 env.project = 'pycon'
 env.project_user = os.environ['LOGNAME']
-env.repo = u'git@github.com:caktus/pycon'
 env.shell = '/bin/bash -c'
-env.disable_known_hosts = True
-env.forward_agent = True
 env.settings = 'symposion.settings'
 
 @task
@@ -23,6 +19,7 @@ def staging():
     env.environment = 'staging'
     env.hosts = ['virt-nsz0jn.psf.osuosl.org']
     env.site_hostname = 'staging-pycon.python.org'
+    env.root = '/srv/staging-pycon.python.org'
     env.branch = 'staging'
     env.db = 'psf-pycon-2014-staging'
     env.db_host = 'pg1.osuosl.org'
@@ -34,6 +31,7 @@ def production():
     env.environment = 'production'
     env.hosts = ['virt-ak9lsk.psf.osuosl.org']
     env.site_hostname = 'us.pycon.org'
+    env.root = '/srv/staging-pycon.python.org'
     env.branch = 'production'
     env.db = 'psf_pycon_2014'
     env.db_host = 'pg1.osuosl.org'
@@ -41,10 +39,8 @@ def production():
     setup_path()
 
 
-
 def setup_path():
     env.home = '/home/%(project_user)s/' % env
-    env.root = '/srv/' + env.site_hostname
     env.code_root = os.path.join(env.root, 'current')
     env.virtualenv_root = os.path.join(env.root, 'shared/env')
     env.media_root = os.path.join(env.root, 'shared', 'media')
@@ -80,7 +76,7 @@ def get_db_dump(dbname, clean=True):
     """Overwrite your local `dbname` database with the data from the server.
     The name of your local db is required as an argument, e.g.:
 
-        fab staging overwrite_local_db:dbname=mydbname
+        fab staging get_db_dump:dbname=mydbname
 
     """
     require('environment')
@@ -96,12 +92,19 @@ def get_db_dump(dbname, clean=True):
     # save pg_dump output to file in local home directory
     local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
     local('dropdb %s; createdb %s' % (dbname, dbname))
-    local('psql pycon2014 -f ~/%s' % dump_file)
+    local('psql %s -f ~/%s' % (dbname, dump_file))
 
 
 @task
 def get_media(root='site_media/media'):
-    """Get sync of remote media."""
+    """Syncs media files from server to a local dir.
+    Defaults to ./site_media/media; you can override by passing
+    a different relative path as root:
+
+        fab server get_media:root=my_dir/media/foo
+
+    Local dir ought to exist already.
+    """
     rsync = 'rsync -rvaz %(user)s@%(host)s:%(media_root)s/' % env
     cmd = '%s ./%s' % (rsync, root)
     local(cmd)
