@@ -89,6 +89,13 @@ class PyConProposal(ProposalBase):
         blank=True,
         help_text=_("Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.")
     )
+    slide_deck = models.FileField(
+        _("Slide deck"),
+        blank=True,
+        null=True,
+        help_text=_("A printable version of your presentation."),
+        upload_to="slide_decks"
+    )
 
     class Meta:
         abstract = True
@@ -117,7 +124,7 @@ class PyConTalkProposal(PyConProposal):
     )
     perceived_value = models.TextField(
         _(u"Objectives"),
-        max_length=500,
+        max_length=400,
         help_text=_(u"What will attendees get out of your talk? When they "
                     u"leave the room, what will they know that they didn't "
                     u"know before?"),
@@ -125,6 +132,12 @@ class PyConTalkProposal(PyConProposal):
 
     class Meta:
         verbose_name = "PyCon talk proposal"
+
+
+class PyConLightningTalkProposal(PyConProposal):
+
+    class Meta:
+        verbose_name = "PyCon lightning talk proposal"
 
 
 class PyConTutorialProposal(PyConProposal):
@@ -165,6 +178,14 @@ class PyConTutorialProposal(PyConProposal):
         help_text=_(u"What will attendees get out of your talk? When they "
                     u"leave the room, what will they know that they didn't "
                     u"know before?"),
+    )
+    handout = models.FileField(
+        _("Student Handout"),
+        blank=True,
+        null=True,
+        help_text=_(u'Upload a resource to be distributed to students  '
+                    u'attending the tutorial session.'),
+        upload_to="tutorial_handouts"
     )
 
     class Meta:

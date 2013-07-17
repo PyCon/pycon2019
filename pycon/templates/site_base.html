@@ -11,27 +11,26 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon US 2014{% endblock %}
-
-{% block viewport %}{% endblock viewport %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | PyCon 2014 in Montr&#233;al{% endblock %}
 
 {% block style_base %}
-  {% compress css %}
-    <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet" type="text/css">
-  {% endcompress %}
-
-  {% if debug %}
-    <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less" />
-    <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
-  {% else %}
     {% compress css %}
-      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+        <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet" type="text/css">
     {% endcompress %}
-  {% endif %}
 
-  {% compress css %}
-    {% include "markedit/includes/markedit-css.html" %}
-  {% endcompress %}
+    {% if debug %}
+        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less" />
+        <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
+    {% else %}
+        {% compress css %}
+            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+        {% endcompress %}
+    {% endif %}
+
+    {% compress css %}
+        {% include "markedit/includes/markedit-css.html" %}
+    {% endcompress %}
+
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
@@ -53,25 +52,29 @@
     {% include "_messages.html" %}
     <header class="main">
         <a id="skip" href="#content">Skip to main content</a>
-        <div class="account-bar container{% if user.is_authenticated %} loggedin{% endif %}">
+        <div class="container">
+        <div class="account-bar{% if user.is_authenticated %} loggedin{% endif %}">
             {% block account_bar %}
             {% include "_account_bar.html" %}
             {% endblock %}
         </div>
-        <nav>
-            <div class="container">
-                <a class="logo-small" href="{% url 'home' %}">PyCon 2014</a>
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        {% block topbar %}
-                            {% block nav %}
-                            {% sitetree_menu from "main" include "trunk" %}
+        {% block main_nav %}
+            <nav>
+                <div class="container">
+                    <a class="logo-small" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
+                    <div class="navbar navbar-inverse">
+                        <div class="navbar-inner">
+                            {% block topbar %}
+                                {% block nav %}
+                                {% sitetree_menu from "main" include "trunk" %}
+                                {% endblock %}
                             {% endblock %}
-                        {% endblock %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        {% endblock %}
+        </div>
     </header>
     {% block banner %}{% endblock %}
 {% endblock %}
@@ -121,9 +124,9 @@
                 </div>
                 {% endblock %}
             </div>
-        {% endblock %}  
+        {% endblock %}
     </div>
-    
+
     <footer>
         <div class="hills">
             <div class="trees-1"></div>
@@ -135,11 +138,11 @@
         <div class="container">
         {% block footer %}
             <a href="{%  url 'home' %}" class="logo">
-                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 Montreal">
+                <img src="{{ STATIC_URL }}img/pycon2014-logo-footer@2x.png" alt="PyCon 2014 in Montr&#233;al">
             </a>
             <div class="footer-content">
                 <p>
-                    PyCon US 2014 is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                    PyCon 2014 in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
                 </p>
                 <p>
                     Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.

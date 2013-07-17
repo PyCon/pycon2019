@@ -142,6 +142,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.messages.context_processors.messages",
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
+    "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
 ]
 
@@ -278,6 +279,7 @@ PROPOSAL_FORMS = {
     "talk": "pycon.forms.PyConTalkProposalForm",
     "poster": "pycon.forms.PyConPosterProposalForm",
     "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
+    "lightning-talk": "pycon.forms.PyConLightningTalkProposalForm",
 }
 
 USE_X_ACCEL_REDIRECT = False

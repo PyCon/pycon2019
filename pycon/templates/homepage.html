@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "responsive_base.html" %}
 
 {% load i18n %}
 {% load cache %}
@@ -8,7 +8,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon US 2014 | Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+{% block head_title_base %}PyCon 2014 in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
 
 {% block body_class %}
     {{ block.super }}
@@ -40,7 +40,7 @@
                     {% endcomment %}
                 </div>
                 <div class="row">
-                    <div class="span12 schedule">
+                    <div class="schedule">
                         <ul>
                             <li><span>Tutorials</span> April 9&ndash;10</li>
                             <li><span>Conference</span> April 11&ndash;13</li>
@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row homepage-content">
         {% latest_blog_posts as posts %}
         <div class="span8">
             <h3>Announcements</h3>
