@@ -1,0 +1,16 @@
+{% extends "responsive_base.html" %}
+
+{% load sitetree %}
+{% load i18n %}
+
+{% block body_class %}sitemap{% endblock %}
+
+{% block head_title %}Sitemap{% endblock %}
+
+{% block page_title %}Sitemap{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body %}
+    {% sitetree_tree from "main" %}
+{% endblock %}
