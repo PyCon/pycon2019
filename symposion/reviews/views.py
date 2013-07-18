@@ -204,6 +204,8 @@ def review_detail(request, pk):
     except LatestVote.DoesNotExist:
         latest_vote = None
 
+    proposal_tags_form = None
+
     if request.method == "POST":
         if request.user in speakers:
             return access_not_permitted(request)
@@ -291,7 +293,6 @@ def review_detail(request, pk):
             initial["vote"] = latest_vote.vote
         if request.user in speakers:
             review_form = None
-            proposal_tags_form = None
         else:
             review_form = ReviewForm(initial=initial)
             tags = edit_string_for_tags(proposal.tags.all())
