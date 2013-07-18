@@ -34,7 +34,7 @@ def set_proposal_data(request, auth_key, proposal_id):
     Takes two required parameters in the URL:
 
         auth_key - a valid API auth key
-        proposal_id - database ID of the desired proposal
+        proposal_id - database ID of the desired proposal (int)
 
     e.g.
 
@@ -83,7 +83,7 @@ def get_proposal_data(request, auth_key, proposal_id):
     Takes two required parameters as part of the URL:
 
         auth_key - a valid API auth key
-        proposal_id - database ID of the desired proposal
+        proposal_id - database ID of the desired proposal (int)
 
     e.g.
 
@@ -152,10 +152,10 @@ def set_irc_logs(request, auth_key):
     an array of dictionaries, each with four keys:
 
         {
-            'proposal_id': '(id of proposal)',
+            'proposal_id': (id of proposal),   # integer
             'user': '(text identifying the user)',
             'line': '(the IRC line)',
-            'timestamp': '(timestamp - format is
+            'timestamp': '(timestamp - format is below
         }
 
     The timestamp format must be `YYYY-MM-DD HH:MM:ss.uuuuuu`, which you
@@ -171,7 +171,7 @@ def set_irc_logs(request, auth_key):
     # validate proposal IDs
     validated_ids = set()
     for log in logs:
-        proposal_id = log['proposal_id']
+        proposal_id = int(log['proposal_id'])
         if proposal_id not in validated_ids:
             if not ProposalBase.objects.filter(pk=proposal_id).exists():
                 return HttpResponseNotFound("proposal %s not found"
@@ -197,7 +197,7 @@ def get_irc_logs(request, auth_key, proposal_id):
     Takes two required parameters as part of the URL:
 
         auth_key - a valid API auth key
-        proposal_id - database ID of the desired proposal
+        proposal_id - database ID of the desired proposal (int)
 
     e.g.
 
@@ -226,8 +226,9 @@ def get_irc_logs(request, auth_key, proposal_id):
     except ProposalBase.DoesNotExist:
         return HttpResponseNotFound("proposal not found")
 
+    fields = ['timestamp', 'user', 'line', 'proposal_id']
     logs = list(IRCLogLine.objects.filter(proposal=proposal)
-                .order_by('timestamp').values())
+                .order_by('timestamp').values(*fields))
 
     json_data = json.dumps(logs, cls=JSONDatetimeEncoder)
     return HttpResponse(content=json_data,
