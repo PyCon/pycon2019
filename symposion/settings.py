@@ -201,6 +201,7 @@ INSTALLED_APPS = [
     "pycon.registration",
     "pycon.schedule",
     "pycon.profile",
+    "pycon.pycon_api",
 ]
 
 FIXTURE_DIRS = [
