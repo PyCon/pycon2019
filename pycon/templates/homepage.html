@@ -70,11 +70,11 @@
             {% cache 600 "homepage-sponsor-slider" %}
                 <h2 class="scroll-title">Sponsors</h2>
                 {% sponsors "diamond" as diamond_sponsors %}
-                {% if diamond_sponsors|length > 1 %}
+                {# {% if diamond_sponsors|length > 1 %} #}
                     <div class="sponsorship-link">
                         {% include "_sponsorship_link.html" %}
                     </div>
-                {% endif %}
+                {# {% endif %} #}
                 <div id="sponsorslider" class="carousel slide">
                     <!-- Carousel items -->
                     <div class="carousel-inner">
