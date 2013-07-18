@@ -19,6 +19,7 @@ Apps:
    conference
    sponsorship
    deploying
+   api
 
 
 Indices and tables
