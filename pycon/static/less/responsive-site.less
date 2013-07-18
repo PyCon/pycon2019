@@ -1,0 +1,335 @@
+/* Imports
+==================== */
+@import "site.less";
+@import "bootstrap/responsive.less";
+
+/* Variables
+==================== */
+@breakDesktopLarge:			1200px;
+@breakDesktop:				979px;
+@breakTablet:				767px;
+@breakMobileLandscape:		480px;
+@breakMobile:				320px;
+
+
+/* Generic
+==================== */
+body {
+	@media (max-width: @breakTablet) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	footer {
+		.hills {
+			@media (max-width: @breakDesktop) {
+				display: none;
+			}
+		}
+		.footer-content {
+			@media (max-width: @breakDesktop) {
+				top: 0;
+				padding-bottom: 0;
+			}
+		}
+		a.logo img {
+			@media (max-width: @breakMobileLandscape) {
+				height: 25px;
+				width: 275px;
+			}
+		}
+	}
+	.page-head {
+		@media (max-width: @breakTablet) {
+			padding-right: 20px;
+			padding-left: 20px;
+		}
+		.skyline {
+			@media (min-width: @breakDesktopLarge) {
+				left: 57%;
+			}
+			@media (max-width: @breakDesktop) {
+				left: 35%;
+				height: 60px;
+			}
+			@media (max-width: @breakTablet) {
+				background-size: 350px 50px;
+				width: 350px;
+				bottom: -10px;
+				left: 40%;
+			}
+			@media (max-width: 600px) {
+				display: none;
+			}
+		}
+	}
+	.page-content {
+		@media (max-width: @breakTablet) {
+			padding-right: 20px;
+			padding-left: 20px;
+		}
+	}
+
+	aside .sponsor-list {
+		@media (max-width: @breakTablet) {
+			padding: 0;
+			border-left: none;
+			border-top: 1px solid @grayLighter;
+			h2 {
+				font-size: 36px;
+				padding-top: 20px;
+			}
+		}
+	}
+	header.main {
+		@media (min-width: @breakDesktop) {
+			nav {	
+				a.logo-small {
+					top: 15px;
+					left: auto;
+				}
+				
+			}
+			a.logo-smaller { display: none; }
+		}
+		@media (max-width: @breakDesktop) {
+			.navbar {
+				.nav { margin: 10px 0; }
+				.btn-navbar {
+					float: left;
+				    position: relative;
+				    top: -5px;
+				    .box-shadow(none);
+				    background-image: none;
+				    background-color: @blueDark;
+				    border: 3px solid @blueDark;
+				    &:hover {
+				    	background-color: @blueLight;
+				    	border-color: @blueLight;
+				    }
+				}
+			}
+			.account-bar {
+				margin: 0 5px 0 0;
+				.account-links {
+					position: absolute;
+				    right: 0;
+				    top: 3px;
+				}
+			}
+			nav {	
+				.navbar .navbar-inner {
+					margin: 0;
+					padding: 0;
+				}
+				a.logo-small {
+					display: none;
+				}
+			}
+			a.logo-smaller {
+			    width: 314px;
+			    height: 27px;
+			    background:url(../img/pycon2014-logo-footer@2x.png) no-repeat 0 0;
+			    text-indent: -9999px;
+			    display: block;
+			    background-size: 314px 27px;
+			    margin: 0 0 10px 5px;
+			    @media (max-width: @breakMobileLandscape) {
+			    	 background-size: 290px 25px;
+			    	 width: 290px;
+			    }
+			}
+		}
+	}
+}
+
+/* Homepage
+==================== */
+body.home {
+	@media (max-width: @breakDesktop) { 
+		header.main {
+			a.logo-smaller { display: none; }
+			@media (max-width: @breakMobileLandscape) {
+				.account-links {
+					span { display: none; }
+				}
+			}
+		}
+	}
+	.sky {
+		.promo {
+			&.no-link {
+				@media (max-width: @breakDesktop) {
+					display: none;
+				}
+			}
+		}
+		.logo {
+			@media (max-width: @breakTablet) {
+				background-size: 400px 80px;
+			}
+			@media (max-width: @breakMobileLandscape) {
+				background-size: 250px 50px;
+			}
+		}
+		@media (max-width: @breakMobileLandscape) {
+			padding-top: 20px;
+		}
+	}
+	.city {
+		.montreal {
+			@media (min-width: @breakDesktopLarge) {
+				margin-left: 300px;
+			}
+			@media (max-width: @breakDesktop) {
+				margin-left: 60px;
+			}
+			@media (max-width: @breakTablet) {
+				background-size: 400px 100px;
+				width: 400px;
+				bottom: -10px;
+				margin-left: 17%;			
+			}
+			@media (max-width: @breakMobileLandscape) {
+				background-size: 250px 70px;
+				width: 250px;
+				bottom: -40px;
+				margin-left: 22%;
+			}
+			@media (max-width: @breakMobile) {
+				margin-left: 10%;
+			}
+ 		}
+		.clouds {
+			#one-cloud {
+				@media (max-width: @breakDesktop) {
+					right: 25px;
+				}
+		    }
+		    #two-clouds {
+		    	@media (max-width: @breakDesktop) {
+		    		left: 0;
+		    	}
+		    }
+			@media (max-width: @breakTablet) {
+				display: none;
+			}
+		}
+		@media (max-width: @breakTablet) {
+			height: 190px;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			height: 120px;
+		}
+		.water {
+			@media (max-width: @breakMobileLandscape) {
+				height: 40px;
+			}
+		}
+	}
+	.schedule {
+		ul {
+			@media (min-width: @breakDesktopLarge) {
+				padding: 0 0 0 360px;
+			}
+			@media (max-width: @breakDesktop) {
+				margin-top: 25px;
+				padding: 0 0 0 150px;
+			}
+			@media (max-width: @breakTablet) {
+				display: none;
+			}
+		}
+	}
+	.sponsor-crawl {
+		@media (max-width: @breakMobileLandscape) {
+			padding: 20px 0;
+		}
+		.sponsorship-link {
+			@media (max-width: @breakTablet) {
+				position: relative;
+				display: block;
+				top: auto;
+				right: auto;
+				margin: 0 auto;
+				text-align: center;
+	      	}
+		}
+	}
+	.sponsor-scroll-item {
+		@media (max-width: @breakDesktop) {
+			width: 240px;
+		}
+		@media (max-width: @breakTablet) {
+			width: 225px;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			width: 100%;
+		}
+	}
+	
+	.homepage-content {
+		@media (max-width: @breakTablet) {
+			padding: 0 20px;
+		}
+	}
+}
+
+/* CMS Page
+==================== */
+body.cms-page {
+	aside .sponsor-list {
+		@media (max-width: @breakTablet) {
+			padding: 0;
+			border-left: none;
+			border-top: 1px solid @grayLighter;
+			h2 {
+				font-size: 36px;
+				padding-top: 20px;
+			}
+		}
+	}
+}
+
+/* Login + Register
+======================= */
+body.login, body.signup {
+	.page-content {
+		@media (max-width: @breakTablet) {
+			.box {
+				border: none;
+			}
+		}
+	}
+}
+
+/* Sponsorship List
+======================= */
+body.sponsors {
+	.page-head {
+		.skyline {
+			@media (max-width: @breakDesktop) {
+				background-size: 350px 50px;
+				width: 350px;
+				bottom: -10px;
+				left: 50%;
+			}
+			@media (max-width: @breakTablet) {
+				display: none;
+			}
+		}
+		a.read-more {
+			@media (max-width: @breakMobileLandscape) {
+				font-size: 11px;
+				width: 225px;
+			}
+		}
+	}
+	.page-content {
+		.sponsor .sponsor-content {
+			@media (max-width: @breakTablet) {
+				min-height: 250px;
+				height: auto;
+			}
+		}
+	}
+}

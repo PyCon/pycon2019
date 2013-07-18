@@ -274,7 +274,7 @@ header.main {
     height: 70px;
     position: absolute;
     left: 50%;
-    bottom: -1px;
+    bottom: 0;
   }
   h1 {
     text-transform:uppercase;
@@ -431,6 +431,17 @@ aside.list {
   width: 80%;
   left: 10%;
   z-index: 999;
+}
+
+// Datatables buttongroup needs a little padding
+div.DTTT.btn-group {
+  padding: 2px 0px 4px;
+  // and override the button colors that don't seem to get set above
+  .btn {
+    .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    color: fade(@button-text, 75%);
+    font-weight: 600;
+  }
 }
 
 footer {
@@ -808,7 +819,7 @@ body.home {
       width: 99px;
       height: 53px;
       position: absolute;
-      right: 25px;
+      right: 175px;
       top: -40px;
       background: url("../img/one-cloud.png") no-repeat transparent;
     }
@@ -816,6 +827,7 @@ body.home {
       width: 173px;
       height: 63px;
       top: -40px;
+      left: 125px;
       position: absolute;
       background: url("../img/two-clouds.png") no-repeat transparent;
     }
@@ -858,7 +870,6 @@ body.home {
 
     .post-content {
       float:left;
-      width: 540px;
     }
   }
 
@@ -1043,12 +1054,22 @@ body.venue {
     margin: 15px 0 25px 0;
     font-style: italic;
   }
-
-  .map {
+  .map-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
     iframe {
       border: 1px solid #ddd;
     }
-
+    iframe, object, embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
     a {
       font-size: @baseFontSize - 2;
     }
@@ -1268,9 +1289,6 @@ body.signup, body.login {
   }
   .page-content {
     margin-top: 40px;
-    .box {
-      border-right: 1px solid @grayLighter;
-    }
   }
   form {
     button[type=submit] {
@@ -1280,6 +1298,12 @@ body.signup, body.login {
     .forgot {
       margin-top: 15px;
     }
+  }
+}
+
+body.login {
+  .page-content {
+    .box { border-right: 1px solid @grayLighter; }
   }
 }
 

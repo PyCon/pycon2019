@@ -1,0 +1,75 @@
+[
+{
+  "pk": 1, 
+  "model": "teams.team", 
+  "fields": {
+    "description": "", 
+    "created": "2012-08-08T03:24:22.332", 
+    "manager_permissions": [246], 
+    "name": "Tutorial Reviewers", 
+    "access": "application", 
+    "slug": "tutorial-reviewers", 
+    "permissions": [
+      245
+    ]
+  }
+},
+{
+  "pk": 2, 
+  "model": "teams.team", 
+  "fields": {
+    "description": "", 
+    "created": "2012-08-08T03:24:46.366", 
+    "manager_permissions": [239], 
+    "name": "Talk Reviewers", 
+    "access": "application", 
+    "slug": "talk-reviewers", 
+    "permissions": [
+      240
+    ]
+  }
+},
+{
+  "pk": 3, 
+  "model": "teams.team", 
+  "fields": {
+    "description": "", 
+    "created": "2012-08-08T03:25:05.140", 
+    "manager_permissions": [242], 
+    "name": "Poster Reviewers", 
+    "access": "application", 
+    "slug": "poster-reviewers", 
+    "permissions": [
+      241
+    ]
+  }
+},
+{
+  "pk": 4, 
+  "model": "teams.team", 
+  "fields": {
+    "description": "Pool of people whom are volunteering.", 
+    "created": "2013-01-08T18:41:25.238", 
+    "manager_permissions": [], 
+    "name": "Volunteers", 
+    "access": "invitation", 
+    "slug": "volunteers", 
+    "permissions": []
+  }
+},
+{
+  "pk": 5, 
+  "model": "teams.team", 
+  "fields": {
+    "description": "", 
+    "created": "2013-07-09T11:34:02.444", 
+    "manager_permissions": [244], 
+    "name": "Lightning talk reviewers", 
+    "access": "application", 
+    "slug": "lightning-talk-reviewers", 
+    "permissions": [
+      243
+    ]
+  }
+}
+]
