@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from markedit.widgets import MarkEdit
 
@@ -20,7 +21,7 @@ class PyConProposalForm(forms.ModelForm):
         value = self.cleaned_data["description"]
         if len(value) > 400:
             raise forms.ValidationError(
-                u"The description must be less than 400 characters"
+                _(u"The description must be less than 400 characters")
             )
         return value
 

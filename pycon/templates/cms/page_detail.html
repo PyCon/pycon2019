@@ -23,7 +23,7 @@
 {% block edit_page %}
     {% if editable %}
         <a href="{% url 'cms_page_edit' page.path %}" class="edit-btn">
-                <i class="icon-pencil"></i> Edit page</a>
+                <i class="icon-pencil"></i> {% trans "Edit page" %}</a>
     {% endif %}
 {% endblock %}
 
