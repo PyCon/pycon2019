@@ -7,7 +7,7 @@ from ..models import FinancialAidApplication
 class TestFinancialAidModels(TestCase):
     def test_one(self):
         """Can create the application object"""
-        x = FinancialAidApplication()
+        FinancialAidApplication()
 
     def test_reverse_relation(self):
         user = User.objects.create_user("Foo")
@@ -15,7 +15,7 @@ class TestFinancialAidModels(TestCase):
             unused = user.financial_aid
 
         # Just the minimum required fields
-        FinancialAidApplication.objects.create(
+        x = FinancialAidApplication.objects.create(
             user=user,
             profession="Foo",
             experience_level="lots",
