@@ -1,0 +1,79 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load bootstrap_tags %}
+{% load compress %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
+
+{% block body_class %}finaid_status{% endblock %}
+
+{% block page_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
+
+{% block body %}
+    <h3>{% trans "Financial Aid Application Status" %}</h3>
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
+            <li><a href="#application-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ application.messages.all|length }}</span></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="application-detail">
+                {% include "finaid/_application_fields.html" %}
+            </div>
+            <div class="tab-pane" id="application-feedback">
+
+              <h3>{% trans "Conversation with Reviewers" %}</h3>
+
+              {# Note: these are only the messages that are visible to the applicant #}
+              {% for message in visible_messages %}
+                  <div class="review-box">
+                      <div class="comment">{{ message.message|safe }}</div>
+                      <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
+                  </div>
+                  <div class="clear"></div>
+              {% endfor %}
+
+              <h3>{% trans "Leave a Message" %}</h3>
+
+              <p>{% trans "You can leave a message for the reviewers here." %}</p>
+
+              <form action="" method="POST" accept-charset="utf-8">
+                  {% csrf_token %}
+                  <fieldset>
+                      {{ form|as_bootstrap }}
+                  </fieldset>
+                  <div class="actions">
+                      <button type="submit" name="message_submit" class="btn primary">{% trans "Submit" %}</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+    </div>
+{% endblock body %}
+
+
+{% block extra_script %}
+  {% compress js %}
+    <script src="{{ STATIC_URL }}symposion/js/jquery.history.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var History = window.History;
+
+            $(window).bind("anchorchange", function() {
+                $(".nav-tabs a[href='" + location.hash + "']").click();
+            });
+
+            $('#.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
+                if (History.enabled) {
+                    History.pushState(null, null, $(e.target).attr("href"));
+                }
+            });
+        });
+    </script>
+  {% endcompress %}
+{% endblock extra_script %}
