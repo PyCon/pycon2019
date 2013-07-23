@@ -1,0 +1,59 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load bootstrap_tags %}
+{% load compress %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
+
+{% block body_class %}finaid_status{% endblock %}
+
+{% block page_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
+
+{% block body %}
+    <h3>{% trans "Financial Aid Application Status" %}</h3>
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
+          {% comment %}
+            <li><a href="#application-notes" data-toggle="tab">{% trans "Attached Notes" %}</a></li>
+          {% endcomment %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="application-detail">
+              {% include "finaid/_application_fields.html" %}
+            </div>
+          {% comment %}
+            <div class="tab-pane" id="application-notes">
+                <p>Notes not implemented yet</p>
+                {# WRITE ME once notes are implemented - see proposal_detail.html for hints #}
+            </div>
+          {% endcomment %}
+        </div>
+    </div>
+{% endblock body %}
+
+
+{% block extra_script %}
+  {% compress js %}
+    <script src="{{ STATIC_URL }}symposion/js/jquery.history.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var History = window.History;
+
+            $(window).bind("anchorchange", function() {
+                $(".nav-tabs a[href='" + location.hash + "']").click();
+            });
+
+            $('#.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
+                if (History.enabled) {
+                    History.pushState(null, null, $(e.target).attr("href"));
+                }
+            });
+        });
+    </script>
+  {% endcompress %}
+{% endblock extra_script %}
