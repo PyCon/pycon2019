@@ -46,6 +46,6 @@ Editing applications
 To create or edit an application, the app uses the ``finaid/edit.html``
 template. The context provides a ``form`` variable containing the form.
 A default template is provided that is customized to work with the Pycon
-site and uses ``js/finaid.sh`` to hide some of the fields unless some
+site and uses ``js/finaid.js`` to hide some of the fields unless some
 other inputs have been checked, but the view doesn't care; it just wants
 the form submitted.
