@@ -39,14 +39,18 @@ def applications_open():
 def is_reviewer(user):
     """Return True if this user is a financial aid reviewer"""
     # FIXME - not implemented yet
+    # Cache on user object when we do implement it, since we call
+    # this repeatedly on the same user
     return False
 
 
 def has_application(user):
     """Return True if this user has submitted an application"""
-    try:
-        _ = user.financial_aid
-    except (FinancialAidApplication.DoesNotExist, AttributeError):
-        return False
-    else:
-        return True
+    if not hasattr(user, "_has_finaid_application"):
+        try:
+            _ = user.financial_aid
+        except (FinancialAidApplication.DoesNotExist, AttributeError):
+            user._has_finaid_application = False
+        else:
+            user._has_finaid_application = True
+    return user._has_finaid_application
