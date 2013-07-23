@@ -31,17 +31,17 @@ class TestFinAidUtils(TestCase):
         self.assertTrue(has_application(user))
 
     def test_applications_open_no_dates(self):
-        # No dates in settings - applications are open
+        # No dates in settings - applications are closed
         # Set dummy FINANCIAL_AID just so we can delete the setting, and
         # be sure it'll be restored to its pre-test value when we're
         # done.
         with self.settings(FINANCIAL_AID=None):
             # no setting
             delattr(settings, 'FINANCIAL_AID')
-            self.assertTrue(applications_open())
+            self.assertFalse(applications_open())
             # no dates
             settings.FINANCIAL_AID = {}
-            self.assertTrue(applications_open())
+            self.assertFalse(applications_open())
 
     def test_applications_open_start_date_future(self):
         now = datetime.datetime.now()

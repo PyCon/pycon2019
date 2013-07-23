@@ -17,6 +17,8 @@ def applications_open():
     end_date
         (datetime object) If set, financial aid applications will not be
         accepted or allowed to be edited after this date
+
+    If neither is set, applications are CLOSED.
     """
     now = datetime.datetime.now()
     if hasattr(settings, "FINANCIAL_AID"):
@@ -25,6 +27,8 @@ def applications_open():
         finaid_settings = {}
     start_date = finaid_settings.get('start_date', None)
     end_date = finaid_settings.get('end_date', None)
+    if not start_date and not end_date:
+        return False
     if start_date and now < start_date:
         return False
     if end_date and end_date < now:

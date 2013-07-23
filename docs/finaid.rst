@@ -14,6 +14,8 @@ Values can include:
         (datetime object) If set, financial aid applications will not be
         accepted or allowed to be edited after this date.
 
+If neither is set, applications are closed.
+
 So if you wanted the application period to be July, 2013, you would set:
 
 .. code-block:: python
