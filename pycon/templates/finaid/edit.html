@@ -13,7 +13,7 @@
 {% block body %}
     {% box "finaid-apply" %}
 
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <legend>{% if applying %}{% trans "Apply for Financial Aid" %}{% else %}{% trans "Edit Financial Aid Application" %}{% endif %}</legend>
         {{ form|as_bootstrap }}
