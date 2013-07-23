@@ -147,32 +147,31 @@
                 {% if show_financial_aid_section %}
                   <div class="dashboard-panel">
                     <div class="dashboard-panel-header">
-                      <i class="icon-briefcase"></i>
+                      <i class="icon-money"></i>
                       <h3>Financial Aid</h3>
                     </div>
                     <div class="dashboard-panel-content">
                       <div class="actions">
-                        {% if financial_aid_open %} {# can apply or edit application #}
-                          {% if has_applied_for_financial_aid %}
-                            <a href="{% url 'finaid_edit' %}" class="action">
-                              <i class="widget-icon icon-money"></i>
-                              <span class='widget-label'>Edit financial aid application</span>
-                            </a>
-                          {% else %}
-                            <a href="{% url 'finaid_edit' %}" class="action">
-                              <i class="widget-icon icon-money"></i>
-                              <span class='widget-label'>Apply for financial aid</span>
-                            </a>
-                          {% endif %}
+                        {% if show_finaid_apply_button %}
+                          <a href="{% url 'finaid_edit' %}" class="action">
+                            <i class="widget-icon icon-money"></i>
+                            <span class='widget-label'>Apply for financial aid</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_edit_button %}
+                          <a href="{% url 'finaid_edit' %}" class="action">
+                            <i class="widget-icon icon-money"></i>
+                            <span class='widget-label'>Edit financial aid application</span>
+                          </a>
                         {% endif %}
                       {% comment %} {# not implemented yet #}
-                        {% if has_applied_for_financial_aid %} {# there is status to see #}
+                        {% if show_finaid_status_button %}
                           <a href="{% url 'finaid_status' %}" class="action">
                             <i class="widget-icon icon-ok"></i>
                             <span class='widget-label'>Financial aid application status</span>
                           </a>
                         {% endif %}
-                        {% if is_financial_aid_reviewer %}
+                        {% if show_finaid_review_button %}
                           <a href="{% url 'finaid_review' %}" class="action">
                             <i class="widget-icon icon-comment"></i>
                             <span class="wiget-label">Review applications</span>
