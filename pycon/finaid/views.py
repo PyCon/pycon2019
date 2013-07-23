@@ -1,8 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseForbidden
-from django.shortcuts import redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import redirect, render
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import FinancialAidApplicationForm
@@ -33,10 +32,10 @@ def finaid_edit(request):
         form.save()
         return redirect("dashboard")
 
-    return render_to_response("finaid/edit.html", {
+    return render(request, "finaid/edit.html", {
         "form": form,
         "applying": applying,
-    }, context_instance=RequestContext(request))
+    })
 
 
 @login_required
@@ -45,6 +44,14 @@ def finaid_review(request):
         return HttpResponseForbidden()
     raise NotImplementedError("financial aid reviewing not implemented yet")
 
+
 @login_required
 def finaid_status(request):
-    raise NotImplementedError("financial aid status not implemented yet")
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+
+    return render(request, "finaid/status.html", {
+        'application': request.user.financial_aid,
+    })

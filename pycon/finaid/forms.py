@@ -7,7 +7,7 @@ from .models import FinancialAidApplication
 class FinancialAidApplicationForm(forms.ModelForm):
     class Meta:
         model = FinancialAidApplication
-        exclude = ["timestamp", "user"]
+        exclude = ["timestamp", "user", "status"]
         widgets = {
             'travel_plans': Textarea(attrs={'cols': 80, 'rows': 10,
                                             'class': 'fullwidth-textarea'}),

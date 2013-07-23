@@ -17,11 +17,33 @@ PRESENTING_CHOICES = (
     (3, _("I have applied but don't know yet")),
 )
 
+STATUS_SUBMITTED = 1
+STATUS_WITHDRAWN = 2
+STATUS_INFO_NEEDED = 3
+STATUS_OFFERED = 4
+STATUS_REJECTED = 5
+STATUS_DECLINED = 6
+STATUS_ACCEPTED = 7
+
+STATUS_CHOICES = (
+    (STATUS_SUBMITTED, _(u"Submitted")),
+    (STATUS_WITHDRAWN, _(u"Withdrawn")),
+    (STATUS_INFO_NEEDED, _(u"Information needed")),
+    (STATUS_OFFERED, _(u"Offered")),
+    (STATUS_REJECTED, _(u"Rejected")),
+    (STATUS_DECLINED, _(u"Declined")),
+    (STATUS_ACCEPTED, _(u"Accepted"))
+)
+
 
 class FinancialAidApplication(models.Model):
     # The primary key ('id') is used as application number
     timestamp = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='financial_aid', db_index=True)
+
+    status = models.IntegerField(choices=STATUS_CHOICES,
+                                 default=STATUS_SUBMITTED)
 
     pyladies_grant_requested = models.BooleanField(help_text=_("Would you like to be considered for a PyLadies grant?"))
     registration_grant_requested = models.BooleanField(help_text=_("Will you need assistance with the Conference Registration?"))
