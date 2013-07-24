@@ -33,10 +33,12 @@
                                     <span class="widget-label">Edit your speaker profile</span>
                                 </a>
 
-                                <a href="{% url 'proposal_submit' %}" class="action">
-                                    <i class="widget-icon  icon-bullhorn"></i>
-                                    <span class="widget-label">Submit a new proposal</span>
-                                </a>
+                                {% if proposals_are_open %}
+                                  <a href="{% url 'proposal_submit' %}" class="action">
+                                      <i class="widget-icon  icon-bullhorn"></i>
+                                      <span class="widget-label">Submit a new proposal</span>
+                                  </a>
+                                {% endif %}
                             </div>
 
                             <section class="subsection">
@@ -94,7 +96,7 @@
                                 </section>
                             {% endif %}
 
-                        {% else %}
+                        {% elif proposals_are_open %}
                             <p>To submit a proposal, first create a speaker profile.</p>
                             <div class="actions">
                                 <a href="{% url 'speaker_create' %}" class="action">
