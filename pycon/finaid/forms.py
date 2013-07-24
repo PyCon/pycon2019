@@ -1,13 +1,13 @@
 from django import forms
 from django.forms import Textarea
 
-from .models import FinancialAidApplication
+from .models import FinancialAidApplication, FinancialAidMessage
 
 
 class FinancialAidApplicationForm(forms.ModelForm):
     class Meta:
         model = FinancialAidApplication
-        exclude = ["timestamp", "user"]
+        exclude = ["timestamp", "user", "status"]
         widgets = {
             'travel_plans': Textarea(
                 attrs={'cols': 80, 'rows': 10,
@@ -36,4 +36,15 @@ class FinancialAidApplicationForm(forms.ModelForm):
             'experience_level': Textarea(
                 attrs={'cols': 80, 'rows': 2,
                        'class': 'fullwidth-textarea'}),
+        }
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = FinancialAidMessage
+        fields = [
+            "message"
+        ]
+        widgets = {
+            'message': Textarea(attrs={'class': 'fullwidth-textarea'}),
         }
