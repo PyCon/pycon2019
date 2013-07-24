@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseForbidden
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
 
 from .forms import FinancialAidApplicationForm, MessageForm
 from .models import FinancialAidApplication, FinancialAidMessage
+from pycon.finaid.forms import ReviewerMessageForm
 from .utils import applications_open,  email_address, has_application, \
     is_reviewer, send_email_message
 
@@ -55,8 +56,53 @@ def finaid_edit(request):
 @login_required
 def finaid_review(request):
     if not is_reviewer(request.user):
-        return HttpResponseForbidden()
-    raise NotImplementedError("financial aid reviewing not implemented yet")
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
+    return render(request, "finaid/application_list.html", {
+        "applications": FinancialAidApplication.objects.all(),
+    })
+
+
+@login_required
+def finaid_review_detail(request, pk):
+    if not is_reviewer(request.user):
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
+    application = get_object_or_404(FinancialAidApplication, pk=pk)
+
+    if request.method == 'POST':
+        message = FinancialAidMessage(user=request.user,
+                                      application=application)
+        message_form = ReviewerMessageForm(request.POST, instance=message)
+        if message_form.is_valid():
+            message = message_form.save()
+            # Send notice to the reviewers alias
+            # If the message is visible, also send to the applicant
+            context = {
+                'reviewer': request.user,
+                'applicant': application.user,
+                'message': message,
+                # FIXME: Add link where applicant can look at the application
+            }
+            recipients = [email_address()]
+            if message.visible:
+                recipients.append(application.user.email)
+            send_email_message("reviewer_message",
+                               from_=email_address(),
+                               to=recipients,
+                               context=context)
+
+            return redirect(request.path)
+    else:
+        message_form = ReviewerMessageForm()
+
+    return render(request, "finaid/review.html", {
+        "application": application,
+        "message_form": message_form,
+        "review_messages": FinancialAidMessage.objects.filter(
+            application=request.user.financial_aid
+        )
+    })
 
 
 @login_required
