@@ -18,7 +18,7 @@
         <legend>{% if applying %}{% trans "Apply for Financial Aid" %}{% else %}{% trans "Edit Financial Aid Application" %}{% endif %}</legend>
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-success" type="submit" value="Apply" />
+            <input class="btn btn-success" type="submit" value="{% if applying %}{% trans "Apply" %}{% else %}{% trans "Submit" %}{% endif %}" />
         </div>
     </form>
 {% endblock %}

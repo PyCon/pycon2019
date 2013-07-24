@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<dl class="dl-horizontal">
+  <dt>{% trans "Submitted by" %}</dt>
+  <dd>{{ application.user }}</dd>
+
+  <dt>{% trans "Status" %}</dt>
+  <dd>{{ application.get_status_display }}</dd>
+
+  <dt>{% trans "Submitted on" %}</dt>
+  <dd>{{ application.timestamp }}</dd>
+
+  {% if application.timestamp != application.last_updated %}
+    <dt>{% trans "Last updated on" %}</dt>
+    <dd>{{ application.last_update }}</dd>
+  {% endif %}
+</dl>
