@@ -1,0 +1,12 @@
+# Copy this to local_settings.py and edit.
+# Do not add local_settings.py to source control.
+
+# Pick one: import whatever your appropriate settings are for this environment
+
+#from pycon.settings.dev import *
+#from pycon.settings.test import *
+#from pycon.settings.staging import *
+#from pycon.settings.production import *
+# etc..
+
+# Then you can override settings here if you need to.
