@@ -15,6 +15,9 @@ from ..utils import DEFAULT_EMAIL_ADDRESS, applications_open, \
     email_address, has_application, send_email_message
 
 
+today = datetime.date.today()
+
+
 class TestFinAidUtils(TestCase):
     def test_has_application_anonymous(self):
         user = AnonymousUser()
@@ -35,6 +38,8 @@ class TestFinAidUtils(TestCase):
             want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
+            hotel_arrival_date=today,
+            hotel_departure_date=today,
         )
         self.assertTrue(has_application(user))
 
