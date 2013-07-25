@@ -151,3 +151,18 @@ class FinancialAidMessage(models.Model):
         Typically you'd filter this further on a particular application
         or something."""
         return cls.objects.exclude(seen__user=user)
+
+
+class FinancialAidApplicationPeriod(models.Model):
+    """Represents periods when applications are open"""
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+
+    @classmethod
+    def open(cls):
+        """Return True if applications are open right now"""
+        now = datetime.datetime.now()
+        return bool(cls._default_manager.filter(start__lt=now, end__gt=now))
+
+    def __unicode__(self):
+        return u"Applications open %s-%s" % (self.start, self.end)

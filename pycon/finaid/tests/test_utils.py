@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.template import Template
 from django.test import TestCase
 
-from ..models import FinancialAidApplication
+from ..models import FinancialAidApplication, FinancialAidApplicationPeriod
 from ..utils import DEFAULT_EMAIL_ADDRESS, applications_open, \
     email_address, has_application, send_email_message
 
@@ -39,84 +39,65 @@ class TestFinAidUtils(TestCase):
         self.assertTrue(has_application(user))
 
     def test_applications_open_no_dates(self):
-        # No dates in settings - applications are closed
-        # Set dummy FINANCIAL_AID just so we can delete the setting, and
-        # be sure it'll be restored to its pre-test value when we're
-        # done.
-        with self.settings(FINANCIAL_AID=None):
-            # no setting
-            delattr(settings, 'FINANCIAL_AID')
-            self.assertFalse(applications_open())
-            # no dates
-            settings.FINANCIAL_AID = {}
-            self.assertFalse(applications_open())
+        # No FinancialAidApplicationPeriod records - apps closed
+        self.assertFalse(applications_open())
 
     def test_applications_open_start_date_future(self):
         now = datetime.datetime.now()
         future = now + datetime.timedelta(days=3)
-        finaid_settings = {
-            'start_date': future,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertFalse(applications_open())
-
-    def test_applications_open_start_date_past(self):
-        now = datetime.datetime.now()
-        past = now - datetime.timedelta(days=3)
-        finaid_settings = {
-            'start_date': past,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertTrue(applications_open())
+        more_future = future + datetime.timedelta(days=3)
+        FinancialAidApplicationPeriod.objects.create(
+            start=future,
+            end=more_future
+        )
+        self.assertFalse(applications_open())
 
     def test_applications_open_end_date_future(self):
         now = datetime.datetime.now()
         future = now + datetime.timedelta(days=3)
-        finaid_settings = {
-            'end_date': future,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertTrue(applications_open())
+        FinancialAidApplicationPeriod.objects.create(
+            start=now,
+            end=future
+        )
+        self.assertTrue(applications_open())
 
     def test_applications_open_end_date_past(self):
         now = datetime.datetime.now()
         past = now - datetime.timedelta(days=3)
-        finaid_settings = {
-            'end_date': past,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertFalse(applications_open())
+        more_past = past - datetime.timedelta(days=3)
+        FinancialAidApplicationPeriod.objects.create(
+            start=more_past,
+            end=past
+        )
+        self.assertFalse(applications_open())
 
     def test_applications_open_period_future(self):
         now = datetime.datetime.now()
         future = now + datetime.timedelta(days=3)
-        finaid_settings = {
-            'start_date': future,
-            'end_date': future,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertFalse(applications_open())
+        FinancialAidApplicationPeriod.objects.create(
+            start=future,
+            end=future
+        )
+        self.assertFalse(applications_open())
 
     def test_applications_open_period_past(self):
         now = datetime.datetime.now()
         past = now - datetime.timedelta(days=3)
-        finaid_settings = {
-            'start_date': past,
-            'end_date': past,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertFalse(applications_open())
+        FinancialAidApplicationPeriod.objects.create(
+            start=past,
+            end=past
+        )
+        self.assertFalse(applications_open())
 
     def test_applications_open_period_active(self):
         now = datetime.datetime.now()
         past = now - datetime.timedelta(days=3)
         future = now + datetime.timedelta(days=3)
-        finaid_settings = {
-            'start_date': past,
-            'end_date': future,
-        }
-        with self.settings(FINANCIAL_AID=finaid_settings):
-            self.assertTrue(applications_open())
+        FinancialAidApplicationPeriod.objects.create(
+            start=past,
+            end=future
+        )
+        self.assertTrue(applications_open())
 
     def test_is_reviewer(self):
         # FIXME - write me once is_reviewer is implemented

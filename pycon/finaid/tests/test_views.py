@@ -5,9 +5,9 @@ from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.test.utils import override_settings
 
-from pycon.finaid.models import FinancialAidApplication
+from pycon.finaid.models import FinancialAidApplication, \
+    FinancialAidApplicationPeriod
 
 from symposion.conference.models import Conference
 
@@ -24,11 +24,11 @@ class TestFinaidApplicationView(TestCase):
         self.user = User.objects.create_user('joe',
                                              email='joe@example.com',
                                              password='snoopy')
-        self.finaid_settings = {
-            # financial aid applications are open
-            'start_date': today - one_day,
-            'end_date': today + one_day
-        }
+        # financial aid applications are open
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
 
     def login(self):
@@ -51,9 +51,7 @@ class TestFinaidApplicationView(TestCase):
     def test_logged_in_applications_open(self):
         # If logged in and applications open, we can view the view
         self.login()
-        # also must have applications open
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.get(self.edit_url)
+        rsp = self.client.get(self.edit_url)
         self.assertEqual(200, rsp.status_code)
         # and context has a form
         form = rsp.context['form']
@@ -65,15 +63,14 @@ class TestFinaidApplicationView(TestCase):
         # We also display a message
         self.login()
         # Applications ended long ago
-        self.finaid_settings['end_date'] = datetime.datetime(1972, 1, 1)
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.get(self.edit_url)
+        self.period.end = datetime.datetime(1972, 1, 1)
+        self.period.save()
+        rsp = self.client.get(self.edit_url)
         self.assertRedirects(rsp, self.dashboard_url)
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.get(self.edit_url, follow=True)
+        rsp = self.client.get(self.edit_url, follow=True)
         context = rsp.context
         self.assertIn('messages', context)
         self.assertEqual(1, len(context['messages']))
@@ -93,8 +90,7 @@ class TestFinaidApplicationView(TestCase):
             sex='0',
         )
         self.assertEqual(0, len(mail.outbox))
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.post(self.edit_url, data)
+        rsp = self.client.post(self.edit_url, data)
         self.assertRedirects(rsp, self.dashboard_url)
 
         # There's an application for this user now
@@ -112,8 +108,7 @@ class TestFinaidApplicationView(TestCase):
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.post(self.edit_url, data, follow=True)
+        rsp = self.client.post(self.edit_url, data, follow=True)
         context = rsp.context
         self.assertIn('messages', context)
         self.assertEqual(1, len(context['messages']))
@@ -147,8 +142,7 @@ class TestFinaidApplicationView(TestCase):
         )
 
         self.assertEqual(0, len(mail.outbox))
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.post(self.edit_url, data)
+        rsp = self.client.post(self.edit_url, data)
         self.assertRedirects(rsp, self.dashboard_url)
         # And the application now has new data
         app = FinancialAidApplication.objects.get(user=self.user)
@@ -161,8 +155,7 @@ class TestFinaidApplicationView(TestCase):
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message
-        with override_settings(FINANCIAL_AID=self.finaid_settings):
-            rsp = self.client.post(self.edit_url, data, follow=True)
+        rsp = self.client.post(self.edit_url, data, follow=True)
         context = rsp.context
         self.assertIn('messages', context)
         self.assertEqual(1, len(context['messages']))
