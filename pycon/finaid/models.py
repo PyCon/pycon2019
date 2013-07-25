@@ -67,10 +67,12 @@ class FinancialAidApplication(models.Model):
     hotel_arrival_date = models.DateField(
         verbose_name=_(u"Hotel arrival date"),
         help_text=u"YYYY-MM-DD",  # Ugh - this should really be on the widget
+        default=datetime.date.today,
     )
     hotel_departure_date = models.DateField(
         verbose_name=_(u"Hotel departure date"),
         help_text=u"YYYY-MM-DD",  # Ugh - this should really be on the widget
+        default=datetime.date.today,
     )
     sex = models.IntegerField(
         verbose_name=_("Sex"),
