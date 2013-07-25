@@ -7,30 +7,10 @@ Settings
 Create a FINANCIAL_AID setting in Django settings. It should be a dictionary.
 Values can include:
 
-    start_date
-        (datetime object) If set, financial aid applications will not be
-        accepted or allowed to be edited before this date.
-    end_date
-        (datetime object) If set, financial aid applications will not be
-        accepted or allowed to be edited after this date.
     email
         The email address that messages related to financial aid come from,
         and that users should email with questions. Defaults to
         ``pycon-aid@pycon.org``.
-
-If neither start_date or end_date is set, applications are closed.
-
-So if you wanted the application period to be July, 2013, you would set:
-
-.. code-block:: python
-
-    import datetime
-
-    FINANCIAL_AID = {
-        'start_date': datetime.datetime(2013, 7, 1),
-        'end_date': datetime.datetime(2013, 7, 31, 23, 59, 59),
-    }
-
 
 Add the context processor:
 
@@ -39,6 +19,10 @@ Add the context processor:
         "pycon.finaid.context_processors.financial_aid",
         ...
     ]
+
+To enable applications, use the admin to create new
+FinancialAidApplicationPeriod records with the desired start
+and end dates.
 
 
 Templates

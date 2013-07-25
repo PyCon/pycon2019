@@ -1,10 +1,10 @@
-import datetime
-
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template import Context
 from django.template.loader import get_template
-from pycon.finaid.models import FinancialAidApplication
+from pycon.finaid.models import FinancialAidApplication, \
+    FinancialAidApplicationPeriod
+
 
 DEFAULT_EMAIL_ADDRESS = "pycon-aid@pycon.org"
 
@@ -13,32 +13,10 @@ def applications_open():
     """Return True if applications are allowed to be submitted
      and edited at the current time.
 
-    Based on settings.FINANCIAL_AID['start_date'] and ['end_date']:
-
-
-    start_date
-        (datetime object) If set, financial aid applications will not be
-        accepted or allowed to be edited before this date.
-    end_date
-        (datetime object) If set, financial aid applications will not be
-        accepted or allowed to be edited after this date
-
-    If neither is set, applications are closed.
+    Based on there being a FinancialAidApplicationPeriod record
+    encompassing the current time.
     """
-    now = datetime.datetime.now()
-    if hasattr(settings, "FINANCIAL_AID"):
-        finaid_settings = settings.FINANCIAL_AID
-    else:
-        finaid_settings = {}
-    start_date = finaid_settings.get('start_date', None)
-    end_date = finaid_settings.get('end_date', None)
-    if not start_date and not end_date:
-        return False
-    if start_date and now < start_date:
-        return False
-    if end_date and end_date < now:
-        return False
-    return True
+    return FinancialAidApplicationPeriod.open()
 
 
 def is_reviewer(user):
