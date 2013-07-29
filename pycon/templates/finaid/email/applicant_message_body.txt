@@ -1,0 +1,5 @@
+Message from {{ user.get_full_name|safe }} regarding their financial aid application.
+
+Submitted: {{ message.submitted_at }}
+
+{{ message.message|safe }}

@@ -44,6 +44,7 @@ urlpatterns = patterns("",
         url(r"^venue/share-room/", TemplateView.as_view(template_name="venue/share_room.html"), name="share_room"),
         url(r"^venue/hotels/", TemplateView.as_view(template_name="venue/hotels.html"), name="hotels"),
 
+        url(r"^finaid/", include("pycon.finaid.urls")),
         url(r"^pycon_api/", include("pycon.pycon_api.urls")),
         url(r"^schedule/", include("pycon.schedule.urls")),
         url(r"^profile/", include("pycon.profile.urls")),
