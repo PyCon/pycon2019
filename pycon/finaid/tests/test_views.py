@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from pycon.finaid.models import FinancialAidApplication, \
-    FinancialAidApplicationPeriod
-from .utils import TestMixin
+    FinancialAidApplicationPeriod, FinancialAidMessage
+from .utils import TestMixin, create_application
 
 from symposion.conference.models import Conference
 
@@ -157,3 +157,40 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         context = rsp.context
         self.assertIn('messages', context)
         self.assertEqual(1, len(context['messages']))
+
+
+class TestFinaidStatusView(TestCase, TestMixin):
+    def setUp(self):
+        self.edit_url = reverse('finaid_edit')
+        self.dashboard_url = reverse('dashboard')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
+        # financial aid applications are open
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+
+    def test_applicant_cant_see_private_messages(self):
+        self.login()
+        application = create_application(user=self.user)
+        application.save()
+
+        # Create a 2nd user to make a message
+        user2 = self.create_user(username="fred", email="fred@example.com")
+        # Make message
+        FinancialAidMessage.objects.create(user=user2,
+                                           application=application,
+                                           visible=False,
+                                           message="Burma Shave!")
+        # Make visible message, just to be sure we're seeing some messages
+        FinancialAidMessage.objects.create(user=user2,
+                                           application=application,
+                                           visible=True,
+                                           message="Star Trek!")
+        # Status view
+        url = reverse("finaid_status")
+        rsp = self.client.get(url)
+        self.assertIn("Star Trek!", rsp.content)
+        self.assertNotIn("Burma Shave!", rsp.content)
