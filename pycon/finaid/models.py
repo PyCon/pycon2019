@@ -201,3 +201,14 @@ class FinancialAidApplicationPeriod(models.Model):
 
     def __unicode__(self):
         return u"Applications open %s-%s" % (self.start, self.end)
+
+
+class FinancialAidReviewData(models.Model):
+    """
+    Data used by reviewers - about amounts granted, delivery of
+    funds, etc etc.
+    """
+    hotel_amount = models.DecimalField(
+        verbose_name=_("Hotel amount"),
+        help_text=_("(for now this is just an example field; more fields will be added later)"),
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
