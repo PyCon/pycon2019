@@ -18,7 +18,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
-    <form action="https://www.cteusa.com/pycon6/auth/verify.reg" method="POST" accept-charset="utf-8">
+    <form action="{{ REGISTRATION_URL }}" method="POST" accept-charset="utf-8">
+        {% csrf_token %}
         <input type="hidden" name="pycon_id" value="{{ request.user.id }}" />
         <input type="hidden" name="token" value="{{ token }}" />
         <input type="hidden" name="email" value="{{ request.user.email }}" />
