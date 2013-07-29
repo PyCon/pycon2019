@@ -1,14 +1,20 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
 
-from .forms import FinancialAidApplicationForm, MessageForm
-from .models import FinancialAidApplication, FinancialAidMessage
-from pycon.finaid.forms import ReviewerMessageForm
+from .forms import FinancialAidApplicationForm, MessageForm, \
+    FinancialAidReviewForm, ReviewerMessageForm
+from .models import FinancialAidApplication, FinancialAidMessage, \
+    FinancialAidReviewData
 from .utils import applications_open,  email_address, has_application, \
     is_reviewer, send_email_message
+
+
+log = logging.getLogger(__name__)
 
 
 @login_required
@@ -55,6 +61,7 @@ def finaid_edit(request):
 
 @login_required
 def finaid_review(request):
+    """Starting view for reviewers - list the applications"""
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
@@ -65,44 +72,69 @@ def finaid_review(request):
 
 @login_required
 def finaid_review_detail(request, pk):
+    """Review a particular application"""
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
     application = get_object_or_404(FinancialAidApplication, pk=pk)
 
+    try:
+        review_data = application.review
+    except FinancialAidReviewData.DoesNotExist:
+        review_data = FinancialAidReviewData(application=application)
+
+    message_form = None
+    review_form = None
+
     if request.method == 'POST':
-        message = FinancialAidMessage(user=request.user,
-                                      application=application)
-        message_form = ReviewerMessageForm(request.POST, instance=message)
-        if message_form.is_valid():
-            message = message_form.save()
-            # Send notice to the reviewers alias
-            # If the message is visible, also send to the applicant
-            context = {
-                'reviewer': request.user,
-                'applicant': application.user,
-                'message': message,
-                # FIXME: Add link where applicant can look at the application
-            }
-            recipients = [email_address()]
-            if message.visible:
-                recipients.append(application.user.email)
-            send_email_message("reviewer_message",
-                               from_=email_address(),
-                               to=recipients,
-                               context=context)
+        if 'message_submit' in request.POST:
+            message = FinancialAidMessage(user=request.user,
+                                          application=application)
+            message_form = ReviewerMessageForm(request.POST, instance=message)
+            if message_form.is_valid():
+                message = message_form.save()
+                # Send notice to the reviewers alias
+                # If the message is visible, also send to the applicant
+                context = {
+                    'reviewer': request.user,
+                    'applicant': application.user,
+                    'message': message,
+                    # FIXME: Add link to application in email
+                }
+                recipients = [email_address()]
+                if message.visible:
+                    recipients.append(application.user.email)
+                send_email_message("reviewer_message",
+                                   from_=email_address(),
+                                   to=recipients,
+                                   context=context)
 
-            return redirect(request.path)
-    else:
-        message_form = ReviewerMessageForm()
+                return redirect(request.path)
+        elif 'review_submit' in request.POST:
+            review_form = FinancialAidReviewForm(request.POST,
+                                                 instance=review_data)
+            if review_form.is_valid():
+                review_data = review_form.save()
+                return redirect(request.path)
+        else:
+            log.error("finaid_review_detail posted with unknown form: %r"
+                      % request.POST)
+            return HttpResponseForbidden("HEY WHY WAS THIS POSTED")
 
-    return render(request, "finaid/review.html", {
+    # Create initial forms if needed
+    message_form = message_form or ReviewerMessageForm()
+    review_form = review_form or FinancialAidReviewForm(instance=review_data)
+
+    context = {
         "application": application,
         "message_form": message_form,
+        "review_form": review_form,
         "review_messages": FinancialAidMessage.objects.filter(
-            application=request.user.financial_aid
+            application=application
         )
-    })
+    }
+    print context
+    return render(request, "finaid/review.html", context)
 
 
 @login_required

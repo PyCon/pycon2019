@@ -56,13 +56,34 @@
               {{ form|as_bootstrap }}
             </fieldset>
             <div class="actions">
-              <button type="submit" name="message_submit" class="btn primary">{% trans "Submit" %}</button>
+              <button type="submit" name="message_submit" class="btn btn-primary">{% trans "Submit" %}</button>
             </div>
           </form>
         {% endwith %}
       </div>
       <div class="tab-pane" id="application-review">
-        Review data<br/>Not yet implemented.
+        {% with form=review_form %}
+          {% if form.errors %}
+            <div class="alert">
+              <p class="text-error">
+                {% trans "There were errors in your form, please correct them and submit again." %}
+              </p>
+            </div>
+          {% endif %}
+          <form action="" method="POST" accept-charset="utf-8">
+            {% csrf_token %}
+            <fieldset>
+              <div class="control-group">
+                <label>SUM</label>
+                $ {{ form.instance.sum }}
+              </div>
+              {{ form|as_bootstrap }}
+            </fieldset>
+            <div class="actions">
+              <button type="submit" name="review_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+            </div>
+          </form>
+        {% endwith %}
       </div>
     </div>
   </div>
@@ -75,9 +96,15 @@
       $(function() {
         var History = window.History;
 
-        $(window).bind("anchorchange", function() {
+        var on_anchor_change = function() {
           $(".nav-tabs a[href='" + location.hash + "']").click();
-        });
+        };
+
+        $(window).bind("anchorchange", on_anchor_change);
+
+        // Initialize - if we're loading the page and the URL has an anchor
+        // in it, switch to that tab
+        on_anchor_change();
 
         $('.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
           if (History.enabled) {

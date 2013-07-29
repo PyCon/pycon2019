@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import Textarea, DateInput
 
-from .models import FinancialAidApplication, FinancialAidMessage
+from .models import FinancialAidApplication, FinancialAidMessage, \
+    FinancialAidReviewData
 
 
 class FinancialAidApplicationForm(forms.ModelForm):
@@ -47,6 +48,23 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 2,
                        'class': 'fullwidth-textarea',
                        'maxlength': 200}),
+        }
+
+
+class FinancialAidReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = FinancialAidReviewData
+        widgets = {
+            'hotel_notes': Textarea(
+                attrs={'cols': 80, 'rows': 5,
+                       'class': 'fullwidth-textarea'}),
+            'notes': Textarea(
+                attrs={'cols': 80, 'rows': 5,
+                       'class': 'fullwidth-textarea'}),
+            'travel_preferred_disbursement': Textarea(
+                attrs={'cols': 80, 'rows': 5,
+                       'class': 'fullwidth-textarea'}),
         }
 
 
