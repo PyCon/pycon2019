@@ -1,6 +1,5 @@
 import datetime
 
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -8,6 +7,7 @@ from django.test import TestCase
 
 from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod
+from .utils import TestMixin
 
 from symposion.conference.models import Conference
 
@@ -17,27 +17,18 @@ now = datetime.datetime.now()
 one_day = datetime.timedelta(days=1)
 
 
-class TestFinaidApplicationView(TestCase):
+class TestFinaidApplicationView(TestCase, TestMixin):
     def setUp(self):
         self.edit_url = reverse('finaid_edit')
-        self.login_url = reverse('account_login')
         self.dashboard_url = reverse('dashboard')
-        self.user = User.objects.create_user('joe',
-                                             email='joe@example.com',
-                                             password='snoopy')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
         # financial aid applications are open
         self.period = FinancialAidApplicationPeriod.objects.create(
             start=today - one_day,
             end=today + one_day
         )
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
-
-    def login(self):
-        # The auth backend that pycon is using is kind of gross. It expects
-        # username to contain the email address.
-        self.assertTrue(self.client.login(username='joe@example.com',
-                                          password='snoopy'),
-                        "Login failed")
 
     def test_not_logged_in(self):
         # If not logged in, view redirects to login
