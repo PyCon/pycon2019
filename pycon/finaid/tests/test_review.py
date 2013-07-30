@@ -1,38 +1,22 @@
 from decimal import Decimal
 from django.conf import settings
-from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from pycon.finaid.models import FinancialAidApplication, FinancialAidMessage,\
-    STATUS_SUBMITTED, FinancialAidReviewData, STATUS_REJECTED
+from pycon.finaid.models import STATUS_REJECTED, STATUS_SUBMITTED, \
+    FinancialAidMessage, FinancialAidReviewData
 from pycon.finaid.utils import is_reviewer
 from symposion.conference.models import Conference
-from symposion.teams.models import Team, Membership
 
-from .utils import TestMixin, create_application
+from .utils import TestMixin, create_application, ReviewTestMixin
 
 
-class TestFinaidApplicationReview(TestCase, TestMixin):
+class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
     def setUp(self):
         self.user = self.create_user()
         self.login_url = reverse('account_login')
         self.review_url = reverse('finaid_review')
-        self.team = Team.objects.create(slug="financial-aid-review-team",
-                                        name="Finaid review team")
-        ct = ContentType.objects.get_for_model(FinancialAidApplication)
-        perm = Permission.objects.create(
-            codename="review_financial_aid",
-            name="Can review financial aid applications",
-            content_type=ct)
-        self.team.permissions.add(perm)
-
-    def be_reviewer(self):
-        Membership.objects.create(team=self.team,
-                                  user=self.user,
-                                  state="member")
-        self.login()
+        self.setup_reviewer_team_and_permissions()
 
     def test_not_reviewer(self):
         # Non-reviewers cannot access the review view
@@ -43,7 +27,8 @@ class TestFinaidApplicationReview(TestCase, TestMixin):
     def test_reviewer(self):
         # reviewers can access the review view
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
-        self.be_reviewer()
+        self.make_reviewer(self.user)
+        self.login()
         rsp = self.client.get(self.review_url)
         self.assertEqual(200, rsp.status_code)
 
@@ -51,13 +36,12 @@ class TestFinaidApplicationReview(TestCase, TestMixin):
         self.assertFalse(is_reviewer(self.user))
 
     def test_reviewer_is_reviewer(self):
-        Membership.objects.create(team=self.team,
-                                  user=self.user,
-                                  state="member")
+        self.make_reviewer(self.user)
         self.assertTrue(is_reviewer(self.user))
 
     def test_submit_message(self):
-        self.be_reviewer()
+        self.make_reviewer(self.user)
+        self.login()
         # create application
         applicant = self.create_user(username="jane",
                                      email="jane@example.com")
@@ -80,7 +64,8 @@ class TestFinaidApplicationReview(TestCase, TestMixin):
         self.assertEqual(MESSAGE, msg.message)
 
     def test_reviewer_view_messages(self):
-        self.be_reviewer()
+        self.make_reviewer(self.user)
+        self.login()
         # create application
         applicant = self.create_user(username="jane",
                                      email="jane@example.com")
@@ -100,7 +85,8 @@ class TestFinaidApplicationReview(TestCase, TestMixin):
         self.assertIn(message, review_messages)
 
     def test_update_review_data(self):
-        self.be_reviewer()
+        self.make_reviewer(self.user)
+        self.login()
         # create application
         applicant = self.create_user(username="jane",
                                      email="jane@example.com")

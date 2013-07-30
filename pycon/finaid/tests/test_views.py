@@ -1,13 +1,17 @@
 import datetime
+from decimal import Decimal
 
 from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from mock import patch
 
 from pycon.finaid.models import FinancialAidApplication, \
-    FinancialAidApplicationPeriod, FinancialAidMessage
-from .utils import TestMixin, create_application
+    FinancialAidApplicationPeriod, FinancialAidMessage, \
+    FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData
+from pycon.finaid.utils import email_address
+from .utils import TestMixin, create_application, ReviewTestMixin
 
 from symposion.conference.models import Conference
 
@@ -194,3 +198,72 @@ class TestFinaidStatusView(TestCase, TestMixin):
         rsp = self.client.get(url)
         self.assertIn("Star Trek!", rsp.content)
         self.assertNotIn("Burma Shave!", rsp.content)
+
+
+class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.user = self.create_user()
+        self.make_reviewer(self.user)
+        self.login()
+        self.application = create_application(user=self.user)
+        self.application.save()
+        self.url = reverse('finaid_email', kwargs={'pks': self.application.pk})
+        # Create 2nd user and application, just to make sure we're only
+        # using the ones that were asked for and not all of them.
+        self.user2 = self.create_user(username="jill",
+                                      email="jill@example.com")
+        self.application2 = create_application(user=self.user2)
+        self.application2.save()
+
+    def test_email_view(self):
+        # Just look at the email view, check the context
+        rsp = self.client.get(self.url)
+        if rsp.status_code == 302:
+            self.fail(rsp['Location'])
+        self.assertEqual(200, rsp.status_code)
+        context = rsp.context
+        self.assertEqual([self.user], context['users'])
+
+    @patch('django.template.Template.render')
+    @patch('pycon.finaid.views.send_mass_mail')
+    def test_email_submit(self, mock_send_mass_mail, mock_render):
+        # Actually submit the thing
+
+        # Create review record
+        # Most fields are optional
+        data = {
+            'application': self.application,
+            'status': STATUS_SUBMITTED,
+            'hotel_amount': Decimal('6.66'),
+            'registration_amount': Decimal('0.00'),
+            'travel_amount': Decimal('0.00'),
+            'tutorial_amount': Decimal('0.00'),
+        }
+        review = FinancialAidReviewData(**data)
+        review.save()
+
+        subject = 'TEST SUBJECT'
+        template_text = 'THE TEMPLATE'
+        FinancialAidEmailTemplate.objects.create(
+            name='template',
+            template="wrong template"
+        )
+        template2 = FinancialAidEmailTemplate.objects.create(
+            name='template',
+            template=template_text,
+        )
+        data = {
+            'template': template2.pk,
+            'subject': subject,
+        }
+        mock_render.return_value = template_text
+        rsp = self.client.post(self.url, data)
+        self.assertEqual(302, rsp.status_code, rsp.content)
+        # we tried to send the right emails
+        expected_msgs = [(subject, template_text, email_address(),
+                          [self.user.email])]
+        mock_send_mass_mail.assert_called_with(expected_msgs)
+        # the template was rendered with a good context
+        context = mock_render.call_args[0][0]
+        self.assertEqual(self.application, context['application'])
+        self.assertEqual(review, context['review'])

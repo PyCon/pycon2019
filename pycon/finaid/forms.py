@@ -2,7 +2,7 @@ from django import forms
 from django.forms import Textarea, DateInput
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData
+    FinancialAidReviewData, FinancialAidEmailTemplate
 
 
 class FinancialAidApplicationForm(forms.ModelForm):
@@ -89,3 +89,11 @@ class ReviewerMessageForm(forms.ModelForm):
         widgets = {
             'message': Textarea(attrs={'class': 'fullwidth-textarea'}),
         }
+
+
+class BulkEmailForm(forms.Form):
+    subject = forms.CharField()
+    template = forms.ModelChoiceField(
+        queryset=FinancialAidEmailTemplate.objects.all(),
+        empty_label=u"Pick a bulk mail template to use",
+    )

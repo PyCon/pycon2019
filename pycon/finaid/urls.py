@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
-from .views import finaid_edit, finaid_review, finaid_review_detail, \
-    finaid_status
+from .views import finaid_edit, finaid_email, finaid_review, \
+    finaid_review_detail, finaid_status
 
 
 urlpatterns = patterns("",
@@ -10,4 +10,5 @@ urlpatterns = patterns("",
     url(r"^review/details/(?P<pk>\d+)/$", finaid_review_detail,
         name="finaid_review_detail"),
     url(r"^status/$", finaid_status, name="finaid_status"),
+    url(r"^mail/(?P<pks>[0-9,]+)/$", finaid_email, name="finaid_email"),
 )

@@ -15,6 +15,9 @@
     <dd>{{ application.last_update }}</dd>
   {% endif %}
 
+  <dt>{% trans "Email address" %}</dt>
+  <dd><a href="mailto:{{ application.user.email }}">{{ application.user.email }}</a></dd>
+
   {% if is_reviewer %}
     {# show all the things #}
     <dt>Pyladies grant requested</dt>

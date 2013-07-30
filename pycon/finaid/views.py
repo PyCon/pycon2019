@@ -1,13 +1,18 @@
 import logging
+import re
+from smtplib import SMTPException
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mass_mail
+from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
+from django.template import Template, Context
 from django.utils.translation import ugettext as _
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
-    FinancialAidReviewForm, ReviewerMessageForm
+    FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData
 from .utils import applications_open,  email_address, has_application, \
@@ -65,9 +70,83 @@ def finaid_review(request):
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
+    if request.method == 'POST':
+        # They want to do something to bulk applicants
+        # Find the checkboxes they checked
+        regex = re.compile(r'^finaid_application_(.*)$')
+        pks = []
+        for field_name in request.POST:
+            m = regex.match(field_name)
+            if m:
+                pks.append(m.group(1))
+        if not len(pks):
+            messages.add_message(
+                request, messages.ERROR,
+                _(u"Please select at least one application"))
+            return redirect(request.path)
+
+        pks = ",".join(pks)
+        if 'email_action' in request.POST:
+            # They want to email applicants
+            return redirect('finaid_email', pks=pks)
+        if 'note_action' in request.POST:
+            # They want to attach a note to applications
+            messages.add_message(request, messages.ERROR,
+                                 u"Adding notes not implemented yet")
+            return redirect(request.path)
+        messages.add_message(request, messages.ERROR, "WHAT?")
+
     return render(request, "finaid/application_list.html", {
         "applications": FinancialAidApplication.objects.all(),
     })
+
+
+@login_required
+def finaid_email(request, pks):
+    pks = pks.split(",")
+    applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+        .select_related('user')
+    emails = [app.user.email for app in applications]
+
+    form = None
+    if request.method == 'POST':
+        form = BulkEmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = email_address()
+            template_text = form.cleaned_data['template'].template
+            template = Template(template_text)
+            # emails will be the datatuple arg to send_mail_mail
+            emails = []
+            for application in applications:
+                try:
+                    review = application.review
+                except FinancialAidReviewData.DoesNotExist:
+                    review = None
+
+                ctx = {
+                    'application': application,
+                    'review': review,
+                }
+                text = template.render(Context(ctx))
+                emails.append((subject, text, from_email,
+                               [application.user.email]))
+            try:
+                send_mass_mail(emails)
+            except SMTPException:
+                log.exception("ERROR sending financial aid emails")
+                messages.add_message(request, messages.ERROR,
+                                     u"There was some error sending emails, "
+                                     u"not all of them might have made it")
+            else:
+                messages.add_message(request, messages.INFO, u"Emails sent")
+            return redirect(reverse('finaid_review'))
+
+    ctx = {
+        'form': form or BulkEmailForm(),
+        'users': [app.user for app in applications]
+    }
+    return render(request, "finaid/email.html", ctx)
 
 
 @login_required
