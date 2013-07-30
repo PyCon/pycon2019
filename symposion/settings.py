@@ -63,7 +63,7 @@ CONFERENCE_URL_PREFIXES = {
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
@@ -114,8 +114,9 @@ TEMPLATE_LOADERS = [
 
 MIDDLEWARE_CLASSES = [
     "djangosecure.middleware.SecurityMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",  # Must follow session middleware and cache middleware, and precede commonmiddleware
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_openid.consumer.SessionConsumer",
