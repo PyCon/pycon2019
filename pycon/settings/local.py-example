@@ -1,0 +1,12 @@
+# Copy this to local.py and edit.
+# Do not add local.py to source control.
+
+# Pick one: import whatever your appropriate settings are for this environment
+
+#from .dev import *
+#from .test import *
+#from .staging import *
+#from .production import *
+# etc..
+
+# Then you can override settings here if you need to.

@@ -5,9 +5,10 @@
 import sys
 
 try:
-    from local_settings import *
+    from .local import *
 except ImportError:
-    print("ERROR: A local_settings.py file is required but was not found.")
-    print("You can copy local_settings.py-example to local_settings.py "
+    print("ERROR: A pycon/settings/local.py file is required but was "
+          "not found.")
+    print("You can copy local.py-example to local.py "
           "and edit it according to the comments.")
     sys.exit(1)

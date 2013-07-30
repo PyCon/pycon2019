@@ -4,21 +4,21 @@ Settings files for Pycon project
 Each environment has its own settings file. They first import ``base.py``,
 then override as needed.
 
-``manage.py`` will default to looking for settings in a top-level
-local_settings.py file, which should not be in version control.
+``manage.py`` will default to looking for settings in pycon/settings/local.py,
+which should not be in version control.
 That file would import * from the appropriate environmental settings file,
 and could then override if needed (should be minimal).  E.g.::
 
-    # local_settings.py for local development system
-    from pycon.settings.dev import *
+    # pycon/settings/local.py for local development system
+    from .dev import *
 
     MIDDLEWARE_CLASSES += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
     INSTALLED_APPS += ["debug_toolbar"]
 
 Whereas on a server::
 
-    # local_settings.py on staging server
-    from pycon.settings.staging import *
+    # pycon/settings/local.py on staging server
+    from .staging import *
 
     DATABASES['default']['password'] = TOP_SECRET_PASSWORD
     LOGGING = COMPLICATED SERVER LOGGING CONFIG
@@ -30,7 +30,7 @@ anything.
 
 ``base`` has some minimal, conservative settings:
 
-* No database settings.
+* Database is "pycon2014" using Postgres.
 * DEBUG is False.
 * COMPRESS_ENABLED is False.
 * Email handler set to console.

@@ -1,19 +1,6 @@
 # Top settings file for development
 from .base import *
 
-# Assume Postgres and ``pycon2014`` as the database. Developer can override
-# in local_settings.py.
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "pycon2014",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "",
-        "PORT": "",
-    }
-}
-
 COMPRESS_ENABLED = False
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '0.0.0.0']
