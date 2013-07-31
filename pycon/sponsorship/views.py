@@ -5,15 +5,16 @@ import os
 import time
 from zipfile import ZipFile, ZipInfo
 
-from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
-
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.template import RequestContext
 
-from pycon.sponsorship.forms import SponsorApplicationForm, SponsorDetailsForm, SponsorBenefitsFormSet
+from pycon.sponsorship.forms import SponsorApplicationForm, \
+    SponsorBenefitsFormSet, SponsorDetailsForm
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
@@ -140,6 +141,7 @@ def sponsor_zip_logo_files(request):
                 log.debug("No such sponsor file: %s" % benefit.upload.path)
     response = HttpResponse(zip_stringio.getvalue(),
                             content_type="application/zip")
+    prefix = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
     response['Content-Disposition'] = \
-        'attachment; filename="pycon2014_sponsorlogos.zip"'
+        'attachment; filename="pycon_%s_sponsorlogos.zip"' % prefix
     return response

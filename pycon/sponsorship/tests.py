@@ -3,11 +3,14 @@ import os
 import shutil
 import tempfile
 from zipfile import ZipFile
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
-from pycon.sponsorship.models import Benefit, SponsorBenefit, Sponsor, \
+
+from pycon.sponsorship.models import Benefit,  Sponsor, SponsorBenefit, \
     SponsorLevel
 from symposion.conference.models import current_conference
 
@@ -41,8 +44,11 @@ class TestSponsorZipDownload(TestCase):
         # Ensure a response from the view looks right, contains a valid
         # zip archive, has files with the right names and sizes.
         self.assertEqual("application/zip", rsp['Content-type'])
-        self.assertEqual('attachment; filename="pycon2014_sponsorlogos.zip"',
-                         rsp['Content-Disposition'])
+        prefix = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
+
+        self.assertEqual(
+            'attachment; filename="pycon_%s_sponsorlogos.zip"' % prefix,
+            rsp['Content-Disposition'])
         zipfile = ZipFile(StringIO(rsp.content), "r")
         # Check out the zip - testzip() returns None if no errors found
         self.assertIsNone(zipfile.testzip())
@@ -71,19 +77,26 @@ class TestSponsorZipDownload(TestCase):
     def test_must_be_staff(self):
         # Only staff can use the view
         # If not staff, doesn't show error, just serves up a login view
+        # Also, the dashboard doesn't show the download button
         self.user.is_staff = False
         self.user.save()
         rsp = self.client.get(self.url)
         self.assertEqual(200, rsp.status_code)
         self.assertIn("""<body class="login">""", rsp.content)
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertNotIn(self.url, rsp.content)
 
     def test_no_files(self):
         # If there are no sponsor files, we still work
+        # And the dashboard shows our download button
         rsp = self.client.get(self.url)
         self.validate_response(rsp, [])
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertIn(self.url, rsp.content)
 
     def test_different_benefit_types(self):
         # We only get files from benefits of type `file` and `weblogo`
+        # And we ignore any non-existent files
         try:
             # Create a temp dir for media files
             self.temp_dir = tempfile.mkdtemp()
@@ -108,6 +121,14 @@ class TestSponsorZipDownload(TestCase):
                     benefit=self.weblogo_type,
                     upload="file2"
                 )
+
+                # Benefit whose file is missing from the disk
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor,
+                    benefit=self.weblogo_type,
+                    upload="file3"
+                )
+
                 rsp = self.client.get(self.url)
                 self.validate_response(rsp, [('file1', 10), ('file2', 20)])
         finally:

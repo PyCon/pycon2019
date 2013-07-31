@@ -202,6 +202,12 @@
                                     <span class="widget-label">Apply to be a sponsor</span>
                                 </a>
                             {% endif %}
+                            {% if user.is_staff %}
+                                <a href="{% url "sponsor_zip_logos" %}" class="action">
+                                    <i class="widget-icon icon-arrow-down"></i>
+                                    <span class="widget-label">Download sponsor logos</span>
+                                </a>
+                            {% endif %}
                         </div>
 
                         {% if user.sponsorships.exists %}
