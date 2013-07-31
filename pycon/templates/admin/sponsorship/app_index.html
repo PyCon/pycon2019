@@ -1,0 +1,22 @@
+{% extends "admin/index.html" %}
+
+{# Override sponsorship app page in admin to add a link to download #}
+{# the sponsor logos. #}
+
+{% load i18n %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo;
+{% for app in app_list %}
+{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}
+{% endfor %}
+</div>
+{% endblock %}
+{% endif %}
+
+{% block sidebar %}
+  <a href="{% url "sponsor_zip_logos" %}">Download sponsor logos as .zip file</a>
+{% endblock %}
