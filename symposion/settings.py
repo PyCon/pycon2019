@@ -144,7 +144,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
-    "pycon.finaid.context_processors.financial_aid",
 ]
 
 INSTALLED_APPS = [
