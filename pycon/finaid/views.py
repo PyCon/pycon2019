@@ -212,7 +212,6 @@ def finaid_review_detail(request, pk):
             application=application
         )
     }
-    print context
     return render(request, "finaid/review.html", context)
 
 

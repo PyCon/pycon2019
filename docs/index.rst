@@ -15,9 +15,11 @@ Apps:
 
 .. toctree::
    :maxdepth: 2
-   
+
    conference
    sponsorship
+   registration
+   finaid
    deploying
    api
 
