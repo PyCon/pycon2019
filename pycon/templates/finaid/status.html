@@ -18,7 +18,7 @@
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
-            <li><a href="#application-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ application.messages.all|length }}</span></a></li>
+            <li><a href="#application-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ visible_messages|length }}</span></a></li>
         </ul>
 
         <div class="tab-content">
