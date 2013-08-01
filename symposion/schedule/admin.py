@@ -19,6 +19,7 @@ class PresentationAdmin(admin.ModelAdmin):
         'speaker',
         'cancelled',
         'proposal_base',
+        'kind',
         'section'
     )
     list_filter = (
@@ -31,6 +32,7 @@ class PresentationAdmin(admin.ModelAdmin):
         'speaker__name',
         'additional_speakers__name',
         'proposal_base__title',
+        'proposal_base__kind__name',
         'description',
         'abstract',
         'section__name',
@@ -39,5 +41,8 @@ class PresentationAdmin(admin.ModelAdmin):
     def number(self, presentation):
         return presentation.proposal_base.number
     number.admin_order_field = 'proposal_base__pk'
+
+    def kind(self, presentation):
+        return presentation.proposal_base.kind
 
 admin.site.register(Presentation, PresentationAdmin)
