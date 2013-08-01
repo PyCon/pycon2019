@@ -2,6 +2,7 @@ from decimal import Decimal
 import datetime
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -37,16 +38,20 @@ STATUS_CHOICES = (
     (STATUS_ACCEPTED, _(u"Accepted"))
 )
 
+PAYMENT_CASH = 1
+PAYMENT_CHECK = 2
+PAYMENT_CHOICES = (
+    (PAYMENT_CASH, _(u"Cash")),
+    (PAYMENT_CHECK, _(u"Check")),
+)
+
 
 class FinancialAidApplication(models.Model):
     # The primary key ('id') is used as application number
-    timestamp = models.DateTimeField(auto_now_add=True)
-    last_update = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    last_update = models.DateTimeField(auto_now=True, editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 related_name='financial_aid', db_index=True)
-
-    status = models.IntegerField(choices=STATUS_CHOICES,
-                                 default=STATUS_SUBMITTED)
 
     pyladies_grant_requested = models.BooleanField(
         verbose_name=_("PyLadies grant"),
@@ -153,6 +158,33 @@ class FinancialAidApplication(models.Model):
     def __unicode__(self):
         return u"Financial aid application for %s" % self.user
 
+    @property
+    def status(self):
+        try:
+            return self.review.status
+        except FinancialAidReviewData.DoesNotExist:
+            return STATUS_SUBMITTED  # Default status
+
+    def get_status_display(self):
+        try:
+            return self.review.get_status_display()
+        except FinancialAidReviewData.DoesNotExist:
+            return _(u"Submitted")
+
+    def get_last_update(self):
+        """Return last time the application or its review data or
+        its attached messages were updated"""
+        last_update = self.last_update
+        try:
+            last_review_update = self.review.last_update
+        except FinancialAidReviewData.DoesNotExist:
+            pass
+        else:
+            last_update = max(last_update, last_review_update)
+        for msg in self.messages.all():
+            last_update = max(last_update, msg.submitted_at)
+        return last_update
+
 
 class FinancialAidMessage(models.Model):
     """Message attached to a financial aid application."""
@@ -201,3 +233,55 @@ class FinancialAidApplicationPeriod(models.Model):
 
     def __unicode__(self):
         return u"Applications open %s-%s" % (self.start, self.end)
+
+
+class FinancialAidReviewData(models.Model):
+    """
+    Data used by reviewers - about amounts granted, delivery of
+    funds, etc etc.
+    """
+    application = models.OneToOneField(FinancialAidApplication,
+                                       related_name='review',
+                                       editable=False)
+    last_update = models.DateTimeField(auto_now=True,
+                                       editable=False)
+    status = models.IntegerField(choices=STATUS_CHOICES,
+                                 default=STATUS_SUBMITTED)
+    hotel_amount = models.DecimalField(
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
+    paired_with = models.ForeignKey(User, blank=True, null=True)
+    hotel_notes = models.TextField(blank=True)
+    travel_amount = models.DecimalField(
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
+    tutorial_amount = models.DecimalField(
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
+    registration_amount = models.DecimalField(
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
+    # sum is not a field in the model; we compute it at display time
+    grant_letter_sent = models.DateField(blank=True, null=True)
+    cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
+                                     blank=True, null=True)
+    notes = models.TextField(blank=True)
+    travel_signed = models.BooleanField(blank=True)
+    travel_cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
+                                            blank=True, null=True)
+    travel_check_number = models.CharField(max_length=10, blank=True)
+    travel_preferred_disbursement = models.TextField(blank=True)
+    promo_code = models.CharField(blank=True, max_length=20)
+
+    def sum(self):
+        """Sum of amounts granted"""
+        return self.hotel_amount + self.travel_amount \
+            + self.tutorial_amount + self.registration_amount
+
+
+class FinancialAidEmailTemplate(models.Model):
+    """Template for bulk mailing applicants"""
+    name = models.CharField(max_length=80)
+    template = models.TextField(
+        help_text=u"Django template used to compose text email to applicants."
+                  u"Context variables include 'application' and 'review'"
+    )
+
+    def __unicode__(self):
+        return self.name

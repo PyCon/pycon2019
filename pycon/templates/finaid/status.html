@@ -32,7 +32,7 @@
               {# Note: these are only the messages that are visible to the applicant #}
               {% for message in visible_messages %}
                   <div class="review-box">
-                      <div class="comment">{{ message.message|safe }}</div>
+                      <div class="comment">{{ message.message|escape }}</div>
                       <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
                   </div>
                   <div class="clear"></div>
