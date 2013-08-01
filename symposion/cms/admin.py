@@ -12,11 +12,15 @@ class PageAdmin(reversion.VersionAdmin, MarkEditAdmin):
         'title',
         'path',
         'status',
+        'has_fr',
         'publish_date',
     ]
 
+    def has_fr(self, page):
+        return bool(page.body_fr)
+
     class MarkEdit:
-        fields = ['body', ]
+        fields = ['body', 'body_fr']
         options = {
             'preview': 'below'
         }

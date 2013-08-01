@@ -36,9 +36,12 @@ def page(request, path):
             return redirect("cms_page_edit", path=path)
         else:
             raise Http404
-    
+
+    use_french = request.LANGUAGE_CODE.startswith('fr') and page.body_fr
+
     return render(request, "cms/page_detail.html", {
         "page": page,
+        "use_french": use_french,
         "editable": editable,
     })
 
