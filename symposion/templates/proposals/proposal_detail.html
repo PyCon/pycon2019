@@ -14,7 +14,7 @@
             var ids = '#abstract,#outline,#more_info,#additional-notes,#bio';
             $(ids).each(function() {
                 $(this).html(converter.makeHtml($(this).html()));
-            })          
+            })
         });
     </script>
 {% endblock %}
@@ -123,19 +123,25 @@
   {% compress js %}
     <script src="{{ STATIC_URL }}symposion/js/jquery.history.js"></script>
     <script type="text/javascript">
-        $(function() {
-            var History = window.History;
+      $(function() {
+        var History = window.History;
 
-            $(window).bind("anchorchange", function() {
-                $(".nav-tabs a[href='" + location.hash + "']").click();
-            });
+        var on_anchor_change = function() {
+          $(".nav-tabs a[href='" + location.hash + "']").click();
+        };
 
-            $('#.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
-                if (History.enabled) {
-                    History.pushState(null, null, $(e.target).attr("href"));
-                }
-            });
+        $(window).bind("anchorchange", on_anchor_change);
+
+        // Initialize - if we're loading the page and the URL has an anchor
+        // in it, switch to that tab
+        on_anchor_change();
+
+        $('.nav-tabs a[data-toggle="tab"]').on('shown', function (e) {
+          if (History.enabled) {
+            History.pushState(null, null, $(e.target).attr("href"));
+          }
         });
+      });
     </script>
   {% endcompress %}
 {% endblock extra_script %}
