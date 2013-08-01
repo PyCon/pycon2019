@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 import account.views
 
+from pycon.finaid.context_processors import financial_aid
 import symposion.forms
 from symposion.proposals.models import ProposalSection
 
@@ -49,7 +50,9 @@ def dashboard(request):
     if request.session.get("pending-token"):
         return redirect("speaker_create_token",
                         request.session["pending-token"])
+    context = {'proposals_are_open': bool(ProposalSection.available()), }
+    context.update(financial_aid(request))
     return render(
         request, "dashboard.html",
-        {'proposals_are_open': bool(ProposalSection.available()), },
+        context,
     )

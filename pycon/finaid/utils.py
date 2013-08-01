@@ -21,10 +21,10 @@ def applications_open():
 
 def is_reviewer(user):
     """Return True if this user is a financial aid reviewer"""
-    # FIXME - not implemented yet
-    # Cache on user object when we do implement it, since we call
-    # this repeatedly on the same user
-    return False
+    # no need to cache here, all the DB lookups used during has_perm
+    # are already cached
+
+    return user.has_perm("finaid.review_financial_aid")
 
 
 def has_application(user):

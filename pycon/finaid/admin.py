@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import FinancialAidApplication, FinancialAidApplicationPeriod,\
-    FinancialAidMessage
+    FinancialAidMessage, FinancialAidEmailTemplate
 
 
 def application__user(message):
@@ -16,3 +16,4 @@ class MessageAdmin(admin.ModelAdmin):
 admin.site.register(FinancialAidApplication)
 admin.site.register(FinancialAidApplicationPeriod)
 admin.site.register(FinancialAidMessage, MessageAdmin)
+admin.site.register(FinancialAidEmailTemplate)
