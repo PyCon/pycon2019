@@ -89,8 +89,6 @@ class TestFinaidApplicationView(TestCase):
             hotel_nights='0',
             travel_amount_requested="0.00",
             sex='0',
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
         self.assertEqual(0, len(mail.outbox))
         rsp = self.client.post(self.edit_url, data)
@@ -129,8 +127,6 @@ class TestFinaidApplicationView(TestCase):
             want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
 
         # New data
@@ -144,8 +140,6 @@ class TestFinaidApplicationView(TestCase):
             hotel_nights='0',
             travel_amount_requested="0.00",
             sex='0',
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
 
         self.assertEqual(0, len(mail.outbox))
