@@ -5,7 +5,10 @@
   "fields": {
     "codename": "change_config", 
     "name": "Can change config", 
-    "content_type": 1
+    "content_type": [
+      "constance",
+      "config"
+    ]
   }
 },
 {
@@ -14,7 +17,10 @@
   "fields": {
     "codename": "add_logentry", 
     "name": "Can add log entry", 
-    "content_type": 2
+    "content_type": [
+      "admin",
+      "logentry"
+    ]
   }
 },
 {
@@ -23,7 +29,10 @@
   "fields": {
     "codename": "change_logentry", 
     "name": "Can change log entry", 
-    "content_type": 2
+    "content_type": [
+      "admin",
+      "logentry"
+    ]
   }
 },
 {
@@ -32,7 +41,10 @@
   "fields": {
     "codename": "delete_logentry", 
     "name": "Can delete log entry", 
-    "content_type": 2
+    "content_type": [
+      "admin",
+      "logentry"
+    ]
   }
 },
 {
@@ -41,7 +53,10 @@
   "fields": {
     "codename": "add_permission", 
     "name": "Can add permission", 
-    "content_type": 3
+    "content_type": [
+      "auth",
+      "permission"
+    ]
   }
 },
 {
@@ -50,7 +65,10 @@
   "fields": {
     "codename": "change_permission", 
     "name": "Can change permission", 
-    "content_type": 3
+    "content_type": [
+      "auth",
+      "permission"
+    ]
   }
 },
 {
@@ -59,7 +77,10 @@
   "fields": {
     "codename": "delete_permission", 
     "name": "Can delete permission", 
-    "content_type": 3
+    "content_type": [
+      "auth",
+      "permission"
+    ]
   }
 },
 {
@@ -68,7 +89,10 @@
   "fields": {
     "codename": "add_group", 
     "name": "Can add group", 
-    "content_type": 4
+    "content_type": [
+      "auth",
+      "group"
+    ]
   }
 },
 {
@@ -77,7 +101,10 @@
   "fields": {
     "codename": "change_group", 
     "name": "Can change group", 
-    "content_type": 4
+    "content_type": [
+      "auth",
+      "group"
+    ]
   }
 },
 {
@@ -86,7 +113,10 @@
   "fields": {
     "codename": "delete_group", 
     "name": "Can delete group", 
-    "content_type": 4
+    "content_type": [
+      "auth",
+      "group"
+    ]
   }
 },
 {
@@ -95,7 +125,10 @@
   "fields": {
     "codename": "add_user", 
     "name": "Can add user", 
-    "content_type": 5
+    "content_type": [
+      "auth",
+      "user"
+    ]
   }
 },
 {
@@ -104,7 +137,10 @@
   "fields": {
     "codename": "change_user", 
     "name": "Can change user", 
-    "content_type": 5
+    "content_type": [
+      "auth",
+      "user"
+    ]
   }
 },
 {
@@ -113,7 +149,10 @@
   "fields": {
     "codename": "delete_user", 
     "name": "Can delete user", 
-    "content_type": 5
+    "content_type": [
+      "auth",
+      "user"
+    ]
   }
 },
 {
@@ -122,7 +161,10 @@
   "fields": {
     "codename": "add_contenttype", 
     "name": "Can add content type", 
-    "content_type": 6
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ]
   }
 },
 {
@@ -131,7 +173,10 @@
   "fields": {
     "codename": "change_contenttype", 
     "name": "Can change content type", 
-    "content_type": 6
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ]
   }
 },
 {
@@ -140,7 +185,10 @@
   "fields": {
     "codename": "delete_contenttype", 
     "name": "Can delete content type", 
-    "content_type": 6
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ]
   }
 },
 {
@@ -149,7 +197,10 @@
   "fields": {
     "codename": "add_session", 
     "name": "Can add session", 
-    "content_type": 7
+    "content_type": [
+      "sessions",
+      "session"
+    ]
   }
 },
 {
@@ -158,7 +209,10 @@
   "fields": {
     "codename": "change_session", 
     "name": "Can change session", 
-    "content_type": 7
+    "content_type": [
+      "sessions",
+      "session"
+    ]
   }
 },
 {
@@ -167,7 +221,10 @@
   "fields": {
     "codename": "delete_session", 
     "name": "Can delete session", 
-    "content_type": 7
+    "content_type": [
+      "sessions",
+      "session"
+    ]
   }
 },
 {
@@ -176,7 +233,10 @@
   "fields": {
     "codename": "add_site", 
     "name": "Can add site", 
-    "content_type": 8
+    "content_type": [
+      "sites",
+      "site"
+    ]
   }
 },
 {
@@ -185,7 +245,10 @@
   "fields": {
     "codename": "change_site", 
     "name": "Can change site", 
-    "content_type": 8
+    "content_type": [
+      "sites",
+      "site"
+    ]
   }
 },
 {
@@ -194,7 +257,10 @@
   "fields": {
     "codename": "delete_site", 
     "name": "Can delete site", 
-    "content_type": 8
+    "content_type": [
+      "sites",
+      "site"
+    ]
   }
 },
 {
@@ -203,7 +269,10 @@
   "fields": {
     "codename": "add_message", 
     "name": "Can add message", 
-    "content_type": 9
+    "content_type": [
+      "mailer",
+      "message"
+    ]
   }
 },
 {
@@ -212,7 +281,10 @@
   "fields": {
     "codename": "change_message", 
     "name": "Can change message", 
-    "content_type": 9
+    "content_type": [
+      "mailer",
+      "message"
+    ]
   }
 },
 {
@@ -221,7 +293,10 @@
   "fields": {
     "codename": "delete_message", 
     "name": "Can delete message", 
-    "content_type": 9
+    "content_type": [
+      "mailer",
+      "message"
+    ]
   }
 },
 {
@@ -230,7 +305,10 @@
   "fields": {
     "codename": "add_dontsendentry", 
     "name": "Can add don't send entry", 
-    "content_type": 10
+    "content_type": [
+      "mailer",
+      "dontsendentry"
+    ]
   }
 },
 {
@@ -239,7 +317,10 @@
   "fields": {
     "codename": "change_dontsendentry", 
     "name": "Can change don't send entry", 
-    "content_type": 10
+    "content_type": [
+      "mailer",
+      "dontsendentry"
+    ]
   }
 },
 {
@@ -248,7 +329,10 @@
   "fields": {
     "codename": "delete_dontsendentry", 
     "name": "Can delete don't send entry", 
-    "content_type": 10
+    "content_type": [
+      "mailer",
+      "dontsendentry"
+    ]
   }
 },
 {
@@ -257,7 +341,10 @@
   "fields": {
     "codename": "add_messagelog", 
     "name": "Can add message log", 
-    "content_type": 11
+    "content_type": [
+      "mailer",
+      "messagelog"
+    ]
   }
 },
 {
@@ -266,7 +353,10 @@
   "fields": {
     "codename": "change_messagelog", 
     "name": "Can change message log", 
-    "content_type": 11
+    "content_type": [
+      "mailer",
+      "messagelog"
+    ]
   }
 },
 {
@@ -275,7 +365,10 @@
   "fields": {
     "codename": "delete_messagelog", 
     "name": "Can delete message log", 
-    "content_type": 11
+    "content_type": [
+      "mailer",
+      "messagelog"
+    ]
   }
 },
 {
@@ -284,7 +377,10 @@
   "fields": {
     "codename": "add_source", 
     "name": "Can add source", 
-    "content_type": 12
+    "content_type": [
+      "easy_thumbnails",
+      "source"
+    ]
   }
 },
 {
@@ -293,7 +389,10 @@
   "fields": {
     "codename": "change_source", 
     "name": "Can change source", 
-    "content_type": 12
+    "content_type": [
+      "easy_thumbnails",
+      "source"
+    ]
   }
 },
 {
@@ -302,7 +401,10 @@
   "fields": {
     "codename": "delete_source", 
     "name": "Can delete source", 
-    "content_type": 12
+    "content_type": [
+      "easy_thumbnails",
+      "source"
+    ]
   }
 },
 {
@@ -311,7 +413,10 @@
   "fields": {
     "codename": "add_thumbnail", 
     "name": "Can add thumbnail", 
-    "content_type": 13
+    "content_type": [
+      "easy_thumbnails",
+      "thumbnail"
+    ]
   }
 },
 {
@@ -320,7 +425,10 @@
   "fields": {
     "codename": "change_thumbnail", 
     "name": "Can change thumbnail", 
-    "content_type": 13
+    "content_type": [
+      "easy_thumbnails",
+      "thumbnail"
+    ]
   }
 },
 {
@@ -329,7 +437,10 @@
   "fields": {
     "codename": "delete_thumbnail", 
     "name": "Can delete thumbnail", 
-    "content_type": 13
+    "content_type": [
+      "easy_thumbnails",
+      "thumbnail"
+    ]
   }
 },
 {
@@ -338,7 +449,10 @@
   "fields": {
     "codename": "add_account", 
     "name": "Can add account", 
-    "content_type": 14
+    "content_type": [
+      "account",
+      "account"
+    ]
   }
 },
 {
@@ -347,7 +461,10 @@
   "fields": {
     "codename": "change_account", 
     "name": "Can change account", 
-    "content_type": 14
+    "content_type": [
+      "account",
+      "account"
+    ]
   }
 },
 {
@@ -356,7 +473,10 @@
   "fields": {
     "codename": "delete_account", 
     "name": "Can delete account", 
-    "content_type": 14
+    "content_type": [
+      "account",
+      "account"
+    ]
   }
 },
 {
@@ -365,7 +485,10 @@
   "fields": {
     "codename": "add_signupcode", 
     "name": "Can add signup code", 
-    "content_type": 15
+    "content_type": [
+      "account",
+      "signupcode"
+    ]
   }
 },
 {
@@ -374,7 +497,10 @@
   "fields": {
     "codename": "change_signupcode", 
     "name": "Can change signup code", 
-    "content_type": 15
+    "content_type": [
+      "account",
+      "signupcode"
+    ]
   }
 },
 {
@@ -383,7 +509,10 @@
   "fields": {
     "codename": "delete_signupcode", 
     "name": "Can delete signup code", 
-    "content_type": 15
+    "content_type": [
+      "account",
+      "signupcode"
+    ]
   }
 },
 {
@@ -392,7 +521,10 @@
   "fields": {
     "codename": "add_signupcoderesult", 
     "name": "Can add signup code result", 
-    "content_type": 16
+    "content_type": [
+      "account",
+      "signupcoderesult"
+    ]
   }
 },
 {
@@ -401,7 +533,10 @@
   "fields": {
     "codename": "change_signupcoderesult", 
     "name": "Can change signup code result", 
-    "content_type": 16
+    "content_type": [
+      "account",
+      "signupcoderesult"
+    ]
   }
 },
 {
@@ -410,7 +545,10 @@
   "fields": {
     "codename": "delete_signupcoderesult", 
     "name": "Can delete signup code result", 
-    "content_type": 16
+    "content_type": [
+      "account",
+      "signupcoderesult"
+    ]
   }
 },
 {
@@ -419,7 +557,10 @@
   "fields": {
     "codename": "add_emailaddress", 
     "name": "Can add email address", 
-    "content_type": 17
+    "content_type": [
+      "account",
+      "emailaddress"
+    ]
   }
 },
 {
@@ -428,7 +569,10 @@
   "fields": {
     "codename": "change_emailaddress", 
     "name": "Can change email address", 
-    "content_type": 17
+    "content_type": [
+      "account",
+      "emailaddress"
+    ]
   }
 },
 {
@@ -437,7 +581,10 @@
   "fields": {
     "codename": "delete_emailaddress", 
     "name": "Can delete email address", 
-    "content_type": 17
+    "content_type": [
+      "account",
+      "emailaddress"
+    ]
   }
 },
 {
@@ -446,7 +593,10 @@
   "fields": {
     "codename": "add_emailconfirmation", 
     "name": "Can add email confirmation", 
-    "content_type": 18
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ]
   }
 },
 {
@@ -455,7 +605,10 @@
   "fields": {
     "codename": "change_emailconfirmation", 
     "name": "Can change email confirmation", 
-    "content_type": 18
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ]
   }
 },
 {
@@ -464,7 +617,10 @@
   "fields": {
     "codename": "delete_emailconfirmation", 
     "name": "Can delete email confirmation", 
-    "content_type": 18
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ]
   }
 },
 {
@@ -473,7 +629,10 @@
   "fields": {
     "codename": "add_accountdeletion", 
     "name": "Can add account deletion", 
-    "content_type": 19
+    "content_type": [
+      "account",
+      "accountdeletion"
+    ]
   }
 },
 {
@@ -482,7 +641,10 @@
   "fields": {
     "codename": "change_accountdeletion", 
     "name": "Can change account deletion", 
-    "content_type": 19
+    "content_type": [
+      "account",
+      "accountdeletion"
+    ]
   }
 },
 {
@@ -491,7 +653,10 @@
   "fields": {
     "codename": "delete_accountdeletion", 
     "name": "Can delete account deletion", 
-    "content_type": 19
+    "content_type": [
+      "account",
+      "accountdeletion"
+    ]
   }
 },
 {
@@ -500,7 +665,10 @@
   "fields": {
     "codename": "add_tree", 
     "name": "Can add Site Tree", 
-    "content_type": 20
+    "content_type": [
+      "sitetree",
+      "tree"
+    ]
   }
 },
 {
@@ -509,7 +677,10 @@
   "fields": {
     "codename": "change_tree", 
     "name": "Can change Site Tree", 
-    "content_type": 20
+    "content_type": [
+      "sitetree",
+      "tree"
+    ]
   }
 },
 {
@@ -518,7 +689,10 @@
   "fields": {
     "codename": "delete_tree", 
     "name": "Can delete Site Tree", 
-    "content_type": 20
+    "content_type": [
+      "sitetree",
+      "tree"
+    ]
   }
 },
 {
@@ -527,7 +701,10 @@
   "fields": {
     "codename": "add_treeitem", 
     "name": "Can add Site Tree Item", 
-    "content_type": 21
+    "content_type": [
+      "sitetree",
+      "treeitem"
+    ]
   }
 },
 {
@@ -536,7 +713,10 @@
   "fields": {
     "codename": "change_treeitem", 
     "name": "Can change Site Tree Item", 
-    "content_type": 21
+    "content_type": [
+      "sitetree",
+      "treeitem"
+    ]
   }
 },
 {
@@ -545,7 +725,10 @@
   "fields": {
     "codename": "delete_treeitem", 
     "name": "Can delete Site Tree Item", 
-    "content_type": 21
+    "content_type": [
+      "sitetree",
+      "treeitem"
+    ]
   }
 },
 {
@@ -554,7 +737,10 @@
   "fields": {
     "codename": "add_tag", 
     "name": "Can add Tag", 
-    "content_type": 22
+    "content_type": [
+      "taggit",
+      "tag"
+    ]
   }
 },
 {
@@ -563,7 +749,10 @@
   "fields": {
     "codename": "change_tag", 
     "name": "Can change Tag", 
-    "content_type": 22
+    "content_type": [
+      "taggit",
+      "tag"
+    ]
   }
 },
 {
@@ -572,7 +761,10 @@
   "fields": {
     "codename": "delete_tag", 
     "name": "Can delete Tag", 
-    "content_type": 22
+    "content_type": [
+      "taggit",
+      "tag"
+    ]
   }
 },
 {
@@ -581,7 +773,10 @@
   "fields": {
     "codename": "add_taggeditem", 
     "name": "Can add Tagged Item", 
-    "content_type": 23
+    "content_type": [
+      "taggit",
+      "taggeditem"
+    ]
   }
 },
 {
@@ -590,7 +785,10 @@
   "fields": {
     "codename": "change_taggeditem", 
     "name": "Can change Tagged Item", 
-    "content_type": 23
+    "content_type": [
+      "taggit",
+      "taggeditem"
+    ]
   }
 },
 {
@@ -599,7 +797,10 @@
   "fields": {
     "codename": "delete_taggeditem", 
     "name": "Can delete Tagged Item", 
-    "content_type": 23
+    "content_type": [
+      "taggit",
+      "taggeditem"
+    ]
   }
 },
 {
@@ -608,7 +809,10 @@
   "fields": {
     "codename": "add_revision", 
     "name": "Can add revision", 
-    "content_type": 24
+    "content_type": [
+      "reversion",
+      "revision"
+    ]
   }
 },
 {
@@ -617,7 +821,10 @@
   "fields": {
     "codename": "change_revision", 
     "name": "Can change revision", 
-    "content_type": 24
+    "content_type": [
+      "reversion",
+      "revision"
+    ]
   }
 },
 {
@@ -626,7 +833,10 @@
   "fields": {
     "codename": "delete_revision", 
     "name": "Can delete revision", 
-    "content_type": 24
+    "content_type": [
+      "reversion",
+      "revision"
+    ]
   }
 },
 {
@@ -635,7 +845,10 @@
   "fields": {
     "codename": "add_version", 
     "name": "Can add version", 
-    "content_type": 25
+    "content_type": [
+      "reversion",
+      "version"
+    ]
   }
 },
 {
@@ -644,7 +857,10 @@
   "fields": {
     "codename": "change_version", 
     "name": "Can change version", 
-    "content_type": 25
+    "content_type": [
+      "reversion",
+      "version"
+    ]
   }
 },
 {
@@ -653,7 +869,10 @@
   "fields": {
     "codename": "delete_version", 
     "name": "Can delete version", 
-    "content_type": 25
+    "content_type": [
+      "reversion",
+      "version"
+    ]
   }
 },
 {
@@ -662,7 +881,10 @@
   "fields": {
     "codename": "add_post", 
     "name": "Can add post", 
-    "content_type": 26
+    "content_type": [
+      "biblion",
+      "post"
+    ]
   }
 },
 {
@@ -671,7 +893,10 @@
   "fields": {
     "codename": "change_post", 
     "name": "Can change post", 
-    "content_type": 26
+    "content_type": [
+      "biblion",
+      "post"
+    ]
   }
 },
 {
@@ -680,7 +905,10 @@
   "fields": {
     "codename": "delete_post", 
     "name": "Can delete post", 
-    "content_type": 26
+    "content_type": [
+      "biblion",
+      "post"
+    ]
   }
 },
 {
@@ -689,7 +917,10 @@
   "fields": {
     "codename": "add_revision", 
     "name": "Can add revision", 
-    "content_type": 27
+    "content_type": [
+      "biblion",
+      "revision"
+    ]
   }
 },
 {
@@ -698,7 +929,10 @@
   "fields": {
     "codename": "change_revision", 
     "name": "Can change revision", 
-    "content_type": 27
+    "content_type": [
+      "biblion",
+      "revision"
+    ]
   }
 },
 {
@@ -707,7 +941,10 @@
   "fields": {
     "codename": "delete_revision", 
     "name": "Can delete revision", 
-    "content_type": 27
+    "content_type": [
+      "biblion",
+      "revision"
+    ]
   }
 },
 {
@@ -716,7 +953,10 @@
   "fields": {
     "codename": "add_image", 
     "name": "Can add image", 
-    "content_type": 28
+    "content_type": [
+      "biblion",
+      "image"
+    ]
   }
 },
 {
@@ -725,7 +965,10 @@
   "fields": {
     "codename": "change_image", 
     "name": "Can change image", 
-    "content_type": 28
+    "content_type": [
+      "biblion",
+      "image"
+    ]
   }
 },
 {
@@ -734,7 +977,10 @@
   "fields": {
     "codename": "delete_image", 
     "name": "Can delete image", 
-    "content_type": 28
+    "content_type": [
+      "biblion",
+      "image"
+    ]
   }
 },
 {
@@ -743,7 +989,10 @@
   "fields": {
     "codename": "add_feedhit", 
     "name": "Can add feed hit", 
-    "content_type": 29
+    "content_type": [
+      "biblion",
+      "feedhit"
+    ]
   }
 },
 {
@@ -752,7 +1001,10 @@
   "fields": {
     "codename": "change_feedhit", 
     "name": "Can change feed hit", 
-    "content_type": 29
+    "content_type": [
+      "biblion",
+      "feedhit"
+    ]
   }
 },
 {
@@ -761,7 +1013,10 @@
   "fields": {
     "codename": "delete_feedhit", 
     "name": "Can delete feed hit", 
-    "content_type": 29
+    "content_type": [
+      "biblion",
+      "feedhit"
+    ]
   }
 },
 {
@@ -770,7 +1025,10 @@
   "fields": {
     "codename": "add_usersocialauth", 
     "name": "Can add user social auth", 
-    "content_type": 30
+    "content_type": [
+      "social_auth",
+      "usersocialauth"
+    ]
   }
 },
 {
@@ -779,7 +1037,10 @@
   "fields": {
     "codename": "change_usersocialauth", 
     "name": "Can change user social auth", 
-    "content_type": 30
+    "content_type": [
+      "social_auth",
+      "usersocialauth"
+    ]
   }
 },
 {
@@ -788,7 +1049,10 @@
   "fields": {
     "codename": "delete_usersocialauth", 
     "name": "Can delete user social auth", 
-    "content_type": 30
+    "content_type": [
+      "social_auth",
+      "usersocialauth"
+    ]
   }
 },
 {
@@ -797,7 +1061,10 @@
   "fields": {
     "codename": "add_nonce", 
     "name": "Can add nonce", 
-    "content_type": 31
+    "content_type": [
+      "social_auth",
+      "nonce"
+    ]
   }
 },
 {
@@ -806,7 +1073,10 @@
   "fields": {
     "codename": "change_nonce", 
     "name": "Can change nonce", 
-    "content_type": 31
+    "content_type": [
+      "social_auth",
+      "nonce"
+    ]
   }
 },
 {
@@ -815,7 +1085,10 @@
   "fields": {
     "codename": "delete_nonce", 
     "name": "Can delete nonce", 
-    "content_type": 31
+    "content_type": [
+      "social_auth",
+      "nonce"
+    ]
   }
 },
 {
@@ -824,7 +1097,10 @@
   "fields": {
     "codename": "add_association", 
     "name": "Can add association", 
-    "content_type": 32
+    "content_type": [
+      "social_auth",
+      "association"
+    ]
   }
 },
 {
@@ -833,7 +1109,10 @@
   "fields": {
     "codename": "change_association", 
     "name": "Can change association", 
-    "content_type": 32
+    "content_type": [
+      "social_auth",
+      "association"
+    ]
   }
 },
 {
@@ -842,43 +1121,23 @@
   "fields": {
     "codename": "delete_association", 
     "name": "Can delete association", 
-    "content_type": 32
+    "content_type": [
+      "social_auth",
+      "association"
+    ]
   }
 },
-{
-  "pk": 95, 
-  "model": "auth.permission", 
-  "fields": {
-    "codename": "add_migration", 
-    "name": "Can add migration", 
-    "content_type": 33
-  }
-},
-{
-  "pk": 96, 
-  "model": "auth.permission", 
-  "fields": {
-    "codename": "change_migration", 
-    "name": "Can change migration", 
-    "content_type": 33
-  }
-},
-{
-  "pk": 97, 
-  "model": "auth.permission", 
-  "fields": {
-    "codename": "delete_migration", 
-    "name": "Can delete migration", 
-    "content_type": 33
-  }
-},
+
 {
   "pk": 98, 
   "model": "auth.permission", 
   "fields": {
     "codename": "add_constance", 
     "name": "Can add constance", 
-    "content_type": 34
+    "content_type": [
+      "database",
+      "constance"
+    ]
   }
 },
 {
@@ -887,7 +1146,10 @@
   "fields": {
     "codename": "change_constance", 
     "name": "Can change constance", 
-    "content_type": 34
+    "content_type": [
+      "database",
+      "constance"
+    ]
   }
 },
 {
@@ -896,7 +1158,10 @@
   "fields": {
     "codename": "delete_constance", 
     "name": "Can delete constance", 
-    "content_type": 34
+    "content_type": [
+      "database",
+      "constance"
+    ]
   }
 },
 {
@@ -905,7 +1170,10 @@
   "fields": {
     "codename": "add_conference", 
     "name": "Can add conference", 
-    "content_type": 35
+    "content_type": [
+      "conference",
+      "conference"
+    ]
   }
 },
 {
@@ -914,7 +1182,10 @@
   "fields": {
     "codename": "change_conference", 
     "name": "Can change conference", 
-    "content_type": 35
+    "content_type": [
+      "conference",
+      "conference"
+    ]
   }
 },
 {
@@ -923,7 +1194,10 @@
   "fields": {
     "codename": "delete_conference", 
     "name": "Can delete conference", 
-    "content_type": 35
+    "content_type": [
+      "conference",
+      "conference"
+    ]
   }
 },
 {
@@ -932,7 +1206,10 @@
   "fields": {
     "codename": "add_section", 
     "name": "Can add section", 
-    "content_type": 36
+    "content_type": [
+      "conference",
+      "section"
+    ]
   }
 },
 {
@@ -941,7 +1218,10 @@
   "fields": {
     "codename": "change_section", 
     "name": "Can change section", 
-    "content_type": 36
+    "content_type": [
+      "conference",
+      "section"
+    ]
   }
 },
 {
@@ -950,7 +1230,10 @@
   "fields": {
     "codename": "delete_section", 
     "name": "Can delete section", 
-    "content_type": 36
+    "content_type": [
+      "conference",
+      "section"
+    ]
   }
 },
 {
@@ -959,7 +1242,10 @@
   "fields": {
     "codename": "add_page", 
     "name": "Can add page", 
-    "content_type": 37
+    "content_type": [
+      "cms",
+      "page"
+    ]
   }
 },
 {
@@ -968,7 +1254,10 @@
   "fields": {
     "codename": "change_page", 
     "name": "Can change page", 
-    "content_type": 37
+    "content_type": [
+      "cms",
+      "page"
+    ]
   }
 },
 {
@@ -977,7 +1266,10 @@
   "fields": {
     "codename": "delete_page", 
     "name": "Can delete page", 
-    "content_type": 37
+    "content_type": [
+      "cms",
+      "page"
+    ]
   }
 },
 {
@@ -986,7 +1278,10 @@
   "fields": {
     "codename": "add_file", 
     "name": "Can add file", 
-    "content_type": 38
+    "content_type": [
+      "cms",
+      "file"
+    ]
   }
 },
 {
@@ -995,7 +1290,10 @@
   "fields": {
     "codename": "change_file", 
     "name": "Can change file", 
-    "content_type": 38
+    "content_type": [
+      "cms",
+      "file"
+    ]
   }
 },
 {
@@ -1004,7 +1302,10 @@
   "fields": {
     "codename": "delete_file", 
     "name": "Can delete file", 
-    "content_type": 38
+    "content_type": [
+      "cms",
+      "file"
+    ]
   }
 },
 {
@@ -1013,7 +1314,10 @@
   "fields": {
     "codename": "add_box", 
     "name": "Can add box", 
-    "content_type": 39
+    "content_type": [
+      "boxes",
+      "box"
+    ]
   }
 },
 {
@@ -1022,7 +1326,10 @@
   "fields": {
     "codename": "change_box", 
     "name": "Can change box", 
-    "content_type": 39
+    "content_type": [
+      "boxes",
+      "box"
+    ]
   }
 },
 {
@@ -1031,7 +1338,10 @@
   "fields": {
     "codename": "delete_box", 
     "name": "Can delete box", 
-    "content_type": 39
+    "content_type": [
+      "boxes",
+      "box"
+    ]
   }
 },
 {
@@ -1040,7 +1350,10 @@
   "fields": {
     "codename": "add_speaker", 
     "name": "Can add speaker", 
-    "content_type": 40
+    "content_type": [
+      "speakers",
+      "speaker"
+    ]
   }
 },
 {
@@ -1049,7 +1362,10 @@
   "fields": {
     "codename": "change_speaker", 
     "name": "Can change speaker", 
-    "content_type": 40
+    "content_type": [
+      "speakers",
+      "speaker"
+    ]
   }
 },
 {
@@ -1058,7 +1374,10 @@
   "fields": {
     "codename": "delete_speaker", 
     "name": "Can delete speaker", 
-    "content_type": 40
+    "content_type": [
+      "speakers",
+      "speaker"
+    ]
   }
 },
 {
@@ -1067,7 +1386,10 @@
   "fields": {
     "codename": "add_proposalsection", 
     "name": "Can add proposal section", 
-    "content_type": 41
+    "content_type": [
+      "proposals",
+      "proposalsection"
+    ]
   }
 },
 {
@@ -1076,7 +1398,10 @@
   "fields": {
     "codename": "change_proposalsection", 
     "name": "Can change proposal section", 
-    "content_type": 41
+    "content_type": [
+      "proposals",
+      "proposalsection"
+    ]
   }
 },
 {
@@ -1085,7 +1410,10 @@
   "fields": {
     "codename": "delete_proposalsection", 
     "name": "Can delete proposal section", 
-    "content_type": 41
+    "content_type": [
+      "proposals",
+      "proposalsection"
+    ]
   }
 },
 {
@@ -1094,7 +1422,10 @@
   "fields": {
     "codename": "add_proposalkind", 
     "name": "Can add proposal kind", 
-    "content_type": 42
+    "content_type": [
+      "proposals",
+      "proposalkind"
+    ]
   }
 },
 {
@@ -1103,7 +1434,10 @@
   "fields": {
     "codename": "change_proposalkind", 
     "name": "Can change proposal kind", 
-    "content_type": 42
+    "content_type": [
+      "proposals",
+      "proposalkind"
+    ]
   }
 },
 {
@@ -1112,7 +1446,10 @@
   "fields": {
     "codename": "delete_proposalkind", 
     "name": "Can delete proposal kind", 
-    "content_type": 42
+    "content_type": [
+      "proposals",
+      "proposalkind"
+    ]
   }
 },
 {
@@ -1121,7 +1458,10 @@
   "fields": {
     "codename": "add_proposalbase", 
     "name": "Can add proposal base", 
-    "content_type": 43
+    "content_type": [
+      "proposals",
+      "proposalbase"
+    ]
   }
 },
 {
@@ -1130,7 +1470,10 @@
   "fields": {
     "codename": "change_proposalbase", 
     "name": "Can change proposal base", 
-    "content_type": 43
+    "content_type": [
+      "proposals",
+      "proposalbase"
+    ]
   }
 },
 {
@@ -1139,7 +1482,10 @@
   "fields": {
     "codename": "delete_proposalbase", 
     "name": "Can delete proposal base", 
-    "content_type": 43
+    "content_type": [
+      "proposals",
+      "proposalbase"
+    ]
   }
 },
 {
@@ -1148,7 +1494,10 @@
   "fields": {
     "codename": "add_additionalspeaker", 
     "name": "Can add additional speaker", 
-    "content_type": 44
+    "content_type": [
+      "proposals",
+      "additionalspeaker"
+    ]
   }
 },
 {
@@ -1157,7 +1506,10 @@
   "fields": {
     "codename": "change_additionalspeaker", 
     "name": "Can change additional speaker", 
-    "content_type": 44
+    "content_type": [
+      "proposals",
+      "additionalspeaker"
+    ]
   }
 },
 {
@@ -1166,7 +1518,10 @@
   "fields": {
     "codename": "delete_additionalspeaker", 
     "name": "Can delete additional speaker", 
-    "content_type": 44
+    "content_type": [
+      "proposals",
+      "additionalspeaker"
+    ]
   }
 },
 {
@@ -1175,7 +1530,10 @@
   "fields": {
     "codename": "add_supportingdocument", 
     "name": "Can add supporting document", 
-    "content_type": 45
+    "content_type": [
+      "proposals",
+      "supportingdocument"
+    ]
   }
 },
 {
@@ -1184,7 +1542,10 @@
   "fields": {
     "codename": "change_supportingdocument", 
     "name": "Can change supporting document", 
-    "content_type": 45
+    "content_type": [
+      "proposals",
+      "supportingdocument"
+    ]
   }
 },
 {
@@ -1193,7 +1554,10 @@
   "fields": {
     "codename": "delete_supportingdocument", 
     "name": "Can delete supporting document", 
-    "content_type": 45
+    "content_type": [
+      "proposals",
+      "supportingdocument"
+    ]
   }
 },
 {
@@ -1202,7 +1566,10 @@
   "fields": {
     "codename": "add_reviewassignment", 
     "name": "Can add review assignment", 
-    "content_type": 46
+    "content_type": [
+      "reviews",
+      "reviewassignment"
+    ]
   }
 },
 {
@@ -1211,7 +1578,10 @@
   "fields": {
     "codename": "change_reviewassignment", 
     "name": "Can change review assignment", 
-    "content_type": 46
+    "content_type": [
+      "reviews",
+      "reviewassignment"
+    ]
   }
 },
 {
@@ -1220,7 +1590,10 @@
   "fields": {
     "codename": "delete_reviewassignment", 
     "name": "Can delete review assignment", 
-    "content_type": 46
+    "content_type": [
+      "reviews",
+      "reviewassignment"
+    ]
   }
 },
 {
@@ -1229,7 +1602,10 @@
   "fields": {
     "codename": "add_proposalmessage", 
     "name": "Can add proposal message", 
-    "content_type": 47
+    "content_type": [
+      "reviews",
+      "proposalmessage"
+    ]
   }
 },
 {
@@ -1238,7 +1614,10 @@
   "fields": {
     "codename": "change_proposalmessage", 
     "name": "Can change proposal message", 
-    "content_type": 47
+    "content_type": [
+      "reviews",
+      "proposalmessage"
+    ]
   }
 },
 {
@@ -1247,7 +1626,10 @@
   "fields": {
     "codename": "delete_proposalmessage", 
     "name": "Can delete proposal message", 
-    "content_type": 47
+    "content_type": [
+      "reviews",
+      "proposalmessage"
+    ]
   }
 },
 {
@@ -1256,7 +1638,10 @@
   "fields": {
     "codename": "add_review", 
     "name": "Can add review", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -1265,7 +1650,10 @@
   "fields": {
     "codename": "change_review", 
     "name": "Can change review", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -1274,7 +1662,10 @@
   "fields": {
     "codename": "delete_review", 
     "name": "Can delete review", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -1283,7 +1674,10 @@
   "fields": {
     "codename": "add_latestvote", 
     "name": "Can add latest vote", 
-    "content_type": 49
+    "content_type": [
+      "reviews",
+      "latestvote"
+    ]
   }
 },
 {
@@ -1292,7 +1686,10 @@
   "fields": {
     "codename": "change_latestvote", 
     "name": "Can change latest vote", 
-    "content_type": 49
+    "content_type": [
+      "reviews",
+      "latestvote"
+    ]
   }
 },
 {
@@ -1301,7 +1698,10 @@
   "fields": {
     "codename": "delete_latestvote", 
     "name": "Can delete latest vote", 
-    "content_type": 49
+    "content_type": [
+      "reviews",
+      "latestvote"
+    ]
   }
 },
 {
@@ -1310,7 +1710,10 @@
   "fields": {
     "codename": "add_proposalresult", 
     "name": "Can add proposal result", 
-    "content_type": 50
+    "content_type": [
+      "reviews",
+      "proposalresult"
+    ]
   }
 },
 {
@@ -1319,7 +1722,10 @@
   "fields": {
     "codename": "change_proposalresult", 
     "name": "Can change proposal result", 
-    "content_type": 50
+    "content_type": [
+      "reviews",
+      "proposalresult"
+    ]
   }
 },
 {
@@ -1328,7 +1734,10 @@
   "fields": {
     "codename": "delete_proposalresult", 
     "name": "Can delete proposal result", 
-    "content_type": 50
+    "content_type": [
+      "reviews",
+      "proposalresult"
+    ]
   }
 },
 {
@@ -1337,7 +1746,10 @@
   "fields": {
     "codename": "add_comment", 
     "name": "Can add comment", 
-    "content_type": 51
+    "content_type": [
+      "reviews",
+      "comment"
+    ]
   }
 },
 {
@@ -1346,7 +1758,10 @@
   "fields": {
     "codename": "change_comment", 
     "name": "Can change comment", 
-    "content_type": 51
+    "content_type": [
+      "reviews",
+      "comment"
+    ]
   }
 },
 {
@@ -1355,7 +1770,10 @@
   "fields": {
     "codename": "delete_comment", 
     "name": "Can delete comment", 
-    "content_type": 51
+    "content_type": [
+      "reviews",
+      "comment"
+    ]
   }
 },
 {
@@ -1364,7 +1782,10 @@
   "fields": {
     "codename": "add_notificationtemplate", 
     "name": "Can add notification template", 
-    "content_type": 52
+    "content_type": [
+      "reviews",
+      "notificationtemplate"
+    ]
   }
 },
 {
@@ -1373,7 +1794,10 @@
   "fields": {
     "codename": "change_notificationtemplate", 
     "name": "Can change notification template", 
-    "content_type": 52
+    "content_type": [
+      "reviews",
+      "notificationtemplate"
+    ]
   }
 },
 {
@@ -1382,7 +1806,10 @@
   "fields": {
     "codename": "delete_notificationtemplate", 
     "name": "Can delete notification template", 
-    "content_type": 52
+    "content_type": [
+      "reviews",
+      "notificationtemplate"
+    ]
   }
 },
 {
@@ -1391,7 +1818,10 @@
   "fields": {
     "codename": "add_resultnotification", 
     "name": "Can add result notification", 
-    "content_type": 53
+    "content_type": [
+      "reviews",
+      "resultnotification"
+    ]
   }
 },
 {
@@ -1400,7 +1830,10 @@
   "fields": {
     "codename": "change_resultnotification", 
     "name": "Can change result notification", 
-    "content_type": 53
+    "content_type": [
+      "reviews",
+      "resultnotification"
+    ]
   }
 },
 {
@@ -1409,7 +1842,10 @@
   "fields": {
     "codename": "delete_resultnotification", 
     "name": "Can delete result notification", 
-    "content_type": 53
+    "content_type": [
+      "reviews",
+      "resultnotification"
+    ]
   }
 },
 {
@@ -1418,7 +1854,10 @@
   "fields": {
     "codename": "add_team", 
     "name": "Can add team", 
-    "content_type": 54
+    "content_type": [
+      "teams",
+      "team"
+    ]
   }
 },
 {
@@ -1427,7 +1866,10 @@
   "fields": {
     "codename": "change_team", 
     "name": "Can change team", 
-    "content_type": 54
+    "content_type": [
+      "teams",
+      "team"
+    ]
   }
 },
 {
@@ -1436,7 +1878,10 @@
   "fields": {
     "codename": "delete_team", 
     "name": "Can delete team", 
-    "content_type": 54
+    "content_type": [
+      "teams",
+      "team"
+    ]
   }
 },
 {
@@ -1445,7 +1890,10 @@
   "fields": {
     "codename": "add_membership", 
     "name": "Can add membership", 
-    "content_type": 55
+    "content_type": [
+      "teams",
+      "membership"
+    ]
   }
 },
 {
@@ -1454,7 +1902,10 @@
   "fields": {
     "codename": "change_membership", 
     "name": "Can change membership", 
-    "content_type": 55
+    "content_type": [
+      "teams",
+      "membership"
+    ]
   }
 },
 {
@@ -1463,7 +1914,10 @@
   "fields": {
     "codename": "delete_membership", 
     "name": "Can delete membership", 
-    "content_type": 55
+    "content_type": [
+      "teams",
+      "membership"
+    ]
   }
 },
 {
@@ -1472,7 +1926,10 @@
   "fields": {
     "codename": "add_schedule", 
     "name": "Can add schedule", 
-    "content_type": 56
+    "content_type": [
+      "schedule",
+      "schedule"
+    ]
   }
 },
 {
@@ -1481,7 +1938,10 @@
   "fields": {
     "codename": "change_schedule", 
     "name": "Can change schedule", 
-    "content_type": 56
+    "content_type": [
+      "schedule",
+      "schedule"
+    ]
   }
 },
 {
@@ -1490,7 +1950,10 @@
   "fields": {
     "codename": "delete_schedule", 
     "name": "Can delete schedule", 
-    "content_type": 56
+    "content_type": [
+      "schedule",
+      "schedule"
+    ]
   }
 },
 {
@@ -1499,7 +1962,10 @@
   "fields": {
     "codename": "add_day", 
     "name": "Can add day", 
-    "content_type": 57
+    "content_type": [
+      "schedule",
+      "day"
+    ]
   }
 },
 {
@@ -1508,7 +1974,10 @@
   "fields": {
     "codename": "change_day", 
     "name": "Can change day", 
-    "content_type": 57
+    "content_type": [
+      "schedule",
+      "day"
+    ]
   }
 },
 {
@@ -1517,7 +1986,10 @@
   "fields": {
     "codename": "delete_day", 
     "name": "Can delete day", 
-    "content_type": 57
+    "content_type": [
+      "schedule",
+      "day"
+    ]
   }
 },
 {
@@ -1526,7 +1998,10 @@
   "fields": {
     "codename": "add_room", 
     "name": "Can add room", 
-    "content_type": 58
+    "content_type": [
+      "schedule",
+      "room"
+    ]
   }
 },
 {
@@ -1535,7 +2010,10 @@
   "fields": {
     "codename": "change_room", 
     "name": "Can change room", 
-    "content_type": 58
+    "content_type": [
+      "schedule",
+      "room"
+    ]
   }
 },
 {
@@ -1544,7 +2022,10 @@
   "fields": {
     "codename": "delete_room", 
     "name": "Can delete room", 
-    "content_type": 58
+    "content_type": [
+      "schedule",
+      "room"
+    ]
   }
 },
 {
@@ -1553,7 +2034,10 @@
   "fields": {
     "codename": "add_slotkind", 
     "name": "Can add slot kind", 
-    "content_type": 59
+    "content_type": [
+      "schedule",
+      "slotkind"
+    ]
   }
 },
 {
@@ -1562,7 +2046,10 @@
   "fields": {
     "codename": "change_slotkind", 
     "name": "Can change slot kind", 
-    "content_type": 59
+    "content_type": [
+      "schedule",
+      "slotkind"
+    ]
   }
 },
 {
@@ -1571,7 +2058,10 @@
   "fields": {
     "codename": "delete_slotkind", 
     "name": "Can delete slot kind", 
-    "content_type": 59
+    "content_type": [
+      "schedule",
+      "slotkind"
+    ]
   }
 },
 {
@@ -1580,7 +2070,10 @@
   "fields": {
     "codename": "add_slot", 
     "name": "Can add slot", 
-    "content_type": 60
+    "content_type": [
+      "schedule",
+      "slot"
+    ]
   }
 },
 {
@@ -1589,7 +2082,10 @@
   "fields": {
     "codename": "change_slot", 
     "name": "Can change slot", 
-    "content_type": 60
+    "content_type": [
+      "schedule",
+      "slot"
+    ]
   }
 },
 {
@@ -1598,7 +2094,10 @@
   "fields": {
     "codename": "delete_slot", 
     "name": "Can delete slot", 
-    "content_type": 60
+    "content_type": [
+      "schedule",
+      "slot"
+    ]
   }
 },
 {
@@ -1607,7 +2106,10 @@
   "fields": {
     "codename": "add_slotroom", 
     "name": "Can add slot room", 
-    "content_type": 61
+    "content_type": [
+      "schedule",
+      "slotroom"
+    ]
   }
 },
 {
@@ -1616,7 +2118,10 @@
   "fields": {
     "codename": "change_slotroom", 
     "name": "Can change slot room", 
-    "content_type": 61
+    "content_type": [
+      "schedule",
+      "slotroom"
+    ]
   }
 },
 {
@@ -1625,7 +2130,10 @@
   "fields": {
     "codename": "delete_slotroom", 
     "name": "Can delete slot room", 
-    "content_type": 61
+    "content_type": [
+      "schedule",
+      "slotroom"
+    ]
   }
 },
 {
@@ -1634,7 +2142,10 @@
   "fields": {
     "codename": "add_presentation", 
     "name": "Can add presentation", 
-    "content_type": 62
+    "content_type": [
+      "schedule",
+      "presentation"
+    ]
   }
 },
 {
@@ -1643,7 +2154,10 @@
   "fields": {
     "codename": "change_presentation", 
     "name": "Can change presentation", 
-    "content_type": 62
+    "content_type": [
+      "schedule",
+      "presentation"
+    ]
   }
 },
 {
@@ -1652,7 +2166,10 @@
   "fields": {
     "codename": "delete_presentation", 
     "name": "Can delete presentation", 
-    "content_type": 62
+    "content_type": [
+      "schedule",
+      "presentation"
+    ]
   }
 },
 {
@@ -1661,7 +2178,10 @@
   "fields": {
     "codename": "add_session", 
     "name": "Can add session", 
-    "content_type": 63
+    "content_type": [
+      "schedule",
+      "session"
+    ]
   }
 },
 {
@@ -1670,7 +2190,10 @@
   "fields": {
     "codename": "change_session", 
     "name": "Can change session", 
-    "content_type": 63
+    "content_type": [
+      "schedule",
+      "session"
+    ]
   }
 },
 {
@@ -1679,7 +2202,10 @@
   "fields": {
     "codename": "delete_session", 
     "name": "Can delete session", 
-    "content_type": 63
+    "content_type": [
+      "schedule",
+      "session"
+    ]
   }
 },
 {
@@ -1688,7 +2214,10 @@
   "fields": {
     "codename": "add_sessionrole", 
     "name": "Can add session role", 
-    "content_type": 64
+    "content_type": [
+      "schedule",
+      "sessionrole"
+    ]
   }
 },
 {
@@ -1697,7 +2226,10 @@
   "fields": {
     "codename": "change_sessionrole", 
     "name": "Can change session role", 
-    "content_type": 64
+    "content_type": [
+      "schedule",
+      "sessionrole"
+    ]
   }
 },
 {
@@ -1706,7 +2238,10 @@
   "fields": {
     "codename": "delete_sessionrole", 
     "name": "Can delete session role", 
-    "content_type": 64
+    "content_type": [
+      "schedule",
+      "sessionrole"
+    ]
   }
 },
 {
@@ -1715,7 +2250,10 @@
   "fields": {
     "codename": "add_pyconproposalcategory", 
     "name": "Can add PyCon proposal category", 
-    "content_type": 65
+    "content_type": [
+      "pycon",
+      "pyconproposalcategory"
+    ]
   }
 },
 {
@@ -1724,7 +2262,10 @@
   "fields": {
     "codename": "change_pyconproposalcategory", 
     "name": "Can change PyCon proposal category", 
-    "content_type": 65
+    "content_type": [
+      "pycon",
+      "pyconproposalcategory"
+    ]
   }
 },
 {
@@ -1733,7 +2274,10 @@
   "fields": {
     "codename": "delete_pyconproposalcategory", 
     "name": "Can delete PyCon proposal category", 
-    "content_type": 65
+    "content_type": [
+      "pycon",
+      "pyconproposalcategory"
+    ]
   }
 },
 {
@@ -1742,7 +2286,10 @@
   "fields": {
     "codename": "add_pycontalkproposal", 
     "name": "Can add PyCon talk proposal", 
-    "content_type": 66
+    "content_type": [
+      "pycon",
+      "pycontalkproposal"
+    ]
   }
 },
 {
@@ -1751,7 +2298,10 @@
   "fields": {
     "codename": "change_pycontalkproposal", 
     "name": "Can change PyCon talk proposal", 
-    "content_type": 66
+    "content_type": [
+      "pycon",
+      "pycontalkproposal"
+    ]
   }
 },
 {
@@ -1760,7 +2310,10 @@
   "fields": {
     "codename": "delete_pycontalkproposal", 
     "name": "Can delete PyCon talk proposal", 
-    "content_type": 66
+    "content_type": [
+      "pycon",
+      "pycontalkproposal"
+    ]
   }
 },
 {
@@ -1769,7 +2322,10 @@
   "fields": {
     "codename": "add_pycontutorialproposal", 
     "name": "Can add PyCon tutorial proposal", 
-    "content_type": 67
+    "content_type": [
+      "pycon",
+      "pycontutorialproposal"
+    ]
   }
 },
 {
@@ -1778,7 +2334,10 @@
   "fields": {
     "codename": "change_pycontutorialproposal", 
     "name": "Can change PyCon tutorial proposal", 
-    "content_type": 67
+    "content_type": [
+      "pycon",
+      "pycontutorialproposal"
+    ]
   }
 },
 {
@@ -1787,7 +2346,10 @@
   "fields": {
     "codename": "delete_pycontutorialproposal", 
     "name": "Can delete PyCon tutorial proposal", 
-    "content_type": 67
+    "content_type": [
+      "pycon",
+      "pycontutorialproposal"
+    ]
   }
 },
 {
@@ -1796,7 +2358,10 @@
   "fields": {
     "codename": "add_pyconposterproposal", 
     "name": "Can add PyCon poster proposal", 
-    "content_type": 68
+    "content_type": [
+      "pycon",
+      "pyconposterproposal"
+    ]
   }
 },
 {
@@ -1805,7 +2370,10 @@
   "fields": {
     "codename": "change_pyconposterproposal", 
     "name": "Can change PyCon poster proposal", 
-    "content_type": 68
+    "content_type": [
+      "pycon",
+      "pyconposterproposal"
+    ]
   }
 },
 {
@@ -1814,7 +2382,10 @@
   "fields": {
     "codename": "delete_pyconposterproposal", 
     "name": "Can delete PyCon poster proposal", 
-    "content_type": 68
+    "content_type": [
+      "pycon",
+      "pyconposterproposal"
+    ]
   }
 },
 {
@@ -1823,7 +2394,10 @@
   "fields": {
     "codename": "add_pyconsponsortutorialproposal", 
     "name": "Can add PyCon Sponsor Tutorial proposal", 
-    "content_type": 69
+    "content_type": [
+      "pycon",
+      "pyconsponsortutorialproposal"
+    ]
   }
 },
 {
@@ -1832,7 +2406,10 @@
   "fields": {
     "codename": "change_pyconsponsortutorialproposal", 
     "name": "Can change PyCon Sponsor Tutorial proposal", 
-    "content_type": 69
+    "content_type": [
+      "pycon",
+      "pyconsponsortutorialproposal"
+    ]
   }
 },
 {
@@ -1841,7 +2418,10 @@
   "fields": {
     "codename": "delete_pyconsponsortutorialproposal", 
     "name": "Can delete PyCon Sponsor Tutorial proposal", 
-    "content_type": 69
+    "content_type": [
+      "pycon",
+      "pyconsponsortutorialproposal"
+    ]
   }
 },
 {
@@ -1850,7 +2430,10 @@
   "fields": {
     "codename": "add_sponsorlevel", 
     "name": "Can add sponsor level", 
-    "content_type": 70
+    "content_type": [
+      "sponsorship",
+      "sponsorlevel"
+    ]
   }
 },
 {
@@ -1859,7 +2442,10 @@
   "fields": {
     "codename": "change_sponsorlevel", 
     "name": "Can change sponsor level", 
-    "content_type": 70
+    "content_type": [
+      "sponsorship",
+      "sponsorlevel"
+    ]
   }
 },
 {
@@ -1868,7 +2454,10 @@
   "fields": {
     "codename": "delete_sponsorlevel", 
     "name": "Can delete sponsor level", 
-    "content_type": 70
+    "content_type": [
+      "sponsorship",
+      "sponsorlevel"
+    ]
   }
 },
 {
@@ -1877,7 +2466,10 @@
   "fields": {
     "codename": "add_sponsor", 
     "name": "Can add sponsor", 
-    "content_type": 71
+    "content_type": [
+      "sponsorship",
+      "sponsor"
+    ]
   }
 },
 {
@@ -1886,7 +2478,10 @@
   "fields": {
     "codename": "change_sponsor", 
     "name": "Can change sponsor", 
-    "content_type": 71
+    "content_type": [
+      "sponsorship",
+      "sponsor"
+    ]
   }
 },
 {
@@ -1895,7 +2490,10 @@
   "fields": {
     "codename": "delete_sponsor", 
     "name": "Can delete sponsor", 
-    "content_type": 71
+    "content_type": [
+      "sponsorship",
+      "sponsor"
+    ]
   }
 },
 {
@@ -1904,7 +2502,10 @@
   "fields": {
     "codename": "add_benefit", 
     "name": "Can add benefit", 
-    "content_type": 72
+    "content_type": [
+      "sponsorship",
+      "benefit"
+    ]
   }
 },
 {
@@ -1913,7 +2514,10 @@
   "fields": {
     "codename": "change_benefit", 
     "name": "Can change benefit", 
-    "content_type": 72
+    "content_type": [
+      "sponsorship",
+      "benefit"
+    ]
   }
 },
 {
@@ -1922,7 +2526,10 @@
   "fields": {
     "codename": "delete_benefit", 
     "name": "Can delete benefit", 
-    "content_type": 72
+    "content_type": [
+      "sponsorship",
+      "benefit"
+    ]
   }
 },
 {
@@ -1931,7 +2538,10 @@
   "fields": {
     "codename": "add_benefitlevel", 
     "name": "Can add benefit level", 
-    "content_type": 73
+    "content_type": [
+      "sponsorship",
+      "benefitlevel"
+    ]
   }
 },
 {
@@ -1940,7 +2550,10 @@
   "fields": {
     "codename": "change_benefitlevel", 
     "name": "Can change benefit level", 
-    "content_type": 73
+    "content_type": [
+      "sponsorship",
+      "benefitlevel"
+    ]
   }
 },
 {
@@ -1949,7 +2562,10 @@
   "fields": {
     "codename": "delete_benefitlevel", 
     "name": "Can delete benefit level", 
-    "content_type": 73
+    "content_type": [
+      "sponsorship",
+      "benefitlevel"
+    ]
   }
 },
 {
@@ -1958,7 +2574,10 @@
   "fields": {
     "codename": "add_sponsorbenefit", 
     "name": "Can add sponsor benefit", 
-    "content_type": 74
+    "content_type": [
+      "sponsorship",
+      "sponsorbenefit"
+    ]
   }
 },
 {
@@ -1967,7 +2586,10 @@
   "fields": {
     "codename": "change_sponsorbenefit", 
     "name": "Can change sponsor benefit", 
-    "content_type": 74
+    "content_type": [
+      "sponsorship",
+      "sponsorbenefit"
+    ]
   }
 },
 {
@@ -1976,7 +2598,10 @@
   "fields": {
     "codename": "delete_sponsorbenefit", 
     "name": "Can delete sponsor benefit", 
-    "content_type": 74
+    "content_type": [
+      "sponsorship",
+      "sponsorbenefit"
+    ]
   }
 },
 {
@@ -1985,7 +2610,10 @@
   "fields": {
     "codename": "add_profile", 
     "name": "Can add profile", 
-    "content_type": 75
+    "content_type": [
+      "profile",
+      "profile"
+    ]
   }
 },
 {
@@ -1994,7 +2622,10 @@
   "fields": {
     "codename": "change_profile", 
     "name": "Can change profile", 
-    "content_type": 75
+    "content_type": [
+      "profile",
+      "profile"
+    ]
   }
 },
 {
@@ -2003,7 +2634,10 @@
   "fields": {
     "codename": "delete_profile", 
     "name": "Can delete profile", 
-    "content_type": 75
+    "content_type": [
+      "profile",
+      "profile"
+    ]
   }
 },
 {
@@ -2012,7 +2646,10 @@
   "fields": {
     "codename": "add_nonce", 
     "name": "Can add nonce", 
-    "content_type": 76
+    "content_type": [
+      "django_openid",
+      "nonce"
+    ]
   }
 },
 {
@@ -2021,7 +2658,10 @@
   "fields": {
     "codename": "change_nonce", 
     "name": "Can change nonce", 
-    "content_type": 76
+    "content_type": [
+      "django_openid",
+      "nonce"
+    ]
   }
 },
 {
@@ -2030,7 +2670,10 @@
   "fields": {
     "codename": "delete_nonce", 
     "name": "Can delete nonce", 
-    "content_type": 76
+    "content_type": [
+      "django_openid",
+      "nonce"
+    ]
   }
 },
 {
@@ -2039,7 +2682,10 @@
   "fields": {
     "codename": "add_association", 
     "name": "Can add association", 
-    "content_type": 77
+    "content_type": [
+      "django_openid",
+      "association"
+    ]
   }
 },
 {
@@ -2048,7 +2694,10 @@
   "fields": {
     "codename": "change_association", 
     "name": "Can change association", 
-    "content_type": 77
+    "content_type": [
+      "django_openid",
+      "association"
+    ]
   }
 },
 {
@@ -2057,7 +2706,10 @@
   "fields": {
     "codename": "delete_association", 
     "name": "Can delete association", 
-    "content_type": 77
+    "content_type": [
+      "django_openid",
+      "association"
+    ]
   }
 },
 {
@@ -2066,7 +2718,10 @@
   "fields": {
     "codename": "add_useropenidassociation", 
     "name": "Can add user openid association", 
-    "content_type": 78
+    "content_type": [
+      "django_openid",
+      "useropenidassociation"
+    ]
   }
 },
 {
@@ -2075,7 +2730,10 @@
   "fields": {
     "codename": "change_useropenidassociation", 
     "name": "Can change user openid association", 
-    "content_type": 78
+    "content_type": [
+      "django_openid",
+      "useropenidassociation"
+    ]
   }
 },
 {
@@ -2084,7 +2742,10 @@
   "fields": {
     "codename": "delete_useropenidassociation", 
     "name": "Can delete user openid association", 
-    "content_type": 78
+    "content_type": [
+      "django_openid",
+      "useropenidassociation"
+    ]
   }
 },
 {
@@ -2093,7 +2754,10 @@
   "fields": {
     "codename": "add_migrationhistory", 
     "name": "Can add migration history", 
-    "content_type": 79
+    "content_type": [
+      "south",
+      "migrationhistory"
+    ]
   }
 },
 {
@@ -2102,7 +2766,10 @@
   "fields": {
     "codename": "change_migrationhistory", 
     "name": "Can change migration history", 
-    "content_type": 79
+    "content_type": [
+      "south",
+      "migrationhistory"
+    ]
   }
 },
 {
@@ -2111,7 +2778,10 @@
   "fields": {
     "codename": "delete_migrationhistory", 
     "name": "Can delete migration history", 
-    "content_type": 79
+    "content_type": [
+      "south",
+      "migrationhistory"
+    ]
   }
 },
 {
@@ -2120,7 +2790,10 @@
   "fields": {
     "codename": "add_pyconlightningtalkproposal", 
     "name": "Can add PyCon lightning talk proposal", 
-    "content_type": 80
+    "content_type": [
+      "pycon",
+      "pyconlightningtalkproposal"
+    ]
   }
 },
 {
@@ -2129,7 +2802,10 @@
   "fields": {
     "codename": "change_pyconlightningtalkproposal", 
     "name": "Can change PyCon lightning talk proposal", 
-    "content_type": 80
+    "content_type": [
+      "pycon",
+      "pyconlightningtalkproposal"
+    ]
   }
 },
 {
@@ -2138,7 +2814,10 @@
   "fields": {
     "codename": "delete_pyconlightningtalkproposal", 
     "name": "Can delete PyCon lightning talk proposal", 
-    "content_type": 80
+    "content_type": [
+      "pycon",
+      "pyconlightningtalkproposal"
+    ]
   }
 },
 {
@@ -2147,7 +2826,10 @@
   "fields": {
     "codename": "can_manage_talks", 
     "name": "Can manage talks", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2156,7 +2838,10 @@
   "fields": {
     "codename": "can_review_talks", 
     "name": "Can review talks", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2165,7 +2850,10 @@
   "fields": {
     "codename": "can_review_posters", 
     "name": "Can review posters", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2174,7 +2862,10 @@
   "fields": {
     "codename": "can_manage_posters", 
     "name": "Can manage posters", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2183,7 +2874,10 @@
   "fields": {
     "codename": "can_review_lightning-talks", 
     "name": "Can review lightning-talks", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2192,7 +2886,10 @@
   "fields": {
     "codename": "can_manage_lightning-talks", 
     "name": "Can manage lightning talks", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2201,7 +2898,10 @@
   "fields": {
     "codename": "can_review_tutorials", 
     "name": "Can review tutorials", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
   }
 },
 {
@@ -2210,7 +2910,238 @@
   "fields": {
     "codename": "can_manage_tutorials", 
     "name": "Can manage tutorials", 
-    "content_type": 48
+    "content_type": [
+      "reviews",
+      "review"
+    ]
+  }
+},
+{
+  "pk": 247,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_apiauth",
+    "name": "Can add api auth",
+    "content_type": [
+      "pycon_api",
+      "apiauth"
+    ]
+  }
+},
+{
+  "pk": 248,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_apiauth",
+    "name": "Can change api auth",
+    "content_type": [
+      "pycon_api",
+      "apiauth"
+    ]
+  }
+},
+{
+  "pk": 249,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_apiauth",
+    "name": "Can delete api auth",
+    "content_type": [
+      "pycon_api",
+      "apiauth"
+    ]
+  }
+},
+{
+  "pk": 250,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_proposaldata",
+    "name": "Can add proposal data",
+    "content_type": [
+      "pycon_api",
+      "proposaldata"
+    ]
+  }
+},
+{
+  "pk": 251,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_proposaldata",
+    "name": "Can change proposal data",
+    "content_type": [
+      "pycon_api",
+      "proposaldata"
+    ]
+  }
+},
+{
+  "pk": 252,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_proposaldata",
+    "name": "Can delete proposal data",
+    "content_type": [
+      "pycon_api",
+      "proposaldata"
+    ]
+  }
+},
+{
+  "pk": 253,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_irclogline",
+    "name": "Can add irc log line",
+    "content_type": [
+      "pycon_api",
+      "irclogline"
+    ]
+  }
+},
+{
+  "pk": 254,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_irclogline",
+    "name": "Can change irc log line",
+    "content_type": [
+      "pycon_api",
+      "irclogline"
+    ]
+  }
+},
+{
+  "pk": 255,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_irclogline",
+    "name": "Can delete irc log line",
+    "content_type": [
+      "pycon_api",
+      "irclogline"
+    ]
+  }
+},
+{
+  "pk": 256,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_financialaidapplication",
+    "name": "Can add financial aid application",
+    "content_type": [
+      "finaid",
+      "financialaidapplication"
+    ]
+  }
+},
+{
+  "pk": 257,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_financialaidapplication",
+    "name": "Can change financial aid application",
+    "content_type": [
+      "finaid",
+      "financialaidapplication"
+    ]
+  }
+},
+{
+  "pk": 258,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_financialaidapplication",
+    "name": "Can delete financial aid application",
+    "content_type": [
+      "finaid",
+      "financialaidapplication"
+    ]
+  }
+},
+{
+  "pk": 259,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_financialaidmessage",
+    "name": "Can add financial aid message",
+    "content_type": [
+      "finaid",
+      "financialaidmessage"
+    ]
+  }
+},
+{
+  "pk": 260,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_financialaidmessage",
+    "name": "Can change financial aid message",
+    "content_type": [
+      "finaid",
+      "financialaidmessage"
+    ]
+  }
+},
+{
+  "pk": 261,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_financialaidmessage",
+    "name": "Can delete financial aid message",
+    "content_type": [
+      "finaid",
+      "financialaidmessage"
+    ]
+  }
+},
+{
+  "pk": 265,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "add_financialaidapplicationperiod",
+    "name": "Can add financial aid application period",
+    "content_type": [
+      "finaid",
+      "financialaidapplicationperiod"
+    ]
+  }
+},
+{
+  "pk": 266,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "change_financialaidapplicationperiod",
+    "name": "Can change financial aid application period",
+    "content_type": [
+      "finaid",
+      "financialaidapplicationperiod"
+    ]
+  }
+},
+{
+  "pk": 267,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "delete_financialaidapplicationperiod",
+    "name": "Can delete financial aid application period",
+    "content_type": [
+      "finaid",
+      "financialaidapplicationperiod"
+    ]
+  }
+},
+{
+  "pk": 268,
+  "model": "auth.permission",
+  "fields": {
+    "codename": "review_financial_aid",
+    "name": "Can review financial aid applications",
+    "content_type": [
+      "finaid",
+      "financialaidapplication"
+    ]
   }
 }
 ]
