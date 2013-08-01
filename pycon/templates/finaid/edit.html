@@ -16,6 +16,13 @@
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <legend>{% if applying %}{% trans "Apply for Financial Aid" %}{% else %}{% trans "Edit Financial Aid Application" %}{% endif %}</legend>
+
+        {% if form.errors and not form.non_field_errors %}
+          <div class="alert alert-error">
+            {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+          </div>
+        {% endif %}
+
         {{ form|as_bootstrap }}
         <div class="form-actions">
             <input class="btn btn-success" type="submit" value="{% if applying %}{% trans "Apply" %}{% else %}{% trans "Submit" %}{% endif %}" />
