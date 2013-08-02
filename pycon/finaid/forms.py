@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Textarea, DateInput
+from django.forms import Textarea
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, FinancialAidEmailTemplate
@@ -10,8 +10,6 @@ class FinancialAidApplicationForm(forms.ModelForm):
         model = FinancialAidApplication
         exclude = ["timestamp", "user", "status"]
         widgets = {
-            'hotel_arrival_date': DateInput(format='%Y-%m-%d'),
-            'hotel_departure_date': DateInput(format='%Y-%m-%d'),
             'travel_plans': Textarea(
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',

@@ -67,18 +67,9 @@ class FinancialAidApplication(models.Model):
         help_text=_("Will you need assistance with a Hotel Room?"))
     hotel_nights = models.IntegerField(
         verbose_name=_("Nights"),
-        help_text=_("How many nights will you be staying at the hotel?"),
+        help_text=_("Please approximate how many nights you will be staying "
+                    "at the hotel."),
         default=0)
-    hotel_arrival_date = models.DateField(
-        verbose_name=_(u"Hotel arrival date"),
-        help_text=u"YYYY-MM-DD",  # Ugh - this should really be on the widget
-        default=datetime.date.today,
-    )
-    hotel_departure_date = models.DateField(
-        verbose_name=_(u"Hotel departure date"),
-        help_text=u"YYYY-MM-DD",  # Ugh - this should really be on the widget
-        default=datetime.date.today,
-    )
     sex = models.IntegerField(
         verbose_name=_("Sex"),
         choices=SEX_CHOICES,
