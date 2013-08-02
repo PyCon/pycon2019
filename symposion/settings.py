@@ -63,7 +63,7 @@ CONFERENCE_URL_PREFIXES = {
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
@@ -114,8 +114,9 @@ TEMPLATE_LOADERS = [
 
 MIDDLEWARE_CLASSES = [
     "djangosecure.middleware.SecurityMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",  # Must follow session middleware and cache middleware, and precede commonmiddleware
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_openid.consumer.SessionConsumer",
@@ -144,7 +145,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
-    "pycon.finaid.context_processors.financial_aid",
 ]
 
 INSTALLED_APPS = [
@@ -268,6 +268,7 @@ DEBUG_TOOLBAR_CONFIG = {
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
+    "REGISTRATION_URL": ("", "URL for registration"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]

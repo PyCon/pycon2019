@@ -1,13 +1,17 @@
 import datetime
+from decimal import Decimal
 
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from mock import patch
 
 from pycon.finaid.models import FinancialAidApplication, \
-    FinancialAidApplicationPeriod
+    FinancialAidApplicationPeriod, FinancialAidMessage, \
+    FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData
+from pycon.finaid.utils import email_address
+from .utils import TestMixin, create_application, ReviewTestMixin
 
 from symposion.conference.models import Conference
 
@@ -17,27 +21,18 @@ now = datetime.datetime.now()
 one_day = datetime.timedelta(days=1)
 
 
-class TestFinaidApplicationView(TestCase):
+class TestFinaidApplicationView(TestCase, TestMixin):
     def setUp(self):
         self.edit_url = reverse('finaid_edit')
-        self.login_url = reverse('account_login')
         self.dashboard_url = reverse('dashboard')
-        self.user = User.objects.create_user('joe',
-                                             email='joe@example.com',
-                                             password='snoopy')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
         # financial aid applications are open
         self.period = FinancialAidApplicationPeriod.objects.create(
             start=today - one_day,
             end=today + one_day
         )
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
-
-    def login(self):
-        # The auth backend that pycon is using is kind of gross. It expects
-        # username to contain the email address.
-        self.assertTrue(self.client.login(username='joe@example.com',
-                                          password='snoopy'),
-                        "Login failed")
 
     def test_not_logged_in(self):
         # If not logged in, view redirects to login
@@ -160,3 +155,109 @@ class TestFinaidApplicationView(TestCase):
         context = rsp.context
         self.assertIn('messages', context)
         self.assertEqual(1, len(context['messages']))
+
+
+class TestFinaidStatusView(TestCase, TestMixin):
+    def setUp(self):
+        self.edit_url = reverse('finaid_edit')
+        self.dashboard_url = reverse('dashboard')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
+        # financial aid applications are open
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+
+    def test_applicant_cant_see_private_messages(self):
+        self.login()
+        application = create_application(user=self.user)
+        application.save()
+
+        # Create a 2nd user to make a message
+        user2 = self.create_user(username="fred", email="fred@example.com")
+        # Make message
+        FinancialAidMessage.objects.create(user=user2,
+                                           application=application,
+                                           visible=False,
+                                           message="Burma Shave!")
+        # Make visible message, just to be sure we're seeing some messages
+        FinancialAidMessage.objects.create(user=user2,
+                                           application=application,
+                                           visible=True,
+                                           message="Star Trek!")
+        # Status view
+        url = reverse("finaid_status")
+        rsp = self.client.get(url)
+        self.assertIn("Star Trek!", rsp.content)
+        self.assertNotIn("Burma Shave!", rsp.content)
+
+
+class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.user = self.create_user()
+        self.make_reviewer(self.user)
+        self.login()
+        self.application = create_application(user=self.user)
+        self.application.save()
+        self.url = reverse('finaid_email', kwargs={'pks': self.application.pk})
+        # Create 2nd user and application, just to make sure we're only
+        # using the ones that were asked for and not all of them.
+        self.user2 = self.create_user(username="jill",
+                                      email="jill@example.com")
+        self.application2 = create_application(user=self.user2)
+        self.application2.save()
+
+    def test_email_view(self):
+        # Just look at the email view, check the context
+        rsp = self.client.get(self.url)
+        if rsp.status_code == 302:
+            self.fail(rsp['Location'])
+        self.assertEqual(200, rsp.status_code)
+        context = rsp.context
+        self.assertEqual([self.user], context['users'])
+
+    @patch('django.template.Template.render')
+    @patch('pycon.finaid.views.send_mass_mail')
+    def test_email_submit(self, mock_send_mass_mail, mock_render):
+        # Actually submit the thing
+
+        # Create review record
+        # Most fields are optional
+        data = {
+            'application': self.application,
+            'status': STATUS_SUBMITTED,
+            'hotel_amount': Decimal('6.66'),
+            'registration_amount': Decimal('0.00'),
+            'travel_amount': Decimal('0.00'),
+            'tutorial_amount': Decimal('0.00'),
+        }
+        review = FinancialAidReviewData(**data)
+        review.save()
+
+        subject = 'TEST SUBJECT'
+        template_text = 'THE TEMPLATE'
+        FinancialAidEmailTemplate.objects.create(
+            name='template',
+            template="wrong template"
+        )
+        template2 = FinancialAidEmailTemplate.objects.create(
+            name='template',
+            template=template_text,
+        )
+        data = {
+            'template': template2.pk,
+            'subject': subject,
+        }
+        mock_render.return_value = template_text
+        rsp = self.client.post(self.url, data)
+        self.assertEqual(302, rsp.status_code, rsp.content)
+        # we tried to send the right emails
+        expected_msgs = [(subject, template_text, email_address(),
+                          [self.user.email])]
+        mock_send_mass_mail.assert_called_with(expected_msgs)
+        # the template was rendered with a good context
+        context = mock_render.call_args[0][0]
+        self.assertEqual(self.application, context['application'])
+        self.assertEqual(review, context['review'])
