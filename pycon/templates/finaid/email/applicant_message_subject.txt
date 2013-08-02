@@ -1,1 +1,0 @@
-Message from {{ user.get_full_name|safe }} regarding their PyCon financial aid application.

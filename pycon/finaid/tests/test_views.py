@@ -93,13 +93,19 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         app = FinancialAidApplication.objects.get(user=self.user)
         self.assertEqual("Foo", app.profession)
 
-        # And an email was sent
-        self.assertEqual(1, len(mail.outbox))
+        # And an email was sent to both user and committee
+        self.assertEqual(2, len(mail.outbox))
         msg = mail.outbox[0]
         # print("From: %s\nTo: %s\nSubject: %s\n\n%s" %
         #       (msg.from_email, ", ".join(msg.recipients()),
         #        msg.subject, msg.body))
-        self.assertTrue("received" in msg.body)
+        self.assertIn(app.user.email, msg.recipients())
+        self.assertEqual(email_address(), msg.from_email)
+        self.assertIn("received", msg.body)
+        msg = mail.outbox[1]
+        self.assertIn(email_address(), msg.recipients())
+        self.assertEqual(app.user.email, msg.from_email)
+        self.assertIn("submitted", msg.body)
 
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
@@ -144,10 +150,18 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         app = FinancialAidApplication.objects.get(user=self.user)
         self.assertEqual("Gourmet", app.profession)
         self.assertEqual("none", app.experience_level)
-        # And an email was sent
-        self.assertEqual(1, len(mail.outbox))
+        # And an email was sent to user and committee
+        self.assertEqual(2, len(mail.outbox))
         msg = mail.outbox[0]
-        self.assertTrue("edited" in msg.body)
+        self.assertIn("edited", msg.body)
+        self.assertIn(email_address(), msg.from_email)
+        self.assertIn(app.user.email, msg.recipients())
+        self.assertIn(app.applicant_url(), msg.body)
+        msg = mail.outbox[1]
+        self.assertIn("edited", msg.body)
+        self.assertIn(email_address(), msg.recipients())
+        self.assertIn(app.user.email, msg.from_email)
+        self.assertIn(app.reviewer_url(), msg.body)
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message

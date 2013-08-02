@@ -15,8 +15,8 @@ from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData
-from .utils import applications_open,  email_address, has_application, \
-    is_reviewer, send_email_message
+from .utils import applications_open, email_address, email_context, \
+    has_application, is_reviewer, send_email_message
 
 
 log = logging.getLogger(__name__)
@@ -44,13 +44,22 @@ def finaid_edit(request):
     if form.is_valid():
         form.save()
 
+        context = email_context(request, application)
+
         # Let user know we got it by emailing them
-        template_name = "application_" + \
+        # Also notify the committee
+        template_name = "applicant/" + \
                         ("submitted" if applying else "edited")
         send_email_message(template_name,
                            from_=email_address(),
                            to=[request.user.email],
-                           context={})
+                           context=context)
+        template_name = "reviewer/" + \
+                        ("submitted" if applying else "edited")
+        send_email_message(template_name,
+                           from_=request.user.email,
+                           to=[email_address()],
+                           context=context)
 
         # Also display a message to them
         messages.add_message(request, messages.INFO,
@@ -174,19 +183,18 @@ def finaid_review_detail(request, pk):
                 message = message_form.save()
                 # Send notice to the reviewers alias
                 # If the message is visible, also send to the applicant
-                context = {
-                    'reviewer': request.user,
-                    'applicant': application.user,
-                    'message': message,
-                    # FIXME: Add link to application in email
-                }
-                recipients = [email_address()]
-                if message.visible:
-                    recipients.append(application.user.email)
-                send_email_message("reviewer_message",
-                                   from_=email_address(),
-                                   to=recipients,
+                context = email_context(request, application, message)
+                # Notify reviewers
+                send_email_message("reviewer/message",
+                                   from_=request.user.email,
+                                   to=[email_address()],
                                    context=context)
+                # If visible to applicant, notify them as well
+                if message.visible:
+                    send_email_message("applicant/message",
+                                       from_=request.user.email,
+                                       to=[application.user.email],
+                                       context=context)
 
                 return redirect(request.path)
         elif 'review_submit' in request.POST:
@@ -228,8 +236,9 @@ def finaid_status(request):
         return redirect("dashboard")
 
     if request.method == 'POST':
+        application = request.user.financial_aid
         message = FinancialAidMessage(user=request.user,
-                                      application=request.user.financial_aid,
+                                      application=application,
                                       visible=True)
         message_form = MessageForm(request.POST, instance=message)
         if message_form.is_valid():
@@ -237,12 +246,8 @@ def finaid_status(request):
 
             # Send notice to the reviewers/pycon-aid alias
             # (applicant submitted this message so no need to tell them)
-            context = {
-                'user': request.user,
-                'message': message,
-                # FIXME: Add link where reviewer can look at the application
-            }
-            send_email_message("applicant_message",
+            context = email_context(request, application, message)
+            send_email_message("reviewer/message",
                                from_=request.user.email,
                                to=[email_address()],
                                context=context)
