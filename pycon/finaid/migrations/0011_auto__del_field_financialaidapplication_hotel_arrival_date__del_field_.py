@@ -18,12 +18,12 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Adding field 'FinancialAidApplication.hotel_arrival_date'
         db.add_column(u'finaid_financialaidapplication', 'hotel_arrival_date',
-                      self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 8, 1, 0, 0)),
+                      self.gf('django.db.models.fields.DateField')(default=datetime.date.today),
                       keep_default=False)
 
         # Adding field 'FinancialAidApplication.hotel_departure_date'
         db.add_column(u'finaid_financialaidapplication', 'hotel_departure_date',
-                      self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 8, 1, 0, 0)),
+                      self.gf('django.db.models.fields.DateField')(default=datetime.date.today),
                       keep_default=False)
 
 
@@ -82,7 +82,6 @@ class Migration(SchemaMigration):
             'pyladies_grant_requested': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'registration_grant_requested': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'sex': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
-            'status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'travel_amount_requested': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '8', 'decimal_places': '2'}),
             'travel_grant_requested': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -99,6 +98,12 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'start': ('django.db.models.fields.DateTimeField', [], {})
         },
+        u'finaid.financialaidemailtemplate': {
+            'Meta': {'object_name': 'FinancialAidEmailTemplate'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
+            'template': ('django.db.models.fields.TextField', [], {})
+        },
         u'finaid.financialaidmessage': {
             'Meta': {'ordering': "['submitted_at']", 'object_name': 'FinancialAidMessage'},
             'application': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'messages'", 'to': u"orm['finaid.FinancialAidApplication']"}),
@@ -107,6 +112,27 @@ class Migration(SchemaMigration):
             'submitted_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+        },
+        u'finaid.financialaidreviewdata': {
+            'Meta': {'object_name': 'FinancialAidReviewData'},
+            'application': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'review'", 'unique': 'True', 'to': u"orm['finaid.FinancialAidApplication']"}),
+            'cash_check': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'grant_letter_sent': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'hotel_amount': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '8', 'decimal_places': '2'}),
+            'hotel_notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_update': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'paired_with': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
+            'promo_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
+            'registration_amount': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '8', 'decimal_places': '2'}),
+            'status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
+            'travel_amount': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '8', 'decimal_places': '2'}),
+            'travel_cash_check': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'travel_check_number': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
+            'travel_preferred_disbursement': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'travel_signed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'tutorial_amount': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '8', 'decimal_places': '2'})
         }
     }
 
