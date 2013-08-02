@@ -247,12 +247,28 @@ class SponsorBenefit(models.Model):
         ordering = ['-active']
     
     def __unicode__(self):
-        return u"%s - %s" % (self.sponsor, self.benefit)
-    
+        return u"%s - %s (%s)" % (self.sponsor, self.benefit,
+                                  self.benefit.type)
+
+    def save(self, *args, **kwargs):
+        # Validate - save() doesn't clean your model by default, so call
+        # it explicitly before saving
+        self.full_clean()
+        super(SponsorBenefit, self).save(*args, **kwargs)
+
     def clean(self):
         if self.max_words and len(self.text.split()) > self.max_words:
-            raise ValidationError("Sponsorship level only allows for %s words." % self.max_words)
-    
+            raise ValidationError("Sponsorship level only allows for %s "
+                                  "words." % self.max_words)
+        editable_fields = self.data_fields()
+        if bool(self.text) and 'text' not in editable_fields:
+            raise ValidationError("Benefit type %s may not have text"
+                                  % self.benefit.type)
+        if bool(self.upload) and 'upload' not in editable_fields:
+            raise ValidationError("Benefit type %s may not have an uploaded "
+                                  "file (%s)" % (self.benefit.type,
+                                                 self.upload))
+
     def data_fields(self):
         """
         Return list of data field names which should be editable for
@@ -260,7 +276,7 @@ class SponsorBenefit(models.Model):
         """
         if self.benefit.type == "file" or self.benefit.type == "weblogo":
             return ["upload"]
-        elif self.benefit.type == "text" or self.benefit.type == "richtext":
+        elif self.benefit.type in ("text", "richtext", "simple"):
             return ["text"]
         return []
 
