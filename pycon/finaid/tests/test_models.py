@@ -28,8 +28,6 @@ class TestFinancialAidModels(TestCase):
             want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
         # the reverse relation works
         self.assertEqual(x, user.financial_aid)

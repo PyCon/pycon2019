@@ -25,6 +25,7 @@ class Page(models.Model):
     title = models.CharField(max_length=100)
     path = models.CharField(max_length=100, unique=True)
     body = models.TextField()
+    body_fr = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=2)
     publish_date = models.DateTimeField(default=datetime.datetime.now)
     created = models.DateTimeField(editable=False, default=datetime.datetime.now)

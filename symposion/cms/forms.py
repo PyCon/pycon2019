@@ -9,10 +9,11 @@ class PageForm(forms.ModelForm):
 
     class Meta:
         model = Page
-        fields = ["title", "body", "path"]
+        fields = ["title", "body", "body_fr", "path"]
         widgets = {
             "path": forms.HiddenInput(),
             "body": MarkEdit(),
+            "body_fr": MarkEdit(),
         }
 
 

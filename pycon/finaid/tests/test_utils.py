@@ -38,8 +38,6 @@ class TestFinAidUtils(TestCase):
             want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
         self.assertTrue(has_application(user))
 
