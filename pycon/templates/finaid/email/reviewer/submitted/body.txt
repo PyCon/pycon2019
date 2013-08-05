@@ -1,0 +1,3 @@
+{{ application.user.get_full_name }} has submitted a financial aid application
+
+Link: {{ reviewer_url }}
