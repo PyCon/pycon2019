@@ -6,7 +6,7 @@
 
 {% block body_class %}cms-page{% endblock %}
 
-{% block head_title %}Create Page{% endblock %}
+{% block head_title %}{% trans "Create Page" %}{% endblock %}
 
 {% block page_title %}{% trans "Edit page at:" %} {{ path }}{% endblock %}
 
@@ -19,7 +19,7 @@
         {% csrf_token %}
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="Save" />
+            <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
         </div>
     </form>
 {% endblock %}

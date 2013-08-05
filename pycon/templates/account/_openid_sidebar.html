@@ -26,6 +26,6 @@
 {% if 'signup' not in request.get_full_path %}
 <section class="widget last">
     <h4>{% trans "Don't have an account? "%}</h4>
-    <p><a href="{% url "account_signup" %}">Sign up now!</a></p>
+    <p><a href="{% url "account_signup" %}">{% trans "Sign up now!" %}</a></p>
 </section>
 {% endif %}

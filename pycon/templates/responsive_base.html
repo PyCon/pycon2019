@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load compress static sitetree %}
+{% load i18n %}
 
 {% block style_base %}
     {% compress css %}
@@ -27,7 +28,7 @@
 {% block topbar_base %}
     {% include "_messages.html" %}
     <header class="main">
-        <a id="skip" href="#content">Skip to main content</a>
+        <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container"> 
             <a class="logo-smaller" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
             <div class="account-bar{% if user.is_authenticated %} loggedin{% endif %}">

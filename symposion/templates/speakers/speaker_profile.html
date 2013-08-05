@@ -32,12 +32,12 @@
         </div>
         <div class="span6">
             {% if speaker.user == request.user or request.user.is_staff %}
-                <a class="btn pull-right" href="{% url 'speaker_edit' speaker.pk %}">Edit</a>
+                <a class="btn pull-right" href="{% url 'speaker_edit' speaker.pk %}">{% trans "Edit" %}</a>
             {% endif %}
             <h1>{{ speaker.name }}</h1>
             <div id="bio" class="bio">{{ speaker.biography|safe }}</div>
 
-            <h2>Presentations</h2>
+            <h2>{% trans "Presentations" %}</h2>
             {% for presentation in presentations %}
                 <h3><a href="{% url 'schedule_presentation_detail' presentation.pk %}">{{ presentation.title }}</a></h3>
                 {% if presentation.slot %}
@@ -49,7 +49,7 @@
                     </p>
                 {% endif %}
             {% empty %}
-                <p>No presentations. This page is only visible to staff until there is a presentation.<p>
+                <p>{% trans "No presentations. This page is only visible to staff until there is a presentation." %}<p>
             {% endfor %}
         </div>
     </div>

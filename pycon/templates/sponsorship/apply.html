@@ -14,12 +14,13 @@
 
     <form method="POST" action="" class="form-horizontal">
         {% csrf_token %}
-        <legend>{% trans "Apply to Be a Sponsor" %}</legend>
+        <legend>{% trans "Apply to be a Sponsor" %}</legend>
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-success" type="submit" value="Apply" />
+            <input class="btn btn-success" type="submit" value="{% trans "Apply" %}" />
             <p class="help-block">
-                <em>By submitting this sponsor application you are agreeing to the <a href="{% url 'cms_page' "sponsor/terms/" %}" target="_blank">terms and conditions</a>.</em>
+              {% url 'cms_page' "sponsor/terms/" as terms_url %}
+                <em>{% blocktrans %}By submitting this sponsor application you are agreeing to the <a href="{{ termsurl }}" target="_blank">terms and conditions</a>.{% endblocktrans %}</em>
             </p>
         </div>
     </form>

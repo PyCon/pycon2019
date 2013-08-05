@@ -51,7 +51,7 @@
 {% block topbar_base %}
     {% include "_messages.html" %}
     <header class="main">
-        <a id="skip" href="#content">Skip to main content</a>
+        <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
         <div class="account-bar{% if user.is_authenticated %} loggedin{% endif %}">
             {% block account_bar %}
@@ -104,7 +104,7 @@
                             {% block sidebar %}
                             {% cache 600 "sidebar" %}
                                 <div class="sponsor-list">
-                                    <h2>SPONSORS</h2>
+                                    <h2>{% trans "SPONSORS" %}</h2>
                                     {% sponsor_levels as levels %}
                                     {% for level in levels %}
                                         {% if level.sponsors %}
@@ -142,13 +142,22 @@
             </a>
             <div class="footer-content">
                 <p>
+                  {% blocktrans %}
                     PyCon 2014 in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                  {% endblocktrans %}
                 </p>
                 <p>
-                    Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                  {% blocktrans %}
+                    Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
+                  {% endblocktrans %}
+                  {% blocktrans %}
+                    Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                  {% endblocktrans %}
                 </p>
                 <p>
+                  {% blocktrans %}
                     Questions? Comments? Contact <a href="mailto:pycon-organizers@python.org">pycon-organizers@python.org</a>
+                  {% endblocktrans %}
                 </p>
             </div>
         {% endblock %}

@@ -12,7 +12,7 @@
     {% if editable %}
         <div class="pull-right">
             <a href="{% url 'cms_page_edit' page.path %}" class="btn btn-primary">
-                <i class="icon-pencil icon-large"></i> Edit page</a>
+                <i class="icon-pencil icon-large"></i> {% trans "Edit page" %}</a>
         </div>
     {% endif %}
 {% endblock %}
