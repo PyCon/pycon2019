@@ -41,7 +41,6 @@ class PyConTalkProposalForm(PyConProposalForm):
             "outline",
             "additional_notes",
             "additional_requirements",
-            "slide_deck",
             "recording_release",
         ]
         widgets = {
@@ -75,7 +74,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
             "additional_notes",
             "additional_requirements",
             "audience_level",
-            "slide_deck",
             "recording_release",
         ]
         widgets = {
@@ -103,7 +101,6 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "more_info",
             "additional_notes",
             "additional_requirements",
-            "slide_deck",
             "handout",
             "recording_release",
         ]
