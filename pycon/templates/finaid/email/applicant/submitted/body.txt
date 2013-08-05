@@ -1,1 +1,3 @@
 PyCon has received your financial aid application.
+
+Link: {{ applicant_url }}
