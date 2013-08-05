@@ -3,6 +3,7 @@ import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -56,7 +57,7 @@ class FinancialAidApplication(models.Model):
     pyladies_grant_requested = models.BooleanField(
         verbose_name=_("PyLadies grant"),
         help_text=_("Would you like to be considered for a "
-                    "PyLadies grant?"))
+                    "PyLadies grant? (Women only.)"))
     registration_grant_requested = models.BooleanField(
         verbose_name=_("Registration grant"),
         help_text=_("Will you need assistance with the "
@@ -175,6 +176,16 @@ class FinancialAidApplication(models.Model):
         for msg in self.messages.all():
             last_update = max(last_update, msg.submitted_at)
         return last_update
+
+    def applicant_url(self):
+        """URL where an applicant can view/edit their application"""
+        # It's very simple because the only application an applicant can
+        # view is their own.
+        return reverse('finaid_edit')
+
+    def reviewer_url(self):
+        """URL where a reviewer can review this application"""
+        return reverse('finaid_review_detail', args=[str(self.pk)])
 
 
 class FinancialAidMessage(models.Model):

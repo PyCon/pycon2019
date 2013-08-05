@@ -26,4 +26,17 @@ $(function () {
 
   /* initialize visibility */
   update_visibility();
+
+  /* If someone requests a PyLadies grant, and the hotel sex field has
+  not been set yet, change it to Female.
+   */
+  $('input#id_pyladies_grant_requested').on('change', function() {
+    if ($(this).val() === 'on') {
+      var $sex = $('select#id_sex');
+      var val = $sex.val();
+      if ((val === '0') || (val === '')) {
+        $sex.val('1');  // Female
+      }
+    }
+  });
 });
