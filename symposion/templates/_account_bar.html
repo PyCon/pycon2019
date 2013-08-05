@@ -1,18 +1,19 @@
 {% load url from future %}
 {% load account_tags %}
+{% load i18n %}
 
 <div class="row">
     <div class="pull-right">
         {% if user.is_authenticated %}
             {% if user.is_staff %}
-                <a href="{% url 'admin:index' %}" class="action">Admin</a> |
+                <a href="{% url 'admin:index' %}" class="action">{% trans "Admin" %}</a> |
             {% endif %}
-            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'dashboard' %}">{% trans "Dashboard" %}</a>
             |
-            <a href="{% url 'account_settings' %}">Settings</a>
+            <a href="{% url 'account_settings' %}">{% trans "Settings" %}</a>
             |
             <form action="{% url 'account_logout' %}" method="post">{% csrf_token %}
-                <button type="submit">Log out</button>
+                <button type="submit">{% trans "Log out" %}</button>
             </form>
             {% if request.user.get_full_name%}
             <span>
@@ -22,9 +23,9 @@
             </span>
             {% endif %}
         {% else %}
-            <a href="{% url 'account_login' %}">Log in</a>
+            <a href="{% url 'account_login' %}">{% trans "Log in" %}</a>
             |
-            <a href="{% url 'account_signup' %}">Sign up</a>
+            <a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
         {% endif %}
     </div>
 </div>

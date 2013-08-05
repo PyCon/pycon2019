@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="span12">
                         <div class="promo no-link">
-                            <p>Register Fall 2013</p>
+                            <p>{% trans "Register Fall 2013" %}</p>
                         </div>
                         <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
                         <div class="details">
@@ -42,9 +42,9 @@
                 <div class="row">
                     <div class="schedule">
                         <ul>
-                            <li><span>Tutorials</span> April 9&ndash;10</li>
-                            <li><span>Conference</span> April 11&ndash;13</li>
-                            <li><span>Sprints</span> April 14&ndash;17</li>
+                            <li><span>{% trans "Tutorials" %}</span> April 9&ndash;10</li>
+                            <li><span>{% trans "Conference" %}</span> April 11&ndash;13</li>
+                            <li><span>{% trans "Sprints" %}</span> April 14&ndash;17</li>
                         </ul>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
     <div class="row homepage-content">
         {% latest_blog_posts as posts %}
         <div class="span8">
-            <h3>Announcements</h3>
+            <h3>{% trans "Announcements" %}</h3>
                 {% for post in posts %}
                     <div class="blog-post">
                         <div class="date">
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 {% empty %}
-                    <p>No announcements have been published.</p>
+                    <p>{% trans "No announcements have been published." %}</p>
                 {% endfor %}
         </div>
 

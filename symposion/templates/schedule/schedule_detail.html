@@ -6,7 +6,7 @@
 {% load cache %}
 {% load sitetree %}
 
-{% block head_title %}Conference Schedule{% endblock %}
+{% block head_title %}{% trans "Conference Schedule" %}{% endblock %}
 
 {% block body_class %}full{% endblock %}
 
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="span12">
             <div class="page-head">
-                <h1>{{ schedule.section }} Schedule</h1>
+                <h1>{% blocktrans %}{{ schedule.section }} Schedule{% endblocktrans %}</h1>
                 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
             </div>
         </div>

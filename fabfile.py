@@ -120,3 +120,22 @@ def load_db_dump(dump_file):
     temp_file = os.path.join(env.home, '%(project)s-%(environment)s.sql' % env)
     put(dump_file, temp_file)
     run('psql -h %s -U %s -d %s -f %s' % (env.db_host, env.db_user, env.db, temp_file))
+
+@task
+def make_messages():
+    """Extract English text from code and templates, and update the
+    .po files for translators to translate"""
+    # Make sure gettext is installed
+    local("gettext --help >/dev/null 2>&1")
+    if os.path.exists("locale/fr/LC_MESSAGES/django.po"):
+        local("python manage.py makemessages -a")
+    else:
+        local("python manage.py makemessages -l fr")
+
+@task
+def compile_messages():
+    """Compile the translated .po files into more efficient .mo
+        files for runtime use"""
+    # Make sure gettext is installed
+    local("gettext --help >/dev/null 2>&1")
+    local("python manage.py compilemessages")

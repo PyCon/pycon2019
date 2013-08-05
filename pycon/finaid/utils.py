@@ -6,7 +6,7 @@ from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod
 
 
-DEFAULT_EMAIL_ADDRESS = "pycon-aid@pycon.org"
+DEFAULT_EMAIL_ADDRESS = "pycon-aid@python.org"
 
 
 def applications_open():
@@ -44,7 +44,7 @@ def email_address():
     Return the email address that financial aid emails should come from,
     applications should send emails to with questions, etc.
 
-    Default is ``pycon-aid@pycon.org``. Override by setting
+    Default is ``pycon-aid@python.org``. Override by setting
     FINANCIAL_AID['email'].
     """
     return getattr(settings, "FINANCIAL_AID", {})\
