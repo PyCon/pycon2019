@@ -87,16 +87,7 @@
     </dd>
     {% endif %}
 
-    <dt>{% trans "Slide Deck" %}</dt>
-    <dd>
-        {% if proposal.slide_deck %}
-            <a href="{{ proposal.slide_deck.url }}">Download</a>
-        {% else %}
-            No slide deck attached to this proposal.
-        {% endif %}
-    </dd>
-
-    <dt>{% trans "Documents" %}</dt>
+    <dt>{% trans "Supporting Documents" %}</dt>
     <dd>
         {% if proposal.supporting_documents.exists %}
             <table class="table table-striped">

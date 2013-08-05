@@ -89,13 +89,6 @@ class PyConProposal(ProposalBase):
         blank=True,
         help_text=_(u"Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.")
     )
-    slide_deck = models.FileField(
-        _(u"Slide deck"),
-        blank=True,
-        null=True,
-        help_text=_(u"A printable version of your presentation."),
-        upload_to="slide_decks"
-    )
 
     class Meta:
         abstract = True
