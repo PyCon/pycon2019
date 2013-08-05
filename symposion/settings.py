@@ -65,6 +65,15 @@ CONFERENCE_URL_PREFIXES = {
 # to load the internationalization machinery.
 USE_I18N = True
 
+gettext = lambda s: s
+
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('fr', gettext('French')),
+)
+
+LOCALE_PATHS = [os.path.join(PROJECT_ROOT, "locale")]
+
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"

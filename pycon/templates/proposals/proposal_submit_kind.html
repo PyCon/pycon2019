@@ -4,8 +4,8 @@
 {% load boxes_tags %}
 {% load i18n %}
 
-{% block head_title %}{% blocktrans %}Submit a Proposal for a {{ kind.name }}{% endblocktrans %}{% endblock %}
-{% block page_title %}{% blocktrans %}Submit a Proposal for a {{ kind.name }}{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans with name=kind.name %}Submit a Proposal for a {{ name }}{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with name=kind.name %}Submit a Proposal for a {{ name }}{% endblocktrans %}{% endblock %}
 
 {% block body %}
     <div class="span12">
