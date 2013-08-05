@@ -12,7 +12,7 @@
 {% block page_title %}
     {% trans "PyCon Jobs Fair" %}
     <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="read-more">
-        Learn how to become a sponsor 
+        {% trans "Learn how to become a sponsor " %}
         <i class="icon icon-arrow-right"></i>
     </a>
 {% endblock %}
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         {% else %}
-                        <h3>Coming Soon!</h3>
+                        <h3>{% trans "Coming Soon!" %}</h3>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

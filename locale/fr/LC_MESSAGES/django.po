@@ -1,0 +1,1446 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-22 16:22-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: pycon/forms.py:24
+msgid "The description must be less than 400 characters"
+msgstr ""
+
+#: pycon/models.py:27 pycon/models.py:149
+msgid "Novice"
+msgstr ""
+
+#: pycon/models.py:28 pycon/models.py:150
+msgid "Intermediate"
+msgstr ""
+
+#: pycon/models.py:29 pycon/models.py:151
+msgid "Experienced"
+msgstr ""
+
+#: pycon/models.py:67
+msgid "Level of audience expertise assumed in Python."
+msgstr ""
+
+#: pycon/models.py:68
+msgid "Python level"
+msgstr ""
+
+#: pycon/models.py:72
+msgid "The status of the proposal."
+msgstr ""
+
+#: pycon/models.py:76
+msgid ""
+"Numerical indicator of the amount of interest in a talk set to 'damaged' "
+"status."
+msgstr ""
+
+#: pycon/models.py:81
+msgid "The reason the proposal was rejected."
+msgstr ""
+
+#: pycon/models.py:84
+msgid ""
+"By submitting your talk proposal, you agree to give permission to the Python "
+"Software Foundation to record, edit, and release audio and/or video of your "
+"presentation. If you do not agree to this, please uncheck this box. See <a "
+"href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon "
+"2014 Recording Release</a> for details."
+msgstr ""
+
+#: pycon/models.py:88
+msgid "Additional requirements"
+msgstr ""
+
+#: pycon/models.py:90
+msgid ""
+"Please let us know if you have any specific needs (A/V requirements, "
+"multiple microphones, a table, etc).  Note for example that 'audio out' is "
+"not provided for your computer unless you tell us in advance."
+msgstr ""
+
+#: pycon/models.py:93
+msgid "Slide deck"
+msgstr ""
+
+#: pycon/models.py:96
+msgid "A printable version of your presentation."
+msgstr ""
+
+#: pycon/models.py:107
+msgid "No preference"
+msgstr ""
+
+#: pycon/models.py:108
+msgid "I prefer a 30 minute slot"
+msgstr ""
+
+#: pycon/models.py:109
+msgid "I prefer a 45 minute slot"
+msgstr ""
+
+#: pycon/models.py:115 pycon/models.py:160
+#: symposion/templates/proposals/_proposal_fields.html:62
+msgid "Outline"
+msgstr ""
+
+#: pycon/models.py:116 pycon/models.py:161
+msgid "Detailed outline. Will be made public if your talk is accepted."
+msgstr ""
+
+#: pycon/models.py:121 pycon/models.py:171
+msgid ""
+"Who is the intended audience for your talk? (Be specific; \"Python "
+"programmers\" is not a good answer to this question.)"
+msgstr ""
+
+#: pycon/models.py:126 pycon/models.py:176
+#: symposion/templates/proposals/_proposal_fields.html:24
+msgid "Objectives"
+msgstr ""
+
+#: pycon/models.py:128 pycon/models.py:178
+msgid ""
+"What will attendees get out of your talk? When they leave the room, what "
+"will they know that they didn't know before?"
+msgstr ""
+
+#: pycon/models.py:156
+msgid "Level of audience expertise assumed in the presentation's domain."
+msgstr ""
+
+#: pycon/models.py:165 symposion/templates/proposals/_proposal_fields.html:65
+msgid "More info"
+msgstr ""
+
+#: pycon/models.py:166
+msgid "More info. Will be made public if your talk is accepted."
+msgstr ""
+
+#: pycon/models.py:183 symposion/templates/proposals/_proposal_fields.html:80
+msgid "Student Handout"
+msgstr ""
+
+#: pycon/models.py:186
+msgid ""
+"Upload a resource to be distributed to students  attending the tutorial "
+"session."
+msgstr ""
+
+#: pycon/profile/views.py:30
+msgid "Successfully updated profile."
+msgstr ""
+
+#: pycon/pycon_api/models.py:12
+msgid "Name or other description of user"
+msgstr ""
+
+#: pycon/sponsorship/models.py:20 symposion/conference/models.py:44
+#: symposion/conference/models.py:55 symposion/sponsorship/models.py:11
+msgid "conference"
+msgstr ""
+
+#: pycon/sponsorship/models.py:21 pycon/sponsorship/models.py:183
+#: symposion/conference/models.py:57 symposion/sponsorship/models.py:12
+#: symposion/sponsorship/models.py:30
+msgid "name"
+msgstr ""
+
+#: pycon/sponsorship/models.py:22 symposion/sponsorship/models.py:13
+msgid "order"
+msgstr ""
+
+#: pycon/sponsorship/models.py:23
+msgid "cost"
+msgstr ""
+
+#: pycon/sponsorship/models.py:24 pycon/sponsorship/models.py:184
+#: symposion/sponsorship/models.py:14
+msgid "description"
+msgstr ""
+
+#: pycon/sponsorship/models.py:24
+msgid "This is private."
+msgstr ""
+
+#: pycon/sponsorship/models.py:28 symposion/sponsorship/models.py:18
+msgid "sponsor level"
+msgstr ""
+
+#: pycon/sponsorship/models.py:29 symposion/sponsorship/models.py:19
+msgid "sponsor levels"
+msgstr ""
+
+#: pycon/sponsorship/models.py:40 pycon/templates/dashboard.html:274
+msgid "applicant"
+msgstr ""
+
+#: pycon/sponsorship/models.py:42
+msgid "Sponsor Name"
+msgstr ""
+
+#: pycon/sponsorship/models.py:43
+msgid "display URL"
+msgstr ""
+
+#: pycon/sponsorship/models.py:44 symposion/sponsorship/models.py:31
+msgid "external URL"
+msgstr ""
+
+#: pycon/sponsorship/models.py:45 symposion/sponsorship/models.py:32
+msgid "annotation"
+msgstr ""
+
+#: pycon/sponsorship/models.py:46
+msgid "Contact Name"
+msgstr ""
+
+#: pycon/sponsorship/models.py:47
+msgid "Contact Email"
+msgstr ""
+
+#: pycon/sponsorship/models.py:48 pycon/sponsorship/models.py:212
+#: symposion/sponsorship/models.py:36
+msgid "level"
+msgstr ""
+
+#: pycon/sponsorship/models.py:49 symposion/sponsorship/models.py:37
+msgid "added"
+msgstr ""
+
+#: pycon/sponsorship/models.py:50 symposion/sponsorship/models.py:38
+msgid "active"
+msgstr ""
+
+#: pycon/sponsorship/models.py:61 pycon/sponsorship/models.py:229
+#: symposion/sponsorship/models.py:44
+msgid "sponsor"
+msgstr ""
+
+#: pycon/sponsorship/models.py:62 symposion/sponsorship/models.py:45
+msgid "sponsors"
+msgstr ""
+
+#: pycon/sponsorship/models.py:186
+msgid "type"
+msgstr ""
+
+#: pycon/sponsorship/models.py:207 pycon/sponsorship/models.py:233
+msgid "benefit"
+msgstr ""
+
+#: pycon/sponsorship/models.py:214 pycon/sponsorship/models.py:238
+msgid "max words"
+msgstr ""
+
+#: pycon/sponsorship/models.py:215 pycon/sponsorship/models.py:239
+msgid "other limits"
+msgstr ""
+
+#: pycon/sponsorship/models.py:243
+msgid "text"
+msgstr ""
+
+#: pycon/sponsorship/models.py:244
+msgid "file"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:15
+#: symposion/templates/_account_bar.html:9
+msgid "Admin"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:17 pycon/templates/auth_base.html:8
+#: pycon/templates/dashboard.html:9 pycon/templates/dashboard.html.py:13
+#: symposion/templates/_account_bar.html:11
+#: symposion/templates/auth_base.html:14 symposion/templates/dashboard.html:17
+msgid "Dashboard"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:19 pycon/templates/account/base.html:14
+#: symposion/templates/_account_bar.html:13
+#: symposion/templates/account/base.html:11
+msgid "Settings"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:21 pycon/templates/account/logout.html:6
+#: pycon/templates/account/logout.html:8
+#: pycon/templates/account/logout.html:16
+#: symposion/templates/_account_bar.html:16
+msgid "Log out"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:24 pycon/templates/account/login.html:7
+#: pycon/templates/account/login.html:11 pycon/templates/account/login.html:23
+#: pycon/templates/admin/login.html:54
+#: symposion/templates/_account_bar.html:26
+#: symposion/templates/account/login.html:7
+#: symposion/templates/account/login.html:20
+msgid "Log in"
+msgstr ""
+
+#: pycon/templates/_account_bar.html:25
+#: symposion/templates/_account_bar.html:28
+msgid "Sign up"
+msgstr ""
+
+#: pycon/templates/_sponsorship_link.html:4
+msgid "Sponsorship available! Learn more"
+msgstr ""
+
+#: pycon/templates/dashboard.html:26 pycon/templates/dashboard.html.py:113
+msgid "Speaking"
+msgstr ""
+
+#: pycon/templates/dashboard.html:33 pycon/templates/dashboard.html.py:117
+msgid "Edit your speaker profile"
+msgstr ""
+
+#: pycon/templates/dashboard.html:38
+msgid "Submit a new proposal"
+msgstr ""
+
+#: pycon/templates/dashboard.html:43
+msgid "Your Proposals"
+msgstr ""
+
+#: pycon/templates/dashboard.html:47 pycon/templates/dashboard.html.py:67
+#: pycon/templates/dashboard.html:85 pycon/templates/dashboard.html.py:128
+msgid "Title"
+msgstr ""
+
+#: pycon/templates/dashboard.html:48 pycon/templates/dashboard.html.py:68
+#: pycon/templates/dashboard.html:86
+msgid "Session type"
+msgstr ""
+
+#: pycon/templates/dashboard.html:49 pycon/templates/dashboard.html.py:69
+#: pycon/templates/dashboard.html:87
+#: symposion/templates/reviews/result_notification.html:48
+msgid "Status"
+msgstr ""
+
+#: pycon/templates/dashboard.html:50 pycon/templates/dashboard.html.py:70
+#: pycon/templates/dashboard.html:88
+msgid "Actions"
+msgstr ""
+
+#: pycon/templates/dashboard.html:57
+msgid "No proposals submitted yet."
+msgstr ""
+
+#: pycon/templates/dashboard.html:64
+msgid "Proposals you have joined as an additional speaker"
+msgstr ""
+
+#: pycon/templates/dashboard.html:82
+msgid "Proposals you have been invited to join"
+msgstr ""
+
+#: pycon/templates/dashboard.html:98
+msgid "To submit a proposal, first create a speaker profile."
+msgstr ""
+
+#: pycon/templates/dashboard.html:102
+msgid "Create a speaker profile"
+msgstr ""
+
+#: pycon/templates/dashboard.html:123
+msgid "Your Presentations"
+msgstr ""
+
+#: pycon/templates/dashboard.html:127
+msgid "Session Type"
+msgstr ""
+
+#: pycon/templates/dashboard.html:129
+msgid "Slot"
+msgstr ""
+
+#: pycon/templates/dashboard.html:150
+#: symposion/templates/sponsorship/detail.html:8
+msgid "Sponsorship"
+msgstr ""
+
+#: pycon/templates/dashboard.html:156
+msgid "Learn about sponsorship"
+msgstr ""
+
+#: pycon/templates/dashboard.html:161
+msgid "Apply to be a sponsor"
+msgstr ""
+
+#: pycon/templates/dashboard.html:168
+msgid "Your Sponsorship"
+msgstr ""
+
+#: pycon/templates/dashboard.html:178
+msgid "awaiting approval"
+msgstr ""
+
+#: pycon/templates/dashboard.html:192 symposion/templates/dashboard.html:195
+#: symposion/templates/reviews/base.html:85
+#: symposion/templates/reviews/review_detail.html:89
+msgid "Reviews"
+msgstr ""
+
+#: pycon/templates/dashboard.html:196
+msgid "Review Sections"
+msgstr ""
+
+#: pycon/templates/dashboard.html:204
+msgid "Proposals you have reviewed"
+msgstr ""
+
+#: pycon/templates/dashboard.html:208
+#: symposion/templates/reviews/_review_table.html:7
+#: symposion/templates/reviews/result_notification.html:46
+msgid "Speaker / Title"
+msgstr ""
+
+#: pycon/templates/dashboard.html:209
+msgid "Your Vote"
+msgstr ""
+
+#: pycon/templates/dashboard.html:256 symposion/templates/dashboard.html:259
+msgid "Teams"
+msgstr ""
+
+#: pycon/templates/dashboard.html:261
+msgid "Your Teams"
+msgstr ""
+
+#: pycon/templates/dashboard.html:282
+msgid "Available Teams"
+msgstr ""
+
+#: pycon/templates/homepage.html:25
+msgid "Register Fall 2013"
+msgstr ""
+
+#: pycon/templates/homepage.html:46
+msgid "Tutorials"
+msgstr ""
+
+#: pycon/templates/homepage.html:47
+msgid "Conference"
+msgstr ""
+
+#: pycon/templates/homepage.html:48
+msgid "Sprints"
+msgstr ""
+
+#: pycon/templates/homepage.html:115
+#: symposion/templates/biblion/blog_list.html:6
+msgid "Announcements"
+msgstr ""
+
+#: pycon/templates/homepage.html:129
+msgid "No announcements have been published."
+msgstr ""
+
+#: pycon/templates/responsive_base.html:31 pycon/templates/site_base.html:54
+msgid "Skip to main content"
+msgstr ""
+
+#: pycon/templates/site_base.html:107
+msgid "SPONSORS"
+msgstr ""
+
+#: pycon/templates/site_base.html:145
+msgid ""
+"\n"
+"                    PyCon 2014 in Montr&#233;al is a production of the <a "
+"href=\"http://python.org/psf/\">Python Software Foundation</a>.\n"
+"                  "
+msgstr ""
+
+#: pycon/templates/site_base.html:150
+msgid ""
+"\n"
+"                    Site built by <a href=\"http://caktusgroup.com\">Caktus "
+"Consulting Group, LLC.</a> using <a href=\"http://eldarion.com/symposion/\" "
+"title=\"Symposion — An Open Platform for Conference Websites\">Symposion</"
+"a>.\n"
+"                  "
+msgstr ""
+
+#: pycon/templates/site_base.html:153
+msgid ""
+"\n"
+"                    Hosting provided by <a href=\"http://osuosl.org\">OSU "
+"Open Source Lab</a>.\n"
+"                  "
+msgstr ""
+
+#: pycon/templates/site_base.html:158
+msgid ""
+"\n"
+"                    Questions? Comments? Contact <a href=\"mailto:pycon-"
+"organizers@python.org\">pycon-organizers@python.org</a>\n"
+"                  "
+msgstr ""
+
+#: pycon/templates/account/_openid_sidebar.html:28
+#: symposion/templates/account/_openid_sidebar.html:25
+msgid "Don't have an account? "
+msgstr ""
+
+#: pycon/templates/account/_openid_sidebar.html:29
+msgid "Sign up now!"
+msgstr ""
+
+#: pycon/templates/account/base.html:13
+#: pycon/templates/account/settings.html:6
+#: pycon/templates/account/settings.html:8
+#: pycon/templates/account/settings.html:12
+#: symposion/templates/account/base.html:10
+msgid "Account"
+msgstr ""
+
+#: pycon/templates/account/base.html:15
+#: symposion/templates/account/base.html:12
+msgid "Change password"
+msgstr ""
+
+#: pycon/templates/account/base.html:16
+#: symposion/templates/account/base.html:14
+msgid "Delete account"
+msgstr ""
+
+#: pycon/templates/account/email_confirm.html:6
+#: pycon/templates/account/email_confirm.html:8
+msgid "Confirm Email"
+msgstr ""
+
+#: pycon/templates/account/email_confirm.html:14
+#, python-format
+msgid "Confirm email address <b>%(email)s</b>?"
+msgstr ""
+
+#: pycon/templates/account/email_confirm.html:16
+msgid "Confirm"
+msgstr ""
+
+#: pycon/templates/account/login.html:16
+#: symposion/templates/account/login.html:12
+msgid "Log in to an existing account"
+msgstr ""
+
+#: pycon/templates/account/login.html:26
+#: symposion/templates/account/login.html:19
+msgid "Forgot your password?"
+msgstr ""
+
+#: pycon/templates/account/logout.html:14
+msgid "Are you sure you want to log out?"
+msgstr ""
+
+#: pycon/templates/account/settings.html:16
+#: pycon/templates/cms/page_edit.html:20
+#: pycon/templates/proposals/proposal_submit_kind.html:25
+#: pycon/templates/speakers/speaker_create.html:21
+#: symposion/templates/cms/page_edit.html:22
+#: symposion/templates/schedule/_slot_edit.html:12
+#: symposion/templates/speakers/speaker_create.html:21
+#: symposion/templates/speakers/speaker_edit.html:21
+#: symposion/templates/sponsorship/detail.html:35
+msgid "Save"
+msgstr ""
+
+#: pycon/templates/account/signup.html:7
+#: symposion/templates/account/signup.html:7
+msgid "Create an account"
+msgstr ""
+
+#: pycon/templates/account/signup.html:11
+msgid "Sign Up"
+msgstr ""
+
+#: pycon/templates/account/signup.html:17
+#: symposion/templates/account/signup.html:11
+msgid "Create a new account"
+msgstr ""
+
+#: pycon/templates/account/signup.html:25
+#: symposion/templates/account/signup.html:19
+msgid "Create Account"
+msgstr ""
+
+#: pycon/templates/admin/login.html:23
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: pycon/templates/admin/login.html:43
+msgid "Password:"
+msgstr ""
+
+#: pycon/templates/admin/login.html:50
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: pycon/templates/boxes/box.html:8 symposion/templates/boxes/box.html:8
+msgid "Editing content:"
+msgstr ""
+
+#: pycon/templates/boxes/box.html:16
+#, python-format
+msgid ""
+"\n"
+"                   Content is processed using <a href=\"%(helplink)s\" "
+"target=\"_blank\">Markdown</a>\n"
+"                 "
+msgstr ""
+
+#: pycon/templates/boxes/box.html:20 symposion/templates/boxes/box.html:16
+msgid "Close"
+msgstr ""
+
+#: pycon/templates/boxes/box.html:21 symposion/templates/boxes/box.html:17
+msgid "Save changes"
+msgstr ""
+
+#: pycon/templates/boxes/box.html:39
+#: symposion/templates/speakers/speaker_profile.html:35
+msgid "Edit"
+msgstr ""
+
+#: pycon/templates/cms/page_detail.html:26
+#: symposion/templates/cms/page_detail.html:15
+msgid "Edit page"
+msgstr ""
+
+#: pycon/templates/cms/page_edit.html:9
+msgid "Create/Edit Page"
+msgstr ""
+
+#: pycon/templates/cms/page_edit.html:11
+msgid "Edit:"
+msgstr ""
+
+#: pycon/templates/profiles/edit.html:6
+msgid "Edit Profile"
+msgstr ""
+
+#: pycon/templates/profiles/edit.html:12
+msgid "Update your volunteer profile"
+msgstr ""
+
+#: pycon/templates/profiles/edit.html:13
+msgid "A profile is required to volunteer with PyCon."
+msgstr ""
+
+#: pycon/templates/profiles/edit.html:19
+msgid "Save Profile"
+msgstr ""
+
+#: pycon/templates/proposals/proposal_submit_kind.html:7
+#: pycon/templates/proposals/proposal_submit_kind.html:8
+#, python-format
+msgid "Submit a Proposal for a %(kind.name)s"
+msgstr ""
+
+#: pycon/templates/proposals/proposal_submit_kind.html:19
+msgid ""
+"\n"
+"                    You will be able to edit your proposal after it has been "
+"submitted.\n"
+"                    The program committee may ask questions, provide "
+"feedback,\n"
+"                    and even suggest changes to your proposal as part of the "
+"review processes.\n"
+"                  "
+msgstr ""
+
+#: pycon/templates/proposals/proposal_submit_kind.html:27
+msgid "Save and Add Additional Speakers"
+msgstr ""
+
+#: pycon/templates/speakers/speaker_create.html:7
+#: pycon/templates/speakers/speaker_create.html:9
+#: pycon/templates/speakers/speaker_create.html:16
+#: symposion/templates/speakers/speaker_create.html:7
+#: symposion/templates/speakers/speaker_create.html:16
+msgid "Create Speaker Profile"
+msgstr ""
+
+#: pycon/templates/speakers/speaker_create.html:22
+#: pycon/templates/speakers/speaker_edit.html:23
+#: symposion/templates/speakers/speaker_create.html:22
+#: symposion/templates/speakers/speaker_edit.html:22
+msgid "Cancel"
+msgstr ""
+
+#: pycon/templates/speakers/speaker_edit.html:7
+#: pycon/templates/speakers/speaker_edit.html:9
+#: pycon/templates/speakers/speaker_edit.html:17
+#: symposion/templates/speakers/speaker_edit.html:7
+#: symposion/templates/speakers/speaker_edit.html:16
+msgid "Edit Speaker Profile"
+msgstr ""
+
+#: pycon/templates/sponsorship/apply.html:7
+#: pycon/templates/sponsorship/apply.html:17
+#: symposion/templates/sponsorship/apply.html:7
+#: symposion/templates/sponsorship/apply.html:17
+msgid "Apply to be a Sponsor"
+msgstr ""
+
+#: pycon/templates/sponsorship/apply.html:20
+#: symposion/templates/sponsorship/apply.html:20
+msgid "Apply"
+msgstr ""
+
+#: pycon/templates/sponsorship/apply.html:23
+#, python-format
+msgid ""
+"By submitting this sponsor application you are agreeing to the <a href="
+"\"%(termsurl)s\" target=\"_blank\">terms and conditions</a>."
+msgstr ""
+
+#: pycon/templates/sponsorship/jobs.html:8
+#: pycon/templates/sponsorship/jobs.html:13
+#: symposion/templates/sponsorship/jobs.html:8
+#: symposion/templates/sponsorship/jobs.html:16
+msgid "PyCon Jobs Fair"
+msgstr ""
+
+#: pycon/templates/sponsorship/jobs.html:15
+#: pycon/templates/sponsorship/list.html:15
+msgid "Learn how to become a sponsor "
+msgstr ""
+
+#: pycon/templates/sponsorship/jobs.html:43
+msgid "Coming Soon!"
+msgstr ""
+
+#: pycon/templates/sponsorship/list.html:8
+#: pycon/templates/sponsorship/list.html:13
+#: symposion/templates/sponsorship/list.html:8
+#: symposion/templates/sponsorship/list.html:17
+msgid "About PyCon Sponsors"
+msgstr ""
+
+#: pycon/templates/static/sitemap.html:8
+#: pycon/templates/static/sitemap.html:10
+msgid "Sitemap"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:18
+#, python-format
+msgid "You are a <em>%(state)s</em> of %(team.name)s"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:25
+msgid "JOIN"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:32
+msgid "LEAVE"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:39
+msgid "APPLY"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:45
+msgid ""
+"You have been invited to join this team. Click <b>join</b> to the right to "
+"accept."
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:49
+#: symposion/templates/teams/team_detail.html:42
+msgid "Managers"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:53
+#: pycon/templates/teams/team_detail.html:66
+msgid "you"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:55
+msgid "DEMOTE"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:62
+#: symposion/templates/teams/team_detail.html:55
+msgid "Team Members"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:68
+#: symposion/templates/teams/team_detail.html:61
+msgid "promote"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:75
+#: symposion/templates/teams/team_detail.html:68
+msgid "Applicants"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:81
+#: symposion/templates/teams/team_detail.html:74
+msgid "accept"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:82
+#: symposion/templates/teams/team_detail.html:75
+msgid "reject"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:89
+#: symposion/templates/teams/team_detail.html:82
+msgid "Invitees"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:101
+#: symposion/templates/teams/team_detail.html:94
+msgid "Invite User to Team"
+msgstr ""
+
+#: pycon/templates/teams/team_detail.html:104
+#: symposion/templates/teams/team_detail.html:97
+msgid "Invite"
+msgstr ""
+
+#: pycon/templates/venue/base.html:13
+msgid "Venue Information"
+msgstr ""
+
+#: pycon/templates/venue/detail.html:25
+msgid "Hotels"
+msgstr ""
+
+#: symposion/cms/models.py:21
+msgid "Draft"
+msgstr ""
+
+#: symposion/cms/models.py:22
+msgid "Public"
+msgstr ""
+
+#: symposion/cms/models.py:54
+msgid "Path can only contain letters, numbers and hyphens and end with /"
+msgstr ""
+
+#: symposion/conference/models.py:18
+msgid "title"
+msgstr ""
+
+#: symposion/conference/models.py:21 symposion/conference/models.py:61
+msgid "start date"
+msgstr ""
+
+#: symposion/conference/models.py:22 symposion/conference/models.py:62
+msgid "end date"
+msgstr ""
+
+#: symposion/conference/models.py:25
+msgid "timezone"
+msgstr ""
+
+#: symposion/conference/models.py:45
+msgid "conferences"
+msgstr ""
+
+#: symposion/conference/models.py:68
+msgid "section"
+msgstr ""
+
+#: symposion/conference/models.py:69
+msgid "sections"
+msgstr ""
+
+#: symposion/proposals/forms.py:48
+msgid "Comma-separated list of tags"
+msgstr ""
+
+#: symposion/proposals/models.py:33
+msgid "When submissions open"
+msgstr ""
+
+#: symposion/proposals/models.py:35
+msgid "When submissions close"
+msgstr ""
+
+#: symposion/proposals/models.py:72
+#: symposion/templates/conference/user_list.html:63
+msgid "Name"
+msgstr ""
+
+#: symposion/proposals/models.py:87
+#: symposion/templates/proposals/_proposal_fields.html:53
+#: symposion/templates/schedule/presentation_detail.html:33
+msgid "Description"
+msgstr ""
+
+#: symposion/proposals/models.py:92
+msgid "Detailed Abstract"
+msgstr ""
+
+#: symposion/proposals/models.py:93
+msgid "Detailed description. Will be made public if your talk is accepted."
+msgstr ""
+
+#: symposion/proposals/models.py:98
+msgid ""
+"Anything else you'd like the program committee to know when making their "
+"selection: your past speaking experience, open source community experience, "
+"etc."
+msgstr ""
+
+#: symposion/proposals/models.py:163
+msgid "Pending"
+msgstr ""
+
+#: symposion/proposals/models.py:164
+msgid "Accepted"
+msgstr ""
+
+#: symposion/proposals/models.py:165
+msgid "Declined"
+msgstr ""
+
+#: symposion/social_auth/views.py:33
+msgid ""
+"Cannot remove the only Social Account without first setting a Password or "
+"adding another Social Account."
+msgstr ""
+
+#: symposion/social_auth/views.py:39
+#, python-format
+msgid "Removed the %(provider)s account '%(uid)s'."
+msgstr ""
+
+#: symposion/sponsorship/models.py:33
+msgid "contact_name"
+msgstr ""
+
+#: symposion/sponsorship/models.py:34
+msgid "Contact e‑mail"
+msgstr ""
+
+#: symposion/sponsorship/models.py:35
+msgid "logo"
+msgstr ""
+
+#: symposion/templates/_sponsorship_link.html:5
+msgid "Sponsorship available."
+msgstr ""
+
+#: symposion/templates/about/what_next.html:5
+#: symposion/templates/about/what_next.html:8
+msgid "What Next?"
+msgstr ""
+
+#: symposion/templates/about/what_next.html:23
+#, python-format
+msgid ""
+"Start by <a href=\"%(signup_url)s\">signing up</a> and <a href="
+"\"%(login_url)s\">logging in</a>."
+msgstr ""
+
+#: symposion/templates/account/_openid_sidebar.html:5
+#: symposion/templates/social_auth/usersocialauth_list.html:47
+msgid "Sign in with another account:"
+msgstr ""
+
+#: symposion/templates/account/_openid_sidebar.html:17
+msgid "Sign in with OpenID"
+msgstr ""
+
+#: symposion/templates/account/_openid_sidebar.html:21
+msgid "Sign in"
+msgstr ""
+
+#: symposion/templates/account/base.html:13
+#: symposion/templates/social_auth/usersocialauth_list.html:4
+#: symposion/templates/social_auth/usersocialauth_list.html:7
+msgid "Associations"
+msgstr ""
+
+#: symposion/templates/biblion/blog_list.html:26
+#: symposion/templates/biblion/blog_post.html:20
+msgid "Not published yet"
+msgstr ""
+
+#: symposion/templates/biblion/blog_list.html:32
+msgid "Read more..."
+msgstr ""
+
+#: symposion/templates/biblion/blog_list.html:36
+msgid "No posts have been published."
+msgstr ""
+
+#: symposion/templates/boxes/box.html:15
+msgid ""
+"Content is processed using <a href=\"http://daringfireball.net/projects/"
+"markdown/syntax\" target=\"_blank\">Markdown</a>"
+msgstr ""
+
+#: symposion/templates/boxes/box.html:34
+msgid "Edit this content"
+msgstr ""
+
+#: symposion/templates/cms/file_create.html:6
+#: symposion/templates/cms/file_create.html:11
+msgid "Upload File"
+msgstr ""
+
+#: symposion/templates/cms/file_create.html:16
+msgid "Upload"
+msgstr ""
+
+#: symposion/templates/cms/file_index.html:5
+msgid "Uploaded Files"
+msgstr ""
+
+#: symposion/templates/cms/file_index.html:19
+msgid "Uploaded"
+msgstr ""
+
+#: symposion/templates/cms/file_index.html:22
+msgid "No uploaded files."
+msgstr ""
+
+#: symposion/templates/cms/file_index.html:27
+msgid "Add File"
+msgstr ""
+
+#: symposion/templates/cms/page_edit.html:9
+msgid "Create Page"
+msgstr ""
+
+#: symposion/templates/cms/page_edit.html:11
+msgid "Edit page at:"
+msgstr ""
+
+#: symposion/templates/conference/user_list.html:7
+#: symposion/templates/conference/user_list.html:59
+msgid "User List"
+msgstr ""
+
+#: symposion/templates/conference/user_list.html:62
+msgid "Email"
+msgstr ""
+
+#: symposion/templates/conference/user_list.html:64
+msgid "Speaker Profile?"
+msgstr ""
+
+#: symposion/templates/conference/user_list.html:76
+msgid "create"
+msgstr ""
+
+#: symposion/templates/emails/teams_user_applied/message.html:3
+#, python-format
+msgid ""
+"\n"
+"    <p>\n"
+"        User \"%(username)s\" has applied to join <b>%(team_name)s</b> on "
+"%(site_name)s.\n"
+"    </p>\n"
+"\n"
+"    <p>\n"
+"        To accept this application and see any other pending applications, "
+"visit the following url:\n"
+"        <a href=\"http://%(site_url)s%(team_url)s\">http://%(site_url)s"
+"%(team_url)s</a>\n"
+"    </p>\n"
+msgstr ""
+
+#: symposion/templates/emails/teams_user_applied/subject.txt:1
+#, python-format
+msgid "%(username)s has applied to to join \"%(team)s\""
+msgstr ""
+
+#: symposion/templates/emails/teams_user_invited/message.html:3
+#, python-format
+msgid ""
+"\n"
+"    <p>\n"
+"        You have been invited to join <b>%(team_name)s</b> on "
+"%(site_name)s.\n"
+"    </p>\n"
+"\n"
+"    <p>\n"
+"        To accept this invitation, visit the following url:\n"
+"        <a href=\"http://%(site_url)s%(team_url)s\">http://%(site_url)s"
+"%(team_url)s</a>\n"
+"    </p>\n"
+msgstr ""
+
+#: symposion/templates/emails/teams_user_invited/subject.txt:1
+#, python-format
+msgid "You have been invited to join \"%(team)s\""
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:4
+msgid "Submitted by"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:8
+#: symposion/templates/reviews/_review_table.html:9
+msgid "Tags"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:13
+#: symposion/templates/reviews/_review_table.html:8
+#: symposion/templates/reviews/result_notification.html:47
+msgid "Category"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:16
+msgid "Python Level"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:21
+msgid "Audience"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:29
+msgid "Duration"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:34
+msgid "Domain Level"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:39
+msgid "Additional Speakers"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:46
+msgid "Invitation Sent"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:57
+#: symposion/templates/schedule/presentation_detail.html:37
+msgid "Abstract"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:69
+msgid "Notes"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:72
+msgid "Speaker Bio"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:75
+msgid "Additional Requirements"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:90
+msgid "Slide Deck"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:99
+msgid "Documents"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:28
+msgid "Edit this proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:31
+msgid "Cancel this proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:35
+msgid "Remove me from this proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:53
+#: symposion/templates/reviews/review_detail.html:88
+msgid "Proposal Details"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:55
+msgid "Supporting Documents"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:58
+msgid "Reviewer Feedback"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_submit.html:6
+msgid "Submit A Proposal"
+msgstr ""
+
+#: symposion/templates/registration/login.html:10
+msgid "Redirecting to CTE..."
+msgstr ""
+
+#: symposion/templates/registration/login.html:25
+msgid "Please wait while we redirect you to registration."
+msgstr ""
+
+#: symposion/templates/registration/register.html:5
+msgid "Registration and Housing"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:11
+msgid "+1"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:12
+msgid "+0"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:13
+msgid "-0"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:14
+msgid "-1"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:15
+msgid "Online Result Status"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:16
+msgid "Overall Status"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:18
+msgid "Update Overall Status"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:21
+msgid "Rejection Status"
+msgstr ""
+
+#: symposion/templates/reviews/_review_table.html:22
+msgid "Damage Score"
+msgstr ""
+
+#: symposion/templates/reviews/base.html:98
+msgid "Voting Status"
+msgstr ""
+
+#: symposion/templates/reviews/result_notification.html:49
+msgid "Notified?"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:90
+msgid "Speaker Feedback"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:101
+msgid "Edit proposal tags"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:112
+msgid "Submit Tags"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:120
+msgid "Current Results"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:127
+msgid "Total Responses"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:144
+msgid "Submit Review"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:182
+msgid "Conversation with the submitter"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:196
+msgid "Send a message"
+msgstr ""
+
+#: symposion/templates/reviews/review_detail.html:198
+msgid ""
+"\n"
+"                            If you'd like to communicate with the submitter, "
+"use the following form and he or she will be\n"
+"                            notified and given the opportunity to respond.\n"
+"                        "
+msgstr ""
+
+#: symposion/templates/reviews/review_list.html:6
+msgid "Use Search to filter by speaker, category, tags, etc."
+msgstr ""
+
+#: symposion/templates/schedule/_slot_edit.html:5
+msgid "Edit Slot"
+msgstr ""
+
+#: symposion/templates/schedule/presentation_detail.html:6
+msgid "Presentation: "
+msgstr ""
+
+#: symposion/templates/schedule/presentation_detail.html:26
+msgid "Audience level:"
+msgstr ""
+
+#: symposion/templates/schedule/presentation_detail.html:28
+msgid "Category:"
+msgstr ""
+
+#: symposion/templates/schedule/schedule_conference.html:8
+#: symposion/templates/schedule/schedule_conference.html:19
+#: symposion/templates/schedule/schedule_detail.html:9
+msgid "Conference Schedule"
+msgstr ""
+
+#: symposion/templates/schedule/schedule_detail.html:20
+#, python-format
+msgid "%(schedule.section)s Schedule"
+msgstr ""
+
+#: symposion/templates/schedule/schedule_edit.html:7
+msgid "Conference Schedule Edit"
+msgstr ""
+
+#: symposion/templates/schedule/schedule_edit.html:21
+msgid "Schedule Edit"
+msgstr ""
+
+#: symposion/templates/schedule/schedule_list.html:7
+msgid "Presentation Listing"
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:11
+msgid "Session Detail"
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:20
+msgid "Session Chair"
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:43
+#: symposion/templates/schedule/session_detail.html:73
+#, python-format
+msgid ""
+"<a href=\"%(profile_edit)s?next=%(request.path)s\">Click here to create a "
+"volunteer profile</a> and enable volunteering for session roles."
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:47
+#, python-format
+msgid ""
+"Sign up and <a href=\"%(account_login)s?next=%(request.path)s\">log in</a> "
+"to volunteer to be session chair."
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:51
+msgid "Session Runner"
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:76
+#, python-format
+msgid ""
+"Sign up and <a href=\"%(account_login)s?next=%(request.path)s\">log in</a> "
+"to volunteer to be session runner."
+msgstr ""
+
+#: symposion/templates/schedule/session_detail.html:91
+#: symposion/templates/schedule/session_list.html:33
+msgid "No slots in session."
+msgstr ""
+
+#: symposion/templates/schedule/session_list.html:6
+msgid "Sessions"
+msgstr ""
+
+#: symposion/templates/schedule/session_list.html:12
+#, python-format
+msgid "Session #%(session.id)s"
+msgstr ""
+
+#: symposion/templates/schedule/session_list.html:20
+msgid "No volunteers signed up"
+msgstr ""
+
+#: symposion/templates/schedule/session_list.html:23
+msgid "Slots"
+msgstr ""
+
+#: symposion/templates/schedule/session_list.html:40
+msgid "No sessions defined."
+msgstr ""
+
+#: symposion/templates/social_auth/usersocialauth_list.html:15
+msgid "Remove"
+msgstr ""
+
+#: symposion/templates/social_auth/usersocialauth_list.html:19
+msgid "You don't have any social accounts associated."
+msgstr ""
+
+#: symposion/templates/speakers/speaker_profile.html:40
+msgid "Presentations"
+msgstr ""
+
+#: symposion/templates/speakers/speaker_profile.html:52
+msgid ""
+"No presentations. This page is only visible to staff until there is a "
+"presentation."
+msgstr ""
+
+#: symposion/templates/sponsorship/apply.html:23
+#, python-format
+msgid ""
+"By submitting this sponsor application you are agreeing to the <a href="
+"\"%(terms)s\" target=\"_blank\">terms and conditions</a>."
+msgstr ""
+
+#: symposion/templates/sponsorship/detail.html:19
+#, python-format
+msgid "%(sponsor.level)s Sponsor Benefits"
+msgstr ""
+
+#: symposion/templates/sponsorship/jobs.html:17
+#: symposion/templates/sponsorship/list.html:18
+msgid "Learn how to become a sponsor"
+msgstr ""
+
+#: symposion/templates/static/speaker_detail.html:5
+msgid "Speaker Name"
+msgstr ""
+
+#: symposion/templates/static/sponsors.html:5
+msgid "Sponsors"
+msgstr ""
+
+#: symposion/templates/static/venue.html:5
+#: symposion/templates/venue/detail.html:6
+msgid "Venue"
+msgstr ""
+
+#: symposion/templates/teams/team_detail.html:38
+msgid ""
+"You have been invited to join this team. Click <b>join</b> to the right to "
+"accept.<"
+msgstr ""
+
+#: symposion/templates/teams/team_detail.html:48
+msgid "demote"
+msgstr ""

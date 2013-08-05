@@ -6,7 +6,7 @@
 {% load teams_tags %}
 {% load boxes_tags %}
 
-{% block head_title %}Dashboard{% endblock %}
+{% block head_title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block body_class %}auth{% endblock %}
 
@@ -16,60 +16,60 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-
+                
                 <div class="dashboard-top">
                 {% box "dashboard_top" %}
                 </div>
-
+                
                 <div class="box">
                     <div class="box-head">
-                        <h2>Speaking</h2>
+                        <h2>{% trans "Speaking" %}</h2>
                     </div>
                     <div class="box-content">
                         {% if user.speaker_profile %}
                             <div class="actions">
                                 <a href="{% url 'speaker_edit' %}" class="action">
                                     <i class="widget-icon icon-pencil"></i>
-                                    <span class="widget-label">Edit your speaker profile</span>
+                                    <span class="widget-label">{% trans "Edit your speaker profile" %}</span>
                                 </a>
 
                                 {% if proposals_are_open %}
                                   <a href="{% url 'proposal_submit' %}" class="action">
                                       <i class="widget-icon  icon-bullhorn"></i>
-                                      <span class="widget-label">Submit a new proposal</span>
+                                      <span class="widget-label">{% trans "Submit a new proposal" %}</span>
                                   </a>
                                 {% endif %}
                             </div>
 
                             <section class="subsection">
-                                <h4>Your Proposals</h4>
+                                <h4>{% trans "Your Proposals" %}</h4>
                                 {% if user.speaker_profile.proposals.exists %}
                                     <table class="table">
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Session type</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>{% trans "Title" %}</th>
+                                            <th>{% trans "Session type" %}</th>
+                                            <th>{% trans "Status" %}</th>
+                                            <th>{% trans "Actions" %}</th>
                                         </tr>
                                         {% for proposal in user.speaker_profile.proposals.all %}
                                             {% include "proposals/_proposal_row.html" %}
                                         {% endfor %}
                                     </table>
                                 {% else %}
-                                    <p>No proposals submitted yet.</p>
+                                    <p>{% trans "No proposals submitted yet." %}</p>
                                 {% endif %}
                             </section>
 
                             {% associated_proposals as associated_proposals %}
                             {% if associated_proposals %}
                                 <section class="subsection">
-                                    <h4>Proposals you have joined as an additional speaker</h4>
+                                    <h4>{% trans "Proposals you have joined as an additional speaker" %}</h4>
                                     <table class="table">
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Session type</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>{% trans "Title" %}</th>
+                                            <th>{% trans "Session type" %}</th>
+                                            <th>{% trans "Status" %}</th>
+                                            <th>{% trans "Actions" %}</th>
                                         </tr>
                                         {% for proposal in associated_proposals %}
                                             {% include "proposals/_proposal_row.html" %}
@@ -81,13 +81,13 @@
                             {% pending_proposals as pending_proposals %}
                             {% if pending_proposals %}
                                 <section class="subsection">
-                                    <h4>Proposals you have been invited to join</h4>
+                                    <h4>{% trans "Proposals you have been invited to join" %}</h4>
                                     <table class="table">
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Session type</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th>{% trans "Title" %}</th>
+                                            <th>{% trans "Session type" %}</th>
+                                            <th>{% trans "Status" %}</th>
+                                            <th>{% trans "Actions" %}</th>
                                         </tr>
                                         {% for proposal in pending_proposals %}
                                             {% include "proposals/_pending_proposal_row.html" %}
@@ -97,11 +97,11 @@
                             {% endif %}
 
                         {% elif proposals_are_open %}
-                            <p>To submit a proposal, first create a speaker profile.</p>
+                            <p>{% trans "To submit a proposal, first create a speaker profile." %}</p>
                             <div class="actions">
                                 <a href="{% url 'speaker_create' %}" class="action">
                                     <i class="widget-icon icon-user"></i>
-                                    <span class="widget-label">Create a speaker profile</span>
+                                    <span class="widget-label">{% trans "Create a speaker profile" %}</span>
                                 </a>
                             </div>
                         {% endif %}
@@ -112,23 +112,23 @@
                     <div class="dashboard-panel">
                         <div class="dashboard-panel-header">
                             <i class="icon-bullhorn"></i>
-                            <h3>Speaking</h3>
+                            <h3>{% trans "Speaking" %}</h3>
                             <div class="pull-right" style="margin-right: 10px">
                                 <a href="{% url 'speaker_edit' %}" class="btn">
                                     <i class="widget-icon icon-pencil"></i>
-                                    Edit your speaker profile
+                                    {% trans "Edit your speaker profile" %}
                                 </a>
                             </div>
                         </div>
                         <div class="dashboard-panel-content">
                             {% if user.speaker_profile %}
-                                    <h4>Your Presentations</h4>
+                                    <h4>{% trans "Your Presentations" %}</h4>
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Session Type</th>
-                                                <th>Title</th>
-                                                <th>Slot</th>
+                                                <th>{% trans "Session Type" %}</th>
+                                                <th>{% trans "Title" %}</th>
+                                                <th>{% trans "Slot" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -186,18 +186,18 @@
                 <div class="dashboard-panel">
                     <div class="dashboard-panel-header">
                         <i class="icon-briefcase"></i>
-                        <h3>Sponsorship</h3>
+                        <h3>{% trans "Sponsorship" %}</h3>
                     </div>
                     <div class="dashboard-panel-content">
                         <div class="actions">
                             <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="action">
                                 <i class="widget-icon icon-info-sign"></i>
-                                <span class="widget-label">Learn about sponsorship</span>
+                                <span class="widget-label">{% trans "Learn about sponsorship" %}</span>
                             </a>
                             {% if not user.sponsorships.exists %}
                                 <a href="{% url 'sponsor_apply' %}" class="action">
                                     <i class="widget-icon icon-money"></i>
-                                    <span class="widget-label">Apply to be a sponsor</span>
+                                    <span class="widget-label">{% trans "Apply to be a sponsor" %}</span>
                                 </a>
                             {% endif %}
                             {% if user.is_staff %}
@@ -210,7 +210,7 @@
 
                         {% if user.sponsorships.exists %}
                             <section class="subsection">
-                                <h4>Your Sponsorship</h4>
+                                <h4>{% trans "Your Sponsorship" %}</h4>
                                 <ul>
                                     {% for sponsorship in user.sponsorships.all %}
                                         <li>
@@ -220,7 +220,7 @@
                                             {% else %}
                                                 <b>{{ sponsorship.name }}</b>
                                                 ({{ sponsorship.level }})
-                                                <span class="label label-warning">awaiting approval</span>
+                                                <span class="label label-warning">{% trans "awaiting approval" %}</span>
                                             {% endif %}
                                         </li>
                                     {% endfor %}
@@ -238,7 +238,7 @@
                         </div>
                         {% user_reviews as user_reviews %}
                         <div class="dashboard-panel-content">
-                            <h4>Review Sections</h4>
+                            <h4>{% trans "Review Sections" %}</h4>
 
                             <ul>
                                 {% for section in review_sections %}
@@ -246,12 +246,12 @@
                                 {% endfor %}
                             </ul>
 
-                            <h4>Proposals you have reviewed</h4>
+                            <h4>{% trans "Proposals you have reviewed" %}</h4>
                             <table class="table table-condensed">
                                 <thead>
                                     <th>#</th>
-                                    <th>Speaker / Title</th>
-                                    <th>Your Vote</th>
+                                    <th>{% trans "Speaker / Title" %}</th>
+                                    <th>{% trans "Your Vote" %}</th>
                                 </thead>
                                 <tbody>
                                     {% for review in user_reviews %}
@@ -302,7 +302,7 @@
 
                         <div class="dashboard-panel-content">
                             {% if user.memberships.exists %}
-                                <h4>Your Teams</h4>
+                                <h4>{% trans "Your Teams" %}</h4>
                                 <table class="table table-striped">
                                     {% for membership in user.memberships.all %}
                                         <tr>
@@ -315,7 +315,7 @@
                                             </td>
                                             <td>
                                                 {% if membership.state == "manager" or user.is_staff %}
-                                                    {% if membership.team.applicants %}{{ membership.team.applicants.count }} applicant{{ membership.team.applicants.count|pluralize }}{% endif %}
+                                                    {% if membership.team.applicants %}{{ membership.team.applicants.count }} {% trans "applicant" %}{{ membership.team.applicants.count|pluralize }}{% endif %}
                                                 {% endif %}
                                             </td>
                                         </tr>
@@ -323,7 +323,7 @@
                                 </table>
                             {% endif %}
                             {% if available_teams %}
-                                <h4>Available Teams</h4>
+                                <h4>{% trans "Available Teams" %}</h4>
                                 <table class="table table-striped">
                                     {% for team in available_teams %}
                                         <tr>

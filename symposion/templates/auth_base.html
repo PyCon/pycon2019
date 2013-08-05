@@ -1,5 +1,7 @@
 {% extends "site_base.html" %}
 
+{% load i18n %}
+
 {% block body_class %}auth{% endblock %}
 
 {% block body_outer %}
@@ -9,7 +11,7 @@
                 <h1>{% block page_title %}{% endblock %}</h1>
                 {% block breadcrumbs %}
                     <ul class="breadcrumb">
-                        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'dashboard' %}">{% trans "Dashboard" %}</a></li>
                     </ul>
                 {% endblock %}
             </div>

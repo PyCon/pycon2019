@@ -18,8 +18,8 @@ from .managers import PublishedPageManager
 class Page(models.Model):
 
     STATUS_CHOICES = (
-        (1, _("Draft")),
-        (2, _("Public")),
+        (1, _(u"Draft")),
+        (2, _(u"Public")),
     )
 
     title = models.CharField(max_length=100)
@@ -52,7 +52,7 @@ class Page(models.Model):
     def clean_fields(self, exclude=None):
         super(Page, self).clean_fields(exclude)
         if not re.match(settings.SYMPOSION_PAGE_REGEX, self.path):
-            raise ValidationError({"path": [_("Path can only contain letters, numbers and hyphens and end with /")]})
+            raise ValidationError({"path": [_(u"Path can only contain letters, numbers and hyphens and end with /")]})
 
 
 reversion.register(Page)
