@@ -60,9 +60,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
 
     def __init__(self, *args, **kwargs):
         super(PyConLightningTalkProposalForm, self).__init__(*args, **kwargs)
-        # TODO: This is a hack to populate the field...
-        self.fields['category'].widget = forms.HiddenInput()
-        self.fields['category'].initial = PyConProposalCategory.objects.all()[0]
         self.fields['audience_level'].widget = forms.HiddenInput()
         self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
 

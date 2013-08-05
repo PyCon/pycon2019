@@ -9,10 +9,10 @@
         <dd>{{ proposal.get_tags_display }}&nbsp;</dd>
     {% endif %}
 
-    {% if proposal.kind.slug != "lightning-talk" %}
-        <dt>{% trans "Category" %}</dt>
-        <dd>{{ proposal.category }}&nbsp;</dd>
+    <dt>{% trans "Category" %}</dt>
+    <dd>{{ proposal.category }}&nbsp;</dd>
 
+    {% if proposal.kind.slug != "lightning-talk" %}
         <dt>{% trans "Python Level" %}</dt>
         <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
     {% endif %}
