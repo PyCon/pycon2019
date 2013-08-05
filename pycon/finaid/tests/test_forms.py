@@ -26,8 +26,6 @@ class FinancialAidTest(TestCase):
             presenting=1,
             hotel_nights=0,
             travel_amount_requested="0.00",
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
         instance = FinancialAidApplication(user=user)
         form = FinancialAidApplicationForm(data, instance=instance)

@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load compress %}
+
+<table class="table table-striped table-bordered table-reviews">
+    <thead>
+        <th>#</th>
+        <th>{% trans "Applicant" %}</th>
+    </thead>
+
+    <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.user }}</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% compress js %}
+<script src="{{ STATIC_URL }}datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}tabletools/js/TableTools.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}datatables/js/dataTables.bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".tip").tooltip();
+        var cols = [0 ];
+        $("table.table-reviews").dataTable({
+            "sDom": "<'row'<'span3'l><'span3'T><'span4'f>r>t<'row'<'span3'i><'span5'p>>",
+            "sPaginationType": "bootstrap",
+            "bStateSave": true,
+            "oTableTools": {
+                "aButtons": [
+                    {
+                        "sExtends": "copy",
+                        "mColumns": cols
+                    },
+                    {
+                        "sExtends": "csv",
+                        "mColumns": cols,
+                        "sFileName": "Applications.csv"
+                    },
+                    {
+                        "sExtends": "print",
+                        "mColumns": cols
+                    },
+                ],
+                "sSwfPath": "{{ STATIC_URL }}tabletools/swf/copy_csv_xls.swf"
+            }
+        });
+    });
+</script>
+{% endcompress %}

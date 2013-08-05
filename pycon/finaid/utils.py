@@ -6,7 +6,7 @@ from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod
 
 
-DEFAULT_EMAIL_ADDRESS = "pycon-aid@pycon.org"
+DEFAULT_EMAIL_ADDRESS = "pycon-aid@python.org"
 
 
 def applications_open():
@@ -21,10 +21,10 @@ def applications_open():
 
 def is_reviewer(user):
     """Return True if this user is a financial aid reviewer"""
-    # FIXME - not implemented yet
-    # Cache on user object when we do implement it, since we call
-    # this repeatedly on the same user
-    return False
+    # no need to cache here, all the DB lookups used during has_perm
+    # are already cached
+
+    return user.has_perm("finaid.review_financial_aid")
 
 
 def has_application(user):
@@ -44,11 +44,29 @@ def email_address():
     Return the email address that financial aid emails should come from,
     applications should send emails to with questions, etc.
 
-    Default is ``pycon-aid@pycon.org``. Override by setting
+    Default is ``pycon-aid@python.org``. Override by setting
     FINANCIAL_AID['email'].
     """
     return getattr(settings, "FINANCIAL_AID", {})\
         .get('email', DEFAULT_EMAIL_ADDRESS)
+
+
+def email_context(request, application, message=None):
+    """
+    Return a dictionary with the context to be used when constructing
+    email messages about this application from a template.
+    """
+    applicant_url = request.build_absolute_uri(application.applicant_url())
+    reviewer_url = request.build_absolute_uri(application.reviewer_url())
+    context = {
+        'user': request.user,
+        'message': message,
+        'application': application,
+        'applicant': application.user,
+        'applicant_url': applicant_url,
+        'reviewer_url': reviewer_url,
+    }
+    return context
 
 
 def send_email_message(template_name, from_, to, context):
@@ -56,8 +74,8 @@ def send_email_message(template_name, from_, to, context):
     Send an email message.
 
     :param template_name: Use to construct the real template names for the
-    subject and body like this: "finaid/email/%(template_name)s_subject.txt"
-    and "finaid/email/%(template_name)s_body.txt"
+    subject and body like this: "finaid/email/%(template_name)s/subject.txt"
+    and "finaid/email/%(template_name)s/body.txt"
     :param from_: From address to use
     :param to: List of addresses to send to
     :param context: Dictionary with context to use when rendering the
@@ -65,7 +83,7 @@ def send_email_message(template_name, from_, to, context):
     """
     context = Context(context)
 
-    name = "finaid/email/%s_subject.txt" % template_name
+    name = "finaid/email/%s/subject.txt" % template_name
     subject_template = get_template(name)
     subject = subject_template.render(context)
     # subjects must be a single line, no newlines
@@ -74,7 +92,7 @@ def send_email_message(template_name, from_, to, context):
     # not valid.
     subject = subject.rstrip(u"\n")
 
-    name = "finaid/email/%s_body.txt" % template_name
+    name = "finaid/email/%s/body.txt" % template_name
     body_template = get_template(name)
     body = body_template.render(context)
 

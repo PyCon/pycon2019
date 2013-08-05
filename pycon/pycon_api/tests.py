@@ -36,7 +36,7 @@ class RawDataClientMixin(object):
         return self.client.request(**r)
 
 
-class PyconIRCLogsApiTest(TestCase, RawDataClientMixin):
+class PyConIRCLogsApiTest(TestCase, RawDataClientMixin):
     def setUp(self):
         self.auth_key = APIAuth.objects.create(name="test")
         self.proposal = PyConTalkProposalFactory.create()
@@ -170,7 +170,7 @@ class PyconIRCLogsApiTest(TestCase, RawDataClientMixin):
         self.assertEqual(404, rsp.status_code)
 
 
-class PyconProposalDataApiTest(TestCase, RawDataClientMixin):
+class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
     def setUp(self):
         self.auth_key = APIAuth.objects.create(name="test")
         self.proposal = PyConTalkProposalFactory.create()

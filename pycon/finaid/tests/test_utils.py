@@ -38,8 +38,6 @@ class TestFinAidUtils(TestCase):
             want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
-            hotel_arrival_date=today,
-            hotel_departure_date=today,
         )
         self.assertTrue(has_application(user))
 
@@ -104,10 +102,6 @@ class TestFinAidUtils(TestCase):
         )
         self.assertTrue(applications_open())
 
-    def test_is_reviewer(self):
-        # FIXME - write me once is_reviewer is implemented
-        pass
-
     def test_email_address_default(self):
         # If not set, email address is the default.
         # Set dummy FINANCIAL_AID just so we can delete the setting, and
@@ -145,11 +139,11 @@ class TestSendEmailMessage(unittest.TestCase):
         send_email_message("TESTNAME", "from_address", [1, 2], context)
 
         args, kwargs = get_template.call_args_list[0]
-        expected_template_name = "finaid/email/TESTNAME_subject.txt"
+        expected_template_name = "finaid/email/TESTNAME/subject.txt"
         self.assertEqual(expected_template_name, args[0])
 
         args, kwargs = get_template.call_args_list[1]
-        expected_template_name = "finaid/email/TESTNAME_body.txt"
+        expected_template_name = "finaid/email/TESTNAME/body.txt"
         self.assertEqual(expected_template_name, args[0])
 
         send_mail.assert_called_with("test template",
