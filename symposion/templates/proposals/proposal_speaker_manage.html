@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load bootstrap_tags %}
+{% load i18n %}
 
 {% block extra_style %}
     <link rel="stylesheet" type="text/css"
@@ -40,9 +41,8 @@ with selectable (JQuery UI)
 
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
-        <p>Lookup speaker by email, first, or last name. If a Speaker does not
-        exist for the email provided, an invitation to create an account will be
-        sent to them.
+        <p>
+            {% trans "Lookup speaker by email, first, or last name. If a Speaker does not exist for the email provided, an invitation to create an account will be sent to them." %}
         </p>
         {{ add_speaker_form|as_bootstrap }}
         <div class="form-action">
