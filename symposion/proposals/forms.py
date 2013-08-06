@@ -18,9 +18,7 @@ class AddSpeakerForm(forms.Form):
     email = selectable.AutoCompleteSelectField(
         lookup_class=UserLookup,
         allow_new=True,
-        label="Email address of new speaker (use their email address, not yours)" \
-              " If a User is not found for the supplied email, an invite will be sent" \
-              " to the new speaker.",
+        label="Email address",
         required=True,
     )
 

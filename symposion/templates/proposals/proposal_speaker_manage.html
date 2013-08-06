@@ -41,6 +41,10 @@ with selectable (JQuery UI)
 
     <form method="POST" action="" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
+        <p>Lookup speaker by email, first, or last name. If a Speaker does not
+        exist for the email provided, an invitation to create an account will be
+        sent to them.
+        </p>
         {{ add_speaker_form|as_bootstrap }}
         <div class="form-action">
             <input type="submit" value="Add speaker" class="btn btn-primary" />
