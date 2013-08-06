@@ -80,9 +80,9 @@
     <dt>{% trans "Student Handout" %}</dt>
     <dd>
         {% if proposal.handout %}
-            <a href="{{ proposal.handout.url }}">Download</a>
+            <a href="{{ proposal.handout.url }}">{% trans "Download" %}</a>
         {% else %}
-            No handout attached to this proposal.
+            {% trans "No handout attached to this proposal." %}
         {% endif %}
     </dd>
     {% endif %}
@@ -97,14 +97,14 @@
                         <td>
                         <form style="margin: 0;" method="post" action="{% url 'proposal_document_delete' document.pk %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-mini">delete</button>
+                            <button type="submit" class="btn btn-mini">{% trans "delete" %}</button>
                         </form>
                     </td>
                     </tr>
                 {% endfor %}
             </table>
         {% else %}
-            No supporting documents attached to this proposal.
+            {% trans "No supporting documents attached to this proposal." %}
         {% endif %}
     </dd>
 </dl>
