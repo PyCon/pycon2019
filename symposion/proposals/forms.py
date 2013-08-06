@@ -28,6 +28,14 @@ class AddSpeakerForm(forms.Form):
 
     def clean_email(self):
         value = self.cleaned_data["email"]
+        # django-selectable returns the user
+        if isinstance(value, UserLookup.model):
+            value = value.email
+        if value == self.proposal.speaker.email:
+            raise forms.ValidationError(
+                "You have submitted the Proposal author's email address. Please" \
+                " select another email address."
+            )
         exists = self.proposal.additional_speakers.filter(
             Q(user=None, invite_email=value) |
             Q(user__email=value)
