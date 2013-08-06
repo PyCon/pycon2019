@@ -2,18 +2,26 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
+from selectable import forms as selectable
+
 from taggit.forms import TagField
 
 from symposion.proposals.models import SupportingDocument
 
+from .lookups import UserLookup
 
 # @@@ generic proposal form
 
 
 class AddSpeakerForm(forms.Form):
 
-    email = forms.EmailField(
-        label="Email address of new speaker (use their email address, not yours)"
+    email = selectable.AutoCompleteSelectField(
+        lookup_class=UserLookup,
+        allow_new=True,
+        label="Email address of new speaker (use their email address, not yours)" \
+              " If a User is not found for the supplied email, an invite will be sent" \
+              " to the new speaker.",
+        required=True,
     )
 
     def __init__(self, *args, **kwargs):

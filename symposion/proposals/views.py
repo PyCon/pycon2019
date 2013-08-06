@@ -119,8 +119,10 @@ def proposal_speaker_manage(request, pk):
                 else:
                     token = pending.invite_token
                 return pending, token
+
             email_address = add_speaker_form.cleaned_data["email"]
             # check if email is on the site now
+
             users = EmailAddress.objects.get_users_for(email_address)
             if users:
                 # should only be one since we enforce unique email
