@@ -4,8 +4,6 @@ from django.core.exceptions import ValidationError
 from django.template.defaultfilters import wordcount
 from django.utils.translation import ugettext_lazy as _
 
-from markedit.widgets import MarkEdit
-
 from symposion.speakers.models import Speaker
 
 
@@ -29,9 +27,6 @@ class SpeakerForm(forms.ModelForm):
             "twitter_username",
             "sessions_preference"
         ]
-        widgets = {
-            "biography": MarkEdit(),
-        }
 
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]

@@ -18,7 +18,9 @@ class Speaker(models.Model):
                             help_text=_(u"As you would like it to appear in "
                                         u"the conference program."))
     biography = models.TextField(
-        help_text=_(u"A little bit about you. 100 words or less, please."))
+        help_text=_(u"A little bit about you. 100 words or less, please. This "
+                    u"will be used in print publications so please keep it "
+                    u"simple, no links or formatting."))
     photo = models.ImageField(upload_to="speaker_photos", blank=True)
     twitter_username = models.CharField(
         max_length = 15,
