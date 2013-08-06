@@ -1,11 +1,11 @@
 {% extends "site_base.html" %}
 
 {% block body %}
-    <h3>Leaving {{ proposal.title }}</h3>
+    <h3>{% blocktrans with title=proposal.title %}Leaving {{ title }}{% endblocktrans %}</h3>
     
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        <p>Are you sure you wish to leave as a speaker on <b>{{ proposal.title }}</b>?</p>
-        <input type="submit" class="btn btn-primary" value="I am sure" />
+        <p>{% blocktrans with title=proposal.title %}Are you sure you wish to leave as a speaker on <b>{{ title }}</b>?{% endblocktrans %}</p>
+        <input type="submit" class="btn btn-primary" value="{% trans "I am sure" %}" />
     </form>
 {% endblock %}

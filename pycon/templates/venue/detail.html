@@ -3,9 +3,9 @@
 {% load i18n %}
 {% load sitetree %}
 
-{% block head_title %}Venue Details{% endblock %}
+{% block head_title %}{% trans "Venue Details" %}{% endblock %}
 
-{% block page_title %}Venue Details{% endblock %}
+{% block page_title %}{% trans "Venue Details" %}{% endblock %}
 
 {% block body %}
     <h1>Palais des congrès de Montréal</h1>
@@ -18,7 +18,7 @@
     <div class="map-container">
         <iframe width="695" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?ie=UTF8&amp;cid=1717205379190898583&amp;q=Montreal+Convention+Centre&amp;gl=US&amp;hl=en&amp;t=m&amp;z=12&amp;iwloc=A&amp;output=embed"></iframe>
 
-        <a href="https://maps.google.com/maps?ie=UTF8&amp;cid=1717205379190898583&amp;q=Montreal+Convention+Centre&amp;gl=US&amp;hl=en&amp;t=m6&amp;z=16&amp;iwloc=A&amp;source=embed" class="btn btn-primary">View Larger Map</a>
+        <a href="https://maps.google.com/maps?ie=UTF8&amp;cid=1717205379190898583&amp;q=Montreal+Convention+Centre&amp;gl=US&amp;hl=en&amp;t=m6&amp;z=16&amp;iwloc=A&amp;source=embed" class="btn btn-primary">{% trans "View Larger Map" %}</a>
     </div>
     <div class="hotels">
         <h2>{% trans "Hotels" %}</h2>

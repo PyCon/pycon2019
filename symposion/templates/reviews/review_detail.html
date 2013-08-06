@@ -1,7 +1,6 @@
 {% extends "reviews/base.html" %}
 
 {% load compress %}
-{% load i18n %}
 
 {% load bootstrap_tags %}
 {% load account_tags %}
@@ -85,9 +84,9 @@
 
     <div class="tabbable">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#proposal-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
-            <li><a href="#proposal-reviews" data-toggle="tab">{% trans "Reviews" %} <span class="badge">{{ reviews|length }}</span></a></li>
-            <li><a href="#proposal-feedback" data-toggle="tab">{% trans "Speaker Feedback" %} <span class="badge">{{ proposal.messages.all|length }}</span></a></li>
+            <li class="active"><a href="#proposal-detail" data-toggle="tab">Proposal Details</a></li>
+            <li><a href="#proposal-reviews" data-toggle="tab">Reviews <span class="badge">{{ reviews|length }}</span></a></li>
+            <li><a href="#proposal-feedback" data-toggle="tab">Speaker Feedback <span class="badge">{{ proposal.messages.all|length }}</span></a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="proposal-detail">
@@ -98,7 +97,7 @@
             <div class="tab-pane" id="proposal-reviews">
 
                 {% if proposal_tags_form %}
-                    <h4>{% trans "Edit proposal tags" %}</h4>
+                    <h4>Edit proposal tags</h4>
                     <form method="POST" action="" class="form-inline">
                         {% csrf_token %}
                         {% if proposal_tags_form.non_field_errors %}
@@ -109,7 +108,7 @@
                             </div>
                         {% endif %}
                         {{ proposal_tags_form.tags }}
-                        <button type="submit" class="btn btn-primary" name="tags_submit">{% trans "Submit Tags" %}</button>
+                        <button type="submit" class="btn btn-primary" name="tags_submit">Submit Tags</button>
                         {% with field=proposal_tags_form.tags %}
                             {% include "bootstrap/_field_errors.html" %}
                             {% include "bootstrap/_field_help_text.html" %}
@@ -117,14 +116,14 @@
                     </form>
                 {% endif %}
 
-                <h4>{% trans "Current Results" %}</h4>
+                <h4>Current Results</h4>
                 <table class="table table-striped">
                     <thead>
                         <th>+1 votes</th>
                         <th>+0 votes</th>
                         <th>-0 votes</th>
                         <th>-1 votes</th>
-                        <th>{% trans "Total Responses" %}
+                        <th>Total Responses</th>
                     </thead>
                     <tbody>
                         <tr>
@@ -141,7 +140,7 @@
 
                 {% if review_form %}
                     <form method="POST" action="" class="review-form">
-                        <legend>{% trans "Submit Review" %}</legend>
+                        <legend>Submit Review</legend>
                         <p>Enter your vote and any comment to go along with it. You can revise your vote or comment multiple times with an existing vote (your previously recorded score will be replaced during calculations). <b>Your vote and comments are not public and will only be viewable by other reviewers.</b></p>
                         {% csrf_token %}
                             {{ review_form|as_bootstrap }}
@@ -179,7 +178,7 @@
             </div>
             <div class="tab-pane" id="proposal-feedback">
                 {% if review_messages %}
-                    <h3>{% trans "Conversation with the submitter" %}</h3>
+                    <h3>Conversation with the submitter</h3>
                     {% for message in review_messages %}
                         <div class="comment-box">
                             <div class="commment-content">
@@ -193,12 +192,10 @@
                 {% endif %}
 
                 <form action="" method="POST"accept-charset="utf-8">
-                    <legend>{% trans "Send a message" %}</legend>
+                    <legend>Send a message</legend>
                     <p>
-                        {% blocktrans %}
                             If you'd like to communicate with the submitter, use the following form and he or she will be
                             notified and given the opportunity to respond.
-                        {% endblocktrans %}
                     </p>
                     {% csrf_token %}
                     {{ message_form|as_bootstrap }}
