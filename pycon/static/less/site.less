@@ -314,9 +314,13 @@ header.main {
   width: 1px;
 }
 
-.required-field:before{
+.is_required {
   content: '*';
   color: @danger;
+}
+
+.required-field:before{
+  .is_required;
 }
 
 aside.list {
@@ -1546,5 +1550,14 @@ table.calendar {
       font-weight: normal;
       display:block;
     }
+  }
+}
+
+//Financial aid application form
+body.finaid {
+  // Mark travel plans as required even though technically they aren't
+  // required by the form.
+  label[for=id_travel_plans]:before {
+    .is_required;
   }
 }
