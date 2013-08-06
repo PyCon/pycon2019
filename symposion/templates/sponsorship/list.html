@@ -15,7 +15,7 @@
         <div class="span12">
             <div class="page-head">
                 <h1>{% trans "About PyCon Sponsors" %}</h1>
-                <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="read-more">Learn how to become a sponsor <span class="arrow"></span></a>
+                <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="read-more">{% trans "Learn how to become a sponsor" %} <span class="arrow"></span></a>
             </div>
         </div>
         {% cache 600 "sponsors-list" %}

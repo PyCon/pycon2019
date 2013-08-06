@@ -1,3 +1,5 @@
-<a href="{% url 'cms_page' "sponsors/prospectus/" %}">    
-	Sponsorship available! Learn more <i class="icon icon-arrow-right"></i>
+{% load i18n %}
+
+<a href="{% url 'cms_page' "sponsors/prospectus/" %}">
+	{% trans "Sponsorship available! Learn more" %} <i class="icon icon-arrow-right"></i>
 </a>

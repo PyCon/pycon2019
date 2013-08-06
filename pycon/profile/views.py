@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils.translation import ugettext as _
 
 from .models import Profile
 from .forms import ProfileForm
@@ -26,7 +27,7 @@ def profile_edit(request):
             request.user.first_name = form.cleaned_data["first_name"]
             request.user.last_name = form.cleaned_data["last_name"]
             messages.add_message(request, messages.SUCCESS,
-                "Successfully updated profile."
+                _("Successfully updated profile.")
             )
             if next:
                 return redirect(next)

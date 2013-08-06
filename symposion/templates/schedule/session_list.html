@@ -1,14 +1,15 @@
 {% extends "site_base.html" %}
 {% load account_tags %}
+{% load i18n %}
 
 {% block body %}
-    <h1>Sessions</h1>
+    <h1>{% trans "Sessions" %}</h1>
     
     <ul class="unstyled">
         {% for session in sessions %}
             {% if session.sorted_slots %}
                 <li>
-                    <a href="{% url 'schedule_session_detail' session.pk %}">Session #{{ session.id }}</a>
+                    <a href="{% url 'schedule_session_detail' session.pk %}">{% blocktrans %}Session #{{ session.id }}{% endblocktrans %}</a>
                     <div class="well">
                         <ul class="unstyled">
                             {% for role in session.sessionrole_set.all %}
@@ -16,10 +17,10 @@
                                     <b>{{ role.get_role_display }}</b>: {{ role.user.profile.display_name }}
                                 </li>
                             {% empty %}
-                                <li>No volunteers signed up</li>
+                                <li>{% trans "No volunteers signed up" %}</li>
                             {% endfor %}
                         </ul>
-                        <h4>Slots</h4>
+                        <h4>{% trans "Slots" %}</h4>
                         <table class="table">
                             {% for slot in session.sorted_slots %}
                                 <tr>
@@ -29,14 +30,14 @@
                                     </td>
                                 </tr>
                             {% empty %}
-                                <tr>No slots in session.</tr>
+                                <tr>{% trans "No slots in session." %}</tr>
                             {% endfor %}
                         </table>
                     </div>
                 </li>
             {% endif %}
         {% empty %}
-            <li>No sessions defined.</li>
+            <li>{% trans "No sessions defined." %}</li>
         {% endfor %}
     </ul>
     

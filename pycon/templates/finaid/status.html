@@ -18,7 +18,7 @@
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
-            <li><a href="#application-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ application.messages.all|length }}</span></a></li>
+            <li><a href="#application-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ visible_messages|length }}</span></a></li>
         </ul>
 
         <div class="tab-content">
@@ -32,7 +32,7 @@
               {# Note: these are only the messages that are visible to the applicant #}
               {% for message in visible_messages %}
                   <div class="review-box">
-                      <div class="comment">{{ message.message|safe }}</div>
+                      <div class="comment">{{ message.message|escape }}</div>
                       <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
                   </div>
                   <div class="clear"></div>
@@ -48,7 +48,7 @@
                       {{ form|as_bootstrap }}
                   </fieldset>
                   <div class="actions">
-                      <button type="submit" name="message_submit" class="btn primary">{% trans "Submit" %}</button>
+                      <button type="submit" name="message_submit" class="btn btn-primary">{% trans "Submit" %}</button>
                   </div>
               </form>
           </div>

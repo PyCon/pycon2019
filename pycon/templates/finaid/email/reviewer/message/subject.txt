@@ -1,0 +1,1 @@
+Message regarding {{ applicant.get_full_name|safe }}'s financial aid application

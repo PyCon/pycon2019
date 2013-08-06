@@ -1,0 +1,6 @@
+Message from {{ user.get_full_name|safe }} regarding your financial aid application.
+
+Submitted: {{ message.submitted_at }}
+Link:      {{ applicant_url }}
+
+{{ message.message|safe }}

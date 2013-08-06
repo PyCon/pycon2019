@@ -16,7 +16,7 @@
             {{ form|as_bootstrap }}
         </fieldset>
 
-        <h3>{{ sponsor.level }} Sponsor Benefits</h3>
+        <h3>{% blocktrans %}{{ sponsor.level }} Sponsor Benefits{% endblocktrans %}</h3>
 
         {{ formset.management_form }}
         {{ formset.non_form_errors }}
@@ -32,7 +32,7 @@
         {% endfor %}
 
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="save" />
+            <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
         </div>
 
     </form>

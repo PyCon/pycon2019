@@ -9,14 +9,14 @@
 
 {% block body %}
     <header class="jumbotron subhead" id="overview">
-        <h1>Update your volunteer profile</h1>
-        <p class="lead">A profile is required to volunteer with PyCon.</p>
+        <h1>{% trans "Update your volunteer profile" %}</h1>
+        <p class="lead">{% trans "A profile is required to volunteer with PyCon." %}</p>
     </header>
     <form action="{% url 'profile_edit' %}{% if next %}?next={{ next }}{% endif %}" method="POST" encType="multipart/form-data" accept-charset="utf-8" class="form-horizontal">
         {% csrf_token %}
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save Profile</button>
+            <button type="submit" class="btn btn-primary">{% trans "Save Profile" %}</button>
         </div>
     </form>
 {% endblock %}
