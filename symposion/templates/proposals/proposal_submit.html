@@ -9,7 +9,7 @@
     {% box "proposal_submit" %}
     
     {% if kinds %}
-        <p>Select what kind of proposal you'd like to submit:</p>
+        <p>{% trans "Select what kind of proposal you'd like to submit:" %}</p>
     
         <ul>
             {% for kind in kinds %}
@@ -17,6 +17,6 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>Proposals are not currently open for submission.</p>
+        <p>{% trans "Proposals are not currently open for submission." %}</p>
     {% endif %}
 {% endblock %}
