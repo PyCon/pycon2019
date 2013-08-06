@@ -26,7 +26,7 @@ class UserLookup(ModelLookup):
                 qs = qs.filter(reduce(operator.or_, search_filters))
             else:
                 # Accounts for 'John Doe' term; will compare against get_full_name
-                qs = [x for x in qs if term in x.get_full_name()]
+                qs = [x for x in qs if term.lower() in x.get_full_name().lower()]
         return qs
 
     def get_item_value(self, item):
