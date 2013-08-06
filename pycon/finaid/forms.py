@@ -1,5 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import Textarea
+from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, FinancialAidEmailTemplate
@@ -47,6 +49,12 @@ class FinancialAidApplicationForm(forms.ModelForm):
                        'class': 'fullwidth-textarea',
                        'maxlength': 200}),
         }
+
+    def clean(self):
+        data = super(FinancialAidApplicationForm, self).clean()
+        if data['travel_grant_requested'] and not data['travel_plans']:
+            raise ValidationError(_(u"Travel plans are required if requesting a travel grant."))
+        return data
 
 
 class FinancialAidReviewForm(forms.ModelForm):

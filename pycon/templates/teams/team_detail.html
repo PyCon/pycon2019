@@ -15,7 +15,7 @@
             <div class="span12">
                 {% if state %}
                     <h1>
-                        {% blocktrans %}You are a <em>{{ state }}</em> of {{ team.name }}{% endblocktrans %}
+                        {% blocktrans with name=team.name %}You are a <em>{{ state }}</em> of {{ name }}{% endblocktrans %}
                     </h1>
                 {% endif %}
 
@@ -25,25 +25,25 @@
                         <input type="submit" class="btn btn-success" value="{% trans "JOIN" %}">
                     </form>
                 {% endif %}
-                
+
                 {% if can_leave %}
                     <form class="membership" method="post" action="{% url 'team_leave' team.slug %}">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-danger" value="{% trans "LEAVE" %}">
                     </form>
                 {% endif %}
-                
+
                 {% if can_apply %}
                     <form class="membership" method="post" action="{% url 'team_apply' team.slug %}">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-primary" value="{% trans "APPLY" %}">
                     </form>
                 {% endif %}
-                
+
                 {% if team.description %}<p>{{ team.description }}</p>{% endif %}
-                
+
                 {% if state == "invited" %}<p>{% trans "You have been invited to join this team. Click <b>join</b> to the right to accept." %}</p>{% endif %}
-                
+
                 {% if user.is_staff or state == "manager" %}
                     {% if team.managers %}
                         <h2>{% trans "Managers" %}</h2>

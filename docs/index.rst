@@ -21,6 +21,7 @@ Apps:
    registration
    finaid
    deploying
+   translation
    api
 
 

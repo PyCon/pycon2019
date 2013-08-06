@@ -20,68 +20,69 @@
 
   {% if is_reviewer %}
     {# show all the things #}
-    <dt>Pyladies grant requested</dt>
+    <dt>{% trans "Pyladies grant requested" %}</dt>
     <dd>{{ application.pyladies_grant_requested }}</dd>
 
-    <dt>Registration grant requested</dt>
+    <dt>{% trans "Registration grant requested" %}</dt>
     <dd>{{ application.registration_grant_requested }}</dd>
 
-    <dt>Hotel grant requested</dt>
+    <dt>{% trans "Hotel grant requested" %}</dt>
     <dd>{{ application.hotel_grant_requested }}</dd>
 
     {% if application.hotel_grant_requested %}
-      <dt>Hotel nights</dt>
+      <dt>{% trans "Hotel nights" %}</dt>
       <dd>{{ application.hotel_nights }}</dd>
-      <dt>Sex</dt>
+      {% comment %}Translators: Sex as in male, female{% endcomment %}
+      <dt>{% trans "Sex" %}</dt>
       <dd>{{ application.get_sex_display }}</dd>
     {% endif %}
 
-    <dt>Travel grant requested</dt>
+    <dt>{% trans "Travel grant requested" %}</dt>
     <dd>{{ application.travel_grant_requested }}</dd>
 
     {% if application.travel_grant_requested %}
-      <dt>International travel</dt>
+      <dt>{% trans "International travel" %}</dt>
       <dd>{{ application.international }}</dd>
-      <dt>Travel amount requested</dt>
+      <dt>{% trans "Travel amount requested" %}</dt>
       <dd>{{ application.travel_amount_requested }}</dd>
-      <dt>Travel plans</dt>
+      <dt>{% trans "Travel plans" %}</dt>
       <dd>{{ application.travel_plans }}&nbsp;</dd>
     {% endif %}
 
-    <dt>Tutorial grant requested</dt>
+    <dt>{% trans "Tutorial grant requested" %}</dt>
     <dd>{{ application.tutorial_grant_requested }}</dd>
 
-    <dt>Profession</dt>
+    <dt>{% trans "Profession" %}</dt>
     <dd>{{ application.profession }}&nbsp;</dd>
 
-    <dt>Involvement</dt>
+    <dt>{% trans "Involvement" %}</dt>
     <dd>{{ application.involvement }}&nbsp;</dd>
 
-    <dt>What do you want to get out of attending Pycon</dt>
+    <dt>{% trans "What do you want to get out of attending Pycon" %}</dt>
     <dd>{{ application.what_you_want }}&nbsp;</dd>
 
-    <dt>What do you want to learn</dt>
+    <dt>{% trans "What do you want to learn" %}</dt>
     <dd>{{ application.want_to_learn }}&nbsp;</dd>
 
-    <dt>Portfolios</dt>
+    <dt>{% trans "Portfolios" %}</dt>
     <dd>{{ application.portfolios }}&nbsp;</dd>
 
-    <dt>Use of Python</dt>
+    <dt>{% trans "Use of Python" %}</dt>
     <dd>{{ application.use_of_python }}&nbsp;</dd>
 
-    <dt>Beginner resources</dt>
+    <dt>{% trans "Beginner resources" %}</dt>
     <dd>{{ application.beginner_resources }}&nbsp;</dd>
 
-    <dt>Presenting at Pycon</dt>
+    <dt>{% trans "Presenting at Pycon" %}</dt>
     <dd>{{ application.get_presenting_display }}</dd>
 
-    <dt>Experience level</dt>
+    <dt>{% trans "Experience level" %}</dt>
     <dd>{{ application.experience_level }}&nbsp;</dd>
 
-    <dt>Presented at Pycon before</dt>
+    <dt>{% trans "Presented at Pycon before" %}</dt>
     <dd>{{ application.presented }}</dd>
 
-    <dt>First time at Pycon</dt>
+    <dt>{% trans "First time at Pycon" %}</dt>
     <dd>{{ application.first_time }}</dd>
   {% endif %}
 </dl>
