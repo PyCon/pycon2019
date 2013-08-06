@@ -19,7 +19,7 @@ class UserLookup(ModelLookup):
         qs = self.get_queryset()
         if term:
             search_filters = []
-            if len(term.split(' ')) == 1:
+            if len(term.split()) == 1:
                 if self.search_fields:
                     for field in self.search_fields:
                         search_filters.append(Q(**{field: term}))
