@@ -2,9 +2,30 @@
 import os
 import sys
 
+# On the server, we're started with a command like
+#
+#   VENV/bin/python manage.py run_gunicorn -c path/to/gunicorn_config.py
+#
+# so it's up to manage.py to pick what Django settings to use.
+
 if __name__ == "__main__":
-    if 'test' in sys.argv:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pycon.settings.test")
+    if 'IS_PRODUCTION' in os.environ:
+        # We're on server
+
+        def truish(x):
+            # FIXME: GUESSING that we'll end up with "1" or "0" in the env
+            return bool(int(x))
+
+        if truish(os.environ['IS_PRODUCTION']):
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                                  "pycon.settings.production")
+        else:
+            os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                                  "pycon.settings.staging")
+
+    elif 'test' in sys.argv:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                              "pycon.settings.test")
     else:
         os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                               "pycon.settings.default")

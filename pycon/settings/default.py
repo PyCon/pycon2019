@@ -1,5 +1,5 @@
 # This just exists to have something to use as a default settings
-# that will try to use local_settings.py and give a useful error
+# that will try to use local.py and give a useful error
 # message if not found.
 
 import sys
