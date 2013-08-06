@@ -1,26 +1,31 @@
 import datetime
 
-from django.db import models
-from django.core.urlresolvers import reverse
-
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Speaker(models.Model):
 
     SESSION_COUNT_CHOICES = [
-        (1, "One"),
-        (2, "Two")
+        (1, _(u"One")),
+        (2, _(u"Two"))
     ]
 
     user = models.OneToOneField(User, null=True, related_name="speaker_profile")
-    name = models.CharField(max_length=100, help_text="As you would like it to appear in the conference program.")
-    biography = models.TextField(help_text="A little bit about you.")
+    name = models.CharField(max_length=100,
+                            help_text=_(u"As you would like it to appear in "
+                                        u"the conference program."))
+    biography = models.TextField(
+        help_text=_(u"A little bit about you. 100 words or less, please. This "
+                    u"will be used in print publications so please keep it "
+                    u"simple, no links or formatting."))
     photo = models.ImageField(upload_to="speaker_photos", blank=True)
     twitter_username = models.CharField(
         max_length = 15,
         blank = True,
-        help_text = "Your Twitter account"
+        help_text=_(u"Your Twitter account")
     )
     annotation = models.TextField() # staff only
     invite_email = models.CharField(max_length=200, unique=True, null=True, db_index=True)
@@ -33,7 +38,11 @@ class Speaker(models.Model):
         choices=SESSION_COUNT_CHOICES,
         null=True,
         blank=True,
-        help_text="If you've submitted multiple talk proposals, please let us know if you only want to give one or if you'd like to give two talks.  For tutorials and posters state similar preferences in the additional notes section of your proposals."
+        help_text=_(u"If you've submitted multiple talk proposals, please let "
+                    u"us know if you only want to give one or if you'd like "
+                    u"to give two talks.  For tutorials and posters, state "
+                    u"similar preferences in the additional notes section of "
+                    u"your proposals.")
     )
 
     def __unicode__(self):

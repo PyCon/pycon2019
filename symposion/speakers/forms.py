@@ -1,8 +1,8 @@
 from django import forms
 
-from django.contrib import messages
-
-from markedit.widgets import MarkEdit
+from django.core.exceptions import ValidationError
+from django.template.defaultfilters import wordcount
+from django.utils.translation import ugettext_lazy as _
 
 from symposion.speakers.models import Speaker
 
@@ -13,7 +13,9 @@ class SpeakerForm(forms.ModelForm):
         widget=forms.RadioSelect(),
         choices=Speaker.SESSION_COUNT_CHOICES,
         required=False,
-        help_text="If you've submitted multiple proposals, please let us know if you only want to give one or if you'd like to give two talks."
+        help_text=_(u"If you've submitted multiple proposals, please let us "
+                    u"know if you only want to give one or if you'd like "
+                    u"to give two talks.")
     )
 
     class Meta:
@@ -25,9 +27,6 @@ class SpeakerForm(forms.ModelForm):
             "twitter_username",
             "sessions_preference"
         ]
-        widgets = {
-            "biography": MarkEdit(),
-        }
 
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]
@@ -40,6 +39,14 @@ class SpeakerForm(forms.ModelForm):
         if not value:
             return None
         return int(value)
+
+    def clean_biography(self):
+        value = self.cleaned_data["biography"]
+        words = wordcount(value)
+        if words > 100:
+            raise ValidationError(_(u"Please limit speaker biography to 100 "
+                                    u"words or less"))
+        return value
 
 
 # class SignupForm(PinaxSignupForm):
