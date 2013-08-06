@@ -1,14 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# PyCon translation file.
+# Copyright (C) 2013
+# This file is distributed under the same license as the pycon package.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-22 16:22-0400\n"
+"POT-Creation-Date: 2013-08-05 16:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +21,15 @@ msgstr ""
 msgid "The description must be less than 400 characters"
 msgstr ""
 
-#: pycon/models.py:27 pycon/models.py:149
+#: pycon/models.py:27 pycon/models.py:147
 msgid "Novice"
 msgstr ""
 
-#: pycon/models.py:28 pycon/models.py:150
+#: pycon/models.py:28 pycon/models.py:148
 msgid "Intermediate"
 msgstr ""
 
-#: pycon/models.py:29 pycon/models.py:151
+#: pycon/models.py:29 pycon/models.py:149
 msgid "Experienced"
 msgstr ""
 
@@ -96,52 +95,307 @@ msgstr ""
 msgid "I prefer a 45 minute slot"
 msgstr ""
 
-#: pycon/models.py:115 pycon/models.py:160
+#: pycon/models.py:115 pycon/models.py:158
 #: symposion/templates/proposals/_proposal_fields.html:62
 msgid "Outline"
 msgstr ""
 
-#: pycon/models.py:116 pycon/models.py:161
-msgid "Detailed outline. Will be made public if your talk is accepted."
-msgstr ""
-
-#: pycon/models.py:121 pycon/models.py:171
+#: pycon/models.py:119 pycon/models.py:167
 msgid ""
 "Who is the intended audience for your talk? (Be specific; \"Python "
 "programmers\" is not a good answer to this question.)"
 msgstr ""
 
-#: pycon/models.py:126 pycon/models.py:176
+#: pycon/models.py:124 pycon/models.py:172
 #: symposion/templates/proposals/_proposal_fields.html:24
 msgid "Objectives"
 msgstr ""
 
-#: pycon/models.py:128 pycon/models.py:178
+#: pycon/models.py:126 pycon/models.py:174
 msgid ""
 "What will attendees get out of your talk? When they leave the room, what "
 "will they know that they didn't know before?"
 msgstr ""
 
-#: pycon/models.py:156
+#: pycon/models.py:154
 msgid "Level of audience expertise assumed in the presentation's domain."
 msgstr ""
 
-#: pycon/models.py:165 symposion/templates/proposals/_proposal_fields.html:65
+#: pycon/models.py:161 symposion/templates/proposals/_proposal_fields.html:65
 msgid "More info"
 msgstr ""
 
-#: pycon/models.py:166
+#: pycon/models.py:162
 msgid "More info. Will be made public if your talk is accepted."
 msgstr ""
 
-#: pycon/models.py:183 symposion/templates/proposals/_proposal_fields.html:80
+#: pycon/models.py:179 symposion/templates/proposals/_proposal_fields.html:80
 msgid "Student Handout"
 msgstr ""
 
-#: pycon/models.py:186
+#: pycon/models.py:182
 msgid ""
 "Upload a resource to be distributed to students  attending the tutorial "
 "session."
+msgstr ""
+
+#: pycon/finaid/models.py:14
+msgid "Female"
+msgstr ""
+
+#: pycon/finaid/models.py:15
+msgid "Male"
+msgstr ""
+
+#: pycon/finaid/models.py:19
+msgid "Yes"
+msgstr ""
+
+#: pycon/finaid/models.py:20
+msgid "No"
+msgstr ""
+
+#: pycon/finaid/models.py:21
+msgid "I have applied but don't know yet"
+msgstr ""
+
+#: pycon/finaid/models.py:33 pycon/finaid/models.py:164
+msgid "Submitted"
+msgstr ""
+
+#: pycon/finaid/models.py:34
+msgid "Withdrawn"
+msgstr ""
+
+#: pycon/finaid/models.py:35
+msgid "Information needed"
+msgstr ""
+
+#: pycon/finaid/models.py:36
+msgid "Offered"
+msgstr ""
+
+#: pycon/finaid/models.py:37
+msgid "Rejected"
+msgstr ""
+
+#: pycon/finaid/models.py:38 symposion/proposals/models.py:165
+msgid "Declined"
+msgstr ""
+
+#: pycon/finaid/models.py:39 symposion/proposals/models.py:164
+msgid "Accepted"
+msgstr ""
+
+#: pycon/finaid/models.py:45
+msgid "Cash"
+msgstr ""
+
+#: pycon/finaid/models.py:46
+msgid "Check"
+msgstr ""
+
+#: pycon/finaid/models.py:58
+msgid "PyLadies grant"
+msgstr ""
+
+#: pycon/finaid/models.py:59
+msgid "Would you like to be considered for a PyLadies grant? (Women only.)"
+msgstr ""
+
+#: pycon/finaid/models.py:62
+msgid "Registration grant"
+msgstr ""
+
+#: pycon/finaid/models.py:63
+msgid "Will you need assistance with the Conference Registration?"
+msgstr ""
+
+#: pycon/finaid/models.py:67
+msgid "Hotel grant"
+msgstr ""
+
+#: pycon/finaid/models.py:68
+msgid "Will you need assistance with a Hotel Room?"
+msgstr ""
+
+#: pycon/finaid/models.py:70
+msgid "Nights"
+msgstr ""
+
+#: pycon/finaid/models.py:71
+msgid "Please approximate how many nights you will be staying at the hotel."
+msgstr ""
+
+#. Translators: Sex as in male, female
+#: pycon/finaid/models.py:75
+#: pycon/templates/finaid/_application_fields.html:36
+msgid "Sex"
+msgstr ""
+
+#: pycon/finaid/models.py:77
+msgid ""
+"(Your sex will be used only to help assign roommates for those requesting "
+"hotel assistance)"
+msgstr ""
+
+#: pycon/finaid/models.py:84
+msgid "Travel grant"
+msgstr ""
+
+#: pycon/finaid/models.py:85
+msgid "Will you need assistance with Travel Costs?"
+msgstr ""
+
+#: pycon/finaid/models.py:87
+msgid "International"
+msgstr ""
+
+#: pycon/finaid/models.py:88
+msgid "Will you be traveling internationally?"
+msgstr ""
+
+#: pycon/finaid/models.py:90
+msgid "Travel amount"
+msgstr ""
+
+#: pycon/finaid/models.py:91
+msgid "Please enter the amount of travel assistance you need, in US dollars."
+msgstr ""
+
+#: pycon/finaid/models.py:95
+#: pycon/templates/finaid/_application_fields.html:48
+msgid "Travel plans"
+msgstr ""
+
+#: pycon/finaid/models.py:97
+msgid "Please describe your travel plans"
+msgstr ""
+
+#: pycon/finaid/models.py:100
+msgid "Tutorial grant"
+msgstr ""
+
+#: pycon/finaid/models.py:101
+msgid "Will you need assistance with tutorials?"
+msgstr ""
+
+#: pycon/finaid/models.py:104
+#: pycon/templates/finaid/_application_fields.html:55
+msgid "Profession"
+msgstr ""
+
+#: pycon/finaid/models.py:105
+msgid "What is it that you do"
+msgstr ""
+
+#: pycon/finaid/models.py:107
+#: pycon/templates/finaid/_application_fields.html:58
+msgid "Involvement"
+msgstr ""
+
+#: pycon/finaid/models.py:108
+msgid "Describe your involvement in any open source projects or community."
+msgstr ""
+
+#: pycon/finaid/models.py:113
+msgid "What do you want to get out of attending PyCon?"
+msgstr ""
+
+#: pycon/finaid/models.py:117
+msgid "What is it that you're hoping to learn?"
+msgstr ""
+
+#: pycon/finaid/models.py:120
+#: pycon/templates/finaid/_application_fields.html:67
+msgid "Portfolios"
+msgstr ""
+
+#: pycon/finaid/models.py:121
+msgid ""
+"Please provide links to any portfolios you have that contain Python work. (e."
+"g. Github, Bitbucket, etc.)"
+msgstr ""
+
+#: pycon/finaid/models.py:126
+#: pycon/templates/finaid/_application_fields.html:70
+msgid "Use of Python"
+msgstr ""
+
+#: pycon/finaid/models.py:127
+msgid "Describe your use of Python"
+msgstr ""
+
+#: pycon/finaid/models.py:129
+#: pycon/templates/finaid/_application_fields.html:73
+msgid "Beginner resources"
+msgstr ""
+
+#: pycon/finaid/models.py:130
+msgid ""
+"If you're a beginner, describe the resources you're using to learn Python."
+msgstr ""
+
+#: pycon/finaid/models.py:134
+msgid "Presenting"
+msgstr ""
+
+#: pycon/finaid/models.py:135
+msgid ""
+"Will you be speaking, hosting a poster session, or otherwise presenting at "
+"PyCon?"
+msgstr ""
+
+#: pycon/finaid/models.py:139
+msgid "Python experience level"
+msgstr ""
+
+#: pycon/finaid/models.py:140
+msgid "What is your experience level with Python?"
+msgstr ""
+
+#: pycon/finaid/models.py:143
+msgid "First time"
+msgstr ""
+
+#: pycon/finaid/models.py:144
+msgid "Is this your first time attending PyCon?"
+msgstr ""
+
+#: pycon/finaid/models.py:146
+msgid "Presented"
+msgstr ""
+
+#: pycon/finaid/models.py:147
+msgid "Have you spoken at PyCon in the past?"
+msgstr ""
+
+#: pycon/finaid/models.py:196
+msgid "User who submitted the message"
+msgstr ""
+
+#: pycon/finaid/models.py:199
+msgid "Whether message is visible to applicant"
+msgstr ""
+
+#: pycon/finaid/views.py:31
+msgid "Financial aid applications are not open at this time"
+msgstr ""
+
+#: pycon/finaid/views.py:66
+msgid "Application submitted"
+msgstr ""
+
+#: pycon/finaid/views.py:80 pycon/finaid/views.py:165
+msgid "Not authorized for this page"
+msgstr ""
+
+#: pycon/finaid/views.py:94
+msgid "Please select at least one application"
+msgstr ""
+
+#: pycon/finaid/views.py:235
+msgid "You have not applied for financial aid"
 msgstr ""
 
 #: pycon/profile/views.py:30
@@ -188,7 +442,7 @@ msgstr ""
 msgid "sponsor levels"
 msgstr ""
 
-#: pycon/sponsorship/models.py:40 pycon/templates/dashboard.html:274
+#: pycon/sponsorship/models.py:40 pycon/templates/dashboard.html:319
 msgid "applicant"
 msgstr ""
 
@@ -305,129 +559,131 @@ msgstr ""
 msgid "Sponsorship available! Learn more"
 msgstr ""
 
-#: pycon/templates/dashboard.html:26 pycon/templates/dashboard.html.py:113
+#: pycon/templates/dashboard.html:26 pycon/templates/dashboard.html.py:115
 msgid "Speaking"
 msgstr ""
 
-#: pycon/templates/dashboard.html:33 pycon/templates/dashboard.html.py:117
+#: pycon/templates/dashboard.html:33 pycon/templates/dashboard.html.py:119
 msgid "Edit your speaker profile"
 msgstr ""
 
-#: pycon/templates/dashboard.html:38
+#: pycon/templates/dashboard.html:39
 msgid "Submit a new proposal"
 msgstr ""
 
-#: pycon/templates/dashboard.html:43
+#: pycon/templates/dashboard.html:45
 msgid "Your Proposals"
 msgstr ""
 
-#: pycon/templates/dashboard.html:47 pycon/templates/dashboard.html.py:67
-#: pycon/templates/dashboard.html:85 pycon/templates/dashboard.html.py:128
-msgid "Title"
-msgstr ""
-
-#: pycon/templates/dashboard.html:48 pycon/templates/dashboard.html.py:68
-#: pycon/templates/dashboard.html:86
-msgid "Session type"
-msgstr ""
-
 #: pycon/templates/dashboard.html:49 pycon/templates/dashboard.html.py:69
-#: pycon/templates/dashboard.html:87
-#: symposion/templates/reviews/result_notification.html:48
-msgid "Status"
+#: pycon/templates/dashboard.html:87 pycon/templates/dashboard.html.py:130
+msgid "Title"
 msgstr ""
 
 #: pycon/templates/dashboard.html:50 pycon/templates/dashboard.html.py:70
 #: pycon/templates/dashboard.html:88
+msgid "Session type"
+msgstr ""
+
+#: pycon/templates/dashboard.html:51 pycon/templates/dashboard.html.py:71
+#: pycon/templates/dashboard.html:89
+#: pycon/templates/finaid/_application_fields.html:7
+#: pycon/templates/finaid/application_list.html:29
+#: symposion/templates/reviews/result_notification.html:48
+msgid "Status"
+msgstr ""
+
+#: pycon/templates/dashboard.html:52 pycon/templates/dashboard.html.py:72
+#: pycon/templates/dashboard.html:90
 msgid "Actions"
 msgstr ""
 
-#: pycon/templates/dashboard.html:57
+#: pycon/templates/dashboard.html:59
 msgid "No proposals submitted yet."
 msgstr ""
 
-#: pycon/templates/dashboard.html:64
+#: pycon/templates/dashboard.html:66
 msgid "Proposals you have joined as an additional speaker"
 msgstr ""
 
-#: pycon/templates/dashboard.html:82
+#: pycon/templates/dashboard.html:84
 msgid "Proposals you have been invited to join"
 msgstr ""
 
-#: pycon/templates/dashboard.html:98
+#: pycon/templates/dashboard.html:100
 msgid "To submit a proposal, first create a speaker profile."
 msgstr ""
 
-#: pycon/templates/dashboard.html:102
+#: pycon/templates/dashboard.html:104
 msgid "Create a speaker profile"
 msgstr ""
 
-#: pycon/templates/dashboard.html:123
+#: pycon/templates/dashboard.html:125
 msgid "Your Presentations"
 msgstr ""
 
-#: pycon/templates/dashboard.html:127
+#: pycon/templates/dashboard.html:129
 msgid "Session Type"
 msgstr ""
 
-#: pycon/templates/dashboard.html:129
+#: pycon/templates/dashboard.html:131
 msgid "Slot"
 msgstr ""
 
-#: pycon/templates/dashboard.html:150
+#: pycon/templates/dashboard.html:189
 #: symposion/templates/sponsorship/detail.html:8
 msgid "Sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:156
+#: pycon/templates/dashboard.html:195
 msgid "Learn about sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:161
+#: pycon/templates/dashboard.html:200
 msgid "Apply to be a sponsor"
 msgstr ""
 
-#: pycon/templates/dashboard.html:168
+#: pycon/templates/dashboard.html:213
 msgid "Your Sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:178
+#: pycon/templates/dashboard.html:223
 msgid "awaiting approval"
 msgstr ""
 
-#: pycon/templates/dashboard.html:192 symposion/templates/dashboard.html:195
+#: pycon/templates/dashboard.html:237 symposion/templates/dashboard.html:195
 #: symposion/templates/reviews/base.html:85
 #: symposion/templates/reviews/review_detail.html:89
 msgid "Reviews"
 msgstr ""
 
-#: pycon/templates/dashboard.html:196
+#: pycon/templates/dashboard.html:241
 msgid "Review Sections"
 msgstr ""
 
-#: pycon/templates/dashboard.html:204
+#: pycon/templates/dashboard.html:249
 msgid "Proposals you have reviewed"
 msgstr ""
 
-#: pycon/templates/dashboard.html:208
+#: pycon/templates/dashboard.html:253
 #: symposion/templates/reviews/_review_table.html:7
 #: symposion/templates/reviews/result_notification.html:46
 msgid "Speaker / Title"
 msgstr ""
 
-#: pycon/templates/dashboard.html:209
+#: pycon/templates/dashboard.html:254
 msgid "Your Vote"
 msgstr ""
 
-#: pycon/templates/dashboard.html:256 symposion/templates/dashboard.html:259
+#: pycon/templates/dashboard.html:301 symposion/templates/dashboard.html:259
 msgid "Teams"
 msgstr ""
 
-#: pycon/templates/dashboard.html:261
+#: pycon/templates/dashboard.html:306
 msgid "Your Teams"
 msgstr ""
 
-#: pycon/templates/dashboard.html:282
+#: pycon/templates/dashboard.html:327
 msgid "Available Teams"
 msgstr ""
 
@@ -584,7 +840,7 @@ msgstr ""
 msgid "Create Account"
 msgstr ""
 
-#: pycon/templates/admin/login.html:23
+#: pycon/templates/admin/login.html:23 pycon/templates/finaid/edit.html:30
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] ""
@@ -637,6 +893,205 @@ msgstr ""
 msgid "Edit:"
 msgstr ""
 
+#: pycon/templates/finaid/_application_fields.html:4
+#: symposion/templates/proposals/_proposal_fields.html:4
+msgid "Submitted by"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:10
+msgid "Submitted on"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:14
+msgid "Last updated on"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:18
+msgid "Email address"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:23
+msgid "Pyladies grant requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:26
+msgid "Registration grant requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:29
+msgid "Hotel grant requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:33
+msgid "Hotel nights"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:40
+msgid "Travel grant requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:44
+msgid "International travel"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:46
+msgid "Travel amount requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:52
+msgid "Tutorial grant requested"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:61
+msgid "What do you want to get out of attending Pycon"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:64
+msgid "What do you want to learn"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:76
+msgid "Presenting at Pycon"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:79
+msgid "Experience level"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:82
+msgid "Presented at Pycon before"
+msgstr ""
+
+#: pycon/templates/finaid/_application_fields.html:85
+msgid "First time at Pycon"
+msgstr ""
+
+#: pycon/templates/finaid/_application_table.html:7
+#: pycon/templates/finaid/application_list.html:28
+msgid "Applicant"
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:8
+msgid "Review financial aid applications"
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:10
+msgid "Use Search to filter by applicant or status."
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:11
+msgid "Click column headers to sort."
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:18
+msgid "Email selected applicants"
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:21
+msgid "Add note to selected applications"
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:30
+msgid "Last updated"
+msgstr ""
+
+#: pycon/templates/finaid/application_list.html:31
+#: symposion/templates/proposals/_proposal_fields.html:69
+msgid "Notes"
+msgstr ""
+
+#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:26
+msgid "Apply for Financial Aid"
+msgstr ""
+
+#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:26
+msgid "Edit Financial Aid Application"
+msgstr ""
+
+#: pycon/templates/finaid/edit.html:19 pycon/templates/finaid/email.html:16
+#: pycon/templates/finaid/review.html:36 pycon/templates/finaid/review.html:84
+msgid "There were errors in your form, please correct them and submit again."
+msgstr ""
+
+#: pycon/templates/finaid/edit.html:36
+#: pycon/templates/sponsorship/apply.html:20
+#: symposion/templates/sponsorship/apply.html:20
+msgid "Apply"
+msgstr ""
+
+#: pycon/templates/finaid/edit.html:36 pycon/templates/finaid/review.html:50
+#: pycon/templates/finaid/review.html:94 pycon/templates/finaid/status.html:51
+msgid "Submit"
+msgstr ""
+
+#: pycon/templates/finaid/email.html:6 pycon/templates/finaid/email.html:23
+msgid "Send emails to applicants"
+msgstr ""
+
+#: pycon/templates/finaid/email.html:33
+msgid "(Use admin to add email templates.)"
+msgstr ""
+
+#: pycon/templates/finaid/email.html:35
+msgid "Send"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:10
+msgid "Back to list of applications"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:12
+msgid "Financial aid application for "
+msgstr ""
+
+#: pycon/templates/finaid/review.html:16 pycon/templates/finaid/review.html:25
+msgid "Application"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:17 pycon/templates/finaid/review.html:61
+msgid "Messages"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:31
+msgid "Review"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:75
+msgid "No messages"
+msgstr ""
+
+#: pycon/templates/finaid/review.html:79
+msgid "Add a Message"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:9 pycon/templates/finaid/status.html:13
+#: pycon/templates/finaid/status.html:16
+msgid "Financial Aid Application Status"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:20
+#: symposion/templates/proposals/proposal_detail.html:53
+#: symposion/templates/reviews/review_detail.html:88
+msgid "Proposal Details"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:21
+#: symposion/templates/proposals/proposal_detail.html:58
+msgid "Reviewer Feedback"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:30
+msgid "Conversation with Reviewers"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:41
+msgid "Leave a Message"
+msgstr ""
+
+#: pycon/templates/finaid/status.html:43
+msgid "You can leave a message for the reviewers here."
+msgstr ""
+
 #: pycon/templates/profiles/edit.html:6
 msgid "Edit Profile"
 msgstr ""
@@ -656,7 +1111,7 @@ msgstr ""
 #: pycon/templates/proposals/proposal_submit_kind.html:7
 #: pycon/templates/proposals/proposal_submit_kind.html:8
 #, python-format
-msgid "Submit a Proposal for a %(kind.name)s"
+msgid "Submit a Proposal for a %(name)s"
 msgstr ""
 
 #: pycon/templates/proposals/proposal_submit_kind.html:19
@@ -705,11 +1160,6 @@ msgstr ""
 msgid "Apply to be a Sponsor"
 msgstr ""
 
-#: pycon/templates/sponsorship/apply.html:20
-#: symposion/templates/sponsorship/apply.html:20
-msgid "Apply"
-msgstr ""
-
 #: pycon/templates/sponsorship/apply.html:23
 #, python-format
 msgid ""
@@ -747,7 +1197,7 @@ msgstr ""
 
 #: pycon/templates/teams/team_detail.html:18
 #, python-format
-msgid "You are a <em>%(state)s</em> of %(team.name)s"
+msgid "You are a <em>%(state)s</em> of %(name)s"
 msgstr ""
 
 #: pycon/templates/teams/team_detail.html:25
@@ -830,6 +1280,14 @@ msgstr ""
 msgid "Hotels"
 msgstr ""
 
+#: symposion/settings.py:71
+msgid "English"
+msgstr ""
+
+#: symposion/settings.py:72
+msgid "French"
+msgstr ""
+
 #: symposion/cms/models.py:21
 msgid "Draft"
 msgstr ""
@@ -838,7 +1296,7 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: symposion/cms/models.py:54
+#: symposion/cms/models.py:55
 msgid "Path can only contain letters, numbers and hyphens and end with /"
 msgstr ""
 
@@ -910,14 +1368,6 @@ msgstr ""
 
 #: symposion/proposals/models.py:163
 msgid "Pending"
-msgstr ""
-
-#: symposion/proposals/models.py:164
-msgid "Accepted"
-msgstr ""
-
-#: symposion/proposals/models.py:165
-msgid "Declined"
 msgstr ""
 
 #: symposion/social_auth/views.py:33
@@ -1094,10 +1544,6 @@ msgstr ""
 msgid "You have been invited to join \"%(team)s\""
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_fields.html:4
-msgid "Submitted by"
-msgstr ""
-
 #: symposion/templates/proposals/_proposal_fields.html:8
 #: symposion/templates/reviews/_review_table.html:9
 msgid "Tags"
@@ -1138,10 +1584,6 @@ msgstr ""
 msgid "Abstract"
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_fields.html:69
-msgid "Notes"
-msgstr ""
-
 #: symposion/templates/proposals/_proposal_fields.html:72
 msgid "Speaker Bio"
 msgstr ""
@@ -1170,17 +1612,8 @@ msgstr ""
 msgid "Remove me from this proposal"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_detail.html:53
-#: symposion/templates/reviews/review_detail.html:88
-msgid "Proposal Details"
-msgstr ""
-
 #: symposion/templates/proposals/proposal_detail.html:55
 msgid "Supporting Documents"
-msgstr ""
-
-#: symposion/templates/proposals/proposal_detail.html:58
-msgid "Reviewer Feedback"
 msgstr ""
 
 #: symposion/templates/proposals/proposal_submit.html:6
@@ -1191,8 +1624,16 @@ msgstr ""
 msgid "Redirecting to CTE..."
 msgstr ""
 
-#: symposion/templates/registration/login.html:25
+#: symposion/templates/registration/login.html:10
+msgid "Registration not ready"
+msgstr ""
+
+#: symposion/templates/registration/login.html:28
 msgid "Please wait while we redirect you to registration."
+msgstr ""
+
+#: symposion/templates/registration/login.html:36
+msgid "Registration is not yet ready, please come back later."
 msgstr ""
 
 #: symposion/templates/registration/register.html:5
