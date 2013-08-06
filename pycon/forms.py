@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from markedit.widgets import MarkEdit
 
@@ -20,7 +21,7 @@ class PyConProposalForm(forms.ModelForm):
         value = self.cleaned_data["description"]
         if len(value) > 400:
             raise forms.ValidationError(
-                u"The description must be less than 400 characters"
+                _(u"The description must be less than 400 characters")
             )
         return value
 
@@ -41,7 +42,6 @@ class PyConTalkProposalForm(PyConProposalForm):
             "outline",
             "additional_notes",
             "additional_requirements",
-            "slide_deck",
             "recording_release",
         ]
         widgets = {
@@ -60,9 +60,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
 
     def __init__(self, *args, **kwargs):
         super(PyConLightningTalkProposalForm, self).__init__(*args, **kwargs)
-        # TODO: This is a hack to populate the field...
-        self.fields['category'].widget = forms.HiddenInput()
-        self.fields['category'].initial = PyConProposalCategory.objects.all()[0]
         self.fields['audience_level'].widget = forms.HiddenInput()
         self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
 
@@ -75,7 +72,6 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
             "additional_notes",
             "additional_requirements",
             "audience_level",
-            "slide_deck",
             "recording_release",
         ]
         widgets = {
@@ -103,7 +99,6 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "more_info",
             "additional_notes",
             "additional_requirements",
-            "slide_deck",
             "handout",
             "recording_release",
         ]

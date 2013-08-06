@@ -18,8 +18,8 @@
             {{ form|as_bootstrap }}
         </fieldset>
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="Save" />
-            <a class="btn" href="{% url 'dashboard' %}">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
+            <a class="btn" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
         </div>
     </form>
 {% endblock %}

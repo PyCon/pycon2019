@@ -1,0 +1,87 @@
+{% load i18n %}
+
+<dl class="dl-horizontal">
+  <dt>{% trans "Submitted by" %}</dt>
+  <dd>{{ application.user }}</dd>
+
+  <dt>{% trans "Status" %}</dt>
+  <dd>{{ application.get_status_display }}</dd>
+
+  <dt>{% trans "Submitted on" %}</dt>
+  <dd>{{ application.timestamp }}</dd>
+
+  {% if application.timestamp != application.last_updated %}
+    <dt>{% trans "Last updated on" %}</dt>
+    <dd>{{ application.last_update }}</dd>
+  {% endif %}
+
+  <dt>{% trans "Email address" %}</dt>
+  <dd><a href="mailto:{{ application.user.email }}">{{ application.user.email }}</a></dd>
+
+  {% if is_reviewer %}
+    {# show all the things #}
+    <dt>Pyladies grant requested</dt>
+    <dd>{{ application.pyladies_grant_requested }}</dd>
+
+    <dt>Registration grant requested</dt>
+    <dd>{{ application.registration_grant_requested }}</dd>
+
+    <dt>Hotel grant requested</dt>
+    <dd>{{ application.hotel_grant_requested }}</dd>
+
+    {% if application.hotel_grant_requested %}
+      <dt>Hotel nights</dt>
+      <dd>{{ application.hotel_nights }}</dd>
+      <dt>Sex</dt>
+      <dd>{{ application.get_sex_display }}</dd>
+    {% endif %}
+
+    <dt>Travel grant requested</dt>
+    <dd>{{ application.travel_grant_requested }}</dd>
+
+    {% if application.travel_grant_requested %}
+      <dt>International travel</dt>
+      <dd>{{ application.international }}</dd>
+      <dt>Travel amount requested</dt>
+      <dd>{{ application.travel_amount_requested }}</dd>
+      <dt>Travel plans</dt>
+      <dd>{{ application.travel_plans }}&nbsp;</dd>
+    {% endif %}
+
+    <dt>Tutorial grant requested</dt>
+    <dd>{{ application.tutorial_grant_requested }}</dd>
+
+    <dt>Profession</dt>
+    <dd>{{ application.profession }}&nbsp;</dd>
+
+    <dt>Involvement</dt>
+    <dd>{{ application.involvement }}&nbsp;</dd>
+
+    <dt>What do you want to get out of attending Pycon</dt>
+    <dd>{{ application.what_you_want }}&nbsp;</dd>
+
+    <dt>What do you want to learn</dt>
+    <dd>{{ application.want_to_learn }}&nbsp;</dd>
+
+    <dt>Portfolios</dt>
+    <dd>{{ application.portfolios }}&nbsp;</dd>
+
+    <dt>Use of Python</dt>
+    <dd>{{ application.use_of_python }}&nbsp;</dd>
+
+    <dt>Beginner resources</dt>
+    <dd>{{ application.beginner_resources }}&nbsp;</dd>
+
+    <dt>Presenting at Pycon</dt>
+    <dd>{{ application.get_presenting_display }}</dd>
+
+    <dt>Experience level</dt>
+    <dd>{{ application.experience_level }}&nbsp;</dd>
+
+    <dt>Presented at Pycon before</dt>
+    <dd>{{ application.presented }}</dd>
+
+    <dt>First time at Pycon</dt>
+    <dd>{{ application.first_time }}</dd>
+  {% endif %}
+</dl>

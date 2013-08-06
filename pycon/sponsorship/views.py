@@ -1,17 +1,24 @@
+from cStringIO import StringIO
 import itertools
+import logging
+import os
+import time
+from zipfile import ZipFile, ZipInfo
 
-from functools import wraps
-
-from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
-
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.template import RequestContext
 
-from pycon.sponsorship.forms import SponsorApplicationForm, SponsorDetailsForm, SponsorBenefitsFormSet
+from pycon.sponsorship.forms import SponsorApplicationForm, \
+    SponsorBenefitsFormSet, SponsorDetailsForm
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
+
+
+log = logging.getLogger(__name__)
 
 
 @login_required
@@ -113,3 +120,28 @@ def sponsor_export_data(request):
                 data += "\n\n"
     
     return HttpResponse(data, content_type="text/plain;charset=utf-8")
+
+
+@staff_member_required
+def sponsor_zip_logo_files(request):
+    """Return a zip file of sponsor web and print logos"""
+
+    zip_stringio = StringIO()
+    with ZipFile(zip_stringio, "w") as zipfile:
+        for benefit in SponsorBenefit.objects.filter(
+                benefit__type__in=("file", "weblogo"))\
+                .exclude(upload=''):
+            if os.path.exists(benefit.upload.path):
+                modtime = time.gmtime(os.stat(benefit.upload.path).st_mtime)
+                with open(benefit.upload.path, "rb") as f:
+                    zipinfo = ZipInfo(filename=benefit.upload.name,
+                                      date_time=modtime)
+                    zipfile.writestr(zipinfo, f.read())
+            else:
+                log.debug("No such sponsor file: %s" % benefit.upload.path)
+    response = HttpResponse(zip_stringio.getvalue(),
+                            content_type="application/zip")
+    prefix = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
+    response['Content-Disposition'] = \
+        'attachment; filename="pycon_%s_sponsorlogos.zip"' % prefix
+    return response

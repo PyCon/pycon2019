@@ -60,6 +60,10 @@ class SponsorAdmin(admin.ModelAdmin):
 class BenefitAdmin(admin.ModelAdmin):
 
     inlines = [BenefitLevelInline]
+    list_display = ('name', 'type', 'levels')
+
+    def levels(self, benefit):
+        return u", ".join(l.level.name for l in benefit.benefit_levels.all())
 
 
 class SponsorLevelAdmin(admin.ModelAdmin):

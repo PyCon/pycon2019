@@ -9,10 +9,10 @@
         <dd>{{ proposal.get_tags_display }}&nbsp;</dd>
     {% endif %}
 
-    {% if proposal.kind.slug != "lightning-talk" %}
-        <dt>{% trans "Category" %}</dt>
-        <dd>{{ proposal.category }}&nbsp;</dd>
+    <dt>{% trans "Category" %}</dt>
+    <dd>{{ proposal.category }}&nbsp;</dd>
 
+    {% if proposal.kind.slug != "lightning-talk" %}
         <dt>{% trans "Python Level" %}</dt>
         <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
     {% endif %}
@@ -87,16 +87,7 @@
     </dd>
     {% endif %}
 
-    <dt>{% trans "Slide Deck" %}</dt>
-    <dd>
-        {% if proposal.slide_deck %}
-            <a href="{{ proposal.slide_deck.url }}">Download</a>
-        {% else %}
-            No slide deck attached to this proposal.
-        {% endif %}
-    </dd>
-
-    <dt>{% trans "Documents" %}</dt>
+    <dt>{% trans "Supporting Documents" %}</dt>
     <dd>
         {% if proposal.supporting_documents.exists %}
             <table class="table table-striped">

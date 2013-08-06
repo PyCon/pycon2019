@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 
+{% load i18n %}
 {% load tz %}
 
 {% block head_title %}{{ post.title }}{% endblock %}
@@ -16,7 +17,7 @@
             <h1>{{ post.title }}</h1>
 
             <div class="newsdate">
-                {% if post.published %}{{ post.published|date }}{% else %}Not published yet{% endif %}
+                {% if post.published %}{{ post.published|date }}{% else %}{% trans "Not published yet" %}{% endif %}
                 by {{ post.author.get_full_name }}
             </div>
 

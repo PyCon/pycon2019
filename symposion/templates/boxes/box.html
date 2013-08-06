@@ -12,9 +12,9 @@
                 {{ form.content }}
             </div>
             <div class="modal-footer">
-                 <div class="pull-left">Content is processed using <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a></div>
-                <a href="#" class="btn" data-dismiss="modal">Close</a>
-                <button type="submit" class="btn btn-primary">Save changes</a>
+                 <div class="pull-left">{% blocktrans %}Content is processed using <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a>{% endblocktrans %}</div>
+                <a href="#" class="btn" data-dismiss="modal">{% trans "Close" %}</a>
+                <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</a>
             </div>
         </form>
     </div>
@@ -31,7 +31,7 @@
 
 <div id="content_{{ label }}" class="content-box {% if form %}editable{% endif %}">
     {% if form %}
-        <a href="#edit_{{ label }}" data-toggle="modal" class="btn edit-toggle"><i class="icon-pencil"></i> Edit this content</a>
+        <a href="#edit_{{ label }}" data-toggle="modal" class="btn edit-toggle"><i class="icon-pencil"></i> {% trans "Edit this content" %}</a>
     {% endif %}
     <div class="markdown">{{ box.content|safe }}</div>
 </div>

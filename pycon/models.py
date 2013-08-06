@@ -24,9 +24,9 @@ class PyConProposal(ProposalBase):
     AUDIENCE_LEVEL_INTERMEDIATE = 3
 
     AUDIENCE_LEVELS = [
-        (AUDIENCE_LEVEL_NOVICE, "Novice"),
-        (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
-        (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
+        (AUDIENCE_LEVEL_NOVICE, _(u"Novice")),
+        (AUDIENCE_LEVEL_INTERMEDIATE, _(u"Intermediate")),
+        (AUDIENCE_LEVEL_EXPERIENCED, _(u"Experienced")),
     ]
 
     STATUS_UNREVIEWED = 1
@@ -64,37 +64,30 @@ class PyConProposal(ProposalBase):
     category = models.ForeignKey(PyConProposalCategory)
     audience_level = models.IntegerField(
         choices=AUDIENCE_LEVELS,
-        help_text=_('Level of audience expertise assumed in Python.'),
-        verbose_name='Python level')
+        help_text=_(u'Level of audience expertise assumed in Python.'),
+        verbose_name=_(u'Python level'))
     overall_status = models.IntegerField(
         choices=STATUS_OPTIONS,
         default=STATUS_UNREVIEWED,
-        help_text=_('The status of the proposal.'))
+        help_text=_(u'The status of the proposal.'))
     damaged_score = models.IntegerField(
         blank=True,
         null=True,
-        help_text=_("Numerical indicator of the amount of interest in a talk set to 'damaged' status."))
+        help_text=_(u"Numerical indicator of the amount of interest in a talk set to 'damaged' status."))
     rejection_status = models.IntegerField(
         blank=True,
         null=True,
         choices=REJECTION_OPTIONS,
-        help_text=_('The reason the proposal was rejected.'))
+        help_text=_(u'The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
-        help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon 2014 Recording Release</a> for details."
+        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon 2014 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(
-        _("Additional requirements"),
+        _(u"Additional requirements"),
         blank=True,
-        help_text=_("Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.")
-    )
-    slide_deck = models.FileField(
-        _("Slide deck"),
-        blank=True,
-        null=True,
-        help_text=_("A printable version of your presentation."),
-        upload_to="slide_decks"
+        help_text=_(u"Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.")
     )
 
     class Meta:
@@ -104,17 +97,15 @@ class PyConProposal(ProposalBase):
 class PyConTalkProposal(PyConProposal):
 
     DURATION_CHOICES = [
-        (0, "No preference"),
-        (1, "I prefer a 30 minute slot"),
-        (2, "I prefer a 45 minute slot"),
+        (0, _(u"No preference")),
+        (1, _(u"I prefer a 30 minute slot")),
+        (2, _(u"I prefer a 45 minute slot")),
     ]
 
     duration = models.IntegerField(choices=DURATION_CHOICES)
 
     outline = models.TextField(
-        _("Outline"),
-        help_text=_("Detailed outline. Will be made public "
-                    "if your talk is accepted.")
+        _(u"Outline")
     )
     audience = models.CharField(
         max_length=150,
@@ -146,25 +137,23 @@ class PyConTutorialProposal(PyConProposal):
     DOMAIN_LEVEL_INTERMEDIATE = 3
 
     DOMAIN_LEVELS = [
-        (DOMAIN_LEVEL_NOVICE, "Novice"),
-        (DOMAIN_LEVEL_INTERMEDIATE, "Intermediate"),
-        (DOMAIN_LEVEL_EXPERIENCED, "Experienced"),
+        (DOMAIN_LEVEL_NOVICE, _(u"Novice")),
+        (DOMAIN_LEVEL_INTERMEDIATE, _(u"Intermediate")),
+        (DOMAIN_LEVEL_EXPERIENCED, _(u"Experienced")),
     ]
 
     domain_level = models.IntegerField(
         choices=DOMAIN_LEVELS,
-        help_text=_('Level of audience expertise assumed in the '
-                    'presentation\'s domain.'))
+        help_text=_(u'Level of audience expertise assumed in the '
+                    u'presentation\'s domain.'))
 
     outline = models.TextField(
-        _("Outline"),
-        help_text=_("Detailed outline. Will be made public "
-                    "if your talk is accepted.")
+        _(u"Outline")
     )
     more_info = models.TextField(
-        _("More info"),
-        help_text=_("More info. Will be made public "
-                    "if your talk is accepted.")
+        _(u"More info"),
+        help_text=_(u"More info. Will be made public "
+                    u"if your talk is accepted.")
     )
     audience = models.CharField(
         max_length=150,
@@ -180,7 +169,7 @@ class PyConTutorialProposal(PyConProposal):
                     u"know before?"),
     )
     handout = models.FileField(
-        _("Student Handout"),
+        _(u"Student Handout"),
         blank=True,
         null=True,
         help_text=_(u'Upload a resource to be distributed to students  '
