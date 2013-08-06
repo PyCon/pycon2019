@@ -1,4 +1,7 @@
+import operator
+
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from selectable.base import ModelLookup
 from selectable.registry import registry
@@ -11,6 +14,20 @@ class UserLookup(ModelLookup):
         'last_name__icontains',
         'email__icontains',
     )
+
+    def get_query(self, request, term):
+        qs = self.get_queryset()
+        if term:
+            search_filters = []
+            if len(term.split(' ')) == 1:
+                if self.search_fields:
+                    for field in self.search_fields:
+                        search_filters.append(Q(**{field: term}))
+                qs = qs.filter(reduce(operator.or_, search_filters))
+            else:
+                # Accounts for 'John Doe' term; will compare against get_full_name
+                qs = [x for x in qs if term in x.get_full_name()]
+        return qs
 
     def get_item_value(self, item):
         return item.email
