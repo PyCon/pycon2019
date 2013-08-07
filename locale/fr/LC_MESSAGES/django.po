@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 14:47-0400\n"
+"POT-Creation-Date: 2013-08-07 07:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1360,6 +1360,16 @@ msgstr ""
 
 #: symposion/conference/models.py:69
 msgid "sections"
+msgstr ""
+
+#: symposion/proposals/forms.py:36
+msgid ""
+"You have submitted the Proposal author's email address. Please select "
+"another email address."
+msgstr ""
+
+#: symposion/proposals/forms.py:45
+msgid "This email address has already been invited to your talk proposal"
 msgstr ""
 
 #: symposion/proposals/forms.py:62

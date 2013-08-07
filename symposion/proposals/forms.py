@@ -33,8 +33,8 @@ class AddSpeakerForm(forms.Form):
             value = value.email
         if value == self.proposal.speaker.email:
             raise forms.ValidationError(
-                "You have submitted the Proposal author's email address. Please" \
-                " select another email address."
+                _("You have submitted the Proposal author's email address. Please" \
+                " select another email address.")
             )
         exists = self.proposal.additional_speakers.filter(
             Q(user=None, invite_email=value) |
@@ -42,7 +42,7 @@ class AddSpeakerForm(forms.Form):
         ).exists()
         if exists:
             raise forms.ValidationError(
-                "This email address has already been invited to your talk proposal"
+                _("This email address has already been invited to your talk proposal")
             )
         return value
 
