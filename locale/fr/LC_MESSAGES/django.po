@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 13:09-0400\n"
+"POT-Creation-Date: 2013-08-07 07:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -922,6 +922,7 @@ msgid "Last updated on"
 msgstr ""
 
 #: pycon/templates/finaid/_application_fields.html:18
+#: symposion/proposals/forms.py:21
 msgid "Email address"
 msgstr ""
 
@@ -1215,6 +1216,8 @@ msgstr ""
 
 #: pycon/templates/static/sitemap.html:8
 #: pycon/templates/static/sitemap.html:10
+#: symposion/templates/static/sitemap.html:8
+#: symposion/templates/static/sitemap.html:10
 msgid "Sitemap"
 msgstr ""
 
@@ -1360,7 +1363,17 @@ msgstr ""
 msgid "sections"
 msgstr ""
 
-#: symposion/proposals/forms.py:48
+#: symposion/proposals/forms.py:36
+msgid ""
+"You have submitted the Proposal author's email address. Please select "
+"another email address."
+msgstr ""
+
+#: symposion/proposals/forms.py:45
+msgid "This email address has already been invited to your talk proposal"
+msgstr ""
+
+#: symposion/proposals/forms.py:62
 msgid "Comma-separated list of tags"
 msgstr ""
 
@@ -1798,27 +1811,34 @@ msgstr ""
 msgid "Are you sure you wish to leave as a speaker on <b>%(title)s</b>?"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:6
+#: symposion/templates/proposals/proposal_speaker_manage.html:27
 msgid "Proposal:"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:8
+#: symposion/templates/proposals/proposal_speaker_manage.html:29
 msgid "Edit proposal"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:10
+#: symposion/templates/proposals/proposal_speaker_manage.html:31
 msgid "Current Speakers"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:16
+#: symposion/templates/proposals/proposal_speaker_manage.html:36
 msgid "pending invitation"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:20
+#: symposion/templates/proposals/proposal_speaker_manage.html:40
 msgid "Add another speaker"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:26
+#: symposion/templates/proposals/proposal_speaker_manage.html:45
+msgid ""
+"Lookup speaker by email, first, or last name. If a Speaker does not exist "
+"for the email provided, an invitation to create an account will be sent to "
+"them."
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:49
 msgid "Add speaker"
 msgstr ""
 
