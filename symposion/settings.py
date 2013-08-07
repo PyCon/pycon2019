@@ -193,6 +193,7 @@ INSTALLED_APPS = [
     "south",
     "uni_form",
     "gunicorn",
+    "selectable",
 
     # symposion
     "symposion.conference",
