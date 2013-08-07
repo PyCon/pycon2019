@@ -70,6 +70,11 @@ def deploy():
     require('environment')
     sudo('chef-client')
 
+@task
+def ssh():
+    """Ssh to a given server"""
+    require('environment')
+    local("ssh %s" % env.hosts[0])
 
 @task
 def get_db_dump(dbname, clean=True):

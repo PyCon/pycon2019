@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-05 16:20-0400\n"
+"POT-Creation-Date: 2013-08-07 07:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "The description must be less than 400 characters"
 msgstr ""
 
-#: pycon/models.py:27 pycon/models.py:147
+#: pycon/models.py:27 pycon/models.py:140
 msgid "Novice"
 msgstr ""
 
-#: pycon/models.py:28 pycon/models.py:148
+#: pycon/models.py:28 pycon/models.py:141
 msgid "Intermediate"
 msgstr ""
 
-#: pycon/models.py:29 pycon/models.py:149
+#: pycon/models.py:29 pycon/models.py:142
 msgid "Experienced"
 msgstr ""
 
@@ -75,68 +75,64 @@ msgid ""
 "not provided for your computer unless you tell us in advance."
 msgstr ""
 
-#: pycon/models.py:93
-msgid "Slide deck"
-msgstr ""
-
-#: pycon/models.py:96
-msgid "A printable version of your presentation."
-msgstr ""
-
-#: pycon/models.py:107
+#: pycon/models.py:100
 msgid "No preference"
 msgstr ""
 
-#: pycon/models.py:108
+#: pycon/models.py:101
 msgid "I prefer a 30 minute slot"
 msgstr ""
 
-#: pycon/models.py:109
+#: pycon/models.py:102
 msgid "I prefer a 45 minute slot"
 msgstr ""
 
-#: pycon/models.py:115 pycon/models.py:158
+#: pycon/models.py:108 pycon/models.py:151
 #: symposion/templates/proposals/_proposal_fields.html:62
 msgid "Outline"
 msgstr ""
 
-#: pycon/models.py:119 pycon/models.py:167
+#: pycon/models.py:112 pycon/models.py:160
 msgid ""
 "Who is the intended audience for your talk? (Be specific; \"Python "
 "programmers\" is not a good answer to this question.)"
 msgstr ""
 
-#: pycon/models.py:124 pycon/models.py:172
+#: pycon/models.py:117 pycon/models.py:165
 #: symposion/templates/proposals/_proposal_fields.html:24
 msgid "Objectives"
 msgstr ""
 
-#: pycon/models.py:126 pycon/models.py:174
+#: pycon/models.py:119 pycon/models.py:167
 msgid ""
 "What will attendees get out of your talk? When they leave the room, what "
 "will they know that they didn't know before?"
 msgstr ""
 
-#: pycon/models.py:154
+#: pycon/models.py:147
 msgid "Level of audience expertise assumed in the presentation's domain."
 msgstr ""
 
-#: pycon/models.py:161 symposion/templates/proposals/_proposal_fields.html:65
+#: pycon/models.py:154 symposion/templates/proposals/_proposal_fields.html:65
 msgid "More info"
 msgstr ""
 
-#: pycon/models.py:162
+#: pycon/models.py:155
 msgid "More info. Will be made public if your talk is accepted."
 msgstr ""
 
-#: pycon/models.py:179 symposion/templates/proposals/_proposal_fields.html:80
+#: pycon/models.py:172 symposion/templates/proposals/_proposal_fields.html:80
 msgid "Student Handout"
 msgstr ""
 
-#: pycon/models.py:182
+#: pycon/models.py:175
 msgid ""
 "Upload a resource to be distributed to students  attending the tutorial "
 "session."
+msgstr ""
+
+#: pycon/finaid/forms.py:56
+msgid "Travel plans are required if requesting a travel grant."
 msgstr ""
 
 #: pycon/finaid/models.py:14
@@ -160,6 +156,8 @@ msgid "I have applied but don't know yet"
 msgstr ""
 
 #: pycon/finaid/models.py:33 pycon/finaid/models.py:164
+#: symposion/templates/proposals/_pending_proposal_row.html:16
+#: symposion/templates/proposals/_proposal_row.html:16
 msgid "Submitted"
 msgstr ""
 
@@ -184,6 +182,8 @@ msgid "Declined"
 msgstr ""
 
 #: pycon/finaid/models.py:39 symposion/proposals/models.py:164
+#: symposion/templates/proposals/_pending_proposal_row.html:14
+#: symposion/templates/proposals/_proposal_row.html:14
 msgid "Accepted"
 msgstr ""
 
@@ -653,7 +653,6 @@ msgstr ""
 
 #: pycon/templates/dashboard.html:237 symposion/templates/dashboard.html:195
 #: symposion/templates/reviews/base.html:85
-#: symposion/templates/reviews/review_detail.html:89
 msgid "Reviews"
 msgstr ""
 
@@ -705,15 +704,29 @@ msgstr ""
 
 #: pycon/templates/homepage.html:115
 #: symposion/templates/biblion/blog_list.html:6
+#: symposion/templates/biblion/blog_list.html:12
 msgid "Announcements"
 msgstr ""
 
-#: pycon/templates/homepage.html:129
+#: pycon/templates/homepage.html:124
+#, python-format
+msgid ""
+"\n"
+"                              <p class=\"post_dateline\">by <span class="
+"\"author\">%(author)s</span></p>\n"
+"                            "
+msgstr ""
+
+#: pycon/templates/homepage.html:131
 msgid "No announcements have been published."
 msgstr ""
 
 #: pycon/templates/responsive_base.html:31 pycon/templates/site_base.html:54
 msgid "Skip to main content"
+msgstr ""
+
+#: pycon/templates/responsive_base.html:34 pycon/templates/site_base.html:56
+msgid "loggedin"
 msgstr ""
 
 #: pycon/templates/site_base.html:107
@@ -812,8 +825,10 @@ msgstr ""
 #: pycon/templates/account/settings.html:16
 #: pycon/templates/cms/page_edit.html:20
 #: pycon/templates/proposals/proposal_submit_kind.html:25
-#: pycon/templates/speakers/speaker_create.html:21
+#: pycon/templates/speakers/speaker_create.html:29
 #: symposion/templates/cms/page_edit.html:22
+#: symposion/templates/proposals/proposal_edit.html:18
+#: symposion/templates/proposals/proposal_submit_kind.html:21
 #: symposion/templates/schedule/_slot_edit.html:12
 #: symposion/templates/speakers/speaker_create.html:21
 #: symposion/templates/speakers/speaker_edit.html:21
@@ -907,6 +922,7 @@ msgid "Last updated on"
 msgstr ""
 
 #: pycon/templates/finaid/_application_fields.html:18
+#: symposion/proposals/forms.py:21
 msgid "Email address"
 msgstr ""
 
@@ -1010,6 +1026,8 @@ msgstr ""
 
 #: pycon/templates/finaid/edit.html:19 pycon/templates/finaid/email.html:16
 #: pycon/templates/finaid/review.html:36 pycon/templates/finaid/review.html:84
+#: pycon/templates/speakers/speaker_create.html:17
+#: pycon/templates/speakers/speaker_edit.html:18
 msgid "There were errors in your form, please correct them and submit again."
 msgstr ""
 
@@ -1021,6 +1039,7 @@ msgstr ""
 
 #: pycon/templates/finaid/edit.html:36 pycon/templates/finaid/review.html:50
 #: pycon/templates/finaid/review.html:94 pycon/templates/finaid/status.html:51
+#: symposion/templates/proposals/proposal_detail.html:113
 msgid "Submit"
 msgstr ""
 
@@ -1071,7 +1090,6 @@ msgstr ""
 
 #: pycon/templates/finaid/status.html:20
 #: symposion/templates/proposals/proposal_detail.html:53
-#: symposion/templates/reviews/review_detail.html:88
 msgid "Proposal Details"
 msgstr ""
 
@@ -1081,14 +1099,17 @@ msgid "Reviewer Feedback"
 msgstr ""
 
 #: pycon/templates/finaid/status.html:30
+#: symposion/templates/proposals/proposal_detail.html:93
 msgid "Conversation with Reviewers"
 msgstr ""
 
 #: pycon/templates/finaid/status.html:41
+#: symposion/templates/proposals/proposal_detail.html:103
 msgid "Leave a Message"
 msgstr ""
 
 #: pycon/templates/finaid/status.html:43
+#: symposion/templates/proposals/proposal_detail.html:105
 msgid "You can leave a message for the reviewers here."
 msgstr ""
 
@@ -1110,6 +1131,7 @@ msgstr ""
 
 #: pycon/templates/proposals/proposal_submit_kind.html:7
 #: pycon/templates/proposals/proposal_submit_kind.html:8
+#: symposion/templates/proposals/proposal_submit_kind.html:7
 #, python-format
 msgid "Submit a Proposal for a %(name)s"
 msgstr ""
@@ -1127,19 +1149,21 @@ msgid ""
 msgstr ""
 
 #: pycon/templates/proposals/proposal_submit_kind.html:27
+#: symposion/templates/proposals/proposal_submit_kind.html:23
 msgid "Save and Add Additional Speakers"
 msgstr ""
 
 #: pycon/templates/speakers/speaker_create.html:7
 #: pycon/templates/speakers/speaker_create.html:9
-#: pycon/templates/speakers/speaker_create.html:16
+#: pycon/templates/speakers/speaker_create.html:24
 #: symposion/templates/speakers/speaker_create.html:7
 #: symposion/templates/speakers/speaker_create.html:16
 msgid "Create Speaker Profile"
 msgstr ""
 
-#: pycon/templates/speakers/speaker_create.html:22
-#: pycon/templates/speakers/speaker_edit.html:23
+#: pycon/templates/speakers/speaker_create.html:30
+#: pycon/templates/speakers/speaker_edit.html:31
+#: symposion/templates/proposals/proposal_edit.html:19
 #: symposion/templates/speakers/speaker_create.html:22
 #: symposion/templates/speakers/speaker_edit.html:22
 msgid "Cancel"
@@ -1147,7 +1171,7 @@ msgstr ""
 
 #: pycon/templates/speakers/speaker_edit.html:7
 #: pycon/templates/speakers/speaker_edit.html:9
-#: pycon/templates/speakers/speaker_edit.html:17
+#: pycon/templates/speakers/speaker_edit.html:25
 #: symposion/templates/speakers/speaker_edit.html:7
 #: symposion/templates/speakers/speaker_edit.html:16
 msgid "Edit Speaker Profile"
@@ -1192,6 +1216,8 @@ msgstr ""
 
 #: pycon/templates/static/sitemap.html:8
 #: pycon/templates/static/sitemap.html:10
+#: symposion/templates/static/sitemap.html:8
+#: symposion/templates/static/sitemap.html:10
 msgid "Sitemap"
 msgstr ""
 
@@ -1213,6 +1239,7 @@ msgid "APPLY"
 msgstr ""
 
 #: pycon/templates/teams/team_detail.html:45
+#: symposion/templates/teams/team_detail.html:38
 msgid ""
 "You have been invited to join this team. Click <b>join</b> to the right to "
 "accept."
@@ -1276,6 +1303,14 @@ msgstr ""
 msgid "Venue Information"
 msgstr ""
 
+#: pycon/templates/venue/detail.html:6 pycon/templates/venue/detail.html:8
+msgid "Venue Details"
+msgstr ""
+
+#: pycon/templates/venue/detail.html:22
+msgid "View Larger Map"
+msgstr ""
+
 #: pycon/templates/venue/detail.html:25
 msgid "Hotels"
 msgstr ""
@@ -1328,7 +1363,17 @@ msgstr ""
 msgid "sections"
 msgstr ""
 
-#: symposion/proposals/forms.py:48
+#: symposion/proposals/forms.py:36
+msgid ""
+"You have submitted the Proposal author's email address. Please select "
+"another email address."
+msgstr ""
+
+#: symposion/proposals/forms.py:45
+msgid "This email address has already been invited to your talk proposal"
+msgstr ""
+
+#: symposion/proposals/forms.py:62
 msgid "Comma-separated list of tags"
 msgstr ""
 
@@ -1381,6 +1426,46 @@ msgstr ""
 msgid "Removed the %(provider)s account '%(uid)s'."
 msgstr ""
 
+#: symposion/speakers/forms.py:16
+msgid ""
+"If you've submitted multiple proposals, please let us know if you only want "
+"to give one or if you'd like to give two talks."
+msgstr ""
+
+#: symposion/speakers/forms.py:47
+msgid "Please limit speaker biography to 100 words or less"
+msgstr ""
+
+#: symposion/speakers/models.py:12
+msgid "One"
+msgstr ""
+
+#: symposion/speakers/models.py:13
+msgid "Two"
+msgstr ""
+
+#: symposion/speakers/models.py:18
+msgid "As you would like it to appear in the conference program."
+msgstr ""
+
+#: symposion/speakers/models.py:21
+msgid ""
+"A little bit about you. 100 words or less, please. This will be used in "
+"print publications so please keep it simple, no links or formatting."
+msgstr ""
+
+#: symposion/speakers/models.py:28
+msgid "Your Twitter account"
+msgstr ""
+
+#: symposion/speakers/models.py:41
+msgid ""
+"If you've submitted multiple talk proposals, please let us know if you only "
+"want to give one or if you'd like to give two talks.  For tutorials and "
+"posters, state similar preferences in the additional notes section of your "
+"proposals."
+msgstr ""
+
 #: symposion/sponsorship/models.py:33
 msgid "contact_name"
 msgstr ""
@@ -1428,6 +1513,12 @@ msgstr ""
 msgid "Associations"
 msgstr ""
 
+#: symposion/templates/account/login.html:10
+msgid ""
+"<b>Note:</b> Account information is not saved year to year, you will need to "
+"make a new account or login using one of the method on the right."
+msgstr ""
+
 #: symposion/templates/biblion/blog_list.html:26
 #: symposion/templates/biblion/blog_post.html:20
 msgid "Not published yet"
@@ -1457,11 +1548,18 @@ msgid "Upload File"
 msgstr ""
 
 #: symposion/templates/cms/file_create.html:16
+#: symposion/templates/proposals/document_create.html:14
 msgid "Upload"
 msgstr ""
 
 #: symposion/templates/cms/file_index.html:5
 msgid "Uploaded Files"
+msgstr ""
+
+#: symposion/templates/cms/file_index.html:16
+#: symposion/templates/proposals/_proposal_fields.html:100
+#: symposion/templates/proposals/proposal_detail.html:77
+msgid "delete"
 msgstr ""
 
 #: symposion/templates/cms/file_index.html:19
@@ -1544,12 +1642,33 @@ msgstr ""
 msgid "You have been invited to join \"%(team)s\""
 msgstr ""
 
+#: symposion/templates/proposals/_pending_proposal_row.html:10
+#: symposion/templates/proposals/_proposal_row.html:10
+msgid "Cancelled"
+msgstr ""
+
+#: symposion/templates/proposals/_pending_proposal_row.html:19
+msgid "Invited"
+msgstr ""
+
+#: symposion/templates/proposals/_pending_proposal_row.html:28
+msgid "Choose Response"
+msgstr ""
+
+#: symposion/templates/proposals/_pending_proposal_row.html:32
+msgid "Accept invitation"
+msgstr ""
+
+#: symposion/templates/proposals/_pending_proposal_row.html:33
+msgid "Decline invitation"
+msgstr ""
+
 #: symposion/templates/proposals/_proposal_fields.html:8
 #: symposion/templates/reviews/_review_table.html:9
 msgid "Tags"
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_fields.html:13
+#: symposion/templates/proposals/_proposal_fields.html:12
 #: symposion/templates/reviews/_review_table.html:8
 #: symposion/templates/reviews/result_notification.html:47
 msgid "Category"
@@ -1592,12 +1711,54 @@ msgstr ""
 msgid "Additional Requirements"
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_fields.html:90
-msgid "Slide Deck"
+#: symposion/templates/proposals/_proposal_fields.html:83
+msgid "Download"
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_fields.html:99
-msgid "Documents"
+#: symposion/templates/proposals/_proposal_fields.html:85
+msgid "No handout attached to this proposal."
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:90
+#: symposion/templates/proposals/proposal_detail.html:55
+#: symposion/templates/proposals/proposal_detail.html:67
+msgid "Supporting Documents"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_fields.html:107
+#: symposion/templates/proposals/proposal_detail.html:84
+msgid "No supporting documents attached to this proposal."
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_row.html:19
+msgid "Associated"
+msgstr ""
+
+#: symposion/templates/proposals/_proposal_row.html:28
+msgid "Manage Additional Speakers"
+msgstr ""
+
+#: symposion/templates/proposals/document_create.html:5
+#, python-format
+msgid "Upload Document to '%(title)s'"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_cancel.html:5
+msgid "Cancel Proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_cancel.html:12
+#, python-format
+msgid "Are you sure you want to cancel <b>%(title)s</b>?"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_cancel.html:13
+#: symposion/templates/proposals/proposal_leave.html:9
+msgid "I am sure"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_cancel.html:14
+msgid "No, keep it for now"
 msgstr ""
 
 #: symposion/templates/proposals/proposal_detail.html:28
@@ -1612,12 +1773,92 @@ msgstr ""
 msgid "Remove me from this proposal"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_detail.html:55
-msgid "Supporting Documents"
+#: symposion/templates/proposals/proposal_detail.html:44
+msgid "Proposal Locked"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:44
+msgid ""
+"This proposal is locked as the review period for this section has ended. "
+"Edits of proposals after acceptance will not be reflected on the official "
+"schedule."
+msgstr ""
+
+#: symposion/templates/proposals/proposal_detail.html:86
+msgid "Add Document"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_edit.html:6
+#, python-format
+msgid "Editing %(title)s"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_edit.html:7
+msgid "Edit Proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_edit.html:11
+msgid "Manage speakers"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_leave.html:4
+#, python-format
+msgid "Leaving %(title)s"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_leave.html:8
+#, python-format
+msgid "Are you sure you wish to leave as a speaker on <b>%(title)s</b>?"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:27
+msgid "Proposal:"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:29
+msgid "Edit proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:31
+msgid "Current Speakers"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:36
+msgid "pending invitation"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:40
+msgid "Add another speaker"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:45
+msgid ""
+"Lookup speaker by email, first, or last name. If a Speaker does not exist "
+"for the email provided, an invitation to create an account will be sent to "
+"them."
+msgstr ""
+
+#: symposion/templates/proposals/proposal_speaker_manage.html:49
+msgid "Add speaker"
 msgstr ""
 
 #: symposion/templates/proposals/proposal_submit.html:6
 msgid "Submit A Proposal"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_submit.html:12
+msgid "Select what kind of proposal you'd like to submit:"
+msgstr ""
+
+#: symposion/templates/proposals/proposal_submit.html:20
+msgid "Proposals are not currently open for submission."
+msgstr ""
+
+#: symposion/templates/proposals/proposal_submit_kind.html:19
+msgid ""
+"You will be able to edit your proposal after it has been submitted. The "
+"program committee may ask questions, provide feedback, and even suggest "
+"changes to your proposal as part of the review processes."
 msgstr ""
 
 #: symposion/templates/registration/login.html:10
@@ -1638,22 +1879,6 @@ msgstr ""
 
 #: symposion/templates/registration/register.html:5
 msgid "Registration and Housing"
-msgstr ""
-
-#: symposion/templates/reviews/_review_table.html:11
-msgid "+1"
-msgstr ""
-
-#: symposion/templates/reviews/_review_table.html:12
-msgid "+0"
-msgstr ""
-
-#: symposion/templates/reviews/_review_table.html:13
-msgid "-0"
-msgstr ""
-
-#: symposion/templates/reviews/_review_table.html:14
-msgid "-1"
 msgstr ""
 
 #: symposion/templates/reviews/_review_table.html:15
@@ -1680,49 +1905,12 @@ msgstr ""
 msgid "Voting Status"
 msgstr ""
 
+#: symposion/templates/reviews/base.html:103
+msgid "Result Notification"
+msgstr ""
+
 #: symposion/templates/reviews/result_notification.html:49
 msgid "Notified?"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:90
-msgid "Speaker Feedback"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:101
-msgid "Edit proposal tags"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:112
-msgid "Submit Tags"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:120
-msgid "Current Results"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:127
-msgid "Total Responses"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:144
-msgid "Submit Review"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:182
-msgid "Conversation with the submitter"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:196
-msgid "Send a message"
-msgstr ""
-
-#: symposion/templates/reviews/review_detail.html:198
-msgid ""
-"\n"
-"                            If you'd like to communicate with the submitter, "
-"use the following form and he or she will be\n"
-"                            notified and given the opportunity to respond.\n"
-"                        "
 msgstr ""
 
 #: symposion/templates/reviews/review_list.html:6
@@ -1874,12 +2062,6 @@ msgstr ""
 #: symposion/templates/static/venue.html:5
 #: symposion/templates/venue/detail.html:6
 msgid "Venue"
-msgstr ""
-
-#: symposion/templates/teams/team_detail.html:38
-msgid ""
-"You have been invited to join this team. Click <b>join</b> to the right to "
-"accept.<"
 msgstr ""
 
 #: symposion/templates/teams/team_detail.html:48
