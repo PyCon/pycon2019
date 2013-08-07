@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-07 07:20-0400\n"
+"POT-Creation-Date: 2013-08-07 07:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -922,6 +922,7 @@ msgid "Last updated on"
 msgstr ""
 
 #: pycon/templates/finaid/_application_fields.html:18
+#: symposion/proposals/forms.py:21
 msgid "Email address"
 msgstr ""
 

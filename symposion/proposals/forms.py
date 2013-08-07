@@ -18,7 +18,7 @@ class AddSpeakerForm(forms.Form):
     email = selectable.AutoCompleteSelectField(
         lookup_class=UserLookup,
         allow_new=True,
-        label="Email address",
+        label=_("Email address"),
         required=True,
     )
 
