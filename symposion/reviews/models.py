@@ -302,7 +302,6 @@ class ResultNotification(models.Model):
     body = models.TextField()
 
     def recipients(self):
-        yield self.to_address
         for speaker in self.proposal.speakers():
             yield speaker.email
 
