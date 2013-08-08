@@ -1,15 +1,16 @@
 import hashlib
 import random
 
-from django.shortcuts import render, redirect
-
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 
 import account.views
 
 from pycon.finaid.context_processors import financial_aid
 import symposion.forms
+from symposion.forms import LanguageForm
 from symposion.proposals.models import ProposalSection
 
 
@@ -52,7 +53,17 @@ def dashboard(request):
                         request.session["pending-token"])
     context = {'proposals_are_open': bool(ProposalSection.available()), }
     context.update(financial_aid(request))
+    context['language_form'] = LanguageForm(
+        initial={'language': request.LANGUAGE_CODE})
     return render(
         request, "dashboard.html",
         context,
     )
+
+
+@require_POST
+def change_language(request):
+    form = LanguageForm(request.POST)
+    if form.is_valid():
+        request.session['django_language'] = form.cleaned_data['language']
+    return redirect(request.POST['next'])
