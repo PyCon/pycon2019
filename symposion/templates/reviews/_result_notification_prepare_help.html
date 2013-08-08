@@ -4,4 +4,5 @@
     <li><code>{% templatetag openvariable %} proposal.title {% templatetag closevariable %}</code> e.g. {{ proposals.0.title }}
     <li><code>{% templatetag openvariable %} proposal.kind {% templatetag closevariable %}</code> e.g. {{ proposals.0.kind }}
     <li><code>{% templatetag openvariable %} proposal.speaker {% templatetag closevariable %}</code> e.g. {{ proposals.0.speaker }}
+    <li><code>{% templatetag openvariable %} proposal.speakers {% templatetag closevariable %}</code> e.g. {% for speaker in proposals.0.speakers %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
 </ul>
