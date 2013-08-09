@@ -277,8 +277,10 @@ DEBUG_TOOLBAR_CONFIG = {
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
+    # "SETTING_NAME": (default_value, "help text")
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
     "REGISTRATION_URL": ("", "URL for registration"),
+    "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]

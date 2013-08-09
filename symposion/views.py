@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 
 import account.views
+import constance
 
 from pycon.finaid.context_processors import financial_aid
 import symposion.forms
@@ -53,8 +54,9 @@ def dashboard(request):
                         request.session["pending-token"])
     context = {'proposals_are_open': bool(ProposalSection.available()), }
     context.update(financial_aid(request))
-    context['language_form'] = LanguageForm(
-        initial={'language': request.LANGUAGE_CODE})
+    if constance.config.SHOW_LANGUAGE_SELECTOR:
+        context['language_form'] = LanguageForm(
+            initial={'language': request.LANGUAGE_CODE})
     return render(
         request, "dashboard.html",
         context,
