@@ -3,15 +3,30 @@ Translation
 
 The PyCon site is set up for use in English and French, for the most part.
 
-For CMS pages, there are two body fields. The first is for English. The
-second is for French. You'll have to scroll down a ways to see it when
-editing a CMS page.
+Which language is displayed
+---------------------------
 
-The French body will be used on the site if it's not empty and if the user's
-browser's request headers say to prefer French over English.
+By default, the request headers control which language is displayed. A user
+can change their brower's settings to say what their preferred languages are,
+and if French comes before English, the site will use French when available.
+It'll fall back to English for text that isn't translated.
 
-Text on most other pages, forms, etc is translatable. To add or update
-translations, a developer would:
+A language selector can optionally be displayed on the Dashboard page. This
+allows a user to temporarily override the displayed language for the current
+session. Whether the language selector is displayed is controlled by the
+django-constance setting SHOW_LANGUAGE_SELECTOR, which can be changed in the
+admin at /YEAR/admin/constance/config/.
+
+Translating
+-----------
+
+For CMS pages, there are two body fields. The first is for English. The second
+is for French. You'll have to scroll down a ways to see it when editing a CMS
+page.
+
+Text on most other pages, forms, etc is translatable using Django's
+internationalization support. To add or update translations, a developer
+would:
 
 * set up a local development environment for PyCon according to the README
 * make a new branch off the `develop` branch
