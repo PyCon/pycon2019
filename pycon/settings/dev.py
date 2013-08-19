@@ -3,6 +3,7 @@ from .base import *
 
 COMPRESS_ENABLED = False
 DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['localhost', '0.0.0.0']
 
 # Including a secret key since this is just for development

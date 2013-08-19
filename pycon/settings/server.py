@@ -18,6 +18,7 @@ DATABASES = {
 }
 
 ALLOWED_HOSTS = [
+    '.pycon.org',
     '.python.org',
     'staging-pycon.python.org',
     socket.getfqdn(),

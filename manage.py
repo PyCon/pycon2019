@@ -8,25 +8,27 @@ import sys
 #
 # so it's up to manage.py to pick what Django settings to use.
 
+
 if __name__ == "__main__":
     if 'IS_PRODUCTION' in os.environ:
-        # We're on server
+        # We're on a deployed server if the var exists, with any value.
+        # The value tells us if we're production or staging, so we
+        # can use the appropriate settings. The value is set by Chef
+        # using Ruby, so True is spelled 'true'.
 
-        def truish(env_value):
-            # 'true' or 'false' will be in the env
-            return env_value.lower() == 'true'
-
-        if truish(os.environ['IS_PRODUCTION']):
+        if os.environ['IS_PRODUCTION'] == 'true':
             os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                                   "pycon.settings.production")
         else:
             os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                                   "pycon.settings.staging")
-
     elif 'test' in sys.argv:
+        # Running tests - use test-specific settings
         os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                               "pycon.settings.test")
     else:
+        # Try to load pycon.settings.local and fail with a useful message
+        # if that doesn't work.
         os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                               "pycon.settings.default")
 

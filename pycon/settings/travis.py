@@ -1,4 +1,4 @@
-# top settings file for Travis
+# Settings file for Travis
 # uses common test settings, then overrides for Travis
 
 from .test import *
