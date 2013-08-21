@@ -16,11 +16,11 @@ class SponsorApplicationForm(forms.ModelForm):
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
-    
+
     class Meta:
         model = Sponsor
         fields = ["name", "contact_name", "contact_email", "level"]
-    
+
     def save(self, commit=True):
         obj = super(SponsorApplicationForm, self).save(commit=False)
         obj.applicant = self.user
@@ -41,10 +41,10 @@ class SponsorDetailsForm(forms.ModelForm):
 
 
 class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
-    
+
     def _construct_form(self, i, **kwargs):
         form = super(SponsorBenefitsInlineFormSet, self)._construct_form(i, **kwargs)
-        
+
         # only include the relevant data fields for this benefit type
         fields = form.instance.data_fields()
         form.fields = dict((k, v) for (k, v) in form.fields.items() if k in fields + ["id"])
@@ -52,15 +52,15 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
         for field in fields:
             # don't need a label, the form template will label it with the benefit name
             form.fields[field].label = ""
-            
+
             # provide word limit as help_text
             if form.instance.benefit.type in ["text", "richtext"] and form.instance.max_words:
                 form.fields[field].help_text = u"maximum %s words" % form.instance.max_words
-            
+
             # use admin file widget that shows currently uploaded file
             if field == "upload":
                 form.fields[field].widget = AdminFileWidget()
-        
+
         return form
 
 
@@ -70,3 +70,15 @@ SponsorBenefitsFormSet = inlineformset_factory(
     can_delete=False, extra=0,
     fields=["text", "upload"]
 )
+
+
+class SponsorEmailForm(forms.Form):
+    from_ = forms.EmailField(widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
+    cc = forms.CharField(help_text="(comma-separated addresses)",
+                         required=False,
+                         widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
+    bcc = forms.CharField(help_text="(comma-separated addresses)",
+                          required=False,
+                          widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
+    subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
+    body = forms.CharField(widget=forms.Textarea(attrs={'class': 'fullwidth-textarea'}))
