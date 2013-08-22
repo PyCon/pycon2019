@@ -53,7 +53,7 @@
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
-        <div class="account-bar{% if user.is_authenticated %} loggedin{% endif %}">
+        <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
             {% block account_bar %}
             {% include "_account_bar.html" %}
             {% endblock %}
@@ -161,8 +161,8 @@
                 </p>
             </div>
         {% endblock %}
-        </footer>
-    </div>
+        </div>
+    </footer>
 {% endblock %}
 
 {% block script_base %}

@@ -98,7 +98,7 @@
                             </li>
                             {% if request.user.is_staff %}
                                 <li>
-                                    <a href="{% url 'result_notification' section.section.slug 'accepted' %}">Result Notification</a>
+                                    <a href="{% url 'result_notification' section.section.slug 'accepted' %}">{% trans "Result Notification" %}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}

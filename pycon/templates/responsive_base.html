@@ -31,7 +31,7 @@
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container"> 
             <a class="logo-smaller" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
-            <div class="account-bar{% if user.is_authenticated %} loggedin{% endif %}">
+            <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
                 {% block account_bar %}
                 {% include "_account_bar.html" %}
                 {% endblock %}

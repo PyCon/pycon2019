@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
 {% block body %}
-            <p class="alert alert-info"><b>Note:</b> Account information is not saved year to year, you will need to make a new account or login using one of the method on the right.</p>
+            <p class="alert alert-info">{% trans "<b>Note:</b> Account information is not saved year to year, you will need to make a new account or login using one of the method on the right." %}</p>
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <legend>{% trans "Log in to an existing account" %}</legend>
                 {% csrf_token %}

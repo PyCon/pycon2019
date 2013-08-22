@@ -65,6 +65,15 @@ CONFERENCE_URL_PREFIXES = {
 # to load the internationalization machinery.
 USE_I18N = True
 
+gettext = lambda s: s
+
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('fr', gettext('French')),
+)
+
+LOCALE_PATHS = [os.path.join(PROJECT_ROOT, "locale")]
+
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"
@@ -184,6 +193,7 @@ INSTALLED_APPS = [
     "south",
     "uni_form",
     "gunicorn",
+    "selectable",
 
     # symposion
     "symposion.conference",
@@ -267,8 +277,10 @@ DEBUG_TOOLBAR_CONFIG = {
 
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
+    # "SETTING_NAME": (default_value, "help text")
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
     "REGISTRATION_URL": ("", "URL for registration"),
+    "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
