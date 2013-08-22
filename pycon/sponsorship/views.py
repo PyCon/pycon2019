@@ -15,7 +15,8 @@ from django.template import RequestContext
 
 from pycon.sponsorship.forms import SponsorApplicationForm, \
     SponsorBenefitsFormSet, SponsorDetailsForm
-from pycon.sponsorship.models import Sponsor, SponsorBenefit
+from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit, \
+    SponsorLevel
 
 
 log = logging.getLogger(__name__)
@@ -30,7 +31,7 @@ def sponsor_apply(request):
             return redirect("dashboard")
     else:
         form = SponsorApplicationForm(user=request.user)
-    
+
     return render_to_response("sponsorship/apply.html", {
         "form": form,
     }, context_instance=RequestContext(request))
@@ -39,31 +40,31 @@ def sponsor_apply(request):
 @login_required
 def sponsor_detail(request, pk):
     sponsor = get_object_or_404(Sponsor, pk=pk)
-    
+
     if not sponsor.active or sponsor.applicant != request.user:
         return redirect("sponsor_list")
-    
+
     formset_kwargs = {
         "instance": sponsor,
         "queryset": SponsorBenefit.objects.filter(active=True)
     }
-    
+
     if request.method == "POST":
-        
+
         form = SponsorDetailsForm(request.POST, instance=sponsor)
         formset = SponsorBenefitsFormSet(request.POST, request.FILES, **formset_kwargs)
-        
+
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            
+
             messages.success(request, "Your sponsorship application has been submitted!")
-            
+
             return redirect(request.path)
     else:
         form = SponsorDetailsForm(instance=sponsor)
         formset = SponsorBenefitsFormSet(**formset_kwargs)
-    
+
     return render_to_response("sponsorship/detail.html", {
         "sponsor": sponsor,
         "form": form,
@@ -75,7 +76,7 @@ def sponsor_detail(request, pk):
 def sponsor_export_data(request):
     sponsors = []
     data = ""
-    
+
     for sponsor in Sponsor.objects.order_by("added"):
         d = {
             "name": sponsor.name,
@@ -87,10 +88,11 @@ def sponsor_export_data(request):
             if sponsor_benefit.benefit_id == 2:
                 d["description"] = sponsor_benefit.text
         sponsors.append(d)
-    
+
     def izip_longest(*args):
         fv = None
-        def sentinel(counter=([fv]*(len(args)-1)).pop):
+
+        def sentinel(counter=([fv] * (len(args) - 1)).pop):
             yield counter()
         iters = [itertools.chain(it, sentinel(), itertools.repeat(fv)) for it in args]
         try:
@@ -98,14 +100,15 @@ def sponsor_export_data(request):
                 yield tup
         except IndexError:
             pass
+
     def pairwise(iterable):
         a, b = itertools.tee(iterable)
         b.next()
         return izip_longest(a, b)
-    
+
     def level_key(s):
         return s["level"]
-    
+
     for level, level_sponsors in itertools.groupby(sorted(sponsors, key=level_key), level_key):
         data += "%s\n" % ("-" * (len(level[1])+4))
         data += "| %s |\n" % level[1]
@@ -118,7 +121,7 @@ def sponsor_export_data(request):
                 data += "\n\n%s\n\n" % ("-"*80)
             else:
                 data += "\n\n"
-    
+
     return HttpResponse(data, content_type="text/plain;charset=utf-8")
 
 
@@ -128,17 +131,28 @@ def sponsor_zip_logo_files(request):
 
     zip_stringio = StringIO()
     with ZipFile(zip_stringio, "w") as zipfile:
-        for benefit in SponsorBenefit.objects.filter(
-                benefit__type__in=("file", "weblogo"))\
-                .exclude(upload=''):
-            if os.path.exists(benefit.upload.path):
-                modtime = time.gmtime(os.stat(benefit.upload.path).st_mtime)
-                with open(benefit.upload.path, "rb") as f:
-                    zipinfo = ZipInfo(filename=benefit.upload.name,
-                                      date_time=modtime)
-                    zipfile.writestr(zipinfo, f.read())
-            else:
-                log.debug("No such sponsor file: %s" % benefit.upload.path)
+        for benefit_name, dir_name in (("Web logo", "web_logos"),
+                                       ("Print logo", "print_logos")):
+            benefit = Benefit.objects.get(name=benefit_name)
+            for level in SponsorLevel.objects.all():
+                level_name = level.name.lower().replace(" ", "_")
+                for sponsor in Sponsor.objects.filter(level=level, active=True):
+                    sponsor_name = sponsor.name.lower().replace(" ", "_")
+                    full_dir = "/".join([dir_name, level_name, sponsor_name])
+                    for sponsor_benefit in SponsorBenefit.objects.filter(
+                        benefit=benefit,
+                        sponsor=sponsor,
+                        active=True,
+                    ).exclude(upload=''):
+                        if os.path.exists(sponsor_benefit.upload.path):
+                            modtime = time.gmtime(os.stat(sponsor_benefit.upload.path).st_mtime)
+                            with open(sponsor_benefit.upload.path, "rb") as f:
+                                zipinfo = ZipInfo(filename=full_dir + "/" + sponsor_benefit.upload.name,
+                                                  date_time=modtime)
+                                zipfile.writestr(zipinfo, f.read())
+                        else:
+                            log.debug("No such sponsor file: %s" % sponsor_benefit.upload.path)
+
     response = HttpResponse(zip_stringio.getvalue(),
                             content_type="application/zip")
     prefix = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
