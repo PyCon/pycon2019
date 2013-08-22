@@ -351,6 +351,7 @@ def review_status(request, section_slug=None, key=None):
     queryset = ProposalBase.objects.select_related("speaker__user", "result").select_subclasses()
     if section_slug:
         queryset = queryset.filter(kind__section__slug=section_slug)
+    queryset = queryset.exclude(cancelled=True)
 
     proposals = {
         # proposals with at least VOTE_THRESHOLD reviews and at least one +1 and no -1s, sorted by the 'score'

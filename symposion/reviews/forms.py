@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Textarea
 
 from markedit.widgets import MarkEdit
 
@@ -30,7 +31,7 @@ class SpeakerCommentForm(forms.ModelForm):
     class Meta:
         model = ProposalMessage
         fields = ["message"]
-        widgets = {"message": MarkEdit()}
+        widgets = {"message": Textarea(attrs={'class': 'fullwidth-textarea'})}
 
 
 class BulkPresentationForm(forms.Form):
