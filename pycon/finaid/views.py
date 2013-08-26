@@ -202,7 +202,7 @@ def finaid_review_detail(request, pk):
                                                  instance=review_data)
             if review_form.is_valid():
                 review_data = review_form.save()
-                return redirect(request.path)
+                return redirect(reverse("finaid_review"))
         else:
             log.error("finaid_review_detail posted with unknown form: %r"
                       % request.POST)
