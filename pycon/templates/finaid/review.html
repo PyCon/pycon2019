@@ -1,4 +1,8 @@
-{% extends "site_base.html" %}
+{% extends "finaid/base.html" %}
+
+{% block body_id %}finaid_review{% endblock %}
+
+{% block page_title %}Financial Aid Review{% endblock %}
 
 {% load compress %}
 {% load i18n %}
@@ -7,64 +11,101 @@
 {% load account_tags %}
 
 {% block body %}
-  <a href="{% url 'finaid_review' %}">{% trans "Back to list of applications" %}</a>
+  <p>
+    <a class="btn btn-primary" href="{% url 'finaid_review' %}">
+      <i class="icon-arrow-left"></i>
+      {% trans "Back to list of applications" %}
+    </a>
+  </p>
 
-  <h3>{% trans "Financial aid application for " %} {{ application.user }}</h3>
+  <header>
+    <small>{% trans "APPLICANT" %}</small>
+    <h2>
+      <i class="icon-user"></i>
+      {{ application.user }}
+    </h2>
+    <h3>
+      <a href="mailto:{{ application.user.email }}">
+        {{ application.user.email }}
+      </a>
+    </h3>
+  </header>
 
   <div class="tabbable">
+
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Application" %}</a></li>
-      <li><a href="#application-messages" data-toggle="tab">{% trans "Messages" %} <span class="badge">{{ application.messages.all|length }}</span></a></li>
+      <li class="active">
+        <a href="#application-detail" data-toggle="tab">
+          <i class="icon-file"></i>
+          {% trans "Application" %}
+        </a>
+      </li>
+      <li>
+        <a href="#application-messages" data-toggle="tab">
+          <i class="icon-envelope"></i>
+          {% trans "Messages" %}
+          <span class="badge badge-info">{{ application.messages.all|length }}</span>
+        </a>
+      </li>
 {#      <li><a href="#application-review" data-toggle="tab">{% trans "Review data" %}</a></li>#}
     </ul>
+
     <div class="tab-content">
       <div class="tab-pane active" id="application-detail">
-      <table>  {# UGH - table - FIXME #}
-        <tr>
-          <td style="vertical-align: top">
-          <h4>{% trans "Application" %}</h4>
+        <div class="row">
+          <div class="applicant span6">
             {% with is_reviewer=True %}
-          {% include "finaid/_application_fields.html" %}
-        {% endwith %}
-          </td>
-        <td style="vertical-align: top">
-        <h4>{% trans "Review" %}</h4>
-           {% with form=review_form %}
-          {% if form.errors %}
-            <div class="alert">
-              <p class="text-error">
-                {% trans "There were errors in your form, please correct them and submit again." %}
-              </p>
-            </div>
-          {% endif %}
-          <form action="" method="POST" accept-charset="utf-8">
-            {% csrf_token %}
-            <fieldset>
-              <div class="control-group">
-                <label>SUM</label>
-                {{ form.instance.sum }}
-              </div>
-              {{ form|as_bootstrap }}
-            </fieldset>
-            <div class="actions">
-              <button type="submit" name="review_submit" class="btn btn-primary">{% trans "Submit" %}</button>
-            </div>
-          </form>
-        {% endwith %}
-        </td>
-        </tr>
-      </table>
+              {% include "finaid/_application_fields.html" %}
+            {% endwith %}
+          </div>
+          <div class="review-form span3">
+            <h4>{% trans "REVIEW FORM" %}</h4>
+            <hr>
+            {% with form=review_form %}
+              {% if form.errors %}
+                <div class="alert">
+                  <p class="text-error">
+                    {% trans "There were errors in your form, please correct them and submit again." %}
+                  </p>
+                </div>
+              {% endif %}
 
+              <form action="" method="POST" accept-charset="utf-8">
+                {% csrf_token %}
+                <fieldset>
+                  <div class="control-group">
+                    <label>SUM</label>
+                    {{ form.instance.sum }}
+                  </div>
+                  {{ form|as_bootstrap }}
+                </fieldset>
+                <div class="actions">
+                  <button type="submit" name="review_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+                </div>
+              </form>
+
+            {% endwith %}
+          </div>
+        </div>
       </div>
+
       <div class="tab-pane" id="application-messages">
         {% if review_messages %}
-          <h3>{% trans "Messages" %}</h3>
+          <h3>
+            <i class="icon-envelope"></i>
+            {% trans "Messages" %}
+          </h3>
           {% for message in review_messages %}
             <div class="comment-box{% if not message.visible %} private{% endif %}">
               <div class="commment-content">
-                <b>{% user_display message.user %}</b>
+                {% if not message.visible %}
+                  <h4>
+                    <i class="icon-eye-close"></i>
+                    {% trans "PRIVATE TO REVIEWERS" %}
+                  </h4>
+                {% endif %}
+                <strong>{% user_display message.user %}</strong>
                 {{ message.submitted_at|timesince }} ago
-                {% if not message.visible %}(private to reviewers){% endif %}
                 <br />
                 {{ message.message|safe }}
               </div>
@@ -76,7 +117,10 @@
         {% endif %}
         <hr />
 
-        <h3>{% trans "Add a Message" %}</h3>
+        <h3>
+          <i class="icon-pencil"></i>
+          {% trans "Add a Message" %}
+        </h3>
         {% with form=message_form %}
           {% if form.errors %}
             <div class="alert">
