@@ -7,6 +7,10 @@ import posixpath
 from django.core.urlresolvers import reverse_lazy
 
 
+def env_or_default(NAME, default):
+    return os.environ.get(NAME, default)
+
+
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                             os.pardir, os.pardir))
@@ -26,11 +30,11 @@ COMPRESS = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "pycon2014",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "",
-        "PORT": "",
+        "NAME": env_or_default("DB_NAME", "pycon2014"),
+        "USER": env_or_default("DB_USER", ""),
+        "PASSWORD": env_or_default("DB_PASSWORD", ""),
+        "HOST": env_or_default("DB_HOST", ""),
+        "PORT": env_or_default("DB_PORT", ""),
     }
 }
 
@@ -80,7 +84,7 @@ LOCALE_PATHS = [os.path.join(PROJECT_ROOT, "locale")]
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
+MEDIA_ROOT = env_or_default("MEDIA_ROOT", os.path.join(PROJECT_ROOT, "site_media", "media"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).

@@ -15,8 +15,8 @@ NOSE_ARGS = ['--nologcapture']
 # Turn compress on to be closer to production env
 COMPRESS_ENABLED = True
 
-# Including a secret key since this is just for development
-SECRET_KEY = u'dipps!+sq49#e2k#5^@4*^qn#8s83$kawqqxn&_-*xo7twru*8'
+# Including a default secret key since this is just for test
+SECRET_KEY = env_or_default('SECRET_KEY', u'dipps!+sq49#e2k#5^@4*^qn#8s83$kawqqxn&_-*xo7twru*8')
 
 # Speed up testing - skip running the migrations, just make the test database
 # with its current schema

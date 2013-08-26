@@ -2,6 +2,7 @@
 # Do not add local.py to source control.
 
 # Pick one: import whatever your appropriate settings are for this environment
+# (probably ``.dev`` for local development)
 
 #from .dev import *
 #from .test import *
@@ -14,5 +15,6 @@
 # For example, if you're not running a local Postgres with a database
 # named ``pycon2014``, you'll need to add your database settings here.
 
+# Uncomment to use Django Debug Toolbar:
 #INSTALLED_APPS.append('debug_toolbar')
 #MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')

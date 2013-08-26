@@ -34,7 +34,7 @@ MANAGERS = ADMINS
 
 # Yes, send email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST = env_or_default("EMAIL_HOST", "")
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG

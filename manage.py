@@ -10,27 +10,25 @@ import sys
 
 
 if __name__ == "__main__":
+    settings = None
     if 'IS_PRODUCTION' in os.environ:
-        # We're on a deployed server if the var exists, with any value.
+        # We're on a deployed server if the var "IS_PRODUCTION" exists, with any value.
         # The value tells us if we're production or staging, so we
         # can use the appropriate settings. The value is set by Chef
         # using Ruby, so True is spelled 'true'.
-
         if os.environ['IS_PRODUCTION'] == 'true':
-            os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                                  "pycon.settings.production")
+            settings = "production"
         else:
-            os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                                  "pycon.settings.staging")
+            settings = "staging"
     elif 'test' in sys.argv:
         # Running tests - use test-specific settings
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                              "pycon.settings.test")
+        settings = "test"
     else:
         # Try to load pycon.settings.local and fail with a useful message
         # if that doesn't work.
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                              "pycon.settings.default")
+        settings = "default"
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pycon.settings.%s" % settings)
 
     from django.core.management import execute_from_command_line
 
