@@ -28,6 +28,16 @@ To get running locally
 
     python manage.py syncdb --migrate
 
+* You could run the local server at this point, but it turns out that with
+  an empty database, a lot of things don't work. If you have ssh access to
+  the staging server, an easy solution is to copy the database and media
+  from there::
+
+  $ fab staging get_db_dump:pycon2014
+  $ fab staging get_media
+
+  Change ``pycon2014`` in that first command to the name of your local database.
+
 * Run local server::
 
     python manage.py runserver

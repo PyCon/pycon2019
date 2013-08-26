@@ -1,4 +1,4 @@
-# If you change the DB name here, also change it in pycon/settings.travis.py
+# If you change the DB name here, also change it in pycon/settings/travis.py
 before_script:
   - psql -c 'create database pycon2014;' -U postgres
 language: python
