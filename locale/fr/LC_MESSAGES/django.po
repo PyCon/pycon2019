@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-07 07:28-0400\n"
+"POT-Creation-Date: 2013-08-26 09:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,8 +156,8 @@ msgid "I have applied but don't know yet"
 msgstr ""
 
 #: pycon/finaid/models.py:33 pycon/finaid/models.py:164
-#: symposion/templates/proposals/_pending_proposal_row.html:16
-#: symposion/templates/proposals/_proposal_row.html:16
+#: symposion/templates/proposals/_pending_proposal_row.html:17
+#: symposion/templates/proposals/_proposal_row.html:17
 msgid "Submitted"
 msgstr ""
 
@@ -182,8 +182,8 @@ msgid "Declined"
 msgstr ""
 
 #: pycon/finaid/models.py:39 symposion/proposals/models.py:164
-#: symposion/templates/proposals/_pending_proposal_row.html:14
-#: symposion/templates/proposals/_proposal_row.html:14
+#: symposion/templates/proposals/_pending_proposal_row.html:15
+#: symposion/templates/proposals/_proposal_row.html:15
 msgid "Accepted"
 msgstr ""
 
@@ -442,7 +442,7 @@ msgstr ""
 msgid "sponsor levels"
 msgstr ""
 
-#: pycon/sponsorship/models.py:40 pycon/templates/dashboard.html:319
+#: pycon/sponsorship/models.py:40 pycon/templates/dashboard.html:334
 msgid "applicant"
 msgstr ""
 
@@ -559,130 +559,138 @@ msgstr ""
 msgid "Sponsorship available! Learn more"
 msgstr ""
 
-#: pycon/templates/dashboard.html:26 pycon/templates/dashboard.html.py:115
+#: pycon/templates/dashboard.html:27
+msgid "Language"
+msgstr ""
+
+#: pycon/templates/dashboard.html:34
+msgid "Change"
+msgstr ""
+
+#: pycon/templates/dashboard.html:41 pycon/templates/dashboard.html.py:130
 msgid "Speaking"
 msgstr ""
 
-#: pycon/templates/dashboard.html:33 pycon/templates/dashboard.html.py:119
+#: pycon/templates/dashboard.html:48 pycon/templates/dashboard.html.py:134
 msgid "Edit your speaker profile"
 msgstr ""
 
-#: pycon/templates/dashboard.html:39
+#: pycon/templates/dashboard.html:54
 msgid "Submit a new proposal"
 msgstr ""
 
-#: pycon/templates/dashboard.html:45
+#: pycon/templates/dashboard.html:60
 msgid "Your Proposals"
 msgstr ""
 
-#: pycon/templates/dashboard.html:49 pycon/templates/dashboard.html.py:69
-#: pycon/templates/dashboard.html:87 pycon/templates/dashboard.html.py:130
+#: pycon/templates/dashboard.html:64 pycon/templates/dashboard.html.py:84
+#: pycon/templates/dashboard.html:102 pycon/templates/dashboard.html.py:145
 msgid "Title"
 msgstr ""
 
-#: pycon/templates/dashboard.html:50 pycon/templates/dashboard.html.py:70
-#: pycon/templates/dashboard.html:88
+#: pycon/templates/dashboard.html:65 pycon/templates/dashboard.html.py:85
+#: pycon/templates/dashboard.html:103
 msgid "Session type"
 msgstr ""
 
-#: pycon/templates/dashboard.html:51 pycon/templates/dashboard.html.py:71
-#: pycon/templates/dashboard.html:89
+#: pycon/templates/dashboard.html:66 pycon/templates/dashboard.html.py:86
+#: pycon/templates/dashboard.html:104
 #: pycon/templates/finaid/_application_fields.html:7
 #: pycon/templates/finaid/application_list.html:29
 #: symposion/templates/reviews/result_notification.html:48
 msgid "Status"
 msgstr ""
 
-#: pycon/templates/dashboard.html:52 pycon/templates/dashboard.html.py:72
-#: pycon/templates/dashboard.html:90
+#: pycon/templates/dashboard.html:67 pycon/templates/dashboard.html.py:87
+#: pycon/templates/dashboard.html:105
 msgid "Actions"
 msgstr ""
 
-#: pycon/templates/dashboard.html:59
+#: pycon/templates/dashboard.html:74
 msgid "No proposals submitted yet."
 msgstr ""
 
-#: pycon/templates/dashboard.html:66
+#: pycon/templates/dashboard.html:81
 msgid "Proposals you have joined as an additional speaker"
 msgstr ""
 
-#: pycon/templates/dashboard.html:84
+#: pycon/templates/dashboard.html:99
 msgid "Proposals you have been invited to join"
 msgstr ""
 
-#: pycon/templates/dashboard.html:100
+#: pycon/templates/dashboard.html:115
 msgid "To submit a proposal, first create a speaker profile."
 msgstr ""
 
-#: pycon/templates/dashboard.html:104
+#: pycon/templates/dashboard.html:119
 msgid "Create a speaker profile"
 msgstr ""
 
-#: pycon/templates/dashboard.html:125
+#: pycon/templates/dashboard.html:140
 msgid "Your Presentations"
 msgstr ""
 
-#: pycon/templates/dashboard.html:129
+#: pycon/templates/dashboard.html:144
 msgid "Session Type"
 msgstr ""
 
-#: pycon/templates/dashboard.html:131
+#: pycon/templates/dashboard.html:146
 msgid "Slot"
 msgstr ""
 
-#: pycon/templates/dashboard.html:189
+#: pycon/templates/dashboard.html:204
 #: symposion/templates/sponsorship/detail.html:8
 msgid "Sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:195
+#: pycon/templates/dashboard.html:210
 msgid "Learn about sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:200
+#: pycon/templates/dashboard.html:215
 msgid "Apply to be a sponsor"
 msgstr ""
 
-#: pycon/templates/dashboard.html:213
+#: pycon/templates/dashboard.html:228
 msgid "Your Sponsorship"
 msgstr ""
 
-#: pycon/templates/dashboard.html:223
+#: pycon/templates/dashboard.html:238
 msgid "awaiting approval"
 msgstr ""
 
-#: pycon/templates/dashboard.html:237 symposion/templates/dashboard.html:195
+#: pycon/templates/dashboard.html:252 symposion/templates/dashboard.html:195
 #: symposion/templates/reviews/base.html:85
 msgid "Reviews"
 msgstr ""
 
-#: pycon/templates/dashboard.html:241
+#: pycon/templates/dashboard.html:256
 msgid "Review Sections"
 msgstr ""
 
-#: pycon/templates/dashboard.html:249
+#: pycon/templates/dashboard.html:264
 msgid "Proposals you have reviewed"
 msgstr ""
 
-#: pycon/templates/dashboard.html:253
+#: pycon/templates/dashboard.html:268
 #: symposion/templates/reviews/_review_table.html:7
 #: symposion/templates/reviews/result_notification.html:46
 msgid "Speaker / Title"
 msgstr ""
 
-#: pycon/templates/dashboard.html:254
+#: pycon/templates/dashboard.html:269
 msgid "Your Vote"
 msgstr ""
 
-#: pycon/templates/dashboard.html:301 symposion/templates/dashboard.html:259
+#: pycon/templates/dashboard.html:316 symposion/templates/dashboard.html:259
 msgid "Teams"
 msgstr ""
 
-#: pycon/templates/dashboard.html:306
+#: pycon/templates/dashboard.html:321
 msgid "Your Teams"
 msgstr ""
 
-#: pycon/templates/dashboard.html:327
+#: pycon/templates/dashboard.html:342
 msgid "Available Teams"
 msgstr ""
 
@@ -767,12 +775,28 @@ msgid ""
 "                  "
 msgstr ""
 
-#: pycon/templates/account/_openid_sidebar.html:28
+#: pycon/templates/account/_openid_sidebar.html:5
+#: symposion/templates/account/_openid_sidebar.html:5
+#: symposion/templates/social_auth/usersocialauth_list.html:47
+msgid "Sign in with another account:"
+msgstr ""
+
+#: pycon/templates/account/_openid_sidebar.html:17
+#: symposion/templates/account/_openid_sidebar.html:17
+msgid "Sign in with OpenID"
+msgstr ""
+
+#: pycon/templates/account/_openid_sidebar.html:21
+#: symposion/templates/account/_openid_sidebar.html:21
+msgid "Sign in"
+msgstr ""
+
+#: pycon/templates/account/_openid_sidebar.html:26
 #: symposion/templates/account/_openid_sidebar.html:25
 msgid "Don't have an account? "
 msgstr ""
 
-#: pycon/templates/account/_openid_sidebar.html:29
+#: pycon/templates/account/_openid_sidebar.html:27
 msgid "Sign up now!"
 msgstr ""
 
@@ -790,6 +814,13 @@ msgid "Change password"
 msgstr ""
 
 #: pycon/templates/account/base.html:16
+#: symposion/templates/account/base.html:13
+#: symposion/templates/social_auth/usersocialauth_list.html:4
+#: symposion/templates/social_auth/usersocialauth_list.html:7
+msgid "Associations"
+msgstr ""
+
+#: pycon/templates/account/base.html:17
 #: symposion/templates/account/base.html:14
 msgid "Delete account"
 msgstr ""
@@ -1307,12 +1338,12 @@ msgstr ""
 msgid "Venue Details"
 msgstr ""
 
-#: pycon/templates/venue/detail.html:22
-msgid "View Larger Map"
+#: pycon/templates/venue/detail.html:27
+msgid "Hotels"
 msgstr ""
 
-#: pycon/templates/venue/detail.html:25
-msgid "Hotels"
+#: symposion/forms.py:47
+msgid "Change language for this session"
 msgstr ""
 
 #: symposion/settings.py:71
@@ -1494,25 +1525,6 @@ msgid ""
 "\"%(login_url)s\">logging in</a>."
 msgstr ""
 
-#: symposion/templates/account/_openid_sidebar.html:5
-#: symposion/templates/social_auth/usersocialauth_list.html:47
-msgid "Sign in with another account:"
-msgstr ""
-
-#: symposion/templates/account/_openid_sidebar.html:17
-msgid "Sign in with OpenID"
-msgstr ""
-
-#: symposion/templates/account/_openid_sidebar.html:21
-msgid "Sign in"
-msgstr ""
-
-#: symposion/templates/account/base.html:13
-#: symposion/templates/social_auth/usersocialauth_list.html:4
-#: symposion/templates/social_auth/usersocialauth_list.html:7
-msgid "Associations"
-msgstr ""
-
 #: symposion/templates/account/login.html:10
 msgid ""
 "<b>Note:</b> Account information is not saved year to year, you will need to "
@@ -1548,7 +1560,7 @@ msgid "Upload File"
 msgstr ""
 
 #: symposion/templates/cms/file_create.html:16
-#: symposion/templates/proposals/document_create.html:14
+#: symposion/templates/proposals/document_create.html:15
 msgid "Upload"
 msgstr ""
 
@@ -1642,24 +1654,24 @@ msgstr ""
 msgid "You have been invited to join \"%(team)s\""
 msgstr ""
 
-#: symposion/templates/proposals/_pending_proposal_row.html:10
-#: symposion/templates/proposals/_proposal_row.html:10
+#: symposion/templates/proposals/_pending_proposal_row.html:11
+#: symposion/templates/proposals/_proposal_row.html:11
 msgid "Cancelled"
 msgstr ""
 
-#: symposion/templates/proposals/_pending_proposal_row.html:19
+#: symposion/templates/proposals/_pending_proposal_row.html:20
 msgid "Invited"
 msgstr ""
 
-#: symposion/templates/proposals/_pending_proposal_row.html:28
+#: symposion/templates/proposals/_pending_proposal_row.html:29
 msgid "Choose Response"
 msgstr ""
 
-#: symposion/templates/proposals/_pending_proposal_row.html:32
+#: symposion/templates/proposals/_pending_proposal_row.html:33
 msgid "Accept invitation"
 msgstr ""
 
-#: symposion/templates/proposals/_pending_proposal_row.html:33
+#: symposion/templates/proposals/_pending_proposal_row.html:34
 msgid "Decline invitation"
 msgstr ""
 
@@ -1730,34 +1742,34 @@ msgstr ""
 msgid "No supporting documents attached to this proposal."
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_row.html:19
+#: symposion/templates/proposals/_proposal_row.html:20
 msgid "Associated"
 msgstr ""
 
-#: symposion/templates/proposals/_proposal_row.html:28
+#: symposion/templates/proposals/_proposal_row.html:29
 msgid "Manage Additional Speakers"
 msgstr ""
 
-#: symposion/templates/proposals/document_create.html:5
+#: symposion/templates/proposals/document_create.html:6
 #, python-format
 msgid "Upload Document to '%(title)s'"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_cancel.html:5
+#: symposion/templates/proposals/proposal_cancel.html:6
 msgid "Cancel Proposal"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_cancel.html:12
+#: symposion/templates/proposals/proposal_cancel.html:13
 #, python-format
 msgid "Are you sure you want to cancel <b>%(title)s</b>?"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_cancel.html:13
-#: symposion/templates/proposals/proposal_leave.html:9
+#: symposion/templates/proposals/proposal_cancel.html:14
+#: symposion/templates/proposals/proposal_leave.html:10
 msgid "I am sure"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_cancel.html:14
+#: symposion/templates/proposals/proposal_cancel.html:15
 msgid "No, keep it for now"
 msgstr ""
 
@@ -1801,44 +1813,44 @@ msgstr ""
 msgid "Manage speakers"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_leave.html:4
+#: symposion/templates/proposals/proposal_leave.html:5
 #, python-format
 msgid "Leaving %(title)s"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_leave.html:8
+#: symposion/templates/proposals/proposal_leave.html:9
 #, python-format
 msgid "Are you sure you wish to leave as a speaker on <b>%(title)s</b>?"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:27
+#: symposion/templates/proposals/proposal_speaker_manage.html:28
 msgid "Proposal:"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:29
+#: symposion/templates/proposals/proposal_speaker_manage.html:30
 msgid "Edit proposal"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:31
+#: symposion/templates/proposals/proposal_speaker_manage.html:32
 msgid "Current Speakers"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:36
+#: symposion/templates/proposals/proposal_speaker_manage.html:37
 msgid "pending invitation"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:40
+#: symposion/templates/proposals/proposal_speaker_manage.html:41
 msgid "Add another speaker"
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:45
+#: symposion/templates/proposals/proposal_speaker_manage.html:46
 msgid ""
 "Lookup speaker by email, first, or last name. If a Speaker does not exist "
 "for the email provided, an invitation to create an account will be sent to "
 "them."
 msgstr ""
 
-#: symposion/templates/proposals/proposal_speaker_manage.html:49
+#: symposion/templates/proposals/proposal_speaker_manage.html:50
 msgid "Add speaker"
 msgstr ""
 
