@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Financial Aid{% endblock %}
+
+{% block body_class %}finaid{% endblock %}
+
+{% block page_title %}Financial Aid{% endblock %}
+
+{% block page_content %}
+	<div class="container">
+        <div class="row">
+            <div class="span12">
+                {% block edit_page %}{% endblock %}
+                <div class="box">
+                    <div class="box-content">
+                    	{% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
