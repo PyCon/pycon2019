@@ -25,23 +25,23 @@ BENEFITS = [
     {
         'name': 'Web logo',
         'field_name': 'web_logo_benefit',
-        'column_title': 'Web logo',
+        'column_title': _(u'Web logo'),
     }, {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
-        'column_title': 'Print logo',
+        'column_title': _(u'Print logo'),
     }, {
         'name': 'Company Description',
         'field_name': 'company_description_benefit',
-        'column_title': 'Co Descr',
+        'column_title': _(u'Co Descr'),
     }, {
         'name': 'Print Description',
         'field_name': 'print_description_benefit',
-        'column_title': 'Print Desc',
+        'column_title': _(u'Print Desc'),
     }, {
         'name': 'Advertisement',
         'field_name': 'advertisement_benefit',
-        'column_title': 'ad',
+        'column_title': _(u'Ad'),
     }
 ]
 
@@ -85,11 +85,11 @@ class Sponsor(models.Model):
 
     # Whether things are complete
     # True = complete, False = incomplate, Null = n/a for this sponsor level
-    web_logo_benefit = models.NullBooleanField(help_text="Web logo benefit is complete")
-    print_logo_benefit = models.NullBooleanField(help_text="Print logo benefit is complete")
-    print_description_benefit = models.NullBooleanField(help_text="Print description benefit is complete")
-    company_description_benefit = models.NullBooleanField(help_text="Company description benefit is complete")
-    advertisement_benefit = models.NullBooleanField(help_text="Advertisement benefit is complete")
+    web_logo_benefit = models.NullBooleanField(help_text=_(u"Web logo benefit is complete"))
+    print_logo_benefit = models.NullBooleanField(help_text=_(u"Print logo benefit is complete"))
+    print_description_benefit = models.NullBooleanField(help_text=_(u"Print description benefit is complete"))
+    company_description_benefit = models.NullBooleanField(help_text=_(u"Company description benefit is complete"))
+    advertisement_benefit = models.NullBooleanField(help_text=_(u"Advertisement benefit is complete"))
 
     objects = SponsorManager()
 
@@ -314,7 +314,7 @@ class SponsorBenefit(models.Model):
 
     # Whether any assets required from the sponsor have been provided
     # (e.g. a logo file for a Web logo benefit).
-    is_complete = models.NullBooleanField(help_text="True - benefit complete; False - benefit incomplete; Null - n/a")
+    is_complete = models.NullBooleanField(help_text=_(u"True - benefit complete; False - benefit incomplete; Null - n/a"))
 
     class Meta:
         ordering = ['-active']

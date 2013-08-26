@@ -1,7 +1,7 @@
 from django import forms
-from django.forms.models import inlineformset_factory, BaseInlineFormSet
-
 from django.contrib.admin.widgets import AdminFileWidget
+from django.forms.models import inlineformset_factory, BaseInlineFormSet
+from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
@@ -74,10 +74,10 @@ SponsorBenefitsFormSet = inlineformset_factory(
 
 class SponsorEmailForm(forms.Form):
     from_ = forms.EmailField(widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
-    cc = forms.CharField(help_text="(comma-separated addresses)",
+    cc = forms.CharField(help_text=_(u"(comma-separated addresses)"),
                          required=False,
                          widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
-    bcc = forms.CharField(help_text="(comma-separated addresses)",
+    bcc = forms.CharField(help_text=_(u"(comma-separated addresses)"),
                           required=False,
                           widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
     subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))

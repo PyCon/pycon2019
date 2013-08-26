@@ -17,6 +17,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response,\
     render
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.forms import SponsorApplicationForm, \
     SponsorBenefitsFormSet, SponsorDetailsForm, SponsorEmailForm
@@ -173,7 +174,7 @@ def email_selected_sponsors_action(modeladmin, request, queryset, form=None):
     # But hey, we don't really need to do the work here...
     pks = ",".join([str(pk) for pk in queryset.values_list('pk', flat=True)])
     return sponsor_email(request, pks)
-email_selected_sponsors_action.short_description = "Email selected sponsors"
+email_selected_sponsors_action.short_description = _(u"Email selected sponsors")
 
 
 @staff_member_required
@@ -220,7 +221,7 @@ def sponsor_email(request, pks):
                     bcc=data['bcc'].split(",")
                 )
                 mail.send()
-            messages.add_message(request, messages.INFO, "Email sent to sponsors")
+            messages.add_message(request, messages.INFO, _(u"Email sent to sponsors"))
             return redirect(reverse('admin:sponsorship_sponsor_changelist'))
     else:
         form = SponsorEmailForm(initial=initial)

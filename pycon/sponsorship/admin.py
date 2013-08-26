@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit, \
     BenefitLevel, SponsorBenefit, BENEFITS
@@ -59,15 +60,15 @@ class SponsorAdmin(admin.ModelAdmin):
         name = sponsor.applicant.get_full_name()
         email = sponsor.applicant.email
         return mark_safe('<a href="mailto:%s">%s</a>' % (escape(email), escape(name)))
-    applicant_field.short_description = "Applicant"
+    applicant_field.short_description = _(u"Applicant")
 
     def get_form(self, *args, **kwargs):
         # @@@ kinda ugly but using choices= on NullBooleanField is broken
         form = super(SponsorAdmin, self).get_form(*args, **kwargs)
         form.base_fields["active"].widget.choices = [
-            (u"1", "unreviewed"),
-            (u"2", "approved"),
-            (u"3", "rejected")
+            (u"1", _(u"unreviewed")),
+            (u"2", _(u"approved")),
+            (u"3", _(u"rejected"))
         ]
         return form
 
