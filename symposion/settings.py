@@ -131,6 +131,7 @@ MIDDLEWARE_CLASSES = [
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "reversion.middleware.RevisionMiddleware",
+    "social_auth.middleware.SocialAuthExceptionMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -260,12 +261,18 @@ ACCOUNT_SIGNUP_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
+LOGIN_ERROR_URL = reverse_lazy("account_login")
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2014/dashboard/"
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
+
+# Don't clobber User.email if someone associates a social account that
+# happens to have a different email address
+# http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
