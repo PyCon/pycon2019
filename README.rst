@@ -20,9 +20,7 @@ To get running locally
 * Edit ``pycon/settings/local.py`` according to the comments. Note that you
   `will` have to edit it; by default everything there is commented out.
 * Create your database. (This is assuming you haven't changed the default
-  database settings.)
-
-::
+  database settings.)::
 
     createdb pycon2014
 
@@ -38,8 +36,10 @@ For production
 --------------
 
 * Start with instructions above, except:
+
   * Install requirements from requirements/project.txt instead of requirements/dev.txt
   * Stop when you get to `Run local server`
+
 * Edit ``pycon/settings/local.py`` to make sure DEBUG=False.
 * Add an appropriate ALLOWED_HOSTS setting (https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-ALLOWED_HOSTS)
 * Install ``lessc`` (Go to http://lesscss.org and search for "Server-side usage")
@@ -52,11 +52,11 @@ For production
 
     python manage.py collectstatic --noinput
 
-* Arrange to serve the site_media directory as /2014/site_media/whatever.
+* Arrange to serve the site_media directory as ``/2014/site_media/whatever``.
   E.g. ``site_media/foo.html`` would be at ``/2014/site_media/foo.html``.
-* Arrange to serve the wsgi application in symposion/wsgi.py at /, running
+* Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running
   with the same virtualenv (or equivalent).  It will only handle URLs
-  starting with /2014 though, so you don't have to pass it any other requests.
+  starting with ``/2014`` though, so you don't have to pass it any other requests.
 
 To run tests
 ------------
