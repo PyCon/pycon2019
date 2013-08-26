@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 
 from account.models import EmailAddress
-from social_auth.exceptions import AuthException
+from social_auth.exceptions import AuthAlreadyAssociated
 from social_auth.utils import setting
 
 
@@ -19,13 +19,12 @@ def create_user(backend, details, response, uid, username, user=None,
     email = details.get("email")
 
     if EmailAddress.objects.filter(email=email):
-        # TODO - Make this fail gracefully back to sign up
         message = (
             "The email address provided by the external "
             "service is already associated with another account. Please "
             "log in to that account first and associate your account."
         )
-        raise AuthException(backend, message)
+        raise AuthAlreadyAssociated(backend, message)
     else:
         User = get_user_model()
         user = User.objects.create_user(username=username, email=email)
