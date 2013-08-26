@@ -11,6 +11,8 @@ We are in the process of cleaning things up and making them more generic.
 
 The project homepage is http://github.com/caktus/pycon.
 
+See ``README`` for the installation instructions.
+
 Apps:
 
 .. toctree::
