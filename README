@@ -16,12 +16,13 @@ To get running locally
 
   (For production, install -r requirements/project.txt).
 
-* Create a ``local_settings.py`` file at the top level of this tree.
-* Copy the ``DATABASES`` setting from ``symposion/settings.py`` into
-  ``local_settings.py``
-* Edit the ``DATABASES`` setting for your own database server. We'll assume
-  you leave the server type as Postgres and the database name as pycon2014.
-* Create your database::
+* Copy ``pycon/settings/local.py-example`` to ``pycon/settings/local.py``.
+* Edit ``pycon/settings/local.py`` according to the comments. Note that you
+  `will` have to edit it; by default everything there is commented out.
+* Create your database. (This is assuming you haven't changed the default
+  database settings.)
+
+::
 
     createdb pycon2014
 
@@ -39,7 +40,7 @@ For production
 * Start with instructions above, except:
   * Install requirements from requirements/project.txt instead of requirements/dev.txt
   * Stop when you get to `Run local server`
-* Edit ``local_settings.py`` to make sure DEBUG=False.
+* Edit ``pycon/settings/local.py`` to make sure DEBUG=False.
 * Add an appropriate ALLOWED_HOSTS setting (https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-ALLOWED_HOSTS)
 * Install ``lessc`` (Go to http://lesscss.org and search for "Server-side usage")
 * Pre-compress everything by running::
@@ -47,11 +48,12 @@ For production
     python manage.py compress --force
 
   That will write compressed css and js files under site_media
-* Gather the static files:
+* Gather the static files::
 
     python manage.py collectstatic --noinput
 
 * Arrange to serve the site_media directory as /2014/site_media/whatever.
+  E.g. ``site_media/foo.html`` would be at ``/2014/site_media/foo.html``.
 * Arrange to serve the wsgi application in symposion/wsgi.py at /, running
   with the same virtualenv (or equivalent).  It will only handle URLs
   starting with /2014 though, so you don't have to pass it any other requests.
@@ -59,4 +61,11 @@ For production
 To run tests
 ------------
 
+::
+
     python manage.py test
+
+More documentation
+------------------
+
+There's more documentation under ``docs/``.
