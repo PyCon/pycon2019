@@ -269,6 +269,11 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
+# Don't clobber User.email if someone associates a social account that
+# happens to have a different email address
+# http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
 DEFAULT_FROM_EMAIL = "PyCon 2014 <no-reply@us.pycon.org>"
