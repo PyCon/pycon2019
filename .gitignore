@@ -7,5 +7,5 @@ pycon/static/less/bootstrap/bootstrap.css
 pycon/static/less/bootstrap/variables.css
 MANIFEST
 .tox
-local_settings.py
+pycon/settings/local.py
 site_media
