@@ -1,0 +1,3 @@
+# Requirements for testing - same as dev, really, but might not
+# always be.
+-r dev.txt

@@ -1,88 +1,136 @@
 {% load i18n %}
 
-<dl class="dl-horizontal">
-  <dt>{% trans "Submitted by" %}</dt>
-  <dd>{{ application.user }}</dd>
+<h4>{% trans "STATUS" %}
+<span class="label
+  {% if application.get_status_display == "Rejected" or application.get_status_display == "Declined" %}
+    label-important
+  {% elif application.get_status_display == "Information needed" %}
+    label-info
+  {% else %}label-success{% endif %}
+  ">
+  {{ application.get_status_display }}
+</h4>
 
-  <dt>{% trans "Status" %}</dt>
-  <dd>{{ application.get_status_display }}</dd>
-
-  <dt>{% trans "Submitted on" %}</dt>
-  <dd>{{ application.timestamp }}</dd>
+<ul class="timestamp unstyled">
+  <h4>TIMESTAMP</h4>
+  <li>
+   <strong>{% trans "Submitted:" %}</strong>
+    {{ application.timestamp }}
+  </li>
 
   {% if application.timestamp != application.last_updated %}
-    <dt>{% trans "Last updated on" %}</dt>
-    <dd>{{ application.last_update }}</dd>
+    <li>
+     <strong>{% trans "Last updated:" %}</strong>
+      {{ application.last_update }}
+    </li>
   {% endif %}
+</ul>
 
-  <dt>{% trans "Email address" %}</dt>
-  <dd><a href="mailto:{{ application.user.email }}">{{ application.user.email }}</a></dd>
+<hr>
 
-  {% if is_reviewer %}
-    {# show all the things #}
-    <dt>{% trans "Pyladies grant requested" %}</dt>
-    <dd>{{ application.pyladies_grant_requested }}</dd>
-
-    <dt>{% trans "Registration grant requested" %}</dt>
-    <dd>{{ application.registration_grant_requested }}</dd>
-
-    <dt>{% trans "Hotel grant requested" %}</dt>
-    <dd>{{ application.hotel_grant_requested }}</dd>
-
-    {% if application.hotel_grant_requested %}
-      <dt>{% trans "Hotel nights" %}</dt>
-      <dd>{{ application.hotel_nights }}</dd>
-      {% comment %}Translators: Sex as in male, female{% endcomment %}
-      <dt>{% trans "Sex" %}</dt>
-      <dd>{{ application.get_sex_display }}</dd>
-    {% endif %}
-
-    <dt>{% trans "Travel grant requested" %}</dt>
-    <dd>{{ application.travel_grant_requested }}</dd>
-
-    {% if application.travel_grant_requested %}
-      <dt>{% trans "International travel" %}</dt>
-      <dd>{{ application.international }}</dd>
-      <dt>{% trans "Travel amount requested" %}</dt>
-      <dd>{{ application.travel_amount_requested }}</dd>
-      <dt>{% trans "Travel plans" %}</dt>
-      <dd>{{ application.travel_plans }}&nbsp;</dd>
-    {% endif %}
-
-    <dt>{% trans "Tutorial grant requested" %}</dt>
-    <dd>{{ application.tutorial_grant_requested }}</dd>
-
-    <dt>{% trans "Profession" %}</dt>
-    <dd>{{ application.profession }}&nbsp;</dd>
-
-    <dt>{% trans "Involvement" %}</dt>
-    <dd>{{ application.involvement }}&nbsp;</dd>
-
-    <dt>{% trans "What do you want to get out of attending Pycon" %}</dt>
-    <dd>{{ application.what_you_want }}&nbsp;</dd>
-
-    <dt>{% trans "What do you want to learn" %}</dt>
-    <dd>{{ application.want_to_learn }}&nbsp;</dd>
-
-    <dt>{% trans "Portfolios" %}</dt>
-    <dd>{{ application.portfolios }}&nbsp;</dd>
-
-    <dt>{% trans "Use of Python" %}</dt>
-    <dd>{{ application.use_of_python }}&nbsp;</dd>
-
-    <dt>{% trans "Beginner resources" %}</dt>
-    <dd>{{ application.beginner_resources }}&nbsp;</dd>
-
-    <dt>{% trans "Presenting at Pycon" %}</dt>
-    <dd>{{ application.get_presenting_display }}</dd>
-
-    <dt>{% trans "Experience level" %}</dt>
-    <dd>{{ application.experience_level }}&nbsp;</dd>
-
-    <dt>{% trans "Presented at Pycon before" %}</dt>
-    <dd>{{ application.presented }}</dd>
-
-    <dt>{% trans "First time at Pycon" %}</dt>
-    <dd>{{ application.first_time }}</dd>
+<ul class="grants unstyled">
+  <h4>GRANT(S) REQUESTED</h4>
+  {% if application.pyladies_grant_requested %}
+    <li>{% trans "PYLADIES GRANT REQUESTED" %}<li>
   {% endif %}
-</dl>
+  {% if application.registration_grant_requested %}
+    <li>{% trans "REGISTRATION GRANT REQUESTED" %}</li>
+  {% endif %}
+  {% if application.tutorial_grant_requested %}
+    <li>{% trans "TUTORIAL GRANT REQUESTED" %}</li>
+  {% endif %}
+  {% if application.hotel_grant_requested %}
+    <li>{% trans "HOTEL GRANT REQUESTED" %}
+      <ul class="unstyled">
+        <li>
+          <strong>{% trans "Hotel nights:" %}</strong>
+          {{ application.hotel_nights }}
+        </li>
+        <li>{% comment %}Translators: Sex as in male, female{% endcomment %}
+          <strong>{% trans "Sex:" %}</strong>
+          {{ application.get_sex_display }}
+        </li>
+      </ul>
+    </li>
+  {% endif %}
+  {% if application.travel_grant_requested %}
+    <li>{% trans "TRAVEL GRANT REQUESTED" %}
+     <ul class="unstyled">
+      <li>
+        <strong>{% trans "Travel funds requested:" %}</strong>
+        {{ application.travel_amount_requested }}
+      </li>
+      <li>
+        <strong>{% trans "International travel?" %}</strong>
+        {{ application.international }}
+      </li>
+      {% if application.travel_plans %}
+      <li>
+        <strong>{% trans "What are your travel plans?" %}</strong>
+        <p>{{ application.travel_plans }}</p>
+      </li>
+      {% endif %}
+     </ul>
+    </li>
+  {% endif %}
+</ul>
+
+<hr>
+
+<ul class="unstyled applicant-info">
+  <h4>APPLICANT INFO</h4>
+  <li>
+    <strong>{% trans "Profession" %}</strong>
+    <p>{{ application.profession }}</p>
+  </li>
+  {% if application.involvement %}
+    <li>
+      <strong>{% trans "Involvement" %}</strong>
+      <p>{{ application.involvement }}</p>
+    </li>
+  {% endif %}
+  <li>
+    <strong>{% trans "What do you want to get out of attending PyCon?" %}</strong>
+    <p>{{ application.what_you_want }}</p>
+  </li>
+  <li>
+    <strong>{% trans "What do you want to learn?" %}</strong>
+    <p>{{ application.want_to_learn }}</p>
+  </li>
+  {% if application.portfolios %}
+    <li>
+      <strong>{% trans "Portfolios" %}</strong>
+      <p>{{ application.portfolios }}</p>
+    </li>
+  {% endif %}
+  <li>
+    <strong>{% trans "Use of Python" %}</strong>
+    <p>{{ application.use_of_python }}</p>
+  </li>
+  {% if application.beginner_resources %}
+    <li>
+      <strong>{% trans "Beginner resources" %}</strong>
+      <p>{{ application.beginner_resources }}</p>
+    </li>
+  {% endif %}
+  <li>
+    <strong>{% trans "Presenting at PyCon:" %}</strong>
+    {{ application.get_presenting_display }}
+  </li>
+  <li>
+    <strong>{% trans "Experience level" %}</strong>
+    <p>{{ application.experience_level }}</p>
+  </li>
+  {% if application.presented %}
+    <li>
+      <strong>{% trans "Presented at PyCon before:" %}</strong>
+      {{ application.presented }}
+    </li>
+  {% endif %}
+  {% if application.first_time %}
+    <li>
+     <strong>{% trans "First time at PyCon:" %}</strong>
+      {{ application.first_time }}
+    </li>
+  {% endif %}
+</ul>

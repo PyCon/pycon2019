@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Django settings for account project
+# base settings - imported by other settings files, then overridden
 
 import os.path
 import posixpath
@@ -7,8 +7,15 @@ import posixpath
 from django.core.urlresolvers import reverse_lazy
 
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
+def env_or_default(NAME, default):
+    return os.environ.get(NAME, default)
+
+
+# Top level of our source / repository
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                            os.pardir, os.pardir))
+# Symposion package
+PACKAGE_ROOT = os.path.join(PROJECT_ROOT, "symposion")
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -20,6 +27,17 @@ SERVE_MEDIA = DEBUG
 # most users. See <URL> for more information
 COMPRESS = False
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env_or_default("DB_NAME", "pycon2014"),
+        "USER": env_or_default("DB_USER", ""),
+        "PASSWORD": env_or_default("DB_PASSWORD", ""),
+        "HOST": env_or_default("DB_HOST", ""),
+        "PORT": env_or_default("DB_PORT", ""),
+    }
+}
+
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -29,17 +47,6 @@ ADMINS = [
 ]
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-        "NAME": "pycon2014",                       # Or path to database file if using sqlite3.
-        "USER": "",                             # Not used with sqlite3.
-        "PASSWORD": "",                         # Not used with sqlite3.
-        "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
-        "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -77,7 +84,7 @@ LOCALE_PATHS = [os.path.join(PROJECT_ROOT, "locale")]
 # Absolute path to the directory that holds media - this is files uploaded
 # by users, such as attachments.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
+MEDIA_ROOT = env_or_default("MEDIA_ROOT", os.path.join(PROJECT_ROOT, "site_media", "media"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -112,9 +119,6 @@ ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
 # Subdirectory of COMPRESS_ROOT to store the cached media files in
 COMPRESS_OUTPUT_DIR = "cache"
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = "8*br)9@fs!4nzg-imfrsst&oa2udy6z-fqtdk0*e5c1=wn)(t3"
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
     "django.template.loaders.filesystem.Loader",
@@ -124,13 +128,16 @@ TEMPLATE_LOADERS = [
 MIDDLEWARE_CLASSES = [
     "djangosecure.middleware.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",  # Must follow session middleware and cache middleware, and precede commonmiddleware
+    # LocaleMiddleware must follow session middleware and cache middleware,
+    # and precede commonmiddleware
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "reversion.middleware.RevisionMiddleware",
+    "social_auth.middleware.SocialAuthExceptionMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -173,7 +180,6 @@ INSTALLED_APPS = [
 
     # external
     "compressor",
-    "debug_toolbar",
     "mailer",
     "django_openid",
     "timezones",
@@ -260,12 +266,18 @@ ACCOUNT_SIGNUP_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
+LOGIN_ERROR_URL = reverse_lazy("account_login")
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2014/dashboard/"
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
+
+# Don't clobber User.email if someone associates a social account that
+# happens to have a different email address
+# http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
@@ -309,7 +321,7 @@ MARKEDIT_DEFAULT_SETTINGS = {
 }
 
 COMPRESS_PRECOMPILERS = (
-   ('text/less', 'lessc {infile} {outfile}'),
+    ('text/less', 'lessc {infile} {outfile}'),
 )
 
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
@@ -317,10 +329,3 @@ COMPRESS_PRECOMPILERS = (
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
-
-# local_settings.py can be used to override environment-specific settings
-# like database and email that differ between development and production.
-try:
-    from local_settings import *
-except ImportError:
-    pass
