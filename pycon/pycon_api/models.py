@@ -1,8 +1,11 @@
+from calendar import timegm
+from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from hashlib import sha1
 from pycon.pycon_api.exceptions import AuthenticationError
 from symposion.proposals.models import ProposalBase
+import pytz
 import uuid
 
 
@@ -47,10 +50,20 @@ class APIAuth(models.Model):
         # If there is no signature, then it can't be valid.
         if 'HTTP_X_API_SIGNATURE' not in request.META:
             raise AuthenticationError('No signature provided.')
+        if 'HTTP_X_API_TIMESTAMP' not in request.META:
+            raise AuthenticationError('API Timestamp not provided.')
+
+        # Ensure that the timestamp is within ten minutes of
+        # the current time.
+        unix_now = timegm(datetime.now(tz=pytz.UTC).timetuple())
+        request_timestamp = int(request.META['HTTP_X_API_TIMESTAMP'])
+        if abs(unix_now - request_timestamp) > 600:
+            raise AuthenticationError('Request is not current.')
 
         # OK, now duplicate the expected request signature.
         base_string = unicode(''.join((
             auth_instance.secret,
+            unicode(request_timestamp),
             request.method.upper(),
             request.build_absolute_uri(),
             request.body,

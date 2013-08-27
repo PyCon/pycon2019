@@ -2,6 +2,8 @@ import json
 from urlparse import urlparse
 import uuid
 import datetime
+import pytz
+from calendar import timegm
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import FakePayload
@@ -45,9 +47,13 @@ class RawDataClientMixin(object):
     def get_signature(self, uri, method='GET', body=''):
         """Return a dictionary with the API key and API get_signature
         to be sent for the given request."""
+        # What time is it now?
+        timestamp = timegm(datetime.datetime.now(tz=pytz.UTC).timetuple())
+
         # Calculate the base string to use for the signature.
         base_string = unicode(''.join((
             self.auth_key.secret,
+            unicode(timestamp),
             method.upper(),
             'http://testserver' + uri,
             body,
@@ -57,6 +63,7 @@ class RawDataClientMixin(object):
         return {
             'HTTP_X_API_KEY': self.auth_key.auth_key,
             'HTTP_X_API_SIGNATURE': sha1(base_string).hexdigest(),
+            'HTTP_X_API_TIMESTAMP': timestamp,
         }
 
 
