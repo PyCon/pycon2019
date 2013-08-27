@@ -2,6 +2,7 @@ import datetime
 import os
 import uuid
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
@@ -9,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
 
+import json
 import reversion
 
 from model_utils.managers import InheritanceManager
@@ -135,7 +137,38 @@ class ProposalBase(models.Model):
 
     @property
     def status(self):
-        return self.result.status
+        try:
+            return self.result.status
+        except ObjectDoesNotExist:
+            return 'undecided'
+
+    def as_dict(self, details=False):
+        """Return a dictionary representation of this proposal."""
+
+        # Put together the base dict.
+        answer = {
+            'id': self.id,
+            'speakers': [i.as_dict for i in self.speakers()],
+            'status': self.status,
+            'title': self.title,
+        }
+
+        # Include details iff they're requested.
+        if details:
+            answer['details'] = {
+                'abstract': self.abstract,
+                'description': self.description,
+                'notes': self.additional_notes,
+            }
+
+            # If there is extra data that has been set, include it also.
+            try:
+                answer['extra'] = json.loads(self.data.data)
+            except ObjectDoesNotExist:
+                pass
+
+        # Return the answer.
+        return answer
 
     def speakers(self):
         yield self.speaker
