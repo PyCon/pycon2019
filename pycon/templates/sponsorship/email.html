@@ -1,0 +1,38 @@
+{% extends "responsive_base.html" %}
+
+{% load bootstrap_tags %}
+{% load sponsorship_tags %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Email selected PyCon Sponsors" %}{% endblock %}
+
+{% block body_class %}email-sponsors{% endblock %}
+
+{% block page_title %}
+    {% trans "Email selected PyCon Sponsors" %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <h3>{% trans "Sponsors we're about to email:" %}</h3>
+        <ul>
+            {% for sponsor in sponsors %}
+                <li>{{ sponsor.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Customizing subject and body</h3>
+        <p>%%NAME%% will be replaced by the Sponsor Name.</p>
+
+       <form method="POST" action="{% url 'sponsor_email' pks %}" class="form-horizontal">
+          {% csrf_token %}
+          <legend>{% trans "Email selected PyCon Sponsors" %}</legend>
+          {{ form|as_bootstrap }}
+          <div class="form-actions">
+              <input class="btn btn-primary" type="submit" value="{% trans "Send" %}" />
+          </div>
+      </form>
+
+    </div>
+{% endblock %}

@@ -5,16 +5,22 @@ import os
 import time
 from zipfile import ZipFile, ZipInfo
 
+from constance import config
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render_to_response
+from django.shortcuts import get_object_or_404, redirect, render_to_response,\
+    render
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.forms import SponsorApplicationForm, \
-    SponsorBenefitsFormSet, SponsorDetailsForm
+    SponsorBenefitsFormSet, SponsorDetailsForm, SponsorEmailForm
 from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit, \
     SponsorLevel
 
@@ -92,7 +98,7 @@ def sponsor_export_data(request):
     def izip_longest(*args):
         fv = None
 
-        def sentinel(counter=([fv] * (len(args) - 1)).pop):
+        def sentinel(counter=([fv]*(len(args)-1)).pop):
             yield counter()
         iters = [itertools.chain(it, sentinel(), itertools.repeat(fv)) for it in args]
         try:
@@ -159,3 +165,70 @@ def sponsor_zip_logo_files(request):
     response['Content-Disposition'] = \
         'attachment; filename="pycon_%s_sponsorlogos.zip"' % prefix
     return response
+
+
+def email_selected_sponsors_action(modeladmin, request, queryset, form=None):
+    """Action invoked from admin to email selected sponsors"""
+    # Too bad `request` isn't the first parameter, we could use the same
+    # function for both admin action and view.
+    # But hey, we don't really need to do the work here...
+    pks = ",".join([str(pk) for pk in queryset.values_list('pk', flat=True)])
+    return sponsor_email(request, pks)
+email_selected_sponsors_action.short_description = _(u"Email selected sponsors")
+
+
+@staff_member_required
+def sponsor_email(request, pks):
+    sponsors = Sponsor.objects.filter(pk__in=pks.split(","))
+
+    address_list = []
+    for sponsor in sponsors:
+        if sponsor.contact_email.lower() not in address_list:
+            address_list.append(sponsor.contact_email.lower())
+        if sponsor.applicant.email.lower() not in address_list:
+            address_list.append(sponsor.applicant.email.lower())
+
+    initial = {
+        'from_': config.SPONSOR_FROM_EMAIL,
+    }
+
+    # Note: on initial entry, we've got the request from the admin page,
+    # which was actually a POST, but not from our page. So be careful to
+    # check if it's a POST and it looks like our form.
+    if request.method == 'POST' and 'subject' in request.POST:
+        form = SponsorEmailForm(request.POST, initial=initial)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            # Send emails one at a time, rendering the subject and
+            # body as templates.
+            for sponsor in sponsors:
+                address_list = []
+                if sponsor.contact_email.lower() not in address_list:
+                    address_list.append(sponsor.contact_email.lower())
+                if sponsor.applicant.email.lower() not in address_list:
+                    address_list.append(sponsor.applicant.email.lower())
+
+                subject = sponsor.render_email(data['subject'])
+                body = sponsor.render_email(data['body'])
+
+                mail = EmailMessage(
+                    subject=subject,
+                    body=body,
+                    from_email=data['from_'],
+                    to=address_list,
+                    cc=data['cc'].split(","),
+                    bcc=data['bcc'].split(",")
+                )
+                mail.send()
+            messages.add_message(request, messages.INFO, _(u"Email sent to sponsors"))
+            return redirect(reverse('admin:sponsorship_sponsor_changelist'))
+    else:
+        form = SponsorEmailForm(initial=initial)
+    context = {
+        'address_list': address_list,
+        'form': form,
+        'pks': pks,
+        'sponsors': sponsors,
+    }
+    return render(request, "sponsorship/email.html", context)

@@ -293,6 +293,7 @@ CONSTANCE_CONFIG = {
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
+    "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
