@@ -2,6 +2,7 @@ import json
 import datetime
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 from .decorators import api_view
 from .models import ProposalData, IRCLogLine
@@ -50,6 +51,7 @@ def proposal_list(request):
     return [i.as_dict() for i in proposals]
 
 @api_view
+@csrf_exempt
 def proposal_detail(request, proposal_id):
     """Retrieve and return information about the given proposal.
     If this is a POST request, write the appropriate data instead.
@@ -83,6 +85,7 @@ def proposal_detail(request, proposal_id):
     return proposal.as_dict(details=True)
 
 @api_view
+@csrf_exempt
 def proposal_irc_logs(request, proposal_id):
     """Write or retrieve the IRC logs for a given proposal.
 
