@@ -301,3 +301,28 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
         })
         rsp = self.client.get(url, HTTP_X_API_KEY=str(bad_auth_key))
         self.assertEqual(403, rsp.status_code)
+
+    def test_list_view(self):
+        url = reverse('proposal_list')
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(rsp.status_code, 200, rsp.content)
+        self.assertEqual(len(json.loads(rsp.content)['data']), 1)
+
+    def test_list_view_talks_only(self):
+        url = reverse('proposal_list') + '?type=talk'
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(rsp.status_code, 200, rsp.content)
+        self.assertEqual(len(json.loads(rsp.content)['data']), 1)
+
+    def test_list_view_tutorials_only(self):
+        url = reverse('proposal_list') + '?type=tutorial'
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(rsp.status_code, 200, rsp.content)
+        self.assertEqual(len(json.loads(rsp.content)['data']), 0)
+
+    def test_list_view_undecided_only(self):
+        url = reverse('proposal_list') + '?status=undecided'
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(rsp.status_code, 200, rsp.content)
+        self.assertEqual(len(json.loads(rsp.content)['data']), 1)
+

@@ -5,19 +5,42 @@ from django.shortcuts import get_object_or_404
 
 from .decorators import api_view
 from .models import ProposalData, IRCLogLine
+from pycon.models import (PyConTalkProposal, PyConTutorialProposal,
+            PyConLightningTalkProposal, PyConPosterProposal)
 
 from symposion.proposals.models import ProposalBase
 
 
+PROPOSAL_TYPES = {
+    'talk': PyConTalkProposal,
+    'tutorial': PyConTutorialProposal,
+    'lightning': PyConLightningTalkProposal,
+    'poster': PyConPosterProposal,
+}
+
+
 @api_view
-def proposal_list(request, filter=None):
+def proposal_list(request):
     """Retrieve and return a list of proposals, optionally
     filtered by the given acceptance status.
     """
+    # What model should we be pulling from?
+    model = ProposalBase
+    proposal_type = request.GET.get('type', None)
+    if proposal_type:
+        try:
+            model = PROPOSAL_TYPES[proposal_type]
+        except KeyError:
+            return ({ 'error': 'unrecognized proposal type' }, 400)
+
     # See if there is such a proposal
-    proposals = ProposalBase.objects.all().order_by('pk')
-    if filter:
-        proposals = proposals.filter(result__status=filter)
+    proposals = model.objects.all().select_related('result').order_by('pk')
+
+    # If specific type of proposal type is being requested,
+    # filter on that.
+    desired_status = request.GET.get('filter', None)
+    if desired_status:
+        proposals = [i for i in proposals if i.status == desired_status]
 
     # If there's a limit parameter provided, limit to those objects.
     if 'limit' in request.GET:
