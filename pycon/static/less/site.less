@@ -767,6 +767,7 @@ body.home {
     .details { display: none; }
     .span12 { position: relative; }
     .promo {
+      text-align: center;
       &.no-link {
         .border-radius(100%);
         background-color: @yellowBeak;
@@ -786,37 +787,28 @@ body.home {
       }
       a {
         .btn;
-        .btn-white;
-        font-weight: 900;
-        padding: 20px 15px 21px;
-        font-size: 30px;
-        float: right;
-        border: 9px solid lighten(@blueLight, 12%);
-        &:hover {
-          color: @white !important;
-          border-color: @button-white-hover;
-        }
+        .btn-primary;
+        padding: 15px 75px;
+        margin: 40px 0 0 0;
+        font-size: 24px;
       }
     }
   }
   .schedule {
-    text-align: center;
+    width: 100%;
     ul {
       list-style: none;
-      padding: 0 0 0 255px;
-      margin-top: 40px;
       font-size: 18px;
+      text-align: center;
+      margin-top: 40px;
       li {
-        float: left;
         padding: 10px 20px;
         margin-right: 10px;
+        display: inline-block;
         background-color: lighten(@blueSky, 10%);
         .border-radius(8px);
         line-height: 24px;
-        span {
-          display: block;
-          font-weight: 900;
-        }
+        text-align: center;
       }
     }
   }
