@@ -100,7 +100,6 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
             'hotel_amount': Decimal('6.66'),
             'registration_amount': Decimal('0.00'),
             'travel_amount': Decimal('0.00'),
-            'tutorial_amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
         review.save()
