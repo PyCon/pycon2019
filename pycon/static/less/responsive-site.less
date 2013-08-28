@@ -82,12 +82,12 @@ body {
 	}
 	header.main {
 		@media (min-width: @breakDesktop) {
-			nav {	
+			nav {
 				a.logo-small {
 					top: 15px;
 					left: auto;
 				}
-				
+
 			}
 			a.logo-smaller { display: none; }
 		}
@@ -116,7 +116,7 @@ body {
 				    top: 3px;
 				}
 			}
-			nav {	
+			nav {
 				.navbar .navbar-inner {
 					margin: 0;
 					padding: 0;
@@ -145,7 +145,7 @@ body {
 /* Homepage
 ==================== */
 body.home {
-	@media (max-width: @breakDesktop) { 
+	@media (max-width: @breakDesktop) {
 		header.main {
 			a.logo-smaller { display: none; }
 			@media (max-width: @breakMobileLandscape) {
@@ -160,6 +160,13 @@ body.home {
 			&.no-link {
 				@media (max-width: @breakDesktop) {
 					display: none;
+				}
+			}
+			a {
+				@media (max-width: @breakMobileLandscape) {
+					font-size: 18px;
+					margin: 0 0 20px;
+					padding: 10px 50px;
 				}
 			}
 		}
@@ -187,7 +194,7 @@ body.home {
 				background-size: 400px 100px;
 				width: 400px;
 				bottom: -10px;
-				margin-left: 17%;			
+				margin-left: 17%;
 			}
 			@media (max-width: @breakMobileLandscape) {
 				background-size: 250px 70px;
@@ -228,13 +235,6 @@ body.home {
 	}
 	.schedule {
 		ul {
-			@media (min-width: @breakDesktopLarge) {
-				padding: 0 0 0 360px;
-			}
-			@media (max-width: @breakDesktop) {
-				margin-top: 25px;
-				padding: 0 0 0 150px;
-			}
 			@media (max-width: @breakTablet) {
 				display: none;
 			}
@@ -266,7 +266,7 @@ body.home {
 			width: 100%;
 		}
 	}
-	
+
 	.homepage-content {
 		@media (max-width: @breakTablet) {
 			padding: 0 20px;
