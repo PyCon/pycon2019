@@ -1,20 +1,21 @@
-import json
-from urlparse import urlparse
-import uuid
 import datetime
+import json
 import pytz
+import uuid
+
 from calendar import timegm
+from hashlib import sha1
+from urlparse import urlparse
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import FakePayload
 from django.utils.encoding import force_str
 
-from hashlib import sha1
-
-from .models import APIAuth, ProposalData, IRCLogLine
 from pycon.models import PyConTalkProposal
 from pycon.tests.factories import PyConTalkProposalFactory
 
+from .models import APIAuth, ProposalData, IRCLogLine
 from .decorators import DATETIME_FORMAT
 
 

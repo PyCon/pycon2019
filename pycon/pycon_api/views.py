@@ -1,11 +1,11 @@
 import json
-import datetime
-from django.http import HttpResponse, HttpResponseNotFound
+
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from .decorators import api_view
 from .models import ProposalData, IRCLogLine
+
 from pycon.models import (PyConTalkProposal, PyConTutorialProposal,
             PyConLightningTalkProposal, PyConPosterProposal)
 
@@ -35,10 +35,12 @@ def proposal_list(request):
             return ({ 'error': 'unrecognized proposal type' }, 400)
 
     # See if there is such a proposal
-    proposals = model.objects.all().select_related('result').order_by('pk')
+    proposals = model.objects.select_related('result').order_by('pk')
 
-    # If specific type of proposal type is being requested,
-    # filter on that.
+    # Don't look at cancelled proposals.
+    proposals = proposals.exclude(cancelled=True)
+
+    # If specific proposal status is being requested, filter on that.
     desired_status = request.GET.get('filter', None)
     if desired_status:
         proposals = [i for i in proposals if i.status == desired_status]
@@ -49,6 +51,7 @@ def proposal_list(request):
 
     # Return the proposal data objects.
     return [i.as_dict() for i in proposals]
+
 
 @api_view
 @csrf_exempt
@@ -83,6 +86,7 @@ def proposal_detail(request, proposal_id):
 
     # Return a dictionary representation of the proposal.
     return proposal.as_dict(details=True)
+
 
 @api_view
 @csrf_exempt
