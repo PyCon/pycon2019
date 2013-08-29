@@ -14,17 +14,13 @@ class Migration(SchemaMigration):
         # Deleting field 'FinancialAidReviewData.travel_signed'
         db.delete_column(u'finaid_financialaidreviewdata', 'travel_signed')
 
-        # Deleting field 'FinancialAidReviewData.travel_preferred_disbursement'
-        db.delete_column(u'finaid_financialaidreviewdata', 'travel_preferred_disbursement')
 
         # Deleting field 'FinancialAidReviewData.tutorial_amount'
         db.delete_column(u'finaid_financialaidreviewdata', 'tutorial_amount')
 
-        # Adding field 'FinancialAidReviewData.disbursement_notes'
-        db.add_column(u'finaid_financialaidreviewdata', 'disbursement_notes',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-
+        # http://south.readthedocs.org/en/latest/databaseapi.html#db-rename-column
+        # db.rename_column(table_name, column_name, new_column_name)
+        db.rename_column(u'finaid_financialaidreviewdata', 'travel_preferred_disbursement', 'disbursement_notes')
 
     def backwards(self, orm):
         # Adding field 'FinancialAidReviewData.travel_check_number'
@@ -37,19 +33,12 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.BooleanField')(default=False),
                       keep_default=False)
 
-        # Adding field 'FinancialAidReviewData.travel_preferred_disbursement'
-        db.add_column(u'finaid_financialaidreviewdata', 'travel_preferred_disbursement',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-
         # Adding field 'FinancialAidReviewData.tutorial_amount'
         db.add_column(u'finaid_financialaidreviewdata', 'tutorial_amount',
                       self.gf('django.db.models.fields.DecimalField')(default='0.00', max_digits=8, decimal_places=2),
                       keep_default=False)
 
-        # Deleting field 'FinancialAidReviewData.disbursement_notes'
-        db.delete_column(u'finaid_financialaidreviewdata', 'disbursement_notes')
-
+        db.rename_column(u'finaid_financialaidreviewdata', 'disbursement_notes', 'travel_preferred_disbursement')
 
     models = {
         u'auth.group': {
