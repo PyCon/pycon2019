@@ -17,6 +17,44 @@ To enable applications, use the admin to create new
 FinancialAidApplicationPeriod records with the desired start
 and end dates.
 
+Reviewer email to applicants
+----------------------------
+
+Reviewers can select one or more applicants on the application list page
+and click "Send email".  On the next page, they can enter a subject, pick
+a template, and click "Send". Each applicant selected will receive an email
+customized for them using the template chosen.
+
+Templates for this function are created and edited in the admin, at e.g.
+``/2014/admin/finaid/financialaidemailtemplate/``.
+
+Each template has a name, which is just used to identify the template
+here and on the mail sending page, and a body, which uses Django templating
+to render the body of each email.
+
+In the template body, you have access to the usual Django template tags,
+and some variables that you can access:
+
+* application - a ``FinancialAidApplication`` object. This gives access to a
+  lot of useful information from the user's application that can be used in
+  your email, e.g.::
+
+      Dear {{ application.user.get_full_name }},
+
+      {% if application.travel_grant_requested %}You requested a travel grant...{% endif %}
+
+* review - a ``FinancialAidReviewData`` object. This gives access to the
+  information from the review of the application. E.g.::
+
+      {% if review.hotel_amount %}You are being granted ${{ review.hotel_amount }}
+      toward your hotel stay.{% endif %}
+
+You can test your template by sending yourself email messages.
+
+The fields in the FinancialAidApplication and FinancialAidReviewData
+records are subject to change, but you can review their current definitions
+at https://github.com/caktus/pycon/blob/production/pycon/finaid/models.py
+
 
 Templates
 ---------

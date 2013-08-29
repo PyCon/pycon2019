@@ -245,7 +245,6 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
             'hotel_amount': Decimal('6.66'),
             'registration_amount': Decimal('0.00'),
             'travel_amount': Decimal('0.00'),
-            'tutorial_amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
         review.save()
@@ -275,3 +274,67 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         context = mock_render.call_args[0][0]
         self.assertEqual(self.application, context['application'])
         self.assertEqual(review, context['review'])
+
+
+class TestFinaidMessageView(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.user = self.create_user()
+        self.make_reviewer(self.user)
+        self.login()
+
+    def test_reviewers_only(self):
+        self.make_not_reviewer(self.user)
+        user1 = self.create_user("bob", "bob@example.com", "snoopy")
+        application1 = create_application(user1)
+        application1.save()
+        url = reverse('finaid_message', kwargs={'pks': str(application1.pk)})
+
+        rsp = self.client.get(url)
+        self.assertEqual(403, rsp.status_code)
+        rsp = self.client.post(url)
+        self.assertEqual(403, rsp.status_code)
+
+    def test_no_applications(self):
+        # No applications selected - redirect back to reviewing page
+        # (select a non-existing application to get past the URL pattern)
+        url = reverse('finaid_message', kwargs={'pks': '999'})
+        rsp = self.client.get(url)
+        self.assertEqual(302, rsp.status_code)
+
+    def test_messaging(self):
+        # Create a couple users and applications
+        user1 = self.create_user("bob", "bob@example.com", "snoopy")
+        user2 = self.create_user("fred", "fred@example.com", "linus")
+
+        application1 = create_application(user1)
+        application1.save()
+        application2 = create_application(user2)
+        application2.save()
+
+        # We can display the page prompting for a message to send them
+        pks = ','.join(str(a.pk) for a in FinancialAidApplication.objects.all())
+        url = reverse('finaid_message', kwargs={'pks': pks})
+        rsp = self.client.get(url)
+        self.assertEqual(200, rsp.status_code)
+        context = rsp.context
+        applications = context['applications']
+        self.assertEqual(2, len(applications))
+        self.assertIn(application1, applications)
+        self.assertIn(application2, applications)
+
+        # "Send" a message to those two applications
+        test_message = 'One if by land and two if by sea'
+        data = {
+            'visible': 'checked',
+            'message': test_message,
+        }
+        rsp = self.client.post(url, data=data)
+        self.assertEqual(302, rsp.status_code)
+        msg1 = FinancialAidMessage.objects.get(application=application1)
+        self.assertEqual(test_message, msg1.message)
+        msg2 = FinancialAidMessage.objects.get(application=application2)
+        self.assertEqual(test_message, msg2.message)
+
+        # For each message, it's visible, so it should have been emailed to
+        # both the applicant and the reviewers. Total: 4 messages
+        self.assertEqual(4, len(mail.outbox))
