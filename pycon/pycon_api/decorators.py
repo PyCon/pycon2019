@@ -71,19 +71,5 @@ def api_view(method):
                 content_type='application/json',
                 status=404,
             )
-        except Exception as ex:
-            # If DEBUG mode is on, we don't want to squelch useful
-            # exception information.
-            if settings.DEBUG:
-                raise
-
-            # DEBUG is off: show a terse error.
-            return HttpResponse(
-                content=json.dumps({
-                    'code': 500,
-                    'error': 'internal server error',
-                }),
-                content_type='application/json',
-                status=500,
-            )
+            
     return update_wrapper(f, method)
