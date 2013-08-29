@@ -800,9 +800,10 @@ body.home {
       list-style: none;
       font-size: 18px;
       text-align: center;
-      margin-top: 40px;
+      margin: 40px 0 0 0;
       li {
-        padding: 10px 20px;
+        padding: 10px 0;
+        width: 150px;
         margin-right: 10px;
         display: inline-block;
         background-color: lighten(@blueSky, 10%);
@@ -816,14 +817,15 @@ body.home {
     position: relative;
     background-color: @blueSky;
     height: 225px;
+
     .montreal {
-      position: absolute;
+      position: relative;
       background: url("../img/montreal.png") no-repeat scroll 0 0 transparent;
-      height: 150px;
-      margin-left: 185px;
-      bottom: 30px;
-      width: 600px;
+      height: 180px;
+      width: 100%;
       z-index: 99;
+      margin: 10px 0 0 0;
+      background-position: center;
     }
     .water {
       background: @blueDark;
