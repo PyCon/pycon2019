@@ -1,12 +1,15 @@
-from calendar import timegm
-from datetime import datetime
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from hashlib import sha1
-from pycon.pycon_api.exceptions import AuthenticationError
-from symposion.proposals.models import ProposalBase
 import pytz
 import uuid
+
+from calendar import timegm
+from datetime import datetime
+from hashlib import sha1
+
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from pycon.pycon_api.exceptions import AuthenticationError
+from symposion.proposals.models import ProposalBase
 
 
 class APIAuth(models.Model):
