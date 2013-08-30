@@ -55,6 +55,13 @@ class Speaker(models.Model):
         return reverse("speaker_edit")
 
     @property
+    def as_dict(self):
+        return {
+            'name': self.name,
+            'email': self.email,
+        }
+
+    @property
     def email(self):
         if self.user is not None:
             return self.user.email
