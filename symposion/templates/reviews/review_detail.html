@@ -147,7 +147,7 @@
                         {% csrf_token %}
                             {{ review_form|as_bootstrap }}
                             <div class="form-action">
-                                <input type="submit" class="btn btn-primary" name="vote_submit" value="Submit Review" />
+                                <input type="submit" class="btn btn-success" name="vote_submit" value="Submit Review" />
                             </div>
                     </form>
                 {% else %}
@@ -202,7 +202,7 @@
                     {% csrf_token %}
                     {{ message_form|as_bootstrap }}
                     <div class="form-actions">
-                        <input type="submit" class="btn btn-primary" name="message_submit" value="Send Message" />
+                        <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
                     </div>
                 </form>
             </div>
