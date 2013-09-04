@@ -50,6 +50,10 @@ class FinancialAidApplicationForm(forms.ModelForm):
                        'maxlength': 200}),
         }
 
+    def __init__(self, *args, **kwargs):
+      super(FinancialAidApplicationForm, self).__init__(*args, **kwargs)
+      self.fields['sex'].required = False
+
     def clean(self):
         data = super(FinancialAidApplicationForm, self).clean()
         if data['travel_grant_requested'] and not data['travel_plans']:
