@@ -6,7 +6,7 @@
 
 {% block body_class %}cms-page editable-form{% endblock %}
 
-{% block head_title %}Create/Edit Page{% endblock %}
+{% block head_title %}{% trans "Create/Edit Page" %}{% endblock %}
 
 {% block page_title %}{% trans "Edit:" %} {{ path }}{% endblock %}
 
@@ -17,7 +17,7 @@
         {% csrf_token %}
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input type="submit" value="Save" />
+            <input type="submit" value="{% trans "Save" %}" />
         </div>
     </form>
 {% endblock %}

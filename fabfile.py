@@ -9,13 +9,9 @@ from fabric.utils import abort, error
 
 # Directory structure
 PROJECT_ROOT = os.path.dirname(__file__)
-CONF_ROOT = os.path.join(PROJECT_ROOT, 'conf')
 env.project = 'pycon'
 env.project_user = os.environ['LOGNAME']
-env.repo = u'git@github.com:caktus/pycon'
 env.shell = '/bin/bash -c'
-env.disable_known_hosts = True
-env.forward_agent = True
 env.settings = 'symposion.settings'
 
 @task
@@ -23,17 +19,19 @@ def staging():
     env.environment = 'staging'
     env.hosts = ['virt-nsz0jn.psf.osuosl.org']
     env.site_hostname = 'staging-pycon.python.org'
+    env.root = '/srv/staging-pycon.python.org'
     env.branch = 'staging'
-    env.db = 'psf_pycon_2014'
+    env.db = 'psf-pycon-2014-staging'
     env.db_host = 'pg1.osuosl.org'
-    env.db_user = 'psf_pycon_2014'
+    env.db_user = 'psf-pycon-2014-staging'
     setup_path()
 
 @task
 def production():
     env.environment = 'production'
     env.hosts = ['virt-ak9lsk.psf.osuosl.org']
-    env.site_hostname = 'staging-pycon.python.org'
+    env.site_hostname = 'us.pycon.org'
+    env.root = '/srv/staging-pycon.python.org'
     env.branch = 'production'
     env.db = 'psf_pycon_2014'
     env.db_host = 'pg1.osuosl.org'
@@ -41,10 +39,8 @@ def production():
     setup_path()
 
 
-
 def setup_path():
     env.home = '/home/%(project_user)s/' % env
-    env.root = '/srv/' + env.site_hostname
     env.code_root = os.path.join(env.root, 'current')
     env.virtualenv_root = os.path.join(env.root, 'shared/env')
     env.media_root = os.path.join(env.root, 'shared', 'media')
@@ -74,13 +70,23 @@ def deploy():
     require('environment')
     sudo('chef-client')
 
+@task
+def ssh():
+    """Ssh to a given server"""
+    require('environment')
+    local("ssh %s" % env.hosts[0])
 
 @task
-def get_db_dump(clean=True):
-    """Get db dump of remote enviroment."""
+def get_db_dump(dbname, clean=True):
+    """Overwrite your local `dbname` database with the data from the server.
+    The name of your local db is required as an argument, e.g.:
+
+        fab staging get_db_dump:dbname=mydbname
+
+    """
     require('environment')
     if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir")
+        abort("Please get a copy of .pgpass and put it in your home dir on the server of interest (not your local system)")
     dump_file = '%(project)s-%(environment)s.sql' % env
     flags = '-Ox'
     if clean:
@@ -90,13 +96,20 @@ def get_db_dump(clean=True):
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
     local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
-    local('dropdb pycon2014; createdb pycon2014')
-    local('psql pycon2014 -f ~/%s' % dump_file)
+    local('dropdb %s; createdb %s' % (dbname, dbname))
+    local('psql %s -f ~/%s' % (dbname, dump_file))
 
 
 @task
 def get_media(root='site_media/media'):
-    """Get sync of remote media."""
+    """Syncs media files from server to a local dir.
+    Defaults to ./site_media/media; you can override by passing
+    a different relative path as root:
+
+        fab server get_media:root=my_dir/media/foo
+
+    Local dir ought to exist already.
+    """
     rsync = 'rsync -rvaz %(user)s@%(host)s:%(media_root)s/' % env
     cmd = '%s ./%s' % (rsync, root)
     local(cmd)
@@ -104,10 +117,30 @@ def get_media(root='site_media/media'):
 
 @task
 def load_db_dump(dump_file):
-    """Load db dump on a remote environment."""
+    """Given a dump on your home dir on the server, load it to the server's
+    database, overwriting any existing data.  BE CAREFUL!"""
     require('environment')
     if not files.exists("%(home)s/.pgpass" % env):
         abort("Please get a copy of .pgpass and put it in your home dir")
     temp_file = os.path.join(env.home, '%(project)s-%(environment)s.sql' % env)
     put(dump_file, temp_file)
     run('psql -h %s -U %s -d %s -f %s' % (env.db_host, env.db_user, env.db, temp_file))
+
+@task
+def make_messages():
+    """Extract English text from code and templates, and update the
+    .po files for translators to translate"""
+    # Make sure gettext is installed
+    local("gettext --help >/dev/null 2>&1")
+    if os.path.exists("locale/fr/LC_MESSAGES/django.po"):
+        local("python manage.py makemessages -a")
+    else:
+        local("python manage.py makemessages -l fr")
+
+@task
+def compile_messages():
+    """Compile the translated .po files into more efficient .mo
+        files for runtime use"""
+    # Make sure gettext is installed
+    local("gettext --help >/dev/null 2>&1")
+    local("python manage.py compilemessages")

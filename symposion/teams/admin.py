@@ -8,6 +8,7 @@ admin.site.register(
     Team,
     list_display=['name', 'access'],
     prepopulated_fields={"slug": ("name",)},
+    filter_horizontal=['permissions', 'manager_permissions'],
 )
 
 

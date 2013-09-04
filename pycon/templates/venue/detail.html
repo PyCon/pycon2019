@@ -3,25 +3,27 @@
 {% load i18n %}
 {% load sitetree %}
 
-{% block head_title %}Venue Details{% endblock %}
+{% block head_title %}{% trans "Venue Details" %}{% endblock %}
 
-{% block page_title %}Venue Details{% endblock %}
+{% block page_title %}{% trans "Venue Details" %}{% endblock %}
 
 {% block body %}
     <h1>Palais des congrès de Montréal</h1>
-    <p>159 Rue Saint Antoine Ouest<br>
-    Montreal, QC H2Z 1H2, Canada</p>
+  <p>(Montréal Convention Center)<br/>
+201 Viger Ave West<br/>
+Montréal, Québec, Canada<br/>
+<a href="http://congresmtl.com">http://congresmtl.com</a>
+  </p>
     {% comment %}
     {# Commenting this out for now, until we verify where the sprints are being held #}
     <p class="intro">All Tutorial and Conference events are being held here.</p>
     {% endcomment %}
-    <div class="map">
-        <iframe width="695" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?ie=UTF8&amp;cid=1717205379190898583&amp;q=Montreal+Convention+Centre&amp;gl=US&amp;hl=en&amp;t=m&amp;z=12&amp;iwloc=A&amp;output=embed"></iframe>
-
-        <a href="https://maps.google.com/maps?ie=UTF8&amp;cid=1717205379190898583&amp;q=Montreal+Convention+Centre&amp;gl=US&amp;hl=en&amp;t=m6&amp;z=16&amp;iwloc=A&amp;source=embed" class="btn btn-primary">View Larger Map</a>
+    <div class="map-container">
+      <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;output=embed"></iframe>
     </div>
+    <small>View <a href="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;source=embed" style="color:#0000FF;text-align:left">PyCon 2014</a> in a larger map</small>
     <div class="hotels">
-        <h2>Hotels</h2>
+        <h2>{% trans "Hotels" %}</h2>
         <div class="place">
             <h3><i class="icon icon-home"></i> Hyatt Regency</h3>
             <p>1255 Jeanne-Mance<br/>
@@ -29,7 +31,7 @@
             H5B 1E5 - Canada</p>
             <a href="http://montreal.hyatt.com/en/hotel/home.html">Website</a>
         </div>
-    
+
         <div class="place">
             <h3><i class="icon icon-home"></i> Westin Hotels</h3>
             <p>270 St. Antoine West<br/>

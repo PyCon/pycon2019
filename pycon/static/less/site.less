@@ -1,3 +1,25 @@
+// Table of Contents
+
+// -- Imports
+// -- Fonts
+// -- Variables
+// -- Mixins
+// -- Generic
+// -- Buttons
+// -- Homepage
+// -- Sponsors
+// -- Venue
+// -- CMS Page
+// -- Retina styles
+// -- Auth pages
+// -- Boxes
+// -- Sign Up + Login
+// -- Team
+// -- Speaker profile
+// -- Reviews
+// -- Job fair
+// -- Financial Aid
+
 /* Imports
 ==================== */
 @import "bootstrap/bootstrap.less";
@@ -233,6 +255,14 @@ input[type="submit"],
   .control-group & { margin-bottom: 0; }
 }
 
+input.fullwidth-input {
+  width: 600px;
+}
+
+textarea.fullwidth-textarea {
+  width: 100%;
+}
+
 // Textarea
 textarea {
   height: auto;
@@ -259,6 +289,97 @@ header.main {
   position: relative;
 }
 
+footer {
+  text-align: center;
+  font-size: 13px;
+  padding: 20px 0;
+  position: relative;
+  overflow: hidden;
+  margin-top: 80px;
+  border-top: 1px solid @grayLighter;
+  a.logo {
+    img {
+      height: 27px;
+      width: 314px;
+      margin-bottom: 10px;
+    }
+  }
+  .footer-content {
+    position: relative;
+    top: 30px;
+    padding-bottom: 20px;
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .hills {
+    .trees-1 {
+      background:url(../img/trees-footer.png) no-repeat 0 0;
+      height: 46px;
+      width: 66px;
+      position: absolute;
+      left: 25%;
+      top: 15px;
+    }
+    .trees-2 {
+      background:url(../img/trees2-footer.png) no-repeat 0 0;
+      height: 46px;
+      width: 66px;
+      position: absolute;
+      left: 75%;
+      top: 20px;
+    }
+    .bike {
+      background:url(../img/bike-footer.png) no-repeat 0 0;
+      height: 40px;
+      width: 50px;
+      position: absolute;
+      left: 70%;
+      top: 35px;
+    }
+    .hill-1 {
+      z-index: -9999;
+      position: absolute;
+      left: -10px;
+      bottom: -120px;
+      width: 60%;
+      height: 225px;
+      background-color: @greenLight;
+      .border-radius(100%);
+    }
+    .hill-2 {
+      z-index: -100000;
+      position: absolute;
+      right: -10px;
+      bottom: -120px;
+      width: 60%;
+      height: 225px;
+      background-color: @greenDark;
+      .border-radius(100%);
+    }
+  }
+}
+
+aside {
+  text-align: center;
+  .sponsor-list {
+    border-left: 1px solid @grayLighter;
+    padding: 0 5px 0 20px;
+    h2 { font-weight: 900; }
+    h3 {
+      margin-top: 60px;
+      font-weight: 900;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    img {
+      padding: 15px 0;
+    }
+  }
+}
+
 .page-head {
   padding: 10px 0 20px 0;
   position: relative;
@@ -270,7 +391,7 @@ header.main {
     height: 70px;
     position: absolute;
     left: 50%;
-    bottom: -1px;
+    bottom: 0;
   }
   h1 {
     text-transform:uppercase;
@@ -306,9 +427,21 @@ header.main {
   width: 1px;
 }
 
-.required-field:before{
+.is_required {
   content: '*';
   color: @danger;
+}
+
+.required-field:before{
+  .is_required;
+}
+
+.top.alert {
+  position: absolute;
+  top: 20px;
+  width: 80%;
+  left: 10%;
+  z-index: 999;
 }
 
 aside.list {
@@ -327,7 +460,8 @@ aside.list {
   }
 }
 
-// Buttons
+/* Buttons
+==================== */
 .btn,
 .btn-group > .btn,
 .btn-group > .dropdown-menu,
@@ -421,108 +555,20 @@ aside.list {
 
 }
 
-.top.alert {
-  position: absolute;
-  top: 20px;
-  width: 80%;
-  left: 10%;
-  z-index: 999;
-}
-
-footer {
-  text-align: center;
-  font-size: 13px;
-  padding: 20px 0;
-  position: relative;
-  overflow: hidden;
-  margin-top: 80px;
-  border-top: 1px solid @grayLighter;
-  a.logo {
-    img {
-      height: 27px;
-      width: 314px;
-      margin-bottom: 10px;
-    }
-  }
-  .footer-content {
-    position: relative;
-    top: 30px;
-    padding-bottom: 20px;
-    p {
-      padding: 0;
-      margin: 0;
-    }
-  }
-  .hills {
-    .trees-1 {
-      background:url(../img/trees-footer.png) no-repeat 0 0;
-      height: 46px;
-      width: 66px;
-      position: absolute;
-      left: 25%;
-      top: 15px;
-    }
-    .trees-2 {
-      background:url(../img/trees2-footer.png) no-repeat 0 0;
-      height: 46px;
-      width: 66px;
-      position: absolute;
-      left: 75%;
-      top: 20px;
-    }
-    .bike {
-      background:url(../img/bike-footer.png) no-repeat 0 0;
-      height: 40px;
-      width: 50px;
-      position: absolute;
-      left: 70%;
-      top: 35px;
-    }
-    .hill-1 {
-      z-index: -9999;
-      position: absolute;
-      left: -10px;
-      bottom: -120px;
-      width: 60%;
-      height: 225px;
-      background-color: @greenLight;
-      .border-radius(100%);
-    }
-    .hill-2 {
-      z-index: -100000;
-      position: absolute;
-      right: -10px;
-      bottom: -120px;
-      width: 60%;
-      height: 225px;
-      background-color: @greenDark;
-      .border-radius(100%);
-    }
-  }
-}
-
-aside {
-  text-align: center;
-  .sponsor-list {
-    border-left: 1px solid @grayLighter;
-    padding-left: 40px;
-    h2 { font-weight: 900; }
-    h3 { 
-      margin-top: 60px; 
-      font-weight: 900;
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-    img {
-      padding: 15px;
-    }
+// Datatables buttongroup needs a little padding
+div.DTTT.btn-group {
+  padding: 2px 0px 4px;
+  // and override the button colors that don't seem to get set above
+  .btn {
+    .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    color: fade(@button-text, 75%);
+    font-weight: 600;
   }
 }
 
 /* Navigation
 ==================== */
-header.main { 
+header.main {
   padding-top: 10px;
   .account-bar {
     position: relative;
@@ -551,7 +597,7 @@ header.main {
         .btn-success;
       }
     }
-    
+
     span { color: @grayDark; }
 
     form {
@@ -674,7 +720,7 @@ header.main {
 ul.breadcrumb {
  background: transparent;
  margin: 0;
- padding: 0; 
+ padding: 0;
  > li {
    text-shadow: none;
  }
@@ -804,7 +850,7 @@ body.home {
       width: 99px;
       height: 53px;
       position: absolute;
-      right: 25px;
+      right: 175px;
       top: -40px;
       background: url("../img/one-cloud.png") no-repeat transparent;
     }
@@ -812,6 +858,7 @@ body.home {
       width: 173px;
       height: 63px;
       top: -40px;
+      left: 125px;
       position: absolute;
       background: url("../img/two-clouds.png") no-repeat transparent;
     }
@@ -854,7 +901,6 @@ body.home {
 
     .post-content {
       float:left;
-      width: 540px;
     }
   }
 
@@ -1002,7 +1048,7 @@ body.sponsors {
     position: relative;
     margin-top: 0;
     text-align: center;
-    h2 { 
+    h2 {
       font-weight: 900;
       padding: 15px 0;
       font-size: 32px;
@@ -1039,12 +1085,22 @@ body.venue {
     margin: 15px 0 25px 0;
     font-style: italic;
   }
-
-  .map {
+  .map-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
     iframe {
       border: 1px solid #ddd;
     }
-
+    iframe, object, embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
     a {
       font-size: @baseFontSize - 2;
     }
@@ -1061,7 +1117,7 @@ body.venue {
         .btn;
         .btn-success;
       }
-      h3 { 
+      h3 {
         font-weight: normal;
       }
     }
@@ -1070,7 +1126,7 @@ body.venue {
 
 /* CMS Pages
 ==================== */
-body.cms-page { 
+body.cms-page {
   .edit-btn {
     .btn;
     .btn-primary;
@@ -1264,9 +1320,6 @@ body.signup, body.login {
   }
   .page-content {
     margin-top: 40px;
-    .box {
-      border-right: 1px solid @grayLighter;
-    }
   }
   form {
     button[type=submit] {
@@ -1276,6 +1329,12 @@ body.signup, body.login {
     .forgot {
       margin-top: 15px;
     }
+  }
+}
+
+body.login {
+  .page-content {
+    .box { border-right: 1px solid @grayLighter; }
   }
 }
 
@@ -1366,6 +1425,10 @@ div.comment-box {
     width: 500px;
     .border-radius(4px);
     .box-shadow(~"0 1px 1px rgba(0,0,0,0.1)");
+
+    &.private {
+      background: @blueLight;
+    }
 }
 
 .dashboard-panel {
@@ -1509,6 +1572,77 @@ table.calendar {
     span.speaker {
       font-weight: normal;
       display:block;
+    }
+  }
+}
+
+/* Financial Aid
+==================== */
+body.finaid {
+
+  // Mark travel plans as required even though technically they aren't
+  // required by the form.
+  label[for=id_travel_plans]:before {
+    .is_required;
+  }
+
+  &#application_list {
+    form#applicant-list {
+      th { cursor: pointer;
+        &:hover { background-color: @grayLighter; }
+        &:first-child:hover {
+          background-color: transparent;
+          cursor: default;
+        }
+      }
+      .filter {
+        .clearfix;
+        padding: 15px 0;
+        .sort {
+          float: left;
+          select { width: auto; }
+          label { margin: 5px 0 0 0; }
+        }
+        .search { float: right;}
+      }
+      .table-pagination {
+        .clearfix;
+        float: right;
+      }
+      .actions { float: left; }
+    }
+  }
+
+  &#finaid_review {
+    .box-content {
+      header {
+        padding: 15px 0 25px;
+        h2, h3 { margin: 0; }
+      }
+      .applicant {
+        border-right: 1px solid @grayLighter;
+        padding-right: 50px;
+        ul {
+          padding: 8px 0;
+          li {
+            line-height: 1.6;
+            ul {
+              padding: 15px;
+              background-color: @grayLighter;
+              .border-radius(8px);
+              margin-bottom: 20px;
+            }
+          }
+        }
+        .applicant-info {
+          li {
+            padding-bottom: 20px;
+          }
+        }
+      }
+      .review-form {
+        padding-left: 25px;
+      }
     }
   }
 }

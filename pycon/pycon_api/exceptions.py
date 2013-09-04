@@ -1,0 +1,2 @@
+class AuthenticationError(KeyError):
+    pass

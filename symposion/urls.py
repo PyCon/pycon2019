@@ -44,6 +44,8 @@ urlpatterns = patterns("",
         url(r"^venue/share-room/", TemplateView.as_view(template_name="venue/share_room.html"), name="share_room"),
         url(r"^venue/hotels/", TemplateView.as_view(template_name="venue/hotels.html"), name="hotels"),
 
+        url(r"^finaid/", include("pycon.finaid.urls")),
+        url(r"^pycon_api/", include("pycon.pycon_api.urls")),
         url(r"^schedule/", include("pycon.schedule.urls")),
         url(r"^profile/", include("pycon.profile.urls")),
 
@@ -58,6 +60,11 @@ urlpatterns = patterns("",
 
         url(r"^boxes/", include("symposion.boxes.urls")),
         url(r"^sitemap/", TemplateView.as_view(template_name="static/sitemap.html"), name="sitemap"),
+        url(r'^selectable/', include('selectable.urls')),
+        url(r"^change_language/", symposion.views.change_language, name="change_language"),
+
+        # This should be last, because it will create a new CMS page for
+        # any unrecognized URL.
         url(r"^", include("symposion.cms.urls")),
     )))
 )

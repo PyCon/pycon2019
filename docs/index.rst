@@ -1,7 +1,7 @@
-Pycon web site
+PyCon web site
 ==============
 
-The Pycon web site is an open-source Django project for the Pycon
+The PyCon web site is an open-source Django project for the PyCon
 conference, based on Pinax Symposion.
 
 It came out of development done by Eldarion for DjangoCon US and US PyCon
@@ -11,14 +11,20 @@ We are in the process of cleaning things up and making them more generic.
 
 The project homepage is http://github.com/caktus/pycon.
 
+See ``README`` for the installation instructions.
+
 Apps:
 
 .. toctree::
    :maxdepth: 2
-   
+
    conference
    sponsorship
+   registration
+   finaid
    deploying
+   translation
+   api
 
 
 Indices and tables

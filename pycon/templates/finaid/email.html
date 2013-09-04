@@ -1,0 +1,38 @@
+{% extends "finaid/base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Send emails to applicants" %}{% endblock %}
+
+{% block body_id %}finaid_mail{% endblock %}
+
+{% block body %}
+    <a href="{% url 'finaid_review' %}">Back to list of applications</a>
+
+    {% if form.errors %}
+        <div class="alert">
+            <p class="text-error">
+                {% trans "There were errors in your form, please correct them and submit again." %}
+            </p>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <legend>{% trans "Send emails to applicants" %}</legend>
+
+        <div id="div_{{ field.auto_id }}" class="control-group">
+          <label class="control-label">To</label>
+          <div class="controls">
+            {{ users|join:", " }}
+          </div>
+        </div>
+
+        {{ form|as_bootstrap }}
+        <p>{% trans "(Use admin to add email templates.)" %}</p>
+        <div class="form-actions">
+            <input class="btn btn-success" type="submit" value="{% trans "Send" %}" />
+        </div>
+    </form>
+{% endblock %}

@@ -1,5 +1,6 @@
-{% extends "site_base.html" %}
+{% extends "responsive_base.html" %}
 
+{% load i18n %}
 {% load sitetree %}
 
 {% block body_class %}venue{% endblock %}
@@ -9,7 +10,7 @@
         <div class="row">
             <aside class="list span3">
                 <ul class="nav nav-list">
-                    <li class="nav-header">Venue Information</li>
+                    <li class="nav-header">{% trans "Venue Information" %}</li>
                 </ul>
                 {% sitetree_menu from "main" include "this-children,this-siblings" template "sitetree/menu_sidebar.html" %}
             </aside>
