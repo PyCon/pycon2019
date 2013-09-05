@@ -77,7 +77,6 @@ class FinancialAidApplication(models.Model):
         help_text=_("(Your sex will be used only to help assign roommates "
                     "for those requesting hotel assistance)"),
         default=SEX_NO_ANSWER,
-        blank=True,  # So the form won't show this field as required
     )
 
     travel_grant_requested = models.BooleanField(
