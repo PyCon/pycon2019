@@ -1,6 +1,7 @@
 Message regarding {{ applicant.get_full_name|safe }}'s financial aid application.
 
-Submitted: {{ message.submitted_at }}
-Link:      {{ reviewer_url }}
+Submitted:   {{ message.submitted_at }}
+Link:        {{ reviewer_url }}{% if not message.visible %}
+Visibility:  Not visible to applicant{% endif %}
 
 {{ message.message|safe }}

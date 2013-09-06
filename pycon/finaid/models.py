@@ -254,8 +254,6 @@ class FinancialAidReviewData(models.Model):
     hotel_notes = models.TextField(blank=True)
     travel_amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    tutorial_amount = models.DecimalField(
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
     registration_amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     # sum is not a field in the model; we compute it at display time
@@ -263,17 +261,15 @@ class FinancialAidReviewData(models.Model):
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
                                      blank=True, null=True)
     notes = models.TextField(blank=True)
-    travel_signed = models.BooleanField(blank=True)
     travel_cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
                                             blank=True, null=True)
-    travel_check_number = models.CharField(max_length=10, blank=True)
-    travel_preferred_disbursement = models.TextField(blank=True)
+    disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
 
     def sum(self):
         """Sum of amounts granted"""
         return self.hotel_amount + self.travel_amount \
-            + self.tutorial_amount + self.registration_amount
+            + self.registration_amount
 
 
 class FinancialAidEmailTemplate(models.Model):

@@ -98,11 +98,9 @@ def finaid_review(request):
         if 'email_action' in request.POST:
             # They want to email applicants
             return redirect('finaid_email', pks=pks)
-        if 'note_action' in request.POST:
-            # They want to attach a note to applications
-            messages.add_message(request, messages.ERROR,
-                                 u"Adding notes not implemented yet")
-            return redirect(request.path)
+        if 'message_action' in request.POST:
+            # They want to attach a message to applications
+            return redirect('finaid_message', pks=pks)
         messages.add_message(request, messages.ERROR, "WHAT?")
 
     return render(request, "finaid/application_list.html", {
@@ -111,7 +109,54 @@ def finaid_review(request):
 
 
 @login_required
+def finaid_message(request, pks):
+    """Add a message to some applications"""
+    if not is_reviewer(request.user):
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
+    pks = pks.split(",")
+    applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+        .select_related('user')
+    if not applications.exists():
+        messages.add_message(request, messages.ERROR, _(u"No applications selected"))
+        return redirect('finaid_review')
+
+    if request.method == 'POST':
+        for application in applications:
+            message = FinancialAidMessage(user=request.user,
+                                          application=application)
+            message_form = ReviewerMessageForm(request.POST, instance=message)
+            if message_form.is_valid():
+                message = message_form.save()
+                # Send notice to reviewers/pycon-aid alias, and the applicant if visible
+                context = email_context(request, application, message)
+                send_email_message("reviewer/message",
+                                   # From whoever is logged in clicking the buttons
+                                   from_=request.user.email,
+                                   to=[email_address()],
+                                   context=context)
+                # If visible to applicant, notify them as well
+                if message.visible:
+                    send_email_message("applicant/message",
+                                       from_=request.user.email,
+                                       to=[application.user.email],
+                                       context=context)
+            messages.add_message(request, messages.INFO, _(u"Messages sent"))
+        return redirect(reverse('finaid_review'))
+    else:
+        message_form = ReviewerMessageForm()
+
+    return render(request, "finaid/reviewer_message.html", {
+        'applications': applications,
+        'form': message_form,
+    })
+
+
+@login_required
 def finaid_email(request, pks):
+    if not is_reviewer(request.user):
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
     pks = pks.split(",")
     applications = FinancialAidApplication.objects.filter(pk__in=pks)\
         .select_related('user')
@@ -145,10 +190,10 @@ def finaid_email(request, pks):
             except SMTPException:
                 log.exception("ERROR sending financial aid emails")
                 messages.add_message(request, messages.ERROR,
-                                     u"There was some error sending emails, "
-                                     u"not all of them might have made it")
+                                     _(u"There was some error sending emails, "
+                                       u"not all of them might have made it"))
             else:
-                messages.add_message(request, messages.INFO, u"Emails sent")
+                messages.add_message(request, messages.INFO, _(u"Emails sent"))
             return redirect(reverse('finaid_review'))
 
     ctx = {
@@ -195,7 +240,9 @@ def finaid_review_detail(request, pk):
                                        from_=request.user.email,
                                        to=[application.user.email],
                                        context=context)
-
+                messages.add_message(
+                    request, messages.INFO,
+                    _(u"Message has been added to the application, and recipients notified by email."))
                 return redirect(request.path)
         elif 'review_submit' in request.POST:
             review_form = FinancialAidReviewForm(request.POST,

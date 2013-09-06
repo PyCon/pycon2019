@@ -16,8 +16,10 @@ from symposion.utils.mail import send_email
 
 
 # The benefits we track as individual fields on sponsors
+# Names are the names in the database as defined by PyCon organizers.
 # Field names are the benefit names, lowercased, with
-# spaces changed to _, and with "_benefit" appended
+# spaces changed to _, and with "_benefit" appended.
+# Column titles are arbitrary.
 
 # "really just care about the ones we have today: print logo, web logo, print description, web description and the ad."
 
@@ -25,15 +27,15 @@ BENEFITS = [
     {
         'name': 'Web logo',
         'field_name': 'web_logo_benefit',
-        'column_title': _(u'Web logo'),
+        'column_title': _(u'Web Logo'),
     }, {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
-        'column_title': _(u'Print logo'),
+        'column_title': _(u'Print Logo'),
     }, {
         'name': 'Company Description',
         'field_name': 'company_description_benefit',
-        'column_title': _(u'Co Descr'),
+        'column_title': _(u'Web Desc'),
     }, {
         'name': 'Print Description',
         'field_name': 'print_description_benefit',

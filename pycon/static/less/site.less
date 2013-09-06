@@ -767,6 +767,7 @@ body.home {
     .details { display: none; }
     .span12 { position: relative; }
     .promo {
+      text-align: center;
       &.no-link {
         .border-radius(100%);
         background-color: @yellowBeak;
@@ -786,37 +787,30 @@ body.home {
       }
       a {
         .btn;
-        .btn-white;
-        font-weight: 900;
-        padding: 20px 15px 21px;
-        font-size: 30px;
-        float: right;
-        border: 9px solid lighten(@blueLight, 12%);
-        &:hover {
-          color: @white !important;
-          border-color: @button-white-hover;
-        }
+        .btn-primary;
+        padding: 15px 75px;
+        margin: 40px 0 0 0;
+        font-size: 24px;
       }
     }
   }
   .schedule {
-    text-align: center;
+    width: 100%;
+    margin-left: 20px;
     ul {
       list-style: none;
-      padding: 0 0 0 255px;
-      margin-top: 40px;
       font-size: 18px;
+      text-align: center;
+      margin: 40px 25px 0 5px;
       li {
-        float: left;
-        padding: 10px 20px;
-        margin-right: 10px;
+        padding: 10px 0;
+        display: inline-block;
         background-color: lighten(@blueSky, 10%);
         .border-radius(8px);
+        border: 4px solid @blueSky;
         line-height: 24px;
-        span {
-          display: block;
-          font-weight: 900;
-        }
+        text-align: center;
+        width: 160px;
       }
     }
   }
@@ -824,14 +818,15 @@ body.home {
     position: relative;
     background-color: @blueSky;
     height: 225px;
+
     .montreal {
-      position: absolute;
+      position: relative;
       background: url("../img/montreal.png") no-repeat scroll 0 0 transparent;
-      height: 150px;
-      margin-left: 185px;
-      bottom: 30px;
-      width: 600px;
+      height: 180px;
+      width: 100%;
       z-index: 99;
+      margin: 10px 0 0 0;
+      background-position: center;
     }
     .water {
       background: @blueDark;
