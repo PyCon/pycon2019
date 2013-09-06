@@ -3,20 +3,20 @@
 {% load bootstrap_tags %}
 {% load i18n %}
 
-{% block head_title %}Editing {{ proposal.title }}{% endblock %}
-{% block page_title %}Edit Proposal{% endblock %}
+{% block head_title %}{% blocktrans with title=proposal.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
+{% block page_title %}{% trans "Edit Proposal" %}{% endblock %}
 
 {% block body %}
     <h1>{{ proposal.title }}</h1>
-    <p><a href="{% url 'proposal_speaker_manage' proposal.pk %}">Manage speakers</a></p>
+    <p><a href="{% url 'proposal_speaker_manage' proposal.pk %}">{% trans "Manage speakers" %}</a></p>
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <fieldset>
             {{ form|as_bootstrap }}
         </fieldset>
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="Save" />
-            <a class="btn" href="{% url 'proposal_detail' proposal.pk %}">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
+            <a class="btn" href="{% url 'proposal_detail' proposal.pk %}">{% trans "Cancel" %}</a>
         </div>
     </form>
 {% endblock %}

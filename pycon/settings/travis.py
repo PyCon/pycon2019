@@ -1,6 +1,10 @@
-from .settings_test import *
+# Settings file for Travis
+# uses common test settings, then overrides for Travis
 
-# Travis - PostgreSQL is started on boot, binds to 127.0.0.1 and requires authentication with "postgres" user and no password.
+from .test import *
+
+# Travis - PostgreSQL is started on boot, binds to 127.0.0.1 and requires
+# authentication with "postgres" user and no password.
 DATABASES['default'].update(
     {
         "ENGINE": "django.db.backends.postgresql_psycopg2",

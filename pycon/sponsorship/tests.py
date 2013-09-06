@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from pycon.sponsorship.models import Benefit,  Sponsor, SponsorBenefit, \
+from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit,\
     SponsorLevel
 from symposion.conference.models import current_conference
 
@@ -34,12 +34,15 @@ class TestSponsorZipDownload(TestCase):
         self.sponsor = Sponsor.objects.create(
             name="Big Daddy",
             level=self.sponsor_level,
+            active=True,
         )
 
-        # Create our benefit types
-        self.text_type = Benefit.objects.create(name="text", type="text")
-        self.file_type = Benefit.objects.create(name="file", type="file")
-        self.weblogo_type = Benefit.objects.create(name="log", type="weblogo")
+        # Create our benefits, of various types
+        self.text_benefit = Benefit.objects.create(name="text", type="text")
+        self.file_benefit = Benefit.objects.create(name="file", type="file")
+        # These names must be spelled exactly this way:
+        self.weblogo_benefit = Benefit.objects.create(name="Web logo", type="weblogo")
+        self.printlogo_benefit = Benefit.objects.create(name="Print logo", type="file")
 
     def validate_response(self, rsp, names_and_sizes):
         # Ensure a response from the view looks right, contains a valid
@@ -96,42 +99,116 @@ class TestSponsorZipDownload(TestCase):
         self.assertIn(self.url, rsp.content)
 
     def test_different_benefit_types(self):
-        # We only get files from benefits of type `file` and `weblogo`
+        # We only get files from the benefits named "Print logo" and "Web logo"
         # And we ignore any non-existent files
         try:
             # Create a temp dir for media files
             self.temp_dir = tempfile.mkdtemp()
             with override_settings(MEDIA_ROOT=self.temp_dir):
 
+                # Give our sponsor some benefits
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.text_type,
+                    benefit=self.text_benefit,
                     text="Foo!"
                 )
 
                 self.make_temp_file("file1", 10)
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.file_type,
+                    benefit=self.file_benefit,
                     upload="file1"
                 )
 
                 self.make_temp_file("file2", 20)
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.weblogo_type,
+                    benefit=self.weblogo_benefit,
                     upload="file2"
                 )
 
                 # Benefit whose file is missing from the disk
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.weblogo_type,
+                    benefit=self.weblogo_benefit,
                     upload="file3"
                 )
 
+                # print logo benefit
+                self.make_temp_file("file4", 40)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor,
+                    benefit=self.printlogo_benefit,
+                    upload="file4"
+                )
+
                 rsp = self.client.get(self.url)
-                self.validate_response(rsp, [('file1', 10), ('file2', 20)])
+                expected = [
+                    ('web_logos/lead/big_daddy/file2', 20),
+                    ('print_logos/lead/big_daddy/file4', 40)
+                ]
+                self.validate_response(rsp, expected)
+        finally:
+            if hasattr(self, 'temp_dir'):
+                # Clean up any temp media files
+                shutil.rmtree(self.temp_dir)
+
+    def test_file_org(self):
+        # The zip file is organized into directories:
+        #  {print_logos,web_logos}/<sponsor_level>/<sponsor_name>/<filename>
+
+        # Add another sponsor at a different sponsor level
+        conference = current_conference()
+        self.sponsor_level2 = SponsorLevel.objects.create(
+            conference=conference, name="Silly putty", cost=1)
+        self.sponsor2 = Sponsor.objects.create(
+            name="Big Mama",
+            level=self.sponsor_level2,
+            active=True,
+        )
+        #
+        try:
+            # Create a temp dir for media files
+            self.temp_dir = tempfile.mkdtemp()
+            with override_settings(MEDIA_ROOT=self.temp_dir):
+
+                # Give our sponsors some benefits
+                self.make_temp_file("file1", 10)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor,
+                    benefit=self.weblogo_benefit,
+                    upload="file1"
+                )
+                # print logo benefit
+                self.make_temp_file("file2", 20)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor,
+                    benefit=self.printlogo_benefit,
+                    upload="file2"
+                )
+                # Sponsor 2
+                self.make_temp_file("file3", 30)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor2,
+                    benefit=self.weblogo_benefit,
+                    upload="file3"
+                )
+                # print logo benefit
+                self.make_temp_file("file4", 42)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor2,
+                    benefit=self.printlogo_benefit,
+                    upload="file4"
+                )
+
+                rsp = self.client.get(self.url)
+                expected = [
+                    ('web_logos/lead/big_daddy/file1', 10),
+                    ('web_logos/silly_putty/big_mama/file3', 30),
+                    ('print_logos/lead/big_daddy/file2', 20),
+                    ('print_logos/silly_putty/big_mama/file4', 42),
+                ]
+                self.validate_response(rsp, expected)
         finally:
             if hasattr(self, 'temp_dir'):
                 # Clean up any temp media files

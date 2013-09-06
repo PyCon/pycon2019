@@ -8,13 +8,11 @@
 
 {% block head_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
 
-{% block body_class %}finaid_status{% endblock %}
+{% block body_id %}finaid_status{% endblock %}
 
 {% block page_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
 
 {% block body %}
-    <h3>{% trans "Financial Aid Application Status" %}</h3>
-
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>

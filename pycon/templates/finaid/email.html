@@ -1,11 +1,11 @@
-{% extends "site_base.html" %}
+{% extends "finaid/base.html" %}
 
 {% load bootstrap_tags %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Send emails to applicants" %}{% endblock %}
 
-{% block body_class %}finaid mail{% endblock %}
+{% block body_id %}finaid_mail{% endblock %}
 
 {% block body %}
     <a href="{% url 'finaid_review' %}">Back to list of applications</a>
@@ -30,7 +30,7 @@
         </div>
 
         {{ form|as_bootstrap }}
-        <p>(Use admin to add email templates.)</p>
+        <p>{% trans "(Use admin to add email templates.)" %}</p>
         <div class="form-actions">
             <input class="btn btn-success" type="submit" value="{% trans "Send" %}" />
         </div>

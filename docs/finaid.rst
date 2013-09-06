@@ -10,15 +10,8 @@ Values can include:
     email
         The email address that messages related to financial aid come from,
         and that users should email with questions. Defaults to
-        ``pycon-aid@pycon.org``.
+        ``pycon-aid@python.org``.
 
-Add the context processor:
-
-    TEMPLATE_CONTEXT_PROCESSORS = [
-        ...
-        "pycon.finaid.context_processors.financial_aid",
-        ...
-    ]
 
 To enable applications, use the admin to create new
 FinancialAidApplicationPeriod records with the desired start
@@ -41,15 +34,27 @@ the form submitted.
 Email notices
 ~~~~~~~~~~~~~
 
-The text for many emails comes from templates:
+The text for many emails comes from templates whose paths start with "finaid".
 
-    finaid/email/application_submitted_{subject,body}.txt - Sent to user when
-        we receive their application
+Email template file names have this format:
 
-    finaid/email/application_edited_{subject,body}.txt - Sent to user when
-        we receive an edit of their application
+finaid/{{ recipient }}/{{ event }}/[subject|body].txt
 
-    finaid/email/applicant_message_{subject,body}.txt - Sent to reviewers
-        when the applicant submits a message on the status page
+recipient can be:
+
+* applicant
+* reviewer
+
+event can be:
+
+* edited
+* submitted
+* message (a message was added to an application)
+
+subject and body should be self-evident.
 
 Subject templates should be a single line.
+
+So for example, the templates used to notify a reviewer that the applicant
+has edited their application are ``finaid/reviewer/edited/subject.txt``
+and ``finaid/reviewer/edited/body.txt``.
