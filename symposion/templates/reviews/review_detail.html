@@ -5,6 +5,8 @@
 {% load bootstrap_tags %}
 {% load account_tags %}
 
+{% block head_title %}#{{ proposal.number }} - {{ proposal.title }}{% endblock %}
+
 {% block extra_style %}
     <style type="text/css">
         body.reviews .markItUpEditor {
