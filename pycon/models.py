@@ -1,5 +1,6 @@
-import difflib
 import json
+
+from diff_match_patch import diff_match_patch
 
 from django.db import models
 from django.db.models.signals import pre_save
@@ -233,15 +234,15 @@ class TalkProposalDiff(models.Model):
     def diffs(self):
         return json.loads(self.diffs_json)
 
-differ = difflib.HtmlDiff(wrapcolumn=60)
 
 def difftool(s1, s2):
     """
     takes two strings, returns an HTML snippet of diff
-
-    current implementation just uses difflib HTML differ
     """
-    return differ.make_table(s1.split('\n'), s2.split('\n'))
+    dmp = diff_match_patch()
+    diffs = dmp.diff_main(s1, s2)
+    html = dmp.diff_prettyHtml(diffs)
+    return html
 
 
 @receiver(pre_save, sender=PyConTalkProposal)
