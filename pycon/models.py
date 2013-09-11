@@ -223,11 +223,17 @@ class TalkProposalDiff(models.Model):
         {field: html-snippet of diff for this edit, this field}
     """
 
-    talk = models.ForeignKey(PyConTalkProposal, related_name='diffs')
+    talk = models.ForeignKey(PyConTalkProposal, related_name='revisions')
     revision_date = models.DateTimeField(default=now)
     diffs_json = models.TextField(blank=True)
 
-differ = difflib.HtmlDiff(wrapcolumn=80)
+    class Meta:
+        ordering = ['-revision_date']
+
+    def diffs(self):
+        return json.loads(self.diffs_json)
+
+differ = difflib.HtmlDiff(wrapcolumn=60)
 
 def difftool(s1, s2):
     """

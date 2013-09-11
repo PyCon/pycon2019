@@ -15,6 +15,16 @@
         }
     </style>
 
+    <style type="text/css">
+        table.diff {font-family:Courier; border:medium;}
+        .diff_header {background-color:#e0e0e0}
+        td.diff_header {text-align:right}
+        .diff_next {background-color:#c0c0c0}
+        .diff_add {background-color:#aaffaa}
+        .diff_chg {background-color:#ffff77}
+        .diff_sub {background-color:#ffaaaa}
+    </style>
+
 {% endblock %}
 
 {% block extra_head %}
@@ -91,6 +101,7 @@
             <li class="active"><a href="#proposal-detail" data-toggle="tab">Proposal Details</a></li>
             <li><a href="#proposal-reviews" data-toggle="tab">Reviews <span class="badge">{{ reviews|length }}</span></a></li>
             <li><a href="#proposal-feedback" data-toggle="tab">Speaker Feedback <span class="badge">{{ proposal.messages.all|length }}</span></a></li>
+            <li><a href="#proposal-history" data-toggle="tab">Revision History<span class="badge">{{ proposal.revisions.all|length }}</span></a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="proposal-detail">
@@ -208,6 +219,23 @@
                     </div>
                 </form>
             </div>
+            <div class="tab-pane" id="proposal-history">
+                {% if proposal.revisions.all %}
+                    <h3>Revision History</h3>
+                    {% for revision in proposal.revisions.all %}
+                        <h4>{{ revision.revision_date }}</h4>
+                        {% for section, diff in revision.diffs.items %}
+                        <div>
+                            <b>{{ section }}</b><br />
+                            {{ diff|safe }}
+                        </div>
+                        {% endfor %}
+
+                    <hr />
+                    {% endfor %}
+                {% endif %}
+            </div>
+
         </div>
     </div>
 {% endblock %}
