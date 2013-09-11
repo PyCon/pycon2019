@@ -243,7 +243,7 @@ def difftool(s1, s2):
     dmp = diff_match_patch()
     diffs = dmp.diff_main(s1, s2)
     html = dmp.diff_prettyHtml(diffs)
-    return html
+    return html.replace('\r&para;', '')
 
 
 @receiver(pre_save, sender=PyConTalkProposal)
