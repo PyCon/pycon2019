@@ -231,6 +231,7 @@ class TalkProposalDiff(models.Model):
     class Meta:
         ordering = ['-revision_date']
 
+    @property
     def diffs(self):
         return json.loads(self.diffs_json)
 
