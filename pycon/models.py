@@ -251,9 +251,8 @@ def save_talk_diff(sender, **kwargs):
     edited_talk = kwargs.get('instance')
     try:
         current_talk = PyConTalkProposal.objects.get(pk=edited_talk.pk)
-    except:
+    except PyConTalkProposal.DoesNotExist:
         # Talk being saved the first time
-        PyConTalkProposal.DoesNotExist
         return
     diff_dict = {}
     for field in DIFF_FIELDS:
