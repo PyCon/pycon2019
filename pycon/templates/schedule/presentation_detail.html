@@ -1,0 +1,46 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load sitetree %}
+
+{% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body %}
+    {% if presentation.slot %}
+        <h4>
+            {{ presentation.slot.day.date|date:"l" }}
+            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+        </h4>
+    {% endif %}
+    <h2>{{ presentation.title }}</h2>
+
+    <h4>
+        {% for speaker in speakers %}
+            <a href="{% url 'speaker_profile' speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+    </h4>
+
+    {% if proposal.category  %}
+        <dl class="dl-horizontal">
+            <dt>{% trans "Audience level:" %}</dt>
+            <dd style="margin-bottom: 0;">{{ proposal.get_audience_level_display }}</dd>
+            <dt>{% trans "Category:" %}</dt>
+            <dd>{{ proposal.category }}</dd>
+        </dl>
+    {% endif %}
+
+    <h3>{% trans "Description" %}</h3>
+
+    <div class="description">{{ presentation.description }}</div>
+
+    <h3>{% trans "Abstract" %}</h3>
+
+    <div class="abstract">{{ presentation.abstract|safe }}</div>
+
+    {% if proposal.handout and request.user in proposal.registrants  or request.user.speaker_profile in speakers %}
+        <h3>{% trans "Student Handout" %}</h3>
+        <div class="student-handout"><a href="{{ proposal.handout.url }}">Download</a></div>
+    {% endif %}
+{% endblock %}
+
