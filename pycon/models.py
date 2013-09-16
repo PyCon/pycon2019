@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -176,6 +177,13 @@ class PyConTutorialProposal(PyConProposal):
                     u'attending the tutorial session.'),
         upload_to="tutorial_handouts"
     )
+
+    registrants = models.ManyToManyField(
+        User,
+        blank=True,
+        null=True,
+        help_text=_(u'CTE registered participants for this tutorial.'),
+        )
 
     class Meta:
         verbose_name = "PyCon tutorial proposal"
