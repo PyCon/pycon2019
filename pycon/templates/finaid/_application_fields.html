@@ -12,7 +12,7 @@
 </h4>
 
 <ul class="timestamp unstyled">
-  <h4>TIMESTAMP</h4>
+  <h4>{% trans "TIMESTAMP" %}</h4>
   <li>
    <strong>{% trans "Submitted:" %}</strong>
     {{ application.timestamp }}
@@ -29,24 +29,24 @@
 <hr>
 
 <ul class="grants unstyled">
-  <h4>GRANT(S) REQUESTED</h4>
+  <h4>{% trans "GRANT(S) REQUESTED" %}</h4>
   {% if application.pyladies_grant_requested %}
-    <li>{% trans "PYLADIES GRANT REQUESTED" %}<li>
+    <li>{% trans "PyLadies grant requested" %}<li>
   {% endif %}
   {% if application.registration_grant_requested %}
-    <li>{% trans "REGISTRATION GRANT REQUESTED" %}</li>
+    <li>{% trans "Registration grant requested" %}</li>
   {% endif %}
   {% if application.tutorial_grant_requested %}
-    <li>{% trans "TUTORIAL GRANT REQUESTED" %}</li>
+    <li>{% trans "Tutorial grant requested" %}</li>
   {% endif %}
   {% if application.hotel_grant_requested %}
-    <li>{% trans "HOTEL GRANT REQUESTED" %}
+    <li>{% trans "Hotel grant requested" %}
       <ul class="unstyled">
         <li>
           <strong>{% trans "Hotel nights:" %}</strong>
           {{ application.hotel_nights }}
         </li>
-        <li>{% comment %}Translators: Sex as in male, female{% endcomment %}
+        <li>
           <strong>{% trans "Sex:" %}</strong>
           {{ application.get_sex_display }}
         </li>
@@ -54,7 +54,7 @@
     </li>
   {% endif %}
   {% if application.travel_grant_requested %}
-    <li>{% trans "TRAVEL GRANT REQUESTED" %}
+    <li>{% trans "Travel grant requested" %}
      <ul class="unstyled">
       <li>
         <strong>{% trans "Travel funds requested:" %}</strong>
@@ -78,7 +78,7 @@
 <hr>
 
 <ul class="unstyled applicant-info">
-  <h4>APPLICANT INFO</h4>
+  <h4>{% trans "APPLICANT INFO" %}</h4>
   <li>
     <strong>{% trans "Profession" %}</strong>
     <p>{{ application.profession }}</p>

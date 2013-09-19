@@ -52,5 +52,10 @@ class ReviewTestMixin(object):
     def make_reviewer(self, user):
         self.setup_reviewer_team_and_permissions()
         Membership.objects.get_or_create(team=self.review_team,
-                                         user=self.user,
+                                         user=user,
                                          state="member")
+
+    def make_not_reviewer(self, user):
+        self.setup_reviewer_team_and_permissions()
+        Membership.objects.filter(team=self.review_team,
+                                  user=user).delete()

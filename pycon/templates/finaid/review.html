@@ -14,12 +14,12 @@
   <p>
     <a class="btn btn-primary" href="{% url 'finaid_review' %}">
       <i class="icon-arrow-left"></i>
-      {% trans "Back to list of applications" %}
+      Back to list of applications
     </a>
   </p>
 
   <header>
-    <small>{% trans "APPLICANT" %}</small>
+    <small>APPLICANT</small>
     <h2>
       <i class="icon-user"></i>
       {{ application.user }}
@@ -37,17 +37,17 @@
       <li class="active">
         <a href="#application-detail" data-toggle="tab">
           <i class="icon-file"></i>
-          {% trans "Application" %}
+          Application
         </a>
       </li>
       <li>
         <a href="#application-messages" data-toggle="tab">
           <i class="icon-envelope"></i>
-          {% trans "Messages" %}
+          Messages
           <span class="badge badge-info">{{ application.messages.all|length }}</span>
         </a>
       </li>
-{#      <li><a href="#application-review" data-toggle="tab">{% trans "Review data" %}</a></li>#}
+{#      <li><a href="#application-review" data-toggle="tab">Review data" %}</a></li>#}
     </ul>
 
     <div class="tab-content">
@@ -59,28 +59,29 @@
             {% endwith %}
           </div>
           <div class="review-form span3">
-            <h4>{% trans "REVIEW FORM" %}</h4>
+            <h4>REVIEW FORM</h4>
             <hr>
             {% with form=review_form %}
               {% if form.errors %}
                 <div class="alert">
                   <p class="text-error">
-                    {% trans "There were errors in your form, please correct them and submit again." %}
+                    There were errors in your form, please correct them and submit again." %}
                   </p>
                 </div>
               {% endif %}
 
+              <p>
+                <strong>Sum:</strong>
+                {{ form.instance.sum }}
+              </p>
+
               <form action="" method="POST" accept-charset="utf-8">
                 {% csrf_token %}
                 <fieldset>
-                  <div class="control-group">
-                    <label>SUM</label>
-                    {{ form.instance.sum }}
-                  </div>
                   {{ form|as_bootstrap }}
                 </fieldset>
                 <div class="actions">
-                  <button type="submit" name="review_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+                  <button type="submit" name="review_submit" class="btn btn-success">{% trans "Submit" %}</button>
                 </div>
               </form>
 
@@ -93,7 +94,7 @@
         {% if review_messages %}
           <h3>
             <i class="icon-envelope"></i>
-            {% trans "Messages" %}
+            Messages
           </h3>
           {% for message in review_messages %}
             <div class="comment-box{% if not message.visible %} private{% endif %}">
@@ -101,7 +102,7 @@
                 {% if not message.visible %}
                   <h4>
                     <i class="icon-eye-close"></i>
-                    {% trans "PRIVATE TO REVIEWERS" %}
+                    PRIVATE TO REVIEWERS
                   </h4>
                 {% endif %}
                 <strong>{% user_display message.user %}</strong>
@@ -113,19 +114,19 @@
           {% endfor %}
 
         {% else %}
-          {% trans "No messages" %}
+          No messages
         {% endif %}
         <hr />
 
         <h3>
           <i class="icon-pencil"></i>
-          {% trans "Add a Message" %}
+          Add a Message
         </h3>
         {% with form=message_form %}
           {% if form.errors %}
             <div class="alert">
               <p class="text-error">
-                {% trans "There were errors in your form, please correct them and submit again." %}
+                There were errors in your form, please correct them and submit again.
               </p>
             </div>
           {% endif %}
@@ -135,7 +136,7 @@
               {{ form|as_bootstrap }}
             </fieldset>
             <div class="actions">
-              <button type="submit" name="message_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+              <button type="submit" name="message_submit" class="btn btn-success">{% trans "Submit" %}</button>
             </div>
           </form>
         {% endwith %}
