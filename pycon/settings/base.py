@@ -329,3 +329,5 @@ COMPRESS_PRECOMPILERS = (
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
+
+
