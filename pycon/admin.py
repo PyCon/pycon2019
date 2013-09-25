@@ -42,6 +42,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'domain_level',
         'cancelled',
     ]
+    filter_horizontal = ['registrants']
 
 
 class LightningTalkAdminForm(forms.ModelForm):

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -179,7 +179,7 @@ class PyConTutorialProposal(PyConProposal):
     )
 
     registrants = models.ManyToManyField(
-        User,
+        settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
         help_text=_(u'CTE registered participants for this tutorial.'),
