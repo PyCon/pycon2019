@@ -75,7 +75,6 @@ def tutorial_message(request, pk):
             message = message_form.save()
             context = email_context(request, tutorial, message)
             # Send notice to instructors
-            import ipdb; ipdb.set_trace()
             send_email_message("instructor/message",
                                from_=request.user.email,
                                to=[x.email for x in tutorial.speakers()],
