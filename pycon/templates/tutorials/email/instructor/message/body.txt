@@ -1,0 +1,6 @@
+Message from {{ user.get_full_name|safe }} posted to {{ presentation }}.
+
+Submitted:   {{ message.submitted_at }}
+Link:        {{ presentation_url }
+
+{{ message.message|safe }}

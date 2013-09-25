@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load bootstrap_tags %}
+{% load compress %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Tutorial Comment" %}{% endblock %}
+
+{% block body_id %}tutorial_message{% endblock %}
+
+{% block page_title %}{% trans "Tutorial Comment" %}{% endblock %}
+
+{% block body %}
+ <p>
+    <a class="btn btn-primary" href="{% url 'finaid_review' %}">
+      <i class="icon-arrow-left"></i>
+      {% trans "Back to list of applications" %}
+    </a>
+  </p>
+
+  <h3>{% trans "Leave a Message" %}</h3>
+
+    <p>{% trans "You can leave a message for the class here." %}</p>
+
+    <form action="" method="POST" accept-charset="utf-8">
+        {% csrf_token %}
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
+        <div class="actions">
+            <button type="submit" name="message_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </div>
+    </form>
+{% endblock body %}

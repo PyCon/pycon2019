@@ -1,0 +1,3 @@
+Instructor {{ user.get_full_name }} has edited {{ presentation }}
+
+Link: {{ presentation_url }}
