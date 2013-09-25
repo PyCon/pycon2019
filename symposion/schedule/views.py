@@ -159,7 +159,7 @@ def schedule_presentation_detail(request, pk):
     # Offload the logic to its utility
     if presentation.proposal.__class__ == PyConTutorialProposal and \
             request.method == 'POST':
-        return process_tutorial_request(request, presentation.proposal)
+        return process_tutorial_request(request, presentation)
 
     if presentation.slot:
         schedule = presentation.slot.day.schedule

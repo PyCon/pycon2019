@@ -3,12 +3,23 @@
 {% load bootstrap_tags %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Send emails to applicants" %}{% endblock %}
+{% block head_title %}
+    {% if from_speaker %}
+        {% trans "Send emails to applicants" %}
+    {% else %}
+        {% trans "Send emails to speakers" %}
+    {% endif %}
+{% endblock %}
 
 {% block body_id %}finaid_mail{% endblock %}
 
 {% block body %}
-    <a href="{% url 'finaid_review' %}">Back to list of applications</a>
+    <p>
+        <a class="btn btn-primary" href="{% url 'schedule_presentation_detail' presentation.id %}">
+          <i class="icon-arrow-left"></i>
+          {% trans "Back to presentaion details" %}
+        </a>
+    </p>
 
     {% if form.errors %}
         <div class="alert">
@@ -20,7 +31,13 @@
 
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
-        <legend>{% trans "Send emails to applicants" %}</legend>
+        <legend>
+            {% if from_speaker %}
+                {% trans "Send emails to applicants" %}
+            {% else %}
+                {% trans "Send emails to speakers" %}
+            {% endif %}
+        </legend>
 
         <div id="div_{{ field.auto_id }}" class="control-group">
           <label class="control-label">To</label>
@@ -30,7 +47,6 @@
         </div>
 
         {{ form|as_bootstrap }}
-        <p>{% trans "(Use admin to add email templates.)" %}</p>
         <div class="form-actions">
             <input class="btn btn-success" type="submit" value="{% trans "Send" %}" />
         </div>

@@ -60,7 +60,7 @@ def send_email_message(template_name, from_, to, context):
     send_mail(subject, body, from_, to)
 
 
-def process_tutorial_request(request, tutorial):
+def process_tutorial_request(request, presentation):
     """
         PyConTutorialProposals allow for additional communication methods
         between Instructor and attenddees.
@@ -78,11 +78,11 @@ def process_tutorial_request(request, tutorial):
                 request, messages.ERROR,
                 _(u"Please select at least one attendee"))
             return redirect(request.path)
-
         pks = ",".join(pks)
-        return redirect('tutorial_email', pks=pks)
+        return redirect('tutorial_email', pk=presentation.pk, pks=pks)
 
     if 'message_action' in request.POST:
-        return redirect(reverse('tutorial_message', kwargs={"pk": tutorial.pk}))
+        url = reverse('tutorial_message', kwargs={"pk": presentation.proposal.pk})
+        return redirect(url)
     messages.add_message(request, messages.ERROR, "WHAT?")
 
