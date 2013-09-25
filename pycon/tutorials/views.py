@@ -6,6 +6,8 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template
 from django.utils.translation import ugettext as _
 
+from symposion.schedule.models import Presentation
+
 from pycon.tutorials.forms import BulkEmailForm, TutorialMessageForm
 from pycon.tutorials.models import PyConTutorialMessage
 from pycon.tutorials.utils import email_context, send_email_message
@@ -58,15 +60,17 @@ def tutorial_email(request, pks):
 
     ctx = {
         'form': form or BulkEmailForm(),
-        'users': [app.user for app in applications]
+        'users': attendees
     }
 
-    return render(request, "tutorial/email.html", ctx)
+    return render(request, "tutorials/email.html", ctx)
 
 
 @login_required
 def tutorial_message(request, pk):
     tutorial = get_object_or_404(PyConTutorialProposal, pk=pk)
+    presentation = Presentation.objects.get(proposal_base=tutorial)
+
     if request.method == 'POST':
         message = PyConTutorialMessage(user=request.user,
                                        tutorial=tutorial)
@@ -90,7 +94,8 @@ def tutorial_message(request, pk):
     else:
         message_form = TutorialMessageForm()
 
-    return render(request, "tutorials/tutorial_message.html", {
+    return render(request, "tutorials/message.html", {
+        'presentation': presentation,
         'tutorial': tutorial,
         'form': message_form
         })

@@ -1,6 +1,5 @@
 {% extends "site_base.html" %}
 
-{% load account_tags %}
 {% load bootstrap_tags %}
 {% load compress %}
 {% load i18n %}
@@ -14,15 +13,15 @@
 
 {% block body %}
  <p>
-    <a class="btn btn-primary" href="{% url 'finaid_review' %}">
+    <a class="btn btn-primary" href="{% url 'schedule_presentation_detail' presentation.id %}">
       <i class="icon-arrow-left"></i>
-      {% trans "Back to list of applications" %}
+      {% trans "Back to presentaion details" %}
     </a>
   </p>
 
-  <h3>{% trans "Leave a Message" %}</h3>
+  <h3>{% trans "Leave class note" %}</h3>
 
-    <p>{% trans "You can leave a message for the class here." %}</p>
+    <p><strong>{% trans "Class notes are visible to both instructor(s) and attendees" %}</strong></p>
 
     <form action="" method="POST" accept-charset="utf-8">
         {% csrf_token %}
