@@ -24,9 +24,9 @@ SOUTH_TESTS_MIGRATE = False
 
 # Using sqlite in memory speeds things up even more, but that's getting
 # pretty far from production. I don't think it's worth the risk.
-DATABASES = {
-   "default": {
-       "ENGINE": "django.db.backends.sqlite3",
-       "NAME": ":memory:",
-   }
-}
+# DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": ":memory:",
+#    }
+# }
