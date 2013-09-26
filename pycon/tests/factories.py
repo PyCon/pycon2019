@@ -1,7 +1,7 @@
 import random
 import factory
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal
+    PyConTalkProposal, PyConTutorialProposal
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
 
@@ -27,5 +27,19 @@ class PyConTalkProposalFactory(PyConProposalFactory):
                               name="talk",
                               slug="talk")
     outline = "outline"
+    audience = "audience"
+    perceived_value = "perceived_value"
+
+
+class PyConTutorialProposalFactory(PyConProposalFactory):
+    FACTORY_FOR = PyConTutorialProposal
+
+    kind = factory.SubFactory(ProposalKindFactory,
+                              name="tutorial",
+                              slug="tutorial")
+
+    domain_level = 1
+    outline = "outline"
+    more_info = "more info"
     audience = "audience"
     perceived_value = "perceived_value"
