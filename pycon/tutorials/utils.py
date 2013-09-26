@@ -34,8 +34,10 @@ def send_email_message(template_name, from_, to, bcc, context, headers=None):
     and "tutorials/email/%(template_name)s/body.txt"
     :param from_: From address to use
     :param to: List of addresses to send to
+    :param to: List of addresses to send via bcc
     :param context: Dictionary with context to use when rendering the
     templates.
+    :param headers: dict of optional, additional email headers
     """
     context = Context(context)
 
