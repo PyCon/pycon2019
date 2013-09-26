@@ -1,4 +1,4 @@
-Message from {{ user.get_full_name|safe }} posted to {{ presentation }}
+Message from attendee{{ user.get_full_name|safe }} posted to {{ presentation }}
 
 Submitted: {{ message.submitted_at }}
 Link:      {{ presentation_url }}
