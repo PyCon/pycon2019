@@ -1,1 +1,0 @@
-Message from speaker{{ user.get_full_name|safe }} posted to {{ presentation }}.

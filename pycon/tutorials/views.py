@@ -2,6 +2,7 @@ import logging
 
 from smtplib import SMTPException
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -39,9 +40,9 @@ def tutorial_email(request, pk ,pks):
             subject = form.cleaned_data['subject']
             # from instructor
             # BCC speakers
-            from_email = request.user.email
+            from_email = settings.DEFAULT_FROM_EMAIL
             body = form.cleaned_data['body']
-            # emails will be the datatuple arg to send_mail_mail
+            # emails will be the datatuple arg to send_mass_mail
             emails = []
             for recip in recipients:
                 ctx = {
@@ -84,15 +85,16 @@ def tutorial_message(request, pk):
         if message_form.is_valid():
             message = message_form.save()
             context = email_context(request, tutorial, message)
-            # Send notice to instructors
-            send_email_message("instructor/message",
-                               from_=request.user.email,
-                               to=[x.email for x in tutorial.speakers()],
-                               context=context)
-            # Send notice to attendees
-            send_email_message("attendee/message",
-                               from_=request.user.email,
-                               to=[x.email for x in tutorial.registrants.all()],
+            sender_email = request.user.email
+            speakers = [x.email for x in tutorial.speakers() if x.email != sender_email]
+            attendees = [x.email for x in tutorial.registrants.all() if x.email != sender_email]
+            recipients = speakers + attendees
+
+            # Send new message notice to speakers/attendees
+            send_email_message("message",
+                               from_=settings.DEFAULT_FROM_EMAIL,
+                               to=[request.user.email],
+                               bcc=recipients,
                                context=context)
         messages.add_message(request, messages.INFO, _(u"Message sent"))
         url = reverse('schedule_presentation_detail', args=[presentation.pk])

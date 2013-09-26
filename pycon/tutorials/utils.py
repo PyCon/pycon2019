@@ -1,7 +1,7 @@
 import re
 
 from django.contrib import messages
-from django.core.mail import send_mail
+from django.core.mail.message import EmailMessage
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.template import Context
@@ -24,7 +24,7 @@ def email_context(request, proposal, message=None):
     }
     return context
 
-def send_email_message(template_name, from_, to, context):
+def send_email_message(template_name, from_, to, bcc, context):
     """
     Send an email message.
 
@@ -56,8 +56,9 @@ def send_email_message(template_name, from_, to, context):
     # our email templates, and we do. If you change this to, say, send
     # HTML format email, you must go through the email templates and do
     # something better about escaping user data for safety.
-
-    send_mail(subject, body, from_, to)
+    import ipdb; ipdb.set_trace()
+    email = EmailMessage(subject, body, from_, to, bcc)
+    email.send()
 
 
 def process_tutorial_request(request, presentation):
