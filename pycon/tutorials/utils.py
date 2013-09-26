@@ -56,7 +56,6 @@ def send_email_message(template_name, from_, to, bcc, context):
     # our email templates, and we do. If you change this to, say, send
     # HTML format email, you must go through the email templates and do
     # something better about escaping user data for safety.
-    import ipdb; ipdb.set_trace()
     email = EmailMessage(subject, body, from_, to, bcc)
     email.send()
 
