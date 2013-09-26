@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.utils.translation import ugettext as _
 
 
-def email_context(request, proposal, message=None):
+def email_context(request, proposal, message=None, subject=None):
     """
     Return a dictionary with the context to be used when constructing
     email messages about this presentation from a template.
@@ -21,10 +21,11 @@ def email_context(request, proposal, message=None):
         'message': message,
         'presentation': proposal,
         'presentation_url': presentation_url,
+        'subject': subject
     }
     return context
 
-def send_email_message(template_name, from_, to, bcc, context):
+def send_email_message(template_name, from_, to, bcc, context, headers=None):
     """
     Send an email message.
 
@@ -56,7 +57,7 @@ def send_email_message(template_name, from_, to, bcc, context):
     # our email templates, and we do. If you change this to, say, send
     # HTML format email, you must go through the email templates and do
     # something better about escaping user data for safety.
-    email = EmailMessage(subject, body, from_, to, bcc)
+    email = EmailMessage(subject, body, from_, to, bcc, headers=headers)
     email.send()
 
 
