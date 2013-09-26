@@ -1,3 +1,5 @@
+from mock import patch
+
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -99,73 +101,57 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
         self.assertIn(msg_url, rsp['Location'])
 
 
+class TestTutorialEmailView(TestCase, TestMixin):
+    def setUp(self):
+        self.presentation = PresentationFactory()
+        self.tutorial_url = reverse('schedule_presentation_detail', args=[self.presentation.pk])
+        self.user = self.create_user()
 
-# class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
-#     def setUp(self):
-#         self.user = self.create_user()
-#         self.make_reviewer(self.user)
-#         self.login()
-#         self.application = create_application(user=self.user)
-#         self.application.save()
-#         self.url = reverse('finaid_email', kwargs={'pks': self.application.pk})
-#         # Create 2nd user and application, just to make sure we're only
-#         # using the ones that were asked for and not all of them.
-#         self.user2 = self.create_user(username="jill",
-#                                       email="jill@example.com")
-#         self.application2 = create_application(user=self.user2)
-#         self.application2.save()
+    @patch('pycon.tutorials.views.send_email_message')
+    def test_email_submit_as_attendee(self, mock_send_mail):
+        speaker = SpeakerFactory(user=self.create_user('speaker', 'speaker@conf.com'))
+        self.presentation.speaker = speaker
+        self.presentation.save()
+        self.presentation.proposal.registrants.add(self.user)
+        self.login()
+        # Actually submit the thing
+        data = {
+            'subject': 'Test Subject',
+            'body': 'Test Body'
+        }
+       # We can display the page prompting for a message to send them
+        url = reverse('tutorial_email',kwargs={
+                                            'pk': self.presentation.proposal.pk,
+                                            'pks': self.presentation.speaker.user.pk
+                                            })
+        rsp = self.client.post(url, data)
+        self.assertEqual(302, rsp.status_code, rsp.content)
+        self.assertEqual(1, mock_send_mail.call_count)
+        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(kwargs['bcc'][0], [self.presentation.speaker.user.email][0])
 
-#     def test_email_view(self):
-#         # Just look at the email view, check the context
-#         rsp = self.client.get(self.url)
-#         if rsp.status_code == 302:
-#             self.fail(rsp['Location'])
-#         self.assertEqual(200, rsp.status_code)
-#         context = rsp.context
-#         self.assertEqual([self.user], context['users'])
-
-#     @patch('django.template.Template.render')
-#     @patch('pycon.finaid.views.send_mass_mail')
-#     def test_email_submit(self, mock_send_mass_mail, mock_render):
-#         # Actually submit the thing
-
-#         # Create review record
-#         # Most fields are optional
-#         data = {
-#             'application': self.application,
-#             'status': STATUS_SUBMITTED,
-#             'hotel_amount': Decimal('6.66'),
-#             'registration_amount': Decimal('0.00'),
-#             'travel_amount': Decimal('0.00'),
-#         }
-#         review = FinancialAidReviewData(**data)
-#         review.save()
-
-#         subject = 'TEST SUBJECT'
-#         template_text = 'THE TEMPLATE'
-#         FinancialAidEmailTemplate.objects.create(
-#             name='template',
-#             template="wrong template"
-#         )
-#         template2 = FinancialAidEmailTemplate.objects.create(
-#             name='template',
-#             template=template_text,
-#         )
-#         data = {
-#             'template': template2.pk,
-#             'subject': subject,
-#         }
-#         mock_render.return_value = template_text
-#         rsp = self.client.post(self.url, data)
-#         self.assertEqual(302, rsp.status_code, rsp.content)
-#         # we tried to send the right emails
-#         expected_msgs = [(subject, template_text, email_address(),
-#                           [self.user.email])]
-#         mock_send_mass_mail.assert_called_with(expected_msgs)
-#         # the template was rendered with a good context
-#         context = mock_render.call_args[0][0]
-#         self.assertEqual(self.application, context['application'])
-#         self.assertEqual(review, context['review'])
+    @patch('pycon.tutorials.views.send_email_message')
+    def test_email_submit_as_speaker(self, mock_send_mail):
+        attendee = self.create_user(username='foo', email="foo@bar.com")
+        speaker = SpeakerFactory(user=self.user)
+        self.presentation.speaker = speaker
+        self.presentation.save()
+        self.login()
+        # Actually submit the thing
+        data = {
+            'subject': 'Test Subject',
+            'body': 'Test Body'
+        }
+       # We can display the page prompting for a message to send them
+        url = reverse('tutorial_email',kwargs={
+                                            'pk': self.presentation.proposal.pk,
+                                            'pks': attendee.pk
+                                            })
+        rsp = self.client.post(url, data)
+        self.assertEqual(302, rsp.status_code, rsp.content)
+        self.assertEqual(1, mock_send_mail.call_count)
+        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(kwargs['bcc'][0], [attendee.email][0])
 
 
 class TestTutorialMessageView(TestCase, TestMixin):
@@ -174,9 +160,33 @@ class TestTutorialMessageView(TestCase, TestMixin):
         self.tutorial_url = reverse('schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
-
-    def test_messaging(self):
+    def test_messaging_as_attendee(self):
         self.presentation.proposal.registrants.add(self.user)
+        self.login()
+        rsp = self.client.get(self.tutorial_url)
+        self.assertIn('id="messages"', rsp.content)
+
+       # We can display the page prompting for a message to send them
+        url = reverse('tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
+        rsp = self.client.get(url)
+        self.assertEqual(200, rsp.status_code)
+
+        # "Send" a message to those two applications
+        test_message = 'One if by land and two if by sea'
+        data = {'message': test_message, }
+        rsp = self.client.post(url, data=data)
+        self.assertEqual(302, rsp.status_code)
+        msg = PyConTutorialMessage.objects.get(user=self.user, tutorial=self.presentation.proposal)
+        self.assertEqual(test_message, msg.message)
+
+        # For each message, it's visible, so it should have been emailed to
+        # both the other attendees and speakers. Total: 1 message for this case
+        self.assertEqual(1, len(mail.outbox))
+
+    def test_messaging_as_speaker(self):
+        speaker = SpeakerFactory(user=self.user)
+        self.presentation.speaker = speaker
+        self.presentation.save()
         self.login()
         rsp = self.client.get(self.tutorial_url)
         self.assertIn('id="messages"', rsp.content)

@@ -9,6 +9,19 @@ from django.template.loader import get_template
 from django.utils.translation import ugettext as _
 
 
+def is_attendee_or_speaker(user, presentation):
+    """
+    Return True if the user is either a speaker or atendee.
+
+    :param user: User instance
+    :param presentation: Presentation instance
+    """
+    speakers = [x.user for x in presentation.speakers()]
+    registrants = presentation.proposal.registrants.all()
+    if user in speakers or user in registrants:
+        return True
+    return False
+
 def email_context(request, proposal, message=None, subject=None):
     """
     Return a dictionary with the context to be used when constructing

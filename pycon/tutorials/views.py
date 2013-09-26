@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
@@ -16,7 +17,7 @@ from pycon.models import PyConTutorialProposal
 
 from .forms import BulkEmailForm, TutorialMessageForm
 from .models import PyConTutorialMessage
-from .utils import email_context, send_email_message
+from .utils import email_context, send_email_message, is_attendee_or_speaker
 
 
 log = logging.getLogger(__name__)
@@ -25,6 +26,10 @@ log = logging.getLogger(__name__)
 @login_required
 def tutorial_email(request, pk ,pks):
     presentation = get_object_or_404(Presentation, pk=pk)
+
+    if not request.user.is_staff:
+        if not is_attendee_or_speaker(request.user, presentation):
+            return HttpResponseForbidden(_(u"Not authorized for this page"))
 
     pks = pks.split(",")
     user_model = get_user_model()
@@ -74,8 +79,12 @@ def tutorial_email(request, pk ,pks):
 
 @login_required
 def tutorial_message(request, pk):
+
     tutorial = get_object_or_404(PyConTutorialProposal, pk=pk)
     presentation = Presentation.objects.get(proposal_base=tutorial)
+    if not request.user.is_staff:
+        if not is_attendee_or_speaker(request.user, presentation):
+            return HttpResponseForbidden(_(u"Not authorized for this page"))
 
     message_form = TutorialMessageForm()
     if request.method == 'POST':
