@@ -14,9 +14,7 @@ class TutorialFormsTest(TestCase):
         instance = PyConTutorialMessage(tutorial=tutorial, user=user)
         form = TutorialMessageForm(instance=instance)
         self.assertFalse(form.is_valid())
-        data = dict(
-            message="A Message!",
-        )
+        data = {'message': 'A Message!', }
         instance = PyConTutorialMessage(tutorial=tutorial, user=user)
         form = TutorialMessageForm(data, instance=instance)
         self.assertTrue(form.is_valid(), msg=form.errors)
