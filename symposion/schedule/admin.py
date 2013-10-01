@@ -20,7 +20,9 @@ class PresentationAdmin(admin.ModelAdmin):
         'cancelled',
         'proposal_base',
         'kind',
-        'section'
+        'section',
+        'tutorial_attendees',
+        'tutorial_max'
     )
     list_filter = (
         'section',
@@ -44,5 +46,20 @@ class PresentationAdmin(admin.ModelAdmin):
 
     def kind(self, presentation):
         return presentation.proposal_base.kind
+
+    def tutorial_attendees(self, presentation):
+        if hasattr(presentation.proposal, 'registrants'):
+            return presentation.proposal.registrants.all().count()
+        else:
+            return 'N/A'
+    tutorial_attendees.short_description = 'Attendees'
+
+    def tutorial_max(self, presentation):
+        if hasattr(presentation.proposal, 'max_attendees'):
+            return presentation.proposal.max_attendees
+        else:
+            return 'N/A'
+    tutorial_max.short_description = 'Attendees Max'
+
 
 admin.site.register(Presentation, PresentationAdmin)

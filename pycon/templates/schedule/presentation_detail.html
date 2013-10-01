@@ -15,6 +15,11 @@
             {{ presentation.slot.day.date|date:"l" }}
             {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
         </h4>
+        {% if proposal.domain_level %}
+            {% if request.user.speaker_profile in speakers or request.user.is_staff %}
+              <h4>Attendees: {{ proposal.registrants.count|default:0 }} of {{ proposal.max_attendees|default:'TBD' }}</h4>
+            {% endif %}
+        {% endif %}
     {% endif %}
     <h2>{{ presentation.title }}</h2>
 

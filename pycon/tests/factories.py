@@ -1,7 +1,9 @@
-import random
 import factory
+import random
+
 from pycon.models import PyConProposalCategory, PyConProposal, \
     PyConTalkProposal, PyConTutorialProposal
+
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
 

@@ -292,6 +292,7 @@ CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     # "SETTING_NAME": (default_value, "help text")
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
+    "CTE_TUTORIAL_DATA_URL": ("https://dl.dropboxusercontent.com/u/3620723/sample_tutorials.csv", "URL for the CSV of CTE Tutorial Registration Data"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
