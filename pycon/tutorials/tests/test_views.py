@@ -71,8 +71,8 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
         self.assertEqual(302, rsp.status_code)
         self.assertIn(msg_url, rsp['Location'])
 
-    def test_post_email_attendee(self):
-        # redirect to send email form
+    def test_post_email_from_attendee(self):
+        # validation error
         self.presentation.proposal.registrants.add(self.user)
         self.login()
         data = {
@@ -82,8 +82,8 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
         self.assertEqual(302, rsp.status_code)
         self.assertIn(self.tutorial_url, rsp['Location'])
 
-    def test_post_email_speaker(self):
-        # redirect to tutorial, missing email selections
+    def test_post_email_from_speaker(self):
+        # redirect to send email form, ,
         speaker = SpeakerFactory(user=self.user)
         self.presentation.speaker = speaker
         self.presentation.save()
@@ -92,13 +92,13 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
             'email_action': '',
             'user_1': 1
         }
-        msg_url = reverse('tutorial_email',kwargs={
-                                            'pk': self.presentation.proposal.pk,
-                                            'pks': self.user.pk
+        email_url = reverse('tutorial_email', kwargs={
+                                                'pk': self.presentation.pk,
+                                                'pks': 1
                                             })
         rsp = self.client.post(self.tutorial_url, data)
         self.assertEqual(302, rsp.status_code)
-        self.assertIn(msg_url, rsp['Location'])
+        self.assertIn(email_url, rsp['Location'])
 
 
 class TestTutorialEmailView(TestCase, TestMixin):
@@ -121,7 +121,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
         }
        # We can display the page prompting for a message to send them
         url = reverse('tutorial_email',kwargs={
-                                            'pk': self.presentation.proposal.pk,
+                                            'pk': self.presentation.pk,
                                             'pks': self.presentation.speaker.user.pk
                                             })
         rsp = self.client.post(url, data)
@@ -144,7 +144,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
         }
        # We can display the page prompting for a message to send them
         url = reverse('tutorial_email',kwargs={
-                                            'pk': self.presentation.proposal.pk,
+                                            'pk': self.presentation.pk,
                                             'pks': attendee.pk
                                             })
         rsp = self.client.post(url, data)

@@ -24,7 +24,7 @@ log = logging.getLogger(__name__)
 
 
 @login_required
-def tutorial_email(request, pk ,pks):
+def tutorial_email(request, pk, pks):
     presentation = get_object_or_404(Presentation, pk=pk)
 
     if not request.user.is_staff:
