@@ -98,5 +98,5 @@ def process_tutorial_request(request, presentation):
     if 'message_action' in request.POST:
         url = reverse('tutorial_message', kwargs={"pk": presentation.proposal.pk})
         return redirect(url)
-    messages.add_message(request, messages.ERROR, "WHAT?")
-
+    messages.add_message(request, messages.ERROR, "An invalid form action was attempted")
+    return redirect(reverse('schedule_presentation_detail', args=[presentation.pk]))
