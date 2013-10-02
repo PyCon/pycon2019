@@ -18,9 +18,7 @@ def is_attendee_or_speaker(user, presentation):
     """
     speakers = [x.user for x in presentation.speakers()]
     registrants = presentation.proposal.registrants.all()
-    if user in speakers or user in registrants:
-        return True
-    return False
+    return user in speakers or user in registrants
 
 def email_context(request, proposal, message=None, subject=None):
     """
