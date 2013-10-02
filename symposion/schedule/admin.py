@@ -55,10 +55,7 @@ class PresentationAdmin(admin.ModelAdmin):
     tutorial_attendees.short_description = 'Attendees'
 
     def tutorial_max(self, presentation):
-        if hasattr(presentation.proposal, 'max_attendees'):
-            return presentation.proposal.max_attendees
-        else:
-            return 'N/A'
+        return getattr(presentation.proposal, 'max_attendees', 'N/A')
     tutorial_max.short_description = 'Attendees Max'
 
 
