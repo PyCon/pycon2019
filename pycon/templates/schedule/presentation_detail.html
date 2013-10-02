@@ -47,10 +47,14 @@
 
     {# Determine if the proposal is a Tutorial #}
     {% if proposal.domain_level %}
-      {% if proposal.handout %}
           <h3>{% trans "Student Handout" %}</h3>
-          <div class="student-handout"><a href="{{ proposal.handout.url }}">Download</a></div>
-      {% endif %}
+          <div class="student-handout">
+          {% if proposal.handout %}
+            <a href="{{ proposal.handout.url }}">Download</a>
+          {% else %}
+            <p>{% trans "No handouts have been provided yet for this tutorial" %}</p>
+          {% endif %}
+          </div>
 
       {% if request.user in proposal.registrants.all or request.user.speaker_profile in speakers or request.user.is_staff %}
            <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
