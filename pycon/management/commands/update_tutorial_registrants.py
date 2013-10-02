@@ -13,7 +13,7 @@ from pycon.models import PyConTutorialProposal
 log = logging.getLogger(__name__)
 
 
-def get_tutorial(cte_id, title, max_attendees):
+def get_tutorial(cte_id, title):
     """
         Return a Tutorial based on the supplied CTE ID or Title. If there is
         no match against CTE ID, we have not mapped this before, and must
@@ -23,15 +23,12 @@ def get_tutorial(cte_id, title, max_attendees):
     try:
         tutorial = PyConTutorialProposal.objects.get(cte_tutorial_id=cte_id)
     except PyConTutorialProposal.DoesNotExist:
-        pass
-    try:
-        tutorial = PyConTutorialProposal.objects.get(title=title)
-        tutorial.cte_tutorial_id = cte_id
-    except PyConTutorialProposal.DoesNotExist as e:
-        log.warn("Could not locate Tutorial by CTE ID: %s or Title: %s" % (cte_id, title))
-        raise e
-    tutorial.max_attendees = max_attendees
-    tutorial.save()
+        try:
+            tutorial = PyConTutorialProposal.objects.get(title=title)
+            tutorial.cte_tutorial_id = cte_id
+        except PyConTutorialProposal.DoesNotExist as e:
+            log.warn("Could not locate Tutorial by CTE ID: %s or Title: %s" % (cte_id, title))
+            raise e
     return tutorial
 
 
@@ -70,7 +67,10 @@ class Command(NoArgsCommand):
             if tut_id in tutorials:
                 tutorial = tutorials[tut_id]
             else:
-                tutorial = get_tutorial(tut_id, title, max_attendees)
+                tutorial = get_tutorial(tut_id, title)
+                # Update max attendees based on CSV value
+                tutorial.max_attendees = max_attendees
+                tutorial.save()
                 tutorials[tut_id] = tutorial
             if tutorial:
                 if tutorial in registrant_data:
