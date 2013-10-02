@@ -81,5 +81,8 @@ class Command(NoArgsCommand):
             # Add the Users objects to the associated Tutorial as registrants
             for tutorial, registrants in registrant_data.items():
                 users = get_user_model().objects.filter(email__in=registrants)
+                # Clear and update the registrants as these are essentially
+                # Read only and updateable via CTE updates
+                tutorial.registrants.clear()
                 tutorial.registrants.add(*users)
                 log.info("Updated %s registrant(s) for %s." % (users.count(), tutorial))

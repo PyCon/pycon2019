@@ -37,13 +37,11 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         with self.assertRaises(PyConTutorialProposal.DoesNotExist):
             call_command('update_tutorial_registrants')
 
-
     def test_matching_tutorials(self, mock_get):
         """Simple Test Case where matches occur."""
         user_model = get_user_model()
         u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
         u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')
-
 
         tut1 = PyConTutorialProposalFactory.create(title='Tutorial1')
         tut2 = PyConTutorialProposalFactory.create(title='Tutorial2')
@@ -63,5 +61,34 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
 
         tut2 = PyConTutorialProposal.objects.get(pk=tut2.pk)
         self.assertEqual(10, tut2.max_attendees)
+        self.assertEqual(1, tut2.registrants.all().count())
+        self.assertIn(u1, tut2.registrants.all())
+
+    def test_matching_tutorials_unregister(self, mock_get):
+        """Simple Test Case where matches occur and a User has unregistered"""
+        user_model = get_user_model()
+        u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
+        u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')
+
+        tut1 = PyConTutorialProposalFactory.create(title='Tutorial1')
+        tut2 = PyConTutorialProposalFactory.create(title='Tutorial2')
+
+        # Add u2 to tut2
+        tut2.registrants.add(u2)
+        self.assertIsNone(tut1.max_attendees)
+        self.assertIn(u2, tut2.registrants.all())
+
+        mock_get.return_value = MockGet()
+        call_command('update_tutorial_registrants')
+
+        tut1 = PyConTutorialProposal.objects.get(pk=tut1.pk)
+        self.assertEqual(8, tut1.max_attendees)
+        self.assertEqual(2, tut1.registrants.all().count())
+        for u in [u1, u2]:
+            self.assertIn(u, tut1.registrants.all())
+
+        tut2 = PyConTutorialProposal.objects.get(pk=tut2.pk)
+        self.assertEqual(10, tut2.max_attendees)
+        # updated; dropping u2 and adding u1
         self.assertEqual(1, tut2.registrants.all().count())
         self.assertIn(u1, tut2.registrants.all())
