@@ -72,11 +72,10 @@ class Command(NoArgsCommand):
                 tutorial.max_attendees = max_attendees
                 tutorial.save()
                 tutorials[tut_id] = tutorial
-            if tutorial:
-                if tutorial in registrant_data:
-                    registrant_data[tutorial].append(registrant_email)
-                else:
-                    registrant_data[tutorial] = [registrant_email]
+            if tutorial in registrant_data:
+                registrant_data[tutorial].append(registrant_email)
+            else:
+                registrant_data[tutorial] = [registrant_email]
 
         # Add the Users objects to the associated Tutorial as registrants
         for tutorial, registrants in registrant_data.items():
