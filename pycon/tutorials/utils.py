@@ -32,7 +32,7 @@ def email_context(request, proposal, message=None, subject=None):
     context = {
         'user': request.user,
         'message': message,
-        'presentation': proposal,
+        'presentation': proposal.presentation,
         'presentation_url': presentation_url,
         'subject': subject
     }
