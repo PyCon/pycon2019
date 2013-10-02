@@ -151,7 +151,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
         self.assertEqual(302, rsp.status_code, rsp.content)
         self.assertEqual(1, mock_send_mail.call_count)
         args, kwargs = mock_send_mail.call_args
-        self.assertEqual(kwargs['bcc'][0], [attendee.email][0])
+        self.assertEqual(kwargs['bcc'][0], attendee.email)
 
 
 class TestTutorialMessageView(TestCase, TestMixin):
