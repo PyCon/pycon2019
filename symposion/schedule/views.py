@@ -157,7 +157,7 @@ def schedule_presentation_detail(request, pk):
 
     # Tutorials allow for communication between instructor/attendee(s).
     # Offload the logic to its utility
-    if presentation.proposal.__class__ == PyConTutorialProposal and \
+    if isinstance(presentation.proposal, PyConTutorialProposal) and \
             request.method == 'POST':
         return process_tutorial_request(request, presentation)
 
