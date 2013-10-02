@@ -1,4 +1,5 @@
 from mock import Mock, patch
+from requests.exceptions import HTTPError
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -14,14 +15,23 @@ class MockGet(Mock):
     def content(self):
         return '"TUT01","Tutorial1","8","john@doe.com"\n"TUT01","Tutorial1","8","jane@doe.com"\n"TUT02","Tutorial2","10","john@doe.com"'
 
+    def raise_for_status(self):
+        return None
+
 
 @patch('requests.get')
 class UpdateTutorialRegistrantsTestCase(TestCase):
 
+    def test_bad_url(self, mock_get):
+        """Ensure a bad URL raises an exception."""
+        mock_get.return_value = MockGet()
+        with patch('pycon.tests.test_commands.MockGet.raise_for_status') as mock_404:
+            mock_404.side_effect = HTTPError
+            with self.assertRaises(HTTPError):
+                call_command('update_tutorial_registrants')
+
     def test_no_matching_tutorials(self, mock_get):
-        """
-            Simple Test Case where no matches occur.
-        """
+        """Simple Test Case where no matches occur."""
 
         mock_get.return_value = MockGet()
         with self.assertRaises(PyConTutorialProposal.DoesNotExist):
@@ -29,9 +39,7 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
 
 
     def test_matching_tutorials(self, mock_get):
-        """
-            Simple Test Case where matches occur.
-        """
+        """Simple Test Case where matches occur."""
         user_model = get_user_model()
         u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
         u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')

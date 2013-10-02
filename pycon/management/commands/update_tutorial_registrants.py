@@ -50,35 +50,36 @@ class Command(NoArgsCommand):
         """Fetch the external URL and parse the data"""
         url = config.CTE_TUTORIAL_DATA_URL
         req = requests.get(url)
-        data = req.content.splitlines()
-        # parse the CSV data
-        reader = csv.reader(data)
+        if not req.raise_for_status():
+            data = req.content.splitlines()
+            # parse the CSV data
+            reader = csv.reader(data)
 
-        # CTE ID: PyConTutorialProposal
-        tutorials = {}
-        # PyConTutorialProposal: [emails,]
-        registrant_data = {}
-        # Assume no header row
-        for row in reader:
-            tut_id = row[0]
-            title = row[1]
-            max_attendees = row[2]
-            registrant_email = row[3]
-            if tut_id in tutorials:
-                tutorial = tutorials[tut_id]
-            else:
-                tutorial = get_tutorial(tut_id, title)
-                # Update max attendees based on CSV value
-                tutorial.max_attendees = max_attendees
-                tutorial.save()
-                tutorials[tut_id] = tutorial
-            if tutorial in registrant_data:
-                registrant_data[tutorial].append(registrant_email)
-            else:
-                registrant_data[tutorial] = [registrant_email]
+            # CTE ID: PyConTutorialProposal
+            tutorials = {}
+            # PyConTutorialProposal: [emails,]
+            registrant_data = {}
+            # Assume no header row
+            for row in reader:
+                tut_id = row[0]
+                title = row[1]
+                max_attendees = row[2]
+                registrant_email = row[3]
+                if tut_id in tutorials:
+                    tutorial = tutorials[tut_id]
+                else:
+                    tutorial = get_tutorial(tut_id, title)
+                    # Update max attendees based on CSV value
+                    tutorial.max_attendees = max_attendees
+                    tutorial.save()
+                    tutorials[tut_id] = tutorial
+                if tutorial in registrant_data:
+                    registrant_data[tutorial].append(registrant_email)
+                else:
+                    registrant_data[tutorial] = [registrant_email]
 
-        # Add the Users objects to the associated Tutorial as registrants
-        for tutorial, registrants in registrant_data.items():
-            users = get_user_model().objects.filter(email__in=registrants)
-            tutorial.registrants.add(*users)
-            log.info("Updated %s registrant(s) for %s." % (users.count(), tutorial))
+            # Add the Users objects to the associated Tutorial as registrants
+            for tutorial, registrants in registrant_data.items():
+                users = get_user_model().objects.filter(email__in=registrants)
+                tutorial.registrants.add(*users)
+                log.info("Updated %s registrant(s) for %s." % (users.count(), tutorial))
