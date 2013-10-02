@@ -42,7 +42,6 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'domain_level',
         'cancelled',
     ]
-    filter_horizontal = ['registrants']
     readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
 
 
