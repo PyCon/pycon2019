@@ -43,6 +43,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'cancelled',
     ]
     filter_horizontal = ['registrants']
+    readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
 
 
 class LightningTalkAdminForm(forms.ModelForm):
