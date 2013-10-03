@@ -1,7 +1,6 @@
 import json
 import datetime
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,6 +8,9 @@ from django.template import loader, Context
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
+
+from pycon.tutorials.models import PyConTutorialProposal
+from pycon.tutorials.utils import process_tutorial_request
 
 from symposion.schedule.forms import SlotEditForm
 from symposion.schedule.models import Schedule, Day, Slot, Presentation
@@ -153,6 +155,12 @@ def schedule_presentation_detail(request, pk):
 
     presentation = get_object_or_404(Presentation, pk=pk)
 
+    # Tutorials allow for communication between instructor/attendee(s).
+    # Offload the logic to its utility
+    if isinstance(presentation.proposal, PyConTutorialProposal) and \
+            request.method == 'POST':
+        return process_tutorial_request(request, presentation)
+
     if presentation.slot:
         schedule = presentation.slot.day.schedule
     else:
@@ -160,6 +168,8 @@ def schedule_presentation_detail(request, pk):
 
     ctx = {
         "presentation": presentation,
+        "proposal": presentation.proposal,
+        "speakers": presentation.speakers,
         "schedule": schedule,
     }
     return render(request, "schedule/presentation_detail.html", ctx)

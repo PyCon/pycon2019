@@ -15,3 +15,21 @@ When ready to open up registration, make sure the vendor is ready, then put a
 link on the front page that goes to the URL named "registration_login", e.g.::
 
     <a href="{% url 'registration_login' %}">Register!</a>
+
+
+Tutorial Registration Data
+--------------------------
+
+Once the Schedule has been set, and Tutorials are open for registration, a
+management command that consumed registration data from the registration
+provider can be placed on a cron job for periodic updates.
+
+One must configure the URL of the external CSV report to be consumed.  These
+should be configured using the admin in the ``constance`` app. Got to
+``/YEAR/admin/constance/config`` and set ``CTE_TUTORIAL_DATA_URL`` to this
+year's URL.
+
+Once this is set, running the command job will update the Tutorial registrants
+via consumed emails, as well as set the max attendees for the Tutorial::
+
+    python manage.py update_tutorial_registrants
