@@ -48,6 +48,7 @@ urlpatterns = patterns("",
         url(r"^pycon_api/", include("pycon.pycon_api.urls")),
         url(r"^schedule/", include("pycon.schedule.urls")),
         url(r"^profile/", include("pycon.profile.urls")),
+        url(r"^tutorials/", include("pycon.tutorials.urls")),
 
         url(r"^speaker/", include("symposion.speakers.urls")),
         url(r"^proposals/", include("symposion.proposals.urls")),

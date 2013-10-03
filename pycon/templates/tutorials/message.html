@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load compress %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Tutorial Comment" %}{% endblock %}
+
+{% block body_id %}tutorial_message{% endblock %}
+
+{% block page_title %}{% trans "Tutorial Comment" %}{% endblock %}
+
+{% block body %}
+ <p>
+    <a class="btn btn-primary" href="{% url 'schedule_presentation_detail' presentation.id %}">
+      <i class="icon-arrow-left"></i>
+      {% trans "Back to presentation details" %}
+    </a>
+  </p>
+
+  <h3>{% trans "Leave class note" %}</h3>
+
+    <p><strong>{% trans "Class notes are visible to both instructor(s) and attendees" %}</strong></p>
+
+    <form action="" method="POST" accept-charset="utf-8">
+        {% csrf_token %}
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
+        <div class="actions">
+            <button type="submit" name="message_submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </div>
+    </form>
+{% endblock body %}
