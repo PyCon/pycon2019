@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from pycon.models import PyConTutorialProposal
 
+
 class PyConTutorialMessage(models.Model):
     """Message attached to a tutorial."""
     tutorial = models.ForeignKey(PyConTutorialProposal,
@@ -21,4 +22,3 @@ class PyConTutorialMessage(models.Model):
 
     def __unicode__(self):
         return u"%s message submitted: %s" % (self.tutorial, self.submitted_at)
-

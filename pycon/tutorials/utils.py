@@ -20,12 +20,16 @@ def is_attendee_or_speaker(user, presentation):
     registrants = presentation.proposal.registrants.all()
     return user in speakers or user in registrants
 
+
 def email_context(request, proposal, message=None, subject=None):
     """
     Return a dictionary with the context to be used when constructing
     email messages about this presentation from a template.
     """
-    url = reverse('schedule_presentation_detail', args=[proposal.presentation.pk])
+    url = reverse(
+        'schedule_presentation_detail',
+        args=[proposal.presentation.pk]
+    )
     presentation_url = request.build_absolute_uri(url)
     context = {
         'user': request.user,
@@ -35,6 +39,7 @@ def email_context(request, proposal, message=None, subject=None):
         'subject': subject
     }
     return context
+
 
 def send_email_message(template_name, from_, to, bcc, context, headers=None):
     """
@@ -96,7 +101,12 @@ def process_tutorial_request(request, presentation):
         return redirect('tutorial_email', pk=presentation.pk, pks=pks)
 
     if 'message_action' in request.POST:
-        url = reverse('tutorial_message', kwargs={"pk": presentation.proposal.pk})
+        url = reverse(
+            'tutorial_message',
+            kwargs={"pk": presentation.proposal.pk}
+        )
         return redirect(url)
-    messages.add_message(request, messages.ERROR, "An invalid form action was attempted")
-    return redirect(reverse('schedule_presentation_detail', args=[presentation.pk]))
+    msg = _(u"An invalid form action was attempted")
+    messages.add_message(request, messages.ERROR, msg)
+    url = reverse('schedule_presentation_detail', args=[presentation.pk])
+    return redirect(url)

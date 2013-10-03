@@ -6,6 +6,7 @@ from pycon.tests.factories import PyConTutorialProposalFactory
 from ..forms import BulkEmailForm, TutorialMessageForm
 from ..models import PyConTutorialMessage
 
+
 class TutorialFormsTest(TestCase):
 
     def test_message_form(self):
@@ -23,7 +24,6 @@ class TutorialFormsTest(TestCase):
         del data['message']
         form = TutorialMessageForm(data, instance=instance)
         self.assertFalse(form.is_valid())
-
 
     def test_bulk_email_form(self):
         data = {

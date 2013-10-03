@@ -17,4 +17,6 @@ class TutorialMessageForm(forms.ModelForm):
 
 class BulkEmailForm(forms.Form):
     subject = forms.CharField()
-    body = forms.CharField(widget=Textarea(attrs={'class': 'fullwidth-textarea'}))
+    body = forms.CharField(
+        widget=Textarea(attrs={'class': 'fullwidth-textarea'})
+    )

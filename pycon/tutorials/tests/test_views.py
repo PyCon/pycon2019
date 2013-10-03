@@ -12,11 +12,15 @@ from ..models import PyConTutorialMessage
 
 
 class TestTutorialSchedulePresentationView(TestMixin, TestCase):
-    """ Tests for Schedule Presentation Detail view with enhancements for Tutorials """
+    """
+        Tests for Schedule Presentation Detail view with enhancements
+        for Tutorials
+    """
 
     def setUp(self):
         self.presentation = PresentationFactory()
-        self.tutorial_url = reverse('schedule_presentation_detail', args=[self.presentation.pk])
+        self.tutorial_url = reverse(
+            'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
     def test_no_messaging(self):
@@ -66,7 +70,8 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
         data = {
             'message_action': '',
         }
-        msg_url = reverse('tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
+        msg_url = reverse(
+            'tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
         rsp = self.client.post(self.tutorial_url, data)
         self.assertEqual(302, rsp.status_code)
         self.assertIn(msg_url, rsp['Location'])
@@ -92,10 +97,11 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
             'email_action': '',
             'user_1': 1
         }
-        email_url = reverse('tutorial_email', kwargs={
-                                                'pk': self.presentation.pk,
-                                                'pks': 1
-                                            })
+        email_url = reverse(
+            'tutorial_email',
+            kwargs={
+                'pk': self.presentation.pk,
+                'pks': 1})
         rsp = self.client.post(self.tutorial_url, data)
         self.assertEqual(302, rsp.status_code)
         self.assertIn(email_url, rsp['Location'])
@@ -104,31 +110,34 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
 class TestTutorialEmailView(TestCase, TestMixin):
     def setUp(self):
         self.presentation = PresentationFactory()
-        self.tutorial_url = reverse('schedule_presentation_detail', args=[self.presentation.pk])
+        self.tutorial_url = reverse(
+            'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
     @patch('pycon.tutorials.views.send_email_message')
     def test_email_submit_as_attendee(self, mock_send_mail):
-        speaker = SpeakerFactory(user=self.create_user('speaker', 'speaker@conf.com'))
+        user = self.create_user('speaker', 'speaker@conf.com')
+        speaker = SpeakerFactory(user=user)
         self.presentation.speaker = speaker
         self.presentation.save()
         self.presentation.proposal.registrants.add(self.user)
         self.login()
-        # Actually submit the thing
         data = {
             'subject': 'Test Subject',
             'body': 'Test Body'
         }
        # We can display the page prompting for a message to send them
-        url = reverse('tutorial_email',kwargs={
-                                            'pk': self.presentation.pk,
-                                            'pks': self.presentation.speaker.user.pk
-                                            })
+        url = reverse(
+            'tutorial_email',
+            kwargs={
+                'pk': self.presentation.pk,
+                'pks': self.presentation.speaker.user.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
         self.assertEqual(1, mock_send_mail.call_count)
         args, kwargs = mock_send_mail.call_args
-        self.assertEqual(kwargs['bcc'][0], [self.presentation.speaker.user.email][0])
+        email = self.presentation.speaker.user.email
+        self.assertEqual(kwargs['bcc'][0], email)
 
     @patch('pycon.tutorials.views.send_email_message')
     def test_email_submit_as_speaker(self, mock_send_mail):
@@ -143,10 +152,11 @@ class TestTutorialEmailView(TestCase, TestMixin):
             'body': 'Test Body'
         }
        # We can display the page prompting for a message to send them
-        url = reverse('tutorial_email',kwargs={
-                                            'pk': self.presentation.pk,
-                                            'pks': attendee.pk
-                                            })
+        url = reverse(
+            'tutorial_email',
+            kwargs={
+                'pk': self.presentation.pk,
+                'pks': attendee.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
         self.assertEqual(1, mock_send_mail.call_count)
@@ -157,7 +167,8 @@ class TestTutorialEmailView(TestCase, TestMixin):
 class TestTutorialMessageView(TestCase, TestMixin):
     def setUp(self):
         self.presentation = PresentationFactory()
-        self.tutorial_url = reverse('schedule_presentation_detail', args=[self.presentation.pk])
+        self.tutorial_url = reverse(
+            'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
     def test_messaging_as_attendee(self):
@@ -167,7 +178,8 @@ class TestTutorialMessageView(TestCase, TestMixin):
         self.assertIn('id="messages"', rsp.content)
 
        # We can display the page prompting for a message to send them
-        url = reverse('tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
+        url = reverse(
+            'tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
         rsp = self.client.get(url)
         self.assertEqual(200, rsp.status_code)
 
@@ -176,7 +188,9 @@ class TestTutorialMessageView(TestCase, TestMixin):
         data = {'message': test_message, }
         rsp = self.client.post(url, data=data)
         self.assertEqual(302, rsp.status_code)
-        msg = PyConTutorialMessage.objects.get(user=self.user, tutorial=self.presentation.proposal)
+        msg = PyConTutorialMessage.objects.get(
+            user=self.user,
+            tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
 
         # For each message, it's visible, so it should have been emailed to
@@ -192,7 +206,8 @@ class TestTutorialMessageView(TestCase, TestMixin):
         self.assertIn('id="messages"', rsp.content)
 
        # We can display the page prompting for a message to send them
-        url = reverse('tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
+        url = reverse(
+            'tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
         rsp = self.client.get(url)
         self.assertEqual(200, rsp.status_code)
 
@@ -201,7 +216,9 @@ class TestTutorialMessageView(TestCase, TestMixin):
         data = {'message': test_message, }
         rsp = self.client.post(url, data=data)
         self.assertEqual(302, rsp.status_code)
-        msg = PyConTutorialMessage.objects.get(user=self.user, tutorial=self.presentation.proposal)
+        msg = PyConTutorialMessage.objects.get(
+            user=self.user,
+            tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
 
         # For each message, it's visible, so it should have been emailed to

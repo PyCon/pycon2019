@@ -54,17 +54,21 @@ def tutorial_email(request, pk, pks):
                 send_email_message("direct_email",
                                    from_=settings.DEFAULT_FROM_EMAIL,
                                    to=[],
-                                   bcc = emails,
+                                   bcc=emails,
                                    context=context,
-                                   headers = {'Reply-To': request.user.email})
+                                   headers={'Reply-To': request.user.email})
             except SMTPException:
                 log.exception("ERROR sending Tutorial emails")
                 messages.add_message(request, messages.ERROR,
                                      _(u"There was some error sending emails, "
                                        u"not all of them might have made it"))
             else:
-                messages.add_message(request, messages.INFO, _(u"Email(s) sent"))
-            url = reverse('schedule_presentation_detail', args=[presentation.pk])
+                messages.add_message(request, messages.INFO,
+                                     _(u"Email(s) sent"))
+            url = reverse(
+                'schedule_presentation_detail',
+                args=[presentation.pk]
+            )
             return redirect(url)
 
     ctx = {
@@ -95,8 +99,10 @@ def tutorial_message(request, pk):
             message = message_form.save()
             context = email_context(request, tutorial, message)
             sender_email = request.user.email
-            speakers = [x.email for x in tutorial.speakers() if x.email != sender_email]
-            attendees = [x.email for x in tutorial.registrants.all() if x.email != sender_email]
+            speakers = [x.email for x in tutorial.speakers()
+                        if x.email != sender_email]
+            attendees = [x.email for x in tutorial.registrants.all()
+                         if x.email != sender_email]
             recipients = speakers + attendees
 
             # Send new message notice to speakers/attendees
@@ -108,7 +114,6 @@ def tutorial_message(request, pk):
         messages.add_message(request, messages.INFO, _(u"Message sent"))
         url = reverse('schedule_presentation_detail', args=[presentation.pk])
         return redirect(url)
-
 
     return render(request, "tutorials/message.html", {
         'presentation': presentation,
