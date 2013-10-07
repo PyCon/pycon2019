@@ -74,7 +74,7 @@ For production
 To run tests
 ------------
 
-::
+:: 
 
     python manage.py test
 
