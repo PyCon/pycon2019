@@ -860,42 +860,35 @@ body.home {
   }
 
   .blog-post {
+    margin-bottom: 25px;
     h2 {
       font-size: @baseFontSize + 5;
       margin: 0;
     }
 
     .date {
-      display: block;
-      float: left;
-      text-align: center;
       color: @grayLight;
       font-size: @baseFontSize + 5;
-      font-weight: bold;
-      width: 41px;
-      height: 41px;
-      padding: 5px;
+      width: 40px;
+      padding: 8px 10px;
       margin: 0 10px 0 0;
-      background-color: darken(@white, 20%);
-
+      background: lighten(@grayLight, 20%);
+      text-align: center;
+      float: left;
       span {
-        display: block;
         font-size: @baseFontSize - 2;
         font-weight: normal;
         font-style: italic;
         line-height: 12px;
+        display: block;
       }
     }
 
     .post_dateline {
       color: #98a1a3;
-      text-transform:uppercase;
-      font-size:@baseFontSize - 2;
-      font-weight:bold;
-    }
-
-    .post-content {
-      float:left;
+      text-transform: uppercase;
+      font-size: @baseFontSize - 2;
+      font-weight: bold;
     }
   }
 
