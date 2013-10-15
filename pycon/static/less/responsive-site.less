@@ -241,12 +241,23 @@ body.home {
 	      	}
 		}
 	}
-	.sponsor-scroll-item {
-		@media (max-width: @breakDesktop) {
-			width: 240px;
+	.carousel-inner { 
+		@media (max-width: 1200px) {
+			height: 300px;
 		}
 		@media (max-width: @breakTablet) {
-			width: 225px;
+			height: 450px;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			height: 100%;
+		}
+	}
+	.sponsor-scroll-item {
+		@media (max-width: 1200px) {
+			width: 20%;
+		}
+		@media (max-width: @breakTablet) {
+			width: 50%;
 		}
 		@media (max-width: @breakMobileLandscape) {
 			width: 100%;
