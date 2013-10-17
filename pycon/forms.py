@@ -1,12 +1,11 @@
 from django import forms
-from django.forms import Textarea
 from django.utils.translation import ugettext_lazy as _
 
 from markedit.widgets import MarkEdit
 
 from .models import (PyConProposalCategory, PyConTalkProposal,
     PyConTutorialProposal, PyConPosterProposal, PyConLightningTalkProposal,
-    PyConSponsorTutorialProposal, PyConTutorialMessage)
+    PyConSponsorTutorialProposal)
 
 
 class PyConProposalForm(forms.ModelForm):
