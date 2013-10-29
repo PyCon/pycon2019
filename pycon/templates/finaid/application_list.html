@@ -60,6 +60,15 @@
         <i class="icon-pencil"></i>
         {% trans "Leave message" %}
       </button>
+      <button type="submit" name="status_action" class="btn btn-primary">
+        <i class="icon-check"></i>
+        {% trans "Change status to" %}
+      </button>
+      <select name="status">
+        {% for k, v in status_options %}
+          <option value="{{ k }}">{{ v }}</option>
+        {% endfor %}
+      </select>
     </div>
 
   </form>
