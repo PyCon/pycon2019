@@ -51,8 +51,8 @@ class FinancialAidApplicationForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-      super(FinancialAidApplicationForm, self).__init__(*args, **kwargs)
-      self.fields['sex'].required = False
+        super(FinancialAidApplicationForm, self).__init__(*args, **kwargs)
+        self.fields['sex'].required = False
 
     def clean(self):
         data = super(FinancialAidApplicationForm, self).clean()
