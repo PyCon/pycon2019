@@ -11,6 +11,7 @@
   <p>
     Use Search to filter by applicant or status.
     Click column headers to sort.
+    <a href="{% url 'finaid_download_csv' %}">Download data.</a>
   </p>
 
   <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
@@ -86,7 +87,6 @@
           "bStateSave": true
         });
       });
-
     </script>
   {% endcompress %}
 

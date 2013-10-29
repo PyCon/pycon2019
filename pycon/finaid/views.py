@@ -1,3 +1,4 @@
+import csv
 import logging
 import re
 
@@ -7,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseForbidden
+from django.http.response import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template, Context
 from django.utils.translation import ugettext as _
@@ -337,3 +338,68 @@ def finaid_status(request):
         'visible_messages': visible_messages,
         'form': message_form,
     })
+
+
+@login_required
+def finaid_download_csv(request):
+    # Download financial aid application data as a .CSV file
+
+    # Fields to include
+    application_field_names = [
+        name for name in FinancialAidApplication._meta.get_all_field_names()
+        if name not in ['id', 'review']
+    ]
+    reviewdata_field_names = [
+        name for name in FinancialAidReviewData._meta.get_all_field_names()
+        if name not in ['application', 'id', 'last_update']
+    ] + ['sum']
+
+    # For these fields, use the get_FIELDNAME_display() method so we get
+    # the name of the choice (or other custom string) instead of the internal value
+    use_display_method = [
+        'cash_check',
+        'last_update',
+        'presenting',
+        'sex',
+        'status',
+        'sum',
+        'travel_cash_check',
+    ]
+
+    def get_value(name, object):
+        # Get a value from an application or review, using get_NAME_display
+        # if appropriate, then forcing to a unicode string and encoding in
+        # UTF-8 for CSV
+        if name in use_display_method:
+            display_method = getattr(object, "get_%s_display" % name)
+            value = display_method()
+        else:
+            value = getattr(object, name)
+        return unicode(value).encode('utf-8')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="financial_aid.csv"'
+
+    writer = csv.DictWriter(
+        response,
+        fieldnames=application_field_names+reviewdata_field_names
+    )
+    writer.writeheader()
+
+    default_review_data = FinancialAidReviewData()
+    for application in FinancialAidApplication.objects.all().select_related('review'):
+        # They won't all have review data, so use the default values if they don't
+        try:
+            review = application.review
+        except FinancialAidReviewData.DoesNotExist:
+            review = default_review_data
+
+        # Write the data for this application.
+        data = {}
+        for name in application_field_names:
+            data[name] = get_value(name, application)
+        for name in reviewdata_field_names:
+            data[name] = get_value(name, review)
+        writer.writerow(data)
+
+    return response
