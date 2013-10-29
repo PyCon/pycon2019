@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template, Context
@@ -15,7 +16,7 @@ from django.utils.translation import ugettext as _
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData
+    FinancialAidReviewData, STATUS_CHOICES
 from .utils import applications_open, email_address, email_context, \
     has_application, is_reviewer, send_email_message
 
@@ -95,17 +96,38 @@ def finaid_review(request):
                 _(u"Please select at least one application"))
             return redirect(request.path)
 
-        pks = ",".join(pks)
         if 'email_action' in request.POST:
             # They want to email applicants
+            pks = ",".join(pks)
             return redirect('finaid_email', pks=pks)
-        if 'message_action' in request.POST:
+        elif 'message_action' in request.POST:
             # They want to attach a message to applications
+            pks = ",".join(pks)
             return redirect('finaid_message', pks=pks)
-        messages.add_message(request, messages.ERROR, "WHAT?")
+        elif 'status_action' in request.POST:
+            # They want to change applications' statuses
+            applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+                .select_related('review')
+            status = int(request.POST['status'])
+            count = 0
+            for application in applications:
+                try:
+                    review = application.review
+                except FinancialAidReviewData.DoesNotExist:
+                    review = FinancialAidReviewData(application=application)
+                if review.status != status:
+                    review.status = status
+                    review.save()
+                    count += 1
+            messages.info(request,
+                          "Updated %d application status%s" % (count, "" if count == 1 else "es"))
+            return redirect(reverse('finaid_review'))
+        else:
+            messages.error(request, "WHAT?")
 
     return render(request, "finaid/application_list.html", {
-        "applications": FinancialAidApplication.objects.all(),
+        "applications": FinancialAidApplication.objects.all().select_related('review'),
+        "status_options": STATUS_CHOICES,
     })
 
 
