@@ -76,8 +76,11 @@ def finaid_edit(request):
 
 
 @login_required
-def finaid_review(request):
+def finaid_review(request, pks=None):
     """Starting view for reviewers - list the applications"""
+    # On a POST the pks are in the form.
+    # On a GET there might be pks in the URL.
+
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
@@ -85,12 +88,12 @@ def finaid_review(request):
         # They want to do something to bulk applicants
         # Find the checkboxes they checked
         regex = re.compile(r'^finaid_application_(.*)$')
-        pks = []
+        pk_list = []
         for field_name in request.POST:
             m = regex.match(field_name)
             if m:
-                pks.append(m.group(1))
-        if not len(pks):
+                pk_list.append(m.group(1))
+        if not pk_list:
             messages.add_message(
                 request, messages.ERROR,
                 _(u"Please select at least one application"))
@@ -98,15 +101,15 @@ def finaid_review(request):
 
         if 'email_action' in request.POST:
             # They want to email applicants
-            pks = ",".join(pks)
+            pks = ",".join(pk_list)
             return redirect('finaid_email', pks=pks)
         elif 'message_action' in request.POST:
             # They want to attach a message to applications
-            pks = ",".join(pks)
+            pks = ",".join(pk_list)
             return redirect('finaid_message', pks=pks)
         elif 'status_action' in request.POST:
             # They want to change applications' statuses
-            applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+            applications = FinancialAidApplication.objects.filter(pk__in=pk_list)\
                 .select_related('review')
             status = int(request.POST['status'])
             count = 0
@@ -121,13 +124,18 @@ def finaid_review(request):
                     count += 1
             messages.info(request,
                           "Updated %d application status%s" % (count, "" if count == 1 else "es"))
-            return redirect(reverse('finaid_review'))
+            pks = ",".join(pk_list)
+            return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
         else:
             messages.error(request, "WHAT?")
+    else:
+        # GET - pks are in the URL.  maybe.
+        pk_list = pks.split(",") if pks else []
 
     return render(request, "finaid/application_list.html", {
         "applications": FinancialAidApplication.objects.all().select_related('review'),
         "status_options": STATUS_CHOICES,
+        "pks": [int(pk) for pk in pk_list],
     })
 
 
@@ -137,8 +145,7 @@ def finaid_message(request, pks):
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
-    pks = pks.split(",")
-    applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+    applications = FinancialAidApplication.objects.filter(pk__in=pks.split(","))\
         .select_related('user')
     if not applications.exists():
         messages.add_message(request, messages.ERROR, _(u"No applications selected"))
@@ -165,7 +172,7 @@ def finaid_message(request, pks):
                                        to=[application.user.email],
                                        context=context)
             messages.add_message(request, messages.INFO, _(u"Messages sent"))
-        return redirect(reverse('finaid_review'))
+        return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
     else:
         message_form = ReviewerMessageForm()
 
@@ -180,8 +187,7 @@ def finaid_email(request, pks):
     if not is_reviewer(request.user):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
-    pks = pks.split(",")
-    applications = FinancialAidApplication.objects.filter(pk__in=pks)\
+    applications = FinancialAidApplication.objects.filter(pk__in=pks.split(","))\
         .select_related('user')
     emails = [app.user.email for app in applications]
 
@@ -217,7 +223,7 @@ def finaid_email(request, pks):
                                        u"not all of them might have made it"))
             else:
                 messages.add_message(request, messages.INFO, _(u"Emails sent"))
-            return redirect(reverse('finaid_review'))
+            return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
 
     ctx = {
         'form': form or BulkEmailForm(),

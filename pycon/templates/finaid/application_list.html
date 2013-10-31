@@ -31,7 +31,8 @@
         {% for application in applications %}
           <tr>
           <td>
-            <input type="checkbox" name="finaid_application_{{ application.pk }}">
+            <input type="checkbox" name="finaid_application_{{ application.pk }}"
+                {% if application.pk in pks %}checked{% endif %}>
           </td>
           <td>
             <a href="{% url 'finaid_review_detail' application.pk %}">
