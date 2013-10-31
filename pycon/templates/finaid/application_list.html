@@ -11,6 +11,7 @@
   <p>
     Use Search to filter by applicant or status.
     Click column headers to sort.
+    <a href="{% url 'finaid_download_csv' %}">Download data.</a>
   </p>
 
   <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
@@ -30,7 +31,8 @@
         {% for application in applications %}
           <tr>
           <td>
-            <input type="checkbox" name="finaid_application_{{ application.pk }}">
+            <input type="checkbox" name="finaid_application_{{ application.pk }}"
+                {% if application.pk in pks %}checked{% endif %}>
           </td>
           <td>
             <a href="{% url 'finaid_review_detail' application.pk %}">
@@ -60,6 +62,15 @@
         <i class="icon-pencil"></i>
         {% trans "Leave message" %}
       </button>
+      <button type="submit" name="status_action" class="btn btn-primary">
+        <i class="icon-check"></i>
+        {% trans "Change status to" %}
+      </button>
+      <select name="status">
+        {% for k, v in status_options %}
+          <option value="{{ k }}">{{ v }}</option>
+        {% endfor %}
+      </select>
     </div>
 
   </form>
@@ -77,7 +88,6 @@
           "bStateSave": true
         });
       });
-
     </script>
   {% endcompress %}
 
