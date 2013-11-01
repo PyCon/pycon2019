@@ -58,7 +58,7 @@
 
       {% if request.user in proposal.registrants.all or request.user.speaker_profile in speakers or request.user.is_staff %}
            <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
-                  <h3 id="messages">{% trans "Messages" %}</h3>
+                  <h3 id="messages">{% trans "Questions about this tutorial" %}</h3>
                   {% csrf_token %}
                   <div class="actions">
                     <button type="submit" name="message_action" class="btn btn-primary">
