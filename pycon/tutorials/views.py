@@ -38,9 +38,7 @@ def tutorial_email(request, pk, pks):
 
     from_speaker = False
     if hasattr(request.user, 'speaker_profile'):
-        from_speaker = True if request.user.speaker_profile \
-                        in presentation.speakers() else False
-
+        from_speaker = request.user.speaker_profile in presentation.speakers()
 
     form = BulkEmailForm()
     if request.method == 'POST':
