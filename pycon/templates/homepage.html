@@ -21,11 +21,15 @@
             <div class="container">
                 <div class="row">
                     <div class="span12">
-                        {% comment %}
-                        <div class="promo no-link">
-                            <p>{% trans "Register Fall 2013" %}</p>
-                        </div>
-                        {% endcomment %}
+                        {% if config.REGISTRATION_STATUS != 'open' %}
+                            <div class="promo no-link">
+                                {% if config.REGISTRATION_STATUS == 'soon' %}
+                                    <p>{% trans "Register Fall 2013" %}</p>
+                                {% else %}
+                                    <p class="small">{% trans "Registration Closed" %}</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                         <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
                         <div class="details">
                             <span itemprop="locality">Montreal</span>,
@@ -45,9 +49,11 @@
                         </ul>
                     </div>
                 </div>
+                {% if config.REGISTRATION_STATUS == 'open' %}
                 <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                    <a href="{% url 'registration_start' %}">REGISTER</a>
                 </div>
+                {% endif %}
             </div>
         </div>
         <div class="city">

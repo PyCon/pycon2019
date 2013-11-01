@@ -161,6 +161,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
+    "constance.context_processors.config",
 ]
 
 INSTALLED_APPS = [
@@ -296,6 +297,7 @@ CONSTANCE_CONFIG = {
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
+    "REGISTRATION_STATUS": ("open", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
