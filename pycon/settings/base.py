@@ -297,7 +297,7 @@ CONSTANCE_CONFIG = {
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
-    "REGISTRATION_STATUS": ("open", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
+    "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]

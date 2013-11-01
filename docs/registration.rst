@@ -1,6 +1,12 @@
 Registration
 ============
 
+The homepage template utilizes a configurable item to display information
+about conference registration. Go to
+``/YEAR/admin/constance/config/`` and set ``REGISTRATION_STATUS`` to either
+``soon``, ``open``, or ``closed``. If left as the default value, the homepage
+template will not include any specific registration status information or link.
+
 The registration link (to actually register for the conference) just
 goes to a page that uses an iframe to wrap the real registration site,
 provided by a vendor.
