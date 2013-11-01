@@ -115,3 +115,33 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         new_review = FinancialAidReviewData.objects.get(pk=review.pk)
         self.assertEqual(STATUS_REJECTED, new_review.status)
         self.assertEqual(Decimal("7.77"), new_review.hotel_amount)
+
+
+class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.user = self.create_user()
+        self.applicant = self.create_user("fred", "fred@example.com", "linus")
+        self.application = create_application(user=self.applicant)
+        self.application.save()
+        self.review_url = reverse('finaid_review_detail', kwargs={'pk': self.application.pk})
+        self.setup_reviewer_team_and_permissions()
+
+    def test_not_reviewer_not_applicant(self):
+        # Non-reviewers cannot access the review view
+        self.login()
+        rsp = self.client.get(self.review_url)
+        self.assertEqual(403, rsp.status_code)
+
+    def test_not_reviewer_is_applicant(self):
+        # Non-reviewer applicants are redirected to finaid_edit
+        self.login(username="fred@example.com", password="linus")
+        rsp = self.client.get(self.review_url)
+        self.assertEqual(302, rsp.status_code)
+
+    def test_reviewer(self):
+        # reviewers can access the review view
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+        self.login()
+        self.make_reviewer(self.user)
+        rsp = self.client.get(self.review_url)
+        self.assertEqual(200, rsp.status_code)

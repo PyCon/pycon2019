@@ -127,7 +127,7 @@ class TestSendEmailMessage(unittest.TestCase):
     # def send_email_message(template_name, from_, to, context):
     # send_mail(subject, body, from_, to)
 
-    @patch('pycon.finaid.utils.send_mail')
+    @patch('django.core.mail.message.EmailMessage.send')
     @patch('pycon.finaid.utils.get_template')
     def test_send_email_message(self, get_template, send_mail):
         # send_email_message comes up with the expected template names
@@ -146,7 +146,4 @@ class TestSendEmailMessage(unittest.TestCase):
         expected_template_name = "finaid/email/TESTNAME/body.txt"
         self.assertEqual(expected_template_name, args[0])
 
-        send_mail.assert_called_with("test template",
-                                     "test template",
-                                     "from_address",
-                                     [1, 2])
+        self.assertEqual(1, send_mail.call_count)
