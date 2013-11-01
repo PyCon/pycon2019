@@ -36,8 +36,11 @@ def tutorial_email(request, pk, pks):
     recipients = user_model.objects.filter(pk__in=pks)
     emails = recipients.values_list('email', flat=True)
 
-    from_speaker = True if request.user.speaker_profile \
-                    in presentation.speakers() else False
+    from_speaker = False
+    if hasattr(request.user, 'speaker_profile'):
+        from_speaker = True if request.user.speaker_profile \
+                        in presentation.speakers() else False
+
 
     form = BulkEmailForm()
     if request.method == 'POST':
