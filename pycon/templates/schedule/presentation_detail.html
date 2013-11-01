@@ -119,8 +119,8 @@
                   </script>
                 {% endcompress %}
             {% else %}
-              <h3>{% trans "Email Speakers" %}</h3>
-              <p><strong>{% trans "Email speakers privately " %}</strong></p>
+              <h3>{% trans "Email Instructors" %}</h3>
+              <p><strong>{% trans "Email instructors privately " %}</strong></p>
 
               {% for speaker in speakers %}
                   <input type="hidden" name="user_{{ speaker.user.pk }}">
@@ -129,7 +129,7 @@
               <div class="actions">
                 <button type="submit" name="email_action" class="btn btn-primary">
                   <i class="icon-envelope-alt"></i>
-                  Send email
+                  {% trans "Send email" %}
                 </button>
               </div>
             </form>

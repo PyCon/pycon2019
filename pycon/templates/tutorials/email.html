@@ -5,9 +5,9 @@
 
 {% block head_title %}
     {% if from_speaker %}
-        {% trans "Send emails to applicants" %}
+        {% trans "Send emails to attendees" %}
     {% else %}
-        {% trans "Send emails to speakers" %}
+        {% trans "Send emails to instructors" %}
     {% endif %}
 {% endblock %}
 
@@ -33,9 +33,9 @@
         {% csrf_token %}
         <legend>
             {% if from_speaker %}
-                {% trans "Send emails to applicants" %}
+                {% trans "Send emails to attendees" %}
             {% else %}
-                {% trans "Send emails to speakers" %}
+                {% trans "Send emails to instructors" %}
             {% endif %}
         </legend>
 
