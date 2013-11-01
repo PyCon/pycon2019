@@ -50,9 +50,9 @@
                     </div>
                 </div>
                 {% if config.REGISTRATION_STATUS == 'open' %}
-                <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
-                   <a href="{% url 'registration_start' %}">REGISTER</a>
-                </div>
+                    <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
+                       <a href="{% url 'registration_start' %}">REGISTER</a>
+                    </div>
                 {% endif %}
             </div>
         </div>
