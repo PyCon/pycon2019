@@ -6,7 +6,7 @@ about conference registration. Go to
 ``/YEAR/admin/constance/config/`` and set ``REGISTRATION_STATUS`` to either
 ``soon``, ``open``, or ``closed``. If the value is an empty string or a value
 other than the three valid entries, the homepage template will not include any
-specific registration status information or link. If other valid statees are
+specific registration status information or link. If other valid states are
 required, the homepage template will have to be modified accordingly.
 
 The registration link (to actually register for the conference) just
