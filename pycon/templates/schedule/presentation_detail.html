@@ -7,6 +7,17 @@
 
 {% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
 
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            $('.tutorial-comment').each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+        });
+    </script>
+{% endblock %}
+
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
@@ -43,7 +54,7 @@
 
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract|safe }}</div>
+    <div class="abstract">{{ presentation.abstract }}</div>
 
     {# Determine if the proposal is a Tutorial #}
     {% if proposal.domain_level %}
@@ -74,8 +85,7 @@
                         <div class="commment-content">
                           <strong>{% user_display message.user %}</strong>
                           {{ message.submitted_at|timesince }} ago
-                          <br />
-                          {{ message.message|safe }}
+                          <div class="tutorial-comment">{{ message.message|safe }}</div>
                         </div>
                       </div>
                     {% endfor %}
