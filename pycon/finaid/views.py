@@ -239,14 +239,19 @@ def finaid_email(request, pks):
 @login_required
 def finaid_review_detail(request, pk):
     """Review a particular application"""
+    application = get_object_or_404(FinancialAidApplication, pk=pk)
+
+    # Redirect a a reviewer who is attempting to access FA application detail
+    # page to their edit page
+    if is_reviewer(request.user) and request.user == application.user:
+            return redirect("finaid_edit")
+
     if not is_reviewer(request.user):
         # Redirect a non reviewer to their FA edit page
         if has_application(request.user):
             return redirect("finaid_edit")
-
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
-    application = get_object_or_404(FinancialAidApplication, pk=pk)
 
     try:
         review_data = application.review

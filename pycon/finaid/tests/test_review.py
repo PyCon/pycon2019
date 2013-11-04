@@ -134,6 +134,7 @@ class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
             start=today - one_day,
             end=today + one_day
         )
+        self.conf = Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
 
     def test_not_reviewer_not_applicant(self):
         # Non-reviewers cannot access the review view
@@ -143,15 +144,20 @@ class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
 
     def test_not_reviewer_is_applicant(self):
         # Non-reviewer applicants are redirected to finaid_edit
-        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
         self.login(username="fred@example.com", password="linus")
         rsp = self.client.get(self.review_url, follow=True)
         self.assertRedirects(rsp, reverse('finaid_edit'))
 
     def test_reviewer(self):
         # reviewers can access the review view
-        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
         self.login()
         self.make_reviewer(self.user)
         rsp = self.client.get(self.review_url)
         self.assertEqual(200, rsp.status_code)
+
+    def test_reviewer_is_applicant(self):
+        # reviewers that are applicants are redirected to their edit view
+        self.login(username="fred@example.com", password="linus")
+        self.make_reviewer(self.applicant)
+        rsp = self.client.get(self.review_url, follow=True)
+        self.assertRedirects(rsp, reverse('finaid_edit'))
