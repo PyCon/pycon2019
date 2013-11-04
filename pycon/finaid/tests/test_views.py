@@ -426,7 +426,6 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         application2 = create_application(user2, want_to_learn="not really")
         application2.save()
 
-
         self.login()
         result = self.get_csv()
         self.assertEqual(2, len(result))
