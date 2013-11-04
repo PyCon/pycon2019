@@ -54,7 +54,7 @@
 
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract }}</div>
+    <div class="abstract">{{ presentation.abstract|safe }}</div>
 
     {# Determine if the proposal is a Tutorial #}
     {% if proposal.domain_level %}
