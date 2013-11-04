@@ -81,7 +81,7 @@
 
                  {% if proposal.tutorial_messages %}
                     {% for message in proposal.tutorial_messages.all %}
-                      <div class="comment-box{% if not message.visible %} private{% endif %}">
+                      <div class="comment-box">
                         <div class="commment-content">
                           <strong>{% user_display message.user %}</strong>
                           {{ message.submitted_at|timesince }} ago
