@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block head_title %}
-    {% if from_speaker %}
+    {% if from_speaker or request.user.is_staff %}
         {% trans "Send emails to attendees" %}
     {% else %}
         {% trans "Send emails to instructors" %}
@@ -32,7 +32,7 @@
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <legend>
-            {% if from_speaker %}
+            {% if from_speaker or request.user.is_staff %}
                 {% trans "Send emails to attendees" %}
             {% else %}
                 {% trans "Send emails to instructors" %}
