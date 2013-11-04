@@ -1,14 +1,19 @@
+import datetime
+
 from decimal import Decimal
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from pycon.finaid.models import STATUS_REJECTED, STATUS_SUBMITTED, \
-    FinancialAidMessage, FinancialAidReviewData
+    FinancialAidMessage, FinancialAidReviewData, FinancialAidApplicationPeriod
 from pycon.finaid.utils import is_reviewer
 from symposion.conference.models import Conference
 
 from .utils import TestMixin, create_application, ReviewTestMixin
+
+today = datetime.date.today()
+one_day = datetime.timedelta(days=1)
 
 
 class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
@@ -125,6 +130,10 @@ class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
         self.application.save()
         self.review_url = reverse('finaid_review_detail', kwargs={'pk': self.application.pk})
         self.setup_reviewer_team_and_permissions()
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
 
     def test_not_reviewer_not_applicant(self):
         # Non-reviewers cannot access the review view
@@ -134,9 +143,10 @@ class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
 
     def test_not_reviewer_is_applicant(self):
         # Non-reviewer applicants are redirected to finaid_edit
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
         self.login(username="fred@example.com", password="linus")
-        rsp = self.client.get(self.review_url)
-        self.assertEqual(302, rsp.status_code)
+        rsp = self.client.get(self.review_url, follow=True)
+        self.assertRedirects(rsp, reverse('finaid_edit'))
 
     def test_reviewer(self):
         # reviewers can access the review view
