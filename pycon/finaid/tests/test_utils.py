@@ -6,6 +6,7 @@ import unittest
 from mock import patch
 
 from django.conf import settings
+from django.core import mail
 from django.contrib.auth.models import User, AnonymousUser
 from django.template import Template
 from django.test import TestCase
@@ -123,20 +124,21 @@ class TestFinAidUtils(TestCase):
             self.assertEqual(expected, email_address())
 
 
+@patch('pycon.finaid.utils.get_template')
 class TestSendEmailMessage(unittest.TestCase):
-    # def send_email_message(template_name, from_, to, context):
-    # send_mail(subject, body, from_, to)
+    # def send_email_message(template_name, from_, to, context, header=None):
 
-    @patch('django.core.mail.message.EmailMessage.send')
-    @patch('pycon.finaid.utils.get_template')
-    def test_send_email_message(self, get_template, send_mail):
+    def test_send_email_message(self, get_template):
         # send_email_message comes up with the expected template names
-        # and calls send_mail with the expected arguments
+        # and creates the EmailMessage with the expected arguments
         test_template = Template("test template")
         get_template.return_value = test_template
 
         context = {'a': 1, 'b': 2}
-        send_email_message("TESTNAME", "from_address", [1, 2], context)
+        headers = {'Reply-To': 'foo@bar.com'}
+        to = ['joe@blow.com', 'jane@doe.com']
+        from_ = "from@site.com"
+        send_email_message("TESTNAME", from_, to , context, headers)
 
         args, kwargs = get_template.call_args_list[0]
         expected_template_name = "finaid/email/TESTNAME/subject.txt"
@@ -146,4 +148,8 @@ class TestSendEmailMessage(unittest.TestCase):
         expected_template_name = "finaid/email/TESTNAME/body.txt"
         self.assertEqual(expected_template_name, args[0])
 
-        self.assertEqual(1, send_mail.call_count)
+        self.assertEqual(1, len(mail.outbox))
+        msg = mail.outbox[0]
+        self.assertEqual(msg.extra_headers, headers)
+        self.assertEqual(msg.recipients, to)
+        self.assertEqual(msg.from_email, from_)
