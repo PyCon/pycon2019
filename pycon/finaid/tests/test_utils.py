@@ -151,5 +151,5 @@ class TestSendEmailMessage(unittest.TestCase):
         self.assertEqual(1, len(mail.outbox))
         msg = mail.outbox[0]
         self.assertEqual(msg.extra_headers, headers)
-        self.assertEqual(msg.recipients, to)
+        self.assertEqual(msg.recipients(), to)
         self.assertEqual(msg.from_email, from_)
