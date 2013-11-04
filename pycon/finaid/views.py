@@ -240,7 +240,7 @@ def finaid_email(request, pks):
 def finaid_review_detail(request, pk):
     """Review a particular application"""
     if not is_reviewer(request.user):
-        # Redirect a non reviewere to their FA edit page
+        # Redirect a non reviewer to their FA edit page
         if has_application(request.user):
             return redirect("finaid_edit")
 
