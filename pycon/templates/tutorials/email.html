@@ -4,10 +4,10 @@
 {% load i18n %}
 
 {% block head_title %}
-    {% if from_speaker %}
-        {% trans "Send emails to applicants" %}
+    {% if from_speaker or request.user.is_staff %}
+        {% trans "Send emails to attendees" %}
     {% else %}
-        {% trans "Send emails to speakers" %}
+        {% trans "Send emails to instructors" %}
     {% endif %}
 {% endblock %}
 
@@ -32,10 +32,10 @@
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <legend>
-            {% if from_speaker %}
-                {% trans "Send emails to applicants" %}
+            {% if from_speaker or request.user.is_staff %}
+                {% trans "Send emails to attendees" %}
             {% else %}
-                {% trans "Send emails to speakers" %}
+                {% trans "Send emails to instructors" %}
             {% endif %}
         </legend>
 

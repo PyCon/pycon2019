@@ -8,6 +8,7 @@ def financial_aid(request):
         "show_finaid_edit_button": open and has_application(request.user),
         "show_finaid_status_button": has_application(request.user),
         "show_finaid_review_button": is_reviewer(request.user),
+        "show_finaid_download_button": is_reviewer(request.user),
     }
 
     ctx["show_financial_aid_section"] = \

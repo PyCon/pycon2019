@@ -7,6 +7,17 @@
 
 {% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
 
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            $('.tutorial-comment').each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+        });
+    </script>
+{% endblock %}
+
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block body %}
@@ -58,7 +69,7 @@
 
       {% if request.user in proposal.registrants.all or request.user.speaker_profile in speakers or request.user.is_staff %}
            <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
-                  <h3 id="messages">{% trans "Messages" %}</h3>
+                  <h3 id="messages">{% trans "Questions about this tutorial" %}</h3>
                   {% csrf_token %}
                   <div class="actions">
                     <button type="submit" name="message_action" class="btn btn-primary">
@@ -70,12 +81,11 @@
 
                  {% if proposal.tutorial_messages %}
                     {% for message in proposal.tutorial_messages.all %}
-                      <div class="comment-box{% if not message.visible %} private{% endif %}">
+                      <div class="comment-box">
                         <div class="commment-content">
                           <strong>{% user_display message.user %}</strong>
                           {{ message.submitted_at|timesince }} ago
-                          <br />
-                          {{ message.message|safe }}
+                          <div class="tutorial-comment">{{ message.message|safe }}</div>
                         </div>
                       </div>
                     {% endfor %}
@@ -119,8 +129,8 @@
                   </script>
                 {% endcompress %}
             {% else %}
-              <h3>{% trans "Email Speakers" %}</h3>
-              <p><strong>{% trans "Email speakers privately " %}</strong></p>
+              <h3>{% trans "Email Instructors" %}</h3>
+              <p><strong>{% trans "Email instructors privately" %}</strong></p>
 
               {% for speaker in speakers %}
                   <input type="hidden" name="user_{{ speaker.user.pk }}">
@@ -129,7 +139,7 @@
               <div class="actions">
                 <button type="submit" name="email_action" class="btn btn-primary">
                   <i class="icon-envelope-alt"></i>
-                  Send email
+                  {% trans "Send email" %}
                 </button>
               </div>
             </form>
