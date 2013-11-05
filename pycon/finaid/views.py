@@ -350,6 +350,9 @@ def finaid_status(request):
 def finaid_download_csv(request):
     # Download financial aid application data as a .CSV file
 
+    if not is_reviewer(request.user):
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
     # Fields to include
     application_field_names = [
         name for name in FinancialAidApplication._meta.get_all_field_names()

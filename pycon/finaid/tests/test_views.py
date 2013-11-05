@@ -377,6 +377,24 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         rsp = self.client.post(self.url)
         self.assertRedirects(rsp, expected_url)
 
+    def test_reviewers_only(self):
+        # Only reviewers can download the data
+        self.make_not_reviewer(self.user)
+        self.login()
+        rsp = self.client.get(self.url)
+        self.assertEqual(403, rsp.status_code)
+        # and non-reviewers don't see the download link on their dashboard
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertEqual(200, rsp.status_code)
+        self.assertNotIn(self.url, rsp.content)
+
+    def test_link_on_dashboard(self):
+        # Reviewers get a link on their dashboard
+        self.login()
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertEqual(200, rsp.status_code)
+        self.assertIn(self.url, rsp.content, msg=rsp.content)
+
     def test_empty_data(self):
         # No data, should be able to get a CSV response anyway
         self.login()
