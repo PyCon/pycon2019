@@ -138,7 +138,7 @@ class TestSendEmailMessage(unittest.TestCase):
         headers = {'Reply-To': 'foo@bar.com'}
         to = ['joe@blow.com', 'jane@doe.com']
         from_ = "from@site.com"
-        send_email_message("TESTNAME", from_, to , context, headers)
+        send_email_message("TESTNAME", from_, to, context, headers)
 
         args, kwargs = get_template.call_args_list[0]
         expected_template_name = "finaid/email/TESTNAME/subject.txt"

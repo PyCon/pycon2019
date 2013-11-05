@@ -252,7 +252,6 @@ def finaid_review_detail(request, pk):
             return redirect("finaid_edit")
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
-
     try:
         review_data = application.review
     except FinancialAidReviewData.DoesNotExist:
