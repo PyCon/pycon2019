@@ -193,6 +193,12 @@
                             <span class="widget-label">Review applications</span>
                           </a>
                         {% endif %}
+                        {% if show_finaid_download_button %}
+                          <a href="{% url 'finaid_download_csv' %}" class="action">
+                            <i class="widget-icon icon-arrow-down"></i>
+                            <span class="widget-label">Download applications</span>
+                          </a>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
