@@ -161,12 +161,12 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         self.assertIn("edited", msg.body)
         self.assertIn(email_address(), msg.from_email)
         self.assertIn(app.user.email, msg.recipients())
-        self.assertIn(app.applicant_url(), msg.body)
+        self.assertIn(app.fa_app_url(), msg.body)
         msg = mail.outbox[1]
         self.assertIn("edited", msg.body)
         self.assertIn(email_address(), msg.recipients())
         self.assertIn(app.user.email, msg.from_email)
-        self.assertIn(app.reviewer_url(), msg.body)
+        self.assertIn(app.fa_app_url(), msg.body)
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message
