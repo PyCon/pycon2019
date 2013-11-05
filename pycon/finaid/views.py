@@ -164,13 +164,17 @@ def finaid_message(request, pks):
                                    # From whoever is logged in clicking the buttons
                                    from_=request.user.email,
                                    to=[email_address()],
-                                   context=context)
+                                   context=context,
+                                   headers={'Reply-To': email_address()}
+                                   )
                 # If visible to applicant, notify them as well
                 if message.visible:
                     send_email_message("applicant/message",
                                        from_=request.user.email,
                                        to=[application.user.email],
-                                       context=context)
+                                       context=context,
+                                       headers={'Reply-To': email_address()}
+                                       )
             messages.add_message(request, messages.INFO, _(u"Messages sent"))
         return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
     else:
@@ -235,10 +239,18 @@ def finaid_email(request, pks):
 @login_required
 def finaid_review_detail(request, pk):
     """Review a particular application"""
-    if not is_reviewer(request.user):
-        return HttpResponseForbidden(_(u"Not authorized for this page"))
-
     application = get_object_or_404(FinancialAidApplication, pk=pk)
+
+    # Redirect a a reviewer who is attempting to access FA application detail
+    # page to their edit page
+    if is_reviewer(request.user) and request.user == application.user:
+            return redirect("finaid_edit")
+
+    if not is_reviewer(request.user):
+        # Redirect a non reviewer to their FA edit page
+        if has_application(request.user):
+            return redirect("finaid_edit")
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
 
     try:
         review_data = application.review
@@ -396,7 +408,8 @@ def finaid_download_csv(request):
     writer.writeheader()
 
     default_review_data = FinancialAidReviewData()
-    for application in FinancialAidApplication.objects.all().select_related('review'):
+    apps = FinancialAidApplication.objects.all().select_related('review')
+    for application in apps.order_by('pk'):
         # They won't all have review data, so use the default values if they don't
         try:
             review = application.review
