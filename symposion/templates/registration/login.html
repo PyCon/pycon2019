@@ -28,7 +28,7 @@
 </head>
 <body>
 {% if config.REGISTRATION_STATUS == 'open' and config.REGISTRATION_URL %}
-    <form action="{{ REGISTRATION_URL }}" method="POST" accept-charset="utf-8">
+    <form action="{{ config.REGISTRATION_URL }}" method="POST" accept-charset="utf-8">
         {% csrf_token %}
         <input type="hidden" name="pycon_id" value="{{ request.user.id }}" />
         <input type="hidden" name="token" value="{{ token }}" />
