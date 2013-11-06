@@ -11,7 +11,7 @@
       {% if config.REGISTRATION_STATUS == 'open' and config.REGISTRATION_URL %}
         {% trans "Redirecting to CTE..." %}
       {% elif config.REGISTRATION_STATUS == 'closed'%}
-        {% trans "Registration is closed.." %}
+        {% trans "Registration is closed." %}
       {% else %}
         {% trans "Registration not ready" %}
       {% endif %}
@@ -41,7 +41,7 @@
         });
     </script>
 {% elif config.REGISTRATION_STATUS == 'closed'%}
-  <p>{% trans "Registration is closed.." %}</p>
+  <p>{% trans "Registration is closed." %}</p>
 {% else %}
   <p>{% trans "Registration is not yet ready, please come back later." %}</p>
 {% endif %}
