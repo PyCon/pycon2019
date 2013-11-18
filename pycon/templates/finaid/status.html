@@ -5,6 +5,7 @@
 {% load compress %}
 {% load i18n %}
 {% load static %}
+{% load boxes_tags %}
 
 {% block head_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
 
@@ -13,6 +14,8 @@
 {% block page_title %}{% trans "Financial Aid Application Status" %}{% endblock %}
 
 {% block body %}
+    {% box "finaid-status" %}
+
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#application-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
