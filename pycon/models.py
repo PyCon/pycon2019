@@ -18,6 +18,26 @@ class PyConProposalCategory(models.Model):
         verbose_name_plural = "PyCon proposal categories"
 
 
+class ThunderdomeGroup(models.Model):
+    """A set of talk proposals, grouped together for consideration within
+    thunderdome.
+    """
+    label = models.CharField(max_length=250)
+    code = models.CharField(max_length=20, unique=True)
+    decided = models.BooleanField(default=False, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    @property
+    def as_dict(self):
+        return {
+            'code': self.code,
+            'decided': self.decided,
+            'label': self.label,
+            'talks': [i.as_dict() for i in self.talks.order_by('id')],
+        }
+
+
 class PyConProposal(ProposalBase):
 
     AUDIENCE_LEVEL_NOVICE = 1
@@ -122,8 +142,24 @@ class PyConTalkProposal(PyConProposal):
                     u"know before?"),
     )
 
+    thunderdome_group = models.ForeignKey(ThunderdomeGroup,
+        blank=True,
+        default=None,
+        null=True,
+        related_name=u'talks',
+    )
+
     class Meta:
         verbose_name = "PyCon talk proposal"
+
+    def as_dict(self, details=False):
+        answer = super(PyConTalkProposal, self).as_dict(details=details)
+        if details:
+            code = None
+            if self.thunderdome_group:
+                code = self.thunderdome_group.code
+            answer['thunderdome_group'] = code
+        return answer
 
 
 class PyConLightningTalkProposal(PyConProposal):
