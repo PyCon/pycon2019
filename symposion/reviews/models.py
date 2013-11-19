@@ -213,7 +213,7 @@ class ProposalResult(models.Model):
         ("rejected", "rejected"),
         ("undecided", "undecided"),
         ("standby", "standby"),
-    ], default="undecided")
+    ], default="undecided", db_index=True)
 
     @classmethod
     def full_calculate(cls):
