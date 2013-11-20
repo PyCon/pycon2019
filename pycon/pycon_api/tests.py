@@ -259,7 +259,7 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
         url = reverse('proposal_detail', kwargs={
             'proposal_id': self.proposal.id,
         })
-        TEST_DATA = 'Foo! Bar! Sis boom bah!'
+        TEST_DATA = {'stuff': 'Foo! Bar! Sis boom bah!'}
         rsp = self.post_raw_data(url, post_data=json.dumps(TEST_DATA))
         self.assertEqual(202, rsp.status_code, rsp.content)
         proposal = PyConTalkProposal.objects.get(id=self.proposal.id)
@@ -267,13 +267,13 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
 
     def test_replace_data(self):
         # If data already exists, a set replaces it
-        TEST_DATA = "now is the time for all good people..."
+        TEST_DATA = {'stuff': 'now is the time for all good people...'}
         ProposalData.objects.create(proposal=self.proposal,
                                     data=TEST_DATA)
         url = reverse('proposal_detail', kwargs={
             'proposal_id': self.proposal.id,
         })
-        TEST_DATA = "Foo! Bar! Sis boom bah!"
+        TEST_DATA = {'stuff': 'Foo! Bar! Sis boom bah!'}
         rsp = self.post_raw_data(url, post_data=json.dumps(TEST_DATA))
         self.assertEqual(202, rsp.status_code, rsp.content)
         proposal = PyConTalkProposal.objects.get(id=self.proposal.id)
@@ -284,7 +284,7 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
         url = reverse('proposal_detail', kwargs={
             'proposal_id': self.proposal.id,
         })
-        TEST_DATA = "Foo! Bar! Sis boom bah!"
+        TEST_DATA = {'stuff': 'Foo! Bar! Sis boom bah!'}
         rsp = self.post_raw_data(url, post_data=json.dumps(TEST_DATA))
         self.assertEqual(202, rsp.status_code, rsp.content)
 
