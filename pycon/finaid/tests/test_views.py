@@ -1,3 +1,6 @@
+# coding=utf-8
+from cStringIO import StringIO
+import csv
 import datetime
 from decimal import Decimal
 
@@ -5,11 +8,13 @@ from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+
 from mock import patch
 
 from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod, FinancialAidMessage, \
-    FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData
+    FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData, \
+    STATUS_INFO_NEEDED
 from pycon.finaid.utils import email_address
 from .utils import TestMixin, create_application, ReviewTestMixin
 
@@ -156,12 +161,12 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         self.assertIn("edited", msg.body)
         self.assertIn(email_address(), msg.from_email)
         self.assertIn(app.user.email, msg.recipients())
-        self.assertIn(app.applicant_url(), msg.body)
+        self.assertIn(app.fa_app_url(), msg.body)
         msg = mail.outbox[1]
         self.assertIn("edited", msg.body)
         self.assertIn(email_address(), msg.recipients())
         self.assertIn(app.user.email, msg.from_email)
-        self.assertIn(app.reviewer_url(), msg.body)
+        self.assertIn(app.fa_app_url(), msg.body)
         # And a message was displayed
         # Need to tell the test client to follow the redirect if we want
         # to see the message
@@ -338,3 +343,114 @@ class TestFinaidMessageView(TestCase, TestMixin, ReviewTestMixin):
         # For each message, it's visible, so it should have been emailed to
         # both the applicant and the reviewers. Total: 4 messages
         self.assertEqual(4, len(mail.outbox))
+
+
+class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.url = reverse('finaid_download_csv')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
+        self.make_reviewer(self.user)
+
+    def get_csv(self):
+        # Call the URL, get the response, parse it strictly as CSV,
+        # and return the list of dictionaries
+        rsp = self.client.get(self.url)
+        self.assertEqual(200, rsp.status_code)
+        dialect = csv.excel()
+        dialect.strict = True
+        reader = csv.DictReader(StringIO(rsp.content), dialect=dialect)
+        result = []
+        for item in reader:
+            for k, v in item.iteritems():
+                item[k] = v.decode('utf-8')
+            result.append(item)
+        return result
+
+    def test_not_logged_in(self):
+        # If not logged in, view redirects to login
+        expected_url = self.login_url + "?next=" + self.url
+
+        rsp = self.client.get(self.url)
+        self.assertRedirects(rsp, expected_url)
+
+        rsp = self.client.post(self.url)
+        self.assertRedirects(rsp, expected_url)
+
+    def test_reviewers_only(self):
+        # Only reviewers can download the data
+        self.make_not_reviewer(self.user)
+        self.login()
+        rsp = self.client.get(self.url)
+        self.assertEqual(403, rsp.status_code)
+        # and non-reviewers don't see the download link on their dashboard
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertEqual(200, rsp.status_code)
+        self.assertNotIn(self.url, rsp.content)
+
+    def test_link_on_dashboard(self):
+        # Reviewers get a link on their dashboard
+        self.login()
+        rsp = self.client.get(reverse('dashboard'))
+        self.assertEqual(200, rsp.status_code)
+        self.assertIn(self.url, rsp.content, msg=rsp.content)
+
+    def test_empty_data(self):
+        # No data, should be able to get a CSV response anyway
+        self.login()
+        result = self.get_csv()
+        self.assertEqual(0, len(result))
+
+    def test_one_application(self):
+        # One application that has review data
+        # Include non-ASCII to be sure that doesn't break anything
+        # Make sure the pseudo-field 'sum' is included
+        application = FinancialAidApplication.objects.create(
+            user=self.user,
+            profession=u"Föo",
+            experience_level="lots",
+            what_you_want=u"money\nand\n'lóts' of it.",
+            want_to_learn=u'stuff "and" nončents',
+            use_of_python="fun",
+            presenting=1,
+        )
+        FinancialAidReviewData.objects.create(
+            application=application,
+            status=STATUS_INFO_NEEDED,
+            hotel_amount=Decimal('1.23'),
+            travel_amount=Decimal('2.45'),
+        )
+        self.login()
+        result = self.get_csv()
+        self.assertEqual(1, len(result))
+        app = result[0]
+        self.assertEqual(unicode(application.user), app['user'])
+        self.assertEqual(application.experience_level, app['experience_level'])
+        self.assertEqual(application.want_to_learn, app['want_to_learn'])
+        self.assertEqual("Yes", app['presenting'])
+        self.assertEqual("Information needed", app['status'])
+        self.assertEqual("1.23", app['hotel_amount'])
+        self.assertEqual("3.68", app['sum'])
+
+    def test_two_applications(self):
+        # A couple users and applications, without review data
+        user1 = self.create_user("bob", "bob@example.com", "snoopy")
+        user2 = self.create_user("fred", "fred@example.com", "linus")
+
+        application1 = create_application(user1,
+                                          experience_level="foo\nbar",
+                                          sex=2)
+        application1.save()
+        application2 = create_application(user2, want_to_learn="not really")
+        application2.save()
+
+        self.login()
+        result = self.get_csv()
+        self.assertEqual(2, len(result))
+        app = result[0]
+        self.assertEqual(unicode(application1.user), app['user'])
+        self.assertEqual('Male', app['sex'])
+        self.assertEqual(application1.experience_level, app['experience_level'])
+        self.assertEqual(application1.want_to_learn, app['want_to_learn'])
+        self.assertEqual('Submitted', app['status'])
+        self.assertEqual('0.00', app['sum'])

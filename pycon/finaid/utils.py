@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail.message import EmailMessage
 from django.template import Context
 from django.template.loader import get_template
 from pycon.finaid.models import FinancialAidApplication, \
@@ -56,20 +56,18 @@ def email_context(request, application, message=None):
     Return a dictionary with the context to be used when constructing
     email messages about this application from a template.
     """
-    applicant_url = request.build_absolute_uri(application.applicant_url())
-    reviewer_url = request.build_absolute_uri(application.reviewer_url())
+    fa_app_url = request.build_absolute_uri(application.fa_app_url())
     context = {
         'user': request.user,
         'message': message,
         'application': application,
         'applicant': application.user,
-        'applicant_url': applicant_url,
-        'reviewer_url': reviewer_url,
+        'fa_app_url': fa_app_url,
     }
     return context
 
 
-def send_email_message(template_name, from_, to, context):
+def send_email_message(template_name, from_, to, context, headers=None):
     """
     Send an email message.
 
@@ -80,6 +78,7 @@ def send_email_message(template_name, from_, to, context):
     :param to: List of addresses to send to
     :param context: Dictionary with context to use when rendering the
     templates.
+    :param headers: dict of optional, additional email headers
     """
     context = Context(context)
 
@@ -102,4 +101,5 @@ def send_email_message(template_name, from_, to, context):
     # HTML format email, you must go through the email templates and do
     # something better about escaping user data for safety.
 
-    send_mail(subject, body, from_, to)
+    email = EmailMessage(subject, body, from_, to, headers=headers)
+    email.send()

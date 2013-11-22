@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import Textarea
 
+from markedit.widgets import MarkEdit
+
 from pycon.tutorials.models import PyConTutorialMessage
 
 
@@ -11,7 +13,7 @@ class TutorialMessageForm(forms.ModelForm):
             "message"
         ]
         widgets = {
-            'message': Textarea(attrs={'class': 'fullwidth-textarea'}),
+            'message': MarkEdit(),
         }
 
 

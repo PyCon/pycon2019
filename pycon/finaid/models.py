@@ -176,14 +176,11 @@ class FinancialAidApplication(models.Model):
             last_update = max(last_update, msg.submitted_at)
         return last_update
 
-    def applicant_url(self):
-        """URL where an applicant can view/edit their application"""
-        # It's very simple because the only application an applicant can
-        # view is their own.
-        return reverse('finaid_edit')
+    def get_last_update_display(self):
+        return unicode(self.get_last_update())
 
-    def reviewer_url(self):
-        """URL where a reviewer can review this application"""
+    def fa_app_url(self):
+        """URL for the detail view of a financial aid application"""
         return reverse('finaid_review_detail', args=[str(self.pk)])
 
 
@@ -270,6 +267,9 @@ class FinancialAidReviewData(models.Model):
         """Sum of amounts granted"""
         return self.hotel_amount + self.travel_amount \
             + self.registration_amount
+
+    def get_sum_display(self):
+        return unicode(self.sum())
 
 
 class FinancialAidEmailTemplate(models.Model):
