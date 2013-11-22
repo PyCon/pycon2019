@@ -23,8 +23,8 @@ PROPOSAL_TYPES = {
 }
 
 
-@api_view
 @csrf_exempt
+@api_view
 def thunderdome_group_add(request):
     """Add a thunderdome group."""
 
@@ -70,8 +70,8 @@ def thunderdome_group_list(request):
     return [i.as_dict for i in groups]
 
 
-@api_view
 @csrf_exempt
+@api_view
 def thunderdome_group_decide(request, td_group_code):
     """Decide (or undecide) the talks in the given thunderdome group,
     and return a representation of the group after those updates are made.
@@ -175,8 +175,8 @@ def proposal_list(request):
     return [i.as_dict() for i in proposals]
 
 
-@api_view
 @csrf_exempt
+@api_view
 def proposal_detail(request, proposal_id):
     """Retrieve and return information about the given proposal.
     If this is a POST request, write the appropriate data instead.
@@ -200,7 +200,6 @@ def proposal_detail(request, proposal_id):
             # Check for the "status" key.  This assigns the given status
             # to the proposal.
             status = data.pop('status', None)
-            print(status)
             if status:
                 # Sanity check: Is this a valid value?
                 if status not in ('accepted', 'rejected',
@@ -237,8 +236,8 @@ def proposal_detail(request, proposal_id):
         return proposal.as_dict(details=True)
 
 
-@api_view
 @csrf_exempt
+@api_view
 def proposal_irc_logs(request, proposal_id):
     """Write or retrieve the IRC logs for a given proposal.
 
