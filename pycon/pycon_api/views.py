@@ -23,9 +23,9 @@ PROPOSAL_TYPES = {
 }
 
 
-@require_POST
 @api_view
 @csrf_exempt
+@require_POST
 def thunderdome_group_add(request):
     """Add a thunderdome group."""
 
@@ -67,9 +67,9 @@ def thunderdome_group_list(request):
     return [i.as_dict for i in groups]
 
 
-@require_POST
 @api_view
 @csrf_exempt
+@require_POST
 def thunderdome_group_decide(request, td_group_code):
     """Decide (or undecide) the talks in the given thunderdome group,
     and return a representation of the group after those updates are made.
