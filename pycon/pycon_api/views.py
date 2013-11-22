@@ -2,7 +2,6 @@ import json
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .decorators import api_view
@@ -23,7 +22,6 @@ PROPOSAL_TYPES = {
 }
 
 
-@csrf_exempt
 @api_view
 def thunderdome_group_add(request):
     """Add a thunderdome group."""
@@ -70,7 +68,6 @@ def thunderdome_group_list(request):
     return [i.as_dict for i in groups]
 
 
-@csrf_exempt
 @api_view
 def thunderdome_group_decide(request, td_group_code):
     """Decide (or undecide) the talks in the given thunderdome group,
@@ -175,7 +172,6 @@ def proposal_list(request):
     return [i.as_dict() for i in proposals]
 
 
-@csrf_exempt
 @api_view
 def proposal_detail(request, proposal_id):
     """Retrieve and return information about the given proposal.
@@ -236,7 +232,6 @@ def proposal_detail(request, proposal_id):
         return proposal.as_dict(details=True)
 
 
-@csrf_exempt
 @api_view
 def proposal_irc_logs(request, proposal_id):
     """Write or retrieve the IRC logs for a given proposal.
