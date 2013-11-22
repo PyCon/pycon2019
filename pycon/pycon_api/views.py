@@ -25,9 +25,12 @@ PROPOSAL_TYPES = {
 
 @api_view
 @csrf_exempt
-@require_POST
 def thunderdome_group_add(request):
     """Add a thunderdome group."""
+
+    # If this isn't a POST request, fail out.
+    if request.method != 'POST':
+        return ({ 'error': 'POST request required.' }, 405)
 
     # Load our data.
     # For some bizarre reason that I cannot comprehend, request.body
@@ -69,11 +72,14 @@ def thunderdome_group_list(request):
 
 @api_view
 @csrf_exempt
-@require_POST
 def thunderdome_group_decide(request, td_group_code):
     """Decide (or undecide) the talks in the given thunderdome group,
     and return a representation of the group after those updates are made.
     """
+    # If this isn't a POST request, fail out.
+    if request.method != 'POST':
+        return ({ 'error': 'POST request required.' }, 405)
+
     # Get the thunderdome group we're working with.
     try:
         td_group = ThunderdomeGroup.objects.get(code=td_group_code)
