@@ -28,8 +28,6 @@ def api_view(method):
     Calls to the view that do not have an appropriate key
     will return a 403 response.
     """
-    method = csrf_exempt(method)
-
     def f(request, *args, **kwargs):
         # Ensure that there is an appropriate key attached
         # to this request, and return a 401 otherwise.
@@ -75,4 +73,5 @@ def api_view(method):
                 status=404,
             )
             
+    f = csrf_exempt(f)
     return update_wrapper(f, method)
