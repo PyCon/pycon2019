@@ -56,7 +56,7 @@ class RawDataClientMixin(object):
             self.auth_key.secret,
             unicode(timestamp),
             method.upper(),
-            'http://testserver' + uri,
+            uri,
             body,
         ))).encode('utf-8')
 
