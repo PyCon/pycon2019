@@ -12,32 +12,33 @@ at https://readthedocs.org/projects/pycon/
 To get running locally
 ----------------------
 
-* Create a new virtualenv and activate it.
+* Create a new virtualenv and activate it::
+
+    $ virtualenv env/pycon
+    $ . env/pycon/bin/activate
+
 * Install the requirements for running and testing locally::
 
-    pip install -r requirements/dev.txt
+    $ pip install -r requirements/dev.txt
 
   (For production, install -r requirements/project.txt).
 
 * Copy ``pycon/settings/local.py-example`` to ``pycon/settings/local.py``.
 * Edit ``pycon/settings/local.py`` according to the comments. Note that you
   `will` have to edit it; by default everything there is commented out.
-* Create your database. (This is assuming you haven't changed the default
-  database settings.)::
 
-    createdb pycon2014
+* Setup the database::
 
-* Initialize the database and apply migrations::
+    $ ./load_fixtures.sh
 
-    python manage.py syncdb --migrate
+* Create a user account::
 
-* You could run the local server at this point, but it turns out that with
-  an empty database, a lot of things don't work. If you have ssh access to
-  the staging server, an easy solution is to copy the database and media
-  from there::
+    $ ./manage.py createsuperuser
 
-  $ fab staging get_db_dump:pycon2014
-  $ fab staging get_media
+* If you have ssh access to the staging server, copy the database and media::
+
+    $ fab staging get_db_dump:pycon2014
+    $ fab staging get_media
 
   Change ``pycon2014`` in that first command to the name of your local database.
 
@@ -74,7 +75,7 @@ For production
 To run tests
 ------------
 
-:: 
+::
 
     python manage.py test
 
