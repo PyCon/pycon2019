@@ -31,6 +31,10 @@ To get running locally
 
     $ ./load_fixtures.sh
 
+* Create a user account::
+
+    $ ./manage.py createsuperuser
+
 * If you have ssh access to the staging server, copy the database and media::
 
     $ fab staging get_db_dump:pycon2014
@@ -71,7 +75,7 @@ For production
 To run tests
 ------------
 
-:: 
+::
 
     python manage.py test
 
