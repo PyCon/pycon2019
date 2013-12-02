@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load account_tags %}
 {% load bootstrap_tags %}
+{% load boxes_tags %}
 
 {% block head_title %}{{ proposal.title }}{% endblock %}
 
@@ -20,6 +21,8 @@
 {% endblock %}
 
 {% block body %}
+    {% box kind.slug|add:"-proposal-detail" %}
+
     {% if proposal.can_edit %}
         <div class="pull-right">
             {% if not proposal.cancelled %}
