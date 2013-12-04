@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_save
+from django.core.cache import cache
 
+from sitetree.models import TreeItem
 from symposion.proposals.models import ProposalBase
 
 
@@ -249,3 +252,9 @@ class PyConSponsorTutorialProposal(ProposalBase):
 
     def __unicode__(self):
         return self.title
+
+
+def _flush_treeitem_cache(sender, instance, created, **kwargs):
+    cache.delete('sitetrees')
+    cache.delete('tree_aliases')
+post_save.connect(_flush_treeitem_cache, sender=TreeItem)
