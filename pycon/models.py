@@ -255,6 +255,12 @@ class PyConSponsorTutorialProposal(ProposalBase):
 
 
 def _flush_treeitem_cache(sender, instance, created, **kwargs):
+    """This is a hack added to make sure, each time we'll added or changed or
+    deleted a treeitem, their cache will be purge. It is supposed to be already
+    the case but it doesn't act like it.
+    TODO: Find out why the cache is not freed or why the the original saved
+          signal is not called
+    """
     cache.delete('sitetrees')
     cache.delete('tree_aliases')
 post_save.connect(_flush_treeitem_cache, sender=TreeItem)
