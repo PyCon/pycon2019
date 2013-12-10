@@ -7,7 +7,7 @@ PyCon 2014 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
 
 Installation instructions are in this README.  There's more documentation
-at https://readthedocs.org/projects/pycon/
+at https://readthedocs.org/projects/pycon/.
 
 To get running locally
 ----------------------
