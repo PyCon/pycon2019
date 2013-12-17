@@ -328,6 +328,12 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.

@@ -286,6 +286,7 @@ class TestFinaidMessageView(TestCase, TestMixin, ReviewTestMixin):
         self.user = self.create_user()
         self.make_reviewer(self.user)
         self.login()
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
 
     def test_reviewers_only(self):
         self.make_not_reviewer(self.user)
