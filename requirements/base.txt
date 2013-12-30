@@ -25,7 +25,7 @@ django-taggit==0.10a1
 django-reversion==1.7
 django-markitup==1.0.0
 Markdown==2.3.1
-django-sitetree==0.9.4
+django-sitetree==0.12.0
 django-selectable==0.7.0
 
 django-forms-bootstrap==2.0.3.post1
