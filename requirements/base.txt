@@ -20,7 +20,7 @@ django-openid==0.3a1
 python-openid==2.2.5
 django_compressor==1.3
 git+git://github.com/caktus/biblion.git@feature/django-1.5#egg=biblion
-git+git://github.com/daaray/django-sitetree.git#egg=django-sitetree
+-e git+git://github.com/daaray/django-sitetree.git#egg=django-sitetree
 
 django-taggit==0.10a1
 django-reversion==1.7
