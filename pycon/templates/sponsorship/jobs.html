@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "responsive_base.html" %}
 
 {% load sponsorship_tags %}
 {% load thumbnail %}
@@ -7,7 +7,7 @@
 
 {% block head_title %}{% trans "PyCon Jobs Fair" %}{% endblock %}
 
-{% block body_class %}sponsors{% endblock %}
+{% block body_class %}job-fair{% endblock %}
 
 {% block page_title %}
     {% trans "PyCon Jobs Fair" %}
@@ -24,7 +24,6 @@
             {% for level in levels %}
                 {% if level.sponsors.count > 1 %}
                     <h2>{{ level.name }}</h2>
-
                     {% for sponsor in level.sponsors %}
                         {% if sponsor.joblisting_text %}
                             <div class="job-post" id="sponsor-{{ sponsor.id }}">
@@ -40,11 +39,13 @@
                                 </div>
                             </div>
                         {% else %}
-                        <h3>{% trans "Coming Soon!" %}</h3>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
             {% endfor %}
         </div>
+        <aside class="span3">
+            {% box "sponsor_jobs" %}
+        </aside>
     </div>
 {% endblock %}

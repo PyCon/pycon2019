@@ -1496,26 +1496,35 @@ div.comment-box {
 
 /* Job fair
 ==================== */
-.job-post {
-  border:1px solid #d2d2cb;
-  .box-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
-  .border-radius(4px);
-  padding:1px;
-  background:@white;
-  position:relative;
-  margin-bottom:20px;
+body.job-fair {
+  a.read-more {
+      .btn;
+      .btn-success;
+      display: block;
+      width: 275px;
+    }
+  .job-post {
+    border:1px solid #d2d2cb;
+    .box-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
+    .border-radius(4px);
+    padding:1px;
+    background:@white;
+    position:relative;
+    margin-bottom:20px;
 
-  .post-content {
-    border:3px solid #f7f7f3;
-    padding:15px;
-    overflow:auto;
-  }
+    .post-content {
+      border:3px solid #f7f7f3;
+      padding:15px;
+      overflow:auto;
+    }
 
-  h5 {
-    font-size:@baseFontSize + 3;
-    line-height:30px;
+    h5 {
+      font-size:@baseFontSize + 3;
+      line-height:30px;
+    }
   }
 }
+
 
 table.calendar {
   background-color: lighten(#f2ebdf, 7%);
