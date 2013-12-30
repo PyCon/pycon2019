@@ -4,7 +4,7 @@
 {% load cache %}
 {% load sitetree %}
 
-{% block head_title %}{% trans "Presentation Listing" %}{% endblock %}
+{% block head_title %}{{ schedule.section.name }}{% endblock %}
 
 {% block extra_head %}
     <style>
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block page_title %}
-    {% trans "Presentation Listing" %}
+    {{ schedule.section.name }}
 {% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
