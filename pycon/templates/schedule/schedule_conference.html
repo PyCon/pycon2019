@@ -1,4 +1,4 @@
-{% extends "responsive_base.html" %}
+{% extends "site_base.html" %}
 
 {% load i18n %}
 {% load bootstrap_tags %}
@@ -14,7 +14,6 @@
 {% block page_content %}
     <div class="container">
         {% box "schedule_top" %}
-            
         {% for section in sections %}
             {% cache 600 "schedule-table" section.schedule.section %}
                 {% for timetable in section.days %}
@@ -23,7 +22,7 @@
                 {% endfor %}
             {% endcache %}
         {% endfor %}
-            
+
         {% box "schedule_bottom" %}
     </div>
 {% endblock %}
