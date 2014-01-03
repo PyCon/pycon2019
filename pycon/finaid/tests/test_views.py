@@ -432,6 +432,8 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual("Information needed", app['status'])
         self.assertEqual("1.23", app['hotel_amount'])
         self.assertEqual("3.68", app['sum'])
+        self.assertEqual(self.user.email, app['email'])
+
 
     def test_two_applications(self):
         # A couple users and applications, without review data
@@ -455,3 +457,4 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(application1.want_to_learn, app['want_to_learn'])
         self.assertEqual('Submitted', app['status'])
         self.assertEqual('0.00', app['sum'])
+        self.assertEqual(user1.email, app['email'])

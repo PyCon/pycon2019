@@ -369,7 +369,7 @@ def finaid_download_csv(request):
     application_field_names = [
         name for name in FinancialAidApplication._meta.get_all_field_names()
         if name not in ['id', 'review']
-    ]
+    ] + ['email']
     reviewdata_field_names = [
         name for name in FinancialAidReviewData._meta.get_all_field_names()
         if name not in ['application', 'id', 'last_update']
@@ -394,6 +394,8 @@ def finaid_download_csv(request):
         if name in use_display_method:
             display_method = getattr(object, "get_%s_display" % name)
             value = display_method()
+        elif name == 'email':
+            value = object.user.email
         else:
             value = getattr(object, name)
         return unicode(value).encode('utf-8')
