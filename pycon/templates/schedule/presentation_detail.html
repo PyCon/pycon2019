@@ -54,9 +54,11 @@
 
     <div class="description">{{ presentation.description }}</div>
 
+    {% if proposal.abstract  %}
     <h3>{% trans "Abstract" %}</h3>
 
     <div class="abstract">{{ presentation.abstract|safe }}</div>
+    {% endif %}
 
     {# Determine if the proposal is a Tutorial #}
     {% if proposal.domain_level %}
@@ -148,4 +150,3 @@
       {% endif %}
     {% endif %}
 {% endblock %}
-
