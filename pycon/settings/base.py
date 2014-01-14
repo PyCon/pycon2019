@@ -293,6 +293,8 @@ CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     # "SETTING_NAME": (default_value, "help text")
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
+    "CTE_BASICAUTH_USER": ("", "Shared User for accessing CTE Registration data"),
+    "CTE_BASICAUTH_PASS": ("", "Shared User password for accessing CTE Registration data"),
     "CTE_TUTORIAL_DATA_URL": ("", "URL for the CSV of CTE Tutorial Registration Data"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),

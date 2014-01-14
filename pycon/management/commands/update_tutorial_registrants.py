@@ -13,25 +13,6 @@ from pycon.models import PyConTutorialProposal
 log = logging.getLogger(__name__)
 
 
-def get_tutorial(cte_id, title):
-    """
-        Return a Tutorial based on the supplied CTE ID or Title. If there is
-        no match against CTE ID, we have not mapped this before, and must
-        lookup by Title and update the CTE ID field. In addition, the max
-        attendees may have changed based on overall registrants and room.
-    """
-    try:
-        tutorial = PyConTutorialProposal.objects.get(cte_tutorial_id=cte_id)
-    except PyConTutorialProposal.DoesNotExist:
-        try:
-            tutorial = PyConTutorialProposal.objects.get(title=title)
-            tutorial.cte_tutorial_id = cte_id
-        except PyConTutorialProposal.DoesNotExist as e:
-            log.warn("Could not locate Tutorial by CTE ID: %s or Title: %s" % (cte_id, title))
-            raise e
-    return tutorial
-
-
 def get_user(email):
     """
         Return a user object by email lookup
@@ -49,34 +30,39 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         """Fetch the external URL and parse the data"""
         url = config.CTE_TUTORIAL_DATA_URL
-        req = requests.get(url)
+        user = config.CTE_BASICAUTH_USER
+        pword = config.CTE_BASICAUTH_PASS
+        if user and pword:
+            req = requests.get(url, auth=(user, pword))
+        else:
+            req = requests.get(url)
         if not req.raise_for_status():
             data = req.content.splitlines()
             # parse the CSV data
             reader = csv.reader(data)
-
             # CTE ID: PyConTutorialProposal
             tutorials = {}
             # PyConTutorialProposal: [emails,]
             registrant_data = {}
-            # Assume no header row
+            # pop header row
+            reader.next()
             for row in reader:
-                tut_id = row[0]
-                title = row[1]
-                max_attendees = row[2]
-                registrant_email = row[3]
-                if tut_id in tutorials:
-                    tutorial = tutorials[tut_id]
-                else:
-                    tutorial = get_tutorial(tut_id, title)
-                    # Update max attendees based on CSV value
-                    tutorial.max_attendees = max_attendees
-                    tutorial.save()
-                    tutorials[tut_id] = tutorial
-                if tutorial in registrant_data:
-                    registrant_data[tutorial].append(registrant_email)
-                else:
-                    registrant_data[tutorial] = [registrant_email]
+                if row:
+                    tut_id = row[0]
+                    max_attendees = row[2].strip() or None
+                    registrant_email = row[3]
+                    if tut_id in tutorials:
+                        tutorial = tutorials[tut_id]
+                    else:
+                        tutorial = PyConTutorialProposal.objects.get(proposalbase_ptr=tut_id)
+                        if max_attendees:
+                            tutorial.max_attendees = max_attendees
+                        tutorial.save()
+                        tutorials[tut_id] = tutorial
+                    if tutorial in registrant_data:
+                        registrant_data[tutorial].append(registrant_email)
+                    else:
+                        registrant_data[tutorial] = [registrant_email]
 
             # Add the Users objects to the associated Tutorial as registrants
             for tutorial, registrants in registrant_data.items():
