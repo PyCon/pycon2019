@@ -7,6 +7,18 @@
 
 {% block head_title %}{% trans "PyCon Jobs Fair" %}{% endblock %}
 
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            $('.job-listing').each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+        });
+    </script>
+{% endblock %}
+
+
 {% block body_class %}job-fair{% endblock %}
 
 {% block page_title %}
@@ -35,7 +47,7 @@
                                     </h2>
                                     <h5>{{ sponsor.name }}</h5>
                                     <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                                    {{ sponsor.joblisting_text|safe }}
+                                    <div class="job-listing">{{ sponsor.joblisting_text|safe }}</div>
                                 </div>
                             </div>
                         {% else %}
