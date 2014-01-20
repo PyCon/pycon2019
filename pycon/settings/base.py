@@ -315,6 +315,7 @@ PROPOSAL_FORMS = {
     "poster": "pycon.forms.PyConPosterProposalForm",
     "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
     "lightning-talk": "pycon.forms.PyConLightningTalkProposalForm",
+    "open-space": "pycon.forms.PyConOpenSpaceProposalForm",
 }
 
 USE_X_ACCEL_REDIRECT = False
@@ -341,5 +342,3 @@ CACHES = {
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
-
-

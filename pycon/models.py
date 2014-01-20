@@ -249,3 +249,8 @@ class PyConSponsorTutorialProposal(ProposalBase):
 
     def __unicode__(self):
         return self.title
+
+
+class PyConOpenSpaceProposal(PyConProposal):
+    class Meta:
+        verbose_name = "PyCon Open Space proposal"

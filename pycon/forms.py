@@ -4,8 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from markedit.widgets import MarkEdit
 
 from .models import (PyConProposalCategory, PyConTalkProposal,
-    PyConTutorialProposal, PyConPosterProposal, PyConLightningTalkProposal,
-    PyConSponsorTutorialProposal)
+                     PyConTutorialProposal, PyConPosterProposal,
+                     PyConLightningTalkProposal, PyConSponsorTutorialProposal,
+                     PyConOpenSpaceProposal)
 
 
 class PyConProposalForm(forms.ModelForm):
@@ -127,6 +128,28 @@ class PyConPosterProposalForm(PyConProposalForm):
             "additional_notes",
             "additional_requirements",
             "recording_release",
+        ]
+        widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
+            "abstract": MarkEdit(),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
+        }
+
+
+class PyConOpenSpaceProposalForm(PyConProposalForm):
+
+    class Meta:
+        model = PyConOpenSpaceProposal
+        fields = [
+            "title",
+            "category",
+            "audience",
+            "description",
+            "abstract",
+            "additional_notes",
+            "additional_requirements",
         ]
         widgets = {
             "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
