@@ -89,6 +89,11 @@ class SponsorAdmin(admin.ModelAdmin):
         list_display.append(func_generator(benefit))
         list_filter.append(field_name)
 
+    def save_related(self, request, form, formsets, change):
+        super(SponsorAdmin, self).save_related(request, form, formsets, change)
+        obj = form.instance
+        obj.save()
+
 
 class BenefitAdmin(admin.ModelAdmin):
 
