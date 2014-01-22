@@ -144,17 +144,13 @@ class PyConOpenSpaceProposalForm(PyConProposalForm):
         model = PyConOpenSpaceProposal
         fields = [
             "title",
-            "category",
-            "audience",
             "description",
-            "abstract",
             "additional_notes",
             "additional_requirements",
         ]
         widgets = {
             "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
             "description": forms.Textarea(attrs={'rows': '3'}),
-            "abstract": MarkEdit(),
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
             "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
