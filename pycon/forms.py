@@ -147,6 +147,8 @@ class PyConOpenSpaceProposalForm(PyConProposalForm):
             "description",
             "additional_notes",
             "additional_requirements",
+            "audience_level",
+            "category",
         ]
         widgets = {
             "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
@@ -154,6 +156,15 @@ class PyConOpenSpaceProposalForm(PyConProposalForm):
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
             "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(PyConProposalForm, self).__init__(*args, **kwargs)
+        self.fields['audience_level'].widget = forms.HiddenInput()
+        self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
+
+    def clean_description(self):
+        value = self.cleaned_data["description"]
+        return value
 
 
 class PyConSponsorTutorialForm(PyConProposalForm):
