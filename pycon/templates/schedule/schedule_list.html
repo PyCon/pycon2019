@@ -1,6 +1,7 @@
 {% extends "responsive_base.html" %}
 
 {% load i18n %}
+{% load boxes_tags %}
 {% load cache %}
 {% load sitetree %}
 
@@ -22,6 +23,7 @@
 
 {% block body %}
     <h2>Accepted {{ schedule.section.name }}</h2>
+    {% box "schedule_detail_"|add:schedule.section.name|slugify %}
     {% cache 600 "schedule-list" schedule.section.name %}
         {% for presentation in presentations %}
             <div class="row">
