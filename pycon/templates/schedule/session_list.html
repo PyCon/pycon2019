@@ -4,12 +4,12 @@
 
 {% block body %}
     <h1>{% trans "Sessions" %}</h1>
-    
+
     <ul class="unstyled">
         {% for session in sessions %}
             {% if session.sorted_slots %}
                 <li>
-                    <a href="{% url 'schedule_session_detail' session.pk %}">{% blocktrans %}Session #{{ session.id }}{% endblocktrans %}</a>
+                    <a href="{% url 'schedule_session_detail' session.pk %}">{% blocktrans %}Session #{% endblocktrans %}{{ forloop.counter }}</a>
                     <div class="well">
                         <ul class="unstyled">
                             {% for role in session.sessionrole_set.all %}
@@ -40,5 +40,5 @@
             <li>{% trans "No sessions defined." %}</li>
         {% endfor %}
     </ul>
-    
+
 {% endblock %}
