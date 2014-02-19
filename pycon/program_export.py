@@ -3,6 +3,9 @@ import os
 import shutil
 import sys
 
+from rtfng import Styles, Renderer, Elements
+from rtfng.document.paragraph import Paragraph
+
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
 from symposion.sponsorship.models import Sponsor, SponsorLevel
@@ -53,7 +56,7 @@ class BaseExporter(object):
 
         self.csvdir = os.path.join(self.get_dir(), 'csv/')
         self.rstdir = os.path.join(self.get_dir(), 'rst/')
-        for path in (self.csvdir, self.rstdir):
+        for path in (self.csvdir,):
             if not os.path.exists(path):
                 os.makedirs(path)
 
@@ -235,3 +238,110 @@ class ScheduleExporter(BaseExporter):
             filename = schedule.section.name.lower().replace(' ', '_') + '_schedule'
             out("\tExporting {0} slots in {1} schedule.".format(len(slots), schedule.section.name))
             self.export_csv(filename, slots)
+
+
+class RTFDoc(object):
+    """
+    High level interface over the rtfng to simplify the generation
+    of the RTF documents that we export for laying out the printed
+    program.
+    """
+
+    def __init__(self, title, filename=None):
+        self.title = title
+        self.filename = filename
+
+        # setup document styles
+        self.doc = Elements.Document()
+        self.doc.SetTitle(self.title)
+        self.ss = self.doc.StyleSheet
+        NormalText = self.ss.ParagraphStyles.Normal
+        self.metastyle = NormalText.Copy()
+        self.metastyle.TextStyle.textProps.size = 16
+        self.metastyle.TextStyle.textProps.italic = True
+        self.ps = Styles.ParagraphStyle('Metadata', self.metastyle.TextStyle)
+        self.ss.ParagraphStyles.append(self.ps)
+
+        # Document title
+        section = self.new_section()
+        section.append(self.new_title(self.title))
+
+    def new_section(self):
+        section = Elements.Section()
+        self.doc.Sections.append(section)
+        return section
+
+    def new_para(self, section, style=None):
+        if not style:
+            style = self.ss.ParagraphStyles.Normal
+        p = Paragraph(style)
+        section.append(p)
+        return p
+
+    def new_title(self, text, level=1):
+        style = getattr(self.ss.ParagraphStyles, "Heading%d" % level)
+        p = Paragraph(style)
+        p.append(text)
+        return p
+
+    def add_talk(self, title, metadata, abstract,
+                 admin_url=None, public_url=None):
+        section = self.new_section()
+        section.append(self.new_title(title, 2))
+
+        metass = self.ss.ParagraphStyles.Metadata
+        self.new_para(section, metass).append(metadata)
+
+        if admin_url:
+            self.new_para(section, metass).append(admin_url)
+
+        if public_url:
+            self.new_para(section, metass).append(public_url)
+
+        if not isinstance(abstract, list):
+            abstract = [abstract]
+
+        for para in abstract:
+            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
+            p.append(para)
+
+    def add_sponsor(self, name, desc, admin_url=None):
+        section = self.new_section()
+        section.append(self.new_title(name, 2))
+        metass = self.ss.ParagraphStyles.Metadata
+
+        if admin_url:
+            self.new_para(section, metass).append(admin_url)
+
+        if not isinstance(desc, list):
+            desc = []
+
+        for para in desc:
+            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
+            p.append(para)
+
+    def add_bio(self, name, bio, admin_url=None, public_url=None):
+        section = self.new_section()
+        section.append(self.new_title(name, 2))
+        metass = self.ss.ParagraphStyles.Metadata
+
+        if admin_url:
+            self.new_para(section, metass).append(admin_url)
+
+        if public_url:
+            p = self.new_para(section, metass).append(public_url)
+
+        if not isinstance(bio, list):
+            bio = []
+
+        for para in bio:
+            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
+            p.append(para)
+
+    def write(self):
+        if not self.filename or self.filename == '-':
+            report = sys.stdout
+        else:
+            report = open(self.filename, "w")
+        renderer = Renderer.Renderer()
+        renderer.Write(self.doc, report)
