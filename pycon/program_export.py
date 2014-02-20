@@ -13,25 +13,22 @@ from symposion.sponsorship.models import Sponsor, SponsorLevel
 from django.core.urlresolvers import reverse
 
 
-def out(msg):
-    if not msg.endswith("\n"):
-        msg += "\n"
-    sys.stdout.write(msg)
-
-
 def export(pardir='program_export/'):
     # Remove the base directory, if it already exists.
     try:
         shutil.rmtree(pardir)
     except OSError:
-        out("Creating directory for export at `{0}`.".format(pardir))
-    else:
-        out("Removed existing files located in `{0}` directory.".format(pardir))
+        pass
 
     SpeakerBiosExporter(pardir).export()
     SponsorsExporter(pardir).export()
     PresentationsExporter(pardir).export()
-    ScheduleExporter(pardir).export()
+#    ScheduleExporter(pardir).export()
+
+
+def get_paragraph_list(text):
+    """Returns a list of paragraphs from a given text blob."""
+    return [p.strip() for p in text.splitlines() if p.strip()]
 
 
 class UnicodeCSVDictWriter(csv.DictWriter):
@@ -49,19 +46,19 @@ class BaseExporter(object):
     fieldnames = None
     basedir = None
 
-    def __init__(self, pardir='', **kwargs):
-        for kwarg, value in kwargs.items():
-            setattr(self, kwarg, value)
+    def __init__(self, pardir=''):
         self.pardir = pardir
-
-        self.csvdir = os.path.join(self.get_dir(), 'csv/')
-        self.rstdir = os.path.join(self.get_dir(), 'rst/')
-        for path in (self.csvdir,):
+        self.csvdir = os.path.join(self.pardir, self.basedir, 'csv/')
+        self.rtfdir = os.path.join(self.pardir, self.basedir, 'rtf/')
+        for path in (self.csvdir, self.rtfdir):
             if not os.path.exists(path):
                 os.makedirs(path)
 
     def get_attribute(self, obj, attr_name, split='__'):
-        """Recursive retrieval of properties, attributes, and callables."""
+        """Recursive retrieval of properties, attributes, and callables.
+
+        Also allows the class to specify how to retrieve attributes.
+        """
         def _inner(obj, attr_name):
             attr = getattr(obj, attr_name)
             return attr() if callable(attr) else attr
@@ -69,28 +66,30 @@ class BaseExporter(object):
             return getattr(self, 'prepare_' + attr_name)(obj)
         return reduce(_inner, attr_name.split(split), obj)
 
-    def get_dir(self):
-        return os.path.join(self.pardir, self.basedir)
-
     def get_csv_path(self, filename):
         return os.path.join(self.csvdir, filename + '.csv')
 
-    def get_rst_path(self, filename):
-        return os.path.join(self.rstdir, filename + '.rst')
+    def get_rtf_path(self, filename):
+        return os.path.join(self.rtfdir, filename + '.rtf')
 
-    def export_csv(self, filename, objects, fieldnames=None):
+    def write(self, filename, objects, fieldnames=None):
+        """Write data to both a csv file and an rtf file."""
         fieldnames = self.fieldnames if fieldnames is None else fieldnames
         with open(self.get_csv_path(filename), 'w') as csvfile:
             csvwriter = UnicodeCSVDictWriter(csvfile, fieldnames)
+            rtfdoc = RTFDoc("Program Export", self.get_rtf_path(filename))
             for obj in objects:
-                row = dict([(name, unicode(self.get_attribute(obj, name)))
+                data = dict([(name, unicode(self.get_attribute(obj, name)))
                             for name in fieldnames])
-                csvwriter.writerow(row)
+                csvwriter.writerow(data)
+                getattr(rtfdoc, self.rtf_method)(**data)
+        rtfdoc.write()
 
 
 class SpeakerBiosExporter(BaseExporter):
     fieldnames = ['name', 'biography', 'url_for_bio']
     basedir = 'speakers/bios/'
+    rtf_method = 'add_bio'
 
     def prepare_url_for_bio(self, speaker):
         return reverse('speaker_profile', args=(speaker.pk,))
@@ -102,7 +101,6 @@ class SpeakerBiosExporter(BaseExporter):
         return ', '.join(kinds)
 
     def export(self):
-        out("Exporting speaker bios to `{0}`.".format(self.get_dir()))
         queryset = Presentation.objects.exclude(cancelled=True)
         sort_key = lambda s: s.name.lower()
         all_speakers = []
@@ -115,17 +113,17 @@ class SpeakerBiosExporter(BaseExporter):
                 all_speakers.extend(presentation.speakers())
             speakers = sorted(list(set(speakers)), key=sort_key)
             filename = kind.name.lower().replace(' ', '_') + '_bios'
-            out("\tExporting {0} {1} speakers.".format(len(speakers), kind.name))
-            self.export_csv(filename, speakers)
+            self.write(filename, speakers)
 
         all_speakers = sorted(list(set(all_speakers)), key=sort_key)
-        self.export_csv('all', all_speakers, self.fieldnames + ['kinds'])
+        self.write('all', all_speakers, self.fieldnames + ['kinds'])
 
 
 class SponsorsExporter(BaseExporter):
     fieldnames = ['name', 'external_url', 'print_description',
                   'web_description']
     basedir = 'sponsors/'
+    rtf_method = 'add_sponsor'
 
     def prepare_print_description(self, sponsor):
         if sponsor.print_description_benefit:
@@ -138,20 +136,19 @@ class SponsorsExporter(BaseExporter):
         return ''
 
     def export(self):
-        out("Exporting sponsors to `{0}`.".format(self.get_dir()))
         queryset = Sponsor.objects.exclude(active=False)
         levels = SponsorLevel.objects.all()
         for level in levels:
             sponsors = queryset.filter(level=level).order_by('name')
             filename = level.name.lower().replace(' ', '_') + '_sponsors'
-            out("\tExporting {0} {1} level sponsors.".format(sponsors.count(), level.name))
-            self.export_csv(filename, sponsors)
+            self.write(filename, sponsors)
 
 
 class PresentationsExporter(BaseExporter):
     fieldnames = ['title', 'speakers', 'proposal__get_audience_level_display',
                   'proposal__category__name', 'description', 'url']
     basedir = 'presentations/'
+    rtf_method = 'add_presentation'
 
     def prepare_speakers(self, presentation):
         return ', '.join([s.name for s in presentation.speakers()])
@@ -170,7 +167,6 @@ class PresentationsExporter(BaseExporter):
         )
 
     def export(self):
-        out("Exporting presentations to `{0}`.".format(self.get_dir()))
         queryset = Presentation.objects.exclude(cancelled=True)
         kinds = [ProposalKind.objects.get(name=name)
                  for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk']]
@@ -178,12 +174,11 @@ class PresentationsExporter(BaseExporter):
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
             filename = kind.name.lower().replace(' ', '_') + 's'
-            out("\tExporting {0} {1} presentations.".format(presentations.count(), kind.name))
             if kind.name in ['Talk', 'Tutorial']:
-                self.export_csv(filename, presentations,
+                self.write(filename, presentations,
                                 self.fieldnames + ['room', 'time'])
             else:
-                self.export_csv(filename, presentations)
+                self.write(filename, presentations)
 
 
 class ScheduleExporter(BaseExporter):
@@ -220,7 +215,6 @@ class ScheduleExporter(BaseExporter):
         return ''
 
     def export(self):
-        out("Exporting schedules to `{0}`.".format(self.get_dir()))
         schedules = [Schedule.objects.get(section__name=name)
                      for name in ['Talks', 'Tutorials']]
 
@@ -236,8 +230,7 @@ class ScheduleExporter(BaseExporter):
             slots.sort(key=lambda s: s.start)
             slots.sort(key=lambda s: s.day.date)
             filename = schedule.section.name.lower().replace(' ', '_') + '_schedule'
-            out("\tExporting {0} slots in {1} schedule.".format(len(slots), schedule.section.name))
-            self.export_csv(filename, slots)
+            self.write(filename, slots)
 
 
 class RTFDoc(object):
@@ -262,9 +255,8 @@ class RTFDoc(object):
         self.ps = Styles.ParagraphStyle('Metadata', self.metastyle.TextStyle)
         self.ss.ParagraphStyles.append(self.ps)
 
-        # Document title
-        section = self.new_section()
-        section.append(self.new_title(self.title))
+        # add the document title
+        self.new_section().append(self.new_title(self.title))
 
     def new_section(self):
         section = Elements.Section()
@@ -272,9 +264,7 @@ class RTFDoc(object):
         return section
 
     def new_para(self, section, style=None):
-        if not style:
-            style = self.ss.ParagraphStyles.Normal
-        p = Paragraph(style)
+        p = Paragraph(style or self.ss.ParagraphStyles.Normal)
         section.append(p)
         return p
 
@@ -284,60 +274,6 @@ class RTFDoc(object):
         p.append(text)
         return p
 
-    def add_talk(self, title, metadata, abstract,
-                 admin_url=None, public_url=None):
-        section = self.new_section()
-        section.append(self.new_title(title, 2))
-
-        metass = self.ss.ParagraphStyles.Metadata
-        self.new_para(section, metass).append(metadata)
-
-        if admin_url:
-            self.new_para(section, metass).append(admin_url)
-
-        if public_url:
-            self.new_para(section, metass).append(public_url)
-
-        if not isinstance(abstract, list):
-            abstract = [abstract]
-
-        for para in abstract:
-            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
-            p.append(para)
-
-    def add_sponsor(self, name, desc, admin_url=None):
-        section = self.new_section()
-        section.append(self.new_title(name, 2))
-        metass = self.ss.ParagraphStyles.Metadata
-
-        if admin_url:
-            self.new_para(section, metass).append(admin_url)
-
-        if not isinstance(desc, list):
-            desc = []
-
-        for para in desc:
-            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
-            p.append(para)
-
-    def add_bio(self, name, bio, admin_url=None, public_url=None):
-        section = self.new_section()
-        section.append(self.new_title(name, 2))
-        metass = self.ss.ParagraphStyles.Metadata
-
-        if admin_url:
-            self.new_para(section, metass).append(admin_url)
-
-        if public_url:
-            p = self.new_para(section, metass).append(public_url)
-
-        if not isinstance(bio, list):
-            bio = []
-
-        for para in bio:
-            p = self.new_para(section, self.ss.ParagraphStyles.Normal)
-            p.append(para)
-
     def write(self):
         if not self.filename or self.filename == '-':
             report = sys.stdout
@@ -345,3 +281,41 @@ class RTFDoc(object):
             report = open(self.filename, "w")
         renderer = Renderer.Renderer()
         renderer.Write(self.doc, report)
+
+    # Below: shortcuts for adding PyCon data sections.
+
+    def add_presentation(self, title, description, **metadata):
+        section = self.new_section()
+        section.append(self.new_title(title, 2))
+        metass = self.ss.ParagraphStyles.Metadata
+
+        for key, value in metadata.items():
+            self.new_para(section, metass).append(value)
+
+        for para in get_paragraph_list(description):
+            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
+
+    def add_sponsor(self, name, print_description, web_description, **metadata):
+        section = self.new_section()
+        section.append(self.new_title(name, 2))
+        metass = self.ss.ParagraphStyles.Metadata
+
+        for key, value in metadata.items():
+            self.new_para(section, metass).append(value)
+
+        for para in get_paragraph_list(web_description):
+            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
+
+        for para in get_paragraph_list(print_description):
+            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
+
+    def add_bio(self, name, biography, **metadata):
+        section = self.new_section()
+        section.append(self.new_title(name, 2))
+        metass = self.ss.ParagraphStyles.Metadata
+
+        for key, value in metadata.items():
+            self.new_para(section, metass).append(value)
+
+        for para in get_paragraph_list(biography):
+            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
