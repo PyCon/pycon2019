@@ -96,7 +96,7 @@ class Slot(models.Model):
 
     @property
     def rooms(self):
-        return Room.objects.filter(pk__in=self.slotroom_set.values("room"))
+        return Room.objects.filter(pk__in=self.slotroom_set.values("room")).order_by('name')
 
     @property
     def start_date(self):

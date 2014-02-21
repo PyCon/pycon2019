@@ -36,11 +36,12 @@
                   </div>
                 {% endif %}
 
-                <div class="box">
-                    <div class="box-head">
-                        <h2>{% trans "Speaking" %}</h2>
+                <div class="dashboard-panel">
+                    <div class="dashboard-panel-header">
+                        <i class="icon-bullhorn"></i>
+                        <h3>{% trans "Speaking" %}</h3>
                     </div>
-                    <div class="box-content">
+                    <div class="dashboard-panel-content">
                         {% if user.speaker_profile %}
                             <div class="actions">
                                 <a href="{% url 'speaker_edit' %}" class="action">
@@ -362,6 +363,19 @@
                             {% endif %}
                         </div>
                     </div>
+                {% endif %}
+
+                {% if request.user.is_staff %}
+                <div class="dashboard-panel">
+                    <div class="dashboard-panel-header">
+                        <i class="icon-download"></i>
+                        <h3>{% trans "Program Export" %}</h3>
+                    </div>
+                    <div class="dashboard-panel-content">
+                        <p><a class="btn btn-default" href="{% url "program_export" %}">Export Program Data</a></p>
+                        <p>This action may take up to a minute to complete.</p>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>

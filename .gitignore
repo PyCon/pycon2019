@@ -1,5 +1,6 @@
 _build
 *.pyc
+*.swp
 dev.db
 .DS_Store
 pycon/static/js/cssrefresh.js
@@ -10,3 +11,4 @@ MANIFEST
 pycon/settings/local.py
 site_media
 .ropeproject/
+program_export/
