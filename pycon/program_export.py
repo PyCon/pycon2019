@@ -1,3 +1,5 @@
+from collections import OrderedDict
+from copy import deepcopy
 import csv
 import os
 import shutil
@@ -10,6 +12,8 @@ from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
 from symposion.sponsorship.models import Sponsor, SponsorLevel
 
+from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 
 
@@ -23,12 +27,20 @@ def export(pardir='program_export/'):
     SpeakerBiosExporter(pardir).export()
     SponsorsExporter(pardir).export()
     PresentationsExporter(pardir).export()
-#    ScheduleExporter(pardir).export()
+    ScheduleExporter(pardir).export()
+
+
+def full_url(url):
+    return 'http://us.pycon.org' + url
 
 
 def get_paragraph_list(text):
     """Returns a list of paragraphs from a given text blob."""
     return [p.strip() for p in text.splitlines() if p.strip()]
+
+
+def display(name):
+    return name.replace('_', ' ').title()
 
 
 class UnicodeCSVDictWriter(csv.DictWriter):
@@ -43,8 +55,9 @@ class UnicodeCSVDictWriter(csv.DictWriter):
 
 
 class BaseExporter(object):
-    fieldnames = None
+    fields = None
     basedir = None
+    description_fields = None
 
     def __init__(self, pardir=''):
         self.pardir = pardir
@@ -72,27 +85,35 @@ class BaseExporter(object):
     def get_rtf_path(self, filename):
         return os.path.join(self.rtfdir, filename + '.rtf')
 
-    def write(self, filename, objects, fieldnames=None):
+    def write(self, filename, objects, fields=None):
         """Write data to both a csv file and an rtf file."""
-        fieldnames = self.fieldnames if fieldnames is None else fieldnames
+        fields = deepcopy(fields or self.fields)
+        for i in range(len(fields)):
+            field = fields[i]
+            if not (isinstance(field, tuple) or isinstance(field, list)):
+                fields[i] = (field, field)
         with open(self.get_csv_path(filename), 'w') as csvfile:
+            fieldnames = [field[0] for field in fields]
             csvwriter = UnicodeCSVDictWriter(csvfile, fieldnames)
-            rtfdoc = RTFDoc("Program Export", self.get_rtf_path(filename))
+            rtfdoc = RTFDoc("Program Export", self.get_rtf_path(filename),
+                            self.description_fields)
+            csvwriter.writerow(dict([(fieldname, display(fieldname))
+                                     for fieldname in fieldnames]))
             for obj in objects:
-                data = dict([(name, unicode(self.get_attribute(obj, name)))
-                            for name in fieldnames])
+                data = OrderedDict([(name, unicode(self.get_attribute(obj, getter)))
+                            for name, getter in fields])
                 csvwriter.writerow(data)
-                getattr(rtfdoc, self.rtf_method)(**data)
+                rtfdoc.add_pycon_section(data)
         rtfdoc.write()
 
 
 class SpeakerBiosExporter(BaseExporter):
-    fieldnames = ['name', 'biography', 'url_for_bio']
+    fields = ['name', 'biography', 'url']
     basedir = 'speakers/bios/'
-    rtf_method = 'add_bio'
+    description_fields = ['biography']
 
-    def prepare_url_for_bio(self, speaker):
-        return reverse('speaker_profile', args=(speaker.pk,))
+    def prepare_url(self, speaker):
+        return full_url(reverse('speaker_profile', args=(speaker.pk,)))
 
     def prepare_kinds(self, speaker):
         kinds = []
@@ -116,14 +137,13 @@ class SpeakerBiosExporter(BaseExporter):
             self.write(filename, speakers)
 
         all_speakers = sorted(list(set(all_speakers)), key=sort_key)
-        self.write('all', all_speakers, self.fieldnames + ['kinds'])
+        self.write('all', all_speakers, self.fields + ['kinds'])
 
 
 class SponsorsExporter(BaseExporter):
-    fieldnames = ['name', 'external_url', 'print_description',
-                  'web_description']
+    fields = ['name', 'external_url', 'print_description', 'web_description']
     basedir = 'sponsors/'
-    rtf_method = 'add_sponsor'
+    description_fields = ['print_description', 'web_description']
 
     def prepare_print_description(self, sponsor):
         if sponsor.print_description_benefit:
@@ -145,16 +165,17 @@ class SponsorsExporter(BaseExporter):
 
 
 class PresentationsExporter(BaseExporter):
-    fieldnames = ['title', 'speakers', 'proposal__get_audience_level_display',
-                  'proposal__category__name', 'description', 'url']
+    fields = [('name', 'title'), 'speakers',
+              ('audience_level', 'proposal__get_audience_level_display'),
+              ('category', 'proposal__category__name'), 'description', 'url']
     basedir = 'presentations/'
-    rtf_method = 'add_presentation'
+    description_fields = ['description']
 
     def prepare_speakers(self, presentation):
         return ', '.join([s.name for s in presentation.speakers()])
 
     def prepare_url(self, presentation):
-        return reverse('schedule_presentation_detail', args=(presentation.pk,))
+        return full_url(reverse('schedule_presentation_detail', args=(presentation.pk,)))
 
     def prepare_room(self, presentation):
         return ', '.join([r.name for r in presentation.slot.rooms])
@@ -176,15 +197,16 @@ class PresentationsExporter(BaseExporter):
             filename = kind.name.lower().replace(' ', '_') + 's'
             if kind.name in ['Talk', 'Tutorial']:
                 self.write(filename, presentations,
-                                self.fieldnames + ['room', 'time'])
+                                self.fields + ['room', 'time'])
             else:
                 self.write(filename, presentations)
 
 
 class ScheduleExporter(BaseExporter):
-    fieldnames = ['title', 'speakers', 'room', 'day', 'start', 'end',
-                  'audience_level', 'category', 'url']
+    fields = [('name', 'title'), 'speakers', 'room', 'day', 'start', 'end',
+              'audience_level', 'category', 'url']
     basedir = 'schedule/'
+    description_fields = []
 
     def prepare_title(self, slot):
         if slot.content:
@@ -211,7 +233,7 @@ class ScheduleExporter(BaseExporter):
 
     def prepare_url(self, slot):
         if slot.content:
-            return reverse('schedule_presentation_detail', args=(slot.content.pk,))
+            return full_url(reverse('schedule_presentation_detail', args=(slot.content.pk,)))
         return ''
 
     def export(self):
@@ -240,9 +262,10 @@ class RTFDoc(object):
     program.
     """
 
-    def __init__(self, title, filename=None):
+    def __init__(self, title, filename=None, description_fields=None):
         self.title = title
         self.filename = filename
+        self.description_fields = description_fields or []
 
         # setup document styles
         self.doc = Elements.Document()
@@ -282,40 +305,20 @@ class RTFDoc(object):
         renderer = Renderer.Renderer()
         renderer.Write(self.doc, report)
 
-    # Below: shortcuts for adding PyCon data sections.
-
-    def add_presentation(self, title, description, **metadata):
+    def add_pycon_section(self, data):
+        # Shortcut for adding PyCon data sections.
         section = self.new_section()
-        section.append(self.new_title(title, 2))
+        section.append(self.new_title(data.pop('name'), 2))
         metass = self.ss.ParagraphStyles.Metadata
 
-        for key, value in metadata.items():
-            self.new_para(section, metass).append(value)
+        for key, value in data.items():
+            if key not in self.description_fields and value:
+                item = display(key) + ": " + value
+                self.new_para(section, metass).append(item)
 
-        for para in get_paragraph_list(description):
-            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
-
-    def add_sponsor(self, name, print_description, web_description, **metadata):
-        section = self.new_section()
-        section.append(self.new_title(name, 2))
-        metass = self.ss.ParagraphStyles.Metadata
-
-        for key, value in metadata.items():
-            self.new_para(section, metass).append(value)
-
-        for para in get_paragraph_list(web_description):
-            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
-
-        for para in get_paragraph_list(print_description):
-            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
-
-    def add_bio(self, name, biography, **metadata):
-        section = self.new_section()
-        section.append(self.new_title(name, 2))
-        metass = self.ss.ParagraphStyles.Metadata
-
-        for key, value in metadata.items():
-            self.new_para(section, metass).append(value)
-
-        for para in get_paragraph_list(biography):
-            self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
+        for field in self.description_fields:
+            if data[field]:
+                if len(self.description_fields) > 1:
+                    data[field] = field + ': ' + data[field]
+                for para in get_paragraph_list(data[field]):
+                    self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
