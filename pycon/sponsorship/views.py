@@ -153,7 +153,8 @@ def sponsor_zip_logo_files(request):
                         if os.path.exists(sponsor_benefit.upload.path):
                             modtime = time.gmtime(os.stat(sponsor_benefit.upload.path).st_mtime)
                             with open(sponsor_benefit.upload.path, "rb") as f:
-                                zipinfo = ZipInfo(filename=full_dir + "/" + sponsor_benefit.upload.name,
+                                fname = os.path.split(sponsor_benefit.upload.name)[-1]
+                                zipinfo = ZipInfo(filename=full_dir + "/" + fname,
                                                   date_time=modtime)
                                 zipfile.writestr(zipinfo, f.read())
                         else:
