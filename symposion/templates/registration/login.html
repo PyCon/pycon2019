@@ -8,9 +8,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>
-      {% if config.REGISTRATION_STATUS == 'open' and config.REGISTRATION_URL %}
+      {% if config.REGISTRATION_STATUS != 'soon' and config.REGISTRATION_URL %}
         {% trans "Redirecting to CTE..." %}
-      {% elif config.REGISTRATION_STATUS == 'closed'%}
+      {% elif config.REGISTRATION_STATUS == 'closed' and not config.REGISTRATION_URL%}
         {% trans "Registration is closed" %}
       {% else %}
         {% trans "Registration not ready" %}
@@ -26,8 +26,8 @@
   {% endif %}
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
-<body>
-{% if config.REGISTRATION_STATUS == 'open' and config.REGISTRATION_URL %}
+<body class="registration">
+{% if config.REGISTRATION_STATUS != 'soon' and config.REGISTRATION_URL %}
     <form action="{{ config.REGISTRATION_URL }}" method="POST" accept-charset="utf-8">
         {% csrf_token %}
         <input type="hidden" name="pycon_id" value="{{ request.user.id }}" />
@@ -40,7 +40,7 @@
             $("form").submit();
         });
     </script>
-{% elif config.REGISTRATION_STATUS == 'closed'%}
+{% elif config.REGISTRATION_STATUS == 'closed' and not config.REGISTRATION_URL%}
   <p>{% trans "Registration is closed." %}</p>
 {% else %}
   <p>{% trans "Registration is not yet ready, please come back later." %}</p>
