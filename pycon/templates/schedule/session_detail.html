@@ -67,6 +67,7 @@
                                 </form>
                             {% endif %}
                         {% else %}
+                            {% url 'profile_edit' as profile_edit%}
                             {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
                         {% endif %}
                     {% else %}
