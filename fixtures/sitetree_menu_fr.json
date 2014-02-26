@@ -1,19 +1,11 @@
 [
     {
         "fields": {
-            "alias": "main",
+            "alias": "main_fr",
             "title": "PyCon US 2014"
         },
         "model": "sitetree.tree",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "alias": "search-engine-sitemap",
-            "title": "Sitemap for Google and all of the other search engines no one uses"
-        },
-        "model": "sitetree.tree",
-        "pk": 2
+        "pk": 3
     },
     {
         "fields": {
@@ -30,13 +22,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 1,
-            "title": "About",
-            "tree": 1,
+            "title": "À Propos",
+            "tree": 3,
             "url": "/2014/about/what-is-pycon/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 1
+        "pk": 101
     },
     {
         "fields": {
@@ -53,13 +45,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 21,
-            "title": "Venue",
-            "tree": 1,
+            "title": "Site",
+            "tree": 3,
             "url": "#",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 2
+        "pk": 102
     },
     {
         "fields": {
@@ -76,13 +68,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 3,
-            "title": "Sponsors",
-            "tree": 1,
+            "title": "Commanditaires",
+            "tree": 3,
             "url": "/2014/sponsors/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 3
+        "pk": 103
     },
     {
         "fields": {
@@ -97,15 +89,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 5,
-            "title": "Code of Conduct",
-            "tree": 1,
+            "title": "Code de Conduite",
+            "tree": 3,
             "url": "cms_page \"about/code-of-conduct/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 4
+        "pk": 104
     },
     {
         "fields": {
@@ -120,15 +112,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 6,
-            "title": "Diversity",
-            "tree": 1,
+            "title": "Diversité",
+            "tree": 3,
             "url": "cms_page \"about/diversity/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 5
+        "pk": 105
     },
     {
         "fields": {
@@ -143,15 +135,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 8,
-            "title": "PyCon Mobile Guide",
-            "tree": 1,
+            "title": "Guide Mobile PyCon",
+            "tree": 3,
             "url": "http://guidebook.com/g/pycon2014/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 6
+        "pk": 106
     },
     {
         "fields": {
@@ -166,15 +158,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 9,
-            "title": "Volunteers",
-            "tree": 1,
+            "title": "Volontaires",
+            "tree": 3,
             "url": "cms_page \"about/volunteers/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 7
+        "pk": 107
     },
     {
         "fields": {
@@ -189,15 +181,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 4,
-            "title": "What is PyCon?",
-            "tree": 1,
+            "title": "Qu'est-ce que PyCon ?",
+            "tree": 3,
             "url": "cms_page \"about/what-is-pycon/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 8
+        "pk": 108
     },
     {
         "fields": {
@@ -212,15 +204,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 19,
-            "title": "Join the Conversation",
-            "tree": 1,
+            "title": "Joignez vous à la conversation",
+            "tree": 3,
             "url": "https://pycon.disqus.com/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 9
+        "pk": 109
     },
     {
         "fields": {
@@ -235,15 +227,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 51,
-            "title": "Explore Montreal",
-            "tree": 1,
+            "title": "Explorez Montréal",
+            "tree": 3,
             "url": "explore",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 10
+        "pk": 110
     },
     {
         "fields": {
@@ -258,15 +250,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 39,
-            "title": "Apply to be a Sponsor",
-            "tree": 1,
+            "title": "Devenez commanditaire",
+            "tree": 3,
             "url": "sponsor_apply",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 11
+        "pk": 110
     },
     {
         "fields": {
@@ -281,15 +273,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 11,
-            "title": "PyCon Sponsors",
-            "tree": 1,
+            "title": "Les Commanditaires de PyCon",
+            "tree": 3,
             "url": "sponsor_list",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 12
+        "pk": 112
     },
     {
         "fields": {
@@ -304,15 +296,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 22,
-            "title": "Sitemap",
-            "tree": 1,
+            "title": "Carte du site",
+            "tree": 3,
             "url": "sitemap",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 13
+        "pk": 113
     },
     {
         "fields": {
@@ -327,15 +319,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 14,
-            "title": "Directions to the Venue",
-            "tree": 1,
+            "title": "Itinéraire vers le site",
+            "tree": 3,
             "url": "directions",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 14
+        "pk": 114
     },
     {
         "fields": {
@@ -350,15 +342,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 10,
-            "title": "Venue Details",
-            "tree": 1,
+            "title": "Détails sur le site",
+            "tree": 3,
             "url": "venue_detail",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 15
+        "pk": 115
     },
     {
         "fields": {
@@ -373,15 +365,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 28,
-            "title": "PyCon Mobile Guide",
-            "tree": 1,
+            "title": "Guide mobile PyCon",
+            "tree": 3,
             "url": "http://guidebook.com/g/pycon2013/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 16
+        "pk": 116
     },
     {
         "fields": {
@@ -396,15 +388,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 17,
-            "title": "Sponsorship Prospectus",
-            "tree": 1,
+            "title": "Prospectus de commandite",
+            "tree": 3,
             "url": "cms_page \"sponsors/prospectus/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 17
+        "pk": 117
     },
     {
         "fields": {
@@ -419,15 +411,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 40,
-            "title": "Sponsor Information",
-            "tree": 1,
+            "title": "Information sur les commandites",
+            "tree": 3,
             "url": "cms_page \"sponsors/information/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 18
+        "pk": 118
     },
     {
         "fields": {
@@ -444,13 +436,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 2,
-            "title": "Speaking",
-            "tree": 1,
+            "title": "Présenter",
+            "tree": 3,
             "url": "/2014/speaking/speakatpycon/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 19
+        "pk": 119
     },
     {
         "fields": {
@@ -465,15 +457,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 23,
-            "title": "Call For Proposals",
-            "tree": 1,
+            "title": "Appel aux présentateurs",
+            "tree": 3,
             "url": "cms_page \"speaking/cfp/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 20
+        "pk": 120
     },
     {
         "fields": {
@@ -490,13 +482,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 30,
-            "title": "News",
-            "tree": 1,
+            "title": "Nouvelles",
+            "tree": 3,
             "url": "http://pycon.blogspot.com/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 21
+        "pk": 121
     },
     {
         "fields": {
@@ -511,15 +503,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 13,
-            "title": "Press",
-            "tree": 1,
+            "title": "Média",
+            "tree": 3,
             "url": "cms_page \"about/press/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 22
+        "pk": 122
     },
     {
         "fields": {
@@ -534,15 +526,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 29,
-            "title": "Poster Session",
-            "tree": 1,
+            "title": "Session d'affichage",
+            "tree": 3,
             "url": "cms_page \"posters/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 23
+        "pk": 123
     },
     {
         "fields": {
@@ -559,13 +551,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 2,
-            "title": "Events",
-            "tree": 1,
+            "title": "Événements",
+            "tree": 3,
             "url": "#",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 24
+        "pk": 124
     },
     {
         "fields": {
@@ -580,15 +572,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 65,
-            "title": "Python Language Summit",
-            "tree": 1,
+            "title": "Sommet du language Python",
+            "tree": 3,
             "url": "cms_page \"events/langsummit/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 25
+        "pk": 125
     },
     {
         "fields": {
@@ -603,15 +595,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 67,
-            "title": "Education Summit",
-            "tree": 1,
+            "title": "Sommet de l'éducation",
+            "tree": 3,
             "url": "cms_page \"events/edusummit/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 26
+        "pk": 126
     },
     {
         "fields": {
@@ -626,15 +618,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 62,
-            "title": "Development Sprints",
-            "tree": 1,
+            "title": "Sprints de développement",
+            "tree": 3,
             "url": "cms_page \"community/sprints/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 27
+        "pk": 127
     },
     {
         "fields": {
@@ -649,15 +641,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 16,
-            "title": "Staff Information",
-            "tree": 1,
+            "title": "Information sur l'équipe",
+            "tree": 3,
             "url": "cms_page \"about/staff/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 28
+        "pk": 128
     },
     {
         "fields": {
@@ -672,15 +664,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 33,
-            "title": "Poster Session FAQ",
-            "tree": 1,
+            "title": "FAQ - Session d'affichage",
+            "tree": 3,
             "url": "cms_page \"posters/faq/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 29
+        "pk": 129
     },
     {
         "fields": {
@@ -698,12 +690,12 @@
             "parent": null,
             "sort_order": 37,
             "title": "PSF",
-            "tree": 1,
+            "tree": 3,
             "url": "#",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 30
+        "pk": 130
     },
     {
         "fields": {
@@ -718,15 +710,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 30,
+            "parent": 130,
             "sort_order": 31,
-            "title": "About",
-            "tree": 1,
+            "title": "À Propos",
+            "tree": 3,
             "url": "http://www.python.org/psf/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 31
+        "pk": 131
     },
     {
         "fields": {
@@ -741,15 +733,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 30,
+            "parent": 130,
             "sort_order": 32,
             "title": "Blog",
-            "tree": 1,
+            "tree": 3,
             "url": "http://pyfound.blogspot.com/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 32
+        "pk": 132
     },
     {
         "fields": {
@@ -764,15 +756,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 20,
-            "title": "Speak at PyCon",
-            "tree": 1,
+            "title": "Présenter à PyCon",
+            "tree": 3,
             "url": "cms_page \"speaking/speakatpycon/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 33
+        "pk": 133
     },
     {
         "fields": {
@@ -787,15 +779,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 34,
-            "title": "Tutorials",
-            "tree": 1,
+            "title": "Formation",
+            "tree": 3,
             "url": "cms_page \"speakers/tutorials/proposals/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 34
+        "pk": 134
     },
     {
         "fields": {
@@ -810,15 +802,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 38,
-            "title": "Proposal Advice",
-            "tree": 1,
+            "title": "Conseil sur les propositions",
+            "tree": 3,
             "url": "cms_page \"speaking/proposal_advice/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 36
+        "pk": 136
     },
     {
         "fields": {
@@ -833,15 +825,15 @@
             "inbreadcrumbs": true,
             "inmenu": false,
             "insitetree": true,
-            "parent": 1,
+            "parent": 101,
             "sort_order": 7,
-            "title": "Registration",
-            "tree": 1,
+            "title": "Enregistrement",
+            "tree": 3,
             "url": "cms_page \"registration/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 37
+        "pk": 137
     },
     {
         "fields": {
@@ -856,15 +848,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 74,
-            "title": "Recording Release",
-            "tree": 1,
+            "title": "Autorisation d'enregistrement",
+            "tree": 3,
             "url": "cms_page \"speaking/recording/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 38
+        "pk": 138
     },
     {
         "fields": {
@@ -879,15 +871,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 42,
-            "title": "Charity Auction",
-            "tree": 1,
+            "title": "Encan de charité",
+            "tree": 3,
             "url": "cms_page \"sponsors/charityauction/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 39
+        "pk": 139
     },
     {
         "fields": {
@@ -902,15 +894,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 18,
-            "title": "Why sponsor PyCon?",
-            "tree": 1,
+            "title": "Pourquoi commanditer PyCon ?",
+            "tree": 3,
             "url": "cms_page \"sponsors/whysponsor/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 40
+        "pk": 140
     },
     {
         "fields": {
@@ -925,15 +917,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 68,
-            "title": "The Young Coder: Let's Learn Python",
-            "tree": 1,
+            "title": "Jeune codeur: Apprendre Python",
+            "tree": 3,
             "url": "cms_page \"events/letslearnpython/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 41
+        "pk": 141
     },
     {
         "fields": {
@@ -948,15 +940,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 3,
+            "parent": 103,
             "sort_order": 12,
-            "title": "Jobs Fair",
-            "tree": 1,
+            "title": "Foire à l'emploi",
+            "tree": 3,
             "url": "/2014/sponsors/jobs/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 42
+        "pk": 142
     },
     {
         "fields": {
@@ -971,15 +963,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 25,
-            "title": "Keynote Speakers",
-            "tree": 1,
+            "title": "Conférenciers",
+            "tree": 3,
             "url": "cms_page \"events/keynotes/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 43
+        "pk": 143
     },
     {
         "fields": {
@@ -994,15 +986,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 69,
-            "title": "PyCon 2013 5k Fun Run",
-            "tree": 1,
+            "title": "Course PyCon 2014 5km",
+            "tree": 3,
             "url": "cms_page \"5k/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 44
+        "pk": 144
     },
     {
         "fields": {
@@ -1019,13 +1011,13 @@
             "insitetree": true,
             "parent": null,
             "sort_order": 45,
-            "title": "Registration",
-            "tree": 1,
+            "title": "Enregistrement",
+            "tree": 3,
             "url": "cms_page \"registration/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 45
+        "pk": 145
     },
     {
         "fields": {
@@ -1040,15 +1032,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 45,
+            "parent": 145,
             "sort_order": 47,
-            "title": "Register for PyCon 2014",
-            "tree": 1,
+            "title": "S'enregistrer pour PyCon 2014",
+            "tree": 3,
             "url": "registration_start",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 46
+        "pk": 146
     },
     {
         "fields": {
@@ -1063,15 +1055,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 45,
+            "parent": 145,
             "sort_order": 46,
-            "title": "Registration Information",
-            "tree": 1,
+            "title": "Informations sur l'enregistrement",
+            "tree": 3,
             "url": "cms_page \"registration/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 47
+        "pk": 147
     },
     {
         "fields": {
@@ -1086,15 +1078,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 45,
+            "parent": 145,
             "sort_order": 48,
-            "title": "Room Sharing",
-            "tree": 1,
+            "title": "Partage de chambres",
+            "tree": 3,
             "url": "cms_page \"community/roomsharing/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 48
+        "pk": 148
     },
     {
         "fields": {
@@ -1109,15 +1101,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 45,
+            "parent": 145,
             "sort_order": 49,
-            "title": "Financial Aid",
-            "tree": 1,
+            "title": "Aide financière",
+            "tree": 3,
             "url": "cms_page \"assistance/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 49
+        "pk": 149
     },
     {
         "fields": {
@@ -1132,15 +1124,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 50,
-            "title": "Hotels",
-            "tree": 1,
+            "title": "Hôtels",
+            "tree": 3,
             "url": "hotels",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 50
+        "pk": 150
     },
     {
         "fields": {
@@ -1155,15 +1147,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 54,
             "title": "Restaurants",
-            "tree": 1,
+            "tree": 3,
             "url": "restaurants",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 51
+        "pk": 151
     },
     {
         "fields": {
@@ -1178,15 +1170,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 57,
-            "title": "Weather",
-            "tree": 1,
+            "title": "Température",
+            "tree": 3,
             "url": "weather",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 52
+        "pk": 152
     },
     {
         "fields": {
@@ -1201,15 +1193,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 52,
-            "title": "Getting Around",
-            "tree": 1,
+            "title": "Se Déplacer",
+            "tree": 3,
             "url": "getting_around",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 53
+        "pk": 153
     },
     {
         "fields": {
@@ -1224,15 +1216,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 55,
-            "title": "Shopping",
-            "tree": 1,
+            "title": "Magasiner",
+            "tree": 3,
             "url": "shopping",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 54
+        "pk": 154
     },
     {
         "fields": {
@@ -1247,15 +1239,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 53,
             "title": "Bars",
-            "tree": 1,
+            "tree": 3,
             "url": "bars",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 55
+        "pk": 155
     },
     {
         "fields": {
@@ -1270,15 +1262,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 2,
+            "parent": 102,
             "sort_order": 15,
-            "title": "Traveling to Montreal",
-            "tree": 1,
+            "title": "Voyager vers Montréal",
+            "tree": 3,
             "url": "traveling",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 57
+        "pk": 157
     },
     {
         "fields": {
@@ -1293,15 +1285,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 26,
-            "title": "Conference Talk List",
-            "tree": 1,
+            "title": "Liste des présentations",
+            "tree": 3,
             "url": "/2014/schedule/talks/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 58
+        "pk": 158
     },
     {
         "fields": {
@@ -1316,15 +1308,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 41,
-            "title": "Tutorial List",
-            "tree": 1,
+            "title": "Liste des ateliers",
+            "tree": 3,
             "url": "/2014/schedule/tutorials/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 59
+        "pk": 159
     },
     {
         "fields": {
@@ -1339,15 +1331,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 43,
-            "title": "Tutorial Schedule",
-            "tree": 1,
+            "title": "Horaire des ateliers",
+            "tree": 3,
             "url": "/2014/schedule/tutorials/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 60
+        "pk": 160
     },
     {
         "fields": {
@@ -1362,15 +1354,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 63,
-            "title": "Open Spaces",
-            "tree": 1,
+            "title": "Espaces Ouverts",
+            "tree": 3,
             "url": "cms_page \"community/openspaces/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 61
+        "pk": 161
     },
     {
         "fields": {
@@ -1385,15 +1377,15 @@
             "inbreadcrumbs": true,
             "inmenu": false,
             "insitetree": false,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 73,
-            "title": "Conference Schedule",
-            "tree": 1,
+            "title": "Horaire de la conférence",
+            "tree": 3,
             "url": "schedule_conference",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 65
+        "pk": 165
     },
     {
         "fields": {
@@ -1408,15 +1400,15 @@
             "inbreadcrumbs": true,
             "inmenu": false,
             "insitetree": false,
-            "parent": 65,
+            "parent": 165,
             "sort_order": 66,
-            "title": "{{ section }} Schedule",
-            "tree": 1,
+            "title": "{{ section }} - Horaire",
+            "tree": 3,
             "url": "schedule_detail section.slug",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 66
+        "pk": 166
     },
     {
         "fields": {
@@ -1431,15 +1423,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 27,
-            "title": "Conference Talk Schedule",
-            "tree": 1,
+            "title": "Horaire des présentations",
+            "tree": 3,
             "url": "/2014/schedule/talks/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 67
+        "pk": 167
     },
     {
         "fields": {
@@ -1454,15 +1446,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 44,
-            "title": "Sponsor Workshops",
-            "tree": 1,
+            "title": "Ateliers commandités",
+            "tree": 3,
             "url": "/2014/schedule/sponsor-tutorials/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 68
+        "pk": 168
     },
     {
         "fields": {
@@ -1477,15 +1469,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 70,
-            "title": "PyLadies Lunch @ PyCon!",
-            "tree": 1,
+            "title": "Lunch PyLadies @ PyCon!",
+            "tree": 3,
             "url": "cms_page \"events/pyladieslunch/\" ",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 69
+        "pk": 169
     },
     {
         "fields": {
@@ -1500,15 +1492,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 58,
-            "title": "Poster Session",
-            "tree": 1,
+            "title": "Session d'affichage",
+            "tree": 3,
             "url": "/2014/schedule/posters/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 70
+        "pk": 170
     },
     {
         "fields": {
@@ -1523,15 +1515,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 59,
-            "title": "Opening Reception",
-            "tree": 1,
+            "title": "Cérémonie d'ouverture",
+            "tree": 3,
             "url": "cms_page \"events/reception/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 71
+        "pk": 171
     },
     {
         "fields": {
@@ -1546,15 +1538,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 60,
-            "title": "Jobs Fair",
-            "tree": 1,
+            "title": "Foire à l'emploi",
+            "tree": 3,
             "url": "/2014/sponsors/jobs/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 72
+        "pk": 172
     },
     {
         "fields": {
@@ -1569,15 +1561,15 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 24,
+            "parent": 124,
             "sort_order": 61,
-            "title": "Charity Auction",
-            "tree": 1,
+            "title": "Encan bénéfice",
+            "tree": 3,
             "url": "/2014/sponsors/charityauction/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
-        "pk": 73
+        "pk": 173
     },
     {
         "fields": {
@@ -1592,14 +1584,14 @@
             "inbreadcrumbs": true,
             "inmenu": true,
             "insitetree": true,
-            "parent": 19,
+            "parent": 119,
             "sort_order": 36,
-            "title": "Proposal Resources",
-            "tree": 1,
+            "title": "Ressources pour les présentateurs",
+            "tree": 3,
             "url": "cms_page \"speaking/proposal-resources/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
-        "pk": 74
+        "pk": 174
     }
 ]
