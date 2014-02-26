@@ -61,8 +61,8 @@ def sponsor_detail(request, pk):
         formset = SponsorBenefitsFormSet(request.POST, request.FILES, **formset_kwargs)
 
         if form.is_valid() and formset.is_valid():
-            form.save()
             formset.save()
+            form.save()
 
             messages.success(request, "Your sponsorship application has been submitted!")
 
