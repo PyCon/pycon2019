@@ -41,7 +41,9 @@
                             {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
                         {% endif %}
                     {% else %}
-                        {% blocktrans %}<a href="{% url 'account_signup' %}">Sign up</a> and <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to volunteer to be session chair.{% endblocktrans %}
+                        {% url 'account_signup' as account_signup %}
+                        {% url 'account_login' as account_login %}
+                        {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session chair.{% endblocktrans %}
                     {% endif %}
                 {% endif %}
             </dd>
@@ -67,10 +69,13 @@
                                 </form>
                             {% endif %}
                         {% else %}
+                            {% url 'profile_edit' as profile_edit%}
                             {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
                         {% endif %}
                     {% else %}
-                        {% blocktrans %}Sign up and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session runner.{% endblocktrans %}
+                        {% url 'account_signup' as account_signup %}
+                        {% url 'account_login' as account_login %}
+                        {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session runner.{% endblocktrans %}
                     {% endif %}
                 {% endif %}
             </dd>
