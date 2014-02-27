@@ -43,6 +43,7 @@ class TestSponsorZipDownload(TestCase):
         # These names must be spelled exactly this way:
         self.weblogo_benefit = Benefit.objects.create(name="Web logo", type="weblogo")
         self.printlogo_benefit = Benefit.objects.create(name="Print logo", type="file")
+        self.advertisement_benefit = Benefit.objects.create(name="Advertisement", type="file")
 
     def validate_response(self, rsp, names_and_sizes):
         # Ensure a response from the view looks right, contains a valid
@@ -142,10 +143,18 @@ class TestSponsorZipDownload(TestCase):
                     upload="file4"
                 )
 
+                self.make_temp_file("file5", 50)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor,
+                    benefit=self.advertisement_benefit,
+                    upload="file5"
+                )
+
                 rsp = self.client.get(self.url)
                 expected = [
                     ('web_logos/lead/big_daddy/file2', 20),
-                    ('print_logos/lead/big_daddy/file4', 40)
+                    ('print_logos/lead/big_daddy/file4', 40),
+                    ('advertisement/lead/big_daddy/file5', 50)
                 ]
                 self.validate_response(rsp, expected)
         finally:
@@ -155,7 +164,7 @@ class TestSponsorZipDownload(TestCase):
 
     def test_file_org(self):
         # The zip file is organized into directories:
-        #  {print_logos,web_logos}/<sponsor_level>/<sponsor_name>/<filename>
+        #  {print_logos,web_logos,advertisement}/<sponsor_level>/<sponsor_name>/<filename>
 
         # Add another sponsor at a different sponsor level
         conference = current_conference()
@@ -200,6 +209,13 @@ class TestSponsorZipDownload(TestCase):
                     benefit=self.printlogo_benefit,
                     upload="file4"
                 )
+                # ad benefit
+                self.make_temp_file("file5", 55)
+                SponsorBenefit.objects.create(
+                    sponsor=self.sponsor2,
+                    benefit=self.advertisement_benefit,
+                    upload="file5"
+                )
 
                 rsp = self.client.get(self.url)
                 expected = [
@@ -207,6 +223,7 @@ class TestSponsorZipDownload(TestCase):
                     ('web_logos/silly_putty/big_mama/file3', 30),
                     ('print_logos/lead/big_daddy/file2', 20),
                     ('print_logos/silly_putty/big_mama/file4', 42),
+                    ('advertisement/silly_putty/big_mama/file5', 55),
                 ]
                 self.validate_response(rsp, expected)
         finally:
