@@ -138,7 +138,8 @@ def sponsor_zip_logo_files(request):
     zip_stringio = StringIO()
     with ZipFile(zip_stringio, "w") as zipfile:
         for benefit_name, dir_name in (("Web logo", "web_logos"),
-                                       ("Print logo", "print_logos")):
+                                       ("Print logo", "print_logos"),
+                                       ("Advertisement", "advertisement")):
             benefit = Benefit.objects.get(name=benefit_name)
             for level in SponsorLevel.objects.all():
                 level_name = level.name.lower().replace(" ", "_")
