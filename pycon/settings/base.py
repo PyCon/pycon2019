@@ -298,6 +298,7 @@ CONSTANCE_CONFIG = {
     "CTE_TUTORIAL_DATA_URL": ("", "URL for the CSV of CTE Tutorial Registration Data"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
+    "SPONSOR_APPLICATION": (True, "Support Sponsor application"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
     "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }
