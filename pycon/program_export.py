@@ -43,15 +43,22 @@ def display(name):
     return name.replace('_', ' ').title()
 
 
+def unicode_to_utf8(v):
+    if isinstance(v, unicode):
+        return v.encode('utf-8')
+    else:
+        return v
+
+
 class UnicodeCSVDictWriter(csv.DictWriter):
 
     def writerow(self, item):
         """Data is encoded as UTF-8 before writing."""
-        for k, v in item.items():
-            if isinstance(v, unicode):
-                del item[k]
-                item[k] = v.encode('utf-8')
-        csv.DictWriter.writerow(self, item)
+        row = dict(
+            (k, unicode_to_utf8(v))
+            for k, v in item.items()
+        )
+        csv.DictWriter.writerow(self, row)
 
 
 class BaseExporter(object):
@@ -294,7 +301,7 @@ class RTFDoc(object):
     def new_title(self, text, level=1):
         style = getattr(self.ss.ParagraphStyles, "Heading%d" % level)
         p = Paragraph(style)
-        p.append(text.decode('utf-8'))
+        p.append(text)
         return p
 
     def write(self):
@@ -313,12 +320,12 @@ class RTFDoc(object):
 
         for key, value in data.items():
             if key not in self.description_fields and value:
-                item = (display(key) + ": " + value).decode('utf-8')
+                item = display(key) + ": " + value
                 self.new_para(section, metass).append(item)
 
         for field in self.description_fields:
             if data[field]:
                 if len(self.description_fields) > 1:
-                    data[field] = (field + ': ' + data[field]).decode('utf-8')
+                    data[field] = field + ': ' + data[field]
                 for para in get_paragraph_list(data[field]):
                     self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
