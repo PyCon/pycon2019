@@ -294,7 +294,7 @@ class RTFDoc(object):
     def new_title(self, text, level=1):
         style = getattr(self.ss.ParagraphStyles, "Heading%d" % level)
         p = Paragraph(style)
-        p.append(text)
+        p.append(text.decode('utf-8'))
         return p
 
     def write(self):
@@ -313,12 +313,12 @@ class RTFDoc(object):
 
         for key, value in data.items():
             if key not in self.description_fields and value:
-                item = display(key) + ": " + value
+                item = (display(key) + ": " + value).decode('utf-8')
                 self.new_para(section, metass).append(item)
 
         for field in self.description_fields:
             if data[field]:
                 if len(self.description_fields) > 1:
-                    data[field] = field + ': ' + data[field]
+                    data[field] = (field + ': ' + data[field]).decode('utf-8')
                 for para in get_paragraph_list(data[field]):
                     self.new_para(section, self.ss.ParagraphStyles.Normal).append(para)
