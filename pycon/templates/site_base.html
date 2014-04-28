@@ -49,7 +49,6 @@
 {% endblock %}
 
 {% block topbar_base %}
-    {% include "_messages.html" %}
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
@@ -90,6 +89,7 @@
                 </div>
             </div>
             <div class="page-content">
+                {% include "_messages.html" %}
                 {% block page_content %}
                 <div class="container">
 
