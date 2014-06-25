@@ -64,7 +64,7 @@ SITE_ID = 1
 # Conference ID and any URL prefixes
 CONFERENCE_ID = 1
 CONFERENCE_URL_PREFIXES = {
-    1: "2014",
+    1: "2015",
 }
 
 
@@ -271,8 +271,8 @@ ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 LOGIN_ERROR_URL = reverse_lazy("account_login")
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2014/dashboard/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2015/dashboard/"
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2015/dashboard/"
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
@@ -283,7 +283,7 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-DEFAULT_FROM_EMAIL = "PyCon 2014 <no-reply@us.pycon.org>"
+DEFAULT_FROM_EMAIL = "PyCon 2015 <no-reply@us.pycon.org>"
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
