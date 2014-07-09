@@ -7,6 +7,12 @@ from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
 class SponsorApplicationForm(forms.ModelForm):
+
+    class Meta:
+        model = Sponsor
+        fields = ["name", "contact_name", "contact_email", "contact_phone",
+                  "contact_address", "level", "wants_table", "wants_booth"]
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         kwargs.update({
@@ -16,10 +22,6 @@ class SponsorApplicationForm(forms.ModelForm):
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
-
-    class Meta:
-        model = Sponsor
-        fields = ["name", "contact_name", "contact_email", "level"]
 
     def save(self, commit=True):
         obj = super(SponsorApplicationForm, self).save(commit=False)

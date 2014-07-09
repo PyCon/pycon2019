@@ -34,24 +34,28 @@ class SponsorAdmin(admin.ModelAdmin):
     list_per_page = 1000000  # Do not limit sponsors per page, just one big page
     fieldsets = [
         (None, {
-            "fields": [
-                ("name", "applicant"),
-                ("level", "active"),
-                "external_url",
-                "display_url",
-                "annotation",
-                ("contact_name", "contact_email")
-            ]
+            "fields": ["name", "applicant", "level", "external_url",
+                       "display_url", "annotation",
+                       ("active", "approval_time")],
+        }),
+        ("Desired benefits", {
+            "fields": ["wants_table", "wants_booth"],
+        }),
+        ("Contact Information", {
+            "fields": ["contact_name", "contact_email", "contact_phone",
+                       "contact_address"],
         }),
         ("Metadata", {
             "fields": ["added"],
-            "classes": ["collapse"]
+            "classes": ["collapse"],
         })
     ]
     inlines = [SponsorBenefitInline]
     # NB: We add to list_display and list_filter below
-    list_display = ["name", "active", "level", "contact", "applicant_field"]
+    list_display = ["name", "level", "contact", "applicant_field", "active",
+                    "approval_time"]
     list_filter = ["level", "active"]
+    readonly_fields = ["approval_time"]
 
     def contact(self, sponsor):
         return mark_safe('<a href="mailto:%s">%s</a>' % (escape(sponsor.contact_email), escape(sponsor.contact_name)))
