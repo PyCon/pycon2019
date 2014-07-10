@@ -6,17 +6,17 @@ from zipfile import ZipFile
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit,\
-    SponsorLevel
 from symposion.conference.models import current_conference
+
+from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
 
 
 class TestSponsorZipDownload(TestCase):
+
     def setUp(self):
         self.user = User.objects.create_user(username='joe',
                                              email='joe@example.com',
@@ -41,9 +41,12 @@ class TestSponsorZipDownload(TestCase):
         self.text_benefit = Benefit.objects.create(name="text", type="text")
         self.file_benefit = Benefit.objects.create(name="file", type="file")
         # These names must be spelled exactly this way:
-        self.weblogo_benefit = Benefit.objects.create(name="Web logo", type="weblogo")
-        self.printlogo_benefit = Benefit.objects.create(name="Print logo", type="file")
-        self.advertisement_benefit = Benefit.objects.create(name="Advertisement", type="file")
+        self.weblogo_benefit = Benefit.objects.create(
+            name="Web logo", type="weblogo")
+        self.printlogo_benefit = Benefit.objects.create(
+            name="Print logo", type="file")
+        self.advertisement_benefit = Benefit.objects.create(
+            name="Advertisement", type="file")
 
     def validate_response(self, rsp, names_and_sizes):
         # Ensure a response from the view looks right, contains a valid
@@ -230,78 +233,3 @@ class TestSponsorZipDownload(TestCase):
             if hasattr(self, 'temp_dir'):
                 # Clean up any temp media files
                 shutil.rmtree(self.temp_dir)
-
-
-class TestBenefitValidation(TestCase):
-    """
-    It should not be possible to save a SponsorBenefit if it has the
-    wrong kind of data in it - e.g. a text-type benefit cannot have
-    an uploaded file, and vice-versa.
-    """
-    def setUp(self):
-        # we need a sponsor
-        conference = current_conference()
-        self.sponsor_level = SponsorLevel.objects.create(
-            conference=conference, name="Lead", cost=1)
-        self.sponsor = Sponsor.objects.create(
-            name="Big Daddy",
-            level=self.sponsor_level,
-        )
-
-        # Create our benefit types
-        self.text_type = Benefit.objects.create(name="text", type="text")
-        self.file_type = Benefit.objects.create(name="file", type="file")
-        self.weblogo_type = Benefit.objects.create(name="log", type="weblogo")
-        self.simple_type = Benefit.objects.create(name="simple", type="simple")
-
-    def validate(self, should_work, benefit_type, upload, text):
-        obj = SponsorBenefit(
-            benefit=benefit_type,
-            sponsor=self.sponsor,
-            upload=upload,
-            text=text
-        )
-        if should_work:
-            obj.save()
-        else:
-            with self.assertRaises(ValidationError):
-                obj.save()
-
-    def test_text_has_text(self):
-        self.validate(True, self.text_type, upload=None, text="Some text")
-
-    def test_text_has_upload(self):
-        self.validate(False, self.text_type, upload="filename", text='')
-
-    def test_text_has_both(self):
-        self.validate(False, self.text_type, upload="filename", text="Text")
-
-    def test_file_has_text(self):
-        self.validate(False, self.file_type, upload=None, text="Some text")
-
-    def test_file_has_upload(self):
-        self.validate(True, self.file_type, upload="filename", text='')
-
-    def test_file_has_both(self):
-        self.validate(False, self.file_type, upload="filename", text="Text")
-
-    def test_weblogo_has_text(self):
-        self.validate(False, self.weblogo_type, upload=None, text="Some text")
-
-    def test_weblogo_has_upload(self):
-        self.validate(True, self.weblogo_type, upload="filename", text='')
-
-    def test_weblogo_has_both(self):
-        self.validate(False, self.weblogo_type, upload="filename", text="Text")
-
-    def test_simple_has_neither(self):
-        self.validate(True, self.simple_type, upload=None, text='')
-
-    def test_simple_has_text(self):
-        self.validate(True, self.simple_type, upload=None, text="Some text")
-
-    def test_simple_has_upload(self):
-        self.validate(False, self.simple_type, upload="filename", text='')
-
-    def test_simple_has_both(self):
-        self.validate(False, self.simple_type, upload="filename", text="Text")
