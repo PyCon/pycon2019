@@ -1,7 +1,8 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from symposion.conference.models import current_conference
+from symposion.conference.models import current_conference, Conference
 
 from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
 
@@ -15,6 +16,7 @@ class TestBenefitValidation(TestCase):
 
     def setUp(self):
         # we need a sponsor
+        Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         conference = current_conference()
         self.sponsor_level = SponsorLevel.objects.create(
             conference=conference, name="Lead", cost=1)

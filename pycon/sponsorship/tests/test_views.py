@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from symposion.conference.models import current_conference
+from symposion.conference.models import current_conference, Conference
 
 from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
 
@@ -28,6 +28,7 @@ class TestSponsorZipDownload(TestCase):
                                           password='joe'))
 
         # we need a sponsor
+        Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         conference = current_conference()
         self.sponsor_level = SponsorLevel.objects.create(
             conference=conference, name="Lead", cost=1)
