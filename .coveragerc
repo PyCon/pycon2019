@@ -1,0 +1,3 @@
+[run]
+source = pycon,symposion
+omit = */tests/*,*/migrations/*,*/wsgi.py,*/tests.py,*/settings/*
