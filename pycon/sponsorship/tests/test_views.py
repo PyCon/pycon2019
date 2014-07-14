@@ -12,7 +12,12 @@ from django.test.utils import override_settings
 
 from symposion.conference.models import current_conference, Conference
 
+from pycon.tests.base import ViewTestMixin
+from pycon.tests.factories import UserFactory
+
 from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
+
+from .factories import SponsorLevelFactory
 
 
 class TestSponsorZipDownload(TestCase):
@@ -234,3 +239,51 @@ class TestSponsorZipDownload(TestCase):
             if hasattr(self, 'temp_dir'):
                 # Clean up any temp media files
                 shutil.rmtree(self.temp_dir)
+
+
+class TestSponsorApply(ViewTestMixin, TestCase):
+    url_name = 'sponsor_apply'
+
+    def setUp(self):
+        super(TestSponsorApply, self).setUp()
+        self.user = UserFactory()
+        self.login_user(self.user)
+        self.sponsor_level = SponsorLevelFactory()
+        self.data = {
+            'name': 'Sponsor',
+            'contact_name': self.user.get_full_name(),
+            'contact_email': self.user.email,
+            'contact_phone': '336-867-5309',
+            'contact_address': '123 Main Street, Anytown, NC 90210',
+            'level': self.sponsor_level.pk,
+            'wants_table': True,
+            'wants_booth': True,
+        }
+
+    def test_get_unauthenticated(self):
+        self.client.logout()
+        response = self.client.get(reverse(self.url_name))
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_unauthenticated(self):
+        self.client.logout()
+        response = self.client.post(reverse(self.url_name), data=self.data)
+        self.assertRedirectsToLogin(response)
+
+    def test_get(self):
+        response = self.client.get(reverse(self.url_name))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context)
+        self.assertFalse(response.context['form'].is_bound)
+
+    def test_post_valid(self):
+        response = self.client.post(reverse(self.url_name), data=self.data)
+        self.assertRedirectsNoFollow(response, reverse('dashboard'))
+        self.assertEqual(Sponsor.objects.count(), 1)
+
+    def test_post_invalid(self):
+        response = self.client.post(reverse(self.url_name), data={})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context)
+        self.assertTrue(response.context['form'].is_bound)
+        self.assertFalse(response.context['form'].is_valid())
