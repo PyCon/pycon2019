@@ -366,7 +366,7 @@ def finaid_download_csv(request):
         return HttpResponseForbidden(_(u"Not authorized for this page"))
 
     # Fields to include
-    application_field_names = [
+    application_field_names = ['id'] + [
         name for name in FinancialAidApplication._meta.get_all_field_names()
         if name not in ['id', 'review']
     ] + ['email']
