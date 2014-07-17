@@ -246,22 +246,25 @@ def _store_initial_level(sender, instance, **kwargs):
 post_init.connect(_store_initial_level, sender=Sponsor)
 
 
-def _store_initial_active(sender, instance, **kwargs):
-    if instance:
-        instance._initial_active = instance.active
-post_init.connect(_store_initial_active, sender=Sponsor)
-
-
 def _check_level_change(sender, instance, created, **kwargs):
     if instance and (created or instance.level_id != instance._initial_level_id):
         instance.reset_benefits()
 post_save.connect(_check_level_change, sender=Sponsor)
 
 
+def _store_initial_active(sender, instance, **kwargs):
+    if instance:
+        instance._initial_active = instance.active
+post_init.connect(_store_initial_active, sender=Sponsor)
+post_save.connect(_store_initial_active, sender=Sponsor)
+
+
 def _check_active_change(sender, instance, **kwargs):
-    if instance and (instance.active != instance._initial_active):
+    if instance:
         if instance.active:
-            instance.approval_time = datetime.datetime.now()
+            if not instance._initial_active or not instance.approval_time:
+                # Instance is newly active.
+                instance.approval_time = datetime.datetime.now()
         else:
             instance.approval_time = None
 pre_save.connect(_check_active_change, sender=Sponsor)

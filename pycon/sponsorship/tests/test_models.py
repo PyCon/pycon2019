@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.test import TestCase
@@ -5,6 +7,52 @@ from django.test import TestCase
 from symposion.conference.models import current_conference, Conference
 
 from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
+from .factories import SponsorFactory
+
+
+class TestApprovalTimestamp(TestCase):
+
+    def test_initial_active_true(self):
+        """
+        New Sponsor should have _initial_active and approval_time set
+        correctly.
+        """
+        sponsor = SponsorFactory(active=True, approval_time=None)
+        self.assertTrue(sponsor._initial_active)
+        self.assertIsNotNone(sponsor.approval_time)
+
+    def test_initial_active_false(self):
+        """
+        New Sponsor should have _initial_active and approval_time set
+        correctly.
+        """
+        sponsor = SponsorFactory(active=False, approval_time=None)
+        self.assertFalse(sponsor._initial_active)
+        self.assertIsNone(sponsor.approval_time)
+
+    def test_set_approval(self):
+        """
+        Saved Sponsor should have _initial_active and approval_time set
+        correctly.
+        """
+        sponsor = SponsorFactory(active=False)
+
+        sponsor.active = True
+        sponsor.save()
+        self.assertIsNotNone(sponsor.approval_time)
+        self.assertTrue(sponsor._initial_active)
+
+    def test_unset_approval(self):
+        """
+        Saved Sponsor should have _initial_active and approval_time set
+        correctly.
+        """
+        sponsor = SponsorFactory(active=True)
+
+        sponsor.active = False
+        sponsor.save()
+        self.assertIsNone(sponsor.approval_time)
+        self.assertFalse(sponsor._initial_active)
 
 
 class TestBenefitValidation(TestCase):
