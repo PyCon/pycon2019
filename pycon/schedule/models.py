@@ -30,10 +30,11 @@ class Session(models.Model):
             return None
 
     def __unicode__(self):
-        start = self.start().strftime('%X')
-        end = self.end().strftime('%X')
+        start = self.start()
+        end = self.end()
         if start and end:
-            return "{}: {} - {}".format(self.day, start, end)
+            return "{}: {} - {}".format(
+                self.day, start.strftime('%X'), end.strftime('%X'))
         return ""
 
 
