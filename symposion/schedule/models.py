@@ -22,7 +22,7 @@ class Day(models.Model):
     date = models.DateField()
 
     def __unicode__(self):
-        return u"%s" % self.date
+        return "{} {}".format(self.date, self.schedule.section.name)
 
     class Meta:
         unique_together = [("schedule", "date")]
