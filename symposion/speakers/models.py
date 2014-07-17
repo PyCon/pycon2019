@@ -45,6 +45,9 @@ class Speaker(models.Model):
                     u"your proposals.")
     )
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         if self.user:
             return self.name

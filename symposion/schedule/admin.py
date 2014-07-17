@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from symposion.proposals.models import ProposalBase
 from symposion.schedule.models import Schedule, Day, Room, SlotKind, Slot, \
     SlotRoom, Presentation
 
@@ -13,6 +14,7 @@ admin.site.register(SlotRoom, list_display=("slot", "room"))
 
 
 class PresentationAdmin(admin.ModelAdmin):
+    filter_horizontal = ['additional_speakers']
     list_display = (
         'number',
         'title',
@@ -39,6 +41,13 @@ class PresentationAdmin(admin.ModelAdmin):
         'abstract',
         'section__name',
     )
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'proposal_base':
+            kwargs['queryset'] = ProposalBase.objects.order_by('title')
+        if db_field.name == 'slot':
+            kwargs['queryset'] = Slot.objects.order_by('day__date', 'start', 'end')
+        return super(PresentationAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def number(self, presentation):
         return presentation.proposal_base.number
