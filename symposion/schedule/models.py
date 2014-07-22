@@ -107,7 +107,9 @@ class Slot(models.Model):
         return datetime.combine(self.day.date, self.end)
 
     def __unicode__(self):
-        return u"%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
+        return u'{} - {} to {} - {} in {}'.format(
+            self.day.date, self.start, self.end, self.kind,
+            ', '.join(self.slotroom_set.values_list('room__name', flat=True)))
 
     class Meta:
         ordering = ["day", "start", "end"]
