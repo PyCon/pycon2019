@@ -54,7 +54,7 @@ class SlotKind(models.Model):
 class Slot(models.Model):
 
     day = models.ForeignKey(Day)
-    kind = models.ForeignKey(SlotKind)
+    kind = models.ForeignKey(SlotKind, verbose_name='slot kind')
     start = models.TimeField()
     end = models.TimeField()
     content_override = models.TextField(blank=True)

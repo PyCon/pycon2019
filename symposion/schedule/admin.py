@@ -9,8 +9,29 @@ admin.site.register(Schedule, list_display=("section", "published"))
 admin.site.register(Day, list_display=("date", "schedule",))
 admin.site.register(Room, list_display=("name", "schedule"))
 admin.site.register(SlotKind, list_display=("label", "schedule"))
-admin.site.register(Slot, list_display=("day", "start", "end", "kind"))
 admin.site.register(SlotRoom, list_display=("slot", "room"))
+
+
+class SlotAdmin(admin.ModelAdmin):
+    list_display = ['day_schedule', 'day_date', 'start', 'end', 'kind', 'rooms']
+    list_filter = ['kind', 'day__schedule']
+    list_select_related = True
+    ordering = ['day__date', 'start', 'end', 'slotroom__room__name']
+
+    def rooms(self, obj):
+        return ', '.join(obj.slotroom_set.values_list('room__name', flat=True))
+    rooms.admin_order_field = 'slotroom__room__name'
+
+    def day_date(self, obj):
+        return obj.day.date
+    day_date.admin_order_field = 'day__date'
+
+    def day_schedule(self, obj):
+        return obj.day.schedule.section.name
+    day_schedule.admin_order_field = 'day__schedule__section__name'
+
+
+admin.site.register(Slot, SlotAdmin)
 
 
 class PresentationAdmin(admin.ModelAdmin):
