@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_init, post_save
+from django.db.models.signals import post_init, post_save, pre_save
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
@@ -78,9 +78,19 @@ class Sponsor(models.Model):
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
     contact_email = models.EmailField(_(u"Contact Email"))
+    contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
+    contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
     added = models.DateTimeField(_("added"), default=datetime.datetime.now)
+
     active = models.BooleanField(_("active"), default=False)
+    approval_time = models.DateTimeField(null=True, blank=True, editable=False)
+
+    wants_table = models.BooleanField(
+        _("Does your organization want a table at the job fair?"), default=False)
+    wants_booth = models.BooleanField(
+        _("Does your organization want a booth on the expo floor?"), default=False)
+
 
     # Denormalization (this assumes only one logo)
     sponsor_logo = models.ForeignKey("SponsorBenefit", related_name="+", null=True, blank=True, editable=False)
@@ -240,6 +250,24 @@ def _check_level_change(sender, instance, created, **kwargs):
     if instance and (created or instance.level_id != instance._initial_level_id):
         instance.reset_benefits()
 post_save.connect(_check_level_change, sender=Sponsor)
+
+
+def _store_initial_active(sender, instance, **kwargs):
+    if instance:
+        instance._initial_active = instance.active
+post_init.connect(_store_initial_active, sender=Sponsor)
+post_save.connect(_store_initial_active, sender=Sponsor)
+
+
+def _check_active_change(sender, instance, **kwargs):
+    if instance:
+        if instance.active:
+            if not instance._initial_active or not instance.approval_time:
+                # Instance is newly active.
+                instance.approval_time = datetime.datetime.now()
+        else:
+            instance.approval_time = None
+pre_save.connect(_check_active_change, sender=Sponsor)
 
 
 def _send_sponsor_notification_emails(sender, instance, created, **kwargs):
