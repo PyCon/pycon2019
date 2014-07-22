@@ -79,7 +79,7 @@ class Sponsor(models.Model):
     contact_name = models.CharField(_("Contact Name"), max_length=100)
     contact_email = models.EmailField(_(u"Contact Email"))
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
-    contact_address = models.CharField(_(u"Contact Address"), max_length=255)
+    contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
     added = models.DateTimeField(_("added"), default=datetime.datetime.now)
 

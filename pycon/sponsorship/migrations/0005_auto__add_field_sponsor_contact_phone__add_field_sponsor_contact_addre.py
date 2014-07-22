@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'Sponsor.contact_address'
         db.add_column(u'sponsorship_sponsor', 'contact_address',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=255),
+                      self.gf('django.db.models.fields.TextField')(default=''),
                       keep_default=False)
 
         # Adding field 'Sponsor.approval_time'
@@ -100,7 +100,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Benefit'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
             'type': ('django.db.models.fields.CharField', [], {'default': "'simple'", 'max_length': '10'})
         },
         u'sponsorship.benefitlevel': {
@@ -120,7 +120,7 @@ class Migration(SchemaMigration):
             'applicant': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sponsorships'", 'null': 'True', 'to': u"orm['auth.User']"}),
             'approval_time': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'company_description_benefit': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
-            'contact_address': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'contact_address': ('django.db.models.fields.TextField', [], {}),
             'contact_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'contact_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'contact_phone': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
