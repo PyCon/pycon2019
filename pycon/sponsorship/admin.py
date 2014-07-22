@@ -100,17 +100,22 @@ class SponsorAdmin(admin.ModelAdmin):
 
 
 class BenefitAdmin(admin.ModelAdmin):
-
     inlines = [BenefitLevelInline]
-    list_display = ('name', 'type', 'levels')
+    list_display = ['name', 'type', 'levels']
+    list_filter = ['benefit_levels__level']
 
     def levels(self, benefit):
         return u", ".join(l.level.name for l in benefit.benefit_levels.all())
 
 
 class SponsorLevelAdmin(admin.ModelAdmin):
-
+    list_display = ['name', 'order', 'cost', 'benefits']
+    list_editable = ['order']
+    list_filter = ['conference', 'benefit_levels__benefit']
     inlines = [BenefitLevelInline]
+
+    def benefits(self, obj):
+        return ', '.join(obj.benefit_levels.values_list('benefit__name', flat=True))
 
 
 admin.site.register(SponsorLevel, SponsorLevelAdmin)

@@ -278,7 +278,7 @@ post_save.connect(_send_sponsor_notification_emails, sender=Sponsor)
 
 class Benefit(models.Model):
 
-    name = models.CharField(_("name"), max_length=100)
+    name = models.CharField(_("name"), max_length=100, unique=True)
     description = models.TextField(_("description"), blank=True)
     type = models.CharField(
         _("type"),
