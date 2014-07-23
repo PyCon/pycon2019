@@ -33,12 +33,9 @@ class Session(models.Model):
         start = self.start()
         end = self.end()
         if start and end:
-            return u"%s: %s - %s" % (
-                self.day.date.strftime("%a"),
-                start.strftime("%X"),
-                end.strftime("%X")
-            )
-        return u""
+            return "{}: {} - {}".format(
+                self.day, start.strftime('%X'), end.strftime('%X'))
+        return ""
 
 
 class SessionRole(models.Model):
