@@ -30,13 +30,16 @@
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container"> 
+            <a class="logo-smaller" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
             <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
                 {% block account_bar %}
                 {% include "_account_bar.html" %}
                 {% endblock %}
             </div>
             {% block main_nav %}
-                <nav>                   
+                <nav>
+                    <a class="logo-small" href="{% url 'home' %}">PyCon 2014 in Montr&#233;al</a>
+                   
                     <div class="navbar navbar-inverse">
                         <div class="navbar-inner">
 
