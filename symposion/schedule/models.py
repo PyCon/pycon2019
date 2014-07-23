@@ -22,7 +22,7 @@ class Day(models.Model):
     date = models.DateField()
 
     def __unicode__(self):
-        return u"%s" % self.date
+        return "{} {}".format(self.date, self.schedule.section.name)
 
     class Meta:
         unique_together = [("schedule", "date")]
@@ -54,7 +54,7 @@ class SlotKind(models.Model):
 class Slot(models.Model):
 
     day = models.ForeignKey(Day)
-    kind = models.ForeignKey(SlotKind)
+    kind = models.ForeignKey(SlotKind, verbose_name='slot kind')
     start = models.TimeField()
     end = models.TimeField()
     content_override = models.TextField(blank=True)
@@ -107,7 +107,9 @@ class Slot(models.Model):
         return datetime.combine(self.day.date, self.end)
 
     def __unicode__(self):
-        return u"%s %s (%s - %s)" % (self.day, self.kind, self.start, self.end)
+        return u'{} - {} to {} - {} in {}'.format(
+            self.day.date, self.start, self.end, self.kind,
+            ', '.join(self.slotroom_set.values_list('room__name', flat=True)))
 
     class Meta:
         ordering = ["day", "start", "end"]

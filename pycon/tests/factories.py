@@ -1,5 +1,10 @@
-import factory
 import random
+
+import factory
+import factory.django
+import factory.fuzzy
+
+from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
     PyConTalkProposal, PyConTutorialProposal
@@ -8,7 +13,16 @@ from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
 
 
-class PyConProposalCategoryFactory(factory.DjangoModelFactory):
+class UserFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = auth.User
+
+    username = factory.fuzzy.FuzzyText()
+    first_name = factory.fuzzy.FuzzyText()
+    last_name = factory.fuzzy.FuzzyText()
+    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
+
+
+class PyConProposalCategoryFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = PyConProposalCategory
 
 

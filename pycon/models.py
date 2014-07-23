@@ -14,6 +14,7 @@ class PyConProposalCategory(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['name']
         verbose_name = "PyCon proposal category"
         verbose_name_plural = "PyCon proposal categories"
 
