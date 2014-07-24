@@ -27,13 +27,13 @@
                     </div>
                     <div class="schedule span9">
                         <ul>
-                            <li class="box-shadow"><strong>{% trans "Tutorials" %}</strong> April 9&ndash;10</li>
-                            <li class="box-shadow"><strong>{% trans "Conference" %}</strong> April 11&ndash;13</li>
-                            <li class="box-shadow"><strong>{% trans "Sprints" %}</strong> April 14&ndash;17</li>
+                            <li class="box-shadow"><strong>{% trans "Tutorials" %}</strong> April 8&ndash;9</li>
+                            <li class="box-shadow"><strong>{% trans "Conference" %}</strong> April 10&ndash;12</li>
+                            <li class="box-shadow"><strong>{% trans "Sprints" %}</strong> April 13&ndash;16</li>
                             {% if config.REGISTRATION_STATUS != 'open' %}
                             <li class="box-shadow promo no-link">
                                 {% if config.REGISTRATION_STATUS == 'soon' %}
-                                    <p>{% trans "Register Fall 2013" %}</p>
+                                    <p>{% trans "Register Fall 2014" %}</p>
                                 {% elif config.REGISTRATION_STATUS == 'closed' %}
                                     <p class="small">{% trans "Registration Closed" %}</p>
                                 {% else %}
@@ -112,8 +112,9 @@
         <div class="col-centered">
             <h1 class="scroll-title col-centered">{% trans "Announcements" %}</h1>
             <div class="col-centered span6 horizontalline"></div>
-            {% latest_blog_posts as posts %}
-            {% for post in posts|slice:"3" %}         
+            <div class="col-centered container span12">
+                {% latest_blog_posts as posts %}
+                {% for post in posts|slice:"3" %}         
                 <div class="span4">
                     <div class="blog-post">
                         <div class="post-content">
@@ -125,6 +126,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             {% empty %}
                 <div class="col-centered span4">
                     <div class="blog-post">
@@ -136,179 +138,86 @@
             {% endfor %}
         </div>
 {# schedule #}
-    <div class="row col-centered">
-    <h1 class="scroll-title">Schedule</h1>
-    <div class="col-centered span6 horizontalline"></div>
-        <div class="span6 ">
-            <div class="home-schedule">
-                <div class="col-1 tutorial">
-                    <h3>Wednesday, April 9th:</h3>
-                    {# {% box "homepage-schedule" %} #}
-                    <ul>
-                        <li>
-                            <p>PyCon Tutorials</p>
-                        </li>
-                        <li>
-                            <p>Sponsor Workshops</p>
-                        </li>
-                    </ul>
+        <div class="row col-centered">
+            <h1 class="scroll-title">Schedule</h1>
+            <div class="col-centered span6 horizontalline"></div>
+            <div class="span6 ">
+                <div class="home-schedule">
+                    <div class="col-1 tutorial">
+                        <h3>Wednesday, April 8th:</h3>
+                        {% box "homepage-schedule-day1" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="home-schedule">
+                    <div class="col-2 tutorial">
+                        <h3>Thursday, April 9th:</h3>
+                        {% box "homepage-schedule-day2" %}   
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="home-schedule">
-                <div class="col-2 tutorial">
-                    <h3>Thursday, April 10th:</h3>
-                    <ul>
-                        <li>
-                            <p>PyCon Tutorials</p>
-                        </li>
-                        <li>
-                            <p>Sponsor Workshops</p>
-                        </li>
-                        <li>
-                            <p>Education Summit</p>
-                        </li>
-                        <li>
-                            <p>Python on Rails</p>
-                        </li>
-                        <li>
-                            <p>Opening Reception</p>
-                        </li>
-                    </ul>   
+        <div class="row col-centered">
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-1 conference">
+                        <h3 class="day">Friday, April 10th:</h3>
+                        {% box "homepage-schedule-day3" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-2 conference">
+                        <h3>Saturday, April 11th:</h3>
+                        {% box "homepage-schedule-day4" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-3 conference">
+                        <h3>Sunday, April 12th:</h3>
+                        {% box "homepage-schedule-day5" %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row col-centered">
-        <div class="span4">
-            <div class="home-schedule">
-                <div class="col-1 conference">
-                    <h3 class="day">Friday, April 11th:</h3>
-                    <ul>
-                        <li>
-                            <p>Conference</p>
-                        </li>
-                        <li>
-                            <p>PyCon Dinners</p>
-                        </li>
-                        <li>
-                            <p>Expo Hall</p>
-                        </li>
-                    </ul>
+        <div class="row col-centered">
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-1 sprints">
+                        <h3 class="day">Friday, April 13th:</h3>
+                        {% box "homepage-schedule-day6" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-2 sprints">
+                        <h3>Wednesday, April 14th:</h3>
+                        {% box "homepage-schedule-day7" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-3 sprints">
+                        <h3>Thursday, April 15th:</h3>
+                        {% box "homepage-schedule-day8" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-4 sprints">
+                        <h3 class="day">Friday, April 16th:</h3>
+                        {% box "homepage-schedule-day9" %}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="home-schedule">
-                <div class="col-2 conference">
-                    <h3>Saturday, April 12th:</h3>
-                    {# {% box "homepage-schedule" %} #}
-                    <ul>
-                        <li>
-                            <p>5k Charity fun run</p>
-                        </li>
-                        <li>
-                            <p>Charity Auction</p>
-                        </li>
-                        <li>
-                            <p>Charity Auction</p>
-                        </li>
-                        <li>
-                            <p>Charity Auction</p>
-                        </li>
-                        <li>
-                            <p>Charity Auction</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="home-schedule">
-                <div class="col-3 conference">
-                    <h3>Sunday, April 13th:</h3>
-                    <ul>
-                        <li>
-                            <p>PyCon Tutorials</p>
-                        </li>
-                        <li>
-                            <p>Sponsor Workshops</p>
-                        </li>
-                        <li>
-                            <p>Education Summit</p>
-                        </li>
-                        <li>
-                            <p>Python on Rails</p>
-                        </li>
-                        <li>
-                            <p>Opening Reception</p>
-                        </li>
-                        <li>
-                            <p>Opening Reception</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row col-centered">
-        <div class="span3">
-            <div class="home-schedule">
-                <div class="col-1 sprints">
-                    <h3 class="day">Friday, April 11th:</h3>
-                    <ul>
-                        <li>
-                            <p>Sprints</p>
-                        </li>
-                        <li>
-                            <p>Software Carpentry Classes</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="span3">
-            <div class="home-schedule">
-                <div class="col-2 sprints">
-                    <h3>Wednesday, April 9th:</h3>
-                    {# {% box "homepage-schedule" %} #}
-                    <ul>
-                        <li>
-                            <p>Sprints</p>
-                        </li>
-                        <li>
-                            <p>Software Carpentry Classes</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="span3">
-            <div class="home-schedule">
-                <div class="col-3 sprints">
-                    <h3>Thursday, April 10th:</h3>
-                    <ul>
-                        <li>
-                            <p>Sprints</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="span3">
-            <div class="home-schedule">
-                <div class="col-4 sprints">
-                    <h3 class="day">Friday, April 11th:</h3>
-                    <ul>
-                        <li>
-                            <p>Sprints</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 {# About #}
         <div class="col12 col-centered">
             <h1 class="scroll-title">About</h1>
