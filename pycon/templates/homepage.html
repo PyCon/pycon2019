@@ -46,7 +46,7 @@
                                 <span itemprop="country-name">Canada</span>,
                                 <time itemprop="startDate" datetime="2015-4-8">April 8</time>&ndash;
                                 <time itemprop="endDate" datetime="2015-4-16">16</time>
-                            </div> 
+                            </div>
                             {% if config.REGISTRATION_STATUS == 'open' %}
                                 <li class="promo box-shadow" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                                    <a href="{% url 'registration_start' %}">REGISTER</a>
@@ -55,7 +55,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -114,28 +114,28 @@
             <div class="col-centered span6 horizontalline"></div>
             <div class="col-centered container span12">
                 {% latest_blog_posts as posts %}
-                {% for post in posts|slice:"3" %}         
-                <div class="span4">
-                    <div class="blog-post">
-                        <div class="post-content">
-                            <h2>{{ post.title }}</h2>
-                            {% blocktrans with author=post.author.get_full_name %}
-                              <p class="post_dateline">by <span class="author">{{ author }}</span></p>
-                            {% endblocktrans %}
-                            <div class="teaser">{{ post.teaser_html|safe }}</div>
+                {% for post in posts|slice:"3" %}
+                    <div class="span4">
+                        <div class="blog-post">
+                            <div class="post-content">
+                                <h2>{{ post.title }}</h2>
+                                {% blocktrans with author=post.author.get_full_name %}
+                                  <p class="post_dateline">by <span class="author">{{ author }}</span></p>
+                                {% endblocktrans %}
+                                <div class="teaser">{{ post.teaser_html|safe }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% empty %}
+                    <div class="col-centered span4">
+                        <div class="blog-post">
+                            <div class="post-content">
+                                <p>{% trans "No announcements have been published." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% empty %}
-                <div class="col-centered span4">
-                    <div class="blog-post">
-                        <div class="post-content">
-                            <p>{% trans "No announcements have been published." %}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
 {# schedule #}
         <div class="row col-centered">
@@ -153,7 +153,7 @@
                 <div class="home-schedule">
                     <div class="col-2 tutorial">
                         <h3>Thursday, April 9th:</h3>
-                        {% box "homepage-schedule-day2" %}   
+                        {% box "homepage-schedule-day2" %}
                     </div>
                 </div>
             </div>
