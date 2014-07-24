@@ -112,7 +112,7 @@
         <div class="col-centered">
             <h1 class="scroll-title col-centered">{% trans "Announcements" %}</h1>
             <div class="col-centered span6 horizontalline"></div>
-            <div class="col-centered container span12">
+            <div class="row">
                 {% latest_blog_posts as posts %}
                 {% for post in posts|slice:"3" %}
                     <div class="span4">
