@@ -75,6 +75,11 @@
                 <h1 class="scroll-title">Sponsors</h1>
                 <div class="col-centered span6 horizontalline"></div>
                 {% sponsors "diamond" as diamond_sponsors %}
+                {% if config.SPONSOR_APPLICATION %}
+                <div class="sponsorship-link">
+                  {% include "_sponsorship_link.html" %}
+                </div>
+                {% endif %}
                 <div id="sponsorslider" class="carousel slide">
                     <!-- Carousel items -->
                     <div class="carousel-inner">
