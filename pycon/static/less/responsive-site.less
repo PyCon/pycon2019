@@ -6,11 +6,12 @@
 /* Variables
 ==================== */
 @breakDesktopXL:			1600px;
+@breakDesktopXLS:           1400px;
 @breakDesktopLarge:			1200px;
 @breakDesktop:				979px;
 @breakTablet:				767px;
 @breakMobileLandscape:		480px;
-@breakMobile:				320px;
+@breakMobile:				321px;
 
 
 /* Generic
@@ -197,19 +198,22 @@ body.home {
 	@media (max-width: @breakDesktopXL) {
 		.banner {
 			min-height: 570px;
-	    	padding-top: 90px;
+	    	padding-top: 65px;
+		}
+	}
+	@media (max-width: @breakDesktopXLS) {
+		.banner {
+			min-height: 505px;
 		}
 	}
 	@media (max-width: @breakDesktopLarge) {
 		.banner {
 			min-height: 440px;
-	    	padding-top: 90px;
 		}
 	}
 	@media (max-width: @breakTablet) {
 		.banner {
 			min-height: 300px;
-	    	padding-top: 75px;
 	    	.logo {
 	    		max-width: 180px;
 	    	}
@@ -218,16 +222,24 @@ body.home {
 	@media (max-width: @breakMobileLandscape) {
 		.banner {
 			min-height: 200px;
-	    	padding-top: 75px;
+	    	padding-top: 65px;
 	    	.logo {
-	    		text-align: center;
+	    		margin: 0 auto;
 	    	}
 		}
 	}
 	@media (max-width: @breakMobile) {
 		.banner {
-			min-height: 200px;
-	    	padding-top: 75px;
+			background: url("../img/headergraphic.png") no-repeat center 130px;
+			-webkit-background-size: contain;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            background-size: contain;
+			min-height: 180px;
+	    	padding-top: 65px;
+		}
+		.logo {
+			margin: 0 auto;
 		}		
 	}
 	@media (max-width: @breakDesktop) {
@@ -306,10 +318,20 @@ body.home {
 	// 		}
 	// 	}
 	// }
+	.blog-post:first-child {
+		@media (max-width: @breakTablet) {
+			margin: 15px;
+		}
+	}
 	.blog-post {
 		@media (max-width: @breakDesktop) {
 			margin: 15px 0;
-			padding: 10px;
+			padding: 20px;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			margin: 15px;
+			padding: 20px;
+			height: auto;
 		}
 	}
 	.schedule {
@@ -326,40 +348,38 @@ body.home {
 			display: none;
 		}
 	}
-
+	.home-schedule {
 		.tutorial {
 			@media (max-width: @breakDesktop) {
-			  margin: 20px 0;
 			  padding: 10px;
 			  height: 230px;
 			}
 			@media (max-width: @breakTablet) {
-			  margin: 0 0 20px;
-			  padding: 10px;
 			  height: auto;
 			}
 		}
 
 		.conference {
 			@media (max-width: @breakDesktop) {
-			  margin: 20px 0;
 			  padding: 10px;
-			  height: 300px;
+			  height: 290px;
 			}
 			@media (max-width: @breakTablet) {
-			  margin: 0 0 20px;
 			  padding: 10px;
 			  height: auto;
 			}
 		}
 
 		.sprints {
-			@media (max-width: @breakTablet) {
-			  margin: 0 0 20px;
+			@media (max-width: @breakDesktop) {
 			  padding: 10px;
+			  height: 180px;
+			}
+			@media (max-width: @breakTablet) {
 			  height: auto;
 			}
 		}
+	}
 
 	.sponsor-crawl {
 		@media (max-width: @breakMobileLandscape) {
@@ -398,6 +418,19 @@ body.home {
 			width: 100%;
 		}
 	}
+	  /* Slideshow nav
+  ==================== */
+    nav#slider-nav {
+    	@media (max-width: @breakTablet) {
+	    	margin-left: 39%; 
+	    }
+    	@media (max-width: @breakMobileLandscape) {
+	    	margin-left: 35%; 
+	    }
+    	@media (max-width: @breakMobile) {
+	    	margin-left: 27%; 
+	    }
+    }
 	.scroll-title {
 		@media (max-width: @breakTablet) {
 			font-size: 30px;
@@ -454,6 +487,10 @@ body.home {
 		}
 	}
 	.topRightbg {
+		@media (max-width: @breakDesktopXL) {
+	    	top: 320px;
+	    	width: 180px;
+		}
 		@media (max-width: @breakDesktopLarge) {
 	    	top: 350px;
 	    	width: 180px;

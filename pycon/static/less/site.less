@@ -31,19 +31,21 @@
 /* Variables
 ==================== */
 
-@blueLight:   #33c5f4;
-@blueDark:    #27a9e1 !important;
+@blueLight:     #33c5f4;
+@blueDark:      #27a9e1 !important;
 // @blueSky:     #ade2f5;
 
-@greenLight:  #76c34d;
-@greenDark:   #62a83d;
-@yellowBeak:  #f6b34a;
-@yellowLight: #ffcb04;
-@yellowDark:  #FBAF17;
-@grayDark:    #333333;
-@orangeLight: #F68A1E;
+@greenLight:    #76c34d;
+@greenDark:     #62a83d;
+@yellowBeak:    #f6b34a;
+@yellowEXLight: #faed23;
+@yellowLight:   #ffcb04;
+@yellowDark:    #FBAF17;
+@grayDark:      #333333;
+@orangeLight:   #F68A1E;
+@pinkDark:      #990066;
 
-@danger:      #cd0000;
+@danger:        #cd0000;
 
 @button-text:           @white;
 @button-hover:          mix(@grayLight, white, 80%);
@@ -158,7 +160,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 600;
-  color: #00B9F1;
+  color: @grayDark;
 }
 
 // h1 { font-size: @baseFontSize * 2; }
@@ -736,16 +738,17 @@ body.home {
     }
   }
   .banner {
-    background: url("../img/headergraphic.png") no-repeat center 140px;
+    background: url("../img/headergraphic.png") no-repeat center 100px;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
     max-width: 100%;
-    min-height: 680px;
-    padding-top: 90px;
+    min-height: 640px;
+    padding-top: 65px;
     z-index: -1;
     .logo {
+      -webkit-filter: none;
       width: 100%;
       max-width: 250px;
       margin-left: 5px;
@@ -813,7 +816,7 @@ body.home {
         border-bottom: 1px dotted @grayLight;
         padding-bottom: 5px;
         max-width: 300px;
-        margin: 10px auto;
+        margin: 0 auto 10px;
       }
       ul{
         list-style: none;
@@ -833,7 +836,7 @@ body.home {
         border-bottom: 1px dotted @grayLight;
         padding-bottom: 5px;
         max-width: 300px;
-        margin: 10px auto;
+        margin: 0 auto 10px;
       }
       ul{
         list-style: none;
@@ -848,15 +851,15 @@ body.home {
     }
     .tutorial {
       border: 2px solid @yellowLight;
-      margin: 20px 0;
-      padding: 20px;
+      margin: 0 0 20px;
+      padding: 10px 20px;
       border-radius: 4px;
       height: 230px;
     }
 
     .conference {
       border: 2px solid @orangeLight;
-      margin: 20px 0;
+      margin: 0 0 20px;
       padding: 10px;
       border-radius: 4px;
       height: 260px;
@@ -864,7 +867,7 @@ body.home {
 
     .sprints {
       border: 2px solid @blueLight;
-      margin: 20px 0;
+      margin: 0 0 20px;
       padding: 10px;
       border-radius: 4px;
       height: 170px;
@@ -872,28 +875,30 @@ body.home {
   }
 
   .blog-post {
-    margin: 20px 0 40px;
-    padding: 10px;
-    color: white;
+    margin: 0 0 40px;
+    padding: 15px;
+    color: @grayDark;
     border-radius: 4px;
-    background-color: @orangeLight;
+    text-align: left;
+    border: 2px solid @yellowLight;
+    height: 250px;
+    overflow: auto;
     h2 {
-      color: white;
-    }
-    a {
-      color: white;
-      font-weight: 600;
-      border-bottom: 1px dotted white;
-      &:hover {
-        color: white;
-        font-weight: 600;
-        border-bottom: 1px solid white;
-      }
+      color: @grayDark;
+      margin-top: 0;
     }
     p.post_dateline {
-      color: white;
+      color: @grayDark;
       span.author {
-        color: white;
+        color: @grayDark;
+      }
+    }
+    a {
+      color: @grayDark;
+      font-weight: 600;
+      border-bottom: 1px dotted @grayDark;
+      &:hover {
+        border-bottom: 1px solid @grayDark;
       }
     }
 
@@ -922,6 +927,9 @@ body.home {
       font-weight: 600;
     }
   }
+  .blog-post:first-child{
+    margin-left: 0;
+  }
 
   .about {
     margin-top: 60px;
@@ -930,14 +938,14 @@ body.home {
   .horizontalline {
   border-top: 1px dotted @grayLight;
   margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   }
 
   /* Sponsor slideshow
   ==================== */
   .sponsor-crawl {
     position: relative;
-    padding: 20px 0 80px;
+    padding: 0 0 40px;
     width: 100%;
     .sponsorship-link {
       position: absolute;
@@ -996,6 +1004,10 @@ body.home {
 
   .scroll-title {
     margin: 40px 0 5px;
+    text-align: center;
+  }
+  .scroll-title-first {
+    margin: 0 0 5px;
     text-align: center;
   }
 
@@ -1065,12 +1077,15 @@ body.home {
     position: relative;
     top: 0;
   }
+  .shadowed {
+    -webkit-filter: drop-shadow(6px 6px 15px rgba(0,0,0,0.05));
+  }
 
   /* Slideshow nav
   ==================== */
   nav#slider-nav {
     position: relative;
-    margin-left: 42%;
+    margin-left: 43%;    
     a {
       text-indent: -9999px;
       display: block;
