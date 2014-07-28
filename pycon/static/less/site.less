@@ -33,6 +33,7 @@
 
 @blueLight:     #33c5f4;
 @blueDark:      #27a9e1 !important;
+@blueEXDark:    #0099cc;
 // @blueSky:     #ade2f5;
 
 @greenLight:    #76c34d;
@@ -182,10 +183,10 @@ p {
 }
 
 a {
-  color: @blueLight;
+  color: @blueEXDark;
   cursor: pointer;
   &:hover {
-    color: @blueDark;
+    color: @yellowDark;
     .transition(0.25s);
     text-decoration: none;
   }
@@ -315,12 +316,6 @@ footer {
       margin: 0;
       font-size: 1.1em;
       line-height: 1.6em;
-    }
-    a {
-      color: @blueLight;
-      &:hover {
-        color: @blueDark;
-      }
     }
     .footer-left {
       text-align: right;
@@ -891,14 +886,6 @@ body.home {
       color: @grayDark;
       span.author {
         color: @grayDark;
-      }
-    }
-    a {
-      color: @grayDark;
-      font-weight: 600;
-      border-bottom: 1px dotted @grayDark;
-      &:hover {
-        border-bottom: 1px solid @grayDark;
       }
     }
 
