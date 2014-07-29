@@ -87,24 +87,24 @@ body {
 			padding-right: 20px;
 			padding-left: 20px;
 		}
-		.skyline {
-			@media (min-width: @breakDesktopLarge) {
-				left: 57%;
-			}
-			@media (max-width: @breakDesktop) {
-				left: 35%;
-				height: 60px;
-			}
-			@media (max-width: @breakTablet) {
-				background-size: 350px 50px;
-				width: 350px;
-				bottom: -10px;
-				left: 40%;
-			}
-			@media (max-width: 600px) {
-				display: none;
-			}
-		}
+		// .skyline {
+		// 	@media (min-width: @breakDesktopLarge) {
+		// 		left: 57%;
+		// 	}
+		// 	@media (max-width: @breakDesktop) {
+		// 		left: 35%;
+		// 		height: 60px;
+		// 	}
+		// 	@media (max-width: @breakTablet) {
+		// 		background-size: 350px 50px;
+		// 		width: 350px;
+		// 		bottom: -10px;
+		// 		left: 40%;
+		// 	}
+		// 	@media (max-width: 600px) {
+		// 		display: none;
+		// 	}
+		// }
 	}
 	.page-content {
 		@media (max-width: @breakTablet) {
@@ -172,15 +172,15 @@ body {
 				}
 			}
 			a.logo-smaller {
-			    width: 314px;
+			    width: 300px;
 			    height: 27px;
-			    background:url(../img/pycon2014-logo-footer@2x.png) no-repeat 0 0;
+			    background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
 			    text-indent: -9999px;
 			    display: block;
-			    background-size: 314px 27px;
+			    background-size: 300px auto;
 			    margin: 0 0 10px 5px;
 			    @media (max-width: @breakMobileLandscape) {
-			    	 background-size: 290px 25px;
+			    	 background-size: 290px auto;
 			    	 width: 290px;
 			    }
 			}
@@ -198,7 +198,7 @@ body.home {
 	@media (max-width: @breakDesktopXL) {
 		.banner {
 			min-height: 570px;
-	    	padding-top: 65px;
+	    	padding-top: 70px;
 		}
 	}
 	@media (max-width: @breakDesktopXLS) {
@@ -215,14 +215,17 @@ body.home {
 		.banner {
 			min-height: 300px;
 	    	.logo {
-	    		max-width: 180px;
+	    		background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
+	    		background-size: 300px auto;
+	    		width: 300px;
+	    		height: 60px;
+	    		margin-left: 10px;
 	    	}
 		}
 	}
 	@media (max-width: @breakMobileLandscape) {
 		.banner {
 			min-height: 200px;
-	    	padding-top: 65px;
 	    	.logo {
 	    		margin: 0 auto;
 	    	}
@@ -267,71 +270,38 @@ body.home {
 			}
 		}
 	}
-	// .logo {
-	// 	@media (max-width: @breakTablet) {
-	// 		max-width: 150px;
-	// 	}
-	// 	@media (max-width: @breakMobileLandscape) {
-	// 		background-size: 150px 50px;
-	// 	}
-	// }
-	// @media (max-width: @breakMobileLandscape) {
-	// 	padding-top: 20px;
-	// }
-	
-	// .city {
-	// 	.montreal {
-	// 		@media (max-width: @breakTablet) {
-	// 			background-size: 400px 100px;
-	// 			background-position: center;
-	// 		}
-	// 		@media (max-width: @breakMobileLandscape) {
-	// 			background-size: 250px 70px;
-	// 			height: 100px;
-	// 			background-position: center;
-	// 		}
- // 		}
-	// 	.clouds {
-	// 		#one-cloud {
-	// 			@media (max-width: @breakDesktop) {
-	// 				right: 25px;
-	// 			}
-	// 	    }
-	// 	    #two-clouds {
-	// 	    	@media (max-width: @breakDesktop) {
-	// 	    		left: 0;
-	// 	    	}
-	// 	    }
-	// 		@media (max-width: @breakTablet) {
-	// 			display: none;
-	// 		}
-	// 	}
-	// 	@media (max-width: @breakTablet) {
-	// 		height: 190px;
-	// 	}
-	// 	@media (max-width: @breakMobileLandscape) {
-	// 		height: 120px;
-	// 	}
-	// 	.water {
-	// 		@media (max-width: @breakMobileLandscape) {
-	// 			height: 40px;
-	// 		}
-	// 	}
-	// }
-	.blog-post:first-child {
-		@media (max-width: @breakTablet) {
-			margin: 15px;
+
+	.announcements :first-child .blog-post{
+	  	@media (max-width: @breakTablet) {
+	    margin-left: 15px;
 		}
 	}
-	.blog-post {
-		@media (max-width: @breakDesktop) {
-			margin: 15px 0;
-			padding: 20px;
+
+	.announcements :last-child .blog-post{
+	  	@media (max-width: @breakTablet) {
+	    margin-left: 15px;
 		}
-		@media (max-width: @breakMobileLandscape) {
-			margin: 15px;
-			padding: 20px;
-			height: auto;
+	}
+
+	.announcements {
+		.blog-post {
+			@media (max-width: @breakDesktop) {
+				margin: 15px;
+				padding: 20px;
+				margin-bottom: 15px;
+	        	padding-bottom: 20px;
+			}
+			@media (max-width: @breakTablet) {
+				margin: 15px;
+				padding: 20px;
+				margin-bottom: 15px;
+	        	padding-bottom: 20px;
+			}
+			@media (max-width: @breakMobileLandscape) {
+				margin: 15px;
+				padding: 20px;
+				height: auto;
+			}
 		}
 	}
 	.schedule {
@@ -527,77 +497,54 @@ body.cms-page {
 
 .page-head {
 	@media (min-width: @breakDesktopXL) {
-	    background: url("../img/headergraphicSm.png") no-repeat right -130px;
+	    background: url("../img/headergraphicSm2.png") no-repeat right -40px;
 	    background-size: 100% ;
-	    padding: 80px 0 30px 0;
+	    padding: 110px 0 10px 0;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    .logo {
-	        width: 100%;
-	        max-width: 250px;
-	        margin-left: 0;
-	    }
+	    background-color: #ccf5ff;
 	}
 	@media (max-width: @breakDesktopLarge) {
-	    background: url("../img/headergraphicSm.png") no-repeat right -50px;
+	    background: url("../img/headergraphicSm2.png") no-repeat right -10px;
 	    background-size: 100% ;
-	    padding: 80px 0 30px 0;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    .logo {
-	        width: 100%;
-	        max-width: 250px;
-	        margin-left: 0;
-	    }
+	    background-color: #ccf5ff;
 	}
 	@media (max-width: @breakDesktop) {
-	    background: url("../img/headergraphicSm.png") no-repeat right -30px;
+	    background: url("../img/headergraphicSm2.png") no-repeat right 30px;
 	    background-size: 100% ;
-	    padding: 80px 0 30px 0;
+	    padding: 110px 0 0 0;
+	    background-position-x: 170px;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    .logo {
-	        width: 100%;
-	        max-width: 180px;
-	    }
+	    background-color: #ccf5ff;
 	}
 	@media (max-width: @breakTablet) {
-	    background: url("../img/headergraphicSm.png") no-repeat right -15px;
-	    background-size: 100% ;
-	    padding: 70px 0 20px 0;
+		background: url("../img/headergraphicSm2.png") no-repeat right 40px;
+	    background-size: 120% ;
+	    background-position-x: 190px;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    .logo {
-	        width: 100%;
-	        max-width: 180px;
-	    }
+	    background-color: #ccf5ff;
 	}
 	@media (max-width: @breakMobileLandscape) {
-	    background: url("../img/headergraphicSm.png") no-repeat left 6px;
-	    background-size: 120% ;
-	    padding: 60px 0 0 0;
+	    background: none;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 40px;
-	    .logo {
-	        width: 100%;
-	        max-width: 100px;
-	    }
+	    background-color: #ccf5ff;
 	}
 	@media (max-width: @breakMobile) {
 		background: none;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    border-bottom: 1px dotted @grayLight;
-	    .logo {
-	    	margin: 0 auto;
-	    	max-width: 140px;
-	    }
+	    background-color: #ccf5ff;
 	}
 }
 

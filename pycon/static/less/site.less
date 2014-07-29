@@ -31,6 +31,7 @@
 /* Variables
 ==================== */
 
+@blueEXLight:   #ccf5ff;
 @blueLight:     #33c5f4;
 @blueDark:      #27a9e1 !important;
 @blueEXDark:    #0099cc;
@@ -44,6 +45,8 @@
 @yellowDark:    #FBAF17;
 @grayDark:      #333333;
 @orangeLight:   #F68A1E;
+@pinkEXLight:   #ff3399;
+@pinkLight:     #ed1967;
 @pinkDark:      #990066;
 
 @danger:        #cd0000;
@@ -353,19 +356,14 @@ aside {
 }
 
 .page-head {
-  background: url("../img/headergraphicSm.png") no-repeat right -80px;
+  background: url("../img/headergraphicSm.png") no-repeat right -40px;
   background-size: 100% ;
   max-width: 100%;
-  padding: 80px 0 30px 0;
+  padding: 120px 0 10px 0;
   martgin-bottom: 20px;
   position: relative;
-  background-color: @white;
+  background-color: @blueEXLight;
   min-height: 55px;
-  .logo {
-    width: 100%;
-    max-width: 250px;
-    margin-left: 0;
-  }
 }
 
 .page-content {
@@ -377,6 +375,11 @@ aside {
   .box-content {
     h3 {
       margin-top: 25px;
+    }
+    ul {
+      li{
+        line-height: 1.8em;
+      }
     }
   }
 }
@@ -531,8 +534,8 @@ div.DTTT.btn-group {
 
 /* Navigation
 ==================== */
-header.main {
-  padding-top: 0;
+header.main { 
+  padding-top: 10px;
   position: fixed;
   width: 100%;
   .account-bar {
@@ -544,34 +547,34 @@ header.main {
     .account-links {
       position: absolute;
       right: 0;
-      top: 10px;
+      top: 15px;
     }
-    a {
-      &.login {
-        font-size:@baseFontSize - 2.5 !important;
-        padding: 2px 12px !important;
-        .btn;
-        .btn-primary;
-        margin-right: 10px;
-        background-color: @blueLight;
-        font-weight: 400;
-        &:hover {
-          background-color: #27A9E1;
-        }
-      }
-      &.signup {
-        font-size:@baseFontSize - 2.5 !important;
-        padding: 2px 12px !important;
-        .btn;
-        .btn-success;
-        background-color: @yellowLight;
-        font-weight: 400;
-        &:hover {
-          background-color: @yellowDark;
-        }
-      }
+a {
+  &.login {
+    font-size:@baseFontSize - 2.5 !important;
+    padding: 2px 12px !important;
+  .btn;
+    .btn-primary;
+    margin-right: 10px;
+    background-color: @blueLight;
+    font-weight: 400;
+    &:hover {
+      background-color: #27A9E1;
     }
-
+  } 
+ &.signup {
+    font-size:@baseFontSize - 2.5 !important;
+    padding: 2px 12px !important;
+    .btn;
+    .btn-success;
+    background-color: @yellowLight;
+    font-weight: 400;
+    &:hover {
+      background-color: @yellowDark;
+    }
+  }
+}
+    
     span { color: @grayDark; }
 
     form {
@@ -589,29 +592,22 @@ header.main {
   }
 
   nav {
-    background: #fff;
+    background: white;
     padding-top: 8px;
     .container { position: relative; }
     .navbar {
-      margin-bottom: 0;
+      margin-bottom: 5px;
+
       .navbar-inner {
         background: transparent;
         .box-shadow(none);
-        margin: 0;
-        padding-left: 0;
+        margin: 36px 0 0 -10px;
+        padding: 0;
         border: none;
-        a.btn.btn-navbar{
-          background-color: @blueLight;
-          border: 3px solid @blueLight;
-          &:hover {
-            background-color: #27A9E1;
-            border: 3px solid #27A9E1;
-          }
-        }
       }
 
       .nav {
-        margin: 0 10px 0 0;
+        margin: 5px 10px 0 0;
         li {
            a {
             font-size: @baseFontSize + 3;
@@ -660,7 +656,7 @@ header.main {
           .transition(0.5s);
           &:after {
             top: -12px;
-            border-bottom: 6px solid @blueLight;
+            border-bottom: 6px solid @greenDark;
             .transition(0.5s);
           }
           &:before {
@@ -687,27 +683,35 @@ header.main {
         }
       }
     }
+
+    a.logo-small {
+      position:absolute;
+      top: 5px;
+      left: 0;
+      width: 300px;
+      height: 50px;
+      background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
+      background-size: 300px auto;
+      text-indent: -9999px;
+    }
   }
 }
-.pageTitle {
-  h1 {
-    margin-left: 30px;
-    border-bottom: 1px dotted @grayLight;
-    padding-bottom: 10px;
-  }
-  ul.breadcrumb {
-  margin: 0 0 30px 30px;
+
+h1 {
+  padding-bottom: 5px;
+}
+ul.breadcrumb {
   background: transparent;
   margin-right: 0;
   padding: 0;
-    > li {
-      text-shadow: none;
-    }
-    > .active, > .divider {
-      color: lighten(@gray, 20%);
-    }
+  > li {
+    text-shadow: none;
+  }
+  > .active, > .divider {
+    color: lighten(@gray, 20%);
   }
 }
+
 /* Homepage
 ==================== */
 body.home {
@@ -740,13 +744,14 @@ body.home {
     background-size: contain;
     max-width: 100%;
     min-height: 640px;
-    padding-top: 65px;
+    padding-top: 70px;
     z-index: -1;
     .logo {
+      background:url(../img/pycon2015-logo.png) no-repeat 0 0;
+      background-size: 250px auto;
+      width: 250px;
+      height: 100px;
       -webkit-filter: none;
-      width: 100%;
-      max-width: 250px;
-      margin-left: 5px;
     }
     .details { display: none; }
     .span12 { position: relative; }
@@ -807,6 +812,7 @@ body.home {
     .col-1 {
       h3 {
         color: @grayDark;
+        font-size: 1em;
         font-weight: 600;
         border-bottom: 1px dotted @grayLight;
         padding-bottom: 5px;
@@ -827,6 +833,7 @@ body.home {
     .col-2, .col-3, .col-4 {
       h3 {
         color: @grayDark;
+        font-size: 1em;
         font-weight: 600;
         border-bottom: 1px dotted @grayLight;
         padding-bottom: 5px;
@@ -869,53 +876,54 @@ body.home {
     }
   }
 
-  .blog-post {
-    margin: 0 0 40px;
-    padding: 15px;
-    color: @grayDark;
-    border-radius: 4px;
-    text-align: left;
-    border: 2px solid @yellowLight;
-    height: 250px;
-    overflow: auto;
-    h2 {
-      color: @grayDark;
-      margin-top: 0;
-    }
-    p.post_dateline {
-      color: @grayDark;
-      span.author {
-        color: @grayDark;
+  .announcements {
+    overflow: hidden;
+    .blog-post {
+      margin: 0 0 40px;
+      padding: 15px;
+      color: white;
+      border-radius: 4px;
+      text-align: left;
+      background-color: @pinkEXLight;
+      margin-bottom: -1000px;
+      padding-bottom: 1000px;
+      h2 {
+        color: white;
+        margin-top: 0;
+      }
+      p {
+        font-size: 1.2em;
+      }
+      p.post_dateline {
+        color: white;
+        span.author {
+          color: white;
+        }
+      }
+      a {
+        color: white;
+        border-bottom: 1px dotted white;
+        &:hover {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      .post_dateline {
+        color: #98a1a3;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        font-weight: 600;
       }
     }
-
-    // .date {
-    //   color: @grayLight;
-    //   font-size: @baseFontSize + 5;
-    //   width: 40px;
-    //   padding: 8px 10px;
-    //   margin: 0 10px 0 0;
-    //   background: lighten(@grayLight, 20%);
-    //   text-align: center;
-    //   float: left;
-    //   span {
-    //     font-size: @baseFontSize - 2;
-    //     font-weight: normal;
-    //     font-style: italic;
-    //     line-height: 12px;
-    //     display: block;
-    //   }
-    // }
-
-    .post_dateline {
-      color: #98a1a3;
-      text-transform: uppercase;
-      font-size: 11px;
-      font-weight: 600;
-    }
   }
-  .blog-post:first-child{
+
+  .announcements :first-child .blog-post{
     margin-left: 0;
+    background-color: @blueLight;
+  }
+  .announcements :last-child .blog-post{
+    margin-left: 0;
+    background-color: @yellowLight;
   }
 
   .about {
@@ -990,7 +998,7 @@ body.home {
   }
 
   .scroll-title {
-    margin: 40px 0 5px;
+    margin: 40px 0 5px 20px;
     text-align: center;
   }
   .scroll-title-first {
@@ -1064,9 +1072,6 @@ body.home {
     position: relative;
     top: 0;
   }
-  .shadowed {
-    -webkit-filter: drop-shadow(6px 6px 15px rgba(0,0,0,0.05));
-  }
 
   /* Slideshow nav
   ==================== */
@@ -1098,6 +1103,11 @@ body.sponsors {
   a.read-more {
       .btn;
       .btn-success;
+        margin-top: 10px;
+        background-color: @blueLight;
+        &:hover {
+          background-color: @blueEXDark;
+        }
       display: block;
       width: 275px;
     }

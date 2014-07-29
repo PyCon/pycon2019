@@ -8,7 +8,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon 2014 in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+{% block head_title_base %}PyCon 2015 in Montr&#233;al | April 8th &ndash; April 16th{% endblock %}
 
 {% block body_class %}
     {{ block.super }}
@@ -21,9 +21,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span3">
-                        <div itemprop="summary" class="logo">
-                            <img class="img-responsive logo" src="{{ STATIC_URL }}img/pycon2015-logo.png" alt="PyCon 2015 Montreal Canada">
-                        </div>
+                        <div itemprop="summary" class="logo"></div>
                     </div>
                     <div class="schedule span9">
                         <ul>
@@ -61,10 +59,10 @@
 {% endblock %}
 
 {% block body_outer %}
-<div class="leftbg shadowed">
+<div class="leftbg">
     <img src="{{ STATIC_URL }}img/leftbg.png" alt="left band background">
 </div>
-<div class="topRightbg shadowed">
+<div class="topRightbg">
     <img src="{{ STATIC_URL }}img/topRightbg.png" alt="top right band background">
 </div>
 <div class="container">
@@ -112,28 +110,30 @@
             <h1 class="scroll-title">{% trans "Announcements" %}</h1>
             <div class="col-centered span6 horizontalline"></div>
             <div class="row col-centered">
-                {% latest_blog_posts as posts %}
-                {% for post in posts|slice:"3" %}         
-                <div class="span4">
-                    <div class="blog-post">
-                        <div class="post-content">
-                            <h2>{{ post.title }}</h2>
-                            {% blocktrans with author=post.author.get_full_name %}
-                              <p class="post_dateline">by <span class="author">{{ author }}</span></p>
-                            {% endblocktrans %}
-                            <div class="teaser">{{ post.teaser_html|safe }}</div>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                    <div class="col-centered span4">
+                <div class="announcements">
+                    {% latest_blog_posts as posts %}
+                    {% for post in posts|slice:"3" %}         
+                    <div class="span4">
                         <div class="blog-post">
                             <div class="post-content">
-                                <p>{% trans "No announcements have been published." %}</p>
+                                <h2>{{ post.title }}</h2>
+                                {% blocktrans with author=post.author.get_full_name %}
+                                  <p class="post_dateline">by <span class="author">{{ author }}</span></p>
+                                {% endblocktrans %}
+                                <div class="teaser">{{ post.teaser_html|safe }}</div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                    {% empty %}
+                        <div class="col-centered span4">
+                            <div class="blog-post">
+                                <div class="post-content">
+                                    <p>{% trans "No announcements have been published." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -231,7 +231,7 @@
         </div>
     </div>
 </div>
-<div class="rightbg shadowed">
+<div class="rightbg">
     <img class="img-responsive" src="{{ STATIC_URL }}img/rightbg.png" alt="right band background">
 </div>
 {% endblock %}

@@ -49,6 +49,7 @@
 {% endblock %}
 
 {% block topbar_base %}
+    {% include "_messages.html" %}
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
@@ -98,9 +99,10 @@
                             <div class="container">
                                 <h1>{% block page_title %}{% endblock %}</h1>
                                 {% block breadcrumbs %}{% endblock %}
-                                <div class="skyline"></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="span9">
                             {% block edit_page %}{% endblock %}
                             <div class="box">
@@ -115,7 +117,7 @@
                                     {% sponsor_levels as levels %}
                                     {% for level in levels %}
                                         {% if level.sponsors %}
-                                            <h3{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
+                                            <h3>{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
                                             {% for sponsor in level.sponsors %}
                                                 <a href="{{ sponsor.external_url }}">
                                                     <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
@@ -133,7 +135,7 @@
             </div>
         {% endblock %}
     </div>
-    <div class="bottombg shadowed">
+    <div class="bottombg">
         <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
     </div>
     <footer>
@@ -153,7 +155,7 @@
                 <div class="span2">
                     <div class="row-fluid">
                         <a href="http://caktusgroup.com">
-                            <img class="caktus-logo col-centered" src="{{ STATIC_URL }}img/caktusgroup-logo.png" alt="Caktus Consulting Group">
+                            <img class="caktus-logo" src="{{ STATIC_URL }}img/caktusgroup-logo.png" alt="Caktus Consulting Group">
                         </a>
                     </div>
                 </div>

@@ -36,7 +36,7 @@
 
 {% block extra_head_base %}
     <meta property="og:image" content="https://us.pycon.org/2014/site_media/static/img/logo.png" />
-    <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
+    <link href="{{ STATIC_URL }}img/pycon-2015.png" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
@@ -49,6 +49,7 @@
 {% endblock %}
 
 {% block topbar_base %}
+    {% include "_messages.html" %}
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
@@ -83,24 +84,16 @@
         {% block body_outer %}
             <div class="page-head">
                 <div class="container">
-                    <div itemprop="summary" class="logo">
-                        <a href="{% url 'home' %}"><img class="img-responsive logo" src="{{ STATIC_URL }}img/pycon2015-logo.png" alt="PyCon 2015 Montreal Canada"></a>
-                    </div>
+                    <h1>{% block page_title %}{% endblock %}</h1>
+                    {% block breadcrumbs %}{% endblock %}
+                    <div class="skyline"></div>
                 </div>
             </div>
             <div class="page-content">
-                {% include "_messages.html" %}
                 {% block page_content %}
                 <div class="container">
 
                     <div class="row">
-                        <div class="row pageTitle">
-                            <div class="container">
-                                <h1>{% block page_title %}{% endblock %}</h1>
-                                {% block breadcrumbs %}{% endblock %}
-                                <div class="skyline"></div>
-                            </div>
-                        </div>
                         <div class="span9">
                             {% block edit_page %}{% endblock %}
                             <div class="box">
@@ -133,9 +126,7 @@
             </div>
         {% endblock %}
     </div>
-    <div class=bottombg>
-        <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
-    </div>
+
     <footer>
         <div class="container">
         {% block footer %}
