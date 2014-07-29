@@ -54,8 +54,8 @@
 @button-text:           @white;
 @button-hover:          mix(@grayLight, white, 80%);
 @button-active:         mix(@grayLight, black, 85%);
-@button-primary-hover:  mix(@blueDark, white, 80%);
-@button-primary-active: mix(@blueDark, black, 85%);
+@button-primary-hover:  #27a9e1;
+@button-primary-active: #27a9e1;
 @button-info-hover:     mix(@blueLight, white, 80%);
 @button-info-active:    mix(@blueLight, black, 85%);
 @button-success-hover:  mix(@greenDark, white, 80%);
@@ -491,7 +491,7 @@ aside.list {
   // Set the backgrounds
   // -------------------------
   &.btn-primary {
-    .swap-button-color(@blueDark, @button-primary-hover, @button-primary-active);
+    .swap-button-color(@blueLight, @button-primary-hover, @button-primary-active);
     border: none;
     color: @white;
   }
@@ -506,12 +506,12 @@ aside.list {
     color: @white;
   }
   &.btn-success {
-    .swap-button-color(@greenDark, @button-success-hover, @button-success-active);
+    .swap-button-color(@greenLight, @button-success-hover, @button-success-active);
     border: none;
     color: @white;
   }
   &.btn-warning {
-    .swap-button-color(@yellowBeak, @button-warning-hover, @button-warning-active);
+    .swap-button-color(@yellowDark, @button-warning-hover, @button-warning-active);
     border: none;
     color: @white;
   }
@@ -922,7 +922,6 @@ body.home {
     background-color: @blueLight;
   }
   .announcements :last-child .blog-post{
-    margin-left: 0;
     background-color: @yellowLight;
   }
 
