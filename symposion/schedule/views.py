@@ -33,22 +33,16 @@ def fetch_schedule(slug):
 
 
 def schedule_conference(request):
-
-    schedules = Schedule.objects.filter(published=True)
-
     sections = []
-    for schedule in schedules:
-        days_qs = Day.objects.filter(schedule=schedule)
-        days = [TimeTable(day) for day in days_qs]
+    for schedule in Schedule.objects.filter(published=True):
+        days = [TimeTable(day) for day in Day.objects.filter(schedule=schedule)]
         sections.append({
             "schedule": schedule,
             "days": days,
         })
-
-    ctx = {
+    return render(request, "schedule/schedule_conference.html", {
         "sections": sections,
-    }
-    return render(request, "schedule/schedule_conference.html", ctx)
+    })
 
 
 def schedule_detail(request, slug=None):

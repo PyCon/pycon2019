@@ -14,6 +14,7 @@
 {% block page_content %}
     <div class="container">
         {% box "schedule_top" %}
+
         {% for section in sections %}
             {% cache 600 "schedule-table" section.schedule.section %}
                 {% for timetable in section.days %}
