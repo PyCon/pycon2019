@@ -21,9 +21,9 @@ def staging():
     env.site_hostname = 'staging-pycon.python.org'
     env.root = '/srv/staging-pycon.python.org'
     env.branch = 'staging'
-    env.db = 'psf-pycon-2014-staging'
+    env.db = 'psf_pycon_2015_staging'
     env.db_host = 'pg1.osuosl.org'
-    env.db_user = 'psf-pycon-2014-staging'
+    env.db_user = 'psf_pycon_2015_staging'
     setup_path()
 
 @task
@@ -33,9 +33,9 @@ def production():
     env.site_hostname = 'us.pycon.org'
     env.root = '/srv/staging-pycon.python.org'
     env.branch = 'production'
-    env.db = 'psf_pycon_2014'
+    env.db = 'psf_pycon_2015'
     env.db_host = 'pg1.osuosl.org'
-    env.db_user = 'psf_pycon_2014'
+    env.db_user = 'psf_pycon_2015'
     setup_path()
 
 
