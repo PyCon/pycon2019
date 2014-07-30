@@ -31,7 +31,7 @@
 /* Variables
 ==================== */
 
-@blueEXLight:   #ccf5ff;
+@blueEXLight:   #B0F0FF;
 @blueLight:     #33c5f4;
 @blueDark:      #27a9e1 !important;
 @blueEXDark:    #0099cc;
@@ -52,8 +52,8 @@
 @danger:        #cd0000;
 
 @button-text:           @white;
-@button-hover:          mix(@grayLight, white, 80%);
-@button-active:         mix(@grayLight, black, 85%);
+@button-hover:          @blueLight;
+@button-active:         @blueLight;
 @button-primary-hover:  #27a9e1;
 @button-primary-active: #27a9e1;
 @button-info-hover:     mix(@blueLight, white, 80%);
@@ -295,7 +295,6 @@ textarea[class*="span"] {
 }
 
 header.main {
-  .box-shadow(0 0 15px rgba(0,0,0,0.15));
   border-bottom: 1px solid rgba(0,0,0,0.09);
   z-index: 998;
   position: fixed;
@@ -363,7 +362,7 @@ aside {
   padding: 120px 0 10px 0;
   martgin-bottom: 20px;
   position: relative;
-  background-color: @blueEXLight;
+  background-color: white;
   min-height: 55px;
 }
 
@@ -539,6 +538,7 @@ header.main {
   padding-top: 10px;
   position: fixed;
   width: 100%;
+  box-shadow: none;
   .account-bar {
     position: relative;
     font-family: 'Open Sans', sans-serif;
@@ -668,6 +668,8 @@ a {
             &.active {
               a {
                 color: @white;
+                background-color: #27a9e1 !important;
+                background-image: none;
               }
             }
             a {
@@ -882,12 +884,14 @@ body.home {
     .blog-post {
       margin: 0 0 40px;
       padding: 15px;
+      height: 480px;
+      overflow: auto;
       color: white;
       border-radius: 4px;
       text-align: left;
       background-color: @pinkEXLight;
-      margin-bottom: -1000px;
-      padding-bottom: 1000px;
+      // margin-bottom: -1000px;
+      // padding-bottom: 1000px;
       h2 {
         color: white;
         margin-top: 0;
