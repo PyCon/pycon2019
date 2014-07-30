@@ -86,7 +86,6 @@
                 <div class="container">
                     <h1>{% block page_title %}{% endblock %}</h1>
                     {% block breadcrumbs %}{% endblock %}
-                    <div class="skyline"></div>
                 </div>
             </div>
             <div class="page-content">
@@ -108,7 +107,7 @@
                                     {% sponsor_levels as levels %}
                                     {% for level in levels %}
                                         {% if level.sponsors %}
-                                            <h3{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
+                                            <h3>{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
                                             {% for sponsor in level.sponsors %}
                                                 <a href="{{ sponsor.external_url }}">
                                                     <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
@@ -126,7 +125,9 @@
             </div>
         {% endblock %}
     </div>
-
+    <div class="bottombg">
+        <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
+    </div>
     <footer>
         <div class="container">
         {% block footer %}

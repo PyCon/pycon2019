@@ -1,4 +1,4 @@
-{% extends "comps/responsive_base.html" %}
+{% extends "responsive_base.html" %}
 
 {% load i18n %}
 {% load cache %}
@@ -93,11 +93,15 @@
                     {% if all_sponsors.count > 12 %}
                       <!-- Carousel nav -->
                       <nav id="slider-nav">
-                        {% for sponsor in all_sponsors %}
-                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
-                            {% endif %}
-                        {% endfor %}
+                        <div class="slider-nav">
+                            <div class="nav-container">
+                            {% for sponsor in all_sponsors %}
+                                {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
                       </nav>
                     {% endif %}
                 </div>

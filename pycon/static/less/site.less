@@ -310,6 +310,7 @@ footer {
   bottom: 0;
   height: auto;
   border-top: 1px solid @grayLighter;
+
   .footer-content {
     position: relative;
     top: 10px;
@@ -1075,24 +1076,30 @@ body.home {
   /* Slideshow nav
   ==================== */
   nav#slider-nav {
-    position: relative;
-    margin-left: 43%;    
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;   
+    width: 300px;
     a {
       text-indent: -9999px;
-      display: block;
-      float: left;
       width: 9px;
       height: 9px;
       margin-right: 5px;
-      background: @grayLight;
+      color: @grayLight;
       .border-radius(100%);
       &:hover {
-        background: @blueDark;
+        color: @blueDark;
       }
       &.activeSlide {
-        background: @blueLight;
+        color: @blueLight;
       }
     }
+  }
+  .slider-nav {
+    margin: 0 auto;
   }
 }
 
