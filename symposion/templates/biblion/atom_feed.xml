@@ -5,7 +5,7 @@
 
     <id>{{ feed_id }}</id>
 
-    <title>PyCon 2015 in Montr&#233;al Announcements</title>
+    <title>{{ SITE_NAME }} in Montr&#233;al Announcements</title>
 
     <link rel="alternate" type="text/html" href="https://us.pycon.org/2015/announcements/" />
 
