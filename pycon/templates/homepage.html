@@ -8,7 +8,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon 2015 in Montr&#233;al | April 8th &ndash; April 16th{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Montr&#233;al | April 8th &ndash; April 16th{% endblock %}
 
 {% block body_class %}
     {{ block.super }}
@@ -44,7 +44,7 @@
                                 <span itemprop="country-name">Canada</span>,
                                 <time itemprop="startDate" datetime="2015-4-8">April 8</time>&ndash;
                                 <time itemprop="endDate" datetime="2015-4-16">16</time>
-                            </div> 
+                            </div>
                             {% if config.REGISTRATION_STATUS == 'open' %}
                                 <li class="promo box-shadow" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
                                    <a href="{% url 'registration_start' %}">REGISTER</a>
@@ -52,7 +52,7 @@
                             {% endif %}
                         </ul>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
             <div class="row col-centered">
                 <div class="announcements">
                     {% latest_blog_posts as posts %}
-                    {% for post in posts|slice:"3" %}         
+                    {% for post in posts|slice:"3" %}
                     <div class="span4">
                         <div class="blog-post">
                             <div class="post-content">
@@ -158,7 +158,7 @@
                 <div class="home-schedule">
                     <div class="col-2 tutorial">
                         <h3>Thursday, April 9th:</h3>
-                        {% box "homepage-schedule-day2" %}   
+                        {% box "homepage-schedule-day2" %}
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@
 # Then you can override settings here if you need to.
 
 # For example, if you're not running a local Postgres with a database
-# named ``pycon2014``, you'll need to add your database settings here.
+# named ``pycon2015``, you'll need to add your database settings here.
 
 # Uncomment to use Django Debug Toolbar:
 #INSTALLED_APPS.append('debug_toolbar')
