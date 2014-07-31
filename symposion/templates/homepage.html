@@ -8,7 +8,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon 2014 in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
 
 {% block body_class %}home{% endblock %}
 
@@ -17,7 +17,7 @@
         <div class="container" itemscope itemtype="http://data-vocabulary.org/Event">
             <div class="row">
                 <div class="span7">
-                    <h1 itemprop="summary"><a href="/" class="logo">PyCon 2014</a></h1>
+                    <h1 itemprop="summary"><a href="/" class="logo">{{ SITE_NAME }}</a></h1>
                     <h2><span itemprop="locality">Santa Clara</span>, <span itemprop="region">CA</span>, <time itemprop="startDate" datetime="2014-3-13">March 13</time>&ndash;<time itemprop="endDate" datetime="2014-3-21">21</time></h2>
                 </div>
                 <div class="span5">
