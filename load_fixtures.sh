@@ -11,8 +11,8 @@ case $REPLY in
   ;;
 esac
 
-dropdb pycon2014
-createdb pycon2014
+dropdb pycon2015
+createdb pycon2015
 python manage.py syncdb --noinput
 python manage.py migrate
 

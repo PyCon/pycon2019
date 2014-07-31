@@ -11,6 +11,8 @@ def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
 
+CONFERENCE_YEAR = "2015"
+
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                             os.pardir, os.pardir))
@@ -30,7 +32,7 @@ COMPRESS = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env_or_default("DB_NAME", "pycon2014"),
+        "NAME": env_or_default("DB_NAME", "pycon2015"),
         "USER": env_or_default("DB_USER", ""),
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
@@ -64,7 +66,7 @@ SITE_ID = 1
 # Conference ID and any URL prefixes
 CONFERENCE_ID = 1
 CONFERENCE_URL_PREFIXES = {
-    1: "2015",
+    1: CONFERENCE_YEAR,
 }
 
 
@@ -157,6 +159,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.tz",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
+    "pycon.context_processors.global_settings",
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
@@ -271,8 +274,8 @@ ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 LOGIN_ERROR_URL = reverse_lazy("account_login")
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2015/dashboard/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2015/dashboard/"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
@@ -283,7 +286,7 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-DEFAULT_FROM_EMAIL = "PyCon 2015 <no-reply@us.pycon.org>"
+DEFAULT_FROM_EMAIL = "PyCon {} <no-reply@us.pycon.org>".format(CONFERENCE_YEAR)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
