@@ -4,7 +4,8 @@
 <table class="table table-striped table-bordered table-reviews">
     <thead>
         <th>#</th>
-        <th>{% trans "Speaker / Title" %}</th>
+        <th>{% trans "Speaker" %}</th>
+        <th>{% trans "Title" %}</th>
         <th>{% trans "Category" %}</th>
         <th>{% trans "Tags" %}</th>
         <th><i class="icon-comment-alt"></i></th>
@@ -29,11 +30,12 @@
                 <td>{{ proposal.number }}</td>
                 <td>
                     <a href="{% url 'review_detail' proposal.pk %}">
-                        <small><strong>{{ proposal.speaker }}</strong></small>
+                        {{ proposal.speaker }}
                         <br />
-                        {{ proposal.title }}
+                        &lt;{{ proposal.speaker.email }}&gt;
                     </a>
                 </td>
+                <td>{{ proposal.title }}</td>
                 <td>{{ proposal.category }}</td>
                 <td>{{ proposal.get_tags_display }}</td>
                 <td>{{ proposal.comment_count }}</td>
