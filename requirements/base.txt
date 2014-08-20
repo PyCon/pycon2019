@@ -7,7 +7,7 @@
 --extra-index-url=http://dist.pinaxproject.com/alpha/
 --extra-index-url=http://dist.pinaxproject.com/fresh-start/
 
-Django==1.5.4
+Django==1.5.9
 pinax-theme-bootstrap==3.0a12
 django-user-accounts==1.0b13
 metron==1.1
