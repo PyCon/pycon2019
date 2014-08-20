@@ -1,5 +1,6 @@
 {% extends "venue/base.html" %}
 
+{% load boxes_tags %}
 {% load i18n %}
 {% load sitetree %}
 
@@ -8,36 +9,36 @@
 {% block page_title %}{% trans "Venue Details" %}{% endblock %}
 
 {% block body %}
-    <h1>Palais des congrès de Montréal</h1>
-  <p>(Montréal Convention Center)<br/>
-201 Viger Ave West<br/>
-Montréal, Québec, Canada<br/>
-<a href="http://congresmtl.com">http://congresmtl.com</a>
-  </p>
-    {% comment %}
-    {# Commenting this out for now, until we verify where the sprints are being held #}
-    <p class="intro">All Tutorial and Conference events are being held here.</p>
-    {% endcomment %}
-    <div class="map-container">
-      <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;output=embed"></iframe>
-    </div>
-    <small>View <a href="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;source=embed" style="color:#0000FF;text-align:left">{{ SITE_NAME }}</a> in a larger map</small>
-    <div class="hotels">
-        <h2>{% trans "Hotels" %}</h2>
-        <div class="place">
-            <h3><i class="icon icon-home"></i> Hyatt Regency</h3>
-            <p>1255 Jeanne-Mance<br/>
-            Montréal (Québec)<br/>
-            H5B 1E5 - Canada</p>
-            <a href="http://montreal.hyatt.com/en/hotel/home.html">Website</a>
-        </div>
+  <h1 class="text-center">
+    Palais des congrès de Montréal <br />
+    <small>Montreal Convention Center</small>
+  </h1>
 
-        <div class="place">
-            <h3><i class="icon icon-home"></i> Westin Hotels</h3>
-            <p>270 St. Antoine West<br/>
-            Montréal (Québec) <br/>
-            H2Y 0A3 - Canada</p>
-            <a href="http://www.westinmontreal.com/">Website</a>
-        </div>
+  <p class="text-center">
+    201 Viger Ave West <br />
+    Montréal, Québec, Canada <br />
+    <a href="http://congresmtl.com">http://congresmtl.com</a>
+  </p>
+
+  <div class="map-container">
+    <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;output=embed"></iframe>
+  </div>
+
+  <small>View <a href="https://maps.google.ca/maps/ms?msid=214917590088528861512.0004e3dadb02c2df86c48&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=45.506588,-73.560848&amp;spn=0.028873,0.054932&amp;z=14&amp;source=embed" style="color:#0000FF;text-align:left">{{ SITE_NAME }}</a> in a larger map</small>
+
+  <div class="hotels">
+    <h2><i class="icon icon-home"></i> {% trans "Hotels" %}</h2>
+
+    <div class="row-fluid">
+      <div class="place span4">{% box "hotel-1" %}</div>
+      <div class="place span4">{% box "hotel-2" %}</div>
+      <div class="place span4">{% box "hotel-3" %}</div>
     </div>
+
+    <div class="row-fluid">
+      <div class="place span4">{% box "hotel-4" %}</div>
+      <div class="place span4">{% box "hotel-5" %}</div>
+      <div class="place span4">{% box "hotel-6" %}</div>
+    </div>
+  </div>
 {% endblock %}
