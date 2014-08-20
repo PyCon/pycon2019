@@ -31,7 +31,7 @@
 /* Variables
 ==================== */
 
-@blueEXLight:   #B0F0FF;
+@blueEXLight:   #97e7ff;
 @blueLight:     #33c5f4;
 @blueDark:      #27a9e1 !important;
 @blueEXDark:    #0099cc;
@@ -302,36 +302,45 @@ header.main {
 }
 
 footer {
-  background-color: @white;
+  background-color: white;
+  color: @grayDark;
   font-size: 12px;
-  padding: 5px 20px;
+  text-align: left;
+  padding: 30px 20px;
   position: relative;
   bottom: 0;
   height: auto;
-  border-top: 1px solid @grayLighter;
+  border-top: 1px solid ç;
 
   .footer-content {
     position: relative;
     top: 10px;
     padding-bottom: 20px;
     p {
-      padding-top: 5px;
+      padding-top: 0;
       margin: 0;
-      font-size: 1.1em;
-      line-height: 1.6em;
+      font-size: 14px;
+      line-height: 1.8em;
+      a {
+        color: @grayDark;
+        border-bottom: 1px dotted @grayDark;
+        &:hover{
+          border-bottom: 1px solid @grayDark;
+        }
+      }
     }
     .footer-left {
-      text-align: right;
       margin-bottom: 10px;
+      padding-right: 20px;
     }
     .footer-right {
-      text-align: left;
       margin-bottom: 10px;
-      margin-left: -40px;
+      padding-left: 20px;
     }
     img.caktus-logo {
-      margin-left: 15px;
-      max-width: 100px;
+      opacity: 0.83;
+      margin-left: 0;
+      max-width: 100%;
     }
   }
 }
@@ -363,7 +372,7 @@ aside {
   martgin-bottom: 20px;
   position: relative;
   top: -100px;
-  background-color: white;
+  background-color: @blueEXLight;
   min-height: 55px;
 }
 
@@ -662,7 +671,7 @@ a {
           .transition(0.5s);
           &:after {
             top: -12px;
-            border-bottom: 6px solid @greenDark;
+            border-bottom: 6px solid @blueLight;
             .transition(0.5s);
           }
           &:before {
@@ -768,7 +777,7 @@ body.home {
       .border-radius(4px);
       background-color: @white;
       padding: 5px 10px;
-      height: 22px;
+      height: 24px;
       display: inline-block;
       border: 2px solid #00B9F1;
       position: relative;
@@ -783,20 +792,31 @@ body.home {
         }
       }
       &.no-link {
+        position: relative;
+        top: -3px;
         // display: none;
       }
       a {
         .btn;
         .btn-primary;
-        padding: 15px 75px;
-        margin: 40px 0 0 0;
-        font-size: 24px;
+        position: relative;
+        top: -2px;
+        padding: 5px 10px;
+        margin: -5px -10px;
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 2.2;
+        border-radius: 2px;
+        vertical-align: center;
+        background-color: none;
+        background-image: none;
       }
       .box-shadow( 0px 5px 15px 0px rgba(0, 0, 0, 0.10));
     }
   }
   .schedule {
     padding-left: 0;
+    margin-top: -10px;
     ul {
       list-style: none;
       font-size: 12px;
@@ -805,6 +825,7 @@ body.home {
       li {
         padding: 5px 10px;
         margin-left: 20px;
+        margin-top: 10px;
         display: inline-block;
         background-color: @white;
         .border-radius(4px);
@@ -1111,6 +1132,18 @@ body.home {
   }
 }
 
+/* labels
+==================== */
+.label-important, .badge-important {
+  background-color: @pinkDark;
+}
+.label-info, .badge-info {
+  background-color: #27a9e1
+}
+
+
+
+
 /* Sponsors
 ==================== */
 body.sponsors {
@@ -1198,6 +1231,9 @@ body.venue {
         .btn;
         .btn-success;
     }
+  }
+  .nav-list > .active > a, .nav-list > .active {
+    background-color: #27a9e1;
   }
 }
 
@@ -1583,6 +1619,11 @@ body.job-fair {
   a.read-more {
       .btn;
       .btn-success;
+        margin-top: 10px;
+        background-color: @blueLight;
+        &:hover {
+          background-color: @blueEXDark;
+        }
       display: block;
       width: 275px;
     }
@@ -1610,7 +1651,7 @@ body.job-fair {
 
 
 table.calendar {
-  background-color: lighten(#f2ebdf, 7%);
+  background-color: white;
   table-layout: fixed;
   font-size: 12px;
 
@@ -1622,7 +1663,7 @@ table.calendar {
     text-align: center;
 
     &.time {
-      width: 40px;
+      width: 60px;
     }
   }
 
@@ -1632,19 +1673,40 @@ table.calendar {
 
     &.time {
       vertical-align: top;
-      padding-top: 0;
+      padding-top: 6px;
+      padding-bottom: 34px;
       margin-top: 0;
-      color: #444;
-      font-size: 11px;
+      color: #333333;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .title > a {
+      color: @blueLight;
+      &:hover {
+        color: @yellowDark;
+      }
+    }
+
+    .badges > .btn {
+      border: 2px solid @blueLight;
+      border-radius: 4px;
+      background-color: white;
+      color: @blueLight;
+      padding: 1px 8px;
+      &:hover {
+        background-color: @blueDark;
+        border: 2px solid @blueDark;
+        color: white;
+      }
     }
 
     &.slot {
-      font-weight: bold;
-      background-color: lighten(#FDFFD9, 2%);
-      text-shadow: @white 0px 1px 0px;
+      font-weight: 700;
+      background-color: white;
 
-      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: #ECFFFF; }
-      &.slot-plenary, &.slot-lightning { background-color: lighten(#DCDCFF, 3%); }
+      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: rgba(51, 204, 255, 0.20) }
+      &.slot-plenary, &.slot-lightning { background-color: rgba(255, 203, 4, 0.20) }
       p {
         padding: 0;
         margin: 0;
@@ -1652,12 +1714,15 @@ table.calendar {
     }
 
     span.title {
-      font-weight: bold;
+      font-weight: 700;
       display: block;
     }
     span.speaker {
-      font-weight: normal;
+      font-weight: 400;
       display:block;
+      font-size: 10px;
+      line-height: 14px;
+      margin: 2px 0 5px;
     }
   }
 }

@@ -42,7 +42,7 @@ body {
 			    img.caktus-logo {
 			      margin-top: 10px;	
 			      margin-left: 0;
-			      max-width: 100px;
+			      max-width: 100%;
 			    }
 			}
 			@media (max-width: @breakDesktop) {
@@ -55,23 +55,38 @@ body {
 			    }
 			    img.caktus-logo {
 			      margin-left: 0;
-			      max-width: 80px;
+			      max-width: 100%;
 			    }
 			}
 			@media (max-width: @breakTablet) {
+				text-align: center;
 				top: 0;
 				padding-bottom: 0;
-				.footer-left {
-					text-align: center;
-					margin: 0 20px;
+				p {
+					line-height: 1.8em;
 				}
+			    img.caktus-logo {
+			      margin-left: 0;
+			      margin-bottom: 5px;
+			      max-width: 80px;
+			    }
+				.footer-left {
+					margin: 20px auto;
+					padding-right: 0;
+				}
+				.footer-center {
+					img {
+						margin: 20px auto 10px;
+					}
+					p {
+						margin-botton: 20px;
+					}
+    			}
 				.footer-right {
-			      margin: -30px 20px 10px 20px;
+			      margin: 20px 20px 10px 20px;
+			      padding-left: 0;
 			      text-align: center;
 
-			    }
-			    img.caktus-logo {
-			    	display: none;
 			    }
 			}
 		}
@@ -211,7 +226,7 @@ body.home {
 	}
 	@media (max-width: @breakDesktop) {
 		.banner {
-		    background: url("../img/headergraphic.png") no-repeat center 100px;
+		    background: url("../img/headergraphic.png") no-repeat center 80px;
 		    -webkit-background-size: contain;
 		    -moz-background-size: contain;
 		    -o-background-size: contain;
@@ -220,6 +235,14 @@ body.home {
 		    min-height: 440px;
 		    padding-top: 10px;
 		    z-index: -1;
+		   	.logo {
+	    		background:url(../img/pycon2015-logo.png) no-repeat 0 0;
+	    		background-size: 180px auto;
+	    		width: 180px;
+	    		height: 50px;
+	    		margin-left: 0;
+	    	}
+
 		}
 	}
 	@media (max-width: @breakTablet) {
@@ -504,7 +527,7 @@ body.cms-page {
 	    position: relative;
 	    top: -100px;
 	    min-height: 55px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakDesktopLarge) {
 	    background: url("../img/headergraphicSm2.png") no-repeat right -10px;
@@ -513,7 +536,7 @@ body.cms-page {
 	    position: relative;
 	    top: -100px;
 	    min-height: 55px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakDesktop) {
 	    background: url("../img/headergraphicSm2.png") no-repeat right 30px;
@@ -523,7 +546,7 @@ body.cms-page {
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakTablet) {
 		background: url("../img/headergraphicSm2.png") no-repeat right 40px;
@@ -532,21 +555,21 @@ body.cms-page {
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakMobileLandscape) {
 	    background: none;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 40px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakMobile) {
 		background: none;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    min-height: 55px;
-	    background-color: white;
+	    background-color: #97e7ff;
 	}
 }
 
