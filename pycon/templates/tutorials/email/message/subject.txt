@@ -1,1 +1,1 @@
-New class message from {{ user.get_full_name|safe }} posted to {{ presentation }}.
+{% load review_tags %}New class message from {{ user.get_full_name|bleach|safe }} posted to {{ presentation }}.

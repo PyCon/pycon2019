@@ -1,8 +1,9 @@
-New Email from {{ user.get_full_name|safe }} regarding {{ presentation }}.
+{% load review_tags %}
+New Email from {{ user.get_full_name|bleach|safe }} regarding {{ presentation }}.
 
 ----------------------------------------------------------------------------
 
-{{ message|safe }}
+{{ message|bleach|safe }}
 
 ----------------------------------------------------------------------------
 
