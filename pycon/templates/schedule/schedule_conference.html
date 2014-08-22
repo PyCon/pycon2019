@@ -15,12 +15,10 @@
     <div class="container">
         {% box "schedule_top" %}
 
-        {% for section in sections %}
-            {% cache 600 "schedule-table" section.schedule.section %}
-                {% for timetable in section.days %}
-                    <h3>{{ timetable.day.date }}</h3>
-                    {% include "schedule/_grid.html" %}
-                {% endfor %}
+        {% for timetable in timetables %}
+            {% cache 600 "schedule-table" timetable.day %}
+                <h3>{{ timetable.day.date }}</h3>
+                {% include "schedule/_grid.html" %}
             {% endcache %}
         {% endfor %}
 
