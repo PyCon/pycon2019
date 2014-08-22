@@ -8,7 +8,7 @@
 
 Pillow==2.0.0
 easy-thumbnails==1.2
-html5lib==0.95
+html5lib==0.999
 django-social-auth==0.7.23
 
 gondor==1.2.4

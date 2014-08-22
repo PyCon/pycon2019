@@ -4,6 +4,7 @@
 {% load thumbnail %}
 {% load i18n %}
 {% load boxes_tags %}
+{% load review_tags %}
 
 {% block head_title %}{% trans "PyCon Jobs Fair" %}{% endblock %}
 
@@ -47,7 +48,7 @@
                                     </h2>
                                     <h5>{{ sponsor.name }}</h5>
                                     <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                                    <div class="job-listing">{{ sponsor.joblisting_text|safe }}</div>
+                                    <div class="job-listing">{{ sponsor.joblisting_text|bleach|safe }}</div>
                                 </div>
                             </div>
                         {% else %}

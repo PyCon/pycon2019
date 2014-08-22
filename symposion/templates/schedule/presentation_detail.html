@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load review_tags %}
 {% load sitetree %}
 
 {% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
@@ -36,5 +37,5 @@
 
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract|safe }}</div>
+    <div class="abstract">{{ presentation.abstract|bleach|safe }}</div>
 {% endblock %}

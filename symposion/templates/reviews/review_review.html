@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 
 {% load uni_form_tags %}
+{% load review_tags %}
 
 {% block body_class %}review{% endblock %}
 
@@ -24,7 +25,7 @@
 
         <h3>Abstract</h3>
         <div class="abstract">
-            {{ proposal.abstract_html|safe }}
+            {{ proposal.abstract_html|bleach|safe }}
         </div>
 
         <p><b>Audience level</b>: {{ proposal.get_audience_level_display }}</p>
