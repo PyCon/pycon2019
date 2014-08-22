@@ -1,1 +1,1 @@
-Message from {{ user.get_full_name|safe }} regarding your PyCon financial aid application.
+{% load review_tags %}Message from {{ user.get_full_name|bleach|safe }} regarding your PyCon financial aid application.

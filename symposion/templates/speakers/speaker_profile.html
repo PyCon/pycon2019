@@ -2,8 +2,8 @@
 
 {% load compress %}
 {% load i18n %}
+{% load review_tags %}
 {% load thumbnail %}
-
 
 {% block head_title %}{{ speaker.name }}{% endblock %}
 
@@ -35,7 +35,7 @@
                 <a class="btn pull-right" href="{% url 'speaker_edit' speaker.pk %}">{% trans "Edit" %}</a>
             {% endif %}
             <h1>{{ speaker.name }}</h1>
-            <div id="bio" class="bio">{{ speaker.biography|safe }}</div>
+            <div id="bio" class="bio">{{ speaker.biography|bleach|safe }}</div>
 
             <h2>{% trans "Presentations" %}</h2>
             {% for presentation in presentations %}

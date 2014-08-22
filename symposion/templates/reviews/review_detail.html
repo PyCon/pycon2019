@@ -1,9 +1,9 @@
 {% extends "reviews/base.html" %}
 
 {% load compress %}
-
 {% load bootstrap_tags %}
 {% load account_tags %}
+{% load review_tags %}
 
 {% block head_title %}#{{ proposal.number }} - {{ proposal.title }}{% endblock %}
 
@@ -174,7 +174,7 @@
                             <div class="review-content">
                                 <b>{% user_display review.user %}</b>
                                 {{ review.submitted_at|timesince }} ago <br />
-                                {{ review.comment|safe }}
+                                {{ review.comment|bleach|safe }}
                             </div>
                         </div>
                     {% endfor %}
@@ -188,7 +188,7 @@
                             <div class="commment-content">
                                 <b>{% user_display message.user %}</b>
                                 {{ message.submitted_at|timesince }} ago <br />
-                                {{ message.message|safe }}
+                                {{ message.message|bleach|safe }}
                             </div>
                         </div>
                     {% endfor %}
