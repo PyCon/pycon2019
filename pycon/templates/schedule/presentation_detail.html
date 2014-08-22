@@ -3,6 +3,7 @@
 {% load account_tags %}
 {% load compress %}
 {% load i18n %}
+{% load review_tags %}
 {% load sitetree %}
 
 {% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
@@ -57,7 +58,7 @@
     {% if proposal.abstract  %}
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract|safe }}</div>
+    <div class="abstract">{{ presentation.abstract|bleach|safe }}</div>
     {% endif %}
 
     {# Determine if the proposal is a Tutorial #}
@@ -89,7 +90,7 @@
                         <div class="commment-content">
                           <strong>{% user_display message.user %}</strong>
                           {{ message.submitted_at|timesince }} ago
-                          <div class="tutorial-comment">{{ message.message|safe }}</div>
+                          <div class="tutorial-comment">{{ message.message|bleach|safe }}</div>
                         </div>
                       </div>
                     {% endfor %}
