@@ -520,56 +520,68 @@ body.cms-page {
 
 .page-head {
 	@media (min-width: @breakDesktopXL) {
-	    background: url("../img/headergraphicSm2.png") no-repeat right -40px;
+	    background: url("../img/pageHeader2.png") no-repeat right bottom;
 	    background-size: 100% ;
 	    padding: 110px 0 10px 0;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    top: -100px;
 	    min-height: 55px;
-	    background-color: #97e7ff;
+	    background-color: white;
 	}
 	@media (max-width: @breakDesktopLarge) {
-	    background: url("../img/headergraphicSm2.png") no-repeat right -10px;
+	    background: url("../img/pageHeader2.png") no-repeat right bottom;
 	    background-size: 100% ;
 	    martgin-bottom: 20px;
 	    position: relative;
 	    top: -100px;
 	    min-height: 55px;
-	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakDesktop) {
-	    background: url("../img/headergraphicSm2.png") no-repeat right 30px;
+	    background: url("../img/pageHeader2.png") no-repeat right bottom;
 	    background-size: 100% ;
 	    padding: 110px 0 0 0;
-	    background-position-x: 170px;
 	    martgin-bottom: 20px;
 	    position: relative;
-	    min-height: 55px;
-	    background-color: #97e7ff;
+	    min-height: 60px;
 	}
 	@media (max-width: @breakTablet) {
-		background: url("../img/headergraphicSm2.png") no-repeat right 40px;
-	    background-size: 120% ;
-	    background-position-x: 190px;
+		background: url("../img/pageHeader2.png") no-repeat right bottom;
+		background-size: 100%;
 	    martgin-bottom: 20px;
 	    position: relative;
-	    min-height: 55px;
-	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakMobileLandscape) {
-	    background: none;
+	    background: url("../img/pageHeader2.png") no-repeat right bottom;
+		background-size: 100%;
 	    martgin-bottom: 20px;
 	    position: relative;
-	    min-height: 40px;
-	    background-color: #97e7ff;
 	}
 	@media (max-width: @breakMobile) {
-		background: none;
+	    background: url("../img/pageHeader2.png") no-repeat rightt bottom;
+		background-size: 100%;
+
+
+
+
 	    martgin-bottom: 20px;
 	    position: relative;
-	    min-height: 55px;
-	    background-color: #97e7ff;
+	    }
+
+	@media (max-width: @breakTablet) {	
+		ul.breadcrumb {
+			font-size: 10pt;
+			margin-bottom: 30px;
+		}
+	}
+	@media (max-width: @breakMobileLandscape) {	
+		h1 {
+			font-size: 30px;
+			margin-bottom: 0;
+		}
+		ul.breadcrumb {
+			margin-bottom: 30px;
+		}
 	}
 }
 
