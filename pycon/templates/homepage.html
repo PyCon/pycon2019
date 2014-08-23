@@ -28,17 +28,6 @@
                             <li class="box-shadow"><strong>{% trans "Tutorials" %}</strong> April 8&ndash;9</li>
                             <li class="box-shadow"><strong>{% trans "Conference" %}</strong> April 10&ndash;12</li>
                             <li class="box-shadow"><strong>{% trans "Sprints" %}</strong> April 13&ndash;16</li>
-                            {% if config.REGISTRATION_STATUS != 'open' %}
-                            <li class="box-shadow promo no-link">
-                                {% if config.REGISTRATION_STATUS == 'soon' %}
-                                    <p>{% trans "Register Fall 2014" %}</p>
-                                {% elif config.REGISTRATION_STATUS == 'closed' %}
-                                    <p class="small">{% trans "Registration Closed" %}</p>
-                                {% else %}
-                                    <p>&nbsp;&nbsp;</p>
-                                {% endif %}
-                            </li>
-                            {% endif %}
                             <div class="details">
                                 <span itemprop="locality">Montreal</span>,
                                 <span itemprop="country-name">Canada</span>,
