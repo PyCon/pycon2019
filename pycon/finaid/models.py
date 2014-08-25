@@ -28,12 +28,14 @@ STATUS_OFFERED = 4
 STATUS_REJECTED = 5
 STATUS_DECLINED = 6
 STATUS_ACCEPTED = 7
+STATUS_NEED_MORE = 8
 
 STATUS_CHOICES = (
     (STATUS_SUBMITTED, _(u"Submitted")),
     (STATUS_WITHDRAWN, _(u"Withdrawn")),
     (STATUS_INFO_NEEDED, _(u"Information needed")),
     (STATUS_OFFERED, _(u"Offered")),
+    (STATUS_NEED_MORE, _(u"Requesting more funds")),
     (STATUS_REJECTED, _(u"Rejected")),
     (STATUS_DECLINED, _(u"Declined")),
     (STATUS_ACCEPTED, _(u"Accepted"))
