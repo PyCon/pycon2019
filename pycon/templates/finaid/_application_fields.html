@@ -33,46 +33,6 @@
   {% if application.pyladies_grant_requested %}
     <li>{% trans "PyLadies grant requested" %}<li>
   {% endif %}
-  {% if application.registration_grant_requested %}
-    <li>{% trans "Registration grant requested" %}</li>
-  {% endif %}
-  {% if application.tutorial_grant_requested %}
-    <li>{% trans "Tutorial grant requested" %}</li>
-  {% endif %}
-  {% if application.hotel_grant_requested %}
-    <li>{% trans "Hotel grant requested" %}
-      <ul class="unstyled">
-        <li>
-          <strong>{% trans "Hotel nights:" %}</strong>
-          {{ application.hotel_nights }}
-        </li>
-        <li>
-          <strong>{% trans "Sex:" %}</strong>
-          {{ application.get_sex_display }}
-        </li>
-      </ul>
-    </li>
-  {% endif %}
-  {% if application.travel_grant_requested %}
-    <li>{% trans "Travel grant requested" %}
-     <ul class="unstyled">
-      <li>
-        <strong>{% trans "Travel funds requested:" %}</strong>
-        {{ application.travel_amount_requested }}
-      </li>
-      <li>
-        <strong>{% trans "International travel?" %}</strong>
-        {{ application.international }}
-      </li>
-      {% if application.travel_plans %}
-      <li>
-        <strong>{% trans "What are your travel plans?" %}</strong>
-        <p>{{ application.travel_plans }}</p>
-      </li>
-      {% endif %}
-     </ul>
-    </li>
-  {% endif %}
 </ul>
 
 <hr>
@@ -93,10 +53,6 @@
     <strong>{% trans "What do you want to get out of attending PyCon?" %}</strong>
     <p>{{ application.what_you_want }}</p>
   </li>
-  <li>
-    <strong>{% trans "What do you want to learn?" %}</strong>
-    <p>{{ application.want_to_learn }}</p>
-  </li>
   {% if application.portfolios %}
     <li>
       <strong>{% trans "Portfolios" %}</strong>
@@ -107,12 +63,6 @@
     <strong>{% trans "Use of Python" %}</strong>
     <p>{{ application.use_of_python }}</p>
   </li>
-  {% if application.beginner_resources %}
-    <li>
-      <strong>{% trans "Beginner resources" %}</strong>
-      <p>{{ application.beginner_resources }}</p>
-    </li>
-  {% endif %}
   <li>
     <strong>{% trans "Presenting at PyCon:" %}</strong>
     {{ application.get_presenting_display }}

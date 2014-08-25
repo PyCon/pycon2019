@@ -381,7 +381,6 @@ def finaid_download_csv(request):
         'cash_check',
         'last_update',
         'presenting',
-        'sex',
         'status',
         'sum',
         'travel_cash_check',
