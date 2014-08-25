@@ -12,8 +12,9 @@ class Migration(SchemaMigration):
         db.create_table(u'reviews_proposalgroup', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('review_start', self.gf('django.db.models.fields.DateField')()),
-            ('vote_start', self.gf('django.db.models.fields.DateField')()),
+            ('review_start', self.gf('django.db.models.fields.DateTimeField')()),
+            ('vote_start', self.gf('django.db.models.fields.DateTimeField')()),
+            ('vote_end', self.gf('django.db.models.fields.DateTimeField')()),
         ))
         db.send_create_signal(u'reviews', ['ProposalGroup'])
 
@@ -141,8 +142,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'ProposalGroup'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'review_start': ('django.db.models.fields.DateField', [], {}),
-            'vote_start': ('django.db.models.fields.DateField', [], {})
+            'review_start': ('django.db.models.fields.DateTimeField', [], {}),
+            'vote_end': ('django.db.models.fields.DateTimeField', [], {}),
+            'vote_start': ('django.db.models.fields.DateTimeField', [], {})
         },
         u'reviews.proposalmessage': {
             'Meta': {'ordering': "['submitted_at']", 'object_name': 'ProposalMessage'},

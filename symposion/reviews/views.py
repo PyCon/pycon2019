@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
 from django.db.models import Q
@@ -183,6 +185,21 @@ def review_admin(request, section_slug):
     return render(request, "reviews/review_admin.html", ctx)
 
 
+def is_review_period_active(proposal):
+    # If this proposal isn't in a group, the review and voting period are
+    # always active.
+    if proposal.result is None or proposal.result.group is None:
+        return True
+    # Otherwise check the bounds.
+    return proposal.group.review_start <= datetime.datetime.now() <= proposal.group.vote_start
+
+
+def is_voting_period_active(proposal):
+    if proposal.result is None or proposal.result.group is None:
+        return True
+    return proposal.group.vote_start <= datetime.datetime.now() <= proposal.group.vote_end
+
+
 @login_required
 def review_detail(request, pk):
 
@@ -210,7 +227,7 @@ def review_detail(request, pk):
         if request.user in speakers:
             return access_not_permitted(request)
 
-        if "vote_submit" in request.POST:
+        if "vote_submit" in request.POST and is_voting_period_active(proposal):
             review_form = ReviewForm(request.POST)
             if review_form.is_valid():
 
@@ -239,7 +256,7 @@ def review_detail(request, pk):
                     if latest_vote:
                         initial["vote"] = latest_vote.vote
                     review_form = ReviewForm(initial=initial)
-        elif "message_submit" in request.POST:
+        elif "message_submit" in request.POST and is_review_period_active(proposal):
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
 
@@ -294,10 +311,16 @@ def review_detail(request, pk):
         if request.user in speakers:
             review_form = None
         else:
-            review_form = ReviewForm(initial=initial)
+            if is_voting_period_active(proposal):
+                review_form = ReviewForm(initial=initial)
+            else:
+                review_form = None
             tags = edit_string_for_tags(proposal.tags.all())
             proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
-        message_form = SpeakerCommentForm()
+        if request.user not in speakers or is_review_period_active(proposal):
+            message_form = SpeakerCommentForm()
+        else:
+            message_form = None
 
     proposal.comment_count = proposal.result.comment_count
     proposal.total_votes = proposal.result.vote_count

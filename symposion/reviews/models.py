@@ -196,8 +196,9 @@ class LatestVote(models.Model):
 
 class ProposalGroup(models.Model):
     name = models.CharField(max_length=100)
-    review_start = models.DateField()
-    vote_start = models.DateField()
+    review_start = models.DateTimeField()
+    vote_start = models.DateTimeField()
+    vote_end = models.DateTimeField()
 
 
 class ProposalResult(models.Model):
