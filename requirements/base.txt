@@ -15,7 +15,7 @@ pinax-utils==1.0b1.dev3
 django-debug-toolbar==0.9.4
 django-mailer==0.2a1
 django-timezones==0.2
-pytz==2013b
+pytz==2014.4
 django-openid==0.3a1
 python-openid==2.2.5
 django_compressor==1.3
