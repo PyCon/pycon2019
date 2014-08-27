@@ -133,7 +133,7 @@ class SpeakerBiosExporter(BaseExporter):
         sort_key = lambda s: s.name.lower()
         all_speakers = []
         kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk']]
+                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk', 'Sponsor Tutorial']]
         for kind in kinds:
             speakers = []
             for presentation in queryset.filter(proposal_base__kind=kind):
