@@ -13,7 +13,6 @@ def create_application(user, **kwargs):
         profession="Foo",
         experience_level="lots",
         what_you_want="money",
-        want_to_learn="stuff",
         use_of_python="fun",
         presenting=1,
     )

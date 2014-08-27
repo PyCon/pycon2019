@@ -28,12 +28,14 @@ STATUS_OFFERED = 4
 STATUS_REJECTED = 5
 STATUS_DECLINED = 6
 STATUS_ACCEPTED = 7
+STATUS_NEED_MORE = 8
 
 STATUS_CHOICES = (
     (STATUS_SUBMITTED, _(u"Submitted")),
     (STATUS_WITHDRAWN, _(u"Withdrawn")),
     (STATUS_INFO_NEEDED, _(u"Information needed")),
     (STATUS_OFFERED, _(u"Offered")),
+    (STATUS_NEED_MORE, _(u"Requesting more funds")),
     (STATUS_REJECTED, _(u"Rejected")),
     (STATUS_DECLINED, _(u"Declined")),
     (STATUS_ACCEPTED, _(u"Accepted"))
@@ -58,30 +60,7 @@ class FinancialAidApplication(models.Model):
         verbose_name=_("PyLadies grant"),
         help_text=_("Would you like to be considered for a "
                     "PyLadies grant? (Women only.)"))
-    registration_grant_requested = models.BooleanField(
-        verbose_name=_("Registration grant"),
-        help_text=_("Will you need assistance with the "
-                    "Conference Registration?"))
 
-    hotel_grant_requested = models.BooleanField(
-        verbose_name=_("Hotel grant"),
-        help_text=_("Will you need assistance with a Hotel Room?"))
-    hotel_nights = models.IntegerField(
-        verbose_name=_("Nights"),
-        help_text=_("Please approximate how many nights you will be staying "
-                    "at the hotel."),
-        default=0)
-    sex = models.IntegerField(
-        verbose_name=_("Sex"),
-        choices=SEX_CHOICES,
-        help_text=_("(Your sex will be used only to help assign roommates "
-                    "for those requesting hotel assistance)"),
-        default=SEX_NO_ANSWER,
-    )
-
-    travel_grant_requested = models.BooleanField(
-        verbose_name=_("Travel grant"),
-        help_text=_("Will you need assistance with Travel Costs?"))
     international = models.BooleanField(
         verbose_name=_("International"),
         help_text=_("Will you be traveling internationally?"))
@@ -95,10 +74,6 @@ class FinancialAidApplication(models.Model):
         max_length=1024,
         help_text=_("Please describe your travel plans"), blank=True)
 
-    tutorial_grant_requested = models.BooleanField(
-        verbose_name=_("Tutorial grant"),
-        help_text=_("Will you need assistance with tutorials?"))
-
     profession = models.CharField(
         verbose_name=_("Profession"),
         help_text=_("What is it that you do"), max_length=500)
@@ -111,10 +86,6 @@ class FinancialAidApplication(models.Model):
         verbose_name=u"What you want",
         help_text=_("What do you want to get out of attending PyCon?"),
         max_length=500)
-    want_to_learn = models.CharField(
-        verbose_name=u"Want to learn",
-        help_text=_("What is it that you're hoping to learn?"),
-        max_length=500)
     portfolios = models.CharField(
         verbose_name=_("Portfolios"),
         help_text=_("Please provide links to any portfolios you have "
@@ -124,11 +95,6 @@ class FinancialAidApplication(models.Model):
     use_of_python = models.CharField(
         verbose_name=_("Use of Python"),
         help_text=_("Describe your use of Python"), max_length=500)
-    beginner_resources = models.CharField(
-        verbose_name=_("Beginner resources"),
-        help_text=_("If you're a beginner, describe the resources you're "
-                    "using to learn Python."),
-        max_length=500, blank=True)
     presenting = models.IntegerField(
         verbose_name=_("Presenting"),
         help_text=_("Will you be speaking, hosting a poster session, "
