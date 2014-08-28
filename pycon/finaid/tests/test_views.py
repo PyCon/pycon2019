@@ -86,6 +86,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             use_of_python="fun",
             presenting='1',
             travel_amount_requested="0.00",
+            travel_plans="get there",
         )
         self.assertEqual(0, len(mail.outbox))
         rsp = self.client.post(self.edit_url, data)
@@ -129,6 +130,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             what_you_want="money",
             use_of_python="fun",
             presenting=1,
+            travel_plans="get there",
         )
 
         # New data
@@ -139,6 +141,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             use_of_python="fun",
             presenting='1',
             travel_amount_requested="0.00",
+            travel_plans="get there quickly",
         )
 
         self.assertEqual(0, len(mail.outbox))

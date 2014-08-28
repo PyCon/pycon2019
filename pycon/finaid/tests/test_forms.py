@@ -24,6 +24,7 @@ class FinancialAidTest(TestCase):
             use_of_python="fun",
             presenting=1,
             travel_amount_requested="0.00",
+            travel_plans="get there",
         )
         instance = FinancialAidApplication(user=user)
         form = FinancialAidApplicationForm(data, instance=instance)

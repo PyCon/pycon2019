@@ -72,7 +72,7 @@ class FinancialAidApplication(models.Model):
     travel_plans = models.CharField(
         verbose_name=_("Travel plans"),
         max_length=1024,
-        help_text=_("Please describe your travel plans"), blank=True)
+        help_text=_("Please describe your travel plans"))
 
     profession = models.CharField(
         verbose_name=_("Profession"),
