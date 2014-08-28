@@ -48,9 +48,6 @@ class FinancialAidReviewForm(forms.ModelForm):
     class Meta:
         model = FinancialAidReviewData
         widgets = {
-            'hotel_notes': Textarea(
-                attrs={'cols': 80, 'rows': 5,
-                       'class': 'fullwidth-textarea'}),
             'notes': Textarea(
                 attrs={'cols': 80, 'rows': 5,
                        'class': 'fullwidth-textarea'}),

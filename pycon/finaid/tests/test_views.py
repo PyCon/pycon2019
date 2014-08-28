@@ -243,8 +243,6 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': self.application,
             'status': STATUS_SUBMITTED,
-            'hotel_amount': Decimal('6.66'),
-            'registration_amount': Decimal('0.00'),
             'travel_amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
@@ -401,7 +399,6 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
     def test_one_application(self):
         # One application that has review data
         # Include non-ASCII to be sure that doesn't break anything
-        # Make sure the pseudo-field 'sum' is included
         application = FinancialAidApplication.objects.create(
             user=self.user,
             profession=u"Föo",
@@ -413,7 +410,6 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         FinancialAidReviewData.objects.create(
             application=application,
             status=STATUS_INFO_NEEDED,
-            hotel_amount=Decimal('1.23'),
             travel_amount=Decimal('2.45'),
         )
         self.login()
@@ -424,8 +420,6 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(application.experience_level, app['experience_level'])
         self.assertEqual("Yes", app['presenting'])
         self.assertEqual("Information needed", app['status'])
-        self.assertEqual("1.23", app['hotel_amount'])
-        self.assertEqual("3.68", app['sum'])
         self.assertEqual(self.user.email, app['email'])
 
 
@@ -447,5 +441,4 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(unicode(application1.user), app['user'])
         self.assertEqual(application1.experience_level, app['experience_level'])
         self.assertEqual('Submitted', app['status'])
-        self.assertEqual('0.00', app['sum'])
         self.assertEqual(user1.email, app['email'])

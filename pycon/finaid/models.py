@@ -211,15 +211,8 @@ class FinancialAidReviewData(models.Model):
                                        editable=False)
     status = models.IntegerField(choices=STATUS_CHOICES,
                                  default=STATUS_SUBMITTED)
-    hotel_amount = models.DecimalField(
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    paired_with = models.ForeignKey(User, blank=True, null=True)
-    hotel_notes = models.TextField(blank=True)
     travel_amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    registration_amount = models.DecimalField(
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    # sum is not a field in the model; we compute it at display time
     grant_letter_sent = models.DateField(blank=True, null=True)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
                                      blank=True, null=True)
@@ -228,14 +221,6 @@ class FinancialAidReviewData(models.Model):
                                             blank=True, null=True)
     disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
-
-    def sum(self):
-        """Sum of amounts granted"""
-        return self.hotel_amount + self.travel_amount \
-            + self.registration_amount
-
-    def get_sum_display(self):
-        return unicode(self.sum())
 
 
 class FinancialAidEmailTemplate(models.Model):
