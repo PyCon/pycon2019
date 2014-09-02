@@ -167,6 +167,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
     "constance.context_processors.config",
+    "pinax_theme_bootstrap.context_processors.theme",
 ]
 
 INSTALLED_APPS = [
