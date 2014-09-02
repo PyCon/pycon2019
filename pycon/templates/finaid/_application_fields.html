@@ -40,6 +40,14 @@
 <ul class="unstyled applicant-info">
   <h4>{% trans "APPLICANT INFO" %}</h4>
   <li>
+    <strong>{% trans "Travel Amount Requested" %}</strong>
+    <p>{{ application.travel_amount_requested }}</p>
+  </li>
+  <li>
+    <strong>{% trans "Travel Plans" %}</strong>
+    <p>{{ application.travel_plans }}</p>
+  </li>
+  <li>
     <strong>{% trans "Profession" %}</strong>
     <p>{{ application.profession }}</p>
   </li>
