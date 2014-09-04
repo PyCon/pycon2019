@@ -4,6 +4,8 @@
 import os.path
 import posixpath
 
+import bleach
+
 from django.core.urlresolvers import reverse_lazy
 
 
@@ -348,3 +350,5 @@ CACHES = {
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
+
+BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
