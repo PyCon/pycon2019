@@ -1,17 +1,11 @@
-import html5lib
-from html5lib import html5parser, sanitizer
-
+import bleach
 import markdown
+
+from django.conf import settings
 
 
 def parse(text):
-    
-    # First run through the Markdown parser
+    """Convert markdown text to sanitized HTML."""
     text = markdown.markdown(text, extensions=["extra"], safe_mode=False)
-    
-    # Sanitize using html5lib
-    bits = []
-    parser = html5parser.HTMLParser(tokenizer=sanitizer.HTMLSanitizer)
-    for token in parser.parseFragment(text).childNodes:
-        bits.append(token.toxml())
-    return "".join(bits)
+    text = bleach.clean(text, tags=settings.BLEACH_ALLOWED_TAGS)
+    return text
