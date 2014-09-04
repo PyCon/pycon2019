@@ -46,8 +46,8 @@ and some variables that you can access:
 * review - a ``FinancialAidReviewData`` object. This gives access to the
   information from the review of the application. E.g.::
 
-      {% if review.hotel_amount %}You are being granted ${{ review.hotel_amount }}
-      toward your hotel stay.{% endif %}
+      {% if review.travel_amount %}You are being granted ${{ review.travel_amount }}
+      toward your travel.{% endif %}
 
 You can test your template by sending yourself email messages.
 
@@ -65,9 +65,7 @@ Editing applications
 To create or edit an application, the app uses the ``finaid/edit.html``
 template. The context provides a ``form`` variable containing the form.
 A default template is provided that is customized to work with the PyCon
-site and uses ``js/finaid.js`` to hide some of the fields unless some
-other inputs have been checked, but the view doesn't care; it just wants
-the form submitted.
+site.
 
 Email notices
 ~~~~~~~~~~~~~

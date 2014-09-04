@@ -11,8 +11,7 @@ easy-thumbnails==1.2
 html5lib==0.999
 django-social-auth==0.7.23
 
-gondor==1.2.4
-psycopg2==2.5
+psycopg2==2.5.3
 gunicorn==0.17.4
 django-secure==1.0
 raven==3.3.7

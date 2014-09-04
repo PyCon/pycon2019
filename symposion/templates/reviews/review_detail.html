@@ -195,18 +195,22 @@
                     <hr />
                 {% endif %}
 
-                <form action="" method="POST"accept-charset="utf-8">
-                    <legend>Send a message</legend>
-                    <p>
-                            If you'd like to communicate with the submitter, use the following form and he or she will be
-                            notified and given the opportunity to respond.
-                    </p>
-                    {% csrf_token %}
-                    {{ message_form|as_bootstrap }}
-                    <div class="form-actions">
-                        <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
-                    </div>
-                </form>
+                {% if message_form %}
+                    <form action="" method="POST"accept-charset="utf-8">
+                        <legend>Send a message</legend>
+                        <p>
+                                If you'd like to communicate with the submitter, use the following form and he or she will be
+                                notified and given the opportunity to respond.
+                        </p>
+                        {% csrf_token %}
+                        {{ message_form|as_bootstrap }}
+                        <div class="form-actions">
+                            <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
+                        </div>
+                    </form>
+                {% else %}
+                    <p>The review period is now over.</p>
+                {% endif %}
             </div>
         </div>
     </div>

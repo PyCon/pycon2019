@@ -21,11 +21,10 @@ class FinancialAidTest(TestCase):
             profession="Foo",
             experience_level="lots",
             what_you_want="money",
-            want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
-            hotel_nights=0,
             travel_amount_requested="0.00",
+            travel_plans="get there",
         )
         instance = FinancialAidApplication(user=user)
         form = FinancialAidApplicationForm(data, instance=instance)
@@ -43,7 +42,6 @@ class FinancialAidTest(TestCase):
             profession="Foo",
             experience_level="lots",
             what_you_want="money",
-            want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
         )

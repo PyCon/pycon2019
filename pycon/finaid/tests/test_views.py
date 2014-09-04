@@ -83,12 +83,10 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Foo",
             experience_level="lots",
             what_you_want="money",
-            want_to_learn="stuff",
             use_of_python="fun",
             presenting='1',
-            hotel_nights='0',
             travel_amount_requested="0.00",
-            sex='0',
+            travel_plans="get there",
         )
         self.assertEqual(0, len(mail.outbox))
         rsp = self.client.post(self.edit_url, data)
@@ -130,9 +128,9 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Foo",
             experience_level="lots",
             what_you_want="money",
-            want_to_learn="stuff",
             use_of_python="fun",
             presenting=1,
+            travel_plans="get there",
         )
 
         # New data
@@ -140,12 +138,10 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Gourmet",
             experience_level="none",
             what_you_want="money",
-            want_to_learn="stuff",
             use_of_python="fun",
             presenting='1',
-            hotel_nights='0',
             travel_amount_requested="0.00",
-            sex='0',
+            travel_plans="get there quickly",
         )
 
         self.assertEqual(0, len(mail.outbox))
@@ -247,8 +243,6 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': self.application,
             'status': STATUS_SUBMITTED,
-            'hotel_amount': Decimal('6.66'),
-            'registration_amount': Decimal('0.00'),
             'travel_amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
@@ -405,20 +399,17 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
     def test_one_application(self):
         # One application that has review data
         # Include non-ASCII to be sure that doesn't break anything
-        # Make sure the pseudo-field 'sum' is included
         application = FinancialAidApplication.objects.create(
             user=self.user,
             profession=u"Föo",
             experience_level="lots",
             what_you_want=u"money\nand\n'lóts' of it.",
-            want_to_learn=u'stuff "and" nončents',
             use_of_python="fun",
             presenting=1,
         )
         FinancialAidReviewData.objects.create(
             application=application,
             status=STATUS_INFO_NEEDED,
-            hotel_amount=Decimal('1.23'),
             travel_amount=Decimal('2.45'),
         )
         self.login()
@@ -427,11 +418,8 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         app = result[0]
         self.assertEqual(unicode(application.user), app['user'])
         self.assertEqual(application.experience_level, app['experience_level'])
-        self.assertEqual(application.want_to_learn, app['want_to_learn'])
         self.assertEqual("Yes", app['presenting'])
         self.assertEqual("Information needed", app['status'])
-        self.assertEqual("1.23", app['hotel_amount'])
-        self.assertEqual("3.68", app['sum'])
         self.assertEqual(self.user.email, app['email'])
 
 
@@ -441,10 +429,9 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         user2 = self.create_user("fred", "fred@example.com", "linus")
 
         application1 = create_application(user1,
-                                          experience_level="foo\nbar",
-                                          sex=2)
+                                          experience_level="foo\nbar")
         application1.save()
-        application2 = create_application(user2, want_to_learn="not really")
+        application2 = create_application(user2)
         application2.save()
 
         self.login()
@@ -452,9 +439,6 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(2, len(result))
         app = result[0]
         self.assertEqual(unicode(application1.user), app['user'])
-        self.assertEqual('Male', app['sex'])
         self.assertEqual(application1.experience_level, app['experience_level'])
-        self.assertEqual(application1.want_to_learn, app['want_to_learn'])
         self.assertEqual('Submitted', app['status'])
-        self.assertEqual('0.00', app['sum'])
         self.assertEqual(user1.email, app['email'])

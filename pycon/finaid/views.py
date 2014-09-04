@@ -373,7 +373,7 @@ def finaid_download_csv(request):
     reviewdata_field_names = [
         name for name in FinancialAidReviewData._meta.get_all_field_names()
         if name not in ['application', 'id', 'last_update']
-    ] + ['sum']
+    ]
 
     # For these fields, use the get_FIELDNAME_display() method so we get
     # the name of the choice (or other custom string) instead of the internal value
@@ -381,9 +381,7 @@ def finaid_download_csv(request):
         'cash_check',
         'last_update',
         'presenting',
-        'sex',
         'status',
-        'sum',
         'travel_cash_check',
     ]
 

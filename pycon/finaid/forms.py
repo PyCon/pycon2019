@@ -28,10 +28,6 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
-            'want_to_learn': Textarea(
-                attrs={'cols': 80, 'rows': 10,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 500}),
             'portfolios': Textarea(
                 attrs={'cols': 80, 'rows': 3,
                        'class': 'fullwidth-textarea',
@@ -40,25 +36,11 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
-            'beginner_resources': Textarea(
-                attrs={'cols': 80, 'rows': 5,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 500}),
             'experience_level': Textarea(
                 attrs={'cols': 80, 'rows': 2,
                        'class': 'fullwidth-textarea',
                        'maxlength': 200}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(FinancialAidApplicationForm, self).__init__(*args, **kwargs)
-        self.fields['sex'].required = False
-
-    def clean(self):
-        data = super(FinancialAidApplicationForm, self).clean()
-        if data['travel_grant_requested'] and not data['travel_plans']:
-            raise ValidationError(_(u"Travel plans are required if requesting a travel grant."))
-        return data
 
 
 class FinancialAidReviewForm(forms.ModelForm):
@@ -66,9 +48,6 @@ class FinancialAidReviewForm(forms.ModelForm):
     class Meta:
         model = FinancialAidReviewData
         widgets = {
-            'hotel_notes': Textarea(
-                attrs={'cols': 80, 'rows': 5,
-                       'class': 'fullwidth-textarea'}),
             'notes': Textarea(
                 attrs={'cols': 80, 'rows': 5,
                        'class': 'fullwidth-textarea'}),

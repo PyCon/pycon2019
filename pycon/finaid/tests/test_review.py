@@ -102,8 +102,6 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': application,
             'status': STATUS_SUBMITTED,
-            'hotel_amount': Decimal('6.66'),
-            'registration_amount': Decimal('0.00'),
             'travel_amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
@@ -111,7 +109,6 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
 
         # Now, submit the form to change the status
         data['status'] = STATUS_REJECTED
-        data['hotel_amount'] = Decimal('7.77')
         data['review_submit'] = 'review_submit'
 
         url = reverse('finaid_review_detail', kwargs={'pk': application.pk})
@@ -119,7 +116,6 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(302, rsp.status_code)
         new_review = FinancialAidReviewData.objects.get(pk=review.pk)
         self.assertEqual(STATUS_REJECTED, new_review.status)
-        self.assertEqual(Decimal("7.77"), new_review.hotel_amount)
 
 
 class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):

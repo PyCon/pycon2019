@@ -194,6 +194,13 @@ class LatestVote(models.Model):
         }[self.vote]
 
 
+class ProposalGroup(models.Model):
+    name = models.CharField(max_length=100)
+    review_start = models.DateTimeField()
+    vote_start = models.DateTimeField()
+    vote_end = models.DateTimeField()
+
+
 class ProposalResult(models.Model):
     proposal = models.OneToOneField("proposals.ProposalBase", related_name="result")
     score = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal("0.00"))
@@ -214,6 +221,7 @@ class ProposalResult(models.Model):
         ("undecided", "undecided"),
         ("standby", "standby"),
     ], default="undecided", db_index=True)
+    group = models.ForeignKey(ProposalGroup, related_name="proposal_results", null=True, blank=True)
 
     @classmethod
     def full_calculate(cls):
