@@ -72,3 +72,8 @@ def sponsor_levels(parser, token):
     {% sponsor_levels as levels %}
     """
     return SponsorLevelNode.handle_token(parser, token)
+
+
+@register.filter
+def mod(a, b):
+    return int(a) % int(b)
