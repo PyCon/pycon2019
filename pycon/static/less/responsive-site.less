@@ -519,30 +519,44 @@ body.cms-page {
 }
 
 .top-banner {
-	@media (max-width: @breakDesktopXL) {
-	    top: -180px;
-	    height: 70px;
+	.row {
+		height: 40px;
+		img {
+			min-width: 100%;
+			@media (max-width: @breakDesktopXL) {
+				position: relative;
+			    top: -160px;
+			    height: 70px;
+			}
+			@media (max-width: @breakDesktopLarge) {
+				position: relative;
+			    top: -160px;
+			    height: 50px;
+			}
+			@media (max-width: @breakDesktop) {
+				position: relative;
+			    top: -140px;
+			    height: 40px;
+			}
+			@media (max-width: @breakTablet) {
+				position: relative;
+			    top: -125px;
+			    height: 40px;
+			}
+			@media (max-width: @breakMobileLandscape) {
+				position: relative;
+			    top: -120px;
+			    height: 30px;
+			}
+			@media (max-width: @breakMobile) {
+				position: relative;
+			    top: -105px;
+			    height: 30px;
+			}
+		}
 	}
-	@media (max-width: @breakDesktopLarge) {
-	    top: -160px;
-	    height: 50px;
-	}
-	@media (max-width: @breakDesktop) {
-	    top: -140px;
-	    height: 40px;
-	}
-	@media (max-width: @breakTablet) {
-	    top: -125px;
-	    height: 30px;
-	}
-	@media (max-width: @breakMobileLandscape) {
-	    top: -120px;
-	    height: 20px;
-	}
-	@media (max-width: @breakMobile) {
-	    top: -105px;
-	    height: 20px;
-	    }
+
+
 
 	@media (max-width: @breakTablet) {	
 		ul.breadcrumb {
