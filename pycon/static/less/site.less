@@ -33,7 +33,7 @@
 
 @blueEXLight:   #97e7ff;
 @blueLight:     #33c5f4;
-@blueDark:      #27a9e1 !important;
+@blueDark:      #27A9E1;
 @blueEXDark:    #0099cc;
 // @blueSky:     #ade2f5;
 
@@ -54,8 +54,8 @@
 @button-text:           @white;
 @button-hover:          @blueLight;
 @button-active:         @blueLight;
-@button-primary-hover:  #27a9e1;
-@button-primary-active: #27a9e1;
+@button-primary-hover:  #27A9E1;
+@button-primary-active: #27A9E1;
 @button-info-hover:     mix(@blueLight, white, 80%);
 @button-info-active:    mix(@blueLight, black, 85%);
 @button-success-hover:  mix(@greenDark, white, 80%);
@@ -534,7 +534,7 @@ aside.list {
     color: @white;
   }
   &.btn-success {
-    .swap-button-color(@greenLight, @button-success-hover, @button-success-active);
+    .swap-button-color(@blueLight, @button-success-hover, @button-success-active);
     border: none;
     color: @white;
   }
@@ -1380,11 +1380,11 @@ body.auth {
       input[type=submit] {
         .btn;
         .btn-success;
-        border: 1px solid @greenDark;
+        border: 1px solid #27A9E1;
         .border-radius(4px);
         line-height: 24px;
         &:hover {
-          border: 1px solid @greenDark;
+          border: 1px solid #27A9E1;
         }
       }
     }
