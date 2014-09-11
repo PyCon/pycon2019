@@ -58,8 +58,8 @@
 @button-primary-active: #27A9E1;
 @button-info-hover:     mix(@blueLight, white, 80%);
 @button-info-active:    mix(@blueLight, black, 85%);
-@button-success-hover:  mix(@greenDark, white, 80%);
-@button-success-active: mix(@greenDark, black, 85%);
+@button-success-hover:  #27A9E1;
+@button-success-active: #27A9E1;
 @button-danger-hover:   mix(@danger, white, 80%);
 @button-danger-active:  mix(@danger, black, 85%);
 @button-warning-hover:  overlay(@yellowBeak, darken(white, 37.5%));
@@ -218,7 +218,7 @@ input[type="email"],
 input[type="url"],
 input[type="search"],
 input[type="tel"],
-input[type="color"]
+input[type="color"],
 input[type="submit"],
 .uneditable-input {
   border: 2px solid @grayLighter;
@@ -382,11 +382,13 @@ aside {
 .top-banner {
   .row {
     height: 50px;
-    img {
-      position: relative;
-      top: -130px;
-      max-width: 980px;
-    }
+      img {
+        position: relative;
+        top: -130px;
+        max-width: 940px;
+        -webkit-transform: translate(-50%,0);
+        margin-left: 50.5%;
+      }
   }
 }
 
@@ -522,6 +524,9 @@ aside.list {
     .swap-button-color(@blueLight, @button-primary-hover, @button-primary-active);
     border: none;
     color: @white;
+    &:hover {
+      border: none;
+    }
   }
   &.btn-info    {
     .swap-button-color(@blueLight, @button-info-hover, @button-info-active);
@@ -1162,13 +1167,9 @@ body.home {
 body.sponsors {
   a.read-more {
       .btn;
-      .btn-success;
-        margin-top: 10px;
-        margin-bottom: 0;
-        background-color: @blueLight;
-        &:hover {
-          background-color: @blueEXDark;
-        }
+      .btn-primary;
+      margin-top: 10px;
+      margin-bottom: 0;
       display: block;
       width: 275px;
     }
@@ -1243,7 +1244,7 @@ body.venue {
     }
     .place a {
         .btn;
-        .btn-success;
+        .btn-primary;
     }
   }
   .nav-list > .active > a, .nav-list > .active {
@@ -1275,7 +1276,7 @@ body.cms-page {
       }
       input[type=submit] {
         .btn;
-        .btn-success;
+        .btn-primary;
       }
       textarea {
         resize: none;
@@ -1379,7 +1380,7 @@ body.auth {
     .form-actions {
       input[type=submit] {
         .btn;
-        .btn-success;
+        .btn-primary;
         border: 1px solid #27A9E1;
         .border-radius(4px);
         line-height: 24px;
@@ -1673,6 +1674,23 @@ body.job-fair {
   }
 }
 
+/* Sponsors Apply
+==================== */
+body.sponsors-apply {
+  .top-banner {
+    .row {
+      height: 0;
+      img {
+        position: relative;
+        top: -180px;
+        max-width: 930px;
+        -webkit-transform: translate(-50%,0);
+        margin-left: 50.5%;
+      }
+    }
+  }
+}
+
 
 /* Calendar
 ==================== */
@@ -1756,6 +1774,19 @@ table.calendar {
 /* Financial Aid
 ==================== */
 body.finaid {
+
+  .top-banner {
+    .row {
+      height: 0;
+      img {
+        position: relative;
+        top: -180px;
+        max-width: 930px;
+        -webkit-transform: translate(-50%,0);
+        margin-left: 50.5%;
+      }
+    }
+  }
 
   &#application_list {
     form#applicant-list {
