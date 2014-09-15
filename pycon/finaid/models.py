@@ -64,9 +64,9 @@ class FinancialAidApplication(models.Model):
     international = models.BooleanField(
         verbose_name=_("International"),
         help_text=_("Will you be traveling internationally?"))
-    travel_amount_requested = models.DecimalField(
-        verbose_name=_("Travel amount"),
-        help_text=_("Please enter the amount of travel assistance you "
+    amount_requested = models.DecimalField(
+        verbose_name=_("Amount"),
+        help_text=_("Please enter the amount of assistance you "
                     "need, in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     travel_plans = models.CharField(
@@ -211,7 +211,7 @@ class FinancialAidReviewData(models.Model):
                                        editable=False)
     status = models.IntegerField(choices=STATUS_CHOICES,
                                  default=STATUS_SUBMITTED)
-    travel_amount = models.DecimalField(
+    amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     grant_letter_sent = models.DateField(blank=True, null=True)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,

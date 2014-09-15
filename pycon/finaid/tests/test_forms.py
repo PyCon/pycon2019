@@ -23,7 +23,7 @@ class FinancialAidTest(TestCase):
             what_you_want="money",
             use_of_python="fun",
             presenting=1,
-            travel_amount_requested="0.00",
+            amount_requested="0.00",
             travel_plans="get there",
         )
         instance = FinancialAidApplication(user=user)
