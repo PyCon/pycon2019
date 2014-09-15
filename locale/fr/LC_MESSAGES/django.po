@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PyCon website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 09:12-0400\n"
+"POT-Creation-Date: 2014-09-15 14:38-0400\n"
 "PO-Revision-Date: 2013-09-16 01:24+0000\n"
 "Last-Translator: mlhamel <marrakis@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/pycon-website/"
@@ -107,7 +107,7 @@ msgid "I prefer a 45 minute slot"
 msgstr "Je préfères une tranche de 45 minutes"
 
 #: pycon/models.py:130 pycon/models.py:189
-#: symposion/templates/proposals/_proposal_fields.html:62
+#: symposion/templates/proposals/_proposal_fields.html:63
 msgid "Outline"
 msgstr "Plan"
 
@@ -120,7 +120,7 @@ msgstr ""
 "\"Programmeurs Python\" n'est pas une bonne réponse à cette question.) "
 
 #: pycon/models.py:139 pycon/models.py:203
-#: symposion/templates/proposals/_proposal_fields.html:24
+#: symposion/templates/proposals/_proposal_fields.html:25
 msgid "Objectives"
 msgstr "Objectifs"
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Level of audience expertise assumed in the presentation's domain."
 msgstr "Niveau d'expertise requis dans le domaine de la présentation."
 
-#: pycon/models.py:192 symposion/templates/proposals/_proposal_fields.html:65
+#: pycon/models.py:192 symposion/templates/proposals/_proposal_fields.html:66
 msgid "More info"
 msgstr "Plus d'informations"
 
@@ -146,8 +146,8 @@ msgstr ""
 "Plus d'informations. Ces informations seront rendues publiques si votre "
 "présentation est acceptée. "
 
-#: pycon/models.py:210 pycon/templates/schedule/presentation_detail.html:65
-#: symposion/templates/proposals/_proposal_fields.html:80
+#: pycon/models.py:210 pycon/templates/schedule/presentation_detail.html:66
+#: symposion/templates/proposals/_proposal_fields.html:81
 msgid "Student Handout"
 msgstr "Communication avec vos étudiants"
 
@@ -173,12 +173,6 @@ msgstr ""
 msgid "Maximum number of attendees, per CTE data"
 msgstr ""
 
-#: pycon/finaid/forms.py:60
-msgid "Travel plans are required if requesting a travel grant."
-msgstr ""
-"Vos plans de voyages sont requis si vous faites une demande d'aide "
-"financière au voyage."
-
 #: pycon/finaid/models.py:14
 msgid "Female"
 msgstr "Femme"
@@ -199,170 +193,119 @@ msgstr "Non"
 msgid "I have applied but don't know yet"
 msgstr "J'ai appliqué mais je ne sais pas encore"
 
-#: pycon/finaid/models.py:33 pycon/finaid/models.py:163
+#: pycon/finaid/models.py:34 pycon/finaid/models.py:129
 #: symposion/templates/proposals/_pending_proposal_row.html:17
 #: symposion/templates/proposals/_proposal_row.html:17
 msgid "Submitted"
 msgstr "Soumis"
 
-#: pycon/finaid/models.py:34
+#: pycon/finaid/models.py:35
 msgid "Withdrawn"
 msgstr "Retiré"
 
-#: pycon/finaid/models.py:35
+#: pycon/finaid/models.py:36
 msgid "Information needed"
 msgstr "Information nécessaire"
 
-#: pycon/finaid/models.py:36
+#: pycon/finaid/models.py:37
 msgid "Offered"
 msgstr "Offert"
 
-#: pycon/finaid/models.py:37
+#: pycon/finaid/models.py:38
+msgid "Requesting more funds"
+msgstr ""
+
+#: pycon/finaid/models.py:39
 msgid "Rejected"
 msgstr "Rejetée"
 
-#: pycon/finaid/models.py:38 symposion/proposals/models.py:199
+#: pycon/finaid/models.py:40 symposion/proposals/models.py:199
 msgid "Declined"
 msgstr "Déclinée"
 
-#: pycon/finaid/models.py:39 symposion/proposals/models.py:198
+#: pycon/finaid/models.py:41 symposion/proposals/models.py:198
 #: symposion/templates/proposals/_pending_proposal_row.html:15
 #: symposion/templates/proposals/_proposal_row.html:15
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: pycon/finaid/models.py:45
+#: pycon/finaid/models.py:47
 msgid "Cash"
 msgstr "Comptant"
 
-#: pycon/finaid/models.py:46
+#: pycon/finaid/models.py:48
 msgid "Check"
 msgstr "Chèque"
 
-#: pycon/finaid/models.py:58
+#: pycon/finaid/models.py:60
 msgid "PyLadies grant"
 msgstr "Subvention PyLadies"
 
-#: pycon/finaid/models.py:59
+#: pycon/finaid/models.py:61
 msgid "Would you like to be considered for a PyLadies grant? (Women only.)"
 msgstr ""
 "Voudriez-vous être considéré pour la subvention PyLadies ? (Pour les femmes "
 "seulement)"
 
-#: pycon/finaid/models.py:62
-msgid "Registration grant"
-msgstr "Subvention à l'enregistrement"
-
-#: pycon/finaid/models.py:63
-msgid "Will you need assistance with the Conference Registration?"
-msgstr "Aurez-vous besoins d'une aide pour l'enregistrement de la conférence ?"
-
-#: pycon/finaid/models.py:67
-msgid "Hotel grant"
-msgstr "Subvention d'hôtel"
-
-#: pycon/finaid/models.py:68
-msgid "Will you need assistance with a Hotel Room?"
-msgstr "Aurez-vous d'une aide la chambre d'hôtel ?"
-
-#: pycon/finaid/models.py:70
-msgid "Nights"
-msgstr "Nuits"
-
-#: pycon/finaid/models.py:71
-msgid "Please approximate how many nights you will be staying at the hotel."
-msgstr ""
-"Veuillez s'il vous plait estimer combien de nuits vous resterez à l'hôtel."
-
-#: pycon/finaid/models.py:75
-msgid "Sex"
-msgstr "Sexe"
-
-#: pycon/finaid/models.py:77
-msgid ""
-"(Your sex will be used only to help assign roommates for those requesting "
-"hotel assistance)"
-msgstr ""
-"(Votre sexe sera utilisé uniquement pour aider trouver des colocataires à "
-"ceux qui demandent l'assistance de l'hôtel)"
-
-#: pycon/finaid/models.py:83
-msgid "Travel grant"
-msgstr "Subvention de voyage"
-
-#: pycon/finaid/models.py:84
-msgid "Will you need assistance with Travel Costs?"
-msgstr "Aurez-vous besoins d'aide pour couvrir vos frais de voyage ?"
-
-#: pycon/finaid/models.py:86
+#: pycon/finaid/models.py:65
 msgid "International"
 msgstr "Internationale"
 
-#: pycon/finaid/models.py:87
+#: pycon/finaid/models.py:66
 msgid "Will you be traveling internationally?"
 msgstr "Voyagerez-vous à l'international ?"
 
-#: pycon/finaid/models.py:89
-msgid "Travel amount"
-msgstr "Montant pour le voyage"
+#: pycon/finaid/models.py:68
+#, fuzzy
+msgid "Amount"
+msgstr "Compte"
 
-#: pycon/finaid/models.py:90
-msgid "Please enter the amount of travel assistance you need, in US dollars."
+#: pycon/finaid/models.py:69
+#, fuzzy
+msgid "Please enter the amount of assistance you need, in US dollars."
 msgstr ""
 "Veuillez entrer le montant de l'aide au voyage que vous avez besoins, en "
 "dollars américain."
 
-#: pycon/finaid/models.py:94
+#: pycon/finaid/models.py:73
 msgid "Travel plans"
 msgstr "Plans de voyage"
 
-#: pycon/finaid/models.py:96
+#: pycon/finaid/models.py:75
 msgid "Please describe your travel plans"
 msgstr "Veuillez décrire vos plans de voyage"
 
-#: pycon/finaid/models.py:99
-msgid "Tutorial grant"
-msgstr "subvention pour les tutoriaux"
-
-#: pycon/finaid/models.py:100
-msgid "Will you need assistance with tutorials?"
-msgstr "Aurez-vous besoins d'aide pour assister aux tutoriaux ?"
-
-#: pycon/finaid/models.py:103
-#: pycon/templates/finaid/_application_fields.html:83
+#: pycon/finaid/models.py:78
+#: pycon/templates/finaid/_application_fields.html:51
 msgid "Profession"
 msgstr "Profession"
 
-#: pycon/finaid/models.py:104
+#: pycon/finaid/models.py:79
 msgid "What is it that you do"
 msgstr "Que faites-vous"
 
-#: pycon/finaid/models.py:106
-#: pycon/templates/finaid/_application_fields.html:88
+#: pycon/finaid/models.py:81
+#: pycon/templates/finaid/_application_fields.html:56
 msgid "Involvement"
 msgstr "Implication"
 
-#: pycon/finaid/models.py:107
+#: pycon/finaid/models.py:82
 msgid "Describe your involvement in any open source projects or community."
 msgstr ""
 "Décrivez votre implication dans des projets open source ou dans la "
 "communauté."
 
-#: pycon/finaid/models.py:112
-#: pycon/templates/finaid/_application_fields.html:93
+#: pycon/finaid/models.py:87
+#: pycon/templates/finaid/_application_fields.html:61
 msgid "What do you want to get out of attending PyCon?"
 msgstr "Qu'attendez-vous retirer de PyCon ? "
 
-#: pycon/finaid/models.py:116
-msgid "What is it that you're hoping to learn?"
-msgstr "Que comptez-vous apprendre ?"
-
-#: pycon/finaid/models.py:119
-#: pycon/templates/finaid/_application_fields.html:102
+#: pycon/finaid/models.py:90
+#: pycon/templates/finaid/_application_fields.html:66
 msgid "Portfolios"
 msgstr "Portfolios"
 
-#: pycon/finaid/models.py:120
+#: pycon/finaid/models.py:91
 msgid ""
 "Please provide links to any portfolios you have that contain Python work. (e."
 "g. Github, Bitbucket, etc.)"
@@ -370,32 +313,20 @@ msgstr ""
 "Veuillez s'il vous plait fournir des liens vers n'importe quel portfolios "
 "qui contient du Python. (par exemple Github, Bitbucket, etc.)"
 
-#: pycon/finaid/models.py:125
-#: pycon/templates/finaid/_application_fields.html:107
+#: pycon/finaid/models.py:96
+#: pycon/templates/finaid/_application_fields.html:71
 msgid "Use of Python"
 msgstr "Utilisation de Python"
 
-#: pycon/finaid/models.py:126
+#: pycon/finaid/models.py:97
 msgid "Describe your use of Python"
 msgstr "Décrivez votre utilisation de Python"
 
-#: pycon/finaid/models.py:128
-#: pycon/templates/finaid/_application_fields.html:112
-msgid "Beginner resources"
-msgstr "Ressources pour les débutants"
-
-#: pycon/finaid/models.py:129
-msgid ""
-"If you're a beginner, describe the resources you're using to learn Python."
-msgstr ""
-"Si vous êtes débutant, décrivez les ressources que vous utilisez pour "
-"apprendre le Python."
-
-#: pycon/finaid/models.py:133
+#: pycon/finaid/models.py:99
 msgid "Presenting"
 msgstr "Présenter"
 
-#: pycon/finaid/models.py:134
+#: pycon/finaid/models.py:100
 msgid ""
 "Will you be speaking, hosting a poster session, or otherwise presenting at "
 "PyCon?"
@@ -403,35 +334,35 @@ msgstr ""
 "Est-ce que vous allez parler, animer une session poster, ou présenter à "
 "PyCon ?"
 
-#: pycon/finaid/models.py:138
+#: pycon/finaid/models.py:104
 msgid "Python experience level"
 msgstr "Niveau d'expérience en Python"
 
-#: pycon/finaid/models.py:139
+#: pycon/finaid/models.py:105
 msgid "What is your experience level with Python?"
 msgstr "Quel est votre niveau d'expérience avec Python ?"
 
-#: pycon/finaid/models.py:142
+#: pycon/finaid/models.py:108
 msgid "First time"
 msgstr "Première expérience"
 
-#: pycon/finaid/models.py:143
+#: pycon/finaid/models.py:109
 msgid "Is this your first time attending PyCon?"
 msgstr "Est-ce la première fois que vous assister à PyCon ?"
 
-#: pycon/finaid/models.py:145
+#: pycon/finaid/models.py:111
 msgid "Presented"
 msgstr "Présenter"
 
-#: pycon/finaid/models.py:146
+#: pycon/finaid/models.py:112
 msgid "Have you spoken at PyCon in the past?"
 msgstr "Avez-vous parler à PyCon dans le passé ?"
 
-#: pycon/finaid/models.py:192 pycon/tutorials/models.py:15
+#: pycon/finaid/models.py:158 pycon/tutorials/models.py:15
 msgid "User who submitted the message"
 msgstr "L'utilisateur qui a soumis le message"
 
-#: pycon/finaid/models.py:195
+#: pycon/finaid/models.py:161
 msgid "Whether message is visible to applicant"
 msgstr "Est-ce que le message est visible au demandeur"
 
@@ -487,11 +418,11 @@ msgstr "Vous n'avez pas appliqué à l'aide financière"
 msgid "Successfully updated profile."
 msgstr "Votre profile a été mis à jour avec succès"
 
-#: pycon/settings/base.py:80
+#: pycon/settings/base.py:84
 msgid "English"
 msgstr "Anglais"
 
-#: pycon/settings/base.py:81
+#: pycon/settings/base.py:85
 msgid "French"
 msgstr "Français"
 
@@ -929,20 +860,20 @@ msgstr "Passer vers le contenu principal"
 msgid "loggedin"
 msgstr "connecté"
 
-#: pycon/templates/site_base.html:106
+#: pycon/templates/site_base.html:111
 msgid "SPONSORS"
 msgstr "COMMANDITAIRES"
 
-#: pycon/templates/site_base.html:138
+#: pycon/templates/site_base.html:143
 #, fuzzy, python-format
 msgid ""
 "\n"
 "                            %(SITE_NAME)s in Montr&#233;al is a production "
-"of the <a href=\"http://python.org/psf/\">Python Software Foundation</a>.\n"
-"                            Site built by <a href=\"http://caktusgroup.com"
-"\">Caktus Consulting Group, LLC.</a> using <a href=\"http://eldarion.com/"
+"of the <a href=\"http://python.org/psf/\">Python Software Foundation</a>.</"
+"br>\n"
+"                            Site utilizes <a href=\"http://eldarion.com/"
 "symposion/\" title=\"Symposion — An Open Platform for Conference Websites"
-"\">Symposion</a>.\n"
+"\">Symposion</a> \n"
 "                          "
 msgstr ""
 "\n"
@@ -951,14 +882,14 @@ msgstr ""
 "title=\"Symposion — Une plateforme ouverte pour les sites web de conférences"
 "\">Symposion</a>."
 
-#: pycon/templates/site_base.html:155
+#: pycon/templates/site_base.html:169
 #, fuzzy
 msgid ""
 "\n"
+"                            Questions? Comments? Contact <a href=\"mailto:"
+"pycon-organizers@python.org\">pycon-organizers@python.org</a></br>\n"
 "                            Hosting provided by <a href=\"http://osuosl.org"
 "\">OSU Open Source Lab</a>.\n"
-"                            Questions? Comments? Contact <a href=\"mailto:"
-"pycon-organizers@python.org\">pycon-organizers@python.org</a>\n"
 "                          "
 msgstr ""
 "\n"
@@ -1080,7 +1011,7 @@ msgstr "Créer un nouveau compte"
 msgid "Create Account"
 msgstr "Créer un compte"
 
-#: pycon/templates/admin/login.html:23 pycon/templates/finaid/edit.html:30
+#: pycon/templates/admin/login.html:23 pycon/templates/finaid/edit.html:32
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] "Veuillez corriger l'erreur ci-bas."
@@ -1162,68 +1093,34 @@ msgstr "BOURSE DE L'HOTEL DEMANDÉE"
 msgid "PyLadies grant requested"
 msgstr "Subvention PyLadies"
 
-#: pycon/templates/finaid/_application_fields.html:37
-#, fuzzy
-msgid "Registration grant requested"
-msgstr "Subvention à l'enregistrement"
-
-#: pycon/templates/finaid/_application_fields.html:40
-#, fuzzy
-msgid "Tutorial grant requested"
-msgstr "subvention pour les tutoriaux"
-
-#: pycon/templates/finaid/_application_fields.html:43
-#, fuzzy
-msgid "Hotel grant requested"
-msgstr "Subvention d'hôtel"
-
-#: pycon/templates/finaid/_application_fields.html:46
-msgid "Hotel nights:"
-msgstr "Nuits à l'hôtel"
-
-#: pycon/templates/finaid/_application_fields.html:50
-msgid "Sex:"
-msgstr "Sexe:"
-
-#: pycon/templates/finaid/_application_fields.html:57
-#, fuzzy
-msgid "Travel grant requested"
-msgstr "Bourses du voyage demandées:"
-
-#: pycon/templates/finaid/_application_fields.html:60
-msgid "Travel funds requested:"
-msgstr "Bourses du voyage demandées:"
-
-#: pycon/templates/finaid/_application_fields.html:64
-msgid "International travel?"
-msgstr "Voyage à l'international ?"
-
-#: pycon/templates/finaid/_application_fields.html:69
-msgid "What are your travel plans?"
-msgstr "Quels sont vos plans de voyage ?"
-
-#: pycon/templates/finaid/_application_fields.html:81
+#: pycon/templates/finaid/_application_fields.html:41
 #, fuzzy
 msgid "APPLICANT INFO"
 msgstr "DEMANDEUR"
 
-#: pycon/templates/finaid/_application_fields.html:97
-msgid "What do you want to learn?"
-msgstr "Que comptez-vous apprendre ?"
+#: pycon/templates/finaid/_application_fields.html:43
+#, fuzzy
+msgid "Amount Requested"
+msgstr "Subvention d'hôtel"
 
-#: pycon/templates/finaid/_application_fields.html:117
+#: pycon/templates/finaid/_application_fields.html:47
+#, fuzzy
+msgid "Travel Plans"
+msgstr "Plans de voyage"
+
+#: pycon/templates/finaid/_application_fields.html:75
 msgid "Presenting at PyCon:"
 msgstr "Présente à PyCon:"
 
-#: pycon/templates/finaid/_application_fields.html:121
+#: pycon/templates/finaid/_application_fields.html:79
 msgid "Experience level"
 msgstr "Niveau d'expérience"
 
-#: pycon/templates/finaid/_application_fields.html:126
+#: pycon/templates/finaid/_application_fields.html:84
 msgid "Presented at PyCon before:"
 msgstr "Déjà présenté à PyCon dans le passé:"
 
-#: pycon/templates/finaid/_application_fields.html:132
+#: pycon/templates/finaid/_application_fields.html:90
 msgid "First time at PyCon:"
 msgstr "Première fois à PyCon"
 
@@ -1236,15 +1133,15 @@ msgstr "Laisser un message"
 msgid "Change status to"
 msgstr "Changer son mot de passe"
 
-#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:26
+#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:28
 msgid "Apply for Financial Aid"
 msgstr "Appliquer à l'aide financière"
 
-#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:26
+#: pycon/templates/finaid/edit.html:9 pycon/templates/finaid/edit.html:28
 msgid "Edit Financial Aid Application"
 msgstr "Éditer une demande d'aide financière"
 
-#: pycon/templates/finaid/edit.html:19 pycon/templates/finaid/email.html:16
+#: pycon/templates/finaid/edit.html:21 pycon/templates/finaid/email.html:16
 #: pycon/templates/speakers/speaker_create.html:17
 #: pycon/templates/speakers/speaker_edit.html:18
 #: pycon/templates/tutorials/email.html:27
@@ -1253,18 +1150,18 @@ msgstr ""
 "Il y a des erreurs dans votre formulaire, veuillez les corriger et le "
 "soumettre de nouveau."
 
-#: pycon/templates/finaid/edit.html:36
+#: pycon/templates/finaid/edit.html:38
 #: pycon/templates/sponsorship/apply.html:20
 #: symposion/templates/sponsorship/apply.html:20
 msgid "Apply"
 msgstr "Appliquer"
 
-#: pycon/templates/finaid/edit.html:36 pycon/templates/finaid/review.html:84
-#: pycon/templates/finaid/review.html:139
+#: pycon/templates/finaid/edit.html:38 pycon/templates/finaid/review.html:79
+#: pycon/templates/finaid/review.html:134
 #: pycon/templates/finaid/reviewer_message.html:40
 #: pycon/templates/finaid/status.html:52
 #: pycon/templates/tutorials/message.html:32
-#: symposion/templates/proposals/proposal_detail.html:116
+#: symposion/templates/proposals/proposal_detail.html:117
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -1294,7 +1191,7 @@ msgstr "Retourner à la liste des demandes"
 
 #: pycon/templates/finaid/reviewer_message.html:23
 #: pycon/templates/finaid/status.html:42
-#: symposion/templates/proposals/proposal_detail.html:106
+#: symposion/templates/proposals/proposal_detail.html:107
 msgid "Leave a Message"
 msgstr "Laisser un message"
 
@@ -1311,22 +1208,22 @@ msgid "Financial Aid Application Status"
 msgstr "Status de l'application à l'aide financière"
 
 #: pycon/templates/finaid/status.html:21
-#: symposion/templates/proposals/proposal_detail.html:56
+#: symposion/templates/proposals/proposal_detail.html:57
 msgid "Proposal Details"
 msgstr "Détails de la proposition"
 
 #: pycon/templates/finaid/status.html:22
-#: symposion/templates/proposals/proposal_detail.html:61
+#: symposion/templates/proposals/proposal_detail.html:62
 msgid "Reviewer Feedback"
 msgstr "Commentaires du relecteur"
 
 #: pycon/templates/finaid/status.html:31
-#: symposion/templates/proposals/proposal_detail.html:96
+#: symposion/templates/proposals/proposal_detail.html:97
 msgid "Conversation with Reviewers"
 msgstr "Conversation avec les examinateurs"
 
 #: pycon/templates/finaid/status.html:44
-#: symposion/templates/proposals/proposal_detail.html:108
+#: symposion/templates/proposals/proposal_detail.html:109
 msgid "You can leave a message for the reviewers here."
 msgstr "Vous pouvez laisser un message aux examinateurs ici."
 
@@ -1380,72 +1277,72 @@ msgstr "Enregistrer et ajouter d'autres conférenciers"
 msgid "Edit Slot"
 msgstr "Éditer le créneau"
 
-#: pycon/templates/schedule/presentation_detail.html:8
-#: symposion/templates/schedule/presentation_detail.html:6
+#: pycon/templates/schedule/presentation_detail.html:9
+#: symposion/templates/schedule/presentation_detail.html:7
 msgid "Presentation: "
 msgstr "Présentation:"
 
-#: pycon/templates/schedule/presentation_detail.html:46
-#: symposion/templates/schedule/presentation_detail.html:26
+#: pycon/templates/schedule/presentation_detail.html:47
+#: symposion/templates/schedule/presentation_detail.html:27
 msgid "Audience level:"
 msgstr "Niveau de l'audience:"
 
-#: pycon/templates/schedule/presentation_detail.html:48
-#: symposion/templates/schedule/presentation_detail.html:28
+#: pycon/templates/schedule/presentation_detail.html:49
+#: symposion/templates/schedule/presentation_detail.html:29
 msgid "Category:"
 msgstr "Catégorie:"
 
-#: pycon/templates/schedule/presentation_detail.html:53
+#: pycon/templates/schedule/presentation_detail.html:54
 #: symposion/proposals/models.py:89
-#: symposion/templates/proposals/_proposal_fields.html:53
-#: symposion/templates/schedule/presentation_detail.html:33
+#: symposion/templates/proposals/_proposal_fields.html:54
+#: symposion/templates/schedule/presentation_detail.html:34
 msgid "Description"
 msgstr "Description"
 
-#: pycon/templates/schedule/presentation_detail.html:58
-#: symposion/templates/proposals/_proposal_fields.html:57
-#: symposion/templates/schedule/presentation_detail.html:37
+#: pycon/templates/schedule/presentation_detail.html:59
+#: symposion/templates/proposals/_proposal_fields.html:58
+#: symposion/templates/schedule/presentation_detail.html:38
 msgid "Abstract"
 msgstr "Résumé"
 
-#: pycon/templates/schedule/presentation_detail.html:70
+#: pycon/templates/schedule/presentation_detail.html:71
 msgid "No handouts have been provided yet for this tutorial"
 msgstr ""
 
-#: pycon/templates/schedule/presentation_detail.html:76
+#: pycon/templates/schedule/presentation_detail.html:77
 msgid "Questions about this tutorial"
 msgstr ""
 
-#: pycon/templates/schedule/presentation_detail.html:81
+#: pycon/templates/schedule/presentation_detail.html:82
 #: pycon/templates/tutorials/message.html:22
 #, fuzzy
 msgid "Leave class note"
 msgstr "Laisser un message"
 
-#: pycon/templates/schedule/presentation_detail.html:84
+#: pycon/templates/schedule/presentation_detail.html:85
 #: pycon/templates/tutorials/message.html:24
 msgid "Class notes are visible to both instructor(s) and attendees"
 msgstr ""
 
-#: pycon/templates/schedule/presentation_detail.html:103
+#: pycon/templates/schedule/presentation_detail.html:104
 #, fuzzy
 msgid "Email Attendees"
 msgstr "Adresse courriel"
 
-#: pycon/templates/schedule/presentation_detail.html:104
+#: pycon/templates/schedule/presentation_detail.html:105
 msgid "Select attendee(s) to email directly"
 msgstr ""
 
-#: pycon/templates/schedule/presentation_detail.html:136
+#: pycon/templates/schedule/presentation_detail.html:137
 #, fuzzy
 msgid "Email Instructors"
 msgstr "Les commanditaires ont reçu votre courriel"
 
-#: pycon/templates/schedule/presentation_detail.html:137
+#: pycon/templates/schedule/presentation_detail.html:138
 msgid "Email instructors privately"
 msgstr ""
 
-#: pycon/templates/schedule/presentation_detail.html:146
+#: pycon/templates/schedule/presentation_detail.html:147
 msgid "Send email"
 msgstr "Envoyer un courriel"
 
@@ -1598,14 +1495,14 @@ msgstr "Écrirez au commanditaires de PyCon sélectionnés."
 msgid "Sponsors we're about to email:"
 msgstr "Commanditaires auxquels nous écrirons:"
 
-#: pycon/templates/sponsorship/jobs.html:8
-#: pycon/templates/sponsorship/jobs.html:25
-#: symposion/templates/sponsorship/jobs.html:8
-#: symposion/templates/sponsorship/jobs.html:16
+#: pycon/templates/sponsorship/jobs.html:9
+#: pycon/templates/sponsorship/jobs.html:26
+#: symposion/templates/sponsorship/jobs.html:9
+#: symposion/templates/sponsorship/jobs.html:17
 msgid "PyCon Jobs Fair"
 msgstr "Foire de l'emploi de PyCon"
 
-#: pycon/templates/sponsorship/jobs.html:27
+#: pycon/templates/sponsorship/jobs.html:28
 #: pycon/templates/sponsorship/list.html:15
 msgid "Learn how to become a sponsor "
 msgstr "Apprenez comment devenir un sponsor"
@@ -1732,11 +1629,11 @@ msgstr "subvention pour les tutoriaux"
 msgid "Venue Information"
 msgstr "Informations sur les lieux"
 
-#: pycon/templates/venue/detail.html:6 pycon/templates/venue/detail.html:8
+#: pycon/templates/venue/detail.html:7 pycon/templates/venue/detail.html:9
 msgid "Venue Details"
 msgstr "Détails des lieux"
 
-#: pycon/templates/venue/detail.html:27
+#: pycon/templates/venue/detail.html:21
 msgid "Hotels"
 msgstr "Hôtels"
 
@@ -2005,8 +1902,8 @@ msgid "Uploaded Files"
 msgstr "Fichiers téléchargés"
 
 #: symposion/templates/cms/file_index.html:16
-#: symposion/templates/proposals/_proposal_fields.html:100
-#: symposion/templates/proposals/proposal_detail.html:80
+#: symposion/templates/proposals/_proposal_fields.html:101
+#: symposion/templates/proposals/proposal_detail.html:81
 msgid "delete"
 msgstr "supprimer"
 
@@ -2133,73 +2030,73 @@ msgstr "Accepter l'invitation"
 msgid "Decline invitation"
 msgstr "Refuser l'invitation"
 
-#: symposion/templates/proposals/_proposal_fields.html:4
+#: symposion/templates/proposals/_proposal_fields.html:5
 msgid "Submitted by"
 msgstr "Soumis par"
 
-#: symposion/templates/proposals/_proposal_fields.html:8
+#: symposion/templates/proposals/_proposal_fields.html:9
 #: symposion/templates/reviews/_review_table.html:10
 msgid "Tags"
 msgstr "Onglets"
 
-#: symposion/templates/proposals/_proposal_fields.html:12
+#: symposion/templates/proposals/_proposal_fields.html:13
 #: symposion/templates/reviews/_review_table.html:9
 #: symposion/templates/reviews/result_notification.html:47
 msgid "Category"
 msgstr "Catégorie"
 
-#: symposion/templates/proposals/_proposal_fields.html:16
+#: symposion/templates/proposals/_proposal_fields.html:17
 msgid "Python Level"
 msgstr "niveau Python"
 
-#: symposion/templates/proposals/_proposal_fields.html:21
+#: symposion/templates/proposals/_proposal_fields.html:22
 msgid "Audience"
 msgstr "Audience"
 
-#: symposion/templates/proposals/_proposal_fields.html:29
+#: symposion/templates/proposals/_proposal_fields.html:30
 msgid "Duration"
 msgstr "Durée"
 
-#: symposion/templates/proposals/_proposal_fields.html:34
+#: symposion/templates/proposals/_proposal_fields.html:35
 msgid "Domain Level"
 msgstr "Niveau du domaine"
 
-#: symposion/templates/proposals/_proposal_fields.html:39
+#: symposion/templates/proposals/_proposal_fields.html:40
 msgid "Additional Speakers"
 msgstr "Conférenciers additionnels"
 
-#: symposion/templates/proposals/_proposal_fields.html:46
+#: symposion/templates/proposals/_proposal_fields.html:47
 msgid "Invitation Sent"
 msgstr "Invitation envoyée"
 
-#: symposion/templates/proposals/_proposal_fields.html:69
+#: symposion/templates/proposals/_proposal_fields.html:70
 msgid "Notes"
 msgstr "Notes"
 
-#: symposion/templates/proposals/_proposal_fields.html:72
+#: symposion/templates/proposals/_proposal_fields.html:73
 msgid "Speaker Bio"
 msgstr "Biographie du présentateur"
 
-#: symposion/templates/proposals/_proposal_fields.html:75
+#: symposion/templates/proposals/_proposal_fields.html:76
 msgid "Additional Requirements"
 msgstr "Exigences additionnelles"
 
-#: symposion/templates/proposals/_proposal_fields.html:83
+#: symposion/templates/proposals/_proposal_fields.html:84
 msgid "Download"
 msgstr "Télécharger"
 
-#: symposion/templates/proposals/_proposal_fields.html:85
+#: symposion/templates/proposals/_proposal_fields.html:86
 msgid "No handout attached to this proposal."
 msgstr "Aucun matériel n'est attaché à cette proposition."
 
-#: symposion/templates/proposals/_proposal_fields.html:90
-#: symposion/templates/proposals/proposal_detail.html:58
-#: symposion/templates/proposals/proposal_detail.html:70
+#: symposion/templates/proposals/_proposal_fields.html:91
+#: symposion/templates/proposals/proposal_detail.html:59
+#: symposion/templates/proposals/proposal_detail.html:71
 msgid "Supporting Documents"
 msgstr "Documents d'appuis"
 
-#: symposion/templates/proposals/_proposal_fields.html:107
-#: symposion/templates/proposals/proposal_detail.html:87
+#: symposion/templates/proposals/_proposal_fields.html:108
+#: symposion/templates/proposals/proposal_detail.html:88
 msgid "No supporting documents attached to this proposal."
 msgstr "Aucun document d'appui n'est attaché à cette proposition."
 
@@ -2234,23 +2131,23 @@ msgstr "Je suis certain"
 msgid "No, keep it for now"
 msgstr "Non, le garder pour l'instant"
 
-#: symposion/templates/proposals/proposal_detail.html:31
+#: symposion/templates/proposals/proposal_detail.html:32
 msgid "Edit this proposal"
 msgstr "Éditer cette proposition"
 
-#: symposion/templates/proposals/proposal_detail.html:34
+#: symposion/templates/proposals/proposal_detail.html:35
 msgid "Cancel this proposal"
 msgstr "Annuler cette proposition"
 
-#: symposion/templates/proposals/proposal_detail.html:38
+#: symposion/templates/proposals/proposal_detail.html:39
 msgid "Remove me from this proposal"
 msgstr "Me retirer de cette proposition"
 
-#: symposion/templates/proposals/proposal_detail.html:47
+#: symposion/templates/proposals/proposal_detail.html:48
 msgid "Proposal Locked"
 msgstr "Soumission verrouillée"
 
-#: symposion/templates/proposals/proposal_detail.html:47
+#: symposion/templates/proposals/proposal_detail.html:48
 msgid ""
 "This proposal is locked as the review period for this section has ended. "
 "Edits of proposals after acceptance will not be reflected on the official "
@@ -2260,7 +2157,7 @@ msgstr ""
 "est terminée. Tout changement proposé a une soumission après approbation ne "
 "sera pas présent dans le programme officel."
 
-#: symposion/templates/proposals/proposal_detail.html:89
+#: symposion/templates/proposals/proposal_detail.html:90
 msgid "Add Document"
 msgstr "Ajouter un document"
 
@@ -2481,7 +2378,7 @@ msgstr ""
 msgid "%(sponsor.level)s Sponsor Benefits"
 msgstr "Bénéfices %(sponsor.level)s de commandite"
 
-#: symposion/templates/sponsorship/jobs.html:17
+#: symposion/templates/sponsorship/jobs.html:18
 #: symposion/templates/sponsorship/list.html:18
 msgid "Learn how to become a sponsor"
 msgstr "Apprenez comment devenir commanditaire"
@@ -2495,13 +2392,104 @@ msgid "Sponsors"
 msgstr "Commanditaires"
 
 #: symposion/templates/static/venue.html:5
-#: symposion/templates/venue/detail.html:6
 msgid "Venue"
 msgstr "Lieu"
 
 #: symposion/templates/teams/team_detail.html:48
 msgid "demote"
 msgstr "rétrograder"
+
+#~ msgid "Travel plans are required if requesting a travel grant."
+#~ msgstr ""
+#~ "Vos plans de voyages sont requis si vous faites une demande d'aide "
+#~ "financière au voyage."
+
+#~ msgid "Registration grant"
+#~ msgstr "Subvention à l'enregistrement"
+
+#~ msgid "Will you need assistance with the Conference Registration?"
+#~ msgstr ""
+#~ "Aurez-vous besoins d'une aide pour l'enregistrement de la conférence ?"
+
+#~ msgid "Hotel grant"
+#~ msgstr "Subvention d'hôtel"
+
+#~ msgid "Will you need assistance with a Hotel Room?"
+#~ msgstr "Aurez-vous d'une aide la chambre d'hôtel ?"
+
+#~ msgid "Nights"
+#~ msgstr "Nuits"
+
+#~ msgid "Please approximate how many nights you will be staying at the hotel."
+#~ msgstr ""
+#~ "Veuillez s'il vous plait estimer combien de nuits vous resterez à l'hôtel."
+
+#~ msgid "Sex"
+#~ msgstr "Sexe"
+
+#~ msgid ""
+#~ "(Your sex will be used only to help assign roommates for those requesting "
+#~ "hotel assistance)"
+#~ msgstr ""
+#~ "(Votre sexe sera utilisé uniquement pour aider trouver des colocataires à "
+#~ "ceux qui demandent l'assistance de l'hôtel)"
+
+#~ msgid "Travel grant"
+#~ msgstr "Subvention de voyage"
+
+#~ msgid "Will you need assistance with Travel Costs?"
+#~ msgstr "Aurez-vous besoins d'aide pour couvrir vos frais de voyage ?"
+
+#~ msgid "Travel amount"
+#~ msgstr "Montant pour le voyage"
+
+#~ msgid "Tutorial grant"
+#~ msgstr "subvention pour les tutoriaux"
+
+#~ msgid "Will you need assistance with tutorials?"
+#~ msgstr "Aurez-vous besoins d'aide pour assister aux tutoriaux ?"
+
+#~ msgid "What is it that you're hoping to learn?"
+#~ msgstr "Que comptez-vous apprendre ?"
+
+#~ msgid "Beginner resources"
+#~ msgstr "Ressources pour les débutants"
+
+#~ msgid ""
+#~ "If you're a beginner, describe the resources you're using to learn Python."
+#~ msgstr ""
+#~ "Si vous êtes débutant, décrivez les ressources que vous utilisez pour "
+#~ "apprendre le Python."
+
+#, fuzzy
+#~ msgid "Registration grant requested"
+#~ msgstr "Subvention à l'enregistrement"
+
+#, fuzzy
+#~ msgid "Tutorial grant requested"
+#~ msgstr "subvention pour les tutoriaux"
+
+#~ msgid "Hotel nights:"
+#~ msgstr "Nuits à l'hôtel"
+
+#~ msgid "Sex:"
+#~ msgstr "Sexe:"
+
+#, fuzzy
+#~ msgid "Travel grant requested"
+#~ msgstr "Bourses du voyage demandées:"
+
+#~ msgid "Travel funds requested:"
+#~ msgstr "Bourses du voyage demandées:"
+
+#~ msgid "International travel?"
+#~ msgstr "Voyage à l'international ?"
+
+#~ msgid "What are your travel plans?"
+#~ msgstr "Quels sont vos plans de voyage ?"
+
+#~ msgid "What do you want to learn?"
+#~ msgstr "Que comptez-vous apprendre ?"
 
 #~ msgid ""
 #~ "\n"

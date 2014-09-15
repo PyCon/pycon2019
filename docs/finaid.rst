@@ -46,8 +46,8 @@ and some variables that you can access:
 * review - a ``FinancialAidReviewData`` object. This gives access to the
   information from the review of the application. E.g.::
 
-      {% if review.travel_amount %}You are being granted ${{ review.travel_amount }}
-      toward your travel.{% endif %}
+      {% if review.amount %}You are being granted ${{ review.amount }}
+      toward conference attendance.{% endif %}
 
 You can test your template by sending yourself email messages.
 

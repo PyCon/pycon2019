@@ -85,7 +85,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             what_you_want="money",
             use_of_python="fun",
             presenting='1',
-            travel_amount_requested="0.00",
+            amount_requested="0.00",
             travel_plans="get there",
         )
         self.assertEqual(0, len(mail.outbox))
@@ -140,7 +140,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             what_you_want="money",
             use_of_python="fun",
             presenting='1',
-            travel_amount_requested="0.00",
+            amount_requested="0.00",
             travel_plans="get there quickly",
         )
 
@@ -243,7 +243,7 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': self.application,
             'status': STATUS_SUBMITTED,
-            'travel_amount': Decimal('0.00'),
+            'amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
         review.save()
@@ -410,7 +410,7 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         FinancialAidReviewData.objects.create(
             application=application,
             status=STATUS_INFO_NEEDED,
-            travel_amount=Decimal('2.45'),
+            amount=Decimal('2.45'),
         )
         self.login()
         result = self.get_csv()

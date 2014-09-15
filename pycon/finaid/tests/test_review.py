@@ -102,7 +102,7 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': application,
             'status': STATUS_SUBMITTED,
-            'travel_amount': Decimal('0.00'),
+            'amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
         review.save()
