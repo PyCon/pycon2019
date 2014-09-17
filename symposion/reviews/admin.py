@@ -21,5 +21,6 @@ admin.site.register(
 
 admin.site.register(
     ProposalResult,
-    list_display=['proposal', 'status', 'score', 'vote_count', 'accepted', 'group']
+    list_display=['proposal', 'status', 'score', 'vote_count', 'accepted', 'group'],
+    list_filter=['proposal__kind__name'],
 )
