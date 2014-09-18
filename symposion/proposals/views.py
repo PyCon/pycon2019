@@ -107,7 +107,7 @@ def proposal_speaker_manage(request, pk):
                 # duplicate tokens and confusing the pending speaker
                 try:
                     pending = Speaker.objects.get(
-                        Q(user=None, invite_email=email_address)
+                        Q(invite_email=email_address)
                     )
                 except Speaker.DoesNotExist:
                     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
@@ -121,6 +121,7 @@ def proposal_speaker_manage(request, pk):
                 return pending, token
 
             email_address = add_speaker_form.cleaned_data["email"]
+
             # django-selectable widget will return a User for emails that are
             # associated with a current User, else a string
             if isinstance(email_address, User):
@@ -163,6 +164,7 @@ def proposal_speaker_manage(request, pk):
             return redirect("proposal_speaker_manage", proposal.pk)
     else:
         add_speaker_form = AddSpeakerForm(proposal=proposal)
+
     ctx = {
         "proposal": proposal,
         "speakers": proposal.speakers(),
