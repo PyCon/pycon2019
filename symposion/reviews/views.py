@@ -190,14 +190,17 @@ def is_review_period_active(proposal):
     # always active.
     if proposal.result is None or proposal.result.group is None:
         return True
+
     # Otherwise check the bounds.
-    return proposal.group.review_start <= datetime.datetime.now() <= proposal.group.vote_start
+    group = proposal.result.group
+    return group.review_start <= datetime.datetime.now() <= group.vote_start
 
 
 def is_voting_period_active(proposal):
     if proposal.result is None or proposal.result.group is None:
         return True
-    return proposal.group.vote_start <= datetime.datetime.now() <= proposal.group.vote_end
+    group = proposal.result.group
+    return group.vote_start <= datetime.datetime.now() <= group.vote_end
 
 
 @login_required
