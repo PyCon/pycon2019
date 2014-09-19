@@ -1753,12 +1753,16 @@ table.calendar {
       font-weight: 700;
       background-color: white;
 
-      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: rgba(51, 204, 255, 0.20) }
-      &.slot-plenary, &.slot-lightning { background-color: rgba(255, 203, 4, 0.20) }
+      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: @blueLight; color: white;}
+      &.slot-plenary, &.slot-lightning { background-color: @yellowLight; color: white;}
       p {
         padding: 0;
         margin: 0;
       }
+    }
+
+    &.slot-talk {
+      vertical-align: top;
     }
 
     span.title {
