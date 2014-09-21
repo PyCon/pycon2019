@@ -16,6 +16,15 @@ class Command(BaseCommand):
             "--proposal-group-name",
             help="Which proposal group to assign reviewers for",
         ),
+        make_option(
+            '--new-reviewers',
+            action="store_true",
+            default=False,
+            help=(
+                "Only assign talks to people who don't have any review "
+                "assignments yet"
+            ),
+        )
     )
 
     def handle(self, *args, **options):
@@ -23,14 +32,10 @@ class Command(BaseCommand):
             name=options["proposal_group_name"],
         )
         reviewers = self.get_reviewers()
-        user_reviews = defaultdict(list)
-        for proposal_result in group.proposal_results.all():
-            proposal_reviewers = random.sample([
-                user for user in reviewers
-                if user.id not in self.proposal_speaker_user_ids(proposal_result.proposal)
-            ], 7)
-            for reviewer in proposal_reviewers:
-                user_reviews[reviewer].append(proposal_result)
+        if options['new_reviewers']:
+            user_reviews = self.assign_new_user_reviews(group, reviewers)
+        else:
+            user_reviews = self.assign_user_reviews(group, reviewers)
 
         for user, proposal_results in user_reviews.iteritems():
             print("Sending assignments to %r" % user.email)
@@ -45,6 +50,35 @@ class Command(BaseCommand):
                 "proposal_results": proposal_results,
                 "proposal_group": group,
             })
+
+    def assign_user_reviews(self, group, reviewers):
+        user_reviews = defaultdict(list)
+        for proposal_result in group.proposal_results.all():
+            proposal_reviewers = random.sample([
+                user for user in reviewers
+                if user.id not in self.proposal_speaker_user_ids(proposal_result.proposal)
+            ], 7)
+            for reviewer in proposal_reviewers:
+                user_reviews[reviewer].append(proposal_result)
+        return user_reviews
+
+    def assign_new_user_reviews(self, group, reviewers):
+        proposal_results = group.proposal_results.all()
+        assigned_reviewer_ids = set(ReviewAssignment.objects.filter(
+            proposal_id__in=proposal_results.values_list("proposal_id", flat=True),
+        ).values_list("user_id", flat=True))
+        reviewers = [
+            user for user in reviewers
+            if user.id not in assigned_reviewer_ids
+        ]
+        user_reviews = {}
+        for user in reviewers:
+            user_reviews[user] = random.sample([
+                proposal_result
+                for proposal_result in proposal_results
+                if user.id not in self.proposal_speaker_user_ids(proposal_result.proposal)
+            ], 15)
+        return user_reviews
 
     def get_reviewers(self):
         teams = Team.objects.filter(
