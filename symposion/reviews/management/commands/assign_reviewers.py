@@ -65,7 +65,7 @@ class Command(BaseCommand):
     def assign_new_user_reviews(self, group, reviewers):
         proposal_results = group.proposal_results.all()
         assigned_reviewer_ids = set(ReviewAssignment.objects.filter(
-            proposal_id__in=proposal_results.values_list("proposal_id", flag=True),
+            proposal_id__in=proposal_results.values_list("proposal_id", flat=True),
         ).values_list("user_id", flat=True))
         reviewers = [
             user for user in reviewers
