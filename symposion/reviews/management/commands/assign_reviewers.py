@@ -22,7 +22,7 @@ class Command(BaseCommand):
             name=options["proposal_group_name"],
         )
         reviewers = list(User.objects.filter(
-            group__name="reviewers",
+            groups__name="reviewers",
         ))
         user_reviews = defaultdict(list)
         for proposal_result in group.proposal_results.all():
