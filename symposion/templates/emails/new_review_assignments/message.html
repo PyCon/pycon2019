@@ -1,0 +1,32 @@
+{% load account_tags %}
+<p>
+    Hi <b>{% user_display user %}</b>,
+</p>
+<p>
+    You've been assigned new talks to review! You'll have until
+    {{ proposal_group.vote_start }} to review these talks before the voting
+    begins.
+</p>
+<p>
+    Please take some time before then to review each of these talks and give
+    the speakers feedback. If you have any questions, please bring them up on
+    the <i>pycon-pc</i> mailing list.
+</p>
+<p>
+    The following are your talks, please feel free to review other talks as
+    well:
+
+    <ul>
+        {% for pr in proposal_results %}
+            <li>
+                <a href="http://us.pycon.org{% url 'review_detail' pr.proposal.pk %}">
+                    {{ pr.proposal.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</p>
+<p>
+    {% url 'review_detail' proposal.pk as detail_url %}
+    View the latest version of the proposal online at <a href="http://{{ current_site }}{{ detail_url }}">http://{{ current_site }}{{ detail_url }}</a>
+</p>
