@@ -200,6 +200,9 @@ class ProposalGroup(models.Model):
     vote_start = models.DateTimeField()
     vote_end = models.DateTimeField()
 
+    def __unicode__(self):
+        return u"%s, starts %s" % (self.name, self.review_start)
+
 
 class ProposalResult(models.Model):
     proposal = models.OneToOneField("proposals.ProposalBase", related_name="result")
