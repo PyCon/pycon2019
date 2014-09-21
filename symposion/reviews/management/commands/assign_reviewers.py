@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
         for user, proposal_results in user_reviews.iteritems():
             for pr in proposal_results:
-                ReviewAssignment.objects.create(
+                ReviewAssignment.objects.get_or_create(
                     proposal=pr.proposal,
                     user=user,
                     origin=ReviewAssignment.AUTO_ASSIGNED_INITIAL,
@@ -54,7 +54,11 @@ class Command(BaseCommand):
             memberships.update(team.memberships.filter(
                 Q(state="member") | Q(state="manager")
             ).select_related("user"))
-        return [membership.user for membership in memberships]
+        return [
+            membership.user
+            for membership in memberships
+            if membership.user.email
+        ]
 
     def proposal_speaker_user_ids(self, proposal):
         speakers = [proposal.speaker] + list(proposal.additional_speakers.all())
