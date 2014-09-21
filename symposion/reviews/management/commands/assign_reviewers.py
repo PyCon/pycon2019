@@ -2,10 +2,11 @@ import random
 from collections import defaultdict
 from optparse import make_option
 
-from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 
 from symposion.reviews.models import ProposalGroup, ReviewAssignment
+from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
 
@@ -21,9 +22,7 @@ class Command(BaseCommand):
         group = ProposalGroup.objects.get(
             name=options["proposal_group_name"],
         )
-        reviewers = list(User.objects.filter(
-            groups__name="reviewers",
-        ))
+        reviewers = self.get_reviewers()
         user_reviews = defaultdict(list)
         for proposal_result in group.proposal_results.all():
             proposal_reviewers = random.sample([
@@ -46,7 +45,16 @@ class Command(BaseCommand):
                 "proposal_group": group,
             })
 
-
+    def get_reviewers(self):
+        teams = Team.objects.filter(
+            permissions__codename="can_review_talks"
+        )
+        memberships = set()
+        for team in teams:
+            memberships.update(team.memberships.filter(
+                Q(state="member") | Q(state="manager")
+            ).select_related("user"))
+        return [membership.user for membership in memberships]
 
     def proposal_speaker_user_ids(self, proposal):
         speakers = [proposal.speaker] + list(proposal.additional_speakers.all())
