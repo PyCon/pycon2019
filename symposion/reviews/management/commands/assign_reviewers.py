@@ -33,6 +33,7 @@ class Command(BaseCommand):
                 user_reviews[reviewer].append(proposal_result)
 
         for user, proposal_results in user_reviews.iteritems():
+            print("Sending assignments to %r" % user.email)
             for pr in proposal_results:
                 ReviewAssignment.objects.get_or_create(
                     proposal=pr.proposal,
