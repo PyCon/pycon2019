@@ -26,7 +26,3 @@
         {% endfor %}
     </ul>
 </p>
-<p>
-    {% url 'review_detail' proposal.pk as detail_url %}
-    View the latest version of the proposal online at <a href="http://{{ current_site }}{{ detail_url }}">http://{{ current_site }}{{ detail_url }}</a>
-</p>
