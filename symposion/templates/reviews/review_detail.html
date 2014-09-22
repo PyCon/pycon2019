@@ -188,7 +188,7 @@
                             <div class="commment-content">
                                 <b>{% user_display message.user %}</b>
                                 {{ message.submitted_at|timesince }} ago <br />
-                                {{ message.message|bleach|safe }}
+                                {{ message.message|bleach|linebreaksbr|safe }}
                             </div>
                         </div>
                     {% endfor %}
