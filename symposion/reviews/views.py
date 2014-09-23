@@ -18,8 +18,9 @@ from symposion.proposals.models import ProposalBase
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
-from symposion.reviews.forms import ReviewForm, SpeakerCommentForm
-from symposion.reviews.forms import BulkPresentationForm
+from symposion.reviews.forms import (
+    NonVotingReviewForm, ReviewForm, SpeakerCommentForm, BulkPresentationForm
+)
 from symposion.reviews.models import (
     ReviewAssignment, Review, LatestVote, ProposalResult, NotificationTemplate,
     ResultNotification
@@ -230,8 +231,11 @@ def review_detail(request, pk):
         if request.user in speakers:
             return access_not_permitted(request)
 
-        if "vote_submit" in request.POST and is_voting_period_active(proposal):
-            review_form = ReviewForm(request.POST)
+        if "vote_submit" in request.POST and (is_voting_period_active(proposal) or is_review_period_active(proposal)):
+            if is_voting_period_active(proposal):
+                review_form = ReviewForm(request.POST)
+            else:
+                review_form = NonVotingReviewForm(request.POST)
             if review_form.is_valid():
 
                 review = review_form.save(commit=False)
@@ -258,7 +262,11 @@ def review_detail(request, pk):
                     initial = {}
                     if latest_vote:
                         initial["vote"] = latest_vote.vote
-                    review_form = ReviewForm(initial=initial)
+
+                    if is_voting_period_active(proposal):
+                        review_form = ReviewForm(initial=initial)
+                    elif is_review_period_active(proposal):
+                        review_form = NonVotingReviewForm()
         elif "message_submit" in request.POST and is_review_period_active(proposal):
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
@@ -288,7 +296,10 @@ def review_detail(request, pk):
                 if request.user in speakers:
                     review_form = None
                 else:
-                    review_form = ReviewForm(initial=initial)
+                    if is_voting_period_active(proposal):
+                        review_form = ReviewForm(initial=initial)
+                    elif is_review_period_active(proposal):
+                        review_form = NonVotingReviewForm()
         elif "result_submit" in request.POST:
             if admin:
                 result = request.POST["result_submit"]
@@ -316,6 +327,8 @@ def review_detail(request, pk):
         else:
             if is_voting_period_active(proposal):
                 review_form = ReviewForm(initial=initial)
+            elif is_review_period_active(proposal):
+                review_form = NonVotingReviewForm()
             else:
                 review_form = None
             tags = edit_string_for_tags(proposal.tags.all())
