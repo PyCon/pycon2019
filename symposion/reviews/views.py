@@ -267,6 +267,8 @@ def review_detail(request, pk):
                         review_form = ReviewForm(initial=initial)
                     elif is_review_period_active(proposal):
                         review_form = NonVotingReviewForm()
+                    else:
+                        review_form = None
         elif "message_submit" in request.POST and is_review_period_active(proposal):
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
@@ -300,6 +302,8 @@ def review_detail(request, pk):
                         review_form = ReviewForm(initial=initial)
                     elif is_review_period_active(proposal):
                         review_form = NonVotingReviewForm()
+                    else:
+                        review_form = None
         elif "result_submit" in request.POST:
             if admin:
                 result = request.POST["result_submit"]
