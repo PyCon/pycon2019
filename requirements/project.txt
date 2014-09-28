@@ -14,7 +14,7 @@ django-social-auth==0.7.23
 psycopg2==2.5.3
 gunicorn==0.17.4
 django-secure==1.0
-raven==3.3.7
+raven==5.0.0
 django-constance==0.6
 django-picklefield==0.3.0
 
