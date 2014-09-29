@@ -225,6 +225,7 @@ def review_detail(request, pk):
     except LatestVote.DoesNotExist:
         latest_vote = None
 
+    review_form = None
     proposal_tags_form = None
 
     if request.method == "POST":
@@ -256,9 +257,7 @@ def review_detail(request, pk):
                 return redirect(request.path)
             else:
                 message_form = SpeakerCommentForm()
-                if request.user in speakers:
-                    review_form = None
-                else:
+                if request.user not in speakers:
                     initial = {}
                     if latest_vote:
                         initial["vote"] = latest_vote.vote
@@ -267,8 +266,6 @@ def review_detail(request, pk):
                         review_form = ReviewForm(initial=initial)
                     elif is_review_period_active(proposal):
                         review_form = NonVotingReviewForm()
-                    else:
-                        review_form = None
         elif "message_submit" in request.POST and is_review_period_active(proposal):
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
@@ -295,15 +292,11 @@ def review_detail(request, pk):
                 initial = {}
                 if latest_vote:
                     initial["vote"] = latest_vote.vote
-                if request.user in speakers:
-                    review_form = None
-                else:
+                if request.user not in speakers:
                     if is_voting_period_active(proposal):
                         review_form = ReviewForm(initial=initial)
                     elif is_review_period_active(proposal):
                         review_form = NonVotingReviewForm()
-                    else:
-                        review_form = None
         elif "result_submit" in request.POST:
             if admin:
                 result = request.POST["result_submit"]
@@ -326,15 +319,11 @@ def review_detail(request, pk):
         initial = {}
         if latest_vote:
             initial["vote"] = latest_vote.vote
-        if request.user in speakers:
-            review_form = None
-        else:
+        if request.user not in speakers:
             if is_voting_period_active(proposal):
                 review_form = ReviewForm(initial=initial)
             elif is_review_period_active(proposal):
                 review_form = NonVotingReviewForm()
-            else:
-                review_form = None
             tags = edit_string_for_tags(proposal.tags.all())
             proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
         if request.user not in speakers or is_review_period_active(proposal):
