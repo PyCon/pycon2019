@@ -257,7 +257,7 @@ def review_detail(request, pk):
                 return redirect(request.path)
             else:
                 message_form = SpeakerCommentForm()
-                if not request.user in speakers:
+                if request.user not in speakers:
                     initial = {}
                     if latest_vote:
                         initial["vote"] = latest_vote.vote
@@ -292,7 +292,7 @@ def review_detail(request, pk):
                 initial = {}
                 if latest_vote:
                     initial["vote"] = latest_vote.vote
-                if not request.user in speakers:
+                if request.user not in speakers:
                     if is_voting_period_active(proposal):
                         review_form = ReviewForm(initial=initial)
                     elif is_review_period_active(proposal):
@@ -319,7 +319,7 @@ def review_detail(request, pk):
         initial = {}
         if latest_vote:
             initial["vote"] = latest_vote.vote
-        if not request.user in speakers:
+        if request.user not in speakers:
             if is_voting_period_active(proposal):
                 review_form = ReviewForm(initial=initial)
             elif is_review_period_active(proposal):
