@@ -226,6 +226,7 @@ def review_detail(request, pk):
         latest_vote = None
 
     review_form = None
+    message_form = None
     proposal_tags_form = None
 
     if request.method == "POST":
@@ -328,8 +329,6 @@ def review_detail(request, pk):
             proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
         if request.user not in speakers or is_review_period_active(proposal):
             message_form = SpeakerCommentForm()
-        else:
-            message_form = None
 
     proposal.comment_count = proposal.result.comment_count
     proposal.total_votes = proposal.result.vote_count
@@ -348,7 +347,7 @@ def review_detail(request, pk):
         "review_messages": messages,
         "review_form": review_form,
         "proposal_tags_form": proposal_tags_form,
-        "message_form": message_form
+        "message_form": message_form,
     })
 
 
