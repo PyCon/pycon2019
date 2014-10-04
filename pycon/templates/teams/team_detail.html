@@ -15,7 +15,7 @@
             <div class="span12">
                 {% if state %}
                     <h1>
-                        {% blocktrans with name=team.name %}You are a <em>{{ state }}</em> of {{ name }}{% endblocktrans %}
+                        {% blocktrans with name=team.name %}Your status is <em>{{ state }}</em> for {{ name }}.{% endblocktrans %}
                     </h1>
                 {% endif %}
 
