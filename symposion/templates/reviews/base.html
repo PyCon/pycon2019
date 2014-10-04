@@ -84,13 +84,11 @@
                                     {% trans "Reviews" %}
                                 </a>
                             </li>
-                            {% comment %}
                             <li>
                                 <a href="{% url 'review_section_assignments' section.section.slug %}">
                                     {% trans "Your Assignments" %}
                                 </a>
                             </li>
-                            {% endcomment %}
                             <li>
                                 <a href="{% url 'review_status' section.section.slug %}">
                                     {% trans "Voting Status" %}
