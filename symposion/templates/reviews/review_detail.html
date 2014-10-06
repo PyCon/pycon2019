@@ -120,25 +120,7 @@
                     </form>
                 {% endif %}
 
-               
-
-                {% if review_form %}
-                    <form method="POST" action="" class="review-form">
-                        <legend>Submit Review</legend>
-                        <p>Enter your vote and any comment to go along with it. You can revise your vote or comment multiple times with an existing vote (your previously recorded score will be replaced during calculations). <b>Your vote and comments are not public and will only be viewable by other reviewers.</b></p>
-                        {% csrf_token %}
-                            {{ review_form|as_bootstrap }}
-                            <div class="form-action">
-                                <input type="submit" class="btn btn-success" name="vote_submit" value="Submit Review" />
-                            </div>
-                    </form>
-                {% else %}
-                    <p>You do not have permission to vote on this proposal.</p>
-                {% endif %}
-
-             <hr />
-
-             <h4>Current Results</h4>
+                <h4>Current Results</h4>
                 <table class="table table-striped">
                     <thead>
                         <th>+1 votes</th>
@@ -158,6 +140,21 @@
                     </tbody>
                 </table>
 
+                <hr />
+
+                {% if review_form %}
+                    <form method="POST" action="" class="review-form">
+                        <legend>Submit Review</legend>
+                        <p>Enter your vote and any comment to go along with it. You can revise your vote or comment multiple times with an existing vote (your previously recorded score will be replaced during calculations). <b>Your vote and comments are not public and will only be viewable by other reviewers.</b></p>
+                        {% csrf_token %}
+                            {{ review_form|as_bootstrap }}
+                            <div class="form-action">
+                                <input type="submit" class="btn btn-success" name="vote_submit" value="Submit Review" />
+                            </div>
+                    </form>
+                {% else %}
+                    <p>You do not have permission to vote on this proposal.</p>
+                {% endif %}
 
                 {% if reviews %}
                     <h5>Review Comments</h5>
