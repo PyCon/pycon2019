@@ -205,6 +205,9 @@
                                 If you'd like to communicate with the submitter, use the following form and he or she will be
                                 notified and given the opportunity to respond.
                         </p>
+                        {% if proposal.result.group %}
+                        <p><strong>The review period ends in {{ proposal.result.group.vote_start | timeuntil }}</strong></p>
+                        {% endif %}
                         {% csrf_token %}
                         {{ message_form|as_bootstrap }}
                         <div class="form-actions">
