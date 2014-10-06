@@ -417,9 +417,13 @@ def review_status(request, section_slug=None, key=None):
 
 @login_required
 def review_assignments(request):
-    # Require either being a reviewer or a superuser
-    if not (request.user.is_superuser or
-            request.user.groups.filter(name="reviewers").exists()):
+
+    # find out if the user membership is either member of manager
+    is_allowed_user = request.user.memberships\
+        .filter(Q(state="member") | Q(state="manager")).exists()
+
+    # Require either being a reviewer (member or manager) or a superuser
+    if not (request.user.is_superuser or is_allowed_user):
         return access_not_permitted(request)
     assignments = ReviewAssignment.objects.filter(
         user=request.user,
