@@ -327,7 +327,7 @@ def review_detail(request, pk):
                 review_form = NonVotingReviewForm()
             tags = edit_string_for_tags(proposal.tags.all())
             proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
-        if request.user not in speakers or is_review_period_active(proposal):
+        if is_review_period_active(proposal) and request.user not in speakers:
             message_form = SpeakerCommentForm()
 
     proposal.comment_count = proposal.result.comment_count
