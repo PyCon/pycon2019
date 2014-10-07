@@ -100,6 +100,18 @@
             </div>
             <div class="tab-pane" id="proposal-reviews">
 
+                {% with proposal.result.group as group  %}
+                    {% if not group %}
+                        {# Not sure what to display, right now display nothing. #}
+                    {% elif group.vote_end <= date_now %}
+                        <div class="alert alert-error" role="alert">The voting period is now over.</div>
+                    {% elif group.vote_start > date_now %}
+                        <div class="alert alert-info" role="alert">Voting is <strong>closed</strong>, but will open in {{ group.vote_start|timeuntil }}.</div>
+                    {% else %}
+                        <div class="alert alert-success" role="alert">Voting is <strong>open</strong>, and will end in {{ group.vote_end|timeuntil }}.</div>
+                    {% endif %}
+                {% endwith %}
+
                 {% if proposal_tags_form %}
                     <h4>Edit proposal tags</h4>
                     <form method="POST" action="" class="form-inline">
@@ -120,25 +132,24 @@
                     </form>
                 {% endif %}
 
+
+                {% if review_form %}
+                    <form method="POST" action="" class="review-form">
+                        <legend>Submit Review</legend>
+                        <p>Enter your vote and any comment to go along with it. You can revise your vote or comment multiple times with an existing vote (your previously recorded score will be replaced during calculations). <b>Your vote and comments are not public and will only be viewable by other reviewers.</b></p>
+                        {% csrf_token %}
+                            {{ review_form|as_bootstrap }}
+                            <div class="form-action">
+                                <input type="submit" class="btn btn-success" name="vote_submit" value="Submit Review" />
+                            </div>
+                    </form>
+                {% else %}
+                    <p>You do not have permission to vote on this proposal.</p>
+                {% endif %}
+
+                <hr />
+
                 <h4>Current Results</h4>
-
-                {% with proposal.result.group as group  %}
-                    {% if group.vote_start <= date_now %}
-                        <p>Reviews are closed for this proposal.</p>
-                    {% elif group.review_start > date_now %}
-                        <p>Reviews will open in {{ group.review_start|timeuntil }}</p>
-                    {% else %}
-                        <p>Reviews will close in {{ group.vote_start|timeuntil }}</p>
-                    {% endif %}
-
-                    {% if group.vote_end <= date_now %}
-                        <p>Voting is closed on this proposal.</p>
-                    {% elif group.vote_start > date_now %}
-                        <p>Voting will open in {{ group.vote_start|timeuntil }}</p>
-                    {% else %}
-                        <p>Voting will close in {{ group.vote_end|timeuntil }}</p>
-                    {% endif %}
-                {% endwith %}
 
                 <table class="table table-striped">
                     <thead>
@@ -158,22 +169,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <hr />
-
-                {% if review_form %}
-                    <form method="POST" action="" class="review-form">
-                        <legend>Submit Review</legend>
-                        <p>Enter your vote and any comment to go along with it. You can revise your vote or comment multiple times with an existing vote (your previously recorded score will be replaced during calculations). <b>Your vote and comments are not public and will only be viewable by other reviewers.</b></p>
-                        {% csrf_token %}
-                            {{ review_form|as_bootstrap }}
-                            <div class="form-action">
-                                <input type="submit" class="btn btn-success" name="vote_submit" value="Submit Review" />
-                            </div>
-                    </form>
-                {% else %}
-                    <p>You do not have permission to vote on this proposal.</p>
-                {% endif %}
 
                 {% if reviews %}
                     <h5>Review Comments</h5>
@@ -200,6 +195,19 @@
                 {% endif %}
             </div>
             <div class="tab-pane" id="proposal-feedback">
+
+                {% with proposal.result.group as group  %}
+                    {% if not group %}
+                        {# Not sure what to display, right now display nothing. #}
+                    {% elif group.vote_start <= date_now %}
+                        <div class="alert alert-error" role="alert">The review period is now over.</div>
+                    {% elif group.review_start > date_now %}
+                        <div class="alert alert-info" role="alert">Reviews are <strong>closed</strong>, but will open in {{ group.review_start|timeuntil }}.</div>
+                    {% else %}
+                        <div class="alert alert-success" role="alert">Reviews are <strong>open</strong>, and will close in {{ group.vote_start|timeuntil }}.</div>
+                    {% endif %}
+                {% endwith %}
+
                 {% if review_messages %}
                     <h3>Conversation with the submitter</h3>
                     {% for message in review_messages %}
@@ -221,17 +229,12 @@
                                 If you'd like to communicate with the submitter, use the following form and he or she will be
                                 notified and given the opportunity to respond.
                         </p>
-                        {% if proposal.result.group %}
-                                <p><strong>The review period ends in {{ proposal.result.group.vote_start | timeuntil }}</strong></p>
-                        {% endif %}
                         {% csrf_token %}
                         {{ message_form|as_bootstrap }}
                         <div class="form-actions">
                             <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
                         </div>
                     </form>
-                {% else %}
-                    <p>The review period is now over.</p>
                 {% endif %}
             </div>
         </div>
