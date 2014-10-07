@@ -121,6 +121,25 @@
                 {% endif %}
 
                 <h4>Current Results</h4>
+
+                {% with proposal.result.group as group  %}
+                    {% if group.vote_start <= date_now %}
+                        <p>Reviews are closed for this proposal.</p>
+                    {% elif group.review_start > date_now %}
+                        <p>Reviews will open in {{ group.review_start|timeuntil }}</p>
+                    {% else %}
+                        <p>Reviews will close in {{ group.vote_start|timeuntil }}</p>
+                    {% endif %}
+
+                    {% if group.vote_end <= date_now %}
+                        <p>Voting is closed on this proposal.</p>
+                    {% elif group.vote_start > date_now %}
+                        <p>Voting will open in {{ group.vote_start|timeuntil }}</p>
+                    {% else %}
+                        <p>Voting will close in {{ group.vote_end|timeuntil }}</p>
+                    {% endif %}
+                {% endwith %}
+
                 <table class="table table-striped">
                     <thead>
                         <th>+1 votes</th>
