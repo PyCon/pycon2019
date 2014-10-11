@@ -8,7 +8,9 @@
         <th>{% trans "Title" %}</th>
         <th>{% trans "Category" %}</th>
         <th>{% trans "Tags" %}</th>
+        <th>{% trans "Review Start" %}</th>
         <th><i class="icon-comment-alt"></i></th>
+        <th>{% trans "Voting Start" %}</th>
         <th>+1</th>
         <th>+0</th>
         <th>-0</th>
@@ -38,7 +40,9 @@
                 <td>{{ proposal.title }}</td>
                 <td>{{ proposal.category }}</td>
                 <td>{{ proposal.get_tags_display }}</td>
+                <td>{{ proposal.result.group.review_start|date:"M. j H:i T" }}</td>
                 <td>{{ proposal.comment_count }}</td>
+                <td>{{ proposal.result.group.vote_start|date:"M. j H:i T" }}</td>
                 <td>{{ proposal.plus_one }}</td>
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
