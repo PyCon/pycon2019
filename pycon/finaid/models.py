@@ -28,12 +28,14 @@ STATUS_OFFERED = 4
 STATUS_REJECTED = 5
 STATUS_DECLINED = 6
 STATUS_ACCEPTED = 7
+STATUS_NEED_MORE = 8
 
 STATUS_CHOICES = (
     (STATUS_SUBMITTED, _(u"Submitted")),
     (STATUS_WITHDRAWN, _(u"Withdrawn")),
     (STATUS_INFO_NEEDED, _(u"Information needed")),
     (STATUS_OFFERED, _(u"Offered")),
+    (STATUS_NEED_MORE, _(u"Requesting more funds")),
     (STATUS_REJECTED, _(u"Rejected")),
     (STATUS_DECLINED, _(u"Declined")),
     (STATUS_ACCEPTED, _(u"Accepted"))
@@ -58,46 +60,19 @@ class FinancialAidApplication(models.Model):
         verbose_name=_("PyLadies grant"),
         help_text=_("Would you like to be considered for a "
                     "PyLadies grant? (Women only.)"))
-    registration_grant_requested = models.BooleanField(
-        verbose_name=_("Registration grant"),
-        help_text=_("Will you need assistance with the "
-                    "Conference Registration?"))
 
-    hotel_grant_requested = models.BooleanField(
-        verbose_name=_("Hotel grant"),
-        help_text=_("Will you need assistance with a Hotel Room?"))
-    hotel_nights = models.IntegerField(
-        verbose_name=_("Nights"),
-        help_text=_("Please approximate how many nights you will be staying "
-                    "at the hotel."),
-        default=0)
-    sex = models.IntegerField(
-        verbose_name=_("Sex"),
-        choices=SEX_CHOICES,
-        help_text=_("(Your sex will be used only to help assign roommates "
-                    "for those requesting hotel assistance)"),
-        default=SEX_NO_ANSWER,
-    )
-
-    travel_grant_requested = models.BooleanField(
-        verbose_name=_("Travel grant"),
-        help_text=_("Will you need assistance with Travel Costs?"))
     international = models.BooleanField(
         verbose_name=_("International"),
         help_text=_("Will you be traveling internationally?"))
-    travel_amount_requested = models.DecimalField(
-        verbose_name=_("Travel amount"),
-        help_text=_("Please enter the amount of travel assistance you "
+    amount_requested = models.DecimalField(
+        verbose_name=_("Amount"),
+        help_text=_("Please enter the amount of assistance you "
                     "need, in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     travel_plans = models.CharField(
         verbose_name=_("Travel plans"),
         max_length=1024,
-        help_text=_("Please describe your travel plans"), blank=True)
-
-    tutorial_grant_requested = models.BooleanField(
-        verbose_name=_("Tutorial grant"),
-        help_text=_("Will you need assistance with tutorials?"))
+        help_text=_("Please describe your travel plans"))
 
     profession = models.CharField(
         verbose_name=_("Profession"),
@@ -111,10 +86,6 @@ class FinancialAidApplication(models.Model):
         verbose_name=u"What you want",
         help_text=_("What do you want to get out of attending PyCon?"),
         max_length=500)
-    want_to_learn = models.CharField(
-        verbose_name=u"Want to learn",
-        help_text=_("What is it that you're hoping to learn?"),
-        max_length=500)
     portfolios = models.CharField(
         verbose_name=_("Portfolios"),
         help_text=_("Please provide links to any portfolios you have "
@@ -124,11 +95,6 @@ class FinancialAidApplication(models.Model):
     use_of_python = models.CharField(
         verbose_name=_("Use of Python"),
         help_text=_("Describe your use of Python"), max_length=500)
-    beginner_resources = models.CharField(
-        verbose_name=_("Beginner resources"),
-        help_text=_("If you're a beginner, describe the resources you're "
-                    "using to learn Python."),
-        max_length=500, blank=True)
     presenting = models.IntegerField(
         verbose_name=_("Presenting"),
         help_text=_("Will you be speaking, hosting a poster session, "
@@ -176,14 +142,11 @@ class FinancialAidApplication(models.Model):
             last_update = max(last_update, msg.submitted_at)
         return last_update
 
-    def applicant_url(self):
-        """URL where an applicant can view/edit their application"""
-        # It's very simple because the only application an applicant can
-        # view is their own.
-        return reverse('finaid_edit')
+    def get_last_update_display(self):
+        return unicode(self.get_last_update())
 
-    def reviewer_url(self):
-        """URL where a reviewer can review this application"""
+    def fa_app_url(self):
+        """URL for the detail view of a financial aid application"""
         return reverse('finaid_review_detail', args=[str(self.pk)])
 
 
@@ -248,15 +211,8 @@ class FinancialAidReviewData(models.Model):
                                        editable=False)
     status = models.IntegerField(choices=STATUS_CHOICES,
                                  default=STATUS_SUBMITTED)
-    hotel_amount = models.DecimalField(
+    amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    paired_with = models.ForeignKey(User, blank=True, null=True)
-    hotel_notes = models.TextField(blank=True)
-    travel_amount = models.DecimalField(
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    registration_amount = models.DecimalField(
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    # sum is not a field in the model; we compute it at display time
     grant_letter_sent = models.DateField(blank=True, null=True)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
                                      blank=True, null=True)
@@ -265,11 +221,6 @@ class FinancialAidReviewData(models.Model):
                                             blank=True, null=True)
     disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
-
-    def sum(self):
-        """Sum of amounts granted"""
-        return self.hotel_amount + self.travel_amount \
-            + self.registration_amount
 
 
 class FinancialAidEmailTemplate(models.Model):

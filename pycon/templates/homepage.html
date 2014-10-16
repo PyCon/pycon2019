@@ -8,7 +8,7 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}PyCon 2014 in Montr&#233;al | April 9th &ndash; April 17th{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Montr&#233;al | April 8th &ndash; April 16th{% endblock %}
 
 {% block body_class %}
     {{ block.super }}
@@ -17,65 +17,62 @@
 
 {% block banner %}
     <div class="banner">
-        <div class="sky" itemscope itemtype="http://data-vocabulary.org/Event">
+        <div itemscope itemtype="http://data-vocabulary.org/Event">
             <div class="container">
                 <div class="row">
-                    <div class="span12">
-                        {% comment %}
-                        <div class="promo no-link">
-                            <p>{% trans "Register Fall 2013" %}</p>
-                        </div>
-                        {% endcomment %}
-                        <div itemprop="summary" class="logo">PyCon 2014 Montreal April 9th &ndash; April 17th</div>
-                        <div class="details">
-                            <span itemprop="locality">Montreal</span>,
-                            <span itemprop="country-name">Canada</span>,
-                            <time itemprop="startDate" datetime="2014-4-9">April 9</time>&ndash;
-                            <time itemprop="endDate" datetime="2014-4-17">17</time>
-                        </div>
-
+                    <div class="span3">
+                        <div itemprop="summary" class="logo"></div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="schedule span12">
+                    <div class="schedule span9">
                         <ul>
-                            <li><strong>{% trans "Tutorials" %}</strong> <br>April 9&ndash;10</li>
-                            <li><strong>{% trans "Conference" %}</strong> <br>April 11&ndash;13</li>
-                            <li><strong>{% trans "Sprints" %}</strong> <br>April 14&ndash;17</li>
+                            <li class="box-shadow"><strong>{% trans "Tutorials" %}</strong> April 8&ndash;9</li>
+                            <li class="box-shadow"><strong>{% trans "Conference" %}</strong> April 10&ndash;12</li>
+                            <li class="box-shadow"><strong>{% trans "Sprints" %}</strong> April 13&ndash;16</li>
+                            {% if config.REGISTRATION_STATUS != 'open' %}
+                            <li class="box-shadow promo no-link">
+                                {% if config.REGISTRATION_STATUS == 'soon' %}
+                                    <p>{% trans "Register Fall 2014" %}</p>
+                                {% elif config.REGISTRATION_STATUS == 'closed' %}
+                                    <p class="small">{% trans "Registration Closed" %}</p>
+                                {% else %}
+                                    <p>&nbsp;&nbsp;</p>
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                            <div class="details">
+                                <span itemprop="locality">Montreal</span>,
+                                <span itemprop="country-name">Canada</span>,
+                                <time itemprop="startDate" datetime="2015-4-8">April 8</time>&ndash;
+                                <time itemprop="endDate" datetime="2015-4-16">16</time>
+                            </div>
+                            {% if config.REGISTRATION_STATUS == 'open' %}
+                                <li class="promo box-shadow" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
+                                   <a href="{% url 'registration_start' %}">REGISTER</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
-                <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
-                   <a href="{% url 'registration_start' %}">REGISTER</a>
-                </div>
             </div>
-        </div>
-        <div class="city">
-            <div class="container">
-                <div class="clouds">
-                    <div id="two-clouds"></div>
-                    <div id="one-cloud"></div>
-                </div>
-                <div class="montreal"></div>
-            </div>
-            <div class="water"></div>
         </div>
     </div>
 {% endblock %}
 
 {% block body_outer %}
+<div class="leftbg">
+    <img src="{{ STATIC_URL }}img/leftbg.png" alt="left band background">
+</div>
+<div class="topRightbg">
+    <img src="{{ STATIC_URL }}img/topRightbg.png" alt="top right band background">
+</div>
 <div class="container">
-    <div class="row">
-        <div class="span12 sponsor-crawl">
+    <div class="row col-centered">
+        <div class="col-centered span12 sponsor-crawl">
             {% cache 600 "homepage-sponsor-slider" %}
-                <h2 class="scroll-title">Sponsors</h2>
+                <h1 class="scroll-title-first">Sponsors</h1>
+                <div class="col-centered span6 horizontalline"></div>
                 {% sponsors "diamond" as diamond_sponsors %}
-                {% if diamond_sponsors|length > 1 %}
-                    <div class="sponsorship-link">
-                        {% include "_sponsorship_link.html" %}
-                    </div>
-                {% endif %}
-                <div id="sponsorslider" class="carousel slide">
+                <div id="sponsorslider" class="carousel slide col-centered">
                     <!-- Carousel items -->
                     <div class="carousel-inner">
                         {% sponsors as all_sponsors %}
@@ -96,11 +93,15 @@
                     {% if all_sponsors.count > 12 %}
                       <!-- Carousel nav -->
                       <nav id="slider-nav">
-                        {% for sponsor in all_sponsors %}
-                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
-                            {% endif %}
-                        {% endfor %}
+                        <div class="slider-nav">
+                            <div class="nav-container">
+                            {% for sponsor in all_sponsors %}
+                                {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
                       </nav>
                     {% endif %}
                 </div>
@@ -108,33 +109,134 @@
         </div>
     </div>
 
-    <div class="row homepage-content">
-        {% latest_blog_posts as posts %}
-        <div class="span8">
-            <h3>{% trans "Announcements" %}</h3>
-                {% for post in posts %}
-                    <div class="blog-post">
-                        <div class="date">
-                            <span class="month">{{ post.published|date:"M" }}</span> {{ post.published|date:"d" }}
-                            <span class="year">{{ post.published|date:"Y" }}</span>
-                        </div>
-                        <div class="post-content">
-                            <h2>{{ post.title }}</h2>
-                            {% blocktrans with author=post.author.get_full_name %}
-                              <p class="post_dateline">by <span class="author">{{ author }}</span></p>
-                            {% endblocktrans %}
-                            <div class="teaser">{{ post.teaser_html|safe }}</div>
+    <div class="row">
+        <div class="col-centered">
+            <h1 class="scroll-title">{% trans "Announcements" %}</h1>
+            <div class="col-centered span6 horizontalline"></div>
+            <div class="row col-centered">
+                <div class="announcements">
+                    {% latest_blog_posts as posts %}
+                    {% for post in posts|slice:"3" %}
+                    <div class="span4">
+                        <div class="blog-post">
+                            <div class="post-content">
+                                <h2>{{ post.title }}</h2>
+                                {% blocktrans with author=post.author.get_full_name %}
+                                  <p class="post_dateline">by <span class="author">{{ author }}</span></p>
+                                {% endblocktrans %}
+                                <div class="teaser">{{ post.teaser_html|safe }}</div>
+                            </div>
                         </div>
                     </div>
-                {% empty %}
-                    <p>{% trans "No announcements have been published." %}</p>
-                {% endfor %}
-        </div>
-
-        <div class="span4">
-            {% box "homepage-about" %}
+                    {% empty %}
+                        <div class="col-centered span4">
+                            <div class="blog-post">
+                                <div class="post-content">
+                                    <p>{% trans "No announcements have been published." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
+{# schedule #}
+    <div class="row homepage-content">
+        <div class="row col-centered">
+            <h1 class="scroll-title">Schedule</h1>
+            <div class="col-centered span6 horizontalline"></div>
+            <div class="span6 ">
+                <div class="home-schedule">
+                    <div class="col-1 tutorial">
+                        <h3>Wednesday, April 8th:</h3>
+                        {% box "homepage-schedule-day1" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="home-schedule">
+                    <div class="col-2 tutorial">
+                        <h3>Thursday, April 9th:</h3>
+                        {% box "homepage-schedule-day2" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-centered">
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-1 conference">
+                        <h3 class="day">Friday, April 10th:</h3>
+                        {% box "homepage-schedule-day3" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-2 conference">
+                        <h3>Saturday, April 11th:</h3>
+                        {% box "homepage-schedule-day4" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="home-schedule">
+                    <div class="col-3 conference">
+                        <h3>Sunday, April 12th:</h3>
+                        {% box "homepage-schedule-day5" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-centered">
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-1 sprints">
+                        <h3 class="day">Monday, April 13th:</h3>
+                        {% box "homepage-schedule-day6" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-2 sprints">
+                        <h3>Tuesday, April 14th:</h3>
+                        {% box "homepage-schedule-day7" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-3 sprints">
+                        <h3>Wednesday, April 15th:</h3>
+                        {% box "homepage-schedule-day8" %}
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="home-schedule">
+                    <div class="col-4 sprints">
+                        <h3 class="day">Thursday, April 16th:</h3>
+                        {% box "homepage-schedule-day9" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+{# About #}
+        <div class="col12 col-centered">
+            <h1 class="scroll-title">About</h1>
+            <div class="col-centered span6 horizontalline"></div>
+            <div class="col-centered span8">
+                <div class="about">
+                    {% box "homepage-about" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rightbg">
+    <img class="img-responsive" src="{{ STATIC_URL }}img/rightbg.png" alt="right band background">
 </div>
 {% endblock %}
 
@@ -167,3 +269,5 @@
     {% endcompress %}
 {% endblock %}
 
+{% block extra_script %}
+{% endblock %}

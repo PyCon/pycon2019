@@ -1,0 +1,7 @@
+{% load review_tags %}
+New class message from {{ user.get_full_name|bleach|safe }} posted to {{ presentation }}.
+
+Submitted:   {{ message.submitted_at }}
+Link:        {{ presentation_url }}
+
+{{ message.message|bleach|safe }}

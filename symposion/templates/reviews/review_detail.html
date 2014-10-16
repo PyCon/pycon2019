@@ -1,9 +1,9 @@
 {% extends "reviews/base.html" %}
 
 {% load compress %}
-
 {% load bootstrap_tags %}
 {% load account_tags %}
+{% load review_tags %}
 
 {% block head_title %}#{{ proposal.number }} - {{ proposal.title }}{% endblock %}
 
@@ -175,7 +175,7 @@
                             <div class="review-content">
                                 <b>{% user_display review.user %}</b>
                                 {{ review.submitted_at|timesince }} ago <br />
-                                {{ review.comment|safe }}
+                                {{ review.comment|bleach|safe }}
                             </div>
                         </div>
                     {% endfor %}
@@ -189,25 +189,32 @@
                             <div class="commment-content">
                                 <b>{% user_display message.user %}</b>
                                 {{ message.submitted_at|timesince }} ago <br />
-                                {{ message.message|safe }}
+                                {{ message.message|bleach|linebreaksbr|safe }}
                             </div>
                         </div>
                     {% endfor %}
                     <hr />
                 {% endif %}
 
-                <form action="" method="POST"accept-charset="utf-8">
-                    <legend>Send a message</legend>
-                    <p>
-                            If you'd like to communicate with the submitter, use the following form and he or she will be
-                            notified and given the opportunity to respond.
-                    </p>
-                    {% csrf_token %}
-                    {{ message_form|as_bootstrap }}
-                    <div class="form-actions">
-                        <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
-                    </div>
-                </form>
+                {% if message_form %}
+                    <form action="" method="POST"accept-charset="utf-8">
+                        <legend>Send a message</legend>
+                        <p>
+                                If you'd like to communicate with the submitter, use the following form and he or she will be
+                                notified and given the opportunity to respond.
+                        </p>
+                        {% if proposal.result.group %}
+                                <p><strong>The review period ends in {{ proposal.result.group.vote_start | timeuntil }}</strong></p>
+                        {% endif %}
+                        {% csrf_token %}
+                        {{ message_form|as_bootstrap }}
+                        <div class="form-actions">
+                            <input type="submit" class="btn btn-success" name="message_submit" value="Send Message" />
+                        </div>
+                    </form>
+                {% else %}
+                    <p>The review period is now over.</p>
+                {% endif %}
             </div>
             <div class="tab-pane" id="proposal-history">
                 {% if proposal.revisions.all %}

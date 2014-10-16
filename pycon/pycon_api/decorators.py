@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse, Http404
+from django.views.decorators.csrf import csrf_exempt
 from functools import update_wrapper
 from pycon.pycon_api.exceptions import AuthenticationError
 from pycon.pycon_api.models import APIAuth
@@ -25,7 +26,7 @@ def api_view(method):
     API key in order to be processed.
 
     Calls to the view that do not have an appropriate key
-    will return a 401 response.
+    will return a 403 response.
     """
     def f(request, *args, **kwargs):
         # Ensure that there is an appropriate key attached
@@ -72,4 +73,5 @@ def api_view(method):
                 status=404,
             )
             
+    f = csrf_exempt(f)
     return update_wrapper(f, method)

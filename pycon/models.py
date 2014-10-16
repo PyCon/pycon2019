@@ -2,6 +2,7 @@ import json
 
 from diff_match_patch import diff_match_patch
 
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -35,8 +36,29 @@ class PyConProposalCategory(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['name']
         verbose_name = "PyCon proposal category"
         verbose_name_plural = "PyCon proposal categories"
+
+
+class ThunderdomeGroup(models.Model):
+    """A set of talk proposals, grouped together for consideration within
+    thunderdome.
+    """
+    label = models.CharField(max_length=250)
+    code = models.CharField(max_length=20, unique=True)
+    decided = models.BooleanField(default=False, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    @property
+    def as_dict(self):
+        return {
+            'code': self.code,
+            'decided': self.decided,
+            'label': self.label,
+            'talks': [i.as_dict() for i in self.talks.order_by('id')],
+        }
 
 
 class PyConProposal(ProposalBase):
@@ -103,7 +125,7 @@ class PyConProposal(ProposalBase):
         help_text=_(u'The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
-        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2014/speaking/recording/' target='_blank'>PyCon 2014 Recording Release</a> for details.")
+        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2015/speaking/recording/' target='_blank'>PyCon 2015 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(
@@ -143,8 +165,24 @@ class PyConTalkProposal(PyConProposal):
                     u"know before?"),
     )
 
+    thunderdome_group = models.ForeignKey(ThunderdomeGroup,
+        blank=True,
+        default=None,
+        null=True,
+        related_name=u'talks',
+    )
+
     class Meta:
         verbose_name = "PyCon talk proposal"
+
+    def as_dict(self, details=False):
+        answer = super(PyConTalkProposal, self).as_dict(details=details)
+        if details:
+            code = None
+            if self.thunderdome_group:
+                code = self.thunderdome_group.code
+            answer['thunderdome_group'] = code
+        return answer
 
 
 class PyConLightningTalkProposal(PyConProposal):
@@ -199,13 +237,33 @@ class PyConTutorialProposal(PyConProposal):
         upload_to="tutorial_handouts"
     )
 
+    registrants = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        help_text=_(u'CTE registered participants for this tutorial.'),
+        )
+
+    cte_tutorial_id = models.CharField(
+        max_length=150,
+        help_text=_(u'CTE Tutorial Identifier. This is typically auto-populated'
+                    u' from a management command.'),
+        blank=True,
+        default="")
+
+    max_attendees = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text=_(u'Maximum number of attendees, per CTE data'))
+
+
     class Meta:
         verbose_name = "PyCon tutorial proposal"
 
 
 class PyConPosterProposal(PyConProposal):
     class Meta:
-        verbose_name = "PyCon poster proposal"
+        verbose_name = "PyCon Poster proposal"
 
 
 class PyConSponsorTutorialProposal(ProposalBase):
@@ -214,6 +272,11 @@ class PyConSponsorTutorialProposal(ProposalBase):
 
     def __unicode__(self):
         return self.title
+
+
+class PyConOpenSpaceProposal(PyConProposal):
+    class Meta:
+        verbose_name = "PyCon Open Space proposal"
 
 
 class TalkProposalDiff(models.Model):

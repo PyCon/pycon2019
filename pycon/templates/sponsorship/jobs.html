@@ -1,13 +1,26 @@
-{% extends "site_base.html" %}
+{% extends "responsive_base.html" %}
 
 {% load sponsorship_tags %}
 {% load thumbnail %}
 {% load i18n %}
 {% load boxes_tags %}
+{% load review_tags %}
 
 {% block head_title %}{% trans "PyCon Jobs Fair" %}{% endblock %}
 
-{% block body_class %}sponsors{% endblock %}
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            $('.job-listing').each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+        });
+    </script>
+{% endblock %}
+
+
+{% block body_class %}job-fair{% endblock %}
 
 {% block page_title %}
     {% trans "PyCon Jobs Fair" %}
@@ -24,7 +37,6 @@
             {% for level in levels %}
                 {% if level.sponsors.count > 1 %}
                     <h2>{{ level.name }}</h2>
-
                     {% for sponsor in level.sponsors %}
                         {% if sponsor.joblisting_text %}
                             <div class="job-post" id="sponsor-{{ sponsor.id }}">
@@ -36,15 +48,17 @@
                                     </h2>
                                     <h5>{{ sponsor.name }}</h5>
                                     <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                                    {{ sponsor.joblisting_text|safe }}
+                                    <div class="job-listing">{{ sponsor.joblisting_text|bleach|safe }}</div>
                                 </div>
                             </div>
                         {% else %}
-                        <h3>{% trans "Coming Soon!" %}</h3>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
             {% endfor %}
         </div>
+        <aside class="span3">
+            {% box "sponsor_jobs" %}
+        </aside>
     </div>
 {% endblock %}

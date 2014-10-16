@@ -1,6 +1,7 @@
-Message from {{ user.get_full_name|safe }} regarding your financial aid application.
+{% load review_tags %}
+Message from {{ user.get_full_name|bleach|safe }} regarding your financial aid application.
 
 Submitted: {{ message.submitted_at }}
-Link:      {{ applicant_url }}
+Link:      {{ fa_app_url }}
 
-{{ message.message|safe }}
+{{ message.message|bleach|safe }}

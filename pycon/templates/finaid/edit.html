@@ -10,6 +10,8 @@
 
 {% block body_id %}finaid_apply{% endblock %}
 
+{% block page_title %}Financial Aid Application{% endblock %}
+
 {% block body %}
     {% box "finaid-apply" %}
 
@@ -33,13 +35,7 @@
 
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-success btn-large" type="submit" value="{% if applying %}{% trans "Apply" %}{% else %}{% trans "Submit" %}{% endif %}" />
+            <input class="btn btn-primary" type="submit" value="{% if applying %}{% trans "Apply" %}{% else %}{% trans "Submit" %}{% endif %}" />
         </div>
     </form>
-{% endblock %}
-
-{% block extra_script %}
-  {% compress js %}
-    <script src="{% static "js/finaid.js" %}"></script>
-  {% endcompress %}
 {% endblock %}

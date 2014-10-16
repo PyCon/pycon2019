@@ -10,9 +10,8 @@ from .models import Session, SessionRole
 
 
 def session_list(request):
-    
-    sessions = Session.objects.all()
-    
+    sessions = Session.objects.all().order_by('pk')
+
     return render(request, "schedule/session_list.html", {
         "sessions": sessions,
     })
@@ -20,19 +19,19 @@ def session_list(request):
 
 @login_required
 def session_staff_email(request):
-    
+
     if not request.user.is_staff:
         return redirect("schedule_session_list")
-    
+
     data = "\n".join(user.email for user in User.objects.filter(sessionrole__isnull=False).distinct())
-    
+
     return HttpResponse(data, content_type="text/plain;charset=UTF-8")
 
 
 def session_detail(request, session_id):
-    
+
     session = get_object_or_404(Session, id=session_id)
-    
+
     chair = None
     chair_denied = False
     chairs = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_CHAIR).exclude(status=False)
@@ -43,7 +42,7 @@ def session_detail(request, session_id):
             # did the current user previously try to apply and got rejected?
             if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_CHAIR, status=False):
                 chair_denied = True
-    
+
     runner = None
     runner_denied = False
     runners = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER).exclude(status=False)
@@ -54,13 +53,13 @@ def session_detail(request, session_id):
             # did the current user previously try to apply and got rejected?
             if SessionRole.objects.filter(session=session, user=request.user, role=SessionRole.SESSION_ROLE_RUNNER, status=False):
                 runner_denied = True
-    
+
     if request.method == "POST" and request.user.is_authenticated():
         if not hasattr(request.user, "profile") or not request.user.profile.is_complete:
             response = redirect("profile_edit")
             response["Location"] += "?next=%s" % request.path
             return response
-        
+
         role = request.POST.get("role")
         if role == "chair":
             if chair == None and not chair_denied:
@@ -78,9 +77,9 @@ def session_detail(request, session_id):
                 session_role = SessionRole.objects.filter(session=session, role=SessionRole.SESSION_ROLE_RUNNER, user=request.user)
                 if session_role:
                     session_role[0].delete()
-        
+
         return redirect("schedule_session_detail", session_id)
-    
+
     return render(request, "schedule/session_detail.html", {
         "session": session,
         "chair": chair,

@@ -1,4 +1,4 @@
 You have edited your PyCon financial aid application.
 
 You can view or edit it some more at
-{{ applicant_url }}
+{{ fa_app_url }}

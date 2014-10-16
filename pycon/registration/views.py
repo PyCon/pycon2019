@@ -18,7 +18,6 @@ def cte_login(request):
     token = hashlib.sha1(str(request.user.id) + salt).hexdigest()
     ctx = {
         "token": token,
-        "REGISTRATION_URL": config.REGISTRATION_URL,
     }
 
     return render_to_response("registration/login.html",

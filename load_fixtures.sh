@@ -11,8 +11,8 @@ case $REPLY in
   ;;
 esac
 
-dropdb pycon2014
-createdb pycon2014
+dropdb pycon2015
+createdb pycon2015
 python manage.py syncdb --noinput
 python manage.py migrate
 
@@ -33,3 +33,7 @@ python manage.py loaddata \
   fixtures/permissions.json \
   fixtures/teams.json \
 
+echo
+echo
+echo "Database initialized."
+echo "Hint: setup an account with: ./manage.py createsuperuser"

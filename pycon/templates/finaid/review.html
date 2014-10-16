@@ -6,9 +6,9 @@
 
 {% load compress %}
 {% load i18n %}
-
 {% load bootstrap_tags %}
 {% load account_tags %}
+{% load review_tags %}
 
 {% block body %}
   <p>
@@ -70,11 +70,6 @@
                 </div>
               {% endif %}
 
-              <p>
-                <strong>Sum:</strong>
-                {{ form.instance.sum }}
-              </p>
-
               <form action="" method="POST" accept-charset="utf-8">
                 {% csrf_token %}
                 <fieldset>
@@ -108,7 +103,7 @@
                 <strong>{% user_display message.user %}</strong>
                 {{ message.submitted_at|timesince }} ago
                 <br />
-                {{ message.message|safe }}
+                {{ message.message|bleach|safe }}
               </div>
             </div>
           {% endfor %}

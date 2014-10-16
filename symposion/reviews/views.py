@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
 from django.db.models import Q
@@ -16,8 +18,9 @@ from symposion.proposals.models import ProposalBase
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
-from symposion.reviews.forms import ReviewForm, SpeakerCommentForm
-from symposion.reviews.forms import BulkPresentationForm
+from symposion.reviews.forms import (
+    NonVotingReviewForm, ReviewForm, SpeakerCommentForm, BulkPresentationForm
+)
 from symposion.reviews.models import (
     ReviewAssignment, Review, LatestVote, ProposalResult, NotificationTemplate,
     ResultNotification
@@ -183,6 +186,24 @@ def review_admin(request, section_slug):
     return render(request, "reviews/review_admin.html", ctx)
 
 
+def is_review_period_active(proposal):
+    # If this proposal isn't in a group, the review and voting period are
+    # always active.
+    if proposal.result is None or proposal.result.group is None:
+        return True
+
+    # Otherwise check the bounds.
+    group = proposal.result.group
+    return group.review_start <= datetime.datetime.now() <= group.vote_start
+
+
+def is_voting_period_active(proposal):
+    if proposal.result is None or proposal.result.group is None:
+        return True
+    group = proposal.result.group
+    return group.vote_start <= datetime.datetime.now() <= group.vote_end
+
+
 @login_required
 def review_detail(request, pk):
 
@@ -204,14 +225,19 @@ def review_detail(request, pk):
     except LatestVote.DoesNotExist:
         latest_vote = None
 
+    review_form = None
+    message_form = None
     proposal_tags_form = None
 
     if request.method == "POST":
         if request.user in speakers:
             return access_not_permitted(request)
 
-        if "vote_submit" in request.POST:
-            review_form = ReviewForm(request.POST)
+        if "vote_submit" in request.POST and (is_voting_period_active(proposal) or is_review_period_active(proposal)):
+            if is_voting_period_active(proposal):
+                review_form = ReviewForm(request.POST)
+            else:
+                review_form = NonVotingReviewForm(request.POST)
             if review_form.is_valid():
 
                 review = review_form.save(commit=False)
@@ -232,14 +258,16 @@ def review_detail(request, pk):
                 return redirect(request.path)
             else:
                 message_form = SpeakerCommentForm()
-                if request.user in speakers:
-                    review_form = None
-                else:
+                if request.user not in speakers:
                     initial = {}
                     if latest_vote:
                         initial["vote"] = latest_vote.vote
-                    review_form = ReviewForm(initial=initial)
-        elif "message_submit" in request.POST:
+
+                    if is_voting_period_active(proposal):
+                        review_form = ReviewForm(initial=initial)
+                    elif is_review_period_active(proposal):
+                        review_form = NonVotingReviewForm()
+        elif "message_submit" in request.POST and is_review_period_active(proposal):
             message_form = SpeakerCommentForm(request.POST)
             if message_form.is_valid():
 
@@ -265,10 +293,11 @@ def review_detail(request, pk):
                 initial = {}
                 if latest_vote:
                     initial["vote"] = latest_vote.vote
-                if request.user in speakers:
-                    review_form = None
-                else:
-                    review_form = ReviewForm(initial=initial)
+                if request.user not in speakers:
+                    if is_voting_period_active(proposal):
+                        review_form = ReviewForm(initial=initial)
+                    elif is_review_period_active(proposal):
+                        review_form = NonVotingReviewForm()
         elif "result_submit" in request.POST:
             if admin:
                 result = request.POST["result_submit"]
@@ -291,13 +320,15 @@ def review_detail(request, pk):
         initial = {}
         if latest_vote:
             initial["vote"] = latest_vote.vote
-        if request.user in speakers:
-            review_form = None
-        else:
-            review_form = ReviewForm(initial=initial)
+        if request.user not in speakers:
+            if is_voting_period_active(proposal):
+                review_form = ReviewForm(initial=initial)
+            elif is_review_period_active(proposal):
+                review_form = NonVotingReviewForm()
             tags = edit_string_for_tags(proposal.tags.all())
             proposal_tags_form = ProposalTagsForm(initial={'tags': tags})
-        message_form = SpeakerCommentForm()
+        if is_review_period_active(proposal) and request.user not in speakers:
+            message_form = SpeakerCommentForm()
 
     proposal.comment_count = proposal.result.comment_count
     proposal.total_votes = proposal.result.vote_count
@@ -316,7 +347,7 @@ def review_detail(request, pk):
         "review_messages": messages,
         "review_form": review_form,
         "proposal_tags_form": proposal_tags_form,
-        "message_form": message_form
+        "message_form": message_form,
     })
 
 

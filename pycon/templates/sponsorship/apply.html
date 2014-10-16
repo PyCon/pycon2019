@@ -6,7 +6,7 @@
 
 {% block head_title %}{% trans "Apply to be a Sponsor" %}{% endblock %}
 
-{% block body_class %}sponsors apply{% endblock %}
+{% block body_class %}sponsors-apply{% endblock %}
 
 {% block body %}
 
@@ -17,7 +17,7 @@
         <legend>{% trans "Apply to be a Sponsor" %}</legend>
         {{ form|as_bootstrap }}
         <div class="form-actions">
-            <input class="btn btn-success" type="submit" value="{% trans "Apply" %}" />
+            <input class="btn btn-primary" type="submit" value="{% trans "Apply" %}" />
             <p class="help-block">
               {% url 'cms_page' "sponsor/terms/" as terms_url %}
                 <em>{% blocktrans %}By submitting this sponsor application you are agreeing to the <a href="{{ terms_url }}" target="_blank">terms and conditions</a>.{% endblocktrans %}</em>

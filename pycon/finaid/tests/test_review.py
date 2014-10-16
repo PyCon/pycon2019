@@ -1,14 +1,19 @@
+import datetime
+
 from decimal import Decimal
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from pycon.finaid.models import STATUS_REJECTED, STATUS_SUBMITTED, \
-    FinancialAidMessage, FinancialAidReviewData
+    FinancialAidMessage, FinancialAidReviewData, FinancialAidApplicationPeriod
 from pycon.finaid.utils import is_reviewer
 from symposion.conference.models import Conference
 
 from .utils import TestMixin, create_application, ReviewTestMixin
+
+today = datetime.date.today()
+one_day = datetime.timedelta(days=1)
 
 
 class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
@@ -97,16 +102,13 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'application': application,
             'status': STATUS_SUBMITTED,
-            'hotel_amount': Decimal('6.66'),
-            'registration_amount': Decimal('0.00'),
-            'travel_amount': Decimal('0.00'),
+            'amount': Decimal('0.00'),
         }
         review = FinancialAidReviewData(**data)
         review.save()
 
         # Now, submit the form to change the status
         data['status'] = STATUS_REJECTED
-        data['hotel_amount'] = Decimal('7.77')
         data['review_submit'] = 'review_submit'
 
         url = reverse('finaid_review_detail', kwargs={'pk': application.pk})
@@ -114,4 +116,44 @@ class TestFinaidApplicationReview(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(302, rsp.status_code)
         new_review = FinancialAidReviewData.objects.get(pk=review.pk)
         self.assertEqual(STATUS_REJECTED, new_review.status)
-        self.assertEqual(Decimal("7.77"), new_review.hotel_amount)
+
+
+class TestFinaidApplicationReviewDetail(TestCase, TestMixin, ReviewTestMixin):
+    def setUp(self):
+        self.user = self.create_user()
+        self.applicant = self.create_user("fred", "fred@example.com", "linus")
+        self.application = create_application(user=self.applicant)
+        self.application.save()
+        self.review_url = reverse('finaid_review_detail', kwargs={'pk': self.application.pk})
+        self.setup_reviewer_team_and_permissions()
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
+        self.conf = Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+
+    def test_not_reviewer_not_applicant(self):
+        # Non-reviewers cannot access the review view
+        self.login()
+        rsp = self.client.get(self.review_url)
+        self.assertEqual(403, rsp.status_code)
+
+    def test_not_reviewer_is_applicant(self):
+        # Non-reviewer applicants are redirected to finaid_edit
+        self.login(username="fred@example.com", password="linus")
+        rsp = self.client.get(self.review_url, follow=True)
+        self.assertRedirects(rsp, reverse('finaid_edit'))
+
+    def test_reviewer(self):
+        # reviewers can access the review view
+        self.login()
+        self.make_reviewer(self.user)
+        rsp = self.client.get(self.review_url)
+        self.assertEqual(200, rsp.status_code)
+
+    def test_reviewer_is_applicant(self):
+        # reviewers that are applicants are redirected to their edit view
+        self.login(username="fred@example.com", password="linus")
+        self.make_reviewer(self.applicant)
+        rsp = self.client.get(self.review_url, follow=True)
+        self.assertRedirects(rsp, reverse('finaid_edit'))

@@ -61,8 +61,8 @@ def sponsor_detail(request, pk):
         formset = SponsorBenefitsFormSet(request.POST, request.FILES, **formset_kwargs)
 
         if form.is_valid() and formset.is_valid():
-            form.save()
             formset.save()
+            form.save()
 
             messages.success(request, "Your sponsorship application has been submitted!")
 
@@ -138,7 +138,8 @@ def sponsor_zip_logo_files(request):
     zip_stringio = StringIO()
     with ZipFile(zip_stringio, "w") as zipfile:
         for benefit_name, dir_name in (("Web logo", "web_logos"),
-                                       ("Print logo", "print_logos")):
+                                       ("Print logo", "print_logos"),
+                                       ("Advertisement", "advertisement")):
             benefit = Benefit.objects.get(name=benefit_name)
             for level in SponsorLevel.objects.all():
                 level_name = level.name.lower().replace(" ", "_")
@@ -153,7 +154,8 @@ def sponsor_zip_logo_files(request):
                         if os.path.exists(sponsor_benefit.upload.path):
                             modtime = time.gmtime(os.stat(sponsor_benefit.upload.path).st_mtime)
                             with open(sponsor_benefit.upload.path, "rb") as f:
-                                zipinfo = ZipInfo(filename=full_dir + "/" + sponsor_benefit.upload.name,
+                                fname = os.path.split(sponsor_benefit.upload.name)[-1]
+                                zipinfo = ZipInfo(filename=full_dir + "/" + fname,
                                                   date_time=modtime)
                                 zipfile.writestr(zipinfo, f.read())
                         else:

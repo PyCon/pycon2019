@@ -68,7 +68,7 @@ class APIAuth(models.Model):
             auth_instance.secret,
             unicode(request_timestamp),
             request.method.upper(),
-            request.build_absolute_uri(),
+            request.get_full_path(),
             request.body,
         )))
         expected_signature = sha1(base_string.encode('utf-8')).hexdigest()

@@ -3,10 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from markedit.widgets import MarkEdit
 
-from pycon.models import (PyConProposalCategory, PyConTalkProposal,
-                          PyConTutorialProposal, PyConPosterProposal,
-                          PyConLightningTalkProposal)
-from pycon.models import PyConSponsorTutorialProposal
+from .models import (PyConProposalCategory, PyConTalkProposal,
+                     PyConTutorialProposal, PyConPosterProposal,
+                     PyConLightningTalkProposal, PyConSponsorTutorialProposal,
+                     PyConOpenSpaceProposal)
 
 
 class PyConProposalForm(forms.ModelForm):
@@ -136,6 +136,35 @@ class PyConPosterProposalForm(PyConProposalForm):
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
             "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
+
+
+class PyConOpenSpaceProposalForm(PyConProposalForm):
+
+    class Meta:
+        model = PyConOpenSpaceProposal
+        fields = [
+            "title",
+            "description",
+            "additional_notes",
+            "additional_requirements",
+            "audience_level",
+            "category",
+        ]
+        widgets = {
+            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+            "description": forms.Textarea(attrs={'rows': '3'}),
+            "additional_notes": MarkEdit(attrs={'rows': '3'}),
+            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PyConProposalForm, self).__init__(*args, **kwargs)
+        self.fields['audience_level'].widget = forms.HiddenInput()
+        self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
+
+    def clean_description(self):
+        value = self.cleaned_data["description"]
+        return value
 
 
 class PyConSponsorTutorialForm(PyConProposalForm):

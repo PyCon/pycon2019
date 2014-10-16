@@ -48,6 +48,7 @@ urlpatterns = patterns("",
         url(r"^pycon_api/", include("pycon.pycon_api.urls")),
         url(r"^schedule/", include("pycon.schedule.urls")),
         url(r"^profile/", include("pycon.profile.urls")),
+        url(r"^tutorials/", include("pycon.tutorials.urls")),
 
         url(r"^speaker/", include("symposion.speakers.urls")),
         url(r"^proposals/", include("symposion.proposals.urls")),
@@ -62,6 +63,7 @@ urlpatterns = patterns("",
         url(r"^sitemap/", TemplateView.as_view(template_name="static/sitemap.html"), name="sitemap"),
         url(r'^selectable/', include('selectable.urls')),
         url(r"^change_language/", symposion.views.change_language, name="change_language"),
+        url(r"^", include("pycon.urls")),
 
         # This should be last, because it will create a new CMS page for
         # any unrecognized URL.
@@ -71,3 +73,6 @@ urlpatterns = patterns("",
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if "comps" in settings.INSTALLED_APPS:
+    urlpatterns += patterns("", url(r"^", include("comps.urls")))

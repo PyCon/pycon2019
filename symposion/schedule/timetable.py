@@ -24,8 +24,8 @@ class TimeTable(object):
         return qs
     
     def __iter__(self):
-        times = sorted(set(itertools.chain(*self.slots_qs().values_list("start", "end"))))
-        slots = Slot.objects.filter(pk__in=self.slots_qs().values("pk"))
+        slots = self.slots_qs().all()
+        times = sorted(set(itertools.chain(*slots.values_list("start", "end"))))
         slots = slots.annotate(room_count=Count("slotroom"), order=Min("slotroom__room__order"))
         slots = slots.order_by("start", "order")
         row = []

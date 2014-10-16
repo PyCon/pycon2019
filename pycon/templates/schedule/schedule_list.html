@@ -1,0 +1,46 @@
+{% extends "responsive_base.html" %}
+
+{% load i18n %}
+{% load boxes_tags %}
+{% load cache %}
+{% load sitetree %}
+
+{% block head_title %}{{ schedule.section.name }}{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .page-content .box-content h3 {
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}
+    {{ schedule.section.name }}
+{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body %}
+    <h2>Accepted {{ schedule.section.name }}</h2>
+    {% box "schedule_detail_"|add:schedule.section.name|slugify %}
+    {% cache 600 "schedule-list" schedule.section.name %}
+        {% for presentation in presentations %}
+            <div class="row">
+                <div class="span8 presentation well">
+                    <h3><a href="{% url 'schedule_presentation_detail' presentation.pk %}">{{ presentation.title }}</a></h3>
+                    <h4>{{ presentation.speakers|join:", " }} in {{ presentation.proposal.category }}</h4>
+                    {{ presentation.description }}
+                    {% if presentation.slot %}
+                        <h4>
+                            {{ presentation.slot.day.date|date:"l" }}
+                            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+                            in
+                            {{ presentation.slot.rooms|join:", " }}
+                        </h4>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endcache %}
+{% endblock %}

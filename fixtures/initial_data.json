@@ -4,7 +4,7 @@
         "model": "sites.site",
         "fields": {
             "domain": "us.pycon.org",
-            "name": "PyCon 2014"
+            "name": "PyCon 2015"
         }
     }
 ]

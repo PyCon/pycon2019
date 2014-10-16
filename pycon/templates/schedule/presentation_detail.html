@@ -1,0 +1,153 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load compress %}
+{% load i18n %}
+{% load review_tags %}
+{% load sitetree %}
+
+{% block head_title %}{% trans "Presentation: " %}{{ presentation.title }}{% endblock %}
+
+{% block extra_head %}
+    <script type="text/javascript">
+        $(function () {
+            var converter = new Attacklab.showdown.converter();
+            $('.tutorial-comment').each(function() {
+                $(this).html(converter.makeHtml($(this).html()));
+            })
+            $('.abstract').html(converter.makeHtml($('.abstract').html()));
+
+        });
+    </script>
+{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body %}
+    {% if presentation.slot %}
+        <h4>
+            {{ presentation.slot.day.date|date:"l" }}
+            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+        </h4>
+        {% if proposal.domain_level %}
+            {% if request.user.speaker_profile in speakers or request.user.is_staff %}
+              <h4>Attendees: {{ proposal.registrants.count|default:0 }} of {{ proposal.max_attendees|default:'TBD' }}</h4>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    <h2>{{ presentation.title }}</h2>
+
+    <h4>
+        {% for speaker in speakers %}
+            <a href="{% url 'speaker_profile' speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+    </h4>
+
+    {% if proposal.category  %}
+        <dl class="dl-horizontal">
+            <dt>{% trans "Audience level:" %}</dt>
+            <dd style="margin-bottom: 0;">{{ proposal.get_audience_level_display }}</dd>
+            <dt>{% trans "Category:" %}</dt>
+            <dd>{{ proposal.category }}</dd>
+        </dl>
+    {% endif %}
+
+    <h3>{% trans "Description" %}</h3>
+
+    <div class="description">{{ presentation.description }}</div>
+
+    {% if proposal.abstract  %}
+    <h3>{% trans "Abstract" %}</h3>
+
+    <div class="abstract">{{ presentation.abstract|bleach|safe }}</div>
+    {% endif %}
+
+    {# Determine if the proposal is a Tutorial #}
+    {% if proposal.domain_level %}
+          <h3>{% trans "Student Handout" %}</h3>
+          <div class="student-handout">
+          {% if proposal.handout %}
+            <a href="{{ proposal.handout.url }}">Download</a>
+          {% else %}
+            <p>{% trans "No handouts have been provided yet for this tutorial" %}</p>
+          {% endif %}
+          </div>
+
+      {% if request.user in proposal.registrants.all or request.user.speaker_profile in speakers or request.user.is_staff %}
+           <form action="" method="POST" accept-charset="utf-8" id="applicant-list">
+                  <h3 id="messages">{% trans "Questions about this tutorial" %}</h3>
+                  {% csrf_token %}
+                  <div class="actions">
+                    <button type="submit" name="message_action" class="btn btn-primary">
+                      <i class="icon-pencil"></i>
+                      {% trans "Leave class note" %}
+                    </button>
+                  </div>
+                  <p><strong>{% trans "Class notes are visible to both instructor(s) and attendees" %}</strong></p>
+
+                 {% if proposal.tutorial_messages %}
+                    {% for message in proposal.tutorial_messages.all %}
+                      <div class="comment-box">
+                        <div class="commment-content">
+                          <strong>{% user_display message.user %}</strong>
+                          {{ message.submitted_at|timesince }} ago
+                          <div class="tutorial-comment">{{ message.message|bleach|safe }}</div>
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                  {% else %}
+                    No messages
+                  {% endif %}
+
+          {# If the user is a speaker or staff, email attendee(s) table #}
+          {% if request.user.speaker_profile in speakers or request.user.is_staff %}
+                <h3>{% trans "Email Attendees" %}</h3>
+                <p><strong>{% trans "Select attendee(s) to email directly" %}</strong></p>
+                <table class="table table-striped table-bordered table-messages">
+                  <thead>
+                    <th>Attendee <i class="icon-sort"></i></th>
+                  </thead>
+                  <tbody>
+                    {% for attendee in proposal.registrants.all %}
+                      <tr>
+                      <td>
+                        <input type="checkbox" name="user_{{ attendee.pk }}">
+                        <small><strong>{{ attendee.last_name }}, {{ attendee.first_name }}</strong></small>
+                      </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% compress js %}
+                  <script src="{{ STATIC_URL }}datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+                  <script src="{{ STATIC_URL }}tabletools/js/TableTools.min.js" type="text/javascript"></script>
+                  <script src="{{ STATIC_URL }}datatables/js/dataTables.bootstrap.js" type="text/javascript"></script>
+                  <script type="text/javascript">
+                    $(function() {
+                      $(".tip").tooltip();
+                      $("table.table-messages").dataTable({
+                        "sDom": "<'filter'<'sort'l><'search'f>r>t<'table-pagination'p>>",
+                        "sPaginationType": "bootstrap",
+                        "bStateSave": true
+                      });
+                    });
+                  </script>
+                {% endcompress %}
+            {% else %}
+              <h3>{% trans "Email Instructors" %}</h3>
+              <p><strong>{% trans "Email instructors privately" %}</strong></p>
+
+              {% for speaker in speakers %}
+                  <input type="hidden" name="user_{{ speaker.user.pk }}">
+               {% endfor %}
+          {% endif %}
+              <div class="actions">
+                <button type="submit" name="email_action" class="btn btn-primary">
+                  <i class="icon-envelope-alt"></i>
+                  {% trans "Send email" %}
+                </button>
+              </div>
+            </form>
+      {% endif %}
+    {% endif %}
+{% endblock %}

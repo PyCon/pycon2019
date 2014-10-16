@@ -6,6 +6,13 @@ from markedit.widgets import MarkEdit
 from symposion.reviews.models import Review, Comment, ProposalMessage, VOTES
 
 
+class NonVotingReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ["comment"]
+        widgets = {"comment": MarkEdit()}
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

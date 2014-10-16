@@ -1,3 +1,4 @@
+import hashlib
 import random
 import sys
 
@@ -6,7 +7,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.hashcompat import sha_constructor
 from django.views import static
 
 from django.contrib import messages
@@ -107,11 +107,11 @@ def proposal_speaker_manage(request, pk):
                 # duplicate tokens and confusing the pending speaker
                 try:
                     pending = Speaker.objects.get(
-                        Q(user=None, invite_email=email_address)
+                        Q(invite_email=email_address)
                     )
                 except Speaker.DoesNotExist:
-                    salt = sha_constructor(str(random.random())).hexdigest()[:5]
-                    token = sha_constructor(salt + email_address).hexdigest()
+                    salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+                    token = hashlib.sha1(salt + email_address).hexdigest()
                     pending = Speaker.objects.create(
                         invite_email=email_address,
                         invite_token=token,
@@ -121,6 +121,7 @@ def proposal_speaker_manage(request, pk):
                 return pending, token
 
             email_address = add_speaker_form.cleaned_data["email"]
+
             # django-selectable widget will return a User for emails that are
             # associated with a current User, else a string
             if isinstance(email_address, User):
@@ -163,6 +164,7 @@ def proposal_speaker_manage(request, pk):
             return redirect("proposal_speaker_manage", proposal.pk)
     else:
         add_speaker_form = AddSpeakerForm(proposal=proposal)
+
     ctx = {
         "proposal": proposal,
         "speakers": proposal.speakers(),
@@ -304,7 +306,7 @@ def proposal_leave(request, pk):
     except ObjectDoesNotExist:
         return HttpResponseForbidden()
     if request.method == "POST":
-        proposal.additional_speakers.remove(speaker)
+        speaker.delete()
         # @@@ fire off email to submitter and other speakers
         messages.success(request, "You are no longer speaking on %s" % proposal.title)
         return redirect("dashboard")

@@ -4,12 +4,16 @@
 import os.path
 import posixpath
 
+import bleach
+
 from django.core.urlresolvers import reverse_lazy
 
 
 def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
+
+CONFERENCE_YEAR = "2015"
 
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -30,7 +34,7 @@ COMPRESS = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env_or_default("DB_NAME", "pycon2014"),
+        "NAME": env_or_default("DB_NAME", "pycon2015"),
         "USER": env_or_default("DB_USER", ""),
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
@@ -48,6 +52,8 @@ ADMINS = [
 
 MANAGERS = ADMINS
 
+THEME_CONTACT_EMAIL = 'pycon-reg@python.org'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -64,7 +70,7 @@ SITE_ID = 1
 # Conference ID and any URL prefixes
 CONFERENCE_ID = 1
 CONFERENCE_URL_PREFIXES = {
-    1: "2014",
+    1: CONFERENCE_YEAR,
 }
 
 
@@ -157,10 +163,13 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.tz",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
+    "pycon.context_processors.global_settings",
     "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
+    "constance.context_processors.config",
+    "pinax_theme_bootstrap.context_processors.theme",
 ]
 
 INSTALLED_APPS = [
@@ -220,6 +229,7 @@ INSTALLED_APPS = [
     "pycon.profile",
     "pycon.finaid",
     "pycon.pycon_api",
+    "pycon.tutorials",
 ]
 
 FIXTURE_DIRS = [
@@ -269,8 +279,8 @@ ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 LOGIN_ERROR_URL = reverse_lazy("account_login")
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/2014/dashboard/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/2014/dashboard/"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
 
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 
@@ -281,7 +291,7 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-DEFAULT_FROM_EMAIL = "PyCon 2014 <no-reply@us.pycon.org>"
+DEFAULT_FROM_EMAIL = "PyCon {} <no-reply@us.pycon.org>".format(CONFERENCE_YEAR)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -291,9 +301,13 @@ CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     # "SETTING_NAME": (default_value, "help text")
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
+    "CTE_BASICAUTH_USER": ("", "Shared User for accessing CTE Registration data"),
+    "CTE_BASICAUTH_PASS": ("", "Shared User password for accessing CTE Registration data"),
+    "CTE_TUTORIAL_DATA_URL": ("", "URL for the CSV of CTE Tutorial Registration Data"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
+    "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }
 
 BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
@@ -309,6 +323,7 @@ PROPOSAL_FORMS = {
     "poster": "pycon.forms.PyConPosterProposalForm",
     "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
     "lightning-talk": "pycon.forms.PyConLightningTalkProposalForm",
+    "open-space": "pycon.forms.PyConOpenSpaceProposalForm",
 }
 
 USE_X_ACCEL_REDIRECT = False
@@ -324,8 +339,16 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
+
+BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']

@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load boxes_tags %}
+{% load cache %}
+
+{% block head_title %}{% trans "Conference Schedule" %}{% endblock %}
+
+{% block page_title %}
+    {% trans "Conference Schedule" %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        {% box "schedule_top" %}
+
+        {% for timetable in timetables %}
+            {% cache 600 "schedule-table" timetable.day %}
+                <h3>{{ timetable.day.date }}</h3>
+                {% include "schedule/_grid.html" %}
+            {% endcache %}
+        {% endfor %}
+
+        {% box "schedule_bottom" %}
+    </div>
+{% endblock %}
