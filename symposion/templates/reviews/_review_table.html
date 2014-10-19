@@ -8,7 +8,13 @@
         <th>{% trans "Title" %}</th>
         <th>{% trans "Category" %}</th>
         <th>{% trans "Tags" %}</th>
+        {% if section_slug == "talks" %}
+            <th>{% trans "Review Start" %}</th>
+        {% endif %}
         <th><i class="icon-comment-alt"></i></th>
+        {% if section_slug == "talks" %}
+            <th>{% trans "Voting Start" %}</th>
+        {% endif %}
         <th>+1</th>
         <th>+0</th>
         <th>-0</th>
@@ -38,7 +44,13 @@
                 <td>{{ proposal.title }}</td>
                 <td>{{ proposal.category }}</td>
                 <td>{{ proposal.get_tags_display }}</td>
+                {% if section_slug == "talks" %}
+                    <td>{{ proposal.result.group.review_start|date:"M. j H:i T" }}</td>
+                {% endif %}
                 <td>{{ proposal.comment_count }}</td>
+                {% if section_slug == "talks" %}
+                    <td>{{ proposal.result.group.vote_start|date:"M. j H:i T" }}</td>
+                {% endif %}
                 <td>{{ proposal.plus_one }}</td>
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>

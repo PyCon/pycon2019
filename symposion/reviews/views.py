@@ -111,6 +111,7 @@ def review_section(request, section_slug, assigned=False):
     ctx = {
         "proposals": proposals,
         "section": section,
+        "section_slug": section_slug,
         "can_manage": can_manage,
         "status_options": PyConProposal.STATUS_OPTIONS
     }
@@ -138,6 +139,7 @@ def review_list(request, section_slug, user_pk):
 
     ctx = {
         "proposals": proposals,
+        "section_slug": section_slug,
     }
     return render(request, "reviews/review_list.html", ctx)
 
