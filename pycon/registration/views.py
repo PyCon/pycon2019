@@ -1,24 +1,23 @@
 import hashlib
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+from constance import config
 
 from djangosecure.decorators import frame_deny_exempt
 
-from constance import config
+
+@login_required
+def cte_registration_start(request):
+    return render(request, "registration/register.html")
 
 
 @login_required
 @frame_deny_exempt
-def cte_login(request):
-
+def cte_registration_login(request):
     salt = config.CTE_SECRET
-    token = hashlib.sha1(str(request.user.id) + salt).hexdigest()
-    ctx = {
+    token = hashlib.sha1(str(request.user.pk) + salt).hexdigest()
+    return render(request, "registration/login.html", {
         "token": token,
-    }
-
-    return render_to_response("registration/login.html",
-                              RequestContext(request, ctx))
+    })
