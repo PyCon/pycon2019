@@ -1,0 +1,40 @@
+{% extends "responsive_base.html" %}
+{% load boxes_tags %}
+{% load static from staticfiles %}
+
+{% block head_title %}Group Registration{% endblock head_title %}
+{% block page_title %}Group Registration{% endblock page_title %}
+{% block body_id %}group-registration{% endblock body_id %}
+
+{% block extra_script %}
+  <script src="{% static "js/group_registration.js" %}"
+          data-registration-url="{% url "group_registration" %}"></script>
+  <script>
+    $(function () {
+      // Start the page with 5 group registration forms.
+      for (var i = 0; i < 5; i++) {
+        addLine();
+      }
+    });
+  </script>
+{% endblock extra_script %}
+
+{% block page_content %}
+  <div class="container">
+    <div id="instructions">{% box "group-registration-instructions" %}</div>
+
+    {# Where registration forms are populated. #}
+    <div id="group-registrations-container" class="clearfix">
+      <div id="group-registrations"></div>
+      <button id="add-line" class="btn btn-small btn-default" title="Add Line">
+        <i class="icon-plus"></i> Add Line
+      </button>
+    </div>
+
+    <div id="bottom-actions" class="well">
+      <button id="submit-registrations" class="btn btn-primary pull-right">
+        Submit Registrations
+      </button>
+    </div>
+  </div>
+{% endblock page_content %}

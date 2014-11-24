@@ -19,6 +19,7 @@
 // -- Reviews
 // -- Job fair
 // -- Financial Aid
+// -- Group Registration
 
 /* Imports
 ==================== */
@@ -1869,5 +1870,38 @@ body.finaid {
         }
       }
     }
+  }
+}
+
+/* Group Registration
+==================== */
+body#group-registration {
+  #instructions {
+    margin-bottom: 20px;
+  }
+  #group-registrations-container {
+    margin-bottom: 20px;
+    #group-registrations {
+      .group-registration {
+        margin-bottom: 10px;
+        .form-control {
+          margin-right: 10px;
+        }
+        .remove-line {
+          border: none;
+          cursor: pointer;
+          font-weight: bold;
+        }
+        .text-error {
+          color: #b94a48;
+        }
+      }
+    }
+    #add-line {
+      border: none;
+    }
+  }
+  #bottom-actions {
+    height: 30px;
   }
 }

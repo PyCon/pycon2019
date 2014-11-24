@@ -10,4 +10,7 @@ urlpatterns = [
     url(r"^register/login/$",
         views.cte_registration_login,
         name="registration_login"),
+    url(r"^register/group/$",
+        views.GroupRegistration.as_view(),
+        name="group_registration"),
 ]
