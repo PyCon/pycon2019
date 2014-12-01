@@ -1,6 +1,10 @@
 import hashlib
+import json
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
@@ -8,6 +12,8 @@ from django.views.generic import TemplateView
 from constance import config
 
 from djangosecure.decorators import frame_deny_exempt
+
+from .forms import GroupRegistrationForm
 
 
 @login_required
@@ -43,6 +49,8 @@ class GroupRegistration(TemplateView):
     reset message is sent to their email address.
 
     """
+    format_error = ("Group registration data must be a JSON-encoded list of "
+                    "registration data dictionaries.")
     http_method_names = ('get', 'post')
     template_name = "registration/group_registration.html"
 
@@ -50,5 +58,61 @@ class GroupRegistration(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         return super(GroupRegistration, self).dispatch(request, *args, **kwargs)
 
+    @transaction.commit_manually
     def post(self, request, *args, **kwargs):
-        pass  # TODO
+        try:
+            data = json.loads(request.body)
+        except:
+            return HttpResponseBadRequest(self.format_error)
+
+        # Data should be a list of registration info in dictionary format.
+        if not (isinstance(data, list) and all([isinstance(d, dict) for d in data])):
+            return HttpResponseBadRequest(self.format_error)
+
+        all_valid = True
+        seen_emails = []
+        user_data = []
+        for registration in data:
+            form = GroupRegistrationForm(data=registration)
+            if form.is_valid():
+                # Check if this is a duplicate of an email provided in this request.
+                email = User.objects.normalize_email(form.cleaned_data['email'])
+                if email in seen_emails:
+                    all_valid = False
+                    user_data.append({
+                        'success': False,
+                        'error_message': 'This email is a duplicate of one above.',
+                        'user': None,
+                    })
+                else:
+                    seen_emails.append(email)
+                    created, user = form.save()
+                    user_data.append({
+                        'success': True,
+                        'new': created,
+                        'user': {
+                            'pycon_id': user.pk,
+                            'first_name': user.first_name,
+                            'last_name': user.last_name,
+                            'email': user.email,
+                        }
+                    })
+            else:
+                all_valid = False
+                user_data.append({
+                    'success': False,
+                    'error_message': 'An error occurred.',  # TODO
+                    'user': None,
+                })
+
+        # The request is atomic - all users are created (or found), or none
+        # are.
+        if not all_valid:
+            for d in user_data:
+                d['user'] = None
+            transaction.rollback()
+        else:
+            transaction.commit()
+
+        return_data = {'success': all_valid, 'users': user_data}
+        return HttpResponse(json.dumps(return_data))

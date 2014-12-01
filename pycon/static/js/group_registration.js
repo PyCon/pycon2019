@@ -38,6 +38,16 @@ var getDataDictionary = function(form) {
   }
 }
 
+/* Add a form-nonspecific message to the page. */
+var addAlert = function(message) {
+    button = $('<button>').addClass('close').html('&times;')
+    button.attr({'type': 'button', 'data-dismiss': 'alert'});
+    msg = $('<div>').addClass('alert group-registration-message fade in alert-error');
+    msg.html(message);
+    msg.prepend(button);
+    $('#user-messages').append(msg);
+}
+
 /* Add the given error message above the form. */
 var addError = function(form, message) {
   var container = $('<div>').addClass("help-block text-error").html(message);
@@ -47,10 +57,7 @@ var addError = function(form, message) {
 /* Remove all error messages from the page. */
 var clearErrors = function() {
   $('.group-registration .help-block.text-error').remove();
-}
-
-var addAlert = function(message) {
-  alert(message);  // TODO - prettier error messaging.
+  $('#user-messages .group-registration-message').remove();
 }
 
 $(function() {
@@ -95,9 +102,17 @@ $(function() {
           data: JSON.stringify(dataToSubmit),
           dataType: "json"
         }).done(function(data, status, xhr) {
-          debugger;  // TODO
+          if (data.success) {
+            // TODO - display data to user.
+          } else {
+            $.each(data.users, function(i, user) {
+              // TODO - show errors for each form.
+            });
+          }
         }).fail(function(xhr, status, error) {
-          debugger;  // TODO
+          addAlert("A problem occurred while submitting the registration. " +
+                   "Please refresh the page and try again. " +
+                   "If the problem persists, please contact a PyCon administrator.");
         });
       }
     } else {

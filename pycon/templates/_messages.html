@@ -1,14 +1,12 @@
-{% if messages %}
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-            {% for message in messages %}
-                <div class="alert fade in {% if message.tags %} alert-{{ message.tags }}{% endif %}">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {{ message }}
-                </div>
-            {% endfor %}
-            </div>
+<div class="container">
+  <div class="row">
+    <div id="user-messages" class="span12">
+      {% for message in messages %}
+        <div class="alert fade in{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
         </div>
+      {% endfor %}
     </div>
-{% endif %}
+  </div>
+</div>
