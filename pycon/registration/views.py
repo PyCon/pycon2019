@@ -48,6 +48,9 @@ class GroupRegistration(TemplateView):
     email address, one is created with an unusable password and a password
     reset message is sent to their email address.
 
+    This view is atomic - users are only created if all registration data
+    is valid.
+
     """
     format_error = ("Group registration data must be a JSON-encoded list of "
                     "registration data dictionaries.")
@@ -80,7 +83,7 @@ class GroupRegistration(TemplateView):
                 if email in seen_emails:
                     all_valid = False
                     user_data.append({
-                        'success': False,
+                        'valid': False,
                         'error_message': 'This email is a duplicate of one above.',
                         'user': None,
                     })
@@ -88,8 +91,8 @@ class GroupRegistration(TemplateView):
                     seen_emails.append(email)
                     created, user = form.save()
                     user_data.append({
-                        'success': True,
-                        'new': created,
+                        'valid': True,
+                        'created': created,
                         'user': {
                             'pycon_id': user.pk,
                             'first_name': user.first_name,
@@ -100,7 +103,7 @@ class GroupRegistration(TemplateView):
             else:
                 all_valid = False
                 user_data.append({
-                    'success': False,
+                    'valid': False,
                     'error_message': 'An error occurred.',  # TODO
                     'user': None,
                 })
@@ -110,6 +113,8 @@ class GroupRegistration(TemplateView):
         if not all_valid:
             for d in user_data:
                 d['user'] = None
+                d.pop('created', None)
+
             transaction.rollback()
         else:
             transaction.commit()

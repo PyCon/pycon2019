@@ -4,10 +4,19 @@ from django.conf import settings
 from django.contrib.auth import login
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpRequest
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.utils.encoding import force_text
 
+from symposion.conference.tests.factories import ConferenceFactory
+
 from . import factories
+
+
+class PyConTestMixin(object):
+
+    def setUp(self):
+        super(PyConTestMixin, self).setUp()
+        self.conference = ConferenceFactory(id=settings.CONFERENCE_ID)
 
 
 class ViewTestMixin(object):
@@ -96,5 +105,9 @@ class ViewTestMixin(object):
                 status_code)
 
 
-class ViewTestCase(ViewTestMixin, TestCase):
+class ViewTestCase(PyConTestMixin, ViewTestMixin, TestCase):
+    pass
+
+
+class TransactionViewTestCase(PyConTestMixin, ViewTestMixin, TransactionTestCase):
     pass
