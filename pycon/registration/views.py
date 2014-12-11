@@ -34,8 +34,8 @@ def cte_registration_login(request):
 class GroupRegistration(TemplateView):
     """
     Historically, PyCon occasionally accepts group registrations via a
-    spreadsheet. An individual at our registration vendor, CTE, manually
-    enters the information provided to create registrations for individual
+    spreadsheet. An employee at our registration vendor, CTE, manually
+    enters the spreadsheet data to create registrations for individual
     attendees.
 
     CTE registrations are associated with PyCon users via a `pycon_id` (i.e.,
@@ -118,6 +118,13 @@ class GroupRegistration(TemplateView):
             transaction.rollback()
         else:
             transaction.commit()
+            for d in user_data:
+                if d['created']:
+                    GroupRegistration.send_password_reset_email(d['user'])
 
         return_data = {'success': all_valid, 'users': user_data}
         return HttpResponse(json.dumps(return_data))
+
+    @staticmethod
+    def send_password_reset_email(user):
+        pass

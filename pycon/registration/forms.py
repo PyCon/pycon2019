@@ -23,9 +23,6 @@ class GroupRegistrationForm(forms.Form):
         user.save()
         return user
 
-    def send_password_reset_email(self, user):
-        pass  # TODO
-
     def save(self):
         email = self.cleaned_data['email']
         existing = User.objects.filter(email__iexact=email)
@@ -35,5 +32,4 @@ class GroupRegistrationForm(forms.Form):
         else:
             created = True
             user = self.create_user()
-            self.send_password_reset_email(user)
         return created, user

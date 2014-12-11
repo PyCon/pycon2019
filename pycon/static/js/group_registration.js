@@ -103,10 +103,24 @@ $(function() {
           dataType: "json"
         }).done(function(data, status, xhr) {
           if (data.success) {
-            // TODO - display data to user.
+            var table = $('<table>');
+            table.append($('<thead><th>Name</th><th>Email</th><th>pycon_id</th><th></th></thead>'));
+            $.each(data.users, function(i, user) {
+              var tr = $('<tr>');
+              tr.append($('<td>').html(user.user.first_name + ' ' + user.user.last_name));
+              tr.append($('<td>').html(user.user.email));
+              tr.append($('<td>').html(user.user.pycon_id));
+              tr.append($('<td>'));
+              table.find('tbody').append(tr);
+            });
+            $('#group-registrations-container').html(table);
           } else {
             $.each(data.users, function(i, user) {
-              // TODO - show errors for each form.
+              // Show errors for each form.
+              if (!user.success) {
+                  var form = $($('#group-registrations form')[i]);
+                  addError(form, user.error_message);
+              }
             });
           }
         }).fail(function(xhr, status, error) {
