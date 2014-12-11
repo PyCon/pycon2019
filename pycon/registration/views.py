@@ -95,16 +95,16 @@ class GroupRegistration(TemplateView):
                         'created': created,
                         'user': {
                             'pycon_id': user.pk,
-                            'first_name': user.first_name,
-                            'last_name': user.last_name,
-                            'email': user.email,
+                            'email': form.cleaned_data.get('email'),
+                            'first_name': form.cleaned_data.get('first_name', ''),
+                            'last_name': form.cleaned_data.get('last_name', ''),
                         }
                     })
             else:
                 all_valid = False
                 user_data.append({
                     'valid': False,
-                    'error_message': 'An error occurred.',  # TODO
+                    'errors': [e for errors in form.errors.values() for e in errors],
                     'user': None,
                 })
 
@@ -127,4 +127,4 @@ class GroupRegistration(TemplateView):
 
     @staticmethod
     def send_password_reset_email(user):
-        pass
+        pass  # TODO

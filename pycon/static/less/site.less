@@ -1876,14 +1876,15 @@ body.finaid {
 /* Group Registration
 ==================== */
 body#group-registration {
-  #instructions {
+  #registration-instructions {
     margin-bottom: 20px;
   }
-  #group-registrations-container {
-    margin-bottom: 20px;
-    #group-registrations {
-      .group-registration {
+
+  #registrations-container {
+    #registrations {
+      form {
         margin-bottom: 10px;
+
         .form-control {
           margin-right: 10px;
         }
@@ -1899,9 +1900,19 @@ body#group-registration {
     }
     #add-line {
       border: none;
+      margin-bottom: 20px;
     }
-  }
-  #bottom-actions {
-    height: 30px;
+    #bottom-actions {
+      height: 30px;
+    }
+    table {
+      border-collapse: collapse;
+
+      th, td {
+        padding:
+        border: 1px solid black;
+        padding: 4px 10px;
+      }
+    }
   }
 }

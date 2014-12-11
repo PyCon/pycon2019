@@ -199,8 +199,8 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
             'created': False,
             'user': {
                 'pycon_id': user.pk,
-                'first_name': 'Already',
-                'last_name': 'Here',
+                'first_name': 'Sam',
+                'last_name': 'Green',
                 'email': 'x@test.com',
             },
         })
@@ -249,7 +249,8 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         self.assertEqual(len(user_data['users']), 1)
         self.assertFalse(user_data['users'][0]['valid'])
         self.assertIsNone(user_data['users'][0]['user'])
-        self.assertTrue('error_message' in user_data['users'][0])
+        self.assertTrue('errors' in user_data['users'][0])
+        self.assertEqual(len(user_data['users'][0]['errors']), 1)
 
     def test_multiple_invalid_registrations(self):
         """No user should be created if any registration data is invalid."""
@@ -269,10 +270,12 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         self.assertEqual(len(user_data['users']), 2)
         self.assertFalse(user_data['users'][0]['valid'])
         self.assertIsNone(user_data['users'][0]['user'])
-        self.assertTrue('error_message' in user_data['users'][0])
+        self.assertTrue('errors' in user_data['users'][0])
+        self.assertEqual(len(user_data['users'][0]['errors']), 1)
         self.assertFalse(user_data['users'][1]['valid'])
         self.assertIsNone(user_data['users'][1]['user'])
-        self.assertTrue('error_message' in user_data['users'][1])
+        self.assertTrue('errors' in user_data['users'][1])
+        self.assertEqual(len(user_data['users'][1]['errors']), 1)
 
 
 class TestGroupRegistrationTransactions(GroupRegistrationTestMixin,
@@ -302,7 +305,8 @@ class TestGroupRegistrationTransactions(GroupRegistrationTestMixin,
         self.assertEqual(len(user_data['users']), 2)
         self.assertTrue(user_data['users'][0]['valid'])
         self.assertIsNone(user_data['users'][0]['user'])
-        self.assertFalse('error_message' in user_data['users'][0])
+        self.assertFalse('errors' in user_data['users'][0])
         self.assertFalse(user_data['users'][1]['valid'])
         self.assertIsNone(user_data['users'][1]['user'])
-        self.assertTrue('error_message' in user_data['users'][1])
+        self.assertTrue('errors' in user_data['users'][1])
+        self.assertEqual(len(user_data['users'][1]['errors']), 1)

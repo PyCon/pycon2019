@@ -1,32 +1,37 @@
+var INITIAL_FORMS = 5;
+
+/* Get the group registration URL off of the script tag. */
 var GROUP_REGISTRATION_URL = (function() {
     var scripts = $('script');
     var current = $(scripts[scripts.length - 1]);
     return current.data('registrationUrl');
 })();
 
-/* Adds another group registration form to the page. */
-var addLine = function() {
-  var form = $('<form />').addClass('group-registration form-inline').append(
-    $('<input>').addClass('form-control').attr({
-      type: 'text',
-      name: 'first_name',
-      placeholder: 'First name'
-    }),
-    $('<input>').addClass('form-control').attr({
-      type: 'text',
-      name: 'last_name',
-      placeholder: 'Last name'
-    }),
-    $('<input>').addClass('form-control').attr({
-      type: 'email',
-      name: 'email',
-      placeholder: 'Email'
-    }),
-    $('<span>').addClass('btn btn-mini btn-default remove-line').attr({
-      title: 'Remove line'
-    }).html('&times;')
-  );
-  $('#group-registrations').append(form);
+/* Adds the specified number of registration forms to the page. */
+var addRegistrationForms = function(count) {
+  for (var i = 0; i < count; i ++) {
+    var form = $('<form />').addClass('form-inline').append(
+      $('<input>').addClass('form-control').attr({
+        type: 'text',
+        name: 'first_name',
+        placeholder: 'First name'
+      }),
+      $('<input>').addClass('form-control').attr({
+        type: 'text',
+        name: 'last_name',
+        placeholder: 'Last name'
+      }),
+      $('<input>').addClass('form-control').attr({
+        type: 'email',
+        name: 'email',
+        placeholder: 'Email'
+      }),
+      $('<span>').addClass('btn btn-mini btn-default remove-line').attr({
+        title: 'Remove line'
+      }).html('&times;')
+    );
+    $('#registrations').append(form);
+  }
 }
 
 /* Serialize data from a group registration form as a dictionary. */
@@ -39,63 +44,80 @@ var getDataDictionary = function(form) {
 }
 
 /* Add a form-nonspecific message to the page. */
-var addAlert = function(message) {
+var addAlert = function(type, message) {
     button = $('<button>').addClass('close').html('&times;')
     button.attr({'type': 'button', 'data-dismiss': 'alert'});
-    msg = $('<div>').addClass('alert group-registration-message fade in alert-error');
+    msg = $('<div>').addClass('alert fade in');
+    msg.addClass('alert-' + type);
     msg.html(message);
     msg.prepend(button);
-    $('#user-messages').append(msg);
+    $('#registration-messages').append(msg);
 }
 
 /* Add the given error message above the form. */
-var addError = function(form, message) {
+var addFormError = function(form, message) {
   var container = $('<div>').addClass("help-block text-error").html(message);
   form.prepend(container);
 }
 
-/* Remove all error messages from the page. */
-var clearErrors = function() {
-  $('.group-registration .help-block.text-error').remove();
-  $('#user-messages .group-registration-message').remove();
+/* Remove all error messages and alerts from the page. */
+var clearMessages = function() {
+  $('#registrations form .help-block.text-error').remove();
+  $('#registration-messages').html("");
+}
+
+/* Prevent the user from double-submitting by disabling the submit button. */
+var disableSubmitButton = function() {
+  var button = $('#submit-registrations');
+  button.addClass('disabled').attr('disabled', '');
+  button.html('Submitting...');
+}
+
+/* Re-enable ability for user to click the submit button. */
+var enableSubmitButton = function() {
+  var button = $('#submit-registrations');
+  button.removeClass('disabled').removeAttr('disabled');
+  button.html('Submit Registrations');
 }
 
 $(function() {
   $('#add-line').click(function(e) {
-    addLine();
+    addRegistrationForms(1);
   });
-  $('#group-registrations').delegate('.group-registration', 'submit', function(e) {
+  $('#registrations').delegate('form', 'submit', function(e) {
     e.preventDefault();
   });
-  $('#group-registrations').delegate('.remove-line', 'click', function(e) {
+  $('#registrations').delegate('.remove-line', 'click', function(e) {
     $(this).closest('form').remove();
   });
   $('#submit-registrations').click(function(e) {
-    clearErrors();
+    clearMessages();
+
     var valid = true;
     var dataToSubmit = [];
 
     // Perform basic error checking on each form.
-    var forms = $('.group-registration');
+    var forms = $('#registrations form');
     forms.each(function(i, form) {
       var form = $(form);
       var data = getDataDictionary(form);
       if ((data.first_name || data.last_name) && !data.email) {
-        addError(form, "Email address is required.");
+        addFormError(form, "Email address is required.");
         valid = false;  // Continue going through forms to find other errors.
       } else if (data.email) {
         dataToSubmit.push(data);
       } else {
-        // Remove empty forms.
-        form.remove();
+        form.remove();  // Remove empty forms.
       }
     });
 
     // If _all_ forms are valid, submit them to the server for processing.
     if (valid) {
       if (!dataToSubmit.length) {
-        alert("There are no forms to submit!");
+        addAlert("error", "There are no registrations to submit!");
+        addRegistrationForms(INITIAL_FORMS);
       } else {
+        disableSubmitButton();
         $.ajax({
           type: "POST",
           url: GROUP_REGISTRATION_URL,
@@ -104,33 +126,41 @@ $(function() {
         }).done(function(data, status, xhr) {
           if (data.success) {
             var table = $('<table>');
-            table.append($('<thead><th>Name</th><th>Email</th><th>pycon_id</th><th></th></thead>'));
+            table.append($('<thead><th>Name</th><th>Email</th><th>pycon_id</th></thead>'));
+            table.append($('<tbody>'))
             $.each(data.users, function(i, user) {
               var tr = $('<tr>');
               tr.append($('<td>').html(user.user.first_name + ' ' + user.user.last_name));
               tr.append($('<td>').html(user.user.email));
               tr.append($('<td>').html(user.user.pycon_id));
-              tr.append($('<td>'));
               table.find('tbody').append(tr);
             });
-            $('#group-registrations-container').html(table);
+            $('#registrations-container').html(table);
+            addAlert("success", "Thank you. PyCon accounts for individuals " +
+                     "in this group have been created or retrieved. " +
+                     "<a href='" + GROUP_REGISTRATION_URL +
+                     "'>Register another group &rarr;</a>")
           } else {
             $.each(data.users, function(i, user) {
               // Show errors for each form.
               if (!user.success) {
-                  var form = $($('#group-registrations form')[i]);
-                  addError(form, user.error_message);
+                var form = $($('#registrations form')[i]);
+                $.each(user.errors, function(i, message) {
+                  addFormError(form, message);
+                });
               }
             });
+            enableSubmitButton();
           }
         }).fail(function(xhr, status, error) {
-          addAlert("A problem occurred while submitting the registration. " +
+          addAlert("error", "A problem occurred while submitting the registration. " +
                    "Please refresh the page and try again. " +
                    "If the problem persists, please contact a PyCon administrator.");
+          enableSubmitButton();
         });
       }
-    } else {
-      addAlert("We spotted a problem - please fix errors and try again.");
     }
   });
+
+  addRegistrationForms(INITIAL_FORMS);
 });

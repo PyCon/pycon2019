@@ -9,32 +9,28 @@
 {% block extra_script %}
   <script src="{% static "js/group_registration.js" %}"
           data-registration-url="{% url "group_registration" %}"></script>
-  <script>
-    $(function () {
-      // Start the page with 5 group registration forms.
-      for (var i = 0; i < 5; i++) {
-        addLine();
-      }
-    });
-  </script>
 {% endblock extra_script %}
 
 {% block page_content %}
   <div class="container">
-    <div id="instructions">{% box "group-registration-instructions" %}</div>
+    <div id="registration-instructions">{% box "group-registration-instructions" %}</div>
 
-    {# Where registration forms are populated. #}
-    <div id="group-registrations-container" class="clearfix">
-      <div id="group-registrations"></div>
+    {# Where general error/success messages are populated. #}
+    <div id="registration-messages"></div>
+
+    <div id="registrations-container" class="clearfix">
+      {# Where registration forms are populated. #}
+      <div id="registrations"></div>
+
       <button id="add-line" class="btn btn-small btn-default" title="Add Line">
         <i class="icon-plus"></i> Add Line
       </button>
-    </div>
 
-    <div id="bottom-actions" class="well">
-      <button id="submit-registrations" class="btn btn-primary pull-right">
-        Submit Registrations
-      </button>
+      <div id="bottom-actions" class="well">
+        <button id="submit-registrations" class="btn btn-primary pull-right">
+          Submit Registrations
+        </button>
+      </div>
     </div>
   </div>
 {% endblock page_content %}
