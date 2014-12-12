@@ -4,6 +4,8 @@ from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
+from account.models import Account
+
 from pycon.tests import factories
 from pycon.tests.base import TransactionViewTestCase, ViewTestCase
 
@@ -36,9 +38,15 @@ class GroupRegistrationTestMixin(object):
             codename='group_registration',
             name="Can add group registrations",
         )
-        self.user = factories.UserFactory()
+        self.user = self.create_user()
         self.user.user_permissions.add(self.permission)
         self.login_user(self.user)
+
+    def create_user(self, **kwargs):
+        user = factories.UserFactory.build(**kwargs)
+        user._disable_account_creation = True
+        user.save()
+        return user
 
     def post(self, data):
         # By default, the Django test client interprets POST data as a
@@ -101,8 +109,9 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertFalse(created.exists())
+        users = self.get_created_users()
+        self.assertFalse(users.exists())
+        self.assertFalse(Account.objects.exists())
 
         user_data = json.loads(response.content)
         self.assertTrue(user_data['success'])
@@ -116,9 +125,10 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertEqual(created.count(), 1)
-        user = created.get(email='x@test.com', first_name='Sam', last_name='Green')
+        users = self.get_created_users()
+        self.assertEqual(users.count(), 1)
+        user = users.get(email='x@test.com', first_name='Sam', last_name='Green')
+        self.assertEqual(Account.objects.filter(user=user).count(), 1)
 
         user_data = json.loads(response.content)
         self.assertTrue(user_data['success'])
@@ -144,10 +154,12 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertEqual(created.count(), 2)
-        user1 = created.get(email='x@test.com', first_name='Sam', last_name='Green')
-        user2 = created.get(email='y@test.com', first_name='Alex', last_name='Blue')
+        users = self.get_created_users()
+        self.assertEqual(users.count(), 2)
+        user1 = users.get(email='x@test.com', first_name='Sam', last_name='Green')
+        self.assertEqual(Account.objects.filter(user=user1).count(), 1)
+        user2 = users.get(email='y@test.com', first_name='Alex', last_name='Blue')
+        self.assertEqual(Account.objects.filter(user=user2).count(), 1)
 
         user_data = json.loads(response.content)
         self.assertTrue(user_data['success'])
@@ -176,7 +188,7 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
 
     def test_already_registered(self):
         """User should be retrieved rather than created if email exists."""
-        existing_user = factories.UserFactory(
+        existing_user = self.create_user(
             first_name='Already', last_name='Here', email='x@test.com')
         data = json.dumps([
             {'first_name': 'Sam', 'last_name': 'Green', 'email': 'x@test.com'},
@@ -184,11 +196,12 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertEqual(created.count(), 1)
-        user = created.get(
+        users = self.get_created_users()
+        self.assertEqual(users.count(), 1)
+        user = users.get(
             first_name='Already', last_name='Here', email='x@test.com',
             pk=existing_user.pk)
+        self.assertFalse(Account.objects.filter(user=user).exists())
 
         user_data = json.loads(response.content)
         self.assertTrue(user_data['success'])
@@ -213,9 +226,10 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertEqual(created.count(), 1)
-        user = created.get(email='x@test.com', first_name='', last_name='')
+        users = self.get_created_users()
+        self.assertEqual(users.count(), 1)
+        user = users.get(email='x@test.com', first_name='', last_name='')
+        self.assertEqual(Account.objects.filter(user=user).count(), 1)
 
         user_data = json.loads(response.content)
         self.assertTrue(user_data['success'])
@@ -240,8 +254,9 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertFalse(created.exists())
+        users = self.get_created_users()
+        self.assertFalse(users.exists())
+        self.assertFalse(Account.objects.exists())
 
         user_data = json.loads(response.content)
         self.assertFalse(user_data['success'])
@@ -261,8 +276,9 @@ class TestGroupRegistration(GroupRegistrationTestMixin, ViewTestCase):
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertFalse(created.exists())
+        users = self.get_created_users()
+        self.assertFalse(users.exists())
+        self.assertFalse(Account.objects.exists())
 
         user_data = json.loads(response.content)
         self.assertFalse(user_data['success'])
@@ -296,8 +312,9 @@ class TestGroupRegistrationTransactions(GroupRegistrationTestMixin,
         response = self.post(data)
         self.assertEqual(response.status_code, 200)
 
-        created = self.get_created_users()
-        self.assertFalse(created.exists())
+        users = self.get_created_users()
+        self.assertFalse(users.exists())
+        self.assertFalse(Account.objects.exists())
 
         user_data = json.loads(response.content)
         self.assertFalse(user_data['success'])

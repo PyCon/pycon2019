@@ -122,7 +122,8 @@ class GroupRegistration(TemplateView):
                 if d['created']:
                     # Now that the transaction has been committed,
                     # create an Account for the user so that they can log in.
-                    Account.create(user=d['user']['pycon_id'])
+                    user = User.objects.get(pk=d['user']['pycon_id'])
+                    Account.create(user=user)
         else:
             transaction.rollback()
             for d in user_data:
