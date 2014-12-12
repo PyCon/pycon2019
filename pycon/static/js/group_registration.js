@@ -126,13 +126,15 @@ $(function() {
         }).done(function(data, status, xhr) {
           if (data.success) {
             var table = $('<table>');
-            table.append($('<thead><th>Name</th><th>Email</th><th>pycon_id</th></thead>'));
+            table.append($('<thead><th>Name</th><th>Email</th><th>pycon_id</th><th>Account status?</th></thead>'));
             table.append($('<tbody>'))
             $.each(data.users, function(i, user) {
               var tr = $('<tr>');
+              var accountStatus = user.created ? "New account" : "Existing account";
               tr.append($('<td>').html(user.user.first_name + ' ' + user.user.last_name));
               tr.append($('<td>').html(user.user.email));
               tr.append($('<td>').html(user.user.pycon_id));
+              tr.append($('<td>').html(accountStatus));
               table.find('tbody').append(tr);
             });
             $('#registrations-container').html(table);
