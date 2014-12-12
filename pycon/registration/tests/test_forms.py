@@ -8,7 +8,6 @@ from .. import forms
 class TestGroupRegistrationForm(TestCase):
     form_class = forms.GroupRegistrationForm
 
-
     def setUp(self):
         super(TestGroupRegistrationForm, self).setUp()
         self.data = {

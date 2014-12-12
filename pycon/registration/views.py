@@ -9,6 +9,8 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from account.models import Account
+
 from constance import config
 
 from djangosecure.decorators import frame_deny_exempt
@@ -88,7 +90,12 @@ class GroupRegistration(TemplateView):
                     })
                 else:
                     seen_emails.append(email)
-                    created, user = form.save()
+                    created, user = form.save(commit=False)
+                    if created:
+                        # Delay account creation until the transaction is
+                        # committed.
+                        user._disable_account_creation = True
+                        user.save()
                     user_data.append({
                         'valid': True,
                         'created': created,
@@ -111,6 +118,11 @@ class GroupRegistration(TemplateView):
         # are.
         if all_valid:
             transaction.commit()
+            for d in user_data:
+                if d['created']:
+                    # Now that the transaction has been committed,
+                    # create an Account for the user so that they can log in.
+                    Account.create(user=d['user']['pycon_id'])
         else:
             transaction.rollback()
             for d in user_data:
@@ -119,4 +131,3 @@ class GroupRegistration(TemplateView):
 
         return_data = {'success': all_valid, 'users': user_data}
         return HttpResponse(json.dumps(return_data))
-

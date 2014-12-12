@@ -9,7 +9,7 @@ class GroupRegistrationForm(forms.Form):
     last_name = forms.CharField(required=False)
     email = forms.EmailField()
 
-    def create_user(self):
+    def create_user(self, commit=True):
         """Create a new user with an unusable password."""
         email = User.objects.normalize_email(self.cleaned_data['email'])
         user = User(
@@ -19,11 +19,11 @@ class GroupRegistrationForm(forms.Form):
             last_name=self.cleaned_data.get('last_name'),
         )
         user.set_unusable_password()
-        user._disable_account_creation = True
-        user.save()
+        if commit:
+            user.save()
         return user
 
-    def save(self):
+    def save(self, commit=True):
         """Find or create a user account for this registration."""
         email = self.cleaned_data['email']
         existing = User.objects.filter(email__iexact=email)
@@ -32,5 +32,5 @@ class GroupRegistrationForm(forms.Form):
             user = existing[0]
         else:
             created = True
-            user = self.create_user()
+            user = self.create_user(commit)
         return created, user
