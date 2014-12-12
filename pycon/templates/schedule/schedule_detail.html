@@ -9,22 +9,40 @@
 {% block head_title %}{{ schedule.section.name }}{% blocktrans %} Schedule{% endblocktrans %}{% endblock %}
 
 {% block page_title %}
-        {{ schedule.section.name }}{% blocktrans %} Schedule{% endblocktrans %}
+  {{ schedule.section.name }}{% blocktrans %} Schedule{% endblocktrans %}
 {% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
+{% block extra_style %}
+  {% comment %}
+    The schedule needs a lot of horizontal space. These changes make the
+    page much wider than the rest of the site.
+  {% endcomment %}
+  <style>
+    .container {
+      width: 1300px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    .top-banner .row img {
+      max-width: 1300px;
+      top: -180px;
+    }
+  </style>
+{% endblock extra_style %}
+
 {% block page_content %}
-    <div class="container">
-        {% box "schedule_top_"|add:schedule.section.name|slugify %}
+  <div class="container">
+    {% box "schedule_top_"|add:schedule.section.name|slugify %}
 
-        {% cache 600 "schedule-table" schedule.section %}
-            {% for timetable in days %}
-                <h3>{{ timetable.day.date }}</h3>
-                {% include "schedule/_grid.html" %}
-            {% endfor %}
-        {% endcache %}
+    {% cache 600 "schedule-table" schedule.section %}
+      {% for timetable in days %}
+        <h3>{{ timetable.day.date }}</h3>
+        {% include "schedule/_grid.html" %}
+      {% endfor %}
+    {% endcache %}
 
-        {% box "schedule_bottom_"|add:schedule.section.name|slugify %}
-    </div>
+    {% box "schedule_bottom_"|add:schedule.section.name|slugify %}
+  </div>
 {% endblock %}
