@@ -19,11 +19,6 @@ from .forms import GroupRegistrationForm
 
 
 @login_required
-def cte_registration_start(request):
-    return render(request, "registration/register.html")
-
-
-@login_required
 @frame_deny_exempt
 def cte_registration_login(request):
     salt = config.CTE_SECRET
@@ -31,6 +26,11 @@ def cte_registration_login(request):
     return render(request, "registration/login.html", {
         "token": token,
     })
+
+
+@login_required
+def cte_registration_start(request):
+    return render(request, "registration/register.html")
 
 
 class GroupRegistration(TemplateView):
