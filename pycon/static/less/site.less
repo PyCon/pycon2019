@@ -1876,6 +1876,23 @@ body.finaid {
 /* Group Registration
 ==================== */
 body#group-registration {
+  #registration-messages {
+    .alert {
+      color: @white;
+      a, a:hover {
+        color: @white;
+        text-decoration: underline;
+        margin-left: 5px;
+      }
+
+      &.alert-success {
+        background-color: #27A9E1;
+      }
+      &.alert-error {
+        background-color: @danger;
+      }
+    }
+  }
   #registration-instructions {
     margin-bottom: 20px;
   }

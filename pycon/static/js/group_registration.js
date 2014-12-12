@@ -141,7 +141,7 @@ $(function() {
             addAlert("success", "Thank you. PyCon accounts for individuals " +
                      "in this group have been created or retrieved. " +
                      "<a href='" + GROUP_REGISTRATION_URL +
-                     "'>Register another group &rarr;</a>")
+                     "'>Register another group</a>")
           } else {
             $.each(data.users, function(i, user) {
               // Show errors for each form.
