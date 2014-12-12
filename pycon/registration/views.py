@@ -34,19 +34,18 @@ def cte_registration_login(request):
 class GroupRegistration(TemplateView):
     """
     Historically, PyCon occasionally accepts group registrations via a
-    spreadsheet. An employee at our registration vendor, CTE, manually
-    enters the spreadsheet data to create registrations for individual
-    attendees.
+    spreadsheet. A PyCon member manually enters the spreadsheet data to create
+    registrations at our registration vendor, CTE, for individual attendees.
 
-    CTE registrations are associated with PyCon users via a `pycon_id` (i.e.,
-    the primary key of the user). This view allows a CTE registrar to
-    bulk-create accounts (or find existing accounts) for individuals and
-    retrieve their pycon_id values, so that individuals can log onto PyCon
-    later to update their registration information (t-shirt size, etc).
+    CTE registrations are distinct from PyCon website accounts, but normally
+    are associated with them via a `pycon_id` (e.g., the primary key of the
+    user). This view allows a CTE registrar to bulk-create accounts (or find
+    existing accounts) for individuals and retrieve their `pycon_id` values,
+    so that individuals can log into the PyCon website later to update their
+    registration information (t-shirt size, etc).
 
     If an individual does not have a PyCon user account associated with their
-    email address, one is created with an unusable password and a password
-    reset message is sent to their email address.
+    email address, one is created with an unusable password.
 
     This view is atomic - users are only created if all registration data
     is valid.
