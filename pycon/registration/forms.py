@@ -24,6 +24,7 @@ class GroupRegistrationForm(forms.Form):
         return user
 
     def save(self):
+        """Find or create a user account for this registration."""
         email = self.cleaned_data['email']
         existing = User.objects.filter(email__iexact=email)
         if existing:
