@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+
+{% block extra_style %}
+  {{ block.super }}
+  {% comment %}
+    Schedule tables need a lot of horizontal space. These changes make the
+    page much wider than the rest of the site.
+  {% endcomment %}
+  <style>
+    .container {
+      margin: 0 auto;
+      max-width: 90%;
+      width: 1300px;
+    }
+    nav .container {
+      max-width: 100%;
+    }
+    .top-banner .row img {
+      max-width: 1300px;
+      top: -180px;
+    }
+  </style>
+{% endblock extra_style %}
