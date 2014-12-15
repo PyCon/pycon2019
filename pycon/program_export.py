@@ -185,7 +185,9 @@ class PresentationsExporter(BaseExporter):
         return full_url(reverse('schedule_presentation_detail', args=(presentation.pk,)))
 
     def prepare_room(self, presentation):
-        return ', '.join([r.name for r in presentation.slot.rooms])
+        if presentation.slot:
+            return ', '.join([r.name for r in presentation.slot.rooms])
+        return ''
 
     def prepare_time(self, presentation):
         return '{0} from {1} to {2}'.format(
