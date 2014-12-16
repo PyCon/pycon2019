@@ -1,7 +1,3 @@
-import hashlib
-import random
-
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
@@ -13,6 +9,7 @@ from pycon.finaid.context_processors import financial_aid
 import symposion.forms
 from symposion.forms import LanguageForm
 from symposion.proposals.models import ProposalSection
+from symposion.utils.signup import generate_username
 
 
 class SignupView(account.views.SignupView):
@@ -28,18 +25,7 @@ class SignupView(account.views.SignupView):
                                                    **user_kwargs)
 
     def generate_username(self, form):
-        def random_username():
-            h = hashlib.sha1(form.cleaned_data["email"]).hexdigest()[:25]
-            # don't ask
-            n = random.randint(1, (10 ** (5 - 1)) - 1)
-            return "%s%d" % (h, n)
-        while True:
-            try:
-                username = random_username()
-                User.objects.get(username=username)
-            except User.DoesNotExist:
-                break
-        return username
+        return generate_username(form.cleaned_data['email'])
 
 
 class LoginView(account.views.LoginView):

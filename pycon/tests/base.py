@@ -4,18 +4,32 @@ from django.conf import settings
 from django.contrib.auth import login
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpRequest
+from django.test import TestCase, TransactionTestCase
 from django.utils.encoding import force_text
+
+from symposion.conference.tests.factories import ConferenceFactory
+
+from . import factories
+
+
+class PyConTestMixin(object):
+
+    def setUp(self):
+        super(PyConTestMixin, self).setUp()
+        self.conference = ConferenceFactory(id=settings.CONFERENCE_ID)
 
 
 class ViewTestMixin(object):
     login_url = reverse_lazy('account_login')
 
-    def login_user(self, user):
+    def login_user(self, user=None):
         """Log in a user without need for a password.
 
         Adapted from
         http://jameswestby.net/weblog/tech/17-directly-logging-in-a-user-in-django-tests.html
         """
+        user = user or factories.UserFactory()
+
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         engine = __import__(settings.SESSION_ENGINE, fromlist=['SessionStore'])
 
@@ -37,6 +51,9 @@ class ViewTestMixin(object):
 
         # Save the session values.
         request.session.save()
+
+        return user
+
 
     def assertRedirectsNoFollow(self, response, expected_url, use_params=True,
                                 status_code=302):
@@ -86,3 +103,11 @@ class ViewTestMixin(object):
         login_url = login_url or self.login_url
         return self.assertRedirectsNoFollow(response, login_url, use_params,
                 status_code)
+
+
+class ViewTestCase(PyConTestMixin, ViewTestMixin, TestCase):
+    pass
+
+
+class TransactionViewTestCase(PyConTestMixin, ViewTestMixin, TransactionTestCase):
+    pass

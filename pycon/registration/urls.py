@@ -1,10 +1,16 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from . import views
 
 
-urlpatterns = patterns("pycon.registration.views",
-    url(r"^register/$", login_required(TemplateView.as_view(template_name="registration/register.html")), name="registration_start"),
-    url(r"^register/login/$", "cte_login", name="registration_login"),
-)
+urlpatterns = [
+    url(r"^register/$",
+        views.cte_registration_start,
+        name="registration_start"),
+    url(r"^register/login/$",
+        views.cte_registration_login,
+        name="registration_login"),
+    url(r"^register/group/$",
+        views.GroupRegistration.as_view(),
+        name="group_registration"),
+]

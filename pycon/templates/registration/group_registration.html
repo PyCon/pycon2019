@@ -1,0 +1,36 @@
+{% extends "responsive_base.html" %}
+{% load boxes_tags %}
+{% load static from staticfiles %}
+
+{% block head_title %}Group Registration{% endblock head_title %}
+{% block page_title %}Group Registration{% endblock page_title %}
+{% block body_id %}group-registration{% endblock body_id %}
+
+{% block extra_script %}
+  <script src="{% static "js/group_registration.js" %}"
+          data-registration-url="{% url "group_registration" %}"></script>
+{% endblock extra_script %}
+
+{% block page_content %}
+  <div class="container">
+    <div id="registration-instructions">{% box "group-registration-instructions" %}</div>
+
+    {# Where general error/success messages are populated. #}
+    <div id="registration-messages"></div>
+
+    <div id="registrations-container" class="clearfix">
+      {# Where registration forms are populated. #}
+      <div id="registrations"></div>
+
+      <button id="add-line" class="btn btn-small btn-default" title="Add Line">
+        <i class="icon-plus"></i> Add Line
+      </button>
+
+      <div id="bottom-actions" class="well">
+        <button id="submit-registrations" class="btn btn-primary pull-right">
+          Submit Registrations
+        </button>
+      </div>
+    </div>
+  </div>
+{% endblock page_content %}
