@@ -117,18 +117,18 @@ class GroupRegistration(TemplateView):
         # The request is atomic - all users are created (or found), or none
         # are.
         if all_valid:
-            transaction.commit()
             for d in user_data:
                 if d['created']:
                     # Now that the transaction has been committed,
                     # create an Account for the user so that they can log in.
                     user = User.objects.get(pk=d['user']['pycon_id'])
                     Account.create(user=user)
+            transaction.commit()
         else:
-            transaction.rollback()
             for d in user_data:
                 d['user'] = None
                 d.pop('created', None)
+            transaction.rollback()
 
         return_data = {'success': all_valid, 'users': user_data}
         return HttpResponse(json.dumps(return_data))
