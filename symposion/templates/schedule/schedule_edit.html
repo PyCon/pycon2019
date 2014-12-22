@@ -20,7 +20,7 @@
         <div class="span12">
             <h1>{% trans "Schedule Edit" %}</h1>
 
-            {% for timetable in days %}
+            {% for timetable in timetables %}
                 <h2>{{ timetable.day.date }}</h2>
                 {% include "schedule/_edit_grid.html" %}
             {% endfor %}

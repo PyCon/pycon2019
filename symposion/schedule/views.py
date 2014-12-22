@@ -44,19 +44,20 @@ def schedule_conference(request):
 
 
 def schedule_detail(request, slug=None):
-
     schedule = fetch_schedule(slug)
     if not schedule.published and not request.user.is_staff:
         raise Http404()
 
-    days_qs = Day.objects.filter(schedule=schedule)
-    days = [TimeTable(day) for day in days_qs]
+    days = Day.objects.filter(schedule=schedule)
+    days = days.select_related('schedule')
+    days = days.prefetch_related('schedule__section')
+    days = days.order_by('date')
+    timetables = [TimeTable(day) for day in days]
 
-    ctx = {
+    return render(request, "schedule/schedule_detail.html", {
         "schedule": schedule,
-        "days": days,
-    }
-    return render(request, "schedule/schedule_detail.html", ctx)
+        "timetables": timetables,
+    })
 
 
 def schedule_list(request, slug=None):
@@ -94,19 +95,21 @@ def schedule_list_csv(request, slug=None):
 
 @login_required
 def schedule_edit(request, slug=None):
-
     if not request.user.is_staff:
         raise Http404()
 
     schedule = fetch_schedule(slug)
 
-    days_qs = Day.objects.filter(schedule=schedule)
-    days = [TimeTable(day) for day in days_qs]
-    ctx = {
+    days = Day.objects.filter(schedule=schedule)
+    days = days.select_related('schedule')
+    days = days.prefetch_related('schedule__section')
+    days = days.order_by('date')
+    timetables = [TimeTable(day) for day in days]
+
+    return render(request, "schedule/schedule_edit.html", {
         "schedule": schedule,
-        "days": days,
-    }
-    return render(request, "schedule/schedule_edit.html", ctx)
+        "timetables": timetables,
+    })
 
 
 @login_required

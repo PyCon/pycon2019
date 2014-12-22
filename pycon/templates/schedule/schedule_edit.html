@@ -16,7 +16,7 @@
 
 {% block page_content %}
     <div class="container">
-        {% for timetable in days %}
+        {% for timetable in timetables %}
             <h2>{{ timetable.day.date }}</h2>
             {% include "schedule/_edit_grid.html" %}
         {% endfor %}
