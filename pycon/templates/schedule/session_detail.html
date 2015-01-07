@@ -18,7 +18,7 @@
             <form method="POST">
               {% csrf_token %}
               <input type="hidden" name="role" value="un-chair" />
-              <input type="submit" value="Opt out" class="btn"/>
+              <button type="submit" class="btn btn-danger">Opt out</button>
             </form>
           {% endif %}
         {% else %}
@@ -28,7 +28,7 @@
                 <form method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="role" value="chair" />
-                  <input type="submit" class="btn" value="Volunteer to be session chair"/>
+                  <button type="submit" class="btn btn-primary">Volunteer to be session chair</button>
                 </form>
               {% endif %}
             {% else %}
@@ -50,7 +50,7 @@
             <form method="POST" style="border: none; padding: 0">
               {% csrf_token %}
               <input type="hidden" name="role" value="un-runner" />
-              <input type="submit" class="btn" value="opt out" />
+              <button type="submit" class="btn btn-danger">Opt out</button>
             </form>
           {% endif %}
         {% else %}
@@ -60,7 +60,7 @@
                 <form method="POST" style="border: none; padding: 0">
                   {% csrf_token %}
                   <input type="hidden" name="role" value="runner" />
-                  <input type="submit" class="btn" value="Volunteer to be session runner"/>
+                  <button type="submit" class="btn btn-primary">Volunteer to be session runner</button>
                 </form>
               {% endif %}
             {% else %}
