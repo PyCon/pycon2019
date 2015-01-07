@@ -1,97 +1,92 @@
 {% extends "responsive_base.html" %}
 
 {% load i18n %}
-{% load sitetree %}
-{% load url from future %}
 
 {% block head_title %}{{ session }}{% endblock %}
-
-{% block page_title %}
-    {% trans "Session Detail" %}
-{% endblock %}
+{% block page_title %}{% trans "Session Detail" %}{% endblock %}
 
 {% block page_content %}
-    <div class="container">
-        <h2>{{ session }}</h2>
+  <div class="container">
+    <h2>{{ session }}</h2>
 
-        <dl class="dl-horizontal">
-            <dt>{% trans "Session Chair" %}</dt>
-            <dd>
-                {% if chair %}
-                    {{ chair.profile.display_name }}
-                    {% if request.user == chair %}
-                        <form method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="role" value="un-chair" />
-                            <input type="submit" value="Opt out" class="btn"/>
-                        </form>
-                    {% endif %}
-                {% else %}
-                    {% if user.is_authenticated %}
-                        {% if request.user.profile.is_complete %}
-                            {% if not chair_denied %}
-                                <form method="POST">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="role" value="chair" />
-                                    <input type="submit" class="btn" value="Volunteer to be session chair"/>
-                                </form>
-                            {% endif %}
-                        {% else %}
-                            {% url 'profile_edit' as profile_edit%}
-                            {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
-                        {% endif %}
-                    {% else %}
-                        {% url 'account_signup' as account_signup %}
-                        {% url 'account_login' as account_login %}
-                        {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session chair.{% endblocktrans %}
-                    {% endif %}
-                {% endif %}
-            </dd>
-            <dt>{% trans "Session Runner" %}</dt>
-            <dd>
-                {% if runner %}
-                    {{ runner.profile.display_name }}
-                    {% if request.user == runner %}
-                        <form method="POST" style="border: none; padding: 0">
-                            {% csrf_token %}
-                            <input type="hidden" name="role" value="un-runner" />
-                            <input type="submit" class="btn" value="opt out" />
-                        </form>
-                    {% endif %}
-                {% else %}
-                    {% if user.is_authenticated %}
-                        {% if request.user.profile.is_complete %}
-                            {% if not runner_denied %}
-                                <form method="POST" style="border: none; padding: 0">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="role" value="runner" />
-                                    <input type="submit" class="btn" value="Volunteer to be session runner"/>
-                                </form>
-                            {% endif %}
-                        {% else %}
-                            {% url 'profile_edit' as profile_edit%}
-                            {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
-                        {% endif %}
-                    {% else %}
-                        {% url 'account_signup' as account_signup %}
-                        {% url 'account_login' as account_login %}
-                        {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session runner.{% endblocktrans %}
-                    {% endif %}
-                {% endif %}
-            </dd>
-        </dl>
+    <dl class="dl-horizontal">
+      <dt>{% trans "Session Chair" %}</dt>
+      <dd>
+        {% if chair %}
+          {{ chair.profile.display_name }}
+          {% if request.user == chair %}
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="role" value="un-chair" />
+              <input type="submit" value="Opt out" class="btn"/>
+            </form>
+          {% endif %}
+        {% else %}
+          {% if user.is_authenticated %}
+            {% if request.user.profile.is_complete %}
+              {% if not chair_denied %}
+                <form method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="role" value="chair" />
+                  <input type="submit" class="btn" value="Volunteer to be session chair"/>
+                </form>
+              {% endif %}
+            {% else %}
+              {% url 'profile_edit' as profile_edit%}
+              {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
+            {% endif %}
+          {% else %}
+            {% url 'account_signup' as account_signup %}
+            {% url 'account_login' as account_login %}
+            {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session chair.{% endblocktrans %}
+          {% endif %}
+        {% endif %}
+      </dd>
+      <dt>{% trans "Session Runner" %}</dt>
+      <dd>
+        {% if runner %}
+          {{ runner.profile.display_name }}
+          {% if request.user == runner %}
+            <form method="POST" style="border: none; padding: 0">
+              {% csrf_token %}
+              <input type="hidden" name="role" value="un-runner" />
+              <input type="submit" class="btn" value="opt out" />
+            </form>
+          {% endif %}
+        {% else %}
+          {% if user.is_authenticated %}
+            {% if request.user.profile.is_complete %}
+              {% if not runner_denied %}
+                <form method="POST" style="border: none; padding: 0">
+                  {% csrf_token %}
+                  <input type="hidden" name="role" value="runner" />
+                  <input type="submit" class="btn" value="Volunteer to be session runner"/>
+                </form>
+              {% endif %}
+            {% else %}
+              {% url 'profile_edit' as profile_edit%}
+              {% blocktrans %}<a href="{{ profile_edit }}?next={{ request.path }}">Click here to create a volunteer profile</a> and enable volunteering for session roles.{% endblocktrans %}
+            {% endif %}
+          {% else %}
+            {% url 'account_signup' as account_signup %}
+            {% url 'account_login' as account_login %}
+            {% blocktrans %}<a href="{{ account_signup }}">Sign up</a> and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session runner.{% endblocktrans %}
+          {% endif %}
+        {% endif %}
+      </dd>
+    </dl>
 
-        <h2>Slots</h2>
+    <h2>Slots</h2>
 
-        <table class="table">
-            {% for slot in session.slots.all %}
-                <tr>
-                    <td>{{ slot }}</td>
-                    <td>{% if slot.content %}<a href="{% url 'schedule_presentation_detail' slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
-                </tr>
-            {% empty %}
-                <li>{% trans "No slots in session." %}</li>
-            {% endfor %}
-        </table>
-    </div>
+    <table class="table">
+      {% for slot in session.slots.all %}
+        <tr>
+          <td>{{ slot }}</td>
+          <td>{% if slot.content %}<a href="{% url 'schedule_presentation_detail' slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
+        </tr>
+      {% empty %}
+        <li>{% trans "No slots in session." %}</li>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}
