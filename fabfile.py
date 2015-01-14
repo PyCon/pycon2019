@@ -49,7 +49,9 @@ def setup_path():
 def manage_run(command, sudo=False):
     """Run a Django management command on the remote server."""
     require('environment')
-    manage_base = u"%(virtualenv_root)s/bin/python %(code_root)s/manage.py " % env
+    manage_base = ("{env.virtualenv_root}/bin/python "
+                   "{env.code_root}/manage.py {command} "
+                   "--settings=pycon.settings.{env.environment}".format(env=env, command=command))
     with cd(env.code_root):
         if sudo:
             sudo(u'%s %s' % (manage_base, command))
