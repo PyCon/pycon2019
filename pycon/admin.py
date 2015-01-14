@@ -121,11 +121,31 @@ admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
 admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
 
 
+from account.models import Account, EmailAddress
+
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+
+
+class AccountInline(admin.StackedInline):
+    model = Account
+    extra = 0
+
+class EmailAddressInline(admin.StackedInline):
+    model = EmailAddress
+    extra = 0
+
+
+class PyConUserAdmin(UserAdmin):
+    inlines = list(UserAdmin.inlines) + [AccountInline, EmailAddressInline]
+
+
+admin.site.unregister(User)
+admin.site.register(User, PyConUserAdmin)
+
+
 # HACK HACK - monkey patch User because the username field is useless
 # when using django-user-accounts
-from django.contrib.auth.models import User
-
-
 def user_unicode(self):
     # Use full name if any, else email
     return self.get_full_name() or self.email
