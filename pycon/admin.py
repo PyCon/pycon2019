@@ -136,9 +136,48 @@ class EmailAddressInline(admin.StackedInline):
     extra = 0
 
 
+class HasAccountListFilter(admin.SimpleListFilter):
+    title = "has associated Account"
+    parameter_name = "has_account"
+
+    def lookups(self, request, model_admin):
+        return (
+            (1, "Yes"),
+            (0, "No"),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() not in [None, ""]:
+            if self.value() == "1":
+                return queryset.exclude(account=None)
+            if self.value() == "0":
+                return queryset.filter(account=None)
+        return queryset
+
+
+class HasEmailAddressListFilter(admin.SimpleListFilter):
+    title = "has associated EmailAddress"
+    parameter_name = "has_emailaddress"
+
+    def lookups(self, request, model_admin):
+        return (
+            (1, "Yes"),
+            (0, "No"),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() not in [None, ""]:
+            if self.value() == "1":
+                return queryset.exclude(emailaddress=None)
+            if self.value() == "0":
+                return queryset.filter(emailaddress=None)
+        return queryset
+
+
 class PyConUserAdmin(UserAdmin):
     inlines = list(UserAdmin.inlines) + [AccountInline, EmailAddressInline]
     search_fields = list(UserAdmin.search_fields) + ['emailaddress__email']
+    list_filter = list(UserAdmin.list_filter) + [HasAccountListFilter, HasEmailAddressListFilter]
 
 
 admin.site.unregister(User)
