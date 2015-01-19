@@ -138,6 +138,7 @@ class EmailAddressInline(admin.StackedInline):
 
 class PyConUserAdmin(UserAdmin):
     inlines = list(UserAdmin.inlines) + [AccountInline, EmailAddressInline]
+    search_fields = list(UserAdmin.search_fields) + ['emailaddress__email']
 
 
 admin.site.unregister(User)
