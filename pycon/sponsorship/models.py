@@ -252,6 +252,22 @@ def _check_level_change(sender, instance, created, **kwargs):
 post_save.connect(_check_level_change, sender=Sponsor)
 
 
+def _send_admin_email(sender, instance, created, **kwargs):
+    """
+    Send an email to the sponsors mailing list when a new application is
+    submitted.
+    """
+    if created:
+        send_email(
+            to=['pycon-sponsors@python.org'],
+            kind='new_sponsor',
+            context={
+                'sponsor': instance,
+            },
+        )
+post_save.connect(_send_admin_email, sender=Sponsor)
+
+
 def _store_initial_active(sender, instance, **kwargs):
     if instance:
         instance._initial_active = instance.active

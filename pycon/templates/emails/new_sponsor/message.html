@@ -1,0 +1,13 @@
+<p>{{ sponsor.name }} has just submitted a sponsorship application at the
+{{ sponsor.level.name }} level.</p>
+
+<p>To see all details and approve the application, visit the sponsorship
+admin:</p>
+
+{% url "admin:sponsorship_sponsor_change" sponsor.pk as sponsor_admin_url %}
+<p><a href="http://{{ current_site.domain }}{{ sponsor_admin_url }}">http://{{ current_site.domain }}{{ sponsor_admin_url }}</a></p>
+
+<p>
+Thanks,<br />
+{{ current_site.name }}
+</p>
