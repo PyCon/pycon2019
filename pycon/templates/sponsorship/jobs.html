@@ -1,10 +1,10 @@
 {% extends "responsive_base.html" %}
 
+{% load boxes_tags %}
+{% load i18n %}
+{% load review_tags %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
-{% load i18n %}
-{% load boxes_tags %}
-{% load review_tags %}
 
 {% block head_title %}{% trans "PyCon Jobs Fair" %}{% endblock %}
 
@@ -18,7 +18,6 @@
         });
     </script>
 {% endblock %}
-
 
 {% block body_class %}job-fair{% endblock %}
 
@@ -35,7 +34,7 @@
     {% sponsor_levels as levels %}
         <div class="span8">
             {% for level in levels %}
-                {% if level.sponsors.count > 1 %}
+                {% if level.sponsors.count > 0 %}
                     <h2>{{ level.name }}</h2>
                     {% for sponsor in level.sponsors %}
                         {% if sponsor.joblisting_text %}
