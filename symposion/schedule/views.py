@@ -192,8 +192,8 @@ def schedule_json(request):
                 "released": slot.content.proposal.recording_release,
                 "license": "CC",
                 "contact": [s.email for s in slot.content.speakers()],
-                "abstract": slot.content.abstract.raw,
-                "description": slot.content.description.raw,
+                "abstract": getattr(slot.content.abstract, 'raw', slot.content.abstract),
+                "description": getattr(slot.content.description, 'raw', slot.content.description),
                 "conf_key": slot.pk,
                 "conf_url": "https://%s%s" % (
                     Site.objects.get_current().domain,
@@ -210,8 +210,8 @@ def schedule_json(request):
         poster_data = {
             "name": poster.title,
             "authors": [s.name for s in poster.speakers()],
-            "description": poster.description.raw,
-            "abstract": poster.abstract.raw,
+            "description": getattr(poster.description, 'raw', poster.description),
+            "abstract": getattr(poster.abstract, 'raw', poster.abstract),
             "license": "CC",
             "room": "Poster Room",
             "start": datetime.datetime(2014, 03, 17, 10).isoformat(),
