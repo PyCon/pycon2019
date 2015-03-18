@@ -227,7 +227,8 @@ class PyConTutorialProposal(PyConProposal):
         help_text=_(u'CTE Tutorial Identifier. This is typically auto-populated'
                     u' from a management command.'),
         blank=True,
-        default="")
+        default="",
+        verbose_name="CTE ID")
 
     max_attendees = models.IntegerField(
         blank=True,

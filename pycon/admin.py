@@ -41,6 +41,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'category',
         'audience_level',
         'domain_level',
+        'cte_tutorial_id',
         'registration_count',
         'cancelled',
     ]
@@ -50,6 +51,8 @@ class TutorialAdmin(ProposalMarkEditAdmin):
     search_fields = ['title']
 
     def registration_count(self, obj):
+        if obj.max_attendees:
+            return "{} of {}".format(obj.registrants.count(), obj.max_attendees)
         return obj.registrants.count()
 
 
