@@ -41,9 +41,16 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'category',
         'audience_level',
         'domain_level',
+        'registration_count',
         'cancelled',
     ]
+    list_filter = ['cancelled', 'category']
+    list_select_related = True
     readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
+    search_fields = ['title']
+
+    def registration_count(self, obj):
+        return obj.registrants.count()
 
 
 class LightningTalkAdminForm(forms.ModelForm):
