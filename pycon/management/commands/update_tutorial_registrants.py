@@ -31,18 +31,15 @@ class Command(NoArgsCommand):
         if not response.raise_for_status():
             User = get_user_model()
             tutorials = {}  # CTE ID: PyConTutorialProposal
-            data = response.content.splitlines()
-            reader = csv.reader(data)
-            reader.next()  # pop header row
-            for row in reader:
-                if not row or not any(c.strip for c in row):
+            for row in csv.DictReader(response.content.splitlines()):
+                if not row or not any(v.strip() for v in row.values()):
                     logger.info("Skipping blank line.")
                     continue
 
-                tut_id = row[0].strip()
-                tut_name = row[1].strip()
-                max_attendees = row[2].strip()
-                user_email = row[3].strip()
+                tut_id = row['tutorialnumber']
+                tut_name = row['tutorialname']
+                max_attendees = row['maxattendees']
+                user_email = row['useremail']
 
                 if not tut_id:
                     logger.debug(
@@ -52,7 +49,7 @@ class Command(NoArgsCommand):
 
                 if tut_id not in tutorials:
                     try:
-                        tutorial = PyConTutorialProposal.objects.get(proposalbase_ptr=tut_id)
+                        tutorial = PyConTutorialProposal.objects.get(pk=tut_id)
                     except PyConTutorialProposal.DoesNotExist:
                         logger.debug(
                             "Unable to register '{}' for '{}': Tutorial ID "
