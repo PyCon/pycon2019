@@ -10,65 +10,72 @@ from constance import config
 from pycon.models import PyConTutorialProposal
 
 
-log = logging.getLogger(__name__)
-
-
-def get_user(email):
-    """
-        Return a user object by email lookup
-    """
-    model = get_user_model()
-    return model.objects.get(email=email)
+logger = logging.getLogger(__name__)
 
 
 class Command(NoArgsCommand):
     """
-        Parses an external CSV for tutorial registrant data and updates the
-        corresponding Tutorial instance with registrant information
+    Parses an external CSV for tutorial registrant data and updates the
+    corresponding Tutorial instance with registrant information.
     """
 
     def handle_noargs(self, **options):
-        """Fetch the external URL and parse the data"""
+        """Fetch the external URL and parse the data."""
+
         url = config.CTE_TUTORIAL_DATA_URL
-        user = config.CTE_BASICAUTH_USER
-        pword = config.CTE_BASICAUTH_PASS
-        if user and pword:
-            req = requests.get(url, auth=(user, pword))
-        else:
-            req = requests.get(url)
-        if not req.raise_for_status():
-            data = req.content.splitlines()
-            # parse the CSV data
+        username = config.CTE_BASICAUTH_USER
+        password = config.CTE_BASICAUTH_PASS
+        auth = (username, password) if username and password else None
+        response = requests.get(url, auth=auth)
+
+        if not response.raise_for_status():
+            User = get_user_model()
+            tutorials = {}  # CTE ID: PyConTutorialProposal
+            data = response.content.splitlines()
             reader = csv.reader(data)
-            # CTE ID: PyConTutorialProposal
-            tutorials = {}
-            # PyConTutorialProposal: [emails,]
-            registrant_data = {}
-            # pop header row
-            reader.next()
+            reader.next()  # pop header row
             for row in reader:
-                if row:
-                    tut_id = row[0]
-                    max_attendees = row[2].strip() or None
-                    registrant_email = row[3]
-                    if tut_id in tutorials:
-                        tutorial = tutorials[tut_id]
-                    else:
+                if not row or not any(c.strip for c in row):
+                    logger.info("Skipping blank line.")
+                    continue
+
+                tut_id = row[0].strip()
+                tut_name = row[1].strip()
+                max_attendees = row[2].strip()
+                user_email = row[3].strip()
+
+                if not tut_id:
+                    logger.debug(
+                        "Unable to register '{}' for '{}': Tutorial ID not "
+                        "given.".format(user_email, tut_name))
+                    continue
+
+                if tut_id not in tutorials:
+                    try:
                         tutorial = PyConTutorialProposal.objects.get(proposalbase_ptr=tut_id)
-                        if max_attendees:
-                            tutorial.max_attendees = max_attendees
+                    except PyConTutorialProposal.DoesNotExist:
+                        logger.debug(
+                            "Unable to register '{}' for '{}': Tutorial ID "
+                            "{} is invalid.".format(user_email, tut_name, tut_id))
+                        continue
+                    else:
+                        # Clear the registrants as these are effectively
+                        # read-only, and can only be updated via CTE.
+                        tutorial.registrants.clear()
+                        tutorial.max_attendees = max_attendees or None
                         tutorial.save()
                         tutorials[tut_id] = tutorial
-                    if tutorial in registrant_data:
-                        registrant_data[tutorial].append(registrant_email)
-                    else:
-                        registrant_data[tutorial] = [registrant_email]
+                tutorial = tutorials[tut_id]
 
-            # Add the Users objects to the associated Tutorial as registrants
-            for tutorial, registrants in registrant_data.items():
-                users = get_user_model().objects.filter(email__in=registrants)
-                # Clear and update the registrants as these are essentially
-                # Read only and updateable via CTE updates
-                tutorial.registrants.clear()
-                tutorial.registrants.add(*users)
-                log.info("Updated %s registrant(s) for %s." % (users.count(), tutorial))
+                try:
+                    user = User.objects.get(email=user_email)
+                except User.DoesNotExist:
+                    logger.debug.write(
+                        "Unable to register '{}' for '{}' ({}): User account "
+                        "not found.".format(user_email, tut_name, tut_id))
+                    continue
+                else:
+                    tutorial.registrants.add(user)
+                    logger.info.write(
+                        "Successfully registered '{}' for '{}' "
+                        "({}).".format(user_email, tut_name, tut_id))
