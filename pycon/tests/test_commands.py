@@ -1,5 +1,7 @@
-from mock import Mock, patch
 from random import randint
+
+from mock import Mock, patch
+
 from requests.exceptions import HTTPError
 
 from django.contrib.auth import get_user_model
@@ -14,7 +16,7 @@ class MockGet(Mock):
 
     @property
     def content(self):
-        headers = '"","","",""\n'
+        headers = '"tutorialnumber","tutorialname","maxattendees","useremail"\n'
         row1 = '"%s","Tutorial1","8","john@doe.com"\n' % self.tut1
         row2 = '"%s","Tutorial1","8","jane@doe.com"\n' % self.tut1
         row3 = '"%s","Tutorial2","10","john@doe.com"' % self.tut2
@@ -37,14 +39,14 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
 
     def test_no_matching_tutorials(self, mock_get):
         """Simple Test Case where no matches occur."""
-
-        mock_get.return_value = MockGet(tut1=randint(1000, 1100), tut2=randint(2000, 2100))
-        with self.assertRaises(PyConTutorialProposal.DoesNotExist):
-            call_command('update_tutorial_registrants')
+        mock_get.return_value = MockGet(tut1=randint(1000, 1100),
+                                        tut2=randint(2000, 2100))
+        call_command('update_tutorial_registrants')
 
     def test_matching_tutorials(self, mock_get):
         """Simple Test Case where matches occur."""
         user_model = get_user_model()
+
         u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
         u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')
 
@@ -55,7 +57,8 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
             self.assertIsNone(tut.max_attendees)
             self.assertEqual(0, tut.registrants.all().count())
 
-        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id, tut2=tut2.proposalbase_ptr_id)
+        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id,
+                                        tut2=tut2.proposalbase_ptr_id)
         call_command('update_tutorial_registrants')
 
         tut1 = PyConTutorialProposal.objects.get(pk=tut1.pk)
@@ -83,7 +86,8 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         self.assertIsNone(tut1.max_attendees)
         self.assertIn(u2, tut2.registrants.all())
 
-        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id, tut2=tut2.proposalbase_ptr_id)
+        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id,
+                                        tut2=tut2.proposalbase_ptr_id)
         call_command('update_tutorial_registrants')
 
         tut1 = PyConTutorialProposal.objects.get(pk=tut1.pk)

@@ -50,6 +50,9 @@ class Command(NoArgsCommand):
 
                 if tut_id not in tutorials:
                     try:
+                        # Try to get the tutorial by ID.
+                        # If that fails, match name and set the tutorial
+                        # ID on the found object.
                         tutorial = PyConTutorialProposal.objects.get(
                             Q(cte_tutorial_id=tut_id) | Q(title__iexact=tut_name))
                     except PyConTutorialProposal.DoesNotExist:
@@ -61,7 +64,7 @@ class Command(NoArgsCommand):
                         logger.warn(
                             "Unable to register '{} for '{}': Multiple "
                             "tutorials found for '{}' or '{}'".format(
-                                user_email, tut_name, tut_name, tut_id)
+                                user_email, tut_name, tut_name, tut_id))
                     else:
                         # Clear the registrants as these are effectively
                         # read-only, and can only be updated via CTE.
