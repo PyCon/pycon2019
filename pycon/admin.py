@@ -45,6 +45,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'registration_count',
         'cancelled',
     ]
+    list_editable = ['cte_tutorial_id']
     list_filter = ['cancelled', 'category']
     list_select_related = True
     readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
