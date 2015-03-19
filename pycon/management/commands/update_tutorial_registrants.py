@@ -22,10 +22,12 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         """Fetch the external URL and parse the data."""
-
+        logger.debug("Begin update tutorial registration numbers.")
         url = config.CTE_TUTORIAL_DATA_URL
         username = config.CTE_BASICAUTH_USER
         password = config.CTE_BASICAUTH_PASS
+        if not all([url, username, password]):
+            logger.warn("CTE tutorial registration may not be correctly configured.")
         auth = (username, password) if username and password else None
         response = requests.get(url, auth=auth)
 
@@ -87,3 +89,4 @@ class Command(NoArgsCommand):
                     logger.debug(
                         "Successfully registered '{}' for '{}' "
                         "({}).".format(user_email, tut_name, tut_id))
+        logger.debug("End update tutorial registration numbers.")
