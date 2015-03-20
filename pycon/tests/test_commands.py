@@ -8,6 +8,8 @@ from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 
+from symposion.schedule.tests.factories import PresentationFactory
+
 from pycon.models import PyConTutorialProposal
 from pycon.tests.factories import PyConTutorialProposalFactory
 
@@ -50,15 +52,17 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
         u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')
 
-        tut1 = PyConTutorialProposalFactory.create(title='Tutorial1')
-        tut2 = PyConTutorialProposalFactory.create(title='Tutorial2')
+        tut1 = PyConTutorialProposalFactory(title='Tutorial1')
+        PresentationFactory(proposal_base=tut1)
+        tut2 = PyConTutorialProposalFactory(title='Tutorial2')
+        PresentationFactory(proposal_base=tut2)
 
         for tut in [tut1, tut2]:
             self.assertIsNone(tut.max_attendees)
             self.assertEqual(0, tut.registrants.all().count())
 
-        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id,
-                                        tut2=tut2.proposalbase_ptr_id)
+        mock_get.return_value = MockGet(tut1=tut1.presentation.pk,
+                                        tut2=tut2.presentation.pk)
         call_command('update_tutorial_registrants')
 
         tut1 = PyConTutorialProposal.objects.get(pk=tut1.pk)
@@ -78,16 +82,18 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         u1 = user_model.objects.create_user('john', email='john@doe.com', password='1234')
         u2 = user_model.objects.create_user('jane', email='jane@doe.com', password='1234')
 
-        tut1 = PyConTutorialProposalFactory.create(title='Tutorial1')
-        tut2 = PyConTutorialProposalFactory.create(title='Tutorial2')
+        tut1 = PyConTutorialProposalFactory(title='Tutorial1')
+        PresentationFactory(proposal_base=tut1)
+        tut2 = PyConTutorialProposalFactory(title='Tutorial2')
+        PresentationFactory(proposal_base=tut2)
 
         # Add u2 to tut2
         tut2.registrants.add(u2)
         self.assertIsNone(tut1.max_attendees)
         self.assertIn(u2, tut2.registrants.all())
 
-        mock_get.return_value = MockGet(tut1=tut1.proposalbase_ptr_id,
-                                        tut2=tut2.proposalbase_ptr_id)
+        mock_get.return_value = MockGet(tut1=tut1.presentation.pk,
+                                        tut2=tut2.presentation.pk)
         call_command('update_tutorial_registrants')
 
         tut1 = PyConTutorialProposal.objects.get(pk=tut1.pk)
