@@ -69,11 +69,14 @@ class Command(NoArgsCommand):
                         # Clear the registrants as these are effectively
                         # read-only, and can only be updated via CTE.
                         tutorial.registrants.clear()
+                        tutorial.registration_count = 0
                         tutorial.cte_tutorial_id = tut_id
                         tutorial.max_attendees = max_attendees or None
                         tutorial.save()
                         tutorials[tut_id] = tutorial
                 tutorial = tutorials[tut_id]
+                tutorial.registration_count += 1
+                tutorial.save()
 
                 try:
                     user = User.objects.get(email=user_email)

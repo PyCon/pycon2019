@@ -219,6 +219,10 @@ class PyConTutorialProposal(PyConProposal):
     registrants = models.ManyToManyField(
         settings.AUTH_USER_MODEL, blank=True, null=True, editable=False,
         help_text=_(u'CTE registered participants for this tutorial.'))
+    registration_count = models.IntegerField(
+        default=0, editable=False,
+        help_text=_(u"Count of attendees. Allows inclusion of folks who don't "
+                    "have a PyCon account."))
     max_attendees = models.IntegerField(
         blank=True, null=True, editable=False,
         help_text=_(u'Maximum number of attendees, per CTE data'))

@@ -41,7 +41,7 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'category',
         'audience_level',
         'domain_level',
-        'registration_count',
+        '_registration_count',
         'cancelled',
     ]
     list_filter = ['result__status', 'cancelled', 'category']
@@ -55,15 +55,18 @@ class TutorialAdmin(ProposalMarkEditAdmin):
             return "undecided"
     status.admin_order_field = 'result__status'
 
-    def registration_count(self, obj):
-        count = obj.registrants.count()
+    def _registration_count(self, obj):
+        kwargs = {'count': obj.registration_count, 'max': obj.max_attendees}
         if obj.max_attendees:
-            if count > obj.max_attendees:
-                return '<div style="color: red;">{} of {}</div>'.format(
-                    count, obj.max_attendees)
-            return "{} of {}".format(count, obj.max_attendees)
-        return str(count)
-    registration_count.allow_tags = True
+            if obj.registration_count == obj.max_attendees:
+                return '<div style="color: blue;">{count} of {max}</div>'.format(**kwargs)
+            elif obj.registration_count > obj.max_attendees:
+                return '<div style="color: red;">{count} of {max}</div>'.format(**kwargs)
+            else:
+                return '{count} of {max}'.format(**kwargs)
+        else:
+            return '{count}'.format(**kwargs)
+    _registration_count.allow_tags = True
 
 
 class LightningTalkAdminForm(forms.ModelForm):
@@ -150,6 +153,7 @@ from django.contrib.auth.admin import UserAdmin
 class AccountInline(admin.StackedInline):
     model = Account
     extra = 0
+
 
 class EmailAddressInline(admin.StackedInline):
     model = EmailAddress

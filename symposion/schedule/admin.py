@@ -78,8 +78,8 @@ class PresentationAdmin(admin.ModelAdmin):
         return presentation.proposal_base.kind
 
     def tutorial_attendees(self, presentation):
-        if hasattr(presentation.proposal, 'registrants'):
-            return presentation.proposal.registrants.all().count()
+        if hasattr(presentation.proposal, 'registration_count'):
+            return presentation.proposal.registration_count
         else:
             return 'N/A'
     tutorial_attendees.short_description = 'Attendees'
