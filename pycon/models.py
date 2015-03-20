@@ -215,26 +215,13 @@ class PyConTutorialProposal(PyConProposal):
         upload_to="tutorial_handouts"
     )
 
+    # Populated by update_tutorial_registrant command.
     registrants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        blank=True,
-        null=True,
-        help_text=_(u'CTE registered participants for this tutorial.'),
-        )
-
-    cte_tutorial_id = models.CharField(
-        max_length=150,
-        help_text=_(u'CTE Tutorial Identifier. This is typically auto-populated'
-                    u' from a management command.'),
-        blank=True,
-        default="",
-        verbose_name="CTE ID")
-
+        settings.AUTH_USER_MODEL, blank=True, null=True, editable=False,
+        help_text=_(u'CTE registered participants for this tutorial.'))
     max_attendees = models.IntegerField(
-        blank=True,
-        null=True,
+        blank=True, null=True, editable=False,
         help_text=_(u'Maximum number of attendees, per CTE data'))
-
 
     class Meta:
         verbose_name = "PyCon tutorial proposal"

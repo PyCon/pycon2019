@@ -4,7 +4,6 @@ import requests
 
 from django.contrib.auth import get_user_model
 from django.core.management.base import NoArgsCommand
-from django.db.models import Q
 
 from constance import config
 
@@ -55,8 +54,7 @@ class Command(NoArgsCommand):
                         # Try to get the tutorial by ID.
                         # If that fails, match name and set the tutorial
                         # ID on the found object.
-                        tutorial = PyConTutorialProposal.objects.get(
-                            Q(cte_tutorial_id=tut_id) | Q(title__iexact=tut_name))
+                        tutorial = PyConTutorialProposal.objects.get(presentation=tut_id)
                     except PyConTutorialProposal.DoesNotExist:
                         logger.warn(
                             "Unable to register '{}' for '{}': Tutorial ID "
@@ -80,7 +78,7 @@ class Command(NoArgsCommand):
                 try:
                     user = User.objects.get(email=user_email)
                 except User.DoesNotExist:
-                    logger.debug(
+                    logger.warn(
                         "Unable to register '{}' for '{}' ({}): User account "
                         "not found.".format(user_email, tut_name, tut_id))
                     continue

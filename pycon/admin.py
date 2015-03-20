@@ -41,14 +41,11 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'category',
         'audience_level',
         'domain_level',
-        'cte_tutorial_id',
         'registration_count',
         'cancelled',
     ]
-    list_editable = ['cte_tutorial_id']
     list_filter = ['result__status', 'cancelled', 'category']
     list_select_related = True
-    readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
     search_fields = ['title']
 
     def status(self, obj):
@@ -59,9 +56,14 @@ class TutorialAdmin(ProposalMarkEditAdmin):
     status.admin_order_field = 'result__status'
 
     def registration_count(self, obj):
+        count = obj.registrants.count()
         if obj.max_attendees:
-            return "{} of {}".format(obj.registrants.count(), obj.max_attendees)
-        return obj.registrants.count()
+            if count > obj.max_attendees:
+                return '<div style="color: red;">{} of {}</div>'.format(
+                    count, obj.max_attendees)
+            return "{} of {}".format(count, obj.max_attendees)
+        return str(count)
+    registration_count.allow_tags = True
 
 
 class LightningTalkAdminForm(forms.ModelForm):
