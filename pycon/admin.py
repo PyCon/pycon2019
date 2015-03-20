@@ -46,10 +46,17 @@ class TutorialAdmin(ProposalMarkEditAdmin):
         'cancelled',
     ]
     list_editable = ['cte_tutorial_id']
-    list_filter = ['cancelled', 'category']
+    list_filter = ['result__status', 'cancelled', 'category']
     list_select_related = True
     readonly_fields = ['cte_tutorial_id', 'registrants', 'max_attendees']
     search_fields = ['title']
+
+    def status(self, obj):
+        try:
+            return obj.result.status
+        except:
+            return "undecided"
+    status.admin_order_field = 'result__status'
 
     def registration_count(self, obj):
         if obj.max_attendees:
