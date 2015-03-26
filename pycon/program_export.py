@@ -172,11 +172,20 @@ class SponsorsExporter(BaseExporter):
 
 
 class PresentationsExporter(BaseExporter):
-    fields = [('name', 'title'), 'speakers',
-              ('audience_level', 'proposal__get_audience_level_display'),
-              ('category', 'proposal__category__name'), 'description', 'url']
+    fields = [('name', 'title'), 'speakers', 'audience_level', 'category',
+              'description', 'url']
     basedir = 'presentations/'
     description_fields = ['description']
+
+    def prepare_category(self, presentation):
+        if presentation.proposal.kind.name == "Sponsor Tutorial":
+            return "N/A"
+        return presentation.proposal.category.name
+
+    def prepare_audience_level(self, presentation):
+        if presentation.proposal.kind.name == "Sponsor Tutorial":
+            return "N/A"
+        return presentation.proposal.get_audience_level_display()
 
     def prepare_speakers(self, presentation):
         return ', '.join([s.name for s in presentation.speakers()])
@@ -199,7 +208,8 @@ class PresentationsExporter(BaseExporter):
     def export(self):
         queryset = Presentation.objects.exclude(cancelled=True)
         kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk']]
+                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk',
+                              'Sponsor Tutorial']]
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
