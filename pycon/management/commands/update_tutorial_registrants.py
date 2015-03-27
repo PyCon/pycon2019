@@ -65,6 +65,7 @@ class Command(NoArgsCommand):
                             "Unable to register '{} for '{}': Multiple "
                             "tutorials found for '{}' or '{}'".format(
                                 user_email, tut_name, tut_name, tut_id))
+                        continue
                     else:
                         # Clear the registrants as these are effectively
                         # read-only, and can only be updated via CTE.
@@ -72,7 +73,6 @@ class Command(NoArgsCommand):
                         tutorial.registration_count = 0
                         tutorial.cte_tutorial_id = tut_id
                         tutorial.max_attendees = max_attendees or None
-                        tutorial.save()
                         tutorials[tut_id] = tutorial
                 tutorial = tutorials[tut_id]
                 tutorial.registration_count += 1
@@ -84,6 +84,12 @@ class Command(NoArgsCommand):
                     logger.warn(
                         "Unable to register '{}' for '{}' ({}): User account "
                         "not found.".format(user_email, tut_name, tut_id))
+                    continue
+                except User.MultipleObjectsReturned:
+                    logger.warn(
+                        "Unable to register '{}' for '{}' ({}): "
+                        "Multiple user accounts found for "
+                        "email.".format(user_email, tut_name, tut_id))
                     continue
                 else:
                     tutorial.registrants.add(user)
