@@ -201,7 +201,7 @@ INSTALLED_APPS = [
     "biblion",
     "social_auth",
     "djangosecure",
-    "raven.contrib.django",
+    "raven.contrib.django.raven_compat",
     "constance",
     "constance.backends.database",
     "redis_cache",
