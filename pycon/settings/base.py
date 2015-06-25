@@ -13,7 +13,7 @@ def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
 
-CONFERENCE_YEAR = "2015"
+CONFERENCE_YEAR = "2016"
 
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
