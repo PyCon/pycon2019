@@ -8,6 +8,6 @@ env:
   - TOXENV=pycon
 install:
   - pip install -q pip --upgrade
-  - pip install -q tox==1.4.3
+  - pip install -q tox==2.1.1
 script:
   - tox -- --settings=pycon.settings.travis
