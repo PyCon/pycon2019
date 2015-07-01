@@ -21,7 +21,7 @@ setup(
               'symposion.sponsorship', 'symposion.sponsorship.templatetags'],
     url='https://github.com/caktus/pycon/',
     license='LICENSE',
-    author='',
-    author_email='',
+    maintainer='Caktus Consulting Group',
+    maintainer_email='pycon@caktusgroup.com',
     description=''
 )

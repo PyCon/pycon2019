@@ -12,6 +12,24 @@ at https://readthedocs.org/projects/pycon/.
 To get running locally
 ----------------------
 
+* First, if you're not on Ubuntu 12.04, you might need to do the following in
+  a virtual machine that is running Ubuntu 12.04.  You can use the provided
+  Vagrantfile to create one and install some of the prerequisites::
+
+    $ vagrant up
+
+  That'll have the current local directory mounted internally as /vagrant, but
+  it's not a full-featured file system so tox won't work right. What I did was
+  copy the files to the user's home directory::
+
+    $ vagrant ssh
+    [now in vagrant system, logged in as vagrant, with sudo privs]
+    $ cd /vagrant
+    $ rsync -avz * ~
+    $ cd ~
+
+  and then continue working there with the following instructions.
+
 * Create a new virtualenv and activate it::
 
     $ virtualenv env/pycon
@@ -19,7 +37,7 @@ To get running locally
 
 * Install the requirements for running and testing locally::
 
-    $ pip install -r requirements/dev.txt
+    $ pip install --trusted-host dist.pinaxproject.com -r requirements/dev.txt
 
   (For production, install -r requirements/project.txt).
 
@@ -42,9 +60,23 @@ To get running locally
 
   Change ``pycon2015`` in that first command to the name of your local database.
 
+* Otherwise, create a new empty database::
+
+    $ createdb pycon2015
+    $ ./manage.py syncdb
+
 * Run local server::
 
     python manage.py runserver
+
+* Run tests::
+
+    $ tox
+
+ or
+
+    $ make test
+
 
 For production
 --------------
