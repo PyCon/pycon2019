@@ -259,6 +259,7 @@ AUTHENTICATION_BACKENDS = [
 
     # Django User Accounts
     "account.auth_backends.EmailAuthenticationBackend",
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 SOCIAL_AUTH_PIPELINE = [
