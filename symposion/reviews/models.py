@@ -54,7 +54,7 @@ class ReviewAssignment(models.Model):
     origin = models.IntegerField(choices=ORIGIN_CHOICES)
 
     assigned_at = models.DateTimeField(default=datetime.now)
-    opted_out = models.BooleanField()
+    opted_out = models.BooleanField(default=False)
 
     @classmethod
     def create_assignments(cls, proposal, origin=AUTO_ASSIGNED_INITIAL):
@@ -290,7 +290,9 @@ class Comment(models.Model):
     public = models.BooleanField(choices=[
         (True, "public"),
         (False, "private"),
-    ])
+    ],
+        default=False,
+    )
     commented_at = models.DateTimeField(default=datetime.now)
 
 
