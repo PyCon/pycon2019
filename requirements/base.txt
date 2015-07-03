@@ -10,18 +10,19 @@
 # Django 1.7:
 Django<1.8
 pinax-theme-bootstrap==3.0a12
-django-user-accounts==1.0b13
+django-user-accounts==1.1
 metron==1.1
 pinax-utils==1.0b1.dev3
 django-debug-toolbar==0.9.4
 django-mailer==0.2a1
 django-timezones==0.2
 pytz==2014.4
-# This looks like the most-maintained fork of django-openid with support for more recent Djangos
-git+https://github.com/vinodc/django-openid.git#egg=django-openid
+
+git+https://github.com/dpoirier/django-openid.git@minimal_django17#egg=django-openid
+
 python-openid==2.2.5
 django_compressor==1.3
-git+git://github.com/caktus/biblion.git@feature/django-1.5#egg=biblion
+git+git://github.com/caktus/biblion.git@feature/django-1.7#egg=biblion
 -e git+git://github.com/daaray/django-sitetree.git#egg=django-sitetree
 -e git+git://github.com/shvechikov/python-rtfng.git#egg=python-rtfng
 
