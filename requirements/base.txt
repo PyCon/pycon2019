@@ -7,8 +7,8 @@
 --extra-index-url=http://dist.pinaxproject.com/alpha/
 --extra-index-url=http://dist.pinaxproject.com/fresh-start/
 
-# Django 1.6:
-Django<1.7
+# Django 1.7:
+Django<1.8
 pinax-theme-bootstrap==3.0a12
 django-user-accounts==1.0b13
 metron==1.1
@@ -17,6 +17,7 @@ django-debug-toolbar==0.9.4
 django-mailer==0.2a1
 django-timezones==0.2
 pytz==2014.4
+# This looks like the most-maintained fork of django-openid with support for more recent Djangos
 git+https://github.com/vinodc/django-openid.git#egg=django-openid
 python-openid==2.2.5
 django_compressor==1.3

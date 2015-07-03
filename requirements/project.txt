@@ -15,7 +15,7 @@ psycopg2==2.5.3
 gunicorn==0.17.4
 django-secure==1.0
 raven==3.3.7
-django-constance==0.6
+django-constance[database]==1.0.1
 django-picklefield==0.3.0
 
 django-model-utils==1.4.0
