@@ -53,7 +53,7 @@ def manage_run(command):
     manage_cmd = ("{env.virtualenv_root}/bin/python "
         "manage.py {command}").format(env=env, command=command)
     dotenv_path = os.path.join(env.root, 'shared')
-    source_dotenv_cmd = "source {env}/.env".format(env=dotenv_path)
+    source_dotenv_cmd = ". {env}/.env".format(env=dotenv_path)
     with cd(env.code_root):
         sudo(' && '.join((source_dotenv_cmd, manage_cmd)))
 
