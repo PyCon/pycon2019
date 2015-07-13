@@ -16,3 +16,4 @@ program_export/
 htmlcov/
 env/
 .vagrant
+node_modules/
