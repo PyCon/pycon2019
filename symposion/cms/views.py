@@ -92,11 +92,10 @@ def file_create(request):
     if request.method == "POST":
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            with transaction.commit_on_success():
-                kwargs = {
-                    "file": form.cleaned_data["file"],
-                }
-                File.objects.create(**kwargs)
+            kwargs = {
+                "file": form.cleaned_data["file"],
+            }
+            File.objects.create(**kwargs)
             return redirect("file_index")
     else:
         form = FileUploadForm()

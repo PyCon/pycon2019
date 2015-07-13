@@ -31,6 +31,7 @@ class ViewTestMixin(object):
         user = user or factories.UserFactory()
 
         user.backend = 'django.contrib.auth.backends.ModelBackend'
+        assert user.backend in settings.AUTHENTICATION_BACKENDS  # Or this won't work
         engine = __import__(settings.SESSION_ENGINE, fromlist=['SessionStore'])
 
         # Create a fake request to store login details.

@@ -259,6 +259,7 @@ AUTHENTICATION_BACKENDS = [
 
     # Django User Accounts
     "account.auth_backends.EmailAuthenticationBackend",
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 SOCIAL_AUTH_PIPELINE = [
@@ -352,3 +353,9 @@ from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
 
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
+
+# Until we get to Django 1.7...
+SOUTH_MIGRATION_MODULES = {
+    'default': 'social.apps.django_app.default.south_migrations',
+    'taggit': 'taggit.south_migrations',
+}
