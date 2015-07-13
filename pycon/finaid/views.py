@@ -367,12 +367,12 @@ def finaid_download_csv(request):
 
     # Fields to include
     application_field_names = ['id'] + [
-        name for name in FinancialAidApplication._meta.get_all_field_names()
-        if name not in ['id', 'review']
-    ] + ['email']
+        f.attname for f, model in FinancialAidApplication._meta.get_fields_with_model()
+        if f.attname not in ['id', 'review']
+    ] + ['email', 'user']
     reviewdata_field_names = [
-        name for name in FinancialAidReviewData._meta.get_all_field_names()
-        if name not in ['application', 'id', 'last_update']
+        f.attname for f, model in FinancialAidReviewData._meta.get_fields_with_model()
+        if f.attname not in ['application', 'id', 'last_update']
     ]
 
     # For these fields, use the get_FIELDNAME_display() method so we get

@@ -34,7 +34,7 @@ COMPRESS = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env_or_default("DB_NAME", "pycon2015"),
+        "NAME": env_or_default("DB_NAME", "pycon%s" % CONFERENCE_YEAR),
         "USER": env_or_default("DB_USER", ""),
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
@@ -352,3 +352,9 @@ from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING
 
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
+
+# Django issues a nasty warning in 1.7 if you don't
+# declare a runner explicitly, even though it works...
+# This can be removed in 1.8, the warning has been
+# removed.
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'

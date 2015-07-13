@@ -1,3 +1,5 @@
+from pprint import pformat
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
@@ -31,6 +33,11 @@ def profile_edit(request):
             )
             if next:
                 return redirect(next)
+        else:
+            return HttpResponse(
+                status=400,
+                content=pformat(form.errors).encode('utf-8')
+            )
     else:
         form = ProfileForm(instance=profile)
     

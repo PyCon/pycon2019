@@ -9,7 +9,7 @@ DATABASES['default'].update(
     {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         # if you change DB name here, also change it in .travis.yml
-        "NAME": "pycon2015",
+        "NAME": "pycon%s" % CONFERENCE_YEAR,
         'HOST': '127.0.0.1',
         "USER": "postgres",
         "PASSWORD": "",

@@ -31,6 +31,7 @@ class TestProfileViews(TestCase):
 
     def test_profile_view_post(self):
         data = {
+            'user': self.user.id,
             'first_name': 'Joe',
             'last_name': "O'Reilly",
             'phone': '1-234-567-8901',
