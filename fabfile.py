@@ -45,23 +45,24 @@ def setup_path():
     env.virtualenv_root = os.path.join(env.root, 'shared/env')
     env.media_root = os.path.join(env.root, 'shared', 'media')
 
+
 @task
-def manage_run(command, sudo=False):
+def manage_run(command):
     """Run a Django management command on the remote server."""
     require('environment')
-    manage_base = ("{env.virtualenv_root}/bin/python "
-                   "{env.code_root}/manage.py {command} "
-                   "--settings=pycon.settings.{env.environment}".format(env=env, command=command))
+    manage_cmd = ("{env.virtualenv_root}/bin/python "
+        "manage.py {command}").format(env=env, command=command)
+    dotenv_path = os.path.join(env.root, 'shared')
+    source_dotenv_cmd = ". {env}/.env".format(env=dotenv_path)
     with cd(env.code_root):
-        if sudo:
-            sudo(u'%s %s' % (manage_base, command))
-        else:
-            run(u'%s %s' % (manage_base, command))
+        sudo(' && '.join((source_dotenv_cmd, manage_cmd)))
+
 
 @task
 def manage_shell():
     """Drop into the remote Django shell."""
     manage_run("shell")
+
 
 @task
 def deploy():
