@@ -1,8 +1,10 @@
 """Utilities to help test financial aid"""
+from django.conf import settings
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
 from pycon.finaid.models import FinancialAidApplication
+from symposion.conference.models import Conference
 from symposion.teams.models import Team, Membership
 
 
@@ -21,6 +23,10 @@ def create_application(user, **kwargs):
 
 
 class TestMixin(object):
+    def setUp(self):
+        super(TestMixin, self).setUp()
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+
     def create_user(self, username="joe",
                     email="joe@example.com",
                     password="snoopy"):

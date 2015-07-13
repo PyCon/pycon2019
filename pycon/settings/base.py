@@ -34,7 +34,7 @@ COMPRESS = False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env_or_default("DB_NAME", "pycon2015"),
+        "NAME": env_or_default("DB_NAME", "pycon%s" % CONFERENCE_YEAR),
         "USER": env_or_default("DB_USER", ""),
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
@@ -202,10 +202,9 @@ INSTALLED_APPS = [
     "social_auth",
     "djangosecure",
     "raven.contrib.django",
-    "constance",
     "constance.backends.database",
+    "constance",
     "redis_cache",
-    "south",
     "uni_form",
     "gunicorn",
     "selectable",
@@ -354,8 +353,8 @@ LOGGING = DEFAULT_LOGGING
 
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 
-# Until we get to Django 1.7...
-SOUTH_MIGRATION_MODULES = {
-    'default': 'social.apps.django_app.default.south_migrations',
-    'taggit': 'taggit.south_migrations',
-}
+# Django issues a nasty warning in 1.7 if you don't
+# declare a runner explicitly, even though it works...
+# This can be removed in 1.8, the warning has been
+# removed.
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
