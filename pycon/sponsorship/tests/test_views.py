@@ -1,4 +1,5 @@
 from cStringIO import StringIO
+from httplib import OK
 import os
 import shutil
 import tempfile
@@ -12,12 +13,13 @@ from django.test.utils import override_settings
 
 from symposion.conference.models import current_conference, Conference
 
+from pycon.sponsorship.forms import SponsorBenefitsFormSet
 from pycon.tests.base import ViewTestMixin
 from pycon.tests.factories import UserFactory
 
-from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
+from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel, ContactEmail
 
-from .factories import SponsorLevelFactory
+from .factories import SponsorLevelFactory, SponsorFactory
 
 
 class TestSponsorZipDownload(TestCase):
@@ -246,19 +248,22 @@ class TestSponsorApply(ViewTestMixin, TestCase):
 
     def setUp(self):
         super(TestSponsorApply, self).setUp()
-        Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
+        conference, __ = Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         self.user = UserFactory()
         self.login_user(self.user)
-        self.sponsor_level = SponsorLevelFactory()
+        self.sponsor_level = SponsorLevelFactory(conference=conference)
         self.data = {
             'name': 'Sponsor',
             'contact_name': self.user.get_full_name(),
-            'contact_email': self.user.email,
             'contact_phone': '336-867-5309',
             'contact_address': '123 Main Street, Anytown, NC 90210',
+            'external_url': 'https://example.com',
             'level': self.sponsor_level.pk,
             'wants_table': True,
             'wants_booth': True,
+            'contact_emails-TOTAL_FORMS': '1',
+            'contact_emails-INITIAL_FORMS': '1',
+            'contact_emails-0-email': self.user.email,
         }
 
     def test_get_unauthenticated(self):
@@ -279,12 +284,146 @@ class TestSponsorApply(ViewTestMixin, TestCase):
 
     def test_post_valid(self):
         response = self.client.post(reverse(self.url_name), data=self.data)
+        if response.status_code != 302:
+            context = response.context
+            print("form errors: {}".format(context['form'].errors))
+            print("formset errors: {}".format(context['formset'].errors))
+            print("formset nonfielderrors: {}".format(context['formset'].non_form_errors()))
+            self.fail("Not 302, were there form errors?")
         self.assertRedirectsNoFollow(response, reverse('dashboard'))
         self.assertEqual(Sponsor.objects.count(), 1)
 
     def test_post_invalid(self):
-        response = self.client.post(reverse(self.url_name), data={})
+        response = self.client.post(reverse(self.url_name), data={
+            'contact_emails-TOTAL_FORMS': '0',
+            'contact_emails-INITIAL_FORMS': '0',
+        })
         self.assertEqual(response.status_code, 200)
         self.assertTrue('form' in response.context)
         self.assertTrue(response.context['form'].is_bound)
         self.assertFalse(response.context['form'].is_valid())
+
+
+class TestSponsorDetail(ViewTestMixin, TestCase):
+    url_name = 'sponsor_detail'
+
+    def setUp(self):
+        super(TestSponsorDetail, self).setUp()
+        self.user = UserFactory()
+        self.login_user(self.user)
+        self.sponsor = SponsorFactory(
+            applicant=self.user,
+            contact_name=self.user.get_full_name(),
+            wants_table=True,
+            wants_booth=True,
+            active=True,
+        )
+        ContactEmail.objects.create(
+            email=self.user.email,
+            sponsor=self.sponsor,
+        )
+        self.mgmt_data = {
+            'benefits-TOTAL_FORMS': '0',
+            'benefits-INITIAL_FORMS': '8',
+            'contact_emails-TOTAL_FORMS': '0',
+            'contact_emails-INITIAL_FORMS': '1',
+        }
+        self.data = {
+            'name': self.sponsor.name,
+            'contact_name': self.user.get_full_name(),
+            'contact_phone': self.sponsor.contact_phone,
+            'contact_address': self.sponsor.contact_address,
+            'external_url': self.sponsor.external_url,
+            'level': self.sponsor.level.pk,
+            'wants_table': self.sponsor.wants_table,
+            'wants_booth': self.sponsor.wants_booth,
+            'contact_emails-TOTAL_FORMS': '1',
+            'contact_emails-INITIAL_FORMS': '1',
+            'contact_emails-0-email': self.user.email,
+            'benefits-TOTAL_FORMS': '0',
+            'benefits-INITIAL_FORMS': '8',
+        }
+        # To add the benefits fields - punt
+        formset = SponsorBenefitsFormSet(
+            instance=self.sponsor,
+            prefix="benefits",
+            queryset=SponsorBenefit.objects.filter(active=True),
+        )
+        for form in formset.forms:
+            for field in formset.fields:
+                self.data[field.name_for_html] = field.value
+        self.data['benefits-TOTAL_FORMS'] = len(formset.forms)
+
+
+    def test_get_unauthenticated(self):
+        self.client.logout()
+        response = self.client.get(reverse(self.url_name, args=[self.sponsor.pk]))
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_unauthenticated(self):
+        self.client.logout()
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        self.assertRedirectsToLogin(response)
+
+    def test_get(self):
+        response = self.client.get(reverse(self.url_name, args=[self.sponsor.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context)
+        self.assertFalse(response.context['form'].is_bound)
+
+    def test_post_valid(self):
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        if response.status_code == 200:
+            form = response.context['form']
+            self.assertTrue(form.is_valid(), msg=form.errors)
+            print(response.content.decode('utf-8'))
+        self.assertRedirectsNoFollow(response, reverse('dashboard'))
+        self.assertEqual(Sponsor.objects.count(), 1)
+
+    def test_post_invalid(self):
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.mgmt_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context)
+        self.assertTrue(response.context['form'].is_bound)
+        self.assertFalse(response.context['form'].is_valid())
+
+    def test_add_contact_email(self):
+        self.data['contact_emails-TOTAL_FORMS'] = '2'
+        self.data['contact_emails-1-email'] = 'new@example.com'
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        self.assertRedirectsNoFollow(response, reverse('dashboard'))
+        sponsor = Sponsor.objects.get(pk=self.sponsor.pk)
+        self.assertEqual(2, len(sponsor.contact_email_addrs()))
+        self.assertIn('new@example.com', sponsor.contact_email_addrs())
+
+    def test_add_contact_emails(self):
+        self.data['contact_emails-TOTAL_FORMS'] = '3'
+        self.data['contact_emails-1-email'] = 'new@example.com'
+        self.data['contact_emails-2-email'] = 'newer@example.com'
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        self.assertRedirectsNoFollow(response, reverse('dashboard'))
+        sponsor = Sponsor.objects.get(pk=self.sponsor.pk)
+        self.assertEqual(3, len(sponsor.contact_email_addrs()))
+
+    def test_add_duplicate_contact_emails(self):
+        self.assertEqual(1, ContactEmail.objects.filter(sponsor=self.sponsor).count())
+        self.data['contact_emails-TOTAL_FORMS'] = '2'
+        # This is the same as the existing one, except for case; we should
+        # not allow adding it
+        self.data['contact_emails-1-email'] = self.user.email.upper()
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        # We get 200 instead of redirect if the form was rejected
+        self.assertEqual(OK, response.status_code)
+        self.assertFalse(response.context['email_formset'].is_valid())
+        self.assertEqual(1, ContactEmail.objects.filter(sponsor=self.sponsor).count())
+
+    def test_remove_contact_email(self):
+        self.assertEqual(1, ContactEmail.objects.filter(sponsor=self.sponsor).count())
+        self.sponsor.contact_emails.create(email="new@example.com")
+        self.assertEqual(2, ContactEmail.objects.filter(sponsor=self.sponsor).count())
+        self.data['contact_emails-TOTAL_FORMS'] = '2'
+        self.data['contact_emails-1-email'] = 'new@example.com'
+        self.data['contact_emails-1-DELETE'] = 'on'
+        response = self.client.post(reverse(self.url_name, args=[self.sponsor.pk]), data=self.data)
+        self.assertRedirectsNoFollow(response, reverse('dashboard'))
+        self.assertEqual(1, ContactEmail.objects.filter(sponsor=self.sponsor).count())

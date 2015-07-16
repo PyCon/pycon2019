@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit, \
-    BenefitLevel, SponsorBenefit, BENEFITS
+    BenefitLevel, SponsorBenefit, BENEFITS, ContactEmail
 from pycon.sponsorship.views import email_selected_sponsors_action
 
 
@@ -28,6 +28,10 @@ class SponsorBenefitInline(admin.StackedInline):
     ]
 
 
+class ContactEmailInline(admin.TabularInline):
+    model = ContactEmail
+
+
 class SponsorAdmin(admin.ModelAdmin):
     save_on_top = True
     actions = [email_selected_sponsors_action]
@@ -42,15 +46,14 @@ class SponsorAdmin(admin.ModelAdmin):
             "fields": ["wants_table", "wants_booth"],
         }),
         ("Contact Information", {
-            "fields": ["contact_name", "contact_email", "contact_phone",
-                       "contact_address"],
+            "fields": ["contact_name", "contact_phone", "contact_address"],
         }),
         ("Metadata", {
             "fields": ["added"],
             "classes": ["collapse"],
         })
     ]
-    inlines = [SponsorBenefitInline]
+    inlines = [ContactEmailInline, SponsorBenefitInline]
     # NB: We add to list_display and list_filter below
     list_display = ["name", "level", "contact", "applicant_field", "active",
                     "approval_time"]
@@ -58,7 +61,10 @@ class SponsorAdmin(admin.ModelAdmin):
     readonly_fields = ["approval_time"]
 
     def contact(self, sponsor):
-        return mark_safe('<a href="mailto:%s">%s</a>' % (escape(sponsor.contact_email), escape(sponsor.contact_name)))
+        addrs = sponsor.contact_email_addrs()
+        addr_string = ','.join(addrs)
+        return mark_safe('<a href="mailto:%s">%s</a>' % (escape(addr_string),
+                                                         escape(sponsor.contact_name)))
 
     def applicant_field(self, sponsor):
         name = sponsor.applicant.get_full_name()

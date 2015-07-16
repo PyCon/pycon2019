@@ -8,6 +8,11 @@
 
 {% block body_class %}sponsors-apply{% endblock %}
 
+{% block extra_head %}
+{{ block.super }}
+{{ form.media }}
+{% endblock %}
+
 {% block body %}
 
     {% box "sponsorship-apply" %}
@@ -16,6 +21,8 @@
         {% csrf_token %}
         <legend>{% trans "Apply to be a Sponsor" %}</legend>
         {{ form|as_bootstrap }}
+        {% include "sponsorship/contact_emails.html" with formset=formset %}
+
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% trans "Apply" %}" />
             <p class="help-block">

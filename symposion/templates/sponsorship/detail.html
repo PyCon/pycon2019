@@ -7,6 +7,11 @@
 
 {% block page_title %}{% trans "Sponsorship" %}{% endblock %}
 
+{% block extra_head %}
+{{ block.super }}
+{{ form.media }}
+{% endblock %}
+
 {% block body %}
     <h2>{{ sponsor.name }} ({{ sponsor.level }})</h2>
 
@@ -16,12 +21,14 @@
             {{ form|as_bootstrap }}
         </fieldset>
 
+        {% include "sponsorship/contact_emails.html" with formset=email_formset %}
+
         <h3>{% blocktrans %}{{ sponsor.level }} Sponsor Benefits{% endblocktrans %}</h3>
 
-        {{ formset.management_form }}
-        {{ formset.non_form_errors }}
+        {{ benefit_formset.management_form }}
+        {{ benefit_formset.non_form_errors }}
 
-        {% for form in formset.forms %}
+        {% for form in benefit_formset.forms %}
             <div class="control-group">
                 <label class="control-label">{{ form.instance.benefit }}</label>
                 <div class="controls">

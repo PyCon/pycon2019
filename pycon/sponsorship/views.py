@@ -13,6 +13,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
+from django.db import transaction
+from django.forms import all_valid
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response,\
     render
@@ -20,26 +22,44 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.forms import SponsorApplicationForm, \
-    SponsorBenefitsFormSet, SponsorDetailsForm, SponsorEmailForm
+    SponsorBenefitsFormSet, SponsorDetailsForm, SponsorEmailForm, ContactEmailFormSet
 from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit, \
     SponsorLevel
 
 
 log = logging.getLogger(__name__)
 
-
 @login_required
 def sponsor_apply(request):
+    formset_kwargs = {
+        'prefix': 'contact_emails',
+        'initial': [
+            {'email': request.user.email},
+        ],
+    }
     if request.method == "POST":
-        form = SponsorApplicationForm(request.POST, user=request.user)
-        if form.is_valid():
-            form.save()
+
+        form = SponsorApplicationForm(request.POST, request.FILES, user=request.user)
+        formset = ContactEmailFormSet(request.POST, request.FILES, **formset_kwargs)
+
+        # Using `all_valid` will clean each form and formset and report all the errors.
+        # Using `x.is_valid() and y.is_valid()` would stop at the first error.
+        if all_valid([form, formset]):
+            with transaction.atomic():
+                sponsor = form.save()
+                formset.save(sponsor)
             return redirect("dashboard")
+
+        messages.error(request, _("Please fix the errors below"))
     else:
         form = SponsorApplicationForm(user=request.user)
+        formset = ContactEmailFormSet(
+            **formset_kwargs
+        )
 
     return render_to_response("sponsorship/apply.html", {
         "form": form,
+        "formset": formset,
     }, context_instance=RequestContext(request))
 
 
@@ -50,31 +70,45 @@ def sponsor_detail(request, pk):
     if not sponsor.active or sponsor.applicant != request.user:
         return redirect("sponsor_list")
 
-    formset_kwargs = {
+    benefit_formset_kwargs = {
         "instance": sponsor,
+        "prefix": "benefits",
         "queryset": SponsorBenefit.objects.filter(active=True)
+    }
+    email_formset_kwargs = {
+        "prefix": "contact_emails",
+        "initial": [
+            {'email': contact.email}
+            for contact in sponsor.contact_emails.all()
+        ]
     }
 
     if request.method == "POST":
 
         form = SponsorDetailsForm(request.POST, instance=sponsor)
-        formset = SponsorBenefitsFormSet(request.POST, request.FILES, **formset_kwargs)
+        benefit_formset = SponsorBenefitsFormSet(request.POST, request.FILES, **benefit_formset_kwargs)
+        email_formset = ContactEmailFormSet(request.POST, request.FILES, **email_formset_kwargs)
 
-        if form.is_valid() and formset.is_valid():
-            formset.save()
-            form.save()
+        if all_valid([form, benefit_formset, email_formset]):
+            with transaction.atomic():
+                sponsor = form.save()
+                benefit_formset.save()
+                email_formset.save(sponsor)
 
             messages.success(request, "Your sponsorship application has been submitted!")
 
-            return redirect(request.path)
+            return redirect("dashboard")
+        messages.error(request, _("Please fix the errors below"))
     else:
         form = SponsorDetailsForm(instance=sponsor)
-        formset = SponsorBenefitsFormSet(**formset_kwargs)
+        benefit_formset = SponsorBenefitsFormSet(**benefit_formset_kwargs)
+        email_formset = ContactEmailFormSet(**email_formset_kwargs)
 
     return render_to_response("sponsorship/detail.html", {
         "sponsor": sponsor,
         "form": form,
-        "formset": formset,
+        "benefit_formset": benefit_formset,
+        "email_formset": email_formset,
     }, context_instance=RequestContext(request))
 
 
@@ -183,13 +217,6 @@ email_selected_sponsors_action.short_description = _(u"Email selected sponsors")
 def sponsor_email(request, pks):
     sponsors = Sponsor.objects.filter(pk__in=pks.split(","))
 
-    address_list = []
-    for sponsor in sponsors:
-        if sponsor.contact_email.lower() not in address_list:
-            address_list.append(sponsor.contact_email.lower())
-        if sponsor.applicant.email.lower() not in address_list:
-            address_list.append(sponsor.applicant.email.lower())
-
     initial = {
         'from_': config.SPONSOR_FROM_EMAIL,
     }
@@ -205,11 +232,7 @@ def sponsor_email(request, pks):
             # Send emails one at a time, rendering the subject and
             # body as templates.
             for sponsor in sponsors:
-                address_list = []
-                if sponsor.contact_email.lower() not in address_list:
-                    address_list.append(sponsor.contact_email.lower())
-                if sponsor.applicant.email.lower() not in address_list:
-                    address_list.append(sponsor.applicant.email.lower())
+                address_list = list(sponsor.email_addrs())
 
                 subject = sponsor.render_email(data['subject'])
                 body = sponsor.render_email(data['body'])
@@ -227,8 +250,13 @@ def sponsor_email(request, pks):
             return redirect(reverse('admin:sponsorship_sponsor_changelist'))
     else:
         form = SponsorEmailForm(initial=initial)
+
+    address_set = set()
+    for sponsor in sponsors:
+        address_set.update(sponsor.email_addrs())
+
     context = {
-        'address_list': address_list,
+        'address_list': list(address_set),
         'form': form,
         'pks': pks,
         'sponsors': sponsors,

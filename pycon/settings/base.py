@@ -208,6 +208,8 @@ INSTALLED_APPS = [
     "uni_form",
     "gunicorn",
     "selectable",
+    "jquery",  # django-jquery-js
+    "djangoformsetjs",  # django-formset-js
 
     # symposion
     "symposion.conference",
