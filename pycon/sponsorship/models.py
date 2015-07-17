@@ -259,7 +259,7 @@ class Sponsor(models.Model):
     def email_addrs(self):
         """Return a set of the unique lowercased email addresses of
         the sponsor contacts and applicant"""
-        addrs = set(self.contact_email_addrs)
+        addrs = set(self.contact_email_addrs())
         addrs.add(self.applicant.email.lower())
         return addrs
 
