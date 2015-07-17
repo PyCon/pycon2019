@@ -82,19 +82,19 @@ class TestSponsorZipDownload(TestCase):
 
     def test_must_be_logged_in(self):
         # Must be logged in to use the view
-        # If not logged in, doesn't redirect, just serves up a login view
+        # If not logged in, redirects to a login view
         self.client.logout()
-        rsp = self.client.get(self.url)
+        rsp = self.client.get(self.url, follow=True)
         self.assertEqual(200, rsp.status_code)
         self.assertIn("""<body class="login">""", rsp.content)
 
     def test_must_be_staff(self):
         # Only staff can use the view
-        # If not staff, doesn't show error, just serves up a login view
+        # If not staff, doesn't show error, just redirects to a login view
         # Also, the dashboard doesn't show the download button
         self.user.is_staff = False
         self.user.save()
-        rsp = self.client.get(self.url)
+        rsp = self.client.get(self.url, follow=True)
         self.assertEqual(200, rsp.status_code)
         self.assertIn("""<body class="login">""", rsp.content)
         rsp = self.client.get(reverse('dashboard'))
@@ -246,6 +246,7 @@ class TestSponsorApply(ViewTestMixin, TestCase):
 
     def setUp(self):
         super(TestSponsorApply, self).setUp()
+        Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         self.user = UserFactory()
         self.login_user(self.user)
         self.sponsor_level = SponsorLevelFactory()

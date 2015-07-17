@@ -1,3 +1,4 @@
+from django.conf import settings
 from mock import patch
 
 from django.core import mail
@@ -5,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from pycon.finaid.tests.utils import TestMixin
+from symposion.conference.models import Conference
 from symposion.schedule.tests.factories import PresentationFactory
 from symposion.speakers.tests.factories import SpeakerFactory
 
@@ -18,6 +20,7 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
     """
 
     def setUp(self):
+        super(TestTutorialSchedulePresentationView, self).setUp()
         self.presentation = PresentationFactory()
         self.tutorial_url = reverse(
             'schedule_presentation_detail', args=[self.presentation.pk])
@@ -109,6 +112,7 @@ class TestTutorialSchedulePresentationView(TestMixin, TestCase):
 
 class TestTutorialEmailView(TestCase, TestMixin):
     def setUp(self):
+        super(TestTutorialEmailView, self).setUp()
         self.presentation = PresentationFactory()
         self.tutorial_url = reverse(
             'schedule_presentation_detail', args=[self.presentation.pk])
@@ -164,9 +168,10 @@ class TestTutorialEmailView(TestCase, TestMixin):
         self.assertEqual(kwargs['bcc'][0], attendee.email)
 
 
-class TestTutorialMessageView(TestCase, TestMixin):
+class TestTutorialMessageView(TestMixin, TestCase):
     def setUp(self):
-        self.presentation = PresentationFactory()
+        super(TestTutorialMessageView, self).setUp()
+        self.presentation = PresentationFactory(section__conference=Conference.objects.get(id=settings.CONFERENCE_ID))
         self.tutorial_url = reverse(
             'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()

@@ -18,10 +18,6 @@ COMPRESS_ENABLED = True
 # Including a default secret key since this is just for test
 SECRET_KEY = env_or_default('SECRET_KEY', u'dipps!+sq49#e2k#5^@4*^qn#8s83$kawqqxn&_-*xo7twru*8')
 
-# Speed up testing - skip running the migrations, just make the test database
-# with its current schema
-SOUTH_TESTS_MIGRATE = False
-
 # Using sqlite in memory speeds things up even more, but that's getting
 # pretty far from production. I don't think it's worth the risk.
 # DATABASES = {

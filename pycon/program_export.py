@@ -10,7 +10,7 @@ from rtfng.document.paragraph import Paragraph
 
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
-from symposion.sponsorship.models import Sponsor, SponsorLevel
+from pycon.sponsorship.models import Sponsor, SponsorLevel
 
 from django.conf import settings
 from django.contrib.sites.models import Site
