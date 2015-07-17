@@ -11,6 +11,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # Make contact_email have a default, so in the reverse, it's okay to add the field
+        # before we have put values into it.
+        migrations.AlterField(
+            model_name='sponsor',
+            name='contact_email',
+            field=models.EmailField(max_length=75, verbose_name='Contact Email', blank=True, default=''),
+            preserve_default=True,
+        ),
         migrations.CreateModel(
             name='ContactEmail',
             fields=[
