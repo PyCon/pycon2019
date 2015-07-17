@@ -1,9 +1,31 @@
+import json
+
+from diff_match_patch import diff_match_patch
+
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
 from symposion.proposals.models import ProposalBase
 
+
+DIFF_FIELDS = [
+    'title',
+    'description',
+    'abstract',
+    'additional_notes',
+    'category',
+    'audience_level',
+    'additional_requirements',
+    'duration',
+    'outline',
+    'audience',
+    'perceived_value',  # objectives
+    ]
 
 class PyConProposalCategory(models.Model):
 
@@ -247,3 +269,51 @@ class PyConSponsorTutorialProposal(ProposalBase):
 class PyConOpenSpaceProposal(PyConProposal):
     class Meta:
         verbose_name = "PyCon Open Space proposal"
+
+
+class TalkProposalDiff(models.Model):
+    """
+    A quick and dirty way of presenting an edit history for proposals
+
+    the diffs_json is a json dict of :
+        {field: html-snippet of diff for this edit, this field}
+    """
+
+    talk = models.ForeignKey(PyConTalkProposal, related_name='revisions')
+    revision_date = models.DateTimeField(default=now)
+    diffs_json = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-revision_date']
+
+    @property
+    def diffs(self):
+        return json.loads(self.diffs_json)
+
+
+def difftool(s1, s2):
+    """
+    takes two strings, returns an HTML snippet of diff
+    """
+    dmp = diff_match_patch()
+    diffs = dmp.diff_main(s1, s2)
+    html = dmp.diff_prettyHtml(diffs)
+    return html.replace('\r&para;', '')
+
+
+@receiver(pre_save, sender=PyConTalkProposal)
+def save_talk_diff(sender, **kwargs):
+    edited_talk = kwargs.get('instance')
+    try:
+        current_talk = PyConTalkProposal.objects.get(pk=edited_talk.pk)
+    except PyConTalkProposal.DoesNotExist:
+        # Talk being saved the first time
+        return
+    diff_dict = {}
+    for field in DIFF_FIELDS:
+        original = force_text(getattr(current_talk, field))
+        edited = force_text(getattr(edited_talk, field))
+        if original != edited:
+            diff_dict[field] = difftool(original, edited)
+    TalkProposalDiff.objects.create(talk=current_talk, diffs_json=json.dumps(
+        diff_dict))
