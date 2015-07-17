@@ -17,9 +17,9 @@ class TestSponsorApplicationForm(TestCase):
         self.data = {
             'name': 'Sponsor',
             'contact_name': self.user.get_full_name(),
-            'contact_email': self.user.email,
             'contact_phone': '336-867-5309',
             'contact_address': '123 Main Street, Anytown, NC 90210',
+            'external_url': 'https://example.com',
             'level': self.sponsor_level.pk,
             'wants_table': True,
             'wants_booth': True,
@@ -30,7 +30,6 @@ class TestSponsorApplicationForm(TestCase):
         form = self.form_class(user=self.user)
         self.assertEqual(form.initial['contact_name'],
                          self.user.get_full_name())
-        self.assertEqual(form.initial['contact_email'], self.user.email)
 
     def test_user_saved_as_applicant(self):
         """User should be saved as the sponsor's applicant."""

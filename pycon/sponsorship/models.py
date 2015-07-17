@@ -68,6 +68,19 @@ class SponsorLevel(models.Model):
         return self.sponsor_set.filter(active=True).order_by("added")
 
 
+class ContactEmail(models.Model):
+    sponsor = models.ForeignKey('Sponsor', related_name='contact_emails')
+    email = models.EmailField(_(u"Contact Email"))
+
+    class Meta:
+        unique_together = [
+            ('sponsor', 'email')
+        ]
+
+    def __unicode__(self):
+        return self.email
+
+
 class Sponsor(models.Model):
 
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True)
@@ -77,7 +90,6 @@ class Sponsor(models.Model):
     external_url = models.URLField(_("external URL"))
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
-    contact_email = models.EmailField(_(u"Contact Email"))
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
     contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
@@ -238,6 +250,18 @@ class Sponsor(models.Model):
                 return benefit.is_complete
         else:
             return None   # Not an applicable benefit for this sponsor's level
+
+    def contact_email_addrs(self):
+        """return a set of the unique lowercased email addresses of
+        the sponsor contacts"""
+        return set(c.email.lower() for c in self.contact_emails.all())
+
+    def email_addrs(self):
+        """Return a set of the unique lowercased email addresses of
+        the sponsor contacts and applicant"""
+        addrs = set(self.contact_email_addrs())
+        addrs.add(self.applicant.email.lower())
+        return addrs
 
 
 def _store_initial_level(sender, instance, **kwargs):

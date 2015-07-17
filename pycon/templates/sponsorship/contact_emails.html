@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load formset_tags %}
+
+<div id="formset-{{ formset.prefix }}" data-formset-prefix="{{ formset.prefix }}" class="control-group{% if formset.is_bound and not formset.is_valid %} error{% endif %}">
+  {{ formset.management_form }}
+
+    <label class="control-label required-field"> {% trans "CONTACT EMAILS" %}</label>
+
+    <div data-formset-body>
+      {% for non_form_error in formset.non_form_errors %}
+        {% if non_form_error %} {# sometimes there's an empty dictionary in the non_form_errors list #}
+          <div class="controls">
+            {{ non_form_error|escape }}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% for form in formset.forms %}
+          <div data-formset-form class="controls">
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+            {{ form.email }}
+            {{ form.DELETE }} {% trans "Delete" %}
+          </div>
+      {% endfor %}
+      <!-- New forms will be inserted in here -->
+    </div>
+    <div class="controls">
+        <!-- This button will add a new form when clicked -->
+        <input type="button" class="btn" value="{% trans 'Add another' %}" data-formset-add>
+    </div>
+
+    <!-- The empty form template. By wrapping this in a <script> tag, the
+    __prefix__ placeholder can easily be replaced in both attributes and
+    any scripts -->
+    <script type="form-template" data-formset-empty-form>
+      {% escapescript %}
+          <div data-formset-form class="controls">
+            {{ formset.empty_form.email }}
+            {{ formset.empty_form.DELETE }} {% trans "Delete" %}
+          </div>
+      {% endescapescript %}
+    </script>
+
+    <script>jQuery(function($) {
+        $("#formset-{{ formset.prefix }}").formset({
+            animateForms: true
+        });
+    });</script>
+</div>

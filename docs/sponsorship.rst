@@ -15,7 +15,8 @@ level also has a ``description`` which is not currently exposed anywhere
 but can be used for private annotation.
 
 Each sponsor has a ``name``, ``external_url`` (i.e. link to the sponsor's
-website), ``contact_name`` and ``contact_email``, ``logo``, and ``level``.
+website), ``contact_name``, ``logo``, and ``level``.
+It also has one or more contact emails.
 
 A sponsor may also have a private ``annotation`` that can be used by
 organizers to take notes about the sponsor.
