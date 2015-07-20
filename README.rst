@@ -51,6 +51,11 @@ To get running locally
 
   Change ``pycon2016`` in that first command to the name of your local database.
 
+  If you get Postgres authorization errors when trying the get_db_dump,
+  find another developer who has access already and copy the ~/.pgpass
+  file from their account on that server to your own account; it has the
+  userids and passwords for the databases.
+
 * Otherwise, ask someone for help. We don't have a good way currently to
   get a new system running from scratch.
 
