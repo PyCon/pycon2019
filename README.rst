@@ -63,8 +63,8 @@ To get running locally
     python manage.py runserver 0.0.0.0:8000
 
 * Now you should be able to visit the running site from your host system's browser
-  at `http://localhost:8000`.  (Vagrant is fowarding port 8000 from the vagrant
-  system to the host system.)
+  at `http://localhost:8000`.  (If you're running Vagrant, Vagrant fowards port 8000
+  from the Vagrant system to the host system.)
 
 
 For production
@@ -106,6 +106,8 @@ simplest to just do development directly on any Ubuntu 14 system.
     python manage.py test
 
 or try running `make test` or `tox`.  (Yes, we have too many ways to run tests.)
+
+Also, Travis (https://travis-ci.org/PyCon/pycon) automatically runs the tests against pull requests.
 
 More documentation
 ------------------
