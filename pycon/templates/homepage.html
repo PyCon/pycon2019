@@ -16,58 +16,132 @@
 {% endblock %}
 
 {% block banner %}
-    <div class="banner">
+    <div>
         <div itemscope itemtype="http://data-vocabulary.org/Event">
-            <div class="container">
-                <div class="row">
-                    <div class="span3">
-                        <div itemprop="summary" class="logo"></div>
-                    </div>
-                    <div class="schedule span9">
-                        <ul>
-                            <li class="box-shadow"><strong>{% trans "Tutorials" %}</strong> April 8&ndash;9</li>
-                            <li class="box-shadow"><strong>{% trans "Conference" %}</strong> April 10&ndash;12</li>
-                            <li class="box-shadow"><strong>{% trans "Sprints" %}</strong> April 13&ndash;16</li>
-                            {% if config.REGISTRATION_STATUS != 'open' %}
-                            <li class="box-shadow promo no-link">
-                                {% if config.REGISTRATION_STATUS == 'soon' %}
-                                    <p>{% trans "Register Fall 2014" %}</p>
-                                {% elif config.REGISTRATION_STATUS == 'closed' %}
-                                    <p class="small">{% trans "Registration Closed" %}</p>
-                                {% else %}
-                                    <p>&nbsp;&nbsp;</p>
-                                {% endif %}
-                            </li>
-                            {% endif %}
-                            <div class="details">
-                                <span itemprop="locality">Montreal</span>,
-                                <span itemprop="country-name">Canada</span>,
-                                <time itemprop="startDate" datetime="2015-4-8">April 8</time>&ndash;
-                                <time itemprop="endDate" datetime="2015-4-16">16</time>
-                            </div>
-                            {% if config.REGISTRATION_STATUS == 'open' %}
-                                <li class="promo box-shadow" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
-                                   <a href="{% url 'registration_start' %}">REGISTER</a>
-                                </li>
-                            {% endif %}
-                        </ul>
+          <div class="row">
+            <div class="full landing-banner">
+              <div class="container">
+                <div itemprop="summary" class="logo"></div>
+                <img src="{{ STATIC_URL }}img/PNG/PyCon16-logo.png" width=460 height=285 alt="PyCon 2016 logo"></image>
+              </div>
+            </div>
+          </div>
+          <div class="row landing-hills">
+            <div class="hills">
+              <img class="img-responsive" src="{{ STATIC_URL }}img/PNG/landing-hills.png" width=460 height=180 alt="evergreen tree covered hill illustration">
+            </div>
+          </div>
+  {# About #}
+          <div class="row about">
+            <div class="full">
+              <h2 class="scroll-title">About PyCon</h2>
+              <div class="col-centered two-thirds">
+                {% box "homepage-about" %}
+              </div>
+            </div>
+            <img class="skyline" src="{{ STATIC_URL }}img/PNG/skyline.png" width=460 height=180 alt="evergreen tree covered hill illustration">
+          </div>
+  {# Schedule Overview #}
+          <div class="row">
+            <div class="schedule-overview full float-layout">
+              <div class="container">
+                <div class="schedule third">
+                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/Tutorials-Icon.png" width=130 height=130 alt="Tutorials icon">
+                  <h3>{% trans "Tutorials" %}<span class="dates"> May 28&ndash;29</span></h3>
+                  <p>PyCon 2015 is proud to once again offer a stellar array
+                    of tutorials prior to PyCon 2015's main conference days!
+                    These are multi-hour tutorial taught by experienced
+                    Pythonistas and instructors.</p>
+                </div>
+                <div class="schedule third">
+                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/Conference-Icon.png" width=130 height=130 alt="conference icon">
+                  <h3>{% trans "Conference" %}<span class="dates"> May 30&ndash;June 1</h3>
+                  <p>PyCon is the largest annual gathering for the community
+                    using and developing the open-source Python programming language.</p>
+                </div>
+                <div class="schedule third">
+                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/Sprints-Icon.png" width=130 height=130 alt="Sprints icon">
+                  <h3>{% trans "Sprints" %}<span class="dates"> Starting June 2</span></h3>
+                  <p>Development sprints are a key part of PyCon, and a chance
+                    for the contributors to open-source projects to get together
+                    face-to-face for up to four days of intensive learning, development
+                    and camaraderie.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+  {# Register #}
+          <div class="row register">
+            <div class="full">
+              <div class="register-banner">
+                {% if config.REGISTRATION_STATUS != 'open' %}
+                <div class="promo no-link">
+                    {% if config.REGISTRATION_STATUS == 'soon' %}
+                        <p>{% trans "Register Spring 2016" %}</p>
+                    {% elif config.REGISTRATION_STATUS == 'closed' %}
+                        <p class="small">{% trans "Registration Closed" %}</p>
+                    {% else %}
+                        <p>&nbsp;&nbsp;</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% if config.REGISTRATION_STATUS == 'open' %}
+                <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
+                   <a href="{% url 'registration_start' %}">Register Now</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+  {# PyCons Past #}
+            <div class="half pycon-past">
+              <h2 class="scroll-title">{% trans "A look at past PyCons" %}</h2>
+              <!-- Past PyCon Carousel -->
+              <div class="gallery js-flickity">
+                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
+                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
+                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
+              </div>
+            </div>
+    {# Announcements #}
+            <div class="half pycon-announcements">
+              <h2 class="scroll-title">{% trans "Announcements" %}</h2>
+              <div class="announcement">
+                {% latest_blog_posts as posts %}
+                {% for post in posts|slice:"1" %}
+                <div class="blog-post">
+                    <div class="post-content">
+                        <h3>{{ post.title }}</h3>
+                        {% blocktrans with author=post.author.get_full_name %}
+                          <p class="post_dateline">by <span class="author">{{ author }}</span></p>
+                        {% endblocktrans %}
+                        <div class="teaser">{{ post.teaser_html|safe }}</div>
                     </div>
                 </div>
+                {% empty %}
+                <div class="col-centered span4">
+                  <div class="blog-post">
+                    <div class="post-content">
+                      <p>{% trans "Announcements coming soon." %}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
             </div>
-        </div>
+          </div>
+      </div>
     </div>
 {% endblock %}
 
+{# Sponsor Carousel #}
+
 {% block body_outer %}
-<div class="leftbg">
-    <img src="{{ STATIC_URL }}img/leftbg.png" alt="left band background">
-</div>
-<div class="topRightbg">
-    <img src="{{ STATIC_URL }}img/topRightbg.png" alt="top right band background">
-</div>
 <div class="container">
     <div class="row col-centered">
-        <div class="col-centered span12 sponsor-crawl">
+        <div class="col-centered full sponsor-crawl">
             {% cache 600 "homepage-sponsor-slider" %}
                 <h1 class="scroll-title-first">Sponsors</h1>
                 <div class="col-centered span6 horizontalline"></div>
@@ -108,135 +182,6 @@
             {% endcache %}
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-centered">
-            <h1 class="scroll-title">{% trans "Announcements" %}</h1>
-            <div class="col-centered span6 horizontalline"></div>
-            <div class="row col-centered">
-                <div class="announcements">
-                    {% latest_blog_posts as posts %}
-                    {% for post in posts|slice:"3" %}
-                    <div class="span4">
-                        <div class="blog-post">
-                            <div class="post-content">
-                                <h2>{{ post.title }}</h2>
-                                {% blocktrans with author=post.author.get_full_name %}
-                                  <p class="post_dateline">by <span class="author">{{ author }}</span></p>
-                                {% endblocktrans %}
-                                <div class="teaser">{{ post.teaser_html|safe }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    {% empty %}
-                        <div class="col-centered span4">
-                            <div class="blog-post">
-                                <div class="post-content">
-                                    <p>{% trans "No announcements have been published." %}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-{# schedule #}
-    <div class="row homepage-content">
-        <div class="row col-centered">
-            <h1 class="scroll-title">Schedule</h1>
-            <div class="col-centered span6 horizontalline"></div>
-            <div class="span6 ">
-                <div class="home-schedule">
-                    <div class="col-1 tutorial">
-                        <h3>Wednesday, April 8th:</h3>
-                        {% box "homepage-schedule-day1" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span6">
-                <div class="home-schedule">
-                    <div class="col-2 tutorial">
-                        <h3>Thursday, April 9th:</h3>
-                        {% box "homepage-schedule-day2" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row col-centered">
-            <div class="span4">
-                <div class="home-schedule">
-                    <div class="col-1 conference">
-                        <h3 class="day">Friday, April 10th:</h3>
-                        {% box "homepage-schedule-day3" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span4">
-                <div class="home-schedule">
-                    <div class="col-2 conference">
-                        <h3>Saturday, April 11th:</h3>
-                        {% box "homepage-schedule-day4" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span4">
-                <div class="home-schedule">
-                    <div class="col-3 conference">
-                        <h3>Sunday, April 12th:</h3>
-                        {% box "homepage-schedule-day5" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row col-centered">
-            <div class="span3">
-                <div class="home-schedule">
-                    <div class="col-1 sprints">
-                        <h3 class="day">Monday, April 13th:</h3>
-                        {% box "homepage-schedule-day6" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span3">
-                <div class="home-schedule">
-                    <div class="col-2 sprints">
-                        <h3>Tuesday, April 14th:</h3>
-                        {% box "homepage-schedule-day7" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span3">
-                <div class="home-schedule">
-                    <div class="col-3 sprints">
-                        <h3>Wednesday, April 15th:</h3>
-                        {% box "homepage-schedule-day8" %}
-                    </div>
-                </div>
-            </div>
-            <div class="span3">
-                <div class="home-schedule">
-                    <div class="col-4 sprints">
-                        <h3 class="day">Thursday, April 16th:</h3>
-                        {% box "homepage-schedule-day9" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-{# About #}
-        <div class="col12 col-centered">
-            <h1 class="scroll-title">About</h1>
-            <div class="col-centered span6 horizontalline"></div>
-            <div class="col-centered span8">
-                <div class="about">
-                    {% box "homepage-about" %}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="rightbg">
-    <img class="img-responsive" src="{{ STATIC_URL }}img/rightbg.png" alt="right band background">
 </div>
 {% endblock %}
 

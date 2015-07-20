@@ -24,6 +24,7 @@
     {% else %}
         {% compress css %}
             <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}css/flickity.css" />
         {% endcompress %}
     {% endif %}
 
@@ -131,7 +132,7 @@
         {% endblock %}
     </div>
     <div class="bottombg">
-        <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
+      <image class="img-responsive" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ STATIC_URL }}img/SVG/footer-trees.svg" src="{{ STATIC_URL }}img/PNG/footer-trees.png" width=400 height=180 alt="Evergreen tree illustration above footer content"></image>
     </div>
     <footer>
         <div class="container">
@@ -180,6 +181,7 @@
 {% endblock %}
 
 {% block script_base %}
+    <script src="{% static "js/flickity.pkgd.js" %}"></script>
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
     {% block extra_script %}{% endblock %}
