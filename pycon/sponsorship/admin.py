@@ -1,7 +1,7 @@
 from urllib import quote
 
 from django.contrib import admin
-from django.utils.html import escape
+from django.utils.html import escape, format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
@@ -62,7 +62,11 @@ class SponsorAdmin(admin.ModelAdmin):
     def contact(self, sponsor):
         # comma-separated emails in mailto: should work: https://www.ietf.org/rfc/rfc2368.txt
         # but the commas need to be URL-quoted
-        return mark_safe('<a href="mailto:%s">%s</a>' % (escape(quote(','.join(sponsor.contact_emails))), escape(sponsor.contact_name)))
+        return format_html(
+            u'<a href="mailto:{}">{}</a>',
+            quote(u','.join(sponsor.contact_emails)),
+            sponsor.contact_name
+        )
 
     def applicant_field(self, sponsor):
         name = sponsor.applicant.get_full_name()

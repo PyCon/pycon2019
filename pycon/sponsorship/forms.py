@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
+
 from multi_email_field.forms import MultiEmailField
 
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
@@ -36,7 +37,9 @@ class SponsorApplicationForm(forms.ModelForm):
 
 
 class SponsorDetailsForm(forms.ModelForm):
-    contact_emails = MultiEmailField()
+    contact_emails = MultiEmailField(
+        help_text=_(u"Please enter one email address per line.")
+    )
 
     class Meta:
         model = Sponsor
