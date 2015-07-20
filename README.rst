@@ -12,23 +12,22 @@ at https://readthedocs.org/projects/pycon/.
 To get running locally
 ----------------------
 
-* First, if you're not on Ubuntu 12.04, you might need to do the following in
-  a virtual machine that is running Ubuntu 12.04.  You can use the provided
-  Vagrantfile to create one and install some of the prerequisites::
+* First, if you're not on Ubuntu 12.04 or 14.04, you might need to do the following in
+  a virtual machine that is running one of them.  You can use the provided
+  Vagrantfile to create one running Ubuntu 12.04 and install some of the prerequisites::
 
     $ vagrant up
 
-  That'll have the current local directory mounted internally as /vagrant, but
-  it's not a full-featured file system so tox won't work right. What I did was
-  copy the files to the user's home directory::
+  That'll have the current local directory mounted internally as /vagrant.
+  Ssh into the vagrant system and change directories to /vagrant::
 
     $ vagrant ssh
-    [now in vagrant system, logged in as vagrant, with sudo privs]
     $ cd /vagrant
-    $ rsync -avz * ~
-    $ cd ~
 
   and then continue working there with the following instructions.
+
+* If you are already on an Ubuntu system (12.04 or 14.04), you can skip using vagrant and
+  just continue on from here.
 
 * Create a new virtualenv and activate it::
 
@@ -45,37 +44,27 @@ To get running locally
 * Edit ``pycon/settings/local.py`` according to the comments. Note that you
   `will` have to edit it; by default everything there is commented out.
 
-* Setup the database::
+* If you have ssh access to the staging server, copy the database and media::
 
-    $ ./load_fixtures.sh
+    $ fab staging get_db_dump:pycon2016
+    $ fab staging get_media
+
+  Change ``pycon2016`` in that first command to the name of your local database.
+
+* Otherwise, ask someone for help. We don't have a good way currently to
+  get a new system running from scratch.
 
 * Create a user account::
 
     $ ./manage.py createsuperuser
 
-* If you have ssh access to the staging server, copy the database and media::
+* Run local server, binding to all IP addresses, and using port 8000::
 
-    $ fab staging get_db_dump:pycon2015
-    $ fab staging get_media
+    python manage.py runserver 0.0.0.0:8000
 
-  Change ``pycon2015`` in that first command to the name of your local database.
-
-* Otherwise, create a new empty database::
-
-    $ createdb pycon2015
-    $ ./manage.py syncdb
-
-* Run local server::
-
-    python manage.py runserver
-
-* Run tests::
-
-    $ tox
-
- or
-
-    $ make test
+* Now you should be able to visit the running site from your host system's browser
+  at `http://localhost:8000`.  (Vagrant is fowarding port 8000 from the vagrant
+  system to the host system.)
 
 
 For production
@@ -107,9 +96,16 @@ For production
 To run tests
 ------------
 
+Tests won't run from `/vagrant` inside the vagrant system due to shortcomings
+of the way Vagrant makes the host system's files available there.  It's probably
+simplest to just do development directly on any Ubuntu 14 system.
+
+
 ::
 
     python manage.py test
+
+or try running `make test` or `tox`.  (Yes, we have too many ways to run tests.)
 
 More documentation
 ------------------
