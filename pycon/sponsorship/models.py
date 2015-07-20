@@ -7,6 +7,7 @@ from django.db.models.signals import post_init, post_save, pre_save
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
+from multi_email_field.fields import MultiEmailField
 
 from symposion.conference.models import Conference
 
@@ -77,7 +78,7 @@ class Sponsor(models.Model):
     external_url = models.URLField(_("external URL"))
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
-    contact_email = models.EmailField(_(u"Contact Email"))
+    contact_emails = MultiEmailField(_(u"Contact Emails"), default='')
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
     contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
