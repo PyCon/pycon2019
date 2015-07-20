@@ -9,29 +9,11 @@
         }
     }, 
     {
-        "pk": 2, 
-        "model": "sponsorship.benefit", 
-        "fields": {
-            "type": "weblogo", 
-            "name": "Web logo", 
-            "description": ""
-        }
-    }, 
-    {
         "pk": 3, 
         "model": "sponsorship.benefit", 
         "fields": {
             "type": "text", 
             "name": "Print Description", 
-            "description": ""
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "sponsorship.benefit", 
-        "fields": {
-            "type": "simple", 
-            "name": "Company URL", 
             "description": ""
         }
     }, 
@@ -54,30 +36,11 @@
         }
     }, 
     {
-        "pk": 7, 
-        "model": "sponsorship.benefit", 
-        "fields": {
-            "type": "text", 
-            "name": "Company Description", 
-            "description": ""
-        }
-    }, 
-    {
         "pk": 5, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
             "other_limits": "", 
             "benefit": 1, 
-            "max_words": null, 
-            "level": 1
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 2, 
             "max_words": null, 
             "level": 1
         }
@@ -89,16 +52,6 @@
             "other_limits": "", 
             "benefit": 3, 
             "max_words": 500, 
-            "level": 1
-        }
-    }, 
-    {
-        "pk": 15, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
             "level": 1
         }
     }, 
@@ -121,17 +74,7 @@
             "max_words": null, 
             "level": 1
         }
-    }, 
-    {
-        "pk": 30, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 7, 
-            "max_words": 400, 
-            "level": 1
-        }
-    }, 
+    },
     {
         "pk": 4, 
         "model": "sponsorship.benefitlevel", 
@@ -163,16 +106,6 @@
         }
     }, 
     {
-        "pk": 16, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
-            "level": 2
-        }
-    }, 
-    {
         "pk": 22, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
@@ -193,31 +126,11 @@
         }
     }, 
     {
-        "pk": 31, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 7, 
-            "max_words": 200, 
-            "level": 2
-        }
-    }, 
-    {
         "pk": 3, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
             "other_limits": "", 
             "benefit": 1, 
-            "max_words": null, 
-            "level": 3
-        }
-    }, 
-    {
-        "pk": 8, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 2, 
             "max_words": null, 
             "level": 3
         }
@@ -229,16 +142,6 @@
             "other_limits": "", 
             "benefit": 3, 
             "max_words": 100, 
-            "level": 3
-        }
-    }, 
-    {
-        "pk": 17, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
             "level": 3
         }
     }, 
@@ -263,31 +166,11 @@
         }
     }, 
     {
-        "pk": 32, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 7, 
-            "max_words": 100, 
-            "level": 3
-        }
-    }, 
-    {
         "pk": 2, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
             "other_limits": "", 
             "benefit": 1, 
-            "max_words": null, 
-            "level": 4
-        }
-    }, 
-    {
-        "pk": 9, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 2, 
             "max_words": null, 
             "level": 4
         }
@@ -299,16 +182,6 @@
             "other_limits": "", 
             "benefit": 3, 
             "max_words": 50, 
-            "level": 4
-        }
-    }, 
-    {
-        "pk": 18, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
             "level": 4
         }
     }, 
@@ -333,16 +206,6 @@
         }
     }, 
     {
-        "pk": 33, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 7, 
-            "max_words": 50, 
-            "level": 4
-        }
-    }, 
-    {
         "pk": 1, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
@@ -363,16 +226,6 @@
         }
     }, 
     {
-        "pk": 19, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
-            "level": 5
-        }
-    }, 
-    {
         "pk": 25, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
@@ -380,26 +233,6 @@
             "benefit": 5, 
             "max_words": null, 
             "level": 5
-        }
-    }, 
-    {
-        "pk": 34, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 7, 
-            "max_words": 25, 
-            "level": 5
-        }
-    }, 
-    {
-        "pk": 20, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 4, 
-            "max_words": null, 
-            "level": 6
         }
     }
 ]

@@ -15,8 +15,15 @@ class SponsorApplicationForm(forms.ModelForm):
 
     class Meta:
         model = Sponsor
-        fields = ["name", "contact_name", "contact_emails", "contact_phone",
-                  "contact_address", "level", "wants_table", "wants_booth"]
+        fields = ["name",
+                  "contact_name", "contact_emails", "contact_phone",
+                  "contact_address",
+                  "external_url", "display_url",
+                  "web_description", "web_logo",
+                  "level", "wants_table", "wants_booth"]
+        widgets = {
+            'web_description': forms.widgets.Textarea(attrs={'cols': 40, 'rows': 5}),
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -46,8 +53,13 @@ class SponsorDetailsForm(forms.ModelForm):
         fields = [
             "name",
             "external_url",
+            "display_url",
+            "web_description",
+            "web_logo",
             "contact_name",
             "contact_emails",
+            "contact_phone",
+            "contact_address",
         ]
 
 
@@ -59,7 +71,6 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
         # only include the relevant data fields for this benefit type
         fields = form.instance.data_fields()
         form.fields = dict((k, v) for (k, v) in form.fields.items() if k in fields + ["id"])
-        print form.fields
         for field in fields:
             # don't need a label, the form template will label it with the benefit name
             form.fields[field].label = ""

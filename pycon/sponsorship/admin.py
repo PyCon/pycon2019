@@ -38,10 +38,14 @@ class SponsorAdmin(admin.ModelAdmin):
         (None, {
             "fields": ["name", "applicant", "level", "external_url",
                        "display_url", "annotation",
+                       "web_description", "web_logo",
                        ("active", "approval_time")],
         }),
         ("Desired benefits", {
             "fields": ["wants_table", "wants_booth"],
+        }),
+        ("Sponsor Data", {
+           "fields": ["booth_number", "job_fair_table_number", "registration_promo_codes"],
         }),
         ("Contact Information", {
             "fields": ["contact_name", "contact_emails", "contact_phone",
