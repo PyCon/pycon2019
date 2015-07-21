@@ -14,10 +14,11 @@ class TestSponsorApplicationForm(TestCase):
         super(TestSponsorApplicationForm, self).setUp()
         self.sponsor_level = SponsorLevelFactory()
         self.user = UserFactory()
+        self.second_email = 'foo@example.com'
         self.data = {
             'name': 'Sponsor',
             'contact_name': self.user.get_full_name(),
-            'contact_email': self.user.email,
+            'contact_emails': self.user.email + "\n" + self.second_email,
             'contact_phone': '336-867-5309',
             'contact_address': '123 Main Street, Anytown, NC 90210',
             'level': self.sponsor_level.pk,
@@ -30,13 +31,27 @@ class TestSponsorApplicationForm(TestCase):
         form = self.form_class(user=self.user)
         self.assertEqual(form.initial['contact_name'],
                          self.user.get_full_name())
-        self.assertEqual(form.initial['contact_email'], self.user.email)
+        self.assertEqual(form.initial['contact_emails'], [self.user.email])
 
     def test_user_saved_as_applicant(self):
         """User should be saved as the sponsor's applicant."""
         form = self.form_class(user=self.user, data=self.data)
         sponsor = form.save()
         self.assertEqual(sponsor.applicant, self.user)
+        self.assertEqual(sponsor.contact_emails, [self.user.email, self.second_email])
+
+    def test_contact_email_required(self):
+        """Must be at least one contact email"""
+        self.data['contact_emails'] = ''
+        form = self.form_class(user=self.user, data=self.data)
+        self.assertFalse(form.is_valid())
+        self.assertEqual([u'This field is required.'], form.errors['contact_emails'])
+
+    def test_contact_emails_validated(self):
+        self.data['contact_emails'] = 'not_an_email\nfoo@example.com'
+        form = self.form_class(user=self.user, data=self.data)
+        self.assertFalse(form.is_valid())
+        self.assertEqual([u'Enter valid email addresses.'], form.errors['contact_emails'])
 
     def test_phone_required(self):
         """Contact phone number is a required field."""

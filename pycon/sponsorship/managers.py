@@ -15,7 +15,7 @@ class SponsorManager(models.Manager):
             "sponsorship_sponsor"."external_url",
             "sponsorship_sponsor"."annotation",
             "sponsorship_sponsor"."contact_name",
-            "sponsorship_sponsor"."contact_email",
+            "sponsorship_sponsor"."contact_emails",
             "sponsorship_sponsor"."level_id",
             "sponsorship_sponsor"."added",
             "sponsorship_sponsor"."active",

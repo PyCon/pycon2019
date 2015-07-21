@@ -208,6 +208,7 @@ INSTALLED_APPS = [
     "uni_form",
     "gunicorn",
     "selectable",
+    "multi_email_field",
 
     # symposion
     "symposion.conference",

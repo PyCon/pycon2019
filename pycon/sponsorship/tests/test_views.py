@@ -253,7 +253,7 @@ class TestSponsorApply(ViewTestMixin, TestCase):
         self.data = {
             'name': 'Sponsor',
             'contact_name': self.user.get_full_name(),
-            'contact_email': self.user.email,
+            'contact_emails': [self.user.email],
             'contact_phone': '336-867-5309',
             'contact_address': '123 Main Street, Anytown, NC 90210',
             'level': self.sponsor_level.pk,
