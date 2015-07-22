@@ -3,14 +3,19 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 
+from multi_email_field.forms import MultiEmailField
+
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
 class SponsorApplicationForm(forms.ModelForm):
+    contact_emails = MultiEmailField(
+        help_text=_(u"Please enter one email address per line.")
+    )
 
     class Meta:
         model = Sponsor
-        fields = ["name", "contact_name", "contact_email", "contact_phone",
+        fields = ["name", "contact_name", "contact_emails", "contact_phone",
                   "contact_address", "level", "wants_table", "wants_booth"]
 
     def __init__(self, *args, **kwargs):
@@ -18,7 +23,7 @@ class SponsorApplicationForm(forms.ModelForm):
         kwargs.update({
             "initial": {
                 "contact_name": self.user.get_full_name(),
-                "contact_email": self.user.email,
+                "contact_emails": [self.user.email],
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
@@ -32,13 +37,17 @@ class SponsorApplicationForm(forms.ModelForm):
 
 
 class SponsorDetailsForm(forms.ModelForm):
+    contact_emails = MultiEmailField(
+        help_text=_(u"Please enter one email address per line.")
+    )
+
     class Meta:
         model = Sponsor
         fields = [
             "name",
             "external_url",
             "contact_name",
-            "contact_email"
+            "contact_emails",
         ]
 
 

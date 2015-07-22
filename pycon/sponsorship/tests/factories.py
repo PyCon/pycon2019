@@ -21,7 +21,7 @@ class SponsorFactory(factory.django.DjangoModelFactory):
     name = factory.fuzzy.FuzzyText()
     external_url = 'http://example.com'
     contact_name = factory.fuzzy.FuzzyText()
-    contact_email = factory.Sequence(lambda n: 'sponsor-{}@example.com'.format(n))
+    contact_emails = factory.Sequence(lambda n: 'sponsor-{}@example.com'.format(n))
     contact_phone = factory.fuzzy.FuzzyText()
     contact_address = factory.fuzzy.FuzzyText()
     level = factory.SubFactory('pycon.sponsorship.tests.factories.SponsorLevelFactory')

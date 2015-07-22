@@ -36,3 +36,5 @@ django-uni-form==0.9.0
 
 requests==2.0.0
 bleach==1.4
+
+django-multi-email-field==0.3.1
