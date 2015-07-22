@@ -25,7 +25,7 @@
         {% csrf_token %}
         {% if form.errors and not form.non_field_errors %}
           <div class="alert alert-error">
-            {% block count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblock %}
+            {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
           </div>
         {% endif %}
 

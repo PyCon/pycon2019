@@ -14,7 +14,7 @@ from django.template import Template, Context
 from django.utils.translation import ugettext as _
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
-    FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReimbursementForm
+    FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, STATUS_CHOICES
 from .utils import applications_open, email_address, email_context, \
@@ -428,8 +428,8 @@ def finaid_download_csv(request):
 
 
 @login_required
-def reimbursement_form(request):
-    form = ReimbursementForm
-    return render(request, "finaid/reimbursement_form.html", {
+def receipt_form(request):
+    form = ReceiptForm
+    return render(request, "finaid/receipt_form.html", {
         'form': form
     })
