@@ -89,5 +89,5 @@ class BulkEmailForm(forms.Form):
 
 
 class ReimbursementForm(forms.Form):
-    name = forms.CharField(max_length=100, help_text='What is this reimbursement for?')
-    file_to_upload = forms.ImageField()
+    item = forms.CharField(max_length=100, help_text='What is this reimbursement for?')
+    image_to_upload = forms.ImageField()
