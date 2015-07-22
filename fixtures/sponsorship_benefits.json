@@ -86,16 +86,6 @@
         }
     }, 
     {
-        "pk": 7, 
-        "model": "sponsorship.benefitlevel", 
-        "fields": {
-            "other_limits": "", 
-            "benefit": 2, 
-            "max_words": null, 
-            "level": 2
-        }
-    }, 
-    {
         "pk": 11, 
         "model": "sponsorship.benefitlevel", 
         "fields": {
