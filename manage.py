@@ -2,12 +2,11 @@
 import os
 import sys
 
-# On the server, we're started with a command like
-#
-#   VENV/bin/python manage.py run_gunicorn -c path/to/gunicorn_config.py
-#
-# so it's up to manage.py to pick what Django settings to use.
 
+# All this settings-picking stuff was mainly so we could start gunicorn
+# on the server using `manage.py run_gunicorn` and Django would figure out
+# for itself which settings to use.  We're not doing that anymore, but
+# I'm not sure if anything else relies on that.
 
 if __name__ == "__main__":
     settings = None
