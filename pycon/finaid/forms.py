@@ -86,3 +86,8 @@ class BulkEmailForm(forms.Form):
         queryset=FinancialAidEmailTemplate.objects.all(),
         empty_label=u"Pick a bulk mail template to use",
     )
+
+
+class ReimbursementForm(forms.Form):
+    name = forms.CharField(max_length=100, help_text='What is this reimbursement for?')
+    file_to_upload = forms.ImageField()

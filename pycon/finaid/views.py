@@ -425,3 +425,9 @@ def finaid_download_csv(request):
         writer.writerow(data)
 
     return response
+
+
+@login_required
+def reimbursement_form(request):
+    return render(request, "finaid/reimbursement_form.html", {
+    })
