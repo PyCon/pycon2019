@@ -41,6 +41,8 @@ DATABASES = {
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
         "PORT": env_or_default("DB_PORT", ""),
+        # https://docs.djangoproject.com/en/1.8/ref/databases/#persistent-connections
+        "CONN_MAX_AGE": int(env_or_default("CONN_MAX_AGE", 300)),
     }
 }
 
