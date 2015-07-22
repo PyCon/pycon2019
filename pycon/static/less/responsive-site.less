@@ -40,7 +40,7 @@ body {
 			      margin-left: -40px;
 			    }
 			    img.caktus-logo {
-			      margin-top: 10px;	
+			      margin-top: 10px;
 			      margin-left: 0;
 			      max-width: 100%;
 			    }
@@ -122,6 +122,9 @@ body {
 		}
 	}
 	header.main {
+		@media (max-width: @breakDesktop) {
+			padding-top: 0;
+		}
 		@media (min-width: @breakDesktop) {
 			nav {
 				a.logo-small {
@@ -129,34 +132,45 @@ body {
 					left: auto;
 				}
 				.navbar .nav li a {
-					margin: 0 10px 0 0;
+					padding: .5em 1.5em .5em 0;
 				}
 			}
 			a.logo-smaller { display: none; }
 		}
 		@media (max-width: @breakDesktop) {
 			.navbar {
-				.nav { margin: 10px 0; }
+				position: fixed;
+				top: 0;
+				left: 0;
 				.btn-navbar {
 					float: left;
-				    position: relative;
-				    top: -5px;
-				    .box-shadow(none);
-				    background-image: none;
-				    background-color: #33c5f4;
-				    border: 3px solid #33c5f4;
-				    &:hover {
-				    	background-color: #27a9e1;
-				    	border-color: #27a9e1;
-				    }
+					padding: 20px;
+					margin: 0;
+			    .box-shadow(none);
+			    background-image: none;
+			    background-color: @red;
+					border: none;
+					border-radius: 0;
+			    &:hover {
+		    		background-color: @maroon;
+			    }
+					.icon-bar { box-shadow: none; }
 				}
 			}
 			.account-bar {
-				margin: 0 5px 0 0;
+				margin: 0;
+				float: none;
 				.account-links {
-					position: absolute;
-				    right: 0;
-				    top: 10px;
+					position: relative;
+			    right: 0;
+			    top: 0;
+					a {
+			      &.login,
+			      &.logout,
+			      &.signup {
+							padding: 13px !important;
+						}
+					}
 				}
 			}
 			nav {
@@ -192,100 +206,15 @@ p {
 /* Homepage
 ==================== */
 body.home {
-	@media (max-width: @breakDesktopXL) {
-		.banner {
-			min-height: 570px;
-	    	padding-top: 10px;
-		}
-	}
-	@media (max-width: @breakDesktopXLS) {
-		.banner {
-		    background: url("../img/headergraphic.png") no-repeat center 100px;
-		    -webkit-background-size: contain;
-		    -moz-background-size: contain;
-		    -o-background-size: contain;
-		    background-size: contain;
-		    max-width: 100%;
-		    min-height: 550px;
-		    padding-top: 10px;
-		    z-index: -1;
-		}
-	}
-	@media (max-width: @breakDesktopLarge) {
-		.banner {
-		    background: url("../img/headergraphic.png") no-repeat center 60px;
-		    -webkit-background-size: contain;
-		    -moz-background-size: contain;
-		    -o-background-size: contain;
-		    background-size: contain;
-		    max-width: 100%;
-		    min-height: 440px;
-		    padding-top: 10px;
-		    z-index: -1;
+	@media (min-width: @breakDesktop) {
+		.landing-banner img {
+			padding: 4em 0 1em;
 		}
 	}
 	@media (max-width: @breakDesktop) {
-		.banner {
-		    background: url("../img/headergraphic.png") no-repeat center 80px;
-		    -webkit-background-size: contain;
-		    -moz-background-size: contain;
-		    -o-background-size: contain;
-		    background-size: contain;
-		    max-width: 100%;
-		    min-height: 440px;
-		    padding-top: 10px;
-		    z-index: -1;
-		   	.logo {
-	    		background:url(../img/pycon2015-logo.png) no-repeat 0 0;
-	    		background-size: 250px auto;
-	    		width: 250px;
-	    		height: 70px;
-	    		margin-left: 0;
-	    	}
-
+		.landing-banner img {
+			padding: 7em 0 3em;
 		}
-	}
-	@media (max-width: @breakTablet) {
-		.banner {
-			background: url("../img/headergraphic.png") no-repeat center 50px;
-		    -webkit-background-size: contain;
-		    -moz-background-size: contain;
-		    -o-background-size: contain;
-		    background-size: contain;
-		    max-width: 100%;
-		    min-height: 300px;
-		    padding-top: 10px;
-		    z-index: -1;
-	    	.logo {
-	    		background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
-	    		background-size: 300px auto;
-	    		width: 300px;
-	    		height: 60px;
-	    		margin-left: 10px;
-	    	}
-		}
-	}
-	@media (max-width: @breakMobileLandscape) {
-		.banner {
-			min-height: 200px;
-	    	.logo {
-	    		margin: 0 auto;
-	    	}
-		}
-	}
-	@media (max-width: @breakMobile) {
-		.banner {
-			background: url("../img/headergraphic.png") no-repeat center 130px;
-			-webkit-background-size: contain;
-            -moz-background-size: contain;
-            -o-background-size: contain;
-            background-size: contain;
-			min-height: 180px;
-	    	padding-top: 65px;
-		}
-		.logo {
-			margin: 0 auto;
-		}		
 	}
 	@media (max-width: @breakDesktop) {
 		header.main {
@@ -297,7 +226,7 @@ body.home {
 			}
 		}
 	}
-	
+
 	.promo {
 		&.no-link {
 			@media (max-width: @breakDesktop) {
@@ -445,8 +374,12 @@ body.home {
     	}
 	}
 	.about {
-		@media (max-width: @breakTablet) {
-			margin-top: 20px;
+		@media (max-width: @breakDesktop) {
+			padding: 2em 0 4em;
+			p {
+	      font-size: @baseFontSize * 1.4;
+	      line-height: 1.75em;
+	    }
 		}
 	}
 	.hidden-breakDesktop {
@@ -457,47 +390,6 @@ body.home {
 	.hidden-breakTablet {
 		@media (max-width: @breakTablet) {
 	      display: none;
-	    }
-	}
-
-	/* Side & bottom Illustrations
-  =============================== */
-	.leftbg {
-		@media (max-width: @breakTablet) {
-			display: none;
-		}
-	}
-	.rightbg {
-		@media (max-width: @breakDesktopLarge) {
-	    	top: -400px;
-	    	width: 180px;
-		}
-		@media (max-width: @breakDesktop) {
-	    	width: 160px;
-		}
-		@media (max-width: @breakTablet) {
-	    	display: none;
-		}
-	}
-	.topRightbg {
-		@media (max-width: @breakDesktopXL) {
-	    	top: 320px;
-	    	width: 180px;
-		}
-		@media (max-width: @breakDesktopLarge) {
-	    	top: 350px;
-	    	width: 180px;
-		}
-		@media (max-width: @breakDesktop) {
-	    	width: 160px;
-		}
-		@media (max-width: @breakTablet) {
-	    	display: none;
-		}
-	}
-	.bottombg {
-		@media (max-width: @breakTablet) {
-	    	top: 0;
 	    }
 	}
 }
@@ -519,49 +411,13 @@ body.cms-page {
 }
 
 .top-banner {
-	.row {
-		height: 40px;
-		img {
-			min-width: 100%;
-			position: relative;
-			top: -130px;
-			height: 80px;
-			@media (max-width: @breakDesktopXL) {
-			    top: -120px;
-			    height: 60px;
-			}
-			@media (max-width: @breakDesktopLarge) {
-			    top: -110px;
-			    height: 50px;
-			}
-			@media (max-width: @breakDesktop) {
-			    top: -100px;
-			    height: 40px;
-			}
-			@media (max-width: @breakTablet) {
-			    top: -80px;
-			    height: 40px;
-			}
-			@media (max-width: @breakMobileLandscape) {
-				top: -90px;
-			    height: 30px;
-			}
-			@media (max-width: @breakMobile) {
-			    top: -105px;
-			    height: 30px;
-			}
-		}
-	}
-
-
-
-	@media (max-width: @breakTablet) {	
+	@media (max-width: @breakTablet) {
 		ul.breadcrumb {
 			font-size: 10pt;
 			margin-bottom: 30px;
 		}
 	}
-	@media (max-width: @breakMobileLandscape) {	
+	@media (max-width: @breakMobileLandscape) {
 		h1 {
 			font-size: 30px;
 			margin-bottom: 0;

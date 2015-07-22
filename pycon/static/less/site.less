@@ -161,11 +161,13 @@ p {
 }
 
 a {
-  color: @blueEXDark;
+  color: @red;
   cursor: pointer;
+  border-bottom: 1px dotted @red;
   &:hover {
-    color: @yellowDark;
+    color: @maroon;
     .transition(0.35s);
+    border-bottom: 1px solid @maroon;
     text-decoration: none;
   }
 }
@@ -281,17 +283,38 @@ header.main {
   }
 }
 
+.python-footer-block {
+  text-align: center;
+  padding-top: 2em;
+  .logo-block {
+    position: relative;
+    top: 3em;
+    @media (min-width: 979px) {
+      top: 5em;
+    }
+    img.python-logo {
+      display: block;
+      margin: 0 auto 0.5em;
+      @media (min-width: 979px) {
+        margin-top: 1em;
+      }
+    }
+  }
+  img.footer-forest {
+    width: 100%;
+    height: auto;
+  }
+}
 
 footer {
-  background-color: white;
-  color: @grayDark;
-  font-size: 12px;
+  background-color: @greenForest;
+  color: white;
+  font-size: .5em;
   text-align: left;
-  padding: 30px 20px;
+  padding: 3em 2em 14em;
   position: relative;
   bottom: 0;
   height: auto;
-  border-top: 1px solid ç;
 
   .footer-content {
     position: relative;
@@ -303,10 +326,10 @@ footer {
       font-size: 14px;
       line-height: 1.8em;
       a {
-        color: @grayDark;
-        border-bottom: 1px dotted @grayDark;
+        color: @tanCity;
+        border-bottom: 1px dotted @tanCity;
         &:hover{
-          border-bottom: 1px solid @grayDark;
+          border-bottom: 1px solid @tanCity;
         }
       }
     }
@@ -559,7 +582,9 @@ header.main {
   .account-bar {
     float: right;
     text-transform: uppercase;
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
     a {
       &.login,
       &.logout,
@@ -572,14 +597,13 @@ header.main {
         color: white;
         display: inline-block;
         position: relative;
-        top: -1em;
         &:hover {
           background-color: @maroon;
         }
       }
-      &.signup {
-        left: -4px;
-        border-left: 1px solid @maroon;
+      &.login {
+        right: -5px;
+        border-right: 1px solid @maroon;
       }
     }
  // &.signup {
@@ -632,11 +656,12 @@ header.main {
             font-size: @baseFontSize + 3;
             font-weight:400;
             margin: 0 0 0 0 !important;
-            padding: .5em 1em;
+            padding: .5em .5em .5em 0;
             box-shadow: none !important;
             text-shadow: none;
             color: @maroon;
             font-weight: 400;
+            border-bottom: none;
             &:hover {
               color: @maroon;
               border-bottom: 1px solid @maroon;
@@ -757,7 +782,6 @@ body.home {
     img {
       display: block;
       margin: 0 auto;
-      padding: 4em 0 1em;
     }
   }
 
@@ -767,7 +791,7 @@ body.home {
     margin-left: 0 !important;
     .hills img {
       min-width: 100%;
-      height: 178px;
+      height: auto;
       margin-right: -30px;
     }
   }
@@ -792,13 +816,19 @@ body.home {
         border-bottom-style: solid;
       }
     }
+  }
+
+  .city {
+    position: relative;
+    background-color: @greenHill;
     img.skyline {
       min-width: 100%;
-      height: 178px;
-      position: relative;
-      bottom: -60px;
+      height: auto;
+      position: absolute;
+      bottom: 0;
     }
   }
+
   .schedule-overview {
     padding-left: 0;
     padding: 60px 0;
@@ -817,7 +847,7 @@ body.home {
     background: url("/2016/site_media/static/img/PNG/Register-Banner.png") no-repeat;
     width: 21.75em;
     height: 5em;
-    margin: 0 auto;
+    margin: 2em auto 4em;
     text-align: center;
     padding-top: 1.35em;
     .promo a {
@@ -825,13 +855,14 @@ body.home {
       font-weight: 700;
       text-transform: uppercase;
       font-size: @baseFontSize * 2;
+      text-decoration: none;
+      border-bottom: none;
       color: white;
     }
   }
 
   .pycon-past,
   .pycon-announcements {
-    overflow: auto;
     float: left;
     H2 {
       text-align: left;
@@ -843,9 +874,11 @@ body.home {
       padding-left: 4em;
     }
     .announcement {
-      background: url("/2016/site_media/static/img/PNG/announcement-banner.png") no-repeat;
+      background-image: url("/2016/site_media/static/img/PNG/announcement-banner.png");
+      background-repeat: no-repeat;
+      background-position: 100% 0;
       float: right;
-      position: relative;
+      position: absolute;
       .post-content {
         padding: 0.5em 5em;
       }
@@ -888,7 +921,7 @@ body.home {
   ==================== */
   .sponsor-crawl {
     position: relative;
-    padding: 0 0 40px;
+    padding: 3em 0;
     width: 100%;
     .sponsorship-link {
       position: absolute;
@@ -1028,16 +1061,17 @@ body.home {
     width: 300px;
     a {
       text-indent: -9999px;
-      width: 9px;
-      height: 9px;
-      margin-right: 5px;
-      color: @grayLight;
-      .border-radius(100%);
+      width: .5em;
+      height: .5em;
+      margin: 2em 1em 0 0;
+      background-color: #CCC;
+      .border-radius(50%);
+      display: inline-block;
       &:hover {
-        color: @blueDark;
+        background-color: #999;
       }
       &.activeSlide {
-        color: @blueLight;
+        background-color: #999;
       }
     }
   }
@@ -1830,14 +1864,13 @@ body#group-registration {
 .js-flickity {
   width: 100%;
   margin: 0;
-  background-color: #ccc;
   float: left;
   height: 24em;
   overflow: hidden;
   position: relative;
   .flickity-viewport {
     overflow: hidden;
-    height: 20em !important;
+    height: 21em !important;
   }
   .flickity-slider {
     transform: translate(0);
@@ -1845,7 +1878,7 @@ body#group-registration {
   }
   .flickity-prev-next-button {
     border: none;
-    width: 70px !important;
+    width: 55px !important;
     position: absolute;
     top: 9em;
   }
@@ -1880,6 +1913,21 @@ body#group-registration {
   /* hide disabled button */
   .flickity-prev-next-button:disabled {
     display: none;
+  }
+  ol.flickity-page-dots {
+    margin-left: 0;
+    li {
+      list-style: none;
+      width: 0.5em;
+      height: 0.5em;
+      background-color: #ccc;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 1em 1em 0 0;
+      &.is-selected {
+        background-color: #999;
+      }
+    }
   }
 
 }

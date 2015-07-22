@@ -28,7 +28,7 @@
           </div>
           <div class="row landing-hills">
             <div class="hills">
-              <img class="img-responsive" src="{{ STATIC_URL }}img/PNG/landing-hills.png" width=460 height=180 alt="evergreen tree covered hill illustration">
+              <img src="{{ STATIC_URL }}img/PNG/landing-hills.png" width=460 height=180 alt="evergreen tree covered hill illustration">
             </div>
           </div>
   {# About #}
@@ -39,6 +39,8 @@
                 {% box "homepage-about" %}
               </div>
             </div>
+          </div>
+          <div class="city">
             <img class="skyline" src="{{ STATIC_URL }}img/PNG/skyline.png" width=460 height=180 alt="evergreen tree covered hill illustration">
           </div>
   {# Schedule Overview #}
@@ -99,7 +101,8 @@
             <div class="half pycon-past">
               <h2 class="scroll-title">{% trans "A look at past PyCons" %}</h2>
               <!-- Past PyCon Carousel -->
-              <div class="gallery js-flickity">
+              <div class="gallery js-flickity"
+              data-flickity-options='{ "wrapAround": true, "contain": true }'>
                 <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
                 <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
                 <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
@@ -171,7 +174,7 @@
                             <div class="nav-container">
                             {% for sponsor in all_sponsors %}
                                 {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}"></a>
                                 {% endif %}
                             {% endfor %}
                             </div>
