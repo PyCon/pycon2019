@@ -18,3 +18,10 @@
 # Uncomment to use Django Debug Toolbar:
 #INSTALLED_APPS.append('debug_toolbar')
 #MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+# To use Google OAuth2 locally, see the comments in server.py about how to get a client
+# ID and secret, then uncomment these lines and either set the client creds in your
+# environment or edit them in here.
+# AUTHENTICATION_BACKENDS[1:1] = ["social_auth.backends.google.GoogleOAuth2Backend",]
+# GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+# GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')

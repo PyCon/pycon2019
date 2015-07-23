@@ -254,7 +254,7 @@ AUTHENTICATION_BACKENDS = [
 
     # Social Auth Backends
     # "social_auth.backends.google.GoogleBackend",  # Google OpenID support - obsolete
-    "social_auth.backends.google.GoogleOAuth2Backend",
+    # "social_auth.backends.google.GoogleOAuth2Backend",  # We insert this one in server.py
     "social_auth.backends.yahoo.YahooBackend",
     "social_auth.backends.OpenIDBackend",
 
@@ -279,31 +279,6 @@ ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 LOGIN_ERROR_URL = reverse_lazy("account_login")
-
-# To get the Google OAuth2 Client ID and Secret:
-#
-# (1) Login to google with some account you control
-# (2) Go to https://console.developers.google.com/project
-# (3) Create a project, give it some name (e.g. Pycon Web Site, or Pycon Staging Web Site)
-# (4) Wait until the page says the project has been created
-# (5) The project will open in the dev console
-# (6) On the left, select "APIs & auth"/"Credentials"
-# (7) Under OAuth, click "Create new Client ID" (don't worry, it's OAuth2)
-# (8) Select application type "Web application"
-# (9) Enter a Product Name on the consent Screen page and click Save
-# (10) In the Create Client ID popup, select
-#     Application type:  Web application
-#     Authorized JS origins: Your site base URL (e.g. https://staging-pycon.python.org, not
-#       https://staging-pycon.python.org/2016/;  https://example.com or
-#       http://local.pycon.org:8000, NOT https://example.com/foo/bar or
-#       http://local.pycon.org:8000/2016/)
-#     Authorized redirect URIs: Should be the same base URL, plus
-#       YYYY/account/social/complete/google-oauth2/ - e.g.
-#       https://staging-pycon.python.org/2016/account/social/complete/google-oauth2/
-# (11) Copy the displayed client ID and client secret
-
-GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
-GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 
 
 # Need these to be reversed urls, currently breaks if using reverse_lazy
