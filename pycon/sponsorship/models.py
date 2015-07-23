@@ -65,11 +65,14 @@ class Sponsor(models.Model):
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True, on_delete=SET_NULL)
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
-    display_url = models.URLField(_("display URL - text to display on link to sponsor page, if different from the actual link"), blank=True)
-    external_url = models.URLField(_("external URL - link to sponsor web page"))
+    display_url = models.URLField(_("Link text - text to display on link to sponsor page, if different from the actual link"), blank=True)
+    external_url = models.URLField(_("Link to sponsor web page"))
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
-    contact_emails = MultiEmailField(_(u"Contact Emails"), default='')
+    contact_emails = MultiEmailField(
+        _(u"Contact Emails"), default='',
+        help_text=_(u"Please enter one email address per line.")
+    )
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
     contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
@@ -178,7 +181,7 @@ class Sponsor(models.Model):
 
     @property
     def website_logo(self):
-        return self.weblogo
+        return self.web_logo
 
     def reset_benefits(self):
         """

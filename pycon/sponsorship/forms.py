@@ -8,7 +8,7 @@ from multi_email_field.forms import MultiEmailField
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
-class SponsorApplicationForm(forms.ModelForm):
+class SponsorDetailsForm(forms.ModelForm):
     contact_emails = MultiEmailField(
         help_text=_(u"Please enter one email address per line.")
     )
@@ -16,14 +16,28 @@ class SponsorApplicationForm(forms.ModelForm):
     class Meta:
         model = Sponsor
         fields = ["name",
-                  "contact_name", "contact_emails", "contact_phone",
+                  "contact_name",
+                  "contact_emails",
+                  "contact_phone",
                   "contact_address",
-                  "external_url", "display_url",
-                  "web_description", "web_logo",
-                  "level", "wants_table", "wants_booth"]
+                  "external_url",
+                  "display_url",
+                  "web_description",
+                  "web_logo",
+                  ]
         widgets = {
             'web_description': forms.widgets.Textarea(attrs={'cols': 40, 'rows': 5}),
         }
+
+
+class SponsorApplicationForm(SponsorDetailsForm):
+
+    class Meta(SponsorDetailsForm.Meta):
+        fields = SponsorDetailsForm.Meta.fields + [
+            "level",
+            "wants_table",
+            "wants_booth",
+        ]
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -42,25 +56,6 @@ class SponsorApplicationForm(forms.ModelForm):
             obj.save()
         return obj
 
-
-class SponsorDetailsForm(forms.ModelForm):
-    contact_emails = MultiEmailField(
-        help_text=_(u"Please enter one email address per line.")
-    )
-
-    class Meta:
-        model = Sponsor
-        fields = [
-            "name",
-            "external_url",
-            "display_url",
-            "web_description",
-            "web_logo",
-            "contact_name",
-            "contact_emails",
-            "contact_phone",
-            "contact_address",
-        ]
 
 
 class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
