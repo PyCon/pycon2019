@@ -45,7 +45,7 @@
           </div>
   {# Schedule Overview #}
           <div class="row">
-            <div class="schedule-overview full float-layout">
+            <div class="schedule-overview full">
               <div class="container">
                 <div class="schedule third">
                   <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/Tutorials-Icon.png" width=130 height=130 alt="Tutorials icon">
@@ -110,29 +110,29 @@
             </div>
     {# Announcements #}
             <div class="half pycon-announcements">
-              <h2 class="scroll-title">{% trans "Announcements" %}</h2>
-              <div class="announcement">
-                {% latest_blog_posts as posts %}
-                {% for post in posts|slice:"1" %}
-                <div class="blog-post">
-                    <div class="post-content">
-                        <h3>{{ post.title }}</h3>
-                        {% blocktrans with author=post.author.get_full_name %}
-                          <p class="post_dateline">by <span class="author">{{ author }}</span></p>
-                        {% endblocktrans %}
-                        <div class="teaser">{{ post.teaser_html|safe }}</div>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="col-centered span4">
+                <h2 class="scroll-title">{% trans "Announcements" %}</h2>
+                <div class="announcement">
+                  {% latest_blog_posts as posts %}
+                  {% for post in posts|slice:"1" %}
                   <div class="blog-post">
-                    <div class="post-content">
-                      <p>{% trans "Announcements coming soon." %}</p>
+                      <div class="post-content">
+                          <h3>{{ post.title }}</h3>
+                          {% blocktrans with author=post.author.get_full_name %}
+                            <p class="post_dateline">by <span class="author">{{ author }}</span></p>
+                          {% endblocktrans %}
+                          <div class="teaser">{{ post.teaser_html|safe }}</div>
+                      </div>
+                  </div>
+                  {% empty %}
+                  <div class="col-centered span4">
+                    <div class="blog-post">
+                      <div class="post-content">
+                        <p>{% trans "Announcements coming soon." %}</p>
+                      </div>
                     </div>
                   </div>
+                  {% endfor %}
                 </div>
-                {% endfor %}
-              </div>
             </div>
           </div>
       </div>

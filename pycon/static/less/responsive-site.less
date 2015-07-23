@@ -242,54 +242,34 @@ body.home {
 		}
 	}
 
-	.announcements :first-child .blog-post{
-	  	@media (max-width: @breakTablet) {
-	    margin-left: 15px;
-	    height: auto;
+	.pycon-announcements {
+		@media (max-width: @breakTablet) {
+    	float: left;
 		}
-	}
+  }
 
-	.announcements :last-child .blog-post{
-	  	@media (max-width: @breakTablet) {
-	    margin-left: 15px;
-	    height: auto;
+	.schedule-overview {
+		@media (max-width: @breakTablet) {
+			padding: 60px 0 0;
 		}
-	}
-
-	.announcements {
-		.blog-post {
+		.schedule {
 			@media (max-width: @breakDesktop) {
-				margin: 15px;
-				padding: 20px;
-				margin-bottom: 15px;
-	        	padding-bottom: 20px;
-			}
-			@media (max-width: @breakTablet) {
-				margin: 15px;
-				padding: 20px;
-				margin-bottom: 15px;
-	        	padding-bottom: 20px;
-	        	height: auto;
-			}
-			@media (max-width: @breakMobileLandscape) {
-				margin: 15px;
-				padding: 20px;
-				height: auto;
-			}
-		}
-	}
-	.schedule {
-		@media (max-width: @breakDesktop) {
-			ul {
+				ul {
 		        margin: 0 0;
 		        text-align: right;
 		        li {
 		            margin-left: 10px;
-  				}
-    		}
-		}
-		@media (max-width: @breakTablet) {
-			display: none;
+	  				}
+	    		}
+			}
+			@media (max-width: @breakTablet) {
+				max-width: 400px;
+				margin: 0 auto;
+				float: none;
+			}
+			p {
+				margin-bottom: 3em;
+			}
 		}
 	}
 	.home-schedule {
@@ -374,11 +354,23 @@ body.home {
     	}
 	}
 	.about {
+		padding: 3em 0 5em;
+		@media (min-width: @breakMobileLandscape) {
+			padding-bottom: 7em
+		}
+		@media (min-width: @breakTablet) {
+			padding-bottom: 9em
+		}
+		@media (min-width: @breakDesktop) {
+			padding-bottom: 12em
+		}
+		@media (min-width: @breakDesktopLarge) {
+			padding-bottom: 15em
+		}
 		@media (max-width: @breakDesktop) {
-			padding: 2em 0 4em;
 			p {
-	      font-size: @baseFontSize * 1.4;
-	      line-height: 1.75em;
+	      font-size: @baseFontSize * 1.25;
+	      line-height: 1.85em;
 	    }
 		}
 	}

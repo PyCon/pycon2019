@@ -136,7 +136,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto+Condensed', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
   font-weight: 700;
   color: @maroon;
   text-transform: uppercase;
@@ -831,7 +831,7 @@ body.home {
 
   .schedule-overview {
     padding-left: 0;
-    padding: 60px 0;
+    padding: 4em 0 2em ;
     .container { float: none; }
     .schedule {
       .schedule-icon {
@@ -845,13 +845,15 @@ body.home {
 
   .register-banner {
     background: url("/2016/site_media/static/img/PNG/Register-Banner.png") no-repeat;
-    width: 21.75em;
+    background-size: contain;
+    width: 100%;
+    max-width: 21.75em;
     height: 5em;
-    margin: 2em auto 4em;
+    margin: 2em auto;
     text-align: center;
     padding-top: 1.35em;
     .promo a {
-      font-family: 'Roboto+Condensed', Helvetica, Arial, sans-serif;
+      font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
       font-weight: 700;
       text-transform: uppercase;
       font-size: @baseFontSize * 2;
@@ -863,24 +865,19 @@ body.home {
 
   .pycon-past,
   .pycon-announcements {
-    float: left;
     H2 {
       text-align: left;
     }
   }
 
   .pycon-announcements {
-    h2 {
-      padding-left: 4em;
-    }
+
     .announcement {
-      background-image: url("/2016/site_media/static/img/PNG/announcement-banner.png");
-      background-repeat: no-repeat;
-      background-position: 100% 0;
-      float: right;
-      position: absolute;
+      /* background-image: url("/2016/site_media/static/img/PNG/announcement-banner.png");
+      background-repeat: no-repeat; */
+      background-color: @maroon;
       .post-content {
-        padding: 0.5em 5em;
+        padding: 0.5em 1em;
       }
       .blog-post {
         padding: 15px;
@@ -906,7 +903,6 @@ body.home {
             border-bottom: 1px solid white;
           }
         }
-
         .post_dateline {
           color: #98a1a3;
           text-transform: uppercase;
@@ -1859,18 +1855,18 @@ body#group-registration {
   }
 }
 
-/* Flickity Gallery Styling */
+/* Additional Flickity Gallery Styling */
 
 .js-flickity {
   width: 100%;
   margin: 0;
   float: left;
-  height: 24em;
   overflow: hidden;
   position: relative;
+  margin-bottom: 2em;
   .flickity-viewport {
     overflow: hidden;
-    height: 21em !important;
+    height: 224px;
   }
   .flickity-slider {
     transform: translate(0);
@@ -1878,15 +1874,15 @@ body#group-registration {
   }
   .flickity-prev-next-button {
     border: none;
-    width: 55px !important;
+    width: 50px !important;
     position: absolute;
-    top: 9em;
+    top: 27%;
   }
   .next {
-    right: .5em;
+    right: .25em;
   }
   .previous {
-    left: .5em;
+    left: .25em;
   }
   /* Style Options */
   .gallery-cell {
@@ -1929,5 +1925,4 @@ body#group-registration {
       }
     }
   }
-
 }
