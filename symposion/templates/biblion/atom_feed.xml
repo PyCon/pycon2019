@@ -7,7 +7,7 @@
 
     <title>{{ SITE_NAME }} in Montr&#233;al Announcements</title>
 
-    <link rel="alternate" type="text/html" href="https://us.pycon.org/2016/announcements/" />
+    <link rel="alternate" type="text/html" href="{% url 'home' %}" />
 
     <updated>{{ feed_updated|date:"Y-m-d\TH:i:s\Z" }}</updated>
 
