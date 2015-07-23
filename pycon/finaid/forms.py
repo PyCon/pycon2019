@@ -4,7 +4,7 @@ from django.forms import Textarea
 from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, FinancialAidEmailTemplate
+    FinancialAidReviewData, FinancialAidEmailTemplate, Receipt
 
 
 class FinancialAidApplicationForm(forms.ModelForm):
@@ -88,6 +88,7 @@ class BulkEmailForm(forms.Form):
     )
 
 
-class ReceiptForm(forms.Form):
-    item = forms.CharField(max_length=100, help_text='What is this reimbursement for?')
-    image_to_upload = forms.ImageField()
+class ReceiptForm(forms.ModelForm):
+    class Meta:
+        model = Receipt
+        fields = ["item", "amount", "new_file"]

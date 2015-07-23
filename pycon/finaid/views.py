@@ -16,7 +16,7 @@ from django.utils.translation import ugettext as _
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, STATUS_CHOICES
+    FinancialAidReviewData, STATUS_CHOICES, Receipt
 from .utils import applications_open, email_address, email_context, \
     has_application, is_reviewer, send_email_message
 
@@ -429,7 +429,23 @@ def finaid_download_csv(request):
 
 @login_required
 def receipt_form(request):
-    form = ReceiptForm
+    if request.method == 'POST':
+        form = ReceiptForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.application = request.user.financial_aid
+            form.save()
+
+            # Display a message to user
+            messages.add_message(request, messages.INFO,
+                                _(u"Receipt submitted"))
+
+            return render(request, "finaid/receipt_form.html", {
+                'form' : ReceiptForm()
+            })
+    else:
+        form = ReceiptForm()
     return render(request, "finaid/receipt_form.html", {
         'form': form
     })

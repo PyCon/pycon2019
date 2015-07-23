@@ -236,3 +236,30 @@ class FinancialAidEmailTemplate(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+def user_directory_path(instance, filename):
+    """
+    Method for finding the directory path to upload a receipt to.
+
+    This method should live inside of the Receipt model, but support for this
+    behavior is only added in python3. See the following for more info:
+    https://docs.djangoproject.com/en/1.7/topics/migrations/#serializing-values
+    """
+    # file will be uploaded to MEDIA_ROOT/finaid_receipts/<user>/<filename>
+    return 'finaid_receipts/{}/{}'.format(instance.user.username, filename)
+
+
+class Receipt(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                  related_name='financial_aid_receipts')
+    application = models.ForeignKey(FinancialAidApplication,
+                                    related_name="receipts")
+
+    item = models.CharField(max_length=255)
+    amount = models.DecimalField(
+        verbose_name=_("Amount"),
+        help_text=_("Please enter the amount of the receipt in US dollars."),
+        decimal_places=2, max_digits=8, default=Decimal("0.00"))
+    new_file = models.ImageField(upload_to=user_directory_path)
