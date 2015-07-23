@@ -1,4 +1,5 @@
 from django.contrib import admin
+from symposion.conference.models import Section
 
 from symposion.proposals.models import ProposalBase
 from symposion.schedule.models import Schedule, Day, Room, SlotKind, Slot, \
@@ -45,7 +46,10 @@ class PresentationAdmin(admin.ModelAdmin):
         'kind',
         'section',
         'tutorial_attendees',
-        'tutorial_max'
+        'tutorial_max',
+        'video_url',
+        'slides_url',
+        'assets_url'
     )
     list_filter = (
         'section',
@@ -61,13 +65,25 @@ class PresentationAdmin(admin.ModelAdmin):
         'description',
         'abstract',
         'section__name',
+        'video_url',
+        'assets_url',
+        'slides_url',
     )
+
+    def get_queryset(self, request):
+        qs = super(PresentationAdmin, self).get_queryset(request)
+        return qs.select_related('speaker', 'speaker__user',
+                                 )
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'proposal_base':
             kwargs['queryset'] = ProposalBase.objects.order_by('title')
         if db_field.name == 'slot':
             kwargs['queryset'] = Slot.objects.order_by('day__date', 'start', 'end')
+        if db_field.name == 'section':
+            if 'queryset' not in kwargs:
+                kwargs['queryset'] = Section.objects.all()
+            kwargs['queryset'] = kwargs['queryset'].select_related('conference')
         return super(PresentationAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def number(self, presentation):
