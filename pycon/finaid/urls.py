@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
-    finaid_review_detail, finaid_status, finaid_download_csv, receipt_form
+    finaid_review_detail, finaid_status, finaid_download_csv, receipt_form, receipt_delete
 
 
 urlpatterns = patterns("",  # noqa
@@ -15,4 +15,5 @@ urlpatterns = patterns("",  # noqa
     url(r"^message/(?P<pks>[0-9,]+)/$", finaid_message, name="finaid_message"),
     url(r"^download/$", finaid_download_csv, name="finaid_download_csv"),
     url(r"^receipt_form/$", receipt_form, name="receipt_form"),
+    url(r"^receipt_delete/(?P<pk>\d+)/$", receipt_delete , name="receipt_delete")
 )

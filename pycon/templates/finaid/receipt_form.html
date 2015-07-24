@@ -34,4 +34,32 @@
             <input class="btn btn-primary" type="submit" value="Submit" />
         </div>
     </form>
+
+    <div>
+      <h3>Your previously uploaded receipts:</h3>
+
+    <table class="table table-striped table-bordered table-finaid">
+      <thead>
+        <th>Item <i class="icon-sort"></i></th>
+        <th>Amount <i class="icon-sort"></i></th>
+        <th>Image <i class="icon-sort"></i></th>
+        <th>Delete <i class="icon-sort"></i></th>
+      </thead>
+
+      <tbody>
+        {% for receipt in receipts %}
+          <tr>
+            <td>{{ receipt.item }}</td>
+            <td>{{ receipt.amount }}</td>
+            <td>{{ receipt.new_file }}</td>
+            <td><a href="{% url 'receipt_delete' receipt.id %}">Delete?</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+
+    </div>
 {% endblock %}

@@ -429,6 +429,8 @@ def finaid_download_csv(request):
 
 @login_required
 def receipt_form(request):
+    receipts = Receipt.objects.filter(user__username=request.user.username)
+
     if request.method == 'POST':
         form = ReceiptForm(request.POST, request.FILES)
 
@@ -442,10 +444,19 @@ def receipt_form(request):
                                 _(u"Receipt submitted"))
 
             return render(request, "finaid/receipt_form.html", {
-                'form' : ReceiptForm()
+                'form' : ReceiptForm(),
+                'receipts': receipts
             })
     else:
         form = ReceiptForm()
     return render(request, "finaid/receipt_form.html", {
-        'form': form
+        'form': form,
+        'receipts': receipts
     })
+
+
+from django.shortcuts import get_object_or_404
+@login_required
+def receipt_delete(request, pk):
+    receipt = get_object_or_404(Receipt, pk=pk).delete()
+    return redirect("receipt_form")
