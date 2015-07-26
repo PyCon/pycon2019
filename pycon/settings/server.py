@@ -9,11 +9,11 @@ from .base import *
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ['DB_NAME'],
-        "USER": os.environ['DB_USER'],
-        "PASSWORD": os.environ['DB_PASSWORD'],
-        "HOST": os.environ['DB_HOST'],
-        "PORT": os.environ['DB_PORT'],
+        "NAME": env_or_default('DB_NAME', ''),
+        "USER": env_or_default('DB_USER', ''),
+        "PASSWORD": env_or_default('DB_PASSWORD', ''),
+        "HOST": env_or_default('DB_HOST', ''),
+        "PORT": env_or_default('DB_PORT', ''),
     }
 }
 
@@ -24,7 +24,7 @@ ALLOWED_HOSTS = [
     socket.getfqdn(),
 ]
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env_or_default('SECRET_KEY', '')
 
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin@gmail.com'),
@@ -45,7 +45,7 @@ SERVE_MEDIA = False
 # yes, use django-compressor on the server
 COMPRESS_ENABLED = True
 
-MEDIA_ROOT = os.environ['MEDIA_ROOT']
+MEDIA_ROOT = env_or_default('MEDIA_ROOT', '')
 
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING.copy()
@@ -74,7 +74,7 @@ LOGGING['handlers'].update(
         },
         'sam_gelf': {
             'class': 'graypy.GELFHandler',
-            'host': os.environ['GRAYLOG_HOST'],
+            'host': env_or_default('GRAYLOG_HOST', ''),
             'port': 12201,
             'filters': ['static_fields', 'django_exc'],
         }
