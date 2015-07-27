@@ -31,7 +31,7 @@ log = logging.getLogger(__name__)
 @login_required
 def sponsor_apply(request):
     if request.method == "POST":
-        form = SponsorApplicationForm(request.POST, user=request.user)
+        form = SponsorApplicationForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             form.save()
             return redirect("dashboard")
