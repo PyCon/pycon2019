@@ -40,7 +40,7 @@ body {
 			      margin-left: -40px;
 			    }
 			    img.caktus-logo {
-			      margin-top: 10px;	
+			      margin-top: 10px;
 			      margin-left: 0;
 			      max-width: 100%;
 			    }
@@ -285,7 +285,7 @@ body.home {
 		}
 		.logo {
 			margin: 0 auto;
-		}		
+		}
 	}
 	@media (max-width: @breakDesktop) {
 		header.main {
@@ -297,7 +297,7 @@ body.home {
 			}
 		}
 	}
-	
+
 	.promo {
 		&.no-link {
 			@media (max-width: @breakDesktop) {
@@ -505,16 +505,17 @@ body.home {
 /* CMS Page
 ==================== */
 body.cms-page {
-	aside .sponsor-list {
-		@media (max-width: @breakTablet) {
-			padding: 0;
-			border-left: none;
-			border-top: 1px solid @grayLighter;
-			h2 {
-				font-size: 36px;
-				padding-top: 20px;
-			}
-		}
+	@media (min-width: @breakTablet) {
+		.internal-content{
+	    width: 80%;
+	    margin: 0 10%;
+	  }
+	}
+	@media (min-width: @breakDesktop) {
+		.internal-content{
+	    width: 70%;
+	    margin: 0 15%;
+	  }
 	}
 }
 
@@ -555,13 +556,13 @@ body.cms-page {
 
 
 
-	@media (max-width: @breakTablet) {	
+	@media (max-width: @breakTablet) {
 		ul.breadcrumb {
 			font-size: 10pt;
 			margin-bottom: 30px;
 		}
 	}
-	@media (max-width: @breakMobileLandscape) {	
+	@media (max-width: @breakMobileLandscape) {
 		h1 {
 			font-size: 30px;
 			margin-bottom: 0;

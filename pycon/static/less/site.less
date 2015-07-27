@@ -346,25 +346,6 @@ footer {
   }
 }
 
-aside {
-  text-align: center;
-  .sponsor-list {
-    border-left: 1px dotted @grayLight;
-    padding: 0 5px 0 20px;
-    h2 { font-weight: 900; }
-    h3 {
-      margin-top: 60px;
-      font-weight: 900;
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-    img {
-      padding: 15px 0;
-    }
-  }
-}
-
 .page-head {
   padding: 120px 0 10px 0;
   martgin-bottom: 0;
@@ -987,172 +968,173 @@ body.home {
   margin-top: 20px;
   margin-bottom: 40px;
   }
+}
 
-  /* Sponsor slideshow
-  ==================== */
-  .sponsor-crawl {
-    position: relative;
-    padding: 0 0 40px;
-    width: 100%;
-    .sponsorship-link {
-      position: absolute;
-      right: 20px;
-      top: 78px;
-      z-index: 999;
-      a {
-        .btn;
-        .btn-success;
-      }
-    }
-  }
-  ul#slider {
-    display: block;
-    width: 100%;
-    height:120px; /* 260px - actual height */
-    overflow: hidden;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      margin-left:-19px;
-      display:none;
-    }
-
-    li.first {
-      display:block;
-    }
-
-    a {
-      display:block;
-      float:left;
-
-      .sp-logo {
-        display:block;
-        height:70px;
-      }
-
-      img {
-        margin:0 0 10px 19px;
-      }
-
-      .level {
-        display:block;
-        margin:0 0 10px 19px;
-        padding:5px 0 0 0;
-        width:100px;
-        text-align:center;
-        text-transform:uppercase;
-        color:#666;
-        font-size:11px;
-      }
-    }
-  }
-
-  .scroll-title {
-    margin: 40px 0 5px 20px;
-    text-align: center;
-  }
-  .scroll-title-first {
-    margin: 0 0 5px;
-    text-align: center;
-  }
-
-  .carousel-inner {
-    div.item {
-      width: 100%;
-      padding: 10px 0 40px 0;
-      height: 150px;
-    }
-  }
-
-  .sponsor-scroll-item {
-    cursor: pointer;
-    float:left;
-    width: 195px;
-    height: 100px;
-    background: none center center no-repeat;
-    background-size: 95px auto;
-  }
-
-  .carousel {
-    margin-bottom: 0;
-    .item {
-      .transition(.7s ease-in-out opacity);
-      left: 0 !important;
-    }
-
-    .next.left, .prev.right {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .active.left, .active.right {
-      opacity: 0;
-      z-index: 2;
-    }
-
-  }
-
-  /* Side & bottom Illustrations
-  =============================== */
-  .leftbg {
-    position: relative;
-    top: -60px;
-    width: 180px;
-    height: 0;
-    z-index: 99;
-  }
-  .topRightbg {
-    position: relative;
-    float: right;
-    top: 350px;
-    width: 220px;
-    height: 0;
-    z-index: 99;
-  }
-  .rightbg {
-    position: relative;
-    float: right;
-    top: -400px;
-    width: 220px;
-    height: 0;
-    z-index: 99;
-  }
-  .bottombg {
-    position: relative;
-    top: 0;
-  }
-
-  /* Slideshow nav
-  ==================== */
-  nav#slider-nav {
+/* Sponsor slideshow
+==================== */
+.sponsor-crawl {
+  position: relative;
+  padding: 0 0 40px;
+  width: 100%;
+  .sponsorship-link {
     position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 300px;
+    right: 20px;
+    top: 78px;
+    z-index: 999;
     a {
-      text-indent: -9999px;
-      width: 9px;
-      height: 9px;
-      margin-right: 5px;
-      color: @grayLight;
-      .border-radius(100%);
-      &:hover {
-        color: @blueDark;
-      }
-      &.activeSlide {
-        color: @blueLight;
-      }
+      .btn;
+      .btn-success;
     }
-  }
-  .slider-nav {
-    margin: 0 auto;
   }
 }
+ul#slider {
+  display: block;
+  width: 100%;
+  height:120px; /* 260px - actual height */
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-left:-19px;
+    display:none;
+  }
+
+  li.first {
+    display:block;
+  }
+
+  a {
+    display:block;
+    float:left;
+
+    .sp-logo {
+      display:block;
+      height:70px;
+    }
+
+    img {
+      margin:0 0 10px 19px;
+    }
+
+    .level {
+      display:block;
+      margin:0 0 10px 19px;
+      padding:5px 0 0 0;
+      width:100px;
+      text-align:center;
+      text-transform:uppercase;
+      color:#666;
+      font-size:11px;
+    }
+  }
+}
+
+.scroll-title {
+  margin: 40px 0 5px 20px;
+  text-align: center;
+}
+.scroll-title-first {
+  margin: 0 0 5px;
+  text-align: center;
+}
+
+.carousel-inner {
+  div.item {
+    width: 100%;
+    padding: 10px 0 40px 0;
+    height: 150px;
+  }
+}
+
+.sponsor-scroll-item {
+  cursor: pointer;
+  float:left;
+  width: 195px;
+  height: 100px;
+  background: none center center no-repeat;
+  background-size: 95px auto;
+}
+
+.carousel {
+  margin-bottom: 0;
+  .item {
+    .transition(.7s ease-in-out opacity);
+    left: 0 !important;
+  }
+
+  .next.left, .prev.right {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .active.left, .active.right {
+    opacity: 0;
+    z-index: 2;
+  }
+
+}
+
+/* Side & bottom Illustrations
+=============================== */
+.leftbg {
+  position: relative;
+  top: -60px;
+  width: 180px;
+  height: 0;
+  z-index: 99;
+}
+.topRightbg {
+  position: relative;
+  float: right;
+  top: 350px;
+  width: 220px;
+  height: 0;
+  z-index: 99;
+}
+.rightbg {
+  position: relative;
+  float: right;
+  top: -400px;
+  width: 220px;
+  height: 0;
+  z-index: 99;
+}
+.bottombg {
+  position: relative;
+  top: 0;
+}
+
+/* Slideshow nav
+==================== */
+nav#slider-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 300px;
+  a {
+    text-indent: -9999px;
+    width: 9px;
+    height: 9px;
+    margin-right: 5px;
+    color: @grayLight;
+    .border-radius(100%);
+    &:hover {
+      color: @blueDark;
+    }
+    &.activeSlide {
+      color: @blueLight;
+    }
+  }
+}
+.slider-nav {
+  margin: 0 auto;
+}
+/* End Sponsor slideshow */
 
 /* labels
 ==================== */
@@ -1162,9 +1144,6 @@ body.home {
 .label-info, .badge-info {
   background-color: #27a9e1
 }
-
-
-
 
 /* Sponsors
 ==================== */
@@ -1259,6 +1238,10 @@ body.venue {
 /* CMS Pages
 ==================== */
 body.cms-page {
+  h1, h2, h3 {
+    padding-top: .8em;
+    line-height: 1.4em;
+  }
   .edit-btn {
     .btn;
     .btn-primary;
@@ -1293,8 +1276,19 @@ body.cms-page {
       }
     }
   }
+  .internal-content{
+    width: 96%;
+    margin: 0 2%;
+    float: none;
+  }
+  .sponsor-crawl {
+    padding-top: 5em;
+  }
+  .box-content p {
+    font-size: @baseFontSize * 1.5;
+    line-height: 1.7em;
+  }
 }
-
 /*  Retina media query.
   Overrides styles for devices with a
   device-pixel-ratio of 2+, such as iPhone 4.
