@@ -103,7 +103,7 @@ class PyConProposal(ProposalBase):
         help_text=_(u'The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
-        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2015/speaking/recording/' target='_blank'>PyCon 2015 Recording Release</a> for details.")
+        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(

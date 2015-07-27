@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='pycon',
-    version='2015',
+    version='2016',
     packages=['pycon', 'pycon.profile', 'pycon.schedule', 'pycon.sponsorship',
               'pycon.sponsorship.management',
               'pycon.sponsorship.management.commands',

@@ -201,7 +201,7 @@ INSTALLED_APPS = [
     "biblion",
     "social_auth",
     "djangosecure",
-    "raven.contrib.django",
+    "raven.contrib.django.raven_compat",
     "constance.backends.database",
     "constance",
     "redis_cache",
@@ -253,7 +253,7 @@ AUTHENTICATION_BACKENDS = [
     "symposion.teams.backends.TeamPermissionsBackend",
 
     # Social Auth Backends
-    "social_auth.backends.google.GoogleBackend",
+    "social_auth.backends.google.GoogleOAuth2Backend",
     "social_auth.backends.yahoo.YahooBackend",
     "social_auth.backends.OpenIDBackend",
 
@@ -289,6 +289,31 @@ SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 # happens to have a different email address
 # http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
+# To get the Google OAuth2 Client ID and Secret:
+#
+# (1) Login to google with some account you control
+# (2) Go to https://console.developers.google.com/project
+# (3) Create a project, give it some name (e.g. Pycon Web Site, or Pycon Staging Web Site)
+# (4) Wait until the page says the project has been created
+# (5) The project will open in the dev console
+# (6) On the left, select "APIs & auth"/"Credentials"
+# (7) Under OAuth, click "Create new Client ID" (don't worry, it's OAuth2)
+# (8) Select application type "Web application"
+# (9) Enter a Product Name on the consent Screen page and click Save
+# (10) In the Create Client ID popup, select
+#     Application type:  Web application
+#     Authorized JS origins: Your site base URL (e.g. https://staging-pycon.python.org,
+#       not https://staging-pycon.python.org/2016/)
+#     Authorized redirect URIs: Should be the same base URL, plus
+#       YYYY/account/social/complete/google-oauth2/ - e.g.
+#       https://staging-pycon.python.org/2016/account/social/complete/google-oauth2/
+# (11) Copy the displayed client ID and client secret
+
+# Google OAuth2 won't work without these defined, but not having them defined
+# won't break anything else, as far as I can tell.
+GOOGLE_OAUTH2_CLIENT_ID = env_or_default('GOOGLE_OAUTH2_CLIENT_ID', '')
+GOOGLE_OAUTH2_CLIENT_SECRET = env_or_default('GOOGLE_OAUTH2_CLIENT_SECRET', '')
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
@@ -359,3 +384,7 @@ BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 # This can be removed in 1.8, the warning has been
 # removed.
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+# Need to switch from the now-default JSON serializer, or OAuth2 breaks trying
+# to serialize a datetime to JSON
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'

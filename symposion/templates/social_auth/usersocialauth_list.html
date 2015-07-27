@@ -12,6 +12,7 @@
         {% for object in object_list %}
           <tr>
             <td>{{ object.provider }}</td>
+            <td>{{ object.uid }}</td>
             <td><a class="remove" href="{% url "socialauth_disconnect_individual" backend=object.provider association_id=object.pk %}?next={{ request.path }}">{% trans "Remove" %}</a></td>
           </tr>
         {% empty %}
@@ -47,7 +48,7 @@
       <h4>{% trans "Sign in with another account:" %}</h4>
       <ul class="unstyled">
           <li>
-              <a href="{% url "socialauth_begin" "google" %}?next={{ request.path }}">Sign-in using Google</a>
+              <a href="{% url "socialauth_begin" "google-oauth2" %}?next={{ request.path }}">Sign-in using Google</a>
           </li>
           <li>
               <a href="{% url "socialauth_begin" "yahoo" %}?next={{ request.path }}">Sign-in using Yahoo!</a>
