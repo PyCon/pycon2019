@@ -443,10 +443,6 @@ def receipt_form(request):
             messages.add_message(request, messages.INFO,
                                 _(u"Receipt submitted"))
 
-            return render(request, "finaid/receipt_form.html", {
-                'form' : ReceiptForm(),
-                'receipts': receipts
-            })
     else:
         form = ReceiptForm()
     return render(request, "finaid/receipt_form.html", {
@@ -455,7 +451,6 @@ def receipt_form(request):
     })
 
 
-from django.shortcuts import get_object_or_404
 @login_required
 def receipt_delete(request, pk):
     receipt = get_object_or_404(Receipt, pk=pk).delete()
