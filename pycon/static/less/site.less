@@ -285,16 +285,14 @@ header.main {
 
 .python-footer-block {
   text-align: center;
-  padding-top: 2em;
+  padding-top: 6em;
   .logo-block {
     position: relative;
-    top: 3em;
-    @media (min-width: 979px) {
-      top: 5em;
-    }
+    top: -1em;
+    padding: 0 15px;
     img.python-logo {
       display: block;
-      margin: 0 auto 0.5em;
+      margin: 0 auto 1em;
       @media (min-width: 979px) {
         margin-top: 1em;
       }
@@ -322,7 +320,7 @@ footer {
     padding-bottom: 20px;
     p {
       padding-top: 0;
-      margin: 0;
+      margin: 0 0 1em 0;
       font-size: 14px;
       line-height: 1.8em;
       a {
@@ -332,14 +330,6 @@ footer {
           border-bottom: 1px solid @tanCity;
         }
       }
-    }
-    .footer-left {
-      margin-bottom: 10px;
-      padding-right: 20px;
-    }
-    .footer-right {
-      margin-bottom: 10px;
-      padding-left: 20px;
     }
     img.caktus-logo {
       opacity: 0.83;
@@ -579,61 +569,6 @@ header.main {
   position: relative;
   width: 100%;
   box-shadow: none;
-  .account-bar {
-    float: right;
-    text-transform: uppercase;
-    position: absolute;
-    top: 0;
-    right: 0;
-    a {
-      &.login,
-      &.logout,
-      &.signup {
-        padding: 20px !important;
-        height: 100%;
-        border-radius: 0;
-        background-color: @red;
-        font-weight: 400;
-        color: white;
-        display: inline-block;
-        position: relative;
-        &:hover {
-          background-color: @maroon;
-        }
-      }
-      &.login {
-        right: -5px;
-        border-right: 1px solid @maroon;
-      }
-    }
- // &.signup {
- //    font-size:@baseFontSize - 2.5 !important;
- //    padding: 2px 12px !important;
- //    .btn;
- //    .btn-success;
- //    background-color: @yellowLight;
- //    font-weight: 400;
- //    &:hover {
- //      background-color: @yellowDark;
- //    }
- //  }
-
-    span { color: @grayDark; }
-
-    form {
-      display: inline;
-      margin: 0;
-      padding: 0;
-        button[type=submit] {
-        font-size:@baseFontSize - 2.5 !important;
-        padding: 2px 12px !important;
-        .btn;
-        .btn-primary;
-        margin-left: 15px;
-      }
-    }
-  } /* End Account Bar */
-
   nav {
     background: @blueSky;
     .container {
@@ -746,6 +681,46 @@ header.main {
       text-indent: -9999px;
     }
   }
+  .account-bar {
+    float: right;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    right: 0;
+      a.login,
+      a.signup,
+      button.logout {
+        padding: 20px !important;
+        height: 100%;
+        border-radius: 0;
+        background-color: @red;
+        font-weight: 400;
+        color: white;
+        display: inline-block;
+        position: relative;
+        &:hover {
+          background-color: @maroon;
+        }
+      }
+      .login {
+        right: -5px;
+        border-right: 1px solid @maroon;
+      }
+
+    span { color: @grayDark; }
+
+    form {
+      display: inline;
+      margin: 0;
+      padding: 0;
+        button[type=submit] {
+        margin-left: 15px;
+        border: none;
+        font-size: 100%;
+        text-transform: uppercase;
+      }
+    }
+  } /* End Account Bar */
 }
 
 h1 {
@@ -779,9 +754,47 @@ body.home {
   }
   .landing-banner {
     background-color: @blueSky;
+    .span3 {
+      margin: 0;
+    }
     img {
       display: block;
       margin: 0 auto;
+    }
+    .by-the-com,
+    .for-the-com,
+    .by-for-the-com {
+      float: left;
+      position: relative;
+      top: 11.35em;
+      font-family: 'roboto condensed', sans-serif;
+      font-weight: 700;
+      p {
+        display: table;
+        color: @greenDark;
+        margin: 0 auto;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: @baseFontSize * 1.5;
+        border-top: 1px solid @greenDark;
+        border-bottom: 1px solid @greenDark;
+      }
+    }
+    .by-the-com {
+      float: left;
+    }
+    .for-the-com {
+      float: right;
+    }
+    .by-for-the-com {
+      top: 1em;
+      margin-bottom: 3em;
+      p {
+        font-size: @baseFontSize * 1.5;
+        @media (min-width: 480px) {
+          font-size: @baseFontSize * 1.85;
+        }
+      }
     }
   }
 
@@ -863,27 +876,44 @@ body.home {
     }
   }
 
-  .pycon-past,
-  .pycon-announcements {
-    H2 {
-      text-align: left;
+  .past-pycon-announcements {
+    overflow: auto;
+    .pycon-past,
+    .pycon-announcements {
+      H2 {
+        text-align: left;
+      }
     }
-  }
 
-  .pycon-announcements {
+    .pycon-past {
+      overflow: auto;
+    }
 
-    .announcement {
-      /* background-image: url("/2016/site_media/static/img/PNG/announcement-banner.png");
-      background-repeat: no-repeat; */
-      background-color: @maroon;
+    .pycon-announcements {
+      height: 510px;
+      margin-bottom: 2em;
+      width: 100%;
+      .announcement-bg {
+        position: absolute;
+        height: 470px;
+        width: 94%;
+        right: 3%;
+        img.announcement-banner {
+          width: 100%;
+          height: 100%;
+        }
+      }
       .post-content {
-        padding: 0.5em 1em;
+        padding: 0.5em;
       }
       .blog-post {
         padding: 15px;
         overflow: auto;
         color: white;
         text-align: left;
+        z-index: 1;
+        position: absolute;
+        overflow: auto;
 
         h3 {
           color: white;
@@ -990,9 +1020,10 @@ body.home {
   .sponsor-scroll-item {
     cursor: pointer;
     float:left;
-    width: 195px;
+    width: 14%;
     height: 100px;
-    background: none center center no-repeat;
+    margin: 1.25%;
+    background: darken(@tanCity, 4%) center center no-repeat;
     background-size: 95px auto;
   }
 
@@ -1063,6 +1094,7 @@ body.home {
       background-color: #CCC;
       .border-radius(50%);
       display: inline-block;
+      border-bottom: none;
       &:hover {
         background-color: #999;
       }
@@ -1861,9 +1893,8 @@ body#group-registration {
   width: 100%;
   margin: 0;
   float: left;
-  overflow: hidden;
   position: relative;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   .flickity-viewport {
     overflow: hidden;
     height: 224px;
