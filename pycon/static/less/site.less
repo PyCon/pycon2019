@@ -25,6 +25,9 @@
 ==================== */
 @import "bootstrap/bootstrap.less";
 
+/* Site Colors */
+@import "variables-site-colors.less";
+
 /* Fonts
 ==================== */
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,600,800);
@@ -1704,12 +1707,17 @@ body.sponsors-apply {
   table {
     width: 100%;
     border: 1px solid #dddddd;
+    background-color: @tanLight;
     font-size: 12px;
+    td {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 
 table.calendar {
-  background-color: white;
+  background-color: @tanLight;
   table-layout: fixed;
   font-size: 12px;
 
@@ -1728,6 +1736,7 @@ table.calendar {
   td {
     text-align: center;
     vertical-align: middle;
+    background-color: @tanLight;
 
     &.time {
       vertical-align: top;
@@ -1736,7 +1745,7 @@ table.calendar {
       margin-top: 0;
       color: #333333;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .title > a {
@@ -1747,24 +1756,24 @@ table.calendar {
     }
 
     .badges > .btn {
-      border: 2px solid @blueLight;
+      border: 2px solid @maroon;
       border-radius: 4px;
       background-color: white;
-      color: @blueLight;
+      color: @maroon;
       padding: 1px 8px;
       &:hover {
-        background-color: @blueDark;
-        border: 2px solid @blueDark;
+        background-color: @maroon;
+        border: 2px solid @maroon;
         color: white;
       }
     }
 
     &.slot {
-      font-weight: 700;
-      background-color: white;
+      font-weight: 600;
+      background-color: @tanLight;
 
-      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: @blueLight; color: white;}
-      &.slot-plenary, &.slot-lightning { background-color: @yellowLight; color: white;}
+      &.slot-Breakfast, &.slot-Break, &.slot-Lunch { background-color: @gold; color: white;}
+      &.slot-plenary, &.slot-lightning { background-color: @greenHill; color: white;}
       p {
         padding: 0;
         margin: 0;
@@ -1776,8 +1785,9 @@ table.calendar {
     }
 
     span.title {
-      font-weight: 700;
+      font-weight: 600;
       display: block;
+      color: @greenDark;
     }
     span.speaker {
       font-weight: 400;
@@ -1785,6 +1795,7 @@ table.calendar {
       font-size: 10px;
       line-height: 14px;
       margin: 2px 0 5px;
+      color: @maroon;
     }
   }
 }
