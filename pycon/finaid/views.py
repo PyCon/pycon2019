@@ -12,8 +12,6 @@ from django.http.response import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template, Context
 from django.utils.translation import ugettext as _
-from django.views.generic import DeleteView
-from django.http import Http404
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
@@ -452,16 +450,3 @@ def receipt_upload(request):
         'form': form,
         'receipts': receipts
     })
-
-
-class ReceiptDeleteView(DeleteView):
-    model = Receipt
-    template_name = 'finaid/delete_receipt.html'
-    success_url = reverse_lazy('receipt_upload')
-
-    def get_object(self, queryset=None):
-        """To ensure a delete is only done on receipts owned by this user."""
-        obj = super(ReceiptDeleteView, self).get_object()
-        if not obj.user == self.request.user:
-            raise Http404
-        return obj

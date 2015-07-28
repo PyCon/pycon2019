@@ -42,7 +42,6 @@
       <thead>
         <th>Item <i class="icon-sort"></i></th>
         <th>Amount <i class="icon-sort"></i></th>
-        <th>Delete <i class="icon-sort"></i></th>
       </thead>
 
       <tbody>
@@ -50,7 +49,6 @@
           <tr>
             <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.item }}</a></td>
             <td>{{ receipt.amount }}</td>
-            <td><a href="{% url 'receipt_delete' receipt.id %}">Delete?</a></td>
           </tr>
         {% endfor %}
       </tbody>

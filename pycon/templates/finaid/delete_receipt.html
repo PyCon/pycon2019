@@ -1,9 +1,0 @@
-{% extends "site_base.html" %}
-
-{% block body %}
-<form action="{% url 'receipt_delete' pk=receipt.id %}" method="post">{% csrf_token %}
-  <p>Are you sure you want to delete receipt <a href="{{ object.receipt_image.url }}" target="_blank">{{ object.item }}</a> for ${{ object.amount }}?</p>
-  <input type="submit" value="Yes, delete" class="btn btn-primary" />
-  <a class="btn btn-primary" href="{% url 'receipt_upload' %}">No, cancel</a>
-</form>
-{% endblock body %}
