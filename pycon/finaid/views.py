@@ -428,7 +428,7 @@ def finaid_download_csv(request):
 
 
 @login_required
-def receipt_form(request):
+def receipt_upload(request):
     receipts = Receipt.objects.filter(user__username=request.user.username)
 
     if request.method == 'POST':
@@ -445,7 +445,7 @@ def receipt_form(request):
 
     else:
         form = ReceiptForm()
-    return render(request, "finaid/receipt_form.html", {
+    return render(request, "finaid/receipt_upload.html", {
         'form': form,
         'receipts': receipts
     })
@@ -454,4 +454,4 @@ def receipt_form(request):
 @login_required
 def receipt_delete(request, pk):
     receipt = get_object_or_404(Receipt, pk=pk).delete()
-    return redirect("receipt_form")
+    return redirect("receipt_upload")
