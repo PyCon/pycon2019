@@ -429,7 +429,7 @@ def finaid_download_csv(request):
 
 @login_required
 def receipt_upload(request):
-    receipts = Receipt.objects.filter(user__username=request.user.username)
+    receipts = request.user.financial_aid_receipts.all()
 
     if request.method == 'POST':
         form = ReceiptForm(request.POST, request.FILES)
@@ -442,6 +442,7 @@ def receipt_upload(request):
             # Display a message to user
             messages.add_message(request, messages.INFO,
                                 _(u"Receipt submitted"))
+            return redirect("receipt_upload")
 
     else:
         form = ReceiptForm()
