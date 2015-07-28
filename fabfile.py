@@ -35,7 +35,7 @@ def production():
 
 
 def setup_path():
-    env.home = '/home/%(project_user)s/' % env
+    env.home = '/home/psf-users/%(project_user)s/' % env
     env.code_root = os.path.join(env.root, 'pycon')
     env.virtualenv_root = os.path.join(env.root, 'env')
     env.media_root = os.path.join(env.root, 'media')
@@ -82,17 +82,17 @@ def get_db_dump(dbname, clean=True):
 
     """
     require('environment')
-    if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir on the server of interest (not your local system)")
+    run('sudo -u pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -s pgpass -R default 2>/dev/null > ~/.pgpass')
+    run('chmod 600 ~/.pgpass')
     dump_file = '%(project)s-%(environment)s.sql' % env
     flags = '-Ox'
+    dsn = sudo('/srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -R default 2>/dev/null', user='pycon').stdout
     if clean:
         flags += 'c'
-    pg_dump = 'pg_dump -h %s -U %s %s %s' % (env.db_host, env.db_user,
-                                             flags, env.db)
+    pg_dump = 'pg_dump "%s" %s' % (dsn, flags)
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
-    local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
+    local('ssh -C %s \'%s\' > ~/%s' % (host, pg_dump, dump_file))
     local('dropdb %s; createdb %s' % (dbname, dbname))
     local('psql %s -f ~/%s' % (dbname, dump_file))
 
@@ -117,11 +117,12 @@ def load_db_dump(dump_file):
     """Given a dump on your home dir on the server, load it to the server's
     database, overwriting any existing data.  BE CAREFUL!"""
     require('environment')
-    if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir")
+    run('sudo -u pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -s pgpass -R default 2>/dev/null > ~/.pgpass')
+    run('chmod 600 ~/.pgpass')
     temp_file = os.path.join(env.home, '%(project)s-%(environment)s.sql' % env)
     put(dump_file, temp_file)
-    run('psql -h %s -U %s -d %s -f %s' % (env.db_host, env.db_user, env.db, temp_file))
+    dsn = sudo('/srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -R default 2>/dev/null', user='pycon').stdout
+    run('psql "%s" -f %s' % (dsn, temp_file))
 
 @task
 def make_messages():
