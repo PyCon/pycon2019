@@ -13,6 +13,7 @@ env.project = 'pycon'
 env.project_user = os.environ['LOGNAME']
 env.shell = '/bin/bash -c'
 env.settings = 'symposion.settings'
+env.use_ssh_config = True
 
 @task
 def staging():
