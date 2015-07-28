@@ -17,33 +17,27 @@ env.settings = 'symposion.settings'
 @task
 def staging():
     env.environment = 'staging'
-    env.hosts = ['virt-nsz0jn.psf.osuosl.org']
+    env.hosts = ['pycon-staging.iad1.psf.io']
     env.site_hostname = 'staging-pycon.python.org'
-    env.root = '/srv/staging-pycon.python.org'
+    env.root = '/srv/pycon'
     env.branch = 'staging'
-    env.db = 'psf-pycon-2016-staging'
-    env.db_host = 'pg2.osuosl.org'
-    env.db_user = 'psf-pycon-2016-staging'
     setup_path()
 
 @task
 def production():
     env.environment = 'production'
-    env.hosts = ['virt-ak9lsk.psf.osuosl.org']
+    env.hosts = ['pycon-prod.iad1.psf.io']
     env.site_hostname = 'us.pycon.org'
-    env.root = '/srv/staging-pycon.python.org'
+    env.root = '/srv/pycon'
     env.branch = 'production'
-    env.db = 'psf-pycon-2016'
-    env.db_host = 'pg2.osuosl.org'
-    env.db_user = 'psf-pycon-2016'
     setup_path()
 
 
 def setup_path():
     env.home = '/home/%(project_user)s/' % env
-    env.code_root = os.path.join(env.root, 'current')
-    env.virtualenv_root = os.path.join(env.root, 'shared/env')
-    env.media_root = os.path.join(env.root, 'shared', 'media')
+    env.code_root = os.path.join(env.root, 'pycon')
+    env.virtualenv_root = os.path.join(env.root, 'env')
+    env.media_root = os.path.join(env.root, 'media')
 
 
 @task
@@ -53,9 +47,8 @@ def manage_run(command):
     manage_cmd = ("{env.virtualenv_root}/bin/python "
         "manage.py {command}").format(env=env, command=command)
     dotenv_path = os.path.join(env.root, 'shared')
-    source_dotenv_cmd = ". {env}/.env".format(env=dotenv_path)
     with cd(env.code_root):
-        sudo(' && '.join((source_dotenv_cmd, manage_cmd)))
+        sudo(manage_cmd)
 
 
 @task
@@ -71,7 +64,7 @@ def deploy():
     # repo has changed, and if so, redeploy.  Or you can use this
     # to make it run immediately.
     require('environment')
-    sudo('chef-client')
+    sudo('salt-call state.highstate')
 
 @task
 def ssh():
