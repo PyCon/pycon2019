@@ -263,3 +263,5 @@ class Receipt(models.Model):
         help_text=_("Please enter the amount of the receipt in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     receipt_image = models.ImageField(upload_to=user_directory_path)
+    description = models.CharField(max_length=255,
+        help_text="Please enter a description of this receipt image.")

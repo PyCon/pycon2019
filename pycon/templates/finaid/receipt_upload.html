@@ -41,7 +41,8 @@
     <table class="table table-striped table-bordered table-finaid">
       <thead>
         <th>Item <i class="icon-sort"></i></th>
-        <th>Amount <i class="icon-sort"></i></th>
+	<th>Amount <i class="icon-sort"></i></th>
+        <th>Description <i class="icon-sort"></i></th>
       </thead>
 
       <tbody>
@@ -49,6 +50,7 @@
           <tr>
             <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.item }}</a></td>
             <td>{{ receipt.amount }}</td>
+            <td>{{ receipt.description }}</td>
           </tr>
         {% endfor %}
       </tbody>
