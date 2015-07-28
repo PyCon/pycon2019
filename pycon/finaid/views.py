@@ -7,11 +7,13 @@ from smtplib import SMTPException
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http.response import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template, Context
 from django.utils.translation import ugettext as _
+from django.views.generic import DeleteView
+from django.http import Http404
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
@@ -452,7 +454,14 @@ def receipt_upload(request):
     })
 
 
-@login_required
-def receipt_delete(request, pk):
-    receipt = get_object_or_404(Receipt, pk=pk).delete()
-    return redirect("receipt_upload")
+class ReceiptDeleteView(DeleteView):
+    model = Receipt
+    template_name = 'finaid/delete_receipt.html'
+    success_url = reverse_lazy('receipt_upload')
+
+    def get_object(self, queryset=None):
+        """To ensure a delete is only done on receipts owned by this user."""
+        obj = super(ReceiptDeleteView, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj

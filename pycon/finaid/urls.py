@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
-    finaid_review_detail, finaid_status, finaid_download_csv, receipt_upload, receipt_delete
+    finaid_review_detail, finaid_status, finaid_download_csv, receipt_upload, \
+    ReceiptDeleteView
 
 
 urlpatterns = patterns("",  # noqa
@@ -15,5 +16,5 @@ urlpatterns = patterns("",  # noqa
     url(r"^message/(?P<pks>[0-9,]+)/$", finaid_message, name="finaid_message"),
     url(r"^download/$", finaid_download_csv, name="finaid_download_csv"),
     url(r"^receipt_upload/$", receipt_upload, name="receipt_upload"),
-    url(r"^receipt_delete/(?P<pk>\d+)/$", receipt_delete , name="receipt_delete")
+    url(r"^receipt_delete/(?P<pk>\d+)/$", ReceiptDeleteView.as_view() , name="receipt_delete")
 )
