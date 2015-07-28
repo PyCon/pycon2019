@@ -9,6 +9,7 @@ def financial_aid(request):
         "show_finaid_status_button": has_application(request.user),
         "show_finaid_review_button": is_reviewer(request.user),
         "show_finaid_download_button": is_reviewer(request.user),
+        #FIXME - figure out the requirements for when to show the finaid receipt form
         "show_finaid_receipt_form": has_application(request.user),
     }
 

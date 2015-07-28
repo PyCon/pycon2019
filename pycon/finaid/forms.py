@@ -91,4 +91,4 @@ class BulkEmailForm(forms.Form):
 class ReceiptForm(forms.ModelForm):
     class Meta:
         model = Receipt
-        fields = ["item", "amount", "new_file"]
+        fields = ["item", "amount", "receipt_image"]

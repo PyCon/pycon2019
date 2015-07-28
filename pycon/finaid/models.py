@@ -262,4 +262,4 @@ class Receipt(models.Model):
         verbose_name=_("Amount"),
         help_text=_("Please enter the amount of the receipt in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    new_file = models.ImageField(upload_to=user_directory_path)
+    receipt_image = models.ImageField(upload_to=user_directory_path)

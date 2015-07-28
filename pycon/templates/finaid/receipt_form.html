@@ -48,7 +48,7 @@
       <tbody>
         {% for receipt in receipts %}
           <tr>
-            <td><a href="{{ receipt.new_file.url }}">{{ receipt.item }}</a></td>
+            <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.item }}</a></td>
             <td>{{ receipt.amount }}</td>
             <td><a href="{% url 'receipt_delete' receipt.id %}">Delete?</a></td>
           </tr>
