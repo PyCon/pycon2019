@@ -12,9 +12,9 @@ html5lib==0.999
 django-social-auth==0.7.28
 
 psycopg2==2.5.3
-gunicorn==0.17.4
+gunicorn==19.3.0
 django-secure==1.0
-raven==3.3.7
+raven==5.5.0
 django-constance[database]==1.0.1
 django-picklefield==0.3.0
 

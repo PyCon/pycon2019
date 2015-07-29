@@ -3,22 +3,48 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 
+from multi_email_field.forms import MultiEmailField
+
 from pycon.sponsorship.models import Sponsor, SponsorBenefit
 
 
-class SponsorApplicationForm(forms.ModelForm):
+class SponsorDetailsForm(forms.ModelForm):
+    contact_emails = MultiEmailField(
+        help_text=_(u"Please enter one email address per line.")
+    )
 
     class Meta:
         model = Sponsor
-        fields = ["name", "contact_name", "contact_email", "contact_phone",
-                  "contact_address", "level", "wants_table", "wants_booth"]
+        fields = ["name",
+                  "contact_name",
+                  "contact_emails",
+                  "contact_phone",
+                  "contact_address",
+                  "external_url",
+                  "display_url",
+                  "web_description",
+                  "web_logo",
+                  ]
+        widgets = {
+            'web_description': forms.widgets.Textarea(attrs={'cols': 40, 'rows': 5}),
+        }
+
+
+class SponsorApplicationForm(SponsorDetailsForm):
+
+    class Meta(SponsorDetailsForm.Meta):
+        fields = SponsorDetailsForm.Meta.fields + [
+            "level",
+            "wants_table",
+            "wants_booth",
+        ]
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         kwargs.update({
             "initial": {
                 "contact_name": self.user.get_full_name(),
-                "contact_email": self.user.email,
+                "contact_emails": [self.user.email],
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
@@ -31,16 +57,6 @@ class SponsorApplicationForm(forms.ModelForm):
         return obj
 
 
-class SponsorDetailsForm(forms.ModelForm):
-    class Meta:
-        model = Sponsor
-        fields = [
-            "name",
-            "external_url",
-            "contact_name",
-            "contact_email"
-        ]
-
 
 class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
 
@@ -50,7 +66,6 @@ class SponsorBenefitsInlineFormSet(BaseInlineFormSet):
         # only include the relevant data fields for this benefit type
         fields = form.instance.data_fields()
         form.fields = dict((k, v) for (k, v) in form.fields.items() if k in fields + ["id"])
-        print form.fields
         for field in fields:
             # don't need a label, the form template will label it with the benefit name
             form.fields[field].label = ""

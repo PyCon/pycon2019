@@ -20,6 +20,13 @@ from ..models import Benefit, Sponsor, SponsorBenefit, SponsorLevel
 from .factories import SponsorLevelFactory
 
 
+# Tiny image file for testing
+TEST_IMAGE_FILENAME = os.path.join(os.path.dirname(__file__), 'colormap.gif')
+TEST_IMAGE = open(TEST_IMAGE_FILENAME, "rb").read()
+# Where the fixtures are
+FIXTURE_DIR = os.path.join(os.path.dirname(__file__), '../../../fixtures')
+
+
 class TestSponsorZipDownload(TestCase):
 
     def setUp(self):
@@ -242,6 +249,11 @@ class TestSponsorZipDownload(TestCase):
 
 
 class TestSponsorApply(ViewTestMixin, TestCase):
+    fixtures = [
+        os.path.join(FIXTURE_DIR, 'conference.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_levels.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_benefits.json'),
+    ]
     url_name = 'sponsor_apply'
 
     def setUp(self):
@@ -253,12 +265,15 @@ class TestSponsorApply(ViewTestMixin, TestCase):
         self.data = {
             'name': 'Sponsor',
             'contact_name': self.user.get_full_name(),
-            'contact_email': self.user.email,
+            'contact_emails': [self.user.email],
             'contact_phone': '336-867-5309',
             'contact_address': '123 Main Street, Anytown, NC 90210',
             'level': self.sponsor_level.pk,
             'wants_table': True,
             'wants_booth': True,
+            'web_logo': open(TEST_IMAGE_FILENAME, "rb"),
+            'external_url': 'http://example.com',
+            'web_description': 'Fools paradise',
         }
 
     def test_get_unauthenticated(self):
@@ -281,6 +296,9 @@ class TestSponsorApply(ViewTestMixin, TestCase):
         response = self.client.post(reverse(self.url_name), data=self.data)
         self.assertRedirectsNoFollow(response, reverse('dashboard'))
         self.assertEqual(Sponsor.objects.count(), 1)
+        sponsor = Sponsor.objects.first()
+        self.assertEqual(self.data['web_description'], sponsor.web_description)
+        self.assertEqual(TEST_IMAGE, sponsor.web_logo.read())
 
     def test_post_invalid(self):
         response = self.client.post(reverse(self.url_name), data={})
@@ -288,3 +306,18 @@ class TestSponsorApply(ViewTestMixin, TestCase):
         self.assertTrue('form' in response.context)
         self.assertTrue(response.context['form'].is_bound)
         self.assertFalse(response.context['form'].is_valid())
+
+    def test_company_link_required(self):
+        self.data.pop('external_url')
+        response = self.client.post(reverse(self.url_name), data=self.data)
+        self.assertIn('external_url', response.context['form'].errors)
+
+    def test_web_description_required(self):
+        self.data.pop('web_description')
+        response = self.client.post(reverse(self.url_name), data=self.data)
+        self.assertIn('web_description', response.context['form'].errors)
+
+    def test_web_logo_required(self):
+        self.data.pop('web_logo')
+        response = self.client.post(reverse(self.url_name), data=self.data)
+        self.assertIn('web_logo', response.context['form'].errors)
