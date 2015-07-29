@@ -1,9 +1,9 @@
-PyCon 2015 website being built by Caktus Consulting Group, based on symposion.
+PyCon 2016 website being built by Caktus Consulting Group, based on symposion.
 
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
 
-PyCon 2015 is built on top of Pinax Symposion but may have customizations that
+PyCon 2016 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
 
 Installation instructions are in this README.  There's more documentation
@@ -92,11 +92,11 @@ For production
 
     python manage.py collectstatic --noinput
 
-* Arrange to serve the site_media directory as ``/2015/site_media/whatever``.
-  E.g. ``site_media/foo.html`` would be at ``/2015/site_media/foo.html``.
+* Arrange to serve the site_media directory as ``/2016/site_media/whatever``.
+  E.g. ``site_media/foo.html`` would be at ``/2016/site_media/foo.html``.
 * Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running
   with the same virtualenv (or equivalent).  It will only handle URLs
-  starting with ``/2015`` though, so you don't have to pass it any other requests.
+  starting with ``/2016`` though, so you don't have to pass it any other requests.
 
 To run tests
 ------------

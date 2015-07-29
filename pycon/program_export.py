@@ -158,9 +158,7 @@ class SponsorsExporter(BaseExporter):
         return ''
 
     def prepare_web_description(self, sponsor):
-        if sponsor.company_description_benefit:
-            return sponsor.sponsor_benefits.get(benefit__name='Company Description').text
-        return ''
+        return sponsor.web_description
 
     def export(self):
         queryset = Sponsor.objects.exclude(active=False)

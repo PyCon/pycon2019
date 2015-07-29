@@ -12,10 +12,11 @@
 
     {% box "sponsorship-apply" %}
 
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" >
         {% csrf_token %}
         <legend>{% trans "Apply to be a Sponsor" %}</legend>
         {{ form|as_bootstrap }}
+
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% trans "Apply" %}" />
             <p class="help-block">
