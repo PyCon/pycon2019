@@ -61,7 +61,7 @@ def manage_shell():
 @task
 def deploy():
     """Deploy to a given environment."""
-    # NOTE: chef will check every 30 minutes or so whether the
+    # NOTE: salt will check every 15 minutes whether the
     # repo has changed, and if so, redeploy.  Or you can use this
     # to make it run immediately.
     require('environment')
