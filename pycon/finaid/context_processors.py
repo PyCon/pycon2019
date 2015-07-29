@@ -1,14 +1,25 @@
-from pycon.finaid.utils import applications_open, has_application, is_reviewer
+from pycon.finaid.utils import applications_open, has_application, is_reviewer, \
+    has_withdrawn_application
 
 
 def financial_aid(request):
     open = applications_open()
+    if has_application(request.user):
+        application = request.user.financial_aid
+    else:
+        application = None
+
     ctx = {
-        "show_finaid_apply_button": open and not has_application(request.user),
-        "show_finaid_edit_button": open and has_application(request.user),
-        "show_finaid_status_button": has_application(request.user),
+        "show_finaid_apply_button": open and (not application or has_withdrawn_application(request.user)),
+        "show_finaid_edit_button": application and application.show_edit_button,
+        "show_finaid_status_button": application and application.show_status_button,
         "show_finaid_review_button": is_reviewer(request.user),
         "show_finaid_download_button": is_reviewer(request.user),
+        "show_finaid_withdraw_button": application and application.show_withdraw_button,
+        "show_finaid_accept_button": application and application.show_accept_button,
+        "show_finaid_decline_button": application and application.show_decline_button,
+        "show_finaid_request_more_button": application and application.show_request_more_button,
+        "show_finaid_provide_info_button": application and application.show_provide_info_button,
     }
 
     ctx["show_financial_aid_section"] = \

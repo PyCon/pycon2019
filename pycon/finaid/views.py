@@ -16,7 +16,9 @@ from django.utils.translation import ugettext as _
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, STATUS_CHOICES
+    FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN
+from pycon.finaid.models import STATUS_SUBMITTED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, \
+    STATUS_NEED_MORE, STATUS_INFO_NEEDED
 from .utils import applications_open, email_address, email_context, \
     has_application, is_reviewer, send_email_message
 
@@ -36,7 +38,10 @@ def finaid_edit(request):
 
     if has_application(request.user):
         application = request.user.financial_aid
-        applying = False
+        if application.status == STATUS_WITHDRAWN:
+            applying = True
+        else:
+            applying = False
     else:
         application = FinancialAidApplication(user=request.user)
         applying = True
@@ -44,7 +49,9 @@ def finaid_edit(request):
     form = FinancialAidApplicationForm(request.POST or None,
                                        instance=application)
     if form.is_valid():
-        form.save()
+        application = form.save()
+        if applying:
+            application.set_status(STATUS_SUBMITTED, save=True)
 
         context = email_context(request, application)
 
@@ -355,6 +362,210 @@ def finaid_status(request):
         'application': request.user.financial_aid,
         'visible_messages': visible_messages,
         'form': message_form,
+    })
+
+
+@login_required
+def finaid_accept(request):
+    """
+    Allow an applicant to accept an offer
+    """
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+    if request.user.financial_aid.status != STATUS_OFFERED:
+        messages.error(request, _(u"There is no pending offer of assistance."))
+        return redirect("dashboard")
+
+    if request.method == 'POST':
+        application = request.user.financial_aid
+        try:
+            review = application.review
+        except FinancialAidReviewData.DoesNotExist:
+            review = FinancialAidReviewData(application=application)
+
+        application.set_status(STATUS_ACCEPTED)
+        application.save()
+        message = FinancialAidMessage.objects.create(
+            user=request.user,
+            application=application,
+            visible=True,
+            message="The applicant has accepted their financial aid offer",
+        )
+        context = email_context(request, application, message)
+        send_email_message("reviewer/message",
+                           from_=request.user.email,
+                           to=[email_address()],
+                           context=context,
+                           subject_template="{% load review_tags %}{{ user.get_full_name|bleach|safe }} has accepted their financial aid offer")
+        messages.info(request, "The offer has been accepted")
+        return redirect("dashboard")
+    return render(request, "finaid/confirm.html", {
+        'message': _("Do you want to accept the offer?")
+    })
+
+
+@login_required
+def finaid_decline(request):
+    """
+    Allow an applicant to decline an offer
+    """
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+    if request.user.financial_aid.status != STATUS_OFFERED:
+        messages.error(request, _(u"There is no pending offer of assistance."))
+        return redirect("dashboard")
+
+    if request.method == 'POST':
+        application = request.user.financial_aid
+        try:
+            review = application.review
+        except FinancialAidReviewData.DoesNotExist:
+            review = FinancialAidReviewData(application=application)
+
+        application.set_status(STATUS_DECLINED)
+        application.save()
+        message = FinancialAidMessage.objects.create(
+            user=request.user,
+            application=application,
+            visible=True,
+            message="The applicant has declined their financial aid offer",
+        )
+        context = email_context(request, application, message)
+        send_email_message("reviewer/message",
+                           from_=request.user.email,
+                           to=[email_address()],
+                           context=context,
+                           subject_template="{% load review_tags %}{{ user.get_full_name|bleach|safe }} has declined their financial aid offer")
+        messages.info(request, "The offer has been declined")
+        return redirect("dashboard")
+    return render(request, "finaid/confirm.html", {
+        'message': _("Do you want to decline the offer?")
+    })
+
+
+@login_required
+def finaid_provide_info(request):
+    """
+    Allow an applicant to provide information that was requested.
+    """
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+    if request.user.financial_aid.status != STATUS_INFO_NEEDED:
+        messages.error(request, _(u"There is no pending request for information."))
+        return redirect("dashboard")
+    if request.method == 'POST':
+        application = request.user.financial_aid
+        message = FinancialAidMessage(user=request.user,
+                                      application=application,
+                                      visible=True)
+        message_form = MessageForm(request.POST, instance=message)
+        if message_form.is_valid():
+            message = message_form.save()
+
+            # Send notice to the reviewers/pycon-aid alias
+            # (applicant submitted this message so no need to tell them)
+            context = email_context(request, application, message)
+            send_email_message("applicant/provide_info",
+                               from_=request.user.email,
+                               to=[email_address()],
+                               context=context)
+
+            application.set_status(STATUS_SUBMITTED)
+            application.save()
+
+            return redirect('dashboard')
+    else:
+        message_form = MessageForm()
+
+    return render(request, "finaid/provide_info.html", {
+        'form': message_form,
+    })
+
+@login_required
+def finaid_request_more(request):
+    """
+    Allow an applicant to request more than was offered.
+    """
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+    if request.user.financial_aid.status != STATUS_OFFERED:
+        messages.error(request, _(u"There is no pending offer of assistance."))
+        return redirect("dashboard")
+    if request.method == 'POST':
+        application = request.user.financial_aid
+        message = FinancialAidMessage(user=request.user,
+                                      application=application,
+                                      visible=True)
+        message_form = MessageForm(request.POST, instance=message)
+        if message_form.is_valid():
+            message = message_form.save()
+
+            # Send notice to the reviewers/pycon-aid alias
+            # (applicant submitted this message so no need to tell them)
+            context = email_context(request, application, message)
+            send_email_message("applicant/request_more",
+                               from_=request.user.email,
+                               to=[email_address()],
+                               context=context)
+
+            application.set_status(STATUS_NEED_MORE)
+            application.save()
+
+            return redirect('dashboard')
+    else:
+        message_form = MessageForm()
+
+    return render(request, "finaid/request_more.html", {
+        'form': message_form,
+    })
+
+
+@login_required
+def finaid_withdraw(request):
+    """
+    Allow an applicant to withdraw their application
+    """
+    if not has_application(request.user):
+        messages.add_message(request, messages.ERROR,
+                             _(u'You have not applied for financial aid'))
+        return redirect("dashboard")
+    if request.user.financial_aid.status == STATUS_WITHDRAWN:
+        messages.error(request, _(u"The application has already been withdrawn"))
+        return redirect("dashboard")
+
+    if request.method == 'POST':
+        application = request.user.financial_aid
+        try:
+            review = application.review
+        except FinancialAidReviewData.DoesNotExist:
+            review = FinancialAidReviewData(application=application)
+
+        application.set_status(STATUS_WITHDRAWN)
+        application.save()
+        message = FinancialAidMessage.objects.create(
+            user=request.user,
+            application=application,
+            visible=True,
+            message="The applicant has withdrawn their financial aid application",
+        )
+        context = email_context(request, application, message)
+        send_email_message("reviewer/message",
+                           from_=request.user.email,
+                           to=[email_address()],
+                           context=context,
+                           subject_template="{% load review_tags %}{{ user.get_full_name|bleach|safe }} has withdrawn their financial aid application")
+        messages.info(request, "The application has been withdrawn")
+        return redirect("dashboard")
+    return render(request, "finaid/confirm.html", {
+        'message': _("Do you want to withdraw your application?")
     })
 
 

@@ -1,0 +1,7 @@
+{% load review_tags %}
+Message from {{ user.get_full_name|bleach|safe }} requesting more assistance.
+
+Submitted: {{ message.submitted_at }}
+Link:      {{ fa_app_url }}
+
+{{ message.message|bleach|safe }}

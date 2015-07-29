@@ -2,7 +2,6 @@ from decimal import Decimal
 import datetime
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -125,6 +124,17 @@ class FinancialAidApplication(models.Model):
         except FinancialAidReviewData.DoesNotExist:
             return STATUS_SUBMITTED  # Default status
 
+    def set_status(self, status, save=False):
+        if status != self.status:
+            try:
+                review = self.review
+            except FinancialAidReviewData.DoesNotExist:
+                review = FinancialAidReviewData(application=self)
+            review.status = status
+            review.save()
+        if save:
+            self.save()
+
     def get_status_display(self):
         try:
             return self.review.get_status_display()
@@ -151,6 +161,34 @@ class FinancialAidApplication(models.Model):
     def fa_app_url(self):
         """URL for the detail view of a financial aid application"""
         return reverse('finaid_review_detail', args=[str(self.pk)])
+
+    @property
+    def show_status_button(self):
+        return self.status != STATUS_WITHDRAWN
+
+    @property
+    def show_edit_button(self):
+        return self.status == STATUS_SUBMITTED
+
+    @property
+    def show_withdraw_button(self):
+        return self.status in [STATUS_SUBMITTED, STATUS_INFO_NEEDED]
+
+    @property
+    def show_accept_button(self):
+        return self.status == STATUS_OFFERED
+
+    @property
+    def show_decline_button(self):
+        return self.status == STATUS_OFFERED
+
+    @property
+    def show_request_more_button(self):
+        return self.status == STATUS_OFFERED
+
+    @property
+    def show_provide_info_button(self):
+        return self.status == STATUS_INFO_NEEDED
 
 
 class FinancialAidMessage(models.Model):
