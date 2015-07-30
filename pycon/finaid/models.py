@@ -252,16 +252,13 @@ def user_directory_path(instance, filename):
 
 class Receipt(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                  related_name='financial_aid_receipts')
     application = models.ForeignKey(FinancialAidApplication,
                                     related_name="receipts")
 
-    item = models.CharField(max_length=255)
+    description = models.CharField(max_length=255,
+        help_text="Please enter a description of this receipt image.")
     amount = models.DecimalField(
         verbose_name=_("Amount"),
         help_text=_("Please enter the amount of the receipt in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     receipt_image = models.ImageField(upload_to=user_directory_path)
-    description = models.CharField(max_length=255,
-        help_text="Please enter a description of this receipt image.")
