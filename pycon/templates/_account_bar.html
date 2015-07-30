@@ -18,7 +18,7 @@
         |
         <a href="{% url 'account_settings' %}">{% trans "Settings" %}</a>
         <form action="{% url 'account_logout' %}" method="post">{% csrf_token %}
-            <button type="submit">{% trans "Log out" %}</button>
+            <button class="logout" type="submit">{% trans "Log out" %}</button>
         </form>
     {% else %}
         <a class="login" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
