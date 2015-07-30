@@ -25,7 +25,6 @@ body {
 		float: none;
 		margin: 0 auto;
 	}
-
 	.python-footer-block {
 		@media (min-width: @breakTablet) {
 			padding-top: 4em;
@@ -314,38 +313,6 @@ body.home {
 			}
 		}
 	}
-	.home-schedule {
-		.tutorial {
-			@media (max-width: @breakDesktop) {
-			  padding: 10px;
-			  height: 230px;
-			}
-			@media (max-width: @breakTablet) {
-			  height: auto;
-			}
-		}
-
-		.conference {
-			@media (max-width: @breakDesktop) {
-			  padding: 10px;
-			  height: 290px;
-			}
-			@media (max-width: @breakTablet) {
-			  padding: 10px;
-			  height: auto;
-			}
-		}
-
-		.sprints {
-			@media (max-width: @breakDesktop) {
-			  padding: 10px;
-			  height: 180px;
-			}
-			@media (max-width: @breakTablet) {
-			  height: auto;
-			}
-		}
-	}
 
 	.sponsor-crawl {
 		@media (max-width: @breakMobileLandscape) {
@@ -361,19 +328,20 @@ body.home {
 				text-align: center;
 	      	}
 		}
-	}
-	.sponsor-scroll-item {
-		@media (max-width: @breakDesktopLarge) {
-			width: 20%;
-			margin: .5em 2%;
-		}
-		@media (max-width: @breakTablet) {
-			width: 46%;
-			margin: .5em 2%;
-		}
-		@media (max-width: @breakMobileLandscape) {
-			width: 90%;
-			margin: .5em 5%;
+
+		.sponsor-scroll-item {
+			@media (max-width: @breakDesktopLarge) {
+				width: 21%;
+				margin: .5em 2%;
+			}
+			@media (max-width: @breakTablet) {
+				width: 46%;
+				margin: .5em 2%;
+			}
+			@media (max-width: @breakMobileLandscape) {
+				width: 90%;
+				margin: .5em 5%;
+			}
 		}
 	}
 	  /* Slideshow nav
@@ -382,11 +350,6 @@ body.home {
 		@media (max-width: @breakTablet) {
 			font-size: 30px;
 			margin: 20px 0 5px;
-		}
-	}
-	.horizontalline {
-		@media (max-width: @breakTablet) {
-			margin-bottom: 20px;
 		}
 	}
 	.homepage-content {
@@ -434,16 +397,17 @@ body.home {
 /* CMS Page
 ==================== */
 body.cms-page {
-	aside .sponsor-list {
-		@media (max-width: @breakTablet) {
-			padding: 0;
-			border-left: none;
-			border-top: 1px solid @grayLighter;
-			h2 {
-				font-size: 36px;
-				padding-top: 20px;
-			}
-		}
+	@media (min-width: @breakTablet) {
+		.internal-content{
+	    width: 80%;
+	    margin: 0 10%;
+	  }
+	}
+	@media (min-width: @breakDesktop) {
+		.internal-content{
+	    width: 70%;
+	    margin: 0 15%;
+	  }
 	}
 }
 

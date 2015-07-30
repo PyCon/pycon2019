@@ -99,13 +99,52 @@
                 <div class="container">
 
                     <div class="row">
-                        <div class="span9">
+                        <div class="internal-content">
                             {% block edit_page %}{% endblock %}
                             <div class="box">
                                 <div class="box-content">{% block body %}{% endblock %}</div>
                             </div>
                         </div>
-                        <aside class="span2">
+                        <div class="span12 col-centered sponsor-crawl">
+                            {% cache 600 "homepage-sponsor-slider" %}
+                                <h2 class="scroll-title-first">Sponsors</h2>
+                                {% sponsors "diamond" as diamond_sponsors %}
+                                <div id="sponsorslider" class="carousel slide col-centered">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        {% sponsors as all_sponsors %}
+                                        {# sponsors without levels, 12 per each slide #}
+                                        {% for sponsor in all_sponsors %}
+                                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                                <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                                            {% endif %}
+
+                                            <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                                                <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
+                                            </a>
+                                            {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
+                                        {% endfor %}
+                                    </div>
+
+
+                                    {% if all_sponsors.count > 12 %}
+                                      <!-- Carousel nav -->
+                                      <nav id="slider-nav">
+                                        <div class="slider-nav">
+                                            <div class="nav-container">
+                                            {% for sponsor in all_sponsors %}
+                                                {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </div>
+                                        </div>
+                                      </nav>
+                                    {% endif %}
+                                </div>
+                            {% endcache %}
+                        </div>
+<!--                        <aside class="span2">
                             {% block sidebar %}
                             {% cache 600 "sidebar" %}
                                 <div class="sponsor-list">
@@ -125,6 +164,7 @@
                             {% endcache %}
                             {% endblock %}
                         </aside>
+-->
                     </div>
                 </div>
                 {% endblock %}
