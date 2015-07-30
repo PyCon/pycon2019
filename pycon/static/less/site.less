@@ -923,48 +923,25 @@ body.home {
       }
     }
   }
+} /* End Homepage */
 
-  /* Sponsor slideshow
-  ==================== */
-  .sponsor-crawl {
-    position: relative;
-    padding: 3em 0;
-    width: 100%;
-    .sponsorship-link {
-      position: absolute;
-      right: 20px;
-      top: 78px;
-      z-index: 999;
-      a {
-        .btn;
-        .btn-success;
-      }
-    }
-  }
-  ul#slider {
-    display: block;
-    width: 100%;
-    height:120px; /* 260px - actual height */
-    overflow: hidden;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      margin-left:-19px;
-      display:none;
-    }
-
-    li.first {
-      display:block;
-    }
-
+/* Sponsor slideshow
+==================== */
+.sponsor-crawl {
+  position: relative;
+  padding: 3em 0;
+  width: 100%;
+  .sponsorship-link {
+    position: absolute;
+    right: 20px;
+    top: 78px;
+    z-index: 999;
     a {
       .btn;
       .btn-success;
     }
   }
-} /* End Homepage */
+}
 
 ul#slider {
   display: block;
@@ -976,7 +953,6 @@ ul#slider {
   padding: 0;
 
   li {
-    margin-left:-19px;
     display:none;
     .scroll-title,
     .scroll-title-first {
@@ -991,9 +967,9 @@ ul#slider {
       display:block;
       float:left;
       width: 14%;
+      margin: .5em 1.32%;
       height: 100px;
       margin: 1.25%;
-      background: darken(@tanCity, 4%) center center no-repeat;
       background-size: 95px auto;
     }
 
@@ -1039,9 +1015,10 @@ ul#slider {
 .sponsor-scroll-item {
   cursor: pointer;
   float:left;
-  width: 195px;
+  width: 14%;
+  margin: .5em 1.32%;
   height: 100px;
-  background: none center center no-repeat;
+  background: darken(@tanCity, 4%) center center no-repeat;
   background-size: 95px auto;
 }
 
