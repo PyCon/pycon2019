@@ -24,6 +24,7 @@
     {% else %}
         {% compress css %}
             <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}css/flickity.css" />
         {% endcompress %}
     {% endif %}
 
@@ -130,48 +131,44 @@
             </div>
         {% endblock %}
     </div>
-    <div class="bottombg">
-        <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
+    <div class="python-footer-block">
+      <div class="logo-block">
+        <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=80 alt="Python Software Foundation logo">
+        {{ SITE_NAME }} in Portland, Or is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+      </div>
+      <img class="footer-forest" src="{{ STATIC_URL }}img/PNG/footer-trees.png" width=400 height=180 alt="Evergreen tree illustration above footer content">
     </div>
     <footer>
         <div class="container">
         {% block footer %}
             <div class="row-fluid footer-content col-centered">
-                <div class="span4">
-                    <div class="footer-left">
-                        <p>
-                          {% blocktrans %}
-                            {{ SITE_NAME }} in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.</br>
-                            Site utilizes <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>
-                          {% endblocktrans %}
-                        </p>
-                    </div>
+                <div class="span3">
+                  <p>
+                    {% blocktrans %}
+                      Site utilizes <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>
+                    {% endblocktrans %}
+                  </p>
                 </div>
-                <div class="span4">
-                    <div class="span3">
-                        <div class="row-fluid">
-                            <a href="http://caktusgroup.com">
-                                <img class="caktus-logo" src="{{ STATIC_URL }}img/caktusgroup-logo-black.png" alt="Caktus Consulting Group">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="span9">
-                        <div class="footer-center">
-                            <p>
-                                Site built and designed by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a>
-                            </p>
-                        </div>
-                    </div>
+                <div class="span3">
+                  <p>
+                  {% blocktrans %}
+                    Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                  {% endblocktrans %}
+                  </p>
                 </div>
-                <div class="span4">
-                    <div class="footer-right">
-                        <p>
-                          {% blocktrans %}
-                            Questions? Comments? Contact <a href="mailto:pycon-reg@python.org">pycon-reg@python.org</a></br>
-                            Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
-                          {% endblocktrans %}
-                        </p>
-                    </div>
+                <div class="span3">
+                  <p>
+                    {% blocktrans %}
+                      Questions? Comments? Contact <a href="mailto:pycon-reg@python.org">pycon-reg@python.org</a></br>
+                    {% endblocktrans %}
+                  </p>
+                </div>
+                <div class="span3">
+                  <div class="footer-center">
+                      <p>
+                          Site built and designed by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a>
+                      </p>
+                  </div>
                 </div>
             </div>
         {% endblock %}
@@ -182,5 +179,6 @@
 {% block script_base %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
+    <script src="{% static "js/flickity.pkgd.js" %}"></script>
     {% block extra_script %}{% endblock %}
 {% endblock %}
