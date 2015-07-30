@@ -30,7 +30,7 @@ anything.
 
 ``base`` has some minimal, conservative settings:
 
-* Database is "pycon2015" using Postgres.
+* Database is "pyconYYYY" using Postgres.
 * DEBUG is False.
 * COMPRESS_ENABLED is False.
 * Email handler set to console.

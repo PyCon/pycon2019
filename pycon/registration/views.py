@@ -62,7 +62,7 @@ class GroupRegistration(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         return super(GroupRegistration, self).dispatch(request, *args, **kwargs)
 
-    @transaction.commit_manually
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body)
@@ -123,12 +123,11 @@ class GroupRegistration(TemplateView):
                     # create an Account for the user so that they can log in.
                     user = User.objects.get(pk=d['user']['pycon_id'])
                     Account.create(user=user)
-            transaction.commit()
         else:
             for d in user_data:
                 d['user'] = None
                 d.pop('created', None)
-            transaction.rollback()
+            transaction.set_rollback(True)
 
         return_data = {'success': all_valid, 'users': user_data}
         return HttpResponse(json.dumps(return_data))

@@ -31,7 +31,7 @@ log = logging.getLogger(__name__)
 @login_required
 def sponsor_apply(request):
     if request.method == "POST":
-        form = SponsorApplicationForm(request.POST, user=request.user)
+        form = SponsorApplicationForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             form.save()
             return redirect("dashboard")
@@ -185,8 +185,9 @@ def sponsor_email(request, pks):
 
     address_list = []
     for sponsor in sponsors:
-        if sponsor.contact_email.lower() not in address_list:
-            address_list.append(sponsor.contact_email.lower())
+        for email in sponsor.contact_emails:
+            if email.lower() not in address_list:
+                address_list.append(email.lower())
         if sponsor.applicant.email.lower() not in address_list:
             address_list.append(sponsor.applicant.email.lower())
 
@@ -206,8 +207,9 @@ def sponsor_email(request, pks):
             # body as templates.
             for sponsor in sponsors:
                 address_list = []
-                if sponsor.contact_email.lower() not in address_list:
-                    address_list.append(sponsor.contact_email.lower())
+                for email in sponsor.contact_emails:
+                    if email.lower() not in address_list:
+                        address_list.append(email.lower())
                 if sponsor.applicant.email.lower() not in address_list:
                     address_list.append(sponsor.applicant.email.lower())
 

@@ -1,9 +1,9 @@
-PyCon 2015 website being built by Caktus Consulting Group, based on symposion.
+PyCon 2016 website being built by Caktus Consulting Group, based on symposion.
 
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
 
-PyCon 2015 is built on top of Pinax Symposion but may have customizations that
+PyCon 2016 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
 
 Installation instructions are in this README.  There's more documentation
@@ -12,6 +12,23 @@ at https://readthedocs.org/projects/pycon/.
 To get running locally
 ----------------------
 
+* First, if you're not on Ubuntu 12.04 or 14.04, you might need to do the following in
+  a virtual machine that is running one of them.  You can use the provided
+  Vagrantfile to create one running Ubuntu 12.04 and install some of the prerequisites::
+
+    $ vagrant up
+
+  That'll have the current local directory mounted internally as /vagrant.
+  Ssh into the vagrant system and change directories to /vagrant::
+
+    $ vagrant ssh
+    $ cd /vagrant
+
+  and then continue working there with the following instructions.
+
+* If you are already on an Ubuntu system (12.04 or 14.04), you can skip using vagrant and
+  just continue on from here.
+
 * Create a new virtualenv and activate it::
 
     $ virtualenv env/pycon
@@ -19,7 +36,7 @@ To get running locally
 
 * Install the requirements for running and testing locally::
 
-    $ pip install -r requirements/dev.txt
+    $ pip install --trusted-host dist.pinaxproject.com -r requirements/dev.txt
 
   (For production, install -r requirements/project.txt).
 
@@ -27,24 +44,33 @@ To get running locally
 * Edit ``pycon/settings/local.py`` according to the comments. Note that you
   `will` have to edit it; by default everything there is commented out.
 
-* Setup the database::
+* If you have ssh access to the staging server, copy the database and media::
 
-    $ ./load_fixtures.sh
+    $ fab staging get_db_dump:pycon2016
+    $ fab staging get_media
+
+  Change ``pycon2016`` in that first command to the name of your local database.
+
+  If you get Postgres authorization errors when trying the get_db_dump,
+  find another developer who has access already and copy the ~/.pgpass
+  file from their account on that server to your own account; it has the
+  userids and passwords for the databases.
+
+* Otherwise, ask someone for help. We don't have a good way currently to
+  get a new system running from scratch.
 
 * Create a user account::
 
     $ ./manage.py createsuperuser
 
-* If you have ssh access to the staging server, copy the database and media::
+* Run local server, binding to all IP addresses, and using port 8000::
 
-    $ fab staging get_db_dump:pycon2015
-    $ fab staging get_media
+    python manage.py runserver 0.0.0.0:8000
 
-  Change ``pycon2015`` in that first command to the name of your local database.
+* Now you should be able to visit the running site from your host system's browser
+  at `http://localhost:8000`.  (If you're running Vagrant, Vagrant fowards port 8000
+  from the Vagrant system to the host system.)
 
-* Run local server::
-
-    python manage.py runserver
 
 For production
 --------------
@@ -66,18 +92,27 @@ For production
 
     python manage.py collectstatic --noinput
 
-* Arrange to serve the site_media directory as ``/2015/site_media/whatever``.
-  E.g. ``site_media/foo.html`` would be at ``/2015/site_media/foo.html``.
+* Arrange to serve the site_media directory as ``/2016/site_media/whatever``.
+  E.g. ``site_media/foo.html`` would be at ``/2016/site_media/foo.html``.
 * Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running
   with the same virtualenv (or equivalent).  It will only handle URLs
-  starting with ``/2015`` though, so you don't have to pass it any other requests.
+  starting with ``/2016`` though, so you don't have to pass it any other requests.
 
 To run tests
 ------------
 
+Tests won't run from `/vagrant` inside the vagrant system due to shortcomings
+of the way Vagrant makes the host system's files available there.  It's probably
+simplest to just do development directly on any Ubuntu 14 system.
+
+
 ::
 
     python manage.py test
+
+or try running `make test` or `tox`.  (Yes, we have too many ways to run tests.)
+
+Also, Travis (https://travis-ci.org/PyCon/pycon) automatically runs the tests against pull requests.
 
 More documentation
 ------------------

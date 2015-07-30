@@ -57,11 +57,13 @@ class FinancialAidApplication(models.Model):
                                 related_name='financial_aid', db_index=True)
 
     pyladies_grant_requested = models.BooleanField(
+        default=False,
         verbose_name=_("PyLadies grant"),
         help_text=_("Would you like to be considered for a "
                     "PyLadies grant? (Women only.)"))
 
     international = models.BooleanField(
+        default=False,
         verbose_name=_("International"),
         help_text=_("Will you be traveling internationally?"))
     amount_requested = models.DecimalField(
@@ -105,6 +107,7 @@ class FinancialAidApplication(models.Model):
         help_text=_("What is your experience level with Python?"),
         max_length=200)
     first_time = models.BooleanField(
+        default=True,
         verbose_name=_("First time"),
         help_text=_("Is this your first time attending PyCon?"))
     presented = models.BooleanField(

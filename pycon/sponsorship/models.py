@@ -3,10 +3,13 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import SET_NULL
 from django.db.models.signals import post_init, post_save, pre_save
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
+from multi_email_field.fields import MultiEmailField
 
 from symposion.conference.models import Conference
 
@@ -16,31 +19,20 @@ from symposion.utils.mail import send_email
 
 
 # The benefits we track as individual fields on sponsors
+# using separate SponsorBenefit records.
 # Names are the names in the database as defined by PyCon organizers.
 # Field names are the benefit names, lowercased, with
 # spaces changed to _, and with "_benefit" appended.
 # Column titles are arbitrary.
 
-# "really just care about the ones we have today: print logo, web logo, print description, web description and the ad."
-
 BENEFITS = [
+    # Print logo not being used for 2016 but keep it in anyway
     {
-        'name': 'Web logo',
-        'field_name': 'web_logo_benefit',
-        'column_title': _(u'Web Logo'),
-    }, {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
         'column_title': _(u'Print Logo'),
-    }, {
-        'name': 'Company Description',
-        'field_name': 'company_description_benefit',
-        'column_title': _(u'Web Desc'),
-    }, {
-        'name': 'Print Description',
-        'field_name': 'print_description_benefit',
-        'column_title': _(u'Print Desc'),
-    }, {
+    },
+    {
         'name': 'Advertisement',
         'field_name': 'advertisement_benefit',
         'column_title': _(u'Ad'),
@@ -70,14 +62,17 @@ class SponsorLevel(models.Model):
 
 class Sponsor(models.Model):
 
-    applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True)
+    applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True, on_delete=SET_NULL)
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
-    display_url = models.URLField(_("display URL"), blank=True)
-    external_url = models.URLField(_("external URL"))
+    display_url = models.URLField(_("Link text - text to display on link to sponsor page, if different from the actual link"), blank=True)
+    external_url = models.URLField(_("Link to sponsor web page"))
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
-    contact_email = models.EmailField(_(u"Contact Email"))
+    contact_emails = MultiEmailField(
+        _(u"Contact Emails"), default='',
+        help_text=_(u"Please enter one email address per line.")
+    )
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
     contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
@@ -91,17 +86,24 @@ class Sponsor(models.Model):
     wants_booth = models.BooleanField(
         _("Does your organization want a booth on the expo floor?"), default=False)
 
-
-    # Denormalization (this assumes only one logo)
-    sponsor_logo = models.ForeignKey("SponsorBenefit", related_name="+", null=True, blank=True, editable=False)
-
     # Whether things are complete
     # True = complete, False = incomplate, Null = n/a for this sponsor level
-    web_logo_benefit = models.NullBooleanField(help_text=_(u"Web logo benefit is complete"))
     print_logo_benefit = models.NullBooleanField(help_text=_(u"Print logo benefit is complete"))
-    print_description_benefit = models.NullBooleanField(help_text=_(u"Print description benefit is complete"))
-    company_description_benefit = models.NullBooleanField(help_text=_(u"Company description benefit is complete"))
     advertisement_benefit = models.NullBooleanField(help_text=_(u"Advertisement benefit is complete"))
+
+    registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
+    booth_number = models.IntegerField(blank=True, null=True, default=None)
+    job_fair_table_number = models.IntegerField(blank=True, null=True, default=None)
+
+    web_description = models.TextField(
+        _(u"Company description (to show on the web site)"),
+    )
+    web_logo = models.ImageField(
+        _(u"Company logo (to show on the web site)"),
+        upload_to="sponsor_files",
+        null=True,  # This is nullable in case old data doesn't have a web logo
+        # We enforce it on all new or edited sponsors though.
+    )
 
     objects = SponsorManager()
 
@@ -127,6 +129,9 @@ class Sponsor(models.Model):
         return reverse("sponsor_list")
 
     def get_display_url(self):
+        """
+        Return the text to display on the sponsor's link
+        """
         if self.display_url:
             return self.display_url
         else:
@@ -136,20 +141,25 @@ class Sponsor(models.Model):
         """Replace special strings in text with values from the sponsor.
 
         %%NAME%% --> Sponsor name
+        %%REGISTRATION_PROMO_CODES%% --> Registration promo codes, or empty string
+        %%BOOTH_NUMBER%% --> Booth number, or empty string if not set
+        %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair tabl number, or empty string if not set
         """
-        return text.replace("%%NAME%%", self.name)
+        text = text.replace("%%NAME%%", self.name)
+        text = text.replace("%%REGISTRATION_PROMO_CODES%%", self.registration_promo_codes)
 
-    @property
+        # The next two are numbers, or if not set, None.  We don't want to
+        # display "None" :-), but we might want to display "0".
+        booth = str(self.booth_number) if self.booth_number is not None else ""
+        text = text.replace("%%BOOTH_NUMBER%%", booth)
+        table = str(self.job_fair_table_number) if self.job_fair_table_number is not None else ""
+        text = text.replace("%%JOB_FAIR_TABLE_NUMBER%%", table)
+        return text
+
+    @cached_property
     def website_logo_url(self):
-        if not hasattr(self, "_website_logo_url"):
-            self._website_logo_url = None
-            benefits = self.sponsor_benefits.filter(benefit__type="weblogo", upload__isnull=False)
-            if benefits.exists():
-                # @@@ smarter handling of multiple weblogo benefits?
-                # shouldn't happen
-                if benefits[0].upload:
-                    self._website_logo_url = benefits[0].upload.url
-        return self._website_logo_url
+        if self.web_logo:
+            return self.web_logo.url
 
     @property
     def listing_text(self):
@@ -171,13 +181,7 @@ class Sponsor(models.Model):
 
     @property
     def website_logo(self):
-        if self.sponsor_logo is None:
-            benefits = self.sponsor_benefits.filter(benefit__type="weblogo", upload__isnull=False)[:1]
-            if benefits.count():
-                if benefits[0].upload:
-                    self.sponsor_logo = benefits[0]
-                    self.save()
-        return self.sponsor_logo.upload
+        return self.web_logo
 
     def reset_benefits(self):
         """
@@ -404,12 +408,3 @@ class SponsorBenefit(models.Model):
         return self.active and \
             ((self.benefit.type in ('text', 'richtext') and bool(self.text))
                 or (self.benefit.type in ('file', 'weblogo') and bool(self.upload)))
-
-
-def _denorm_weblogo(sender, instance, created, **kwargs):
-    if instance:
-        if instance.benefit.type == "weblogo" and instance.upload:
-            sponsor = instance.sponsor
-            sponsor.sponsor_logo = instance
-            sponsor.save()
-post_save.connect(_denorm_weblogo, sender=SponsorBenefit)

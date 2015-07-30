@@ -1,202 +1,173 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'PyConProposalCategory'
-        db.create_table(u'pycon_pyconproposalcategory', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-        ))
-        db.send_create_signal(u'pycon', ['PyConProposalCategory'])
+    dependencies = [
+        ('proposals', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Adding model 'PyConTalkProposal'
-        db.create_table(u'pycon_pycontalkproposal', (
-            (u'proposalbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['proposals.ProposalBase'], unique=True, primary_key=True)),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pycon.PyConProposalCategory'])),
-            ('audience_level', self.gf('django.db.models.fields.IntegerField')()),
-            ('recording_release', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('extreme', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('duration', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'pycon', ['PyConTalkProposal'])
-
-        # Adding model 'PyConTutorialProposal'
-        db.create_table(u'pycon_pycontutorialproposal', (
-            (u'proposalbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['proposals.ProposalBase'], unique=True, primary_key=True)),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pycon.PyConProposalCategory'])),
-            ('audience_level', self.gf('django.db.models.fields.IntegerField')()),
-            ('recording_release', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal(u'pycon', ['PyConTutorialProposal'])
-
-        # Adding model 'PyConPosterProposal'
-        db.create_table(u'pycon_pyconposterproposal', (
-            (u'proposalbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['proposals.ProposalBase'], unique=True, primary_key=True)),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pycon.PyConProposalCategory'])),
-            ('audience_level', self.gf('django.db.models.fields.IntegerField')()),
-            ('recording_release', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal(u'pycon', ['PyConPosterProposal'])
-
-        # Adding model 'PyConSponsorTutorialProposal'
-        db.create_table(u'pycon_pyconsponsortutorialproposal', (
-            (u'proposalbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['proposals.ProposalBase'], unique=True, primary_key=True)),
-        ))
-        db.send_create_signal(u'pycon', ['PyConSponsorTutorialProposal'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'PyConProposalCategory'
-        db.delete_table(u'pycon_pyconproposalcategory')
-
-        # Deleting model 'PyConTalkProposal'
-        db.delete_table(u'pycon_pycontalkproposal')
-
-        # Deleting model 'PyConTutorialProposal'
-        db.delete_table(u'pycon_pycontutorialproposal')
-
-        # Deleting model 'PyConPosterProposal'
-        db.delete_table(u'pycon_pyconposterproposal')
-
-        # Deleting model 'PyConSponsorTutorialProposal'
-        db.delete_table(u'pycon_pyconsponsortutorialproposal')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'conference.conference': {
-            'Meta': {'object_name': 'Conference'},
-            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'start_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'timezone': ('timezones.fields.TimeZoneField', [], {'default': "'US/Eastern'", 'max_length': '100', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'conference.section': {
-            'Meta': {'object_name': 'Section'},
-            'conference': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['conference.Conference']"}),
-            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
-            'start_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'proposals.additionalspeaker': {
-            'Meta': {'unique_together': "(('speaker', 'proposalbase'),)", 'object_name': 'AdditionalSpeaker', 'db_table': "'proposals_proposalbase_additional_speakers'"},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'proposalbase': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['proposals.ProposalBase']"}),
-            'speaker': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['speakers.Speaker']"}),
-            'status': ('django.db.models.fields.IntegerField', [], {'default': '1'})
-        },
-        u'proposals.proposalbase': {
-            'Meta': {'object_name': 'ProposalBase'},
-            'abstract': ('django.db.models.fields.TextField', [], {}),
-            'additional_notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'additional_speakers': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['speakers.Speaker']", 'symmetrical': 'False', 'through': u"orm['proposals.AdditionalSpeaker']", 'blank': 'True'}),
-            'cancelled': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {'max_length': '400'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'kind': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['proposals.ProposalKind']"}),
-            'speaker': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'proposals'", 'to': u"orm['speakers.Speaker']"}),
-            'submitted': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'proposals.proposalkind': {
-            'Meta': {'object_name': 'ProposalKind'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'section': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'proposal_kinds'", 'to': u"orm['conference.Section']"}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
-        },
-        u'pycon.pyconposterproposal': {
-            'Meta': {'object_name': 'PyConPosterProposal'},
-            'audience_level': ('django.db.models.fields.IntegerField', [], {}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
-            u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
-            'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
-        },
-        u'pycon.pyconproposalcategory': {
-            'Meta': {'object_name': 'PyConProposalCategory'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
-        },
-        u'pycon.pyconsponsortutorialproposal': {
-            'Meta': {'object_name': 'PyConSponsorTutorialProposal', '_ormbases': [u'proposals.ProposalBase']},
-            u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        u'pycon.pycontalkproposal': {
-            'Meta': {'object_name': 'PyConTalkProposal'},
-            'audience_level': ('django.db.models.fields.IntegerField', [], {}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
-            'duration': ('django.db.models.fields.IntegerField', [], {}),
-            'extreme': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
-            'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
-        },
-        u'pycon.pycontutorialproposal': {
-            'Meta': {'object_name': 'PyConTutorialProposal'},
-            'audience_level': ('django.db.models.fields.IntegerField', [], {}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pycon.PyConProposalCategory']"}),
-            u'proposalbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['proposals.ProposalBase']", 'unique': 'True', 'primary_key': 'True'}),
-            'recording_release': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
-        },
-        u'speakers.speaker': {
-            'Meta': {'object_name': 'Speaker'},
-            'annotation': ('django.db.models.fields.TextField', [], {}),
-            'biography': ('django.db.models.fields.TextField', [], {}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'invite_email': ('django.db.models.fields.CharField', [], {'max_length': '200', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
-            'invite_token': ('django.db.models.fields.CharField', [], {'max_length': '40', 'db_index': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'blank': 'True'}),
-            'sessions_preference': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'twitter_username': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'speaker_profile'", 'unique': 'True', 'null': 'True', 'to': u"orm['auth.User']"})
-        }
-    }
-
-    complete_apps = ['pycon']
+    operations = [
+        migrations.CreateModel(
+            name='PyConLightningTalkProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+                ('audience_level', models.IntegerField(help_text='Level of audience expertise assumed in Python.', verbose_name='Python level', choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('overall_status', models.IntegerField(default=1, help_text='The status of the proposal.', choices=[(1, b'Not Yet Reviewed'), (2, b'In Kittendome'), (3, b'In Thunderdome'), (4, b'Accepted'), (5, b'Damaged'), (6, b'Rejected')])),
+                ('damaged_score', models.IntegerField(help_text="Numerical indicator of the amount of interest in a talk set to 'damaged' status.", null=True, blank=True)),
+                ('rejection_status', models.IntegerField(blank=True, help_text='The reason the proposal was rejected.', null=True, choices=[(1, b'Suggest re-submission as poster.'), (2, b'Suggest lightning talk.'), (3, b'Re-submitted under appropriate category.'), (4, b'Duplicate'), (5, b'Administrative Action (Other)'), (6, b"No really: rejected. It's just plain bad.")])),
+                ('recording_release', models.BooleanField(default=True, help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")),
+                ('additional_requirements', models.TextField(help_text="Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.", verbose_name='Additional requirements', blank=True)),
+            ],
+            options={
+                'verbose_name': 'PyCon lightning talk proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='PyConOpenSpaceProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+                ('audience_level', models.IntegerField(help_text='Level of audience expertise assumed in Python.', verbose_name='Python level', choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('overall_status', models.IntegerField(default=1, help_text='The status of the proposal.', choices=[(1, b'Not Yet Reviewed'), (2, b'In Kittendome'), (3, b'In Thunderdome'), (4, b'Accepted'), (5, b'Damaged'), (6, b'Rejected')])),
+                ('damaged_score', models.IntegerField(help_text="Numerical indicator of the amount of interest in a talk set to 'damaged' status.", null=True, blank=True)),
+                ('rejection_status', models.IntegerField(blank=True, help_text='The reason the proposal was rejected.', null=True, choices=[(1, b'Suggest re-submission as poster.'), (2, b'Suggest lightning talk.'), (3, b'Re-submitted under appropriate category.'), (4, b'Duplicate'), (5, b'Administrative Action (Other)'), (6, b"No really: rejected. It's just plain bad.")])),
+                ('recording_release', models.BooleanField(default=True, help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")),
+                ('additional_requirements', models.TextField(help_text="Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.", verbose_name='Additional requirements', blank=True)),
+            ],
+            options={
+                'verbose_name': 'PyCon Open Space proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='PyConPosterProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+                ('audience_level', models.IntegerField(help_text='Level of audience expertise assumed in Python.', verbose_name='Python level', choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('overall_status', models.IntegerField(default=1, help_text='The status of the proposal.', choices=[(1, b'Not Yet Reviewed'), (2, b'In Kittendome'), (3, b'In Thunderdome'), (4, b'Accepted'), (5, b'Damaged'), (6, b'Rejected')])),
+                ('damaged_score', models.IntegerField(help_text="Numerical indicator of the amount of interest in a talk set to 'damaged' status.", null=True, blank=True)),
+                ('rejection_status', models.IntegerField(blank=True, help_text='The reason the proposal was rejected.', null=True, choices=[(1, b'Suggest re-submission as poster.'), (2, b'Suggest lightning talk.'), (3, b'Re-submitted under appropriate category.'), (4, b'Duplicate'), (5, b'Administrative Action (Other)'), (6, b"No really: rejected. It's just plain bad.")])),
+                ('recording_release', models.BooleanField(default=True, help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")),
+                ('additional_requirements', models.TextField(help_text="Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.", verbose_name='Additional requirements', blank=True)),
+            ],
+            options={
+                'verbose_name': 'PyCon Poster proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='PyConProposalCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+                ('slug', models.SlugField()),
+            ],
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'PyCon proposal category',
+                'verbose_name_plural': 'PyCon proposal categories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PyConSponsorTutorialProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+            ],
+            options={
+                'verbose_name': 'PyCon Sponsor Tutorial proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='PyConTalkProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+                ('audience_level', models.IntegerField(help_text='Level of audience expertise assumed in Python.', verbose_name='Python level', choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('overall_status', models.IntegerField(default=1, help_text='The status of the proposal.', choices=[(1, b'Not Yet Reviewed'), (2, b'In Kittendome'), (3, b'In Thunderdome'), (4, b'Accepted'), (5, b'Damaged'), (6, b'Rejected')])),
+                ('damaged_score', models.IntegerField(help_text="Numerical indicator of the amount of interest in a talk set to 'damaged' status.", null=True, blank=True)),
+                ('rejection_status', models.IntegerField(blank=True, help_text='The reason the proposal was rejected.', null=True, choices=[(1, b'Suggest re-submission as poster.'), (2, b'Suggest lightning talk.'), (3, b'Re-submitted under appropriate category.'), (4, b'Duplicate'), (5, b'Administrative Action (Other)'), (6, b"No really: rejected. It's just plain bad.")])),
+                ('recording_release', models.BooleanField(default=True, help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")),
+                ('additional_requirements', models.TextField(help_text="Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.", verbose_name='Additional requirements', blank=True)),
+                ('duration', models.IntegerField(choices=[(0, 'No preference'), (1, 'I prefer a 30 minute slot'), (2, 'I prefer a 45 minute slot')])),
+                ('outline', models.TextField(verbose_name='Outline')),
+                ('audience', models.CharField(help_text='Who is the intended audience for your talk? (Be specific; "Python programmers" is not a good answer to this question.)', max_length=150)),
+                ('perceived_value', models.TextField(help_text="What will attendees get out of your talk? When they leave the room, what will they know that they didn't know before?", max_length=400, verbose_name='Objectives')),
+                ('category', models.ForeignKey(to='pycon.PyConProposalCategory')),
+            ],
+            options={
+                'verbose_name': 'PyCon talk proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='PyConTutorialProposal',
+            fields=[
+                ('proposalbase_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='proposals.ProposalBase')),
+                ('audience_level', models.IntegerField(help_text='Level of audience expertise assumed in Python.', verbose_name='Python level', choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('overall_status', models.IntegerField(default=1, help_text='The status of the proposal.', choices=[(1, b'Not Yet Reviewed'), (2, b'In Kittendome'), (3, b'In Thunderdome'), (4, b'Accepted'), (5, b'Damaged'), (6, b'Rejected')])),
+                ('damaged_score', models.IntegerField(help_text="Numerical indicator of the amount of interest in a talk set to 'damaged' status.", null=True, blank=True)),
+                ('rejection_status', models.IntegerField(blank=True, help_text='The reason the proposal was rejected.', null=True, choices=[(1, b'Suggest re-submission as poster.'), (2, b'Suggest lightning talk.'), (3, b'Re-submitted under appropriate category.'), (4, b'Duplicate'), (5, b'Administrative Action (Other)'), (6, b"No really: rejected. It's just plain bad.")])),
+                ('recording_release', models.BooleanField(default=True, help_text="By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")),
+                ('additional_requirements', models.TextField(help_text="Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.", verbose_name='Additional requirements', blank=True)),
+                ('domain_level', models.IntegerField(help_text="Level of audience expertise assumed in the presentation's domain.", choices=[(1, 'Novice'), (3, 'Intermediate'), (2, 'Experienced')])),
+                ('outline', models.TextField(verbose_name='Outline')),
+                ('more_info', models.TextField(help_text='More info. Will be made public if your talk is accepted.', verbose_name='More info')),
+                ('audience', models.CharField(help_text='Who is the intended audience for your talk? (Be specific; "Python programmers" is not a good answer to this question.)', max_length=150)),
+                ('perceived_value', models.TextField(help_text="What will attendees get out of your talk? When they leave the room, what will they know that they didn't know before?", max_length=500, verbose_name='Objectives')),
+                ('handout', models.FileField(help_text='Upload a resource to be distributed to students  attending the tutorial session.', upload_to=b'tutorial_handouts', null=True, verbose_name='Student Handout', blank=True)),
+                ('registration_count', models.IntegerField(default=0, help_text="Count of attendees. Allows inclusion of folks who don't have a PyCon account.", editable=False)),
+                ('max_attendees', models.IntegerField(help_text='Maximum number of attendees, per CTE data', null=True, editable=False, blank=True)),
+                ('category', models.ForeignKey(to='pycon.PyConProposalCategory')),
+                ('registrants', models.ManyToManyField(help_text='CTE registered participants for this tutorial.', to=settings.AUTH_USER_MODEL, null=True, editable=False, blank=True)),
+            ],
+            options={
+                'verbose_name': 'PyCon tutorial proposal',
+            },
+            bases=('proposals.proposalbase',),
+        ),
+        migrations.CreateModel(
+            name='ThunderdomeGroup',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('label', models.CharField(max_length=250)),
+                ('code', models.CharField(unique=True, max_length=20)),
+                ('decided', models.BooleanField(default=False)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('modified', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='pycontalkproposal',
+            name='thunderdome_group',
+            field=models.ForeignKey(related_name='talks', default=None, blank=True, to='pycon.ThunderdomeGroup', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pyconposterproposal',
+            name='category',
+            field=models.ForeignKey(to='pycon.PyConProposalCategory'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pyconopenspaceproposal',
+            name='category',
+            field=models.ForeignKey(to='pycon.PyConProposalCategory'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pyconlightningtalkproposal',
+            name='category',
+            field=models.ForeignKey(to='pycon.PyConProposalCategory'),
+            preserve_default=True,
+        ),
+    ]

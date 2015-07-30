@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='pycon',
-    version='2015',
+    version='2016',
     packages=['pycon', 'pycon.profile', 'pycon.schedule', 'pycon.sponsorship',
               'pycon.sponsorship.management',
               'pycon.sponsorship.management.commands',
@@ -17,11 +17,10 @@ setup(
               'symposion.speakers', 'symposion.speakers.management',
               'symposion.speakers.management.commands', 'symposion.proposals',
               'symposion.proposals.templatetags', 'symposion.conference',
-              'symposion.social_auth', 'symposion.social_auth.pipeline',
-              'symposion.sponsorship', 'symposion.sponsorship.templatetags'],
+              'symposion.social_auth', 'symposion.social_auth.pipeline'],
     url='https://github.com/caktus/pycon/',
     license='LICENSE',
-    author='',
-    author_email='',
+    maintainer='Caktus Consulting Group',
+    maintainer_email='pycon@caktusgroup.com',
     description=''
 )

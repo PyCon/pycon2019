@@ -15,3 +15,5 @@ program_export/
 .coverage
 htmlcov/
 env/
+.vagrant
+node_modules/

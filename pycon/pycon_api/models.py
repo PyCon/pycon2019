@@ -11,6 +11,9 @@ from django.utils.translation import ugettext_lazy as _
 from pycon.pycon_api.exceptions import AuthenticationError
 from symposion.proposals.models import ProposalBase
 
+def random_uuid4():
+    return str(uuid.uuid4())
+
 
 class APIAuth(models.Model):
     """API Users need to have a record in this table"""
@@ -19,12 +22,12 @@ class APIAuth(models.Model):
         max_length=100,
     )
     auth_key = models.CharField(
-        default=lambda: str(uuid.uuid4()),
+        default=random_uuid4,
         max_length=36,
         unique=True,
     )
     secret = models.CharField(
-        default=lambda: str(uuid.uuid4()),
+        default=random_uuid4,
         max_length=36,
     )
     enabled = models.BooleanField(default=True)

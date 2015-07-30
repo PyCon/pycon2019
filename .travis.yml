@@ -1,12 +1,13 @@
 # If you change the DB name here, also change it in pycon/settings/travis.py
 before_script:
-  - psql -c 'create database pycon2015;' -U postgres
+  - psql -c 'create database pycon2016;' -U postgres
 language: python
 python:
   - "2.7"
 env:
   - TOXENV=pycon
 install:
-  - pip install -q tox==1.4.3
+  - pip install -q pip --upgrade
+  - pip install -q tox==2.1.1
 script:
   - tox -- --settings=pycon.settings.travis
