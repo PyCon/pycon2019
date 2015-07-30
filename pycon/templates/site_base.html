@@ -11,7 +11,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Montr&#233;al{% endblock %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Portland, OR{% endblock %}
 
 {% block style_base %}
     {% compress css %}
@@ -62,7 +62,7 @@
         {% block main_nav %}
             <nav>
                 <div class="container">
-                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Montr&#233;al</a>
+                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, OR</a>
                     <div class="navbar navbar-inverse">
                         <div class="navbar-inner">
                             {% block topbar %}
@@ -144,27 +144,6 @@
                                 </div>
                             {% endcache %}
                         </div>
-<!--                        <aside class="span2">
-                            {% block sidebar %}
-                            {% cache 600 "sidebar" %}
-                                <div class="sponsor-list">
-                                    <h2>{% trans "SPONSORS" %}</h2>
-                                    {% sponsor_levels as levels %}
-                                    {% for level in levels %}
-                                        {% if level.sponsors %}
-                                            <h3{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
-                                            {% for sponsor in level.sponsors %}
-                                                <a href="{{ sponsor.external_url }}">
-                                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
-                                                </a>
-                                            {% endfor %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% endcache %}
-                            {% endblock %}
-                        </aside>
--->
                     </div>
                 </div>
                 {% endblock %}
@@ -174,7 +153,7 @@
     <div class="python-footer-block">
       <div class="logo-block">
         <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=80 alt="Python Software Foundation logo">
-        {{ SITE_NAME }} in Portland, Or is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+        {{ SITE_NAME }} in Portland, OR is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
       </div>
       <img class="footer-forest" src="{{ STATIC_URL }}img/PNG/footer-trees.png" width=400 height=180 alt="Evergreen tree illustration above footer content">
     </div>
