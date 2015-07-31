@@ -204,7 +204,6 @@ INSTALLED_APPS = [
     "raven.contrib.django.raven_compat",
     "constance.backends.database",
     "constance",
-    "redis_cache",
     "uni_form",
     "gunicorn",
     "selectable",

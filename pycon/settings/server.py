@@ -99,3 +99,35 @@ LOGGING['loggers'].update(
         }
     }
 )
+
+# Caching
+INSTALLED_APPS.append('redis_cache')
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            'localhost:6379',
+        ],
+        'OPTIONS': {
+            # Caching will use Redis DB 1.  (Celery will use Redis DB 0.)
+            'DB': 1,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': 2,
+        },
+    },
+}
+
+# Keep sessions in cache
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+# Use the caching template loader around whatever template loaders we've
+# previously configured
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+)
