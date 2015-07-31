@@ -344,29 +344,10 @@ footer {
   martgin-bottom: 0;
   position: relative;
   top: -100px;
-  background-color: white;
+  background-color: @greenHill;
   min-height: 40px;
   .container {
     margin-bottom: 0;
-    h1 {
-      margin-top: 0;
-    }
-  }
-}
-
-.top-banner {
-  .row {
-    height: 50px;
-      img {
-        position: relative;
-        top: -130px;
-        max-width: 940px;
-        -webkit-transform: translate(-50%,0);
-        -moz-transform: translate(-50%,0);
-        -ms-transform: translate(-50%,0);
-        margin-left: 50.5%;
-        z-index: -1;
-      }
   }
 }
 
@@ -613,6 +594,16 @@ header.main {
           }
         }
 
+        li.dropdown.active {
+          a {
+            color: @maroon;
+            border-bottom: 1px solid @maroon;
+          }
+          .caret {
+            border-top-color: @maroon;
+          }
+        }
+
         .dropdown-menu {
           margin: 8px 0 0 0;
           padding: 0;
@@ -712,11 +703,15 @@ ul.breadcrumb {
   margin-right: 0;
   padding: 0;
   margin-bottom: 0;
-  > li {
+  li {
     text-shadow: none;
+    a {
+      color: white;
+      border-bottom-color: white;
+    }
   }
-  > .active, > .divider {
-    color: lighten(@gray, 20%);
+  .active, > .divider {
+    color: white;
   }
 }
 
