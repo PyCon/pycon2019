@@ -531,6 +531,17 @@ header.main {
   position: relative;
   width: 100%;
   box-shadow: none;
+  a.logo-small {
+    position:absolute;
+    top: 5px;
+    left: 0;
+    width: 120px;
+    height: 75px;
+    background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
+    background-size: 120px auto;
+    text-indent: -9999px;
+    border-bottom: none;
+  }
   nav {
     background: @blueSky;
     .container {
@@ -547,10 +558,10 @@ header.main {
       }
 
       .nav {
-        margin: 5px 10px 0 0;
+        margin: 0;
         li {
            a {
-            font-size: @baseFontSize + 3;
+            font-size: @baseFontSize + 1;
             font-weight:400;
             margin: 0 0 0 0 !important;
             padding: .5em .5em .5em 0;
@@ -641,18 +652,6 @@ header.main {
         }
       }
     }
-
-    a.logo-small {
-      position:absolute;
-      top: 5px;
-      left: 0;
-      width: 120px;
-      height: 75px;
-      background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
-      background-size: 120px auto;
-      text-indent: -9999px;
-      border-bottom: none;
-    }
   }
   .account-bar {
     float: right;
@@ -663,7 +662,7 @@ header.main {
       a.login,
       a.signup,
       button.logout {
-        padding: 20px !important;
+        padding: 16px !important;
         height: 100%;
         border-radius: 0;
         background-color: @red;
@@ -1208,10 +1207,14 @@ body.cms-page {
       }
     }
   }
-  .internal-content{
-    width: 96%;
-    margin: 0 2%;
-    float: none;
+  header.main,
+  .page-head,
+  .page-content {
+    .container {
+      width: 96%;
+      margin: 0 2%;
+      float: none;
+    }
   }
   .sponsor-crawl {
     padding-top: 5em;

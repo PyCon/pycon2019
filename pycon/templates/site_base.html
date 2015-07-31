@@ -85,25 +85,19 @@
         {% block body_outer %}
             <div class="page-head">
                 <div class="container">
-                  <div class="internal-content">
                     {% block breadcrumbs %}{% endblock %}
-                  </div>
                 </div>
             </div>
             <div class="page-content">
                 {% block page_content %}
                 <div class="container">
 
-                    <div class="row">
-                        <div class="internal-content">
-                            {% block edit_page %}{% endblock %}
-                            <div class="container">
-                              <h1>{% block page_title %}{% endblock %}</h1>
-                            </div>
-                            <div class="box">
-                                <div class="box-content">{% block body %}{% endblock %}</div>
-                            </div>
+                        {% block edit_page %}{% endblock %}
+                        <h1>{% block page_title %}{% endblock %}</h1>
+                        <div class="box">
+                            <div class="box-content">{% block body %}{% endblock %}</div>
                         </div>
+
                         <div class="span12 col-centered sponsor-crawl">
                             {% cache 600 "homepage-sponsor-slider" %}
                                 <h2 class="scroll-title-first">Sponsors</h2>
@@ -143,8 +137,7 @@
                                 </div>
                             {% endcache %}
                         </div>
-                    </div>
-                </div>
+\                </div>
                 {% endblock %}
             </div>
         {% endblock %}
