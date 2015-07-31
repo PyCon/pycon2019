@@ -12,7 +12,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Montr&#233;al{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Portland, OR | May 28th &ndash; June 5th{% endblock %}
 
 {% block viewport %}{% endblock viewport %}
 
@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block extra_head_base %}
-    <meta property="og:image" content="{% static "img/pycon2015-logo.png" %}" />
+    <meta property="og:image" content="{% static "img/pycon2016-logo.png" %}" />
     <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
@@ -53,7 +53,7 @@
 {% block topbar_base %}
     <header class="main">
         <div class="container">
-            <h3 class="logo"><a href="{% url "home" %}">{{ SITE_NAME }} in Montr&#233;al</a></h3>
+            <h3 class="logo"><a href="{% url "home" %}">{{ SITE_NAME }} in Portland, OR</a></h3>
             <div class="tagline">Change the future</div>
             <div class="account-bar">{% block account_bar %}{% include "_account_bar.html" %}{% endblock %}</div>
             <div class="navbar navbar-inverse">
@@ -122,7 +122,7 @@
         <footer>
             {% block footer %}
                 <p>
-                    {{ SITE_NAME }} in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+                    {{ SITE_NAME }} in Portland, OR is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
                 <br />
                     Site built by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a> using <a href="http://pinaxproject.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>. Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
                 <br />

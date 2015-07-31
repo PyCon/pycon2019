@@ -11,7 +11,7 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Montr&#233;al{% endblock %}
+{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Portland, OR{% endblock %}
 
 {% block style_base %}
     {% compress css %}
@@ -24,6 +24,7 @@
     {% else %}
         {% compress css %}
             <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
+            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}css/flickity.css" />
         {% endcompress %}
     {% endif %}
 
@@ -35,8 +36,8 @@
 {% endblock %}
 
 {% block extra_head_base %}
-    <meta property="og:image" content="{% static "img/pycon2015-logo.png" %}" />
-    <link href="{{ STATIC_URL }}img/pycon-2015.png" rel="shortcut icon" />
+    <meta property="og:image" content="{% static "img/pycon2016-logo.png" %}" />
+    <link href="{{ STATIC_URL }}img/pycon-2016.png" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
@@ -61,7 +62,7 @@
         {% block main_nav %}
             <nav>
                 <div class="container">
-                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Montr&#233;al</a>
+                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, OR</a>
                     <div class="navbar navbar-inverse">
                         <div class="navbar-inner">
                             {% block topbar %}
@@ -93,80 +94,95 @@
                 <div class="container">
 
                     <div class="row">
-                        <div class="span9">
+                        <div class="internal-content">
                             {% block edit_page %}{% endblock %}
                             <div class="box">
                                 <div class="box-content">{% block body %}{% endblock %}</div>
                             </div>
                         </div>
-                        <aside class="span2">
-                            {% block sidebar %}
-                            {% cache 600 "sidebar" %}
-                                <div class="sponsor-list">
-                                    <h2>{% trans "SPONSORS" %}</h2>
-                                    {% sponsor_levels as levels %}
-                                    {% for level in levels %}
-                                        {% if level.sponsors %}
-                                            <h3{% if forloop.first %} style="margin-top: 20px;"{% endif %}>{{ level.name }}</h3>
-                                            {% for sponsor in level.sponsors %}
-                                                <a href="{{ sponsor.external_url }}">
-                                                    <img src="{% thumbnail sponsor.website_logo '100x60' %}" alt="{{ sponsor.name }}" />
-                                                </a>
+                        <div class="span12 col-centered sponsor-crawl">
+                            {% cache 600 "homepage-sponsor-slider" %}
+                                <h2 class="scroll-title-first">Sponsors</h2>
+                                {% sponsors "diamond" as diamond_sponsors %}
+                                <div id="sponsorslider" class="carousel slide col-centered">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        {% sponsors as all_sponsors %}
+                                        {# sponsors without levels, 12 per each slide #}
+                                        {% for sponsor in all_sponsors %}
+                                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                                <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                                            {% endif %}
+
+                                            <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                                                <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
+                                            </a>
+                                            {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
+                                        {% endfor %}
+                                    </div>
+
+
+                                    {% if all_sponsors.count > 12 %}
+                                      <!-- Carousel nav -->
+                                      <nav id="slider-nav">
+                                        <div class="slider-nav">
+                                            <div class="nav-container">
+                                            {% for sponsor in all_sponsors %}
+                                                {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                                {% endif %}
                                             {% endfor %}
-                                        {% endif %}
-                                    {% endfor %}
+                                            </div>
+                                        </div>
+                                      </nav>
+                                    {% endif %}
                                 </div>
                             {% endcache %}
-                            {% endblock %}
-                        </aside>
+                        </div>
                     </div>
                 </div>
                 {% endblock %}
             </div>
         {% endblock %}
     </div>
-    <div class="bottombg">
-        <img class="img-responsive" src="{{ STATIC_URL }}img/bottombg.png" alt="bottom band background">
+    <div class="python-footer-block">
+      <div class="logo-block">
+        <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=80 alt="Python Software Foundation logo">
+        {{ SITE_NAME }} in Portland, OR is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
+      </div>
+      <img class="footer-forest" src="{{ STATIC_URL }}img/PNG/footer-trees.png" width=400 height=180 alt="Evergreen tree illustration above footer content">
     </div>
     <footer>
         <div class="container">
         {% block footer %}
             <div class="row-fluid footer-content col-centered">
-                <div class="span4">
-                    <div class="footer-left">
-                        <p>
-                          {% blocktrans %}
-                            {{ SITE_NAME }} in Montr&#233;al is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.</br>
-                            Site utilizes <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>
-                          {% endblocktrans %}
-                        </p>
-                    </div>
+                <div class="span3">
+                  <p>
+                    {% blocktrans %}
+                      Site utilizes <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>
+                    {% endblocktrans %}
+                  </p>
                 </div>
-                <div class="span4">
-                    <div class="span3">
-                        <div class="row-fluid">
-                            <a href="http://caktusgroup.com">
-                                <img class="caktus-logo" src="{{ STATIC_URL }}img/caktusgroup-logo-black.png" alt="Caktus Consulting Group">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="span9">
-                        <div class="footer-center">
-                            <p>
-                                Site built and designed by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a>
-                            </p>
-                        </div>
-                    </div>
+                <div class="span3">
+                  <p>
+                  {% blocktrans %}
+                    Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
+                  {% endblocktrans %}
+                  </p>
                 </div>
-                <div class="span4">
-                    <div class="footer-right">
-                        <p>
-                          {% blocktrans %}
-                            Questions? Comments? Contact <a href="mailto:pycon-reg@python.org">pycon-reg@python.org</a></br>
-                            Hosting provided by <a href="http://osuosl.org">OSU Open Source Lab</a>.
-                          {% endblocktrans %}
-                        </p>
-                    </div>
+                <div class="span3">
+                  <p>
+                    {% blocktrans %}
+                      Questions? Comments? Contact <a href="mailto:pycon-reg@python.org">pycon-reg@python.org</a></br>
+                    {% endblocktrans %}
+                  </p>
+                </div>
+                <div class="span3">
+                  <div class="footer-center">
+                      <p>
+                          Site built and designed by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a>
+                      </p>
+                  </div>
                 </div>
             </div>
         {% endblock %}
@@ -177,5 +193,6 @@
 {% block script_base %}
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
+    <script src="{% static "js/flickity.pkgd.js" %}"></script>
     {% block extra_script %}{% endblock %}
 {% endblock %}
