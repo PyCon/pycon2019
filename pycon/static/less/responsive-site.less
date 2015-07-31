@@ -90,6 +90,7 @@ body {
 				position: fixed;
 				top: 0;
 				left: 0;
+				width :100%;
 				.btn-navbar {
 					float: left;
 					padding: 20px;
@@ -103,6 +104,30 @@ body {
 		    		background-color: @maroon;
 			    }
 					.icon-bar { box-shadow: none; }
+				}
+
+				.nav-collapse .nav {
+					background-color: white;
+					li.dropdown .dropdown-toggle:hover {
+						background-color: @maroon;
+						color: white;
+					}
+					li a {
+						padding: 1em;
+						border-radius: 0;
+						&:hover {
+							a {
+								display: block;
+								&:hover {
+									color: white;
+									background-color: @maroon;
+								}
+							}
+							.caret {
+								border-top-color: white;
+							}
+						}
+					}
 				}
 			}
 			.account-bar {
