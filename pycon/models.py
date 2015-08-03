@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -247,3 +248,19 @@ class PyConSponsorTutorialProposal(ProposalBase):
 class PyConOpenSpaceProposal(PyConProposal):
     class Meta:
         verbose_name = "PyCon Open Space proposal"
+
+
+class SpecialEvent(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField()
+    location = models.CharField(max_length=100)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    description = models.TextField(help_text="markdown")
+    published = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "PyCon Special Event"
+
+    def get_absolute_url(self):
+        return reverse('special_event', kwargs={'slug': self.slug})

@@ -1,4 +1,6 @@
+from datetime import timedelta, datetime
 import random
+from django.utils.timezone import utc, localtime
 
 import factory
 import factory.django
@@ -7,7 +9,7 @@ import factory.fuzzy
 from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal, PyConTutorialProposal
+    PyConTalkProposal, PyConTutorialProposal, SpecialEvent
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
@@ -59,3 +61,22 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     more_info = "more info"
     audience = "audience"
     perceived_value = "perceived_value"
+
+
+def aware_now():
+    """Return the current time as an aware datetime object in the
+    current time zone"""
+    return localtime(datetime.utcnow().replace(tzinfo=utc))
+
+
+class SpecialEventFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = SpecialEvent
+
+    name = factory.fuzzy.FuzzyText()
+    slug = factory.fuzzy.FuzzyText()
+    start = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() - timedelta(days=2),
+                                        end_dt=aware_now() - timedelta(days=1))
+    end = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() + timedelta(days=1),
+                                        end_dt=aware_now() + timedelta(days=2))
+    description = factory.fuzzy.FuzzyText
+    published = True

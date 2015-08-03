@@ -4,7 +4,9 @@ from uuid import uuid4
 from zipfile import ZipFile
 
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 
+from pycon.models import SpecialEvent
 from pycon.program_export import export
 
 
@@ -21,3 +23,14 @@ def program_export(request):
     response = HttpResponse(s.getvalue(), content_type='application/x-zip-compressed')
     response['Content-Disposition'] = 'attachment; filename=program_export.zip'
     return response
+
+
+def special_event(request, slug):
+    """Special event detail page"""
+    event = get_object_or_404(SpecialEvent, slug=slug, published=True)
+    return render(request, "special_event.html", {
+        'event': event,
+        'page': {
+            'title': event.name,
+        }
+    })

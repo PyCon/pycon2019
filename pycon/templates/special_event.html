@@ -1,0 +1,8 @@
+{% extends "cms/page_detail.html" %}
+
+{% block box %}
+  <h2>{{ event.location }}</h2>
+  <p>{{ event.start|date }}, {{ event.start|time }} &ndash; {{ event.end|date }}, {{ event.end|time }}</p>
+  {# class box-content will cause this to get rendered as markdown #}
+  <div class="box-content">{{ event.description|safe }}</div>
+{% endblock box %}
