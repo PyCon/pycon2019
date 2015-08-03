@@ -7,7 +7,6 @@ from smtplib import SMTPException
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.http.response import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import Template, Context
@@ -16,7 +15,7 @@ from django.utils.translation import ugettext as _
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, STATUS_CHOICES, Receipt
+    FinancialAidReviewData, STATUS_CHOICES
 from .utils import applications_open, email_address, email_context, \
     has_application, is_reviewer, send_email_message
 
@@ -429,8 +428,6 @@ def finaid_download_csv(request):
 
 @login_required
 def receipt_upload(request):
-    receipts = request.user.financial_aid.receipts.all()
-
     if request.method == 'POST':
         form = ReceiptForm(request.POST, request.FILES)
 
@@ -446,6 +443,7 @@ def receipt_upload(request):
 
     else:
         form = ReceiptForm()
+        receipts = request.user.financial_aid.receipts.all()
     return render(request, "finaid/receipt_upload.html", {
         'form': form,
         'receipts': receipts
