@@ -342,36 +342,6 @@ body.home {
 		}
 	}
 
-	.sponsor-crawl {
-		@media (max-width: @breakMobileLandscape) {
-			padding: 20px 0;
-		}
-		.sponsorship-link {
-			@media (max-width: @breakTablet) {
-				position: relative;
-				display: block;
-				top: auto;
-				right: auto;
-				margin: 0 auto;
-				text-align: center;
-	      	}
-		}
-
-		.sponsor-scroll-item {
-			@media (max-width: @breakDesktopLarge) {
-				width: 21%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakTablet) {
-				width: 46%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakMobileLandscape) {
-				width: 90%;
-				margin: .5em 5%;
-			}
-		}
-	}
 	  /* Slideshow nav
   ==================== */
 	.scroll-title {
@@ -422,11 +392,63 @@ body.home {
 	}
 }
 
+/* Sponsor Carousel
+==================== */
+.sponsor-crawl {
+	@media (max-width: @breakMobileLandscape) {
+		padding: 20px 0;
+	}
+	.sponsorship-link {
+		@media (max-width: @breakTablet) {
+			position: relative;
+			display: block;
+			top: auto;
+			right: auto;
+			margin: 0 auto;
+			text-align: center;
+				}
+	}
+
+	.sponsor-scroll-item {
+		@media (max-width: @breakDesktopLarge) {
+			width: 21%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakTablet) {
+			width: 46%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			width: 90%;
+			margin: .5em 5%;
+		}
+	}
+}
+
 /* CMS Page
 ==================== */
 body.cms-page {
+	.page-head {
+		@media (min-width: @breakDesktop) {
+			margin-left: 20%;
+		}
+		.container {
+			@media (min-width: @breakTablet) {
+				width: 76%;
+				margin: 0 12%;
+			}
+			@media (min-width: @breakDesktop) {
+				width: 100%;
+				margin: 0;
+			}
+		}
+		img {
+			@media (min-width: @breakDesktop) {
+				display: inline-block;
+			}
+		}
+	}
 	header.main,
-	.page-head,
 	.page-content {
 		@media (min-width: @breakTablet) {
 	    .container {

@@ -340,19 +340,25 @@ footer {
 }
 
 .page-head {
-  padding: 120px 0 10px 0;
-  martgin-bottom: 0;
-  position: relative;
-  top: -100px;
   background-color: @greenHill;
+  padding: 1.0em 0 .5em 0;
   min-height: 40px;
-  .container {
-    margin-bottom: 0;
+  margin-left: 0;
+  position: relative;
+  top: -4.0em;
+  z-index: 1;
+  img {
+    position: absolute;
+    width: 25%;
+    height: 112%;
+    left: -25%;
+    top: -8px;
+    display: none;
   }
 }
 
 .page-content {
-  margin-top: -70px;
+  margin-top: -40px;
   min-height: 500px;
   .box {
     padding-right: 25px;
@@ -527,10 +533,11 @@ div.DTTT.btn-group {
 /* Navigation
 ==================== */
 header.main {
-  padding-top: 1em;
+  padding: 2em 0 6em;
   position: relative;
   width: 100%;
   box-shadow: none;
+  z-index: 0;
   a.logo-small {
     position:absolute;
     top: 5px;
@@ -1169,9 +1176,15 @@ body.venue {
 /* CMS Pages
 ==================== */
 body.cms-page {
-  h1, h2, h3 {
+  h2, h3, h4, h5, h6 {
     padding-top: .8em;
     line-height: 1.4em;
+  }
+  .page-head {
+    .container {
+      width: 96%;
+      margin: 0 2%;
+    }
   }
   .edit-btn {
     .btn;
@@ -1208,11 +1221,10 @@ body.cms-page {
     }
   }
   header.main,
-  .page-head,
   .page-content {
     .container {
       width: 96%;
-      margin: 0 2%;
+      margin: 0;
       float: none;
     }
   }
@@ -1220,7 +1232,7 @@ body.cms-page {
     padding-top: 5em;
   }
   .box-content p {
-    font-size: @baseFontSize * 1.25;
+    font-size: @baseFontSize * 1.15;
     line-height: 1.7em;
   }
 }
