@@ -4,6 +4,7 @@ from django.template import Context
 from django.template.loader import get_template
 from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod
+from . import models
 
 
 DEFAULT_EMAIL_ADDRESS = "pycon-aid@python.org"
@@ -37,6 +38,15 @@ def has_application(user):
         else:
             user._has_finaid_application = True
     return user._has_finaid_application
+
+
+def application_accepted(user):
+    """Return True if this user has an application with STATUS_ACCEPTED"""
+    if (has_application(user) and \
+        user.financial_aid.status == models.STATUS_ACCEPTED):
+        return True
+    else:
+        return False
 
 
 def email_address():
