@@ -1,9 +1,10 @@
-from django.conf import settings
 from mock import patch
 
+from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from pycon.bulkemail.tasks import send_bulk_emails
 
 from pycon.finaid.tests.utils import TestMixin
 from symposion.conference.models import Conference
@@ -198,6 +199,8 @@ class TestTutorialMessageView(TestMixin, TestCase):
             tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
 
+        send_bulk_emails()
+
         # For each message, it's visible, so it should have been emailed to
         # both the other attendees and speakers. Total: 1 message for this case
         self.assertEqual(1, len(mail.outbox))
@@ -225,6 +228,8 @@ class TestTutorialMessageView(TestMixin, TestCase):
             user=self.user,
             tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
+
+        send_bulk_emails()
 
         # For each message, it's visible, so it should have been emailed to
         # both the other attendees and speakers. Total: 1 message for this case

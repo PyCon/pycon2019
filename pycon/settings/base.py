@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # base settings - imported by other settings files, then overridden
 
+from datetime import timedelta
 import os.path
 import posixpath
 
@@ -223,6 +224,7 @@ INSTALLED_APPS = [
     # custom
     "markedit",
     "pycon",
+    "pycon.bulkemail",
     "pycon.sponsorship",
     "pycon.registration",
     "pycon.schedule",
@@ -388,3 +390,11 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # Need to switch from the now-default JSON serializer, or OAuth2 breaks trying
 # to serialize a datetime to JSON
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+
+# Send bulk emails every 5 minutes
+CELERYBEAT_SCHEDULE = {
+    'send_bulk_emails': {
+        'task': 'pycon.bulkemail.tasks.send_bulk_emails',
+        'schedule': timedelta(minutes=5),
+    }
+}

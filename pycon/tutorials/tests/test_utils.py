@@ -7,6 +7,8 @@ from mock import patch
 
 from django.template import Template
 
+from pycon.bulkemail.models import BulkEmail
+
 from ..utils import send_email_message
 
 
@@ -23,7 +25,7 @@ class TestSendEmailMessage(unittest.TestCase):
         get_template.return_value = test_template
 
         context = {'a': 1, 'b': 2}
-        send_email_message("TESTNAME", "from_address", [1, 2], [], context)
+        send_email_message("TESTNAME", "from_address", ["1", "2"], [], context)
 
         args, kwargs = get_template.call_args_list[0]
         expected_template_name = "tutorials/email/TESTNAME/subject.txt"
@@ -33,4 +35,5 @@ class TestSendEmailMessage(unittest.TestCase):
         expected_template_name = "tutorials/email/TESTNAME/body.txt"
         self.assertEqual(expected_template_name, args[0])
 
-        self.assertEqual(1, send_mail.call_count)
+        # Creates a BulkEmail object
+        self.assertEqual(1, BulkEmail.objects.count())

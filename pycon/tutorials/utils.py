@@ -1,12 +1,13 @@
+import json
 import re
 
 from django.contrib import messages
-from django.core.mail.message import EmailMessage
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.translation import ugettext as _
+from pycon.bulkemail.models import BulkEmail
 
 
 def is_attendee_or_speaker(user, presentation):
@@ -50,7 +51,7 @@ def send_email_message(template_name, from_, to, bcc, context, headers=None):
     and "tutorials/email/%(template_name)s/body.txt"
     :param from_: From address to use
     :param to: List of addresses to send to
-    :param to: List of addresses to send via bcc
+    :param bcc: List of addresses to send via bcc
     :param context: Dictionary with context to use when rendering the
     templates.
     :param headers: dict of optional, additional email headers
@@ -75,8 +76,14 @@ def send_email_message(template_name, from_, to, bcc, context, headers=None):
     # our email templates, and we do. If you change this to, say, send
     # HTML format email, you must go through the email templates and do
     # something better about escaping user data for safety.
-    email = EmailMessage(subject, body, from_, to, bcc, headers=headers)
-    email.send()
+    BulkEmail.objects.create(
+        subject=subject,
+        body=body,
+        from_address=from_,
+        to_addresses=to,
+        bcc_addresses=bcc,
+        headers=json.dumps(headers),
+    )
 
 
 def process_tutorial_request(request, presentation):
