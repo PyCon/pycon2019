@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.mail import send_mass_mail
 from django.db.models import Q
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
@@ -93,13 +94,21 @@ def review_section(request, section_slug, assigned=False):
     queryset = ProposalBase.objects.filter(kind__section=section)
 
     if request.method == "POST" and can_manage:
-        pk = request.POST['pk']
-        status = request.POST['status']
-        base_obj = queryset.get(pk=pk)
-        p_type = section_slug.rstrip('s').replace('-', '')
-        proposal = getattr(base_obj, 'pycon%sproposal' % p_type)
-        proposal.overall_status = status
-        proposal.save()
+        pk_string = request.POST['pk']
+        if pk_string != '':
+            pk_list =  [int(i) for i in pk_string.split(',')]
+            for pk in pk_list:
+                status = request.POST['status']
+                base_obj = queryset.get(pk=pk)
+                p_type = section_slug.rstrip('s').replace('-', '')
+                proposal = getattr(base_obj, 'pycon%sproposal' % p_type)
+                proposal.overall_status = status
+                proposal.save()
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                (u"Please select at least one application"))
+            return redirect(request.path)
 
     if assigned:
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
