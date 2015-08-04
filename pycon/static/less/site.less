@@ -340,25 +340,28 @@ footer {
 }
 
 .page-head {
-  background-color: @greenHill;
-  padding: 1.0em 0 .5em 0;
-  min-height: 40px;
-  margin-left: 0;
-  position: relative;
-  top: -4.0em;
-  z-index: 1;
+  width: 100%;
+  margin-top: 2.5em;
   img {
-    position: absolute;
-    width: 25%;
-    height: 112%;
-    left: -25%;
-    top: -8px;
+    width: 20%;
+    height: 71px;
+    top: 0;
+    float: left;
+    position: relative;
     display: none;
+  }
+  .container {
+    background-color: @greenHill;
+    padding: 1.0em 0 0;
+    min-height: 40px;
+    margin-left: 0;
+    position: initial;
+    z-index: 1;
   }
 }
 
 .page-content {
-  margin-top: -40px;
+  margin-top: 2em;
   min-height: 500px;
   .box {
     padding-right: 25px;
@@ -533,7 +536,7 @@ div.DTTT.btn-group {
 /* Navigation
 ==================== */
 header.main {
-  padding: 2em 0 6em;
+  padding: 1em 0 0;
   position: relative;
   width: 100%;
   box-shadow: none;
@@ -555,7 +558,7 @@ header.main {
       position: relative;
     }
     .navbar {
-      margin-bottom: 5px;
+      margin-bottom: 0;
 
       .navbar-inner {
         background: transparent;
@@ -594,6 +597,9 @@ header.main {
             }
           }
           &.dropdown {
+            ul {
+              width: initial;
+            }
             .dropdown-toggle {
               &:hover,
               &:focus,
@@ -681,6 +687,7 @@ header.main {
         color: white;
         display: block;
         position: relative;
+        text-align: left;
         &:hover {
           background-color: @maroon;
         }
@@ -731,7 +738,8 @@ ul.breadcrumb {
 body.home {
   min-width: 100%;
   margin: 0;
-  .logo-small {
+  .logo-small,
+  .page-head {
     display: none;
   }
   nav .navbar {
@@ -753,8 +761,7 @@ body.home {
     .for-the-com,
     .by-for-the-com {
       float: left;
-      position: relative;
-      top: 11.35em;
+      margin-top: 12.5em;
       font-family: 'roboto condensed', sans-serif;
       font-weight: 700;
       p {
@@ -775,7 +782,7 @@ body.home {
       float: right;
     }
     .by-for-the-com {
-      top: 1em;
+      margin-top: 1em;
       margin-bottom: 3em;
       p {
         font-size: @baseFontSize * 1.5;
@@ -820,13 +827,10 @@ body.home {
   }
 
   .city {
-    position: relative;
     background-color: @greenHill;
     img.skyline {
-      min-width: 100%;
+      width: 100%;
       height: auto;
-      position: absolute;
-      bottom: 0;
     }
   }
 
@@ -1185,12 +1189,6 @@ body.cms-page {
     padding-top: .8em;
     line-height: 1.4em;
   }
-  .page-head {
-    .container {
-      width: 96%;
-      margin: 0 2%;
-    }
-  }
   .edit-btn {
     .btn;
     .btn-primary;
@@ -1225,11 +1223,8 @@ body.cms-page {
       }
     }
   }
-  header.main,
   .page-content {
     .container {
-      width: 96%;
-      margin: 0;
       float: none;
     }
   }
@@ -1953,6 +1948,22 @@ body#group-registration {
       margin: 1em 1em 0 0;
       &.is-selected {
         background-color: #999;
+      }
+    }
+  }
+}
+
+body {
+  &.account, &.auth, &.login {
+    header.main {
+      .container nav .navbar {
+        margin-left: 17%;
+      }
+    }
+    .page-head {
+      .container {
+        width: 100%;
+        margin-top: 3.5em;
       }
     }
   }

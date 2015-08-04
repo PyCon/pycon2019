@@ -71,6 +71,12 @@
             </nav>
         {% endblock %}
         </div>
+        <div class="page-head">
+            <img src="{{ STATIC_URL }}img/PNG/breadcrumbs-hills.png" width=460 height=180 alt="hills next to breadcrumb illustration">
+            <div class="container">
+                {% block breadcrumbs %}{% endblock %}
+            </div>
+        </div>
     </header>
     {% block banner %}{% endblock %}
 {% endblock %}
@@ -78,12 +84,6 @@
 {% block body_base %}
     <div id="content">
         {% block body_outer %}
-            <div class="page-head">
-                <img src="{{ STATIC_URL }}img/PNG/breadcrumbs-hills.png" width=460 height=180 alt="hills next to breadcrumb illustration">
-                <div class="container">
-                    {% block breadcrumbs %}{% endblock %}
-                </div>
-            </div>
             <div class="page-content">
                 {% block page_content %}
                 <div class="container">

@@ -47,8 +47,10 @@ body {
 
 	.page-head {
 		@media (max-width: @breakTablet) {
-			padding-right: 20px;
-			padding-left: 20px;
+			.container {
+				padding-right: 20px;
+				padding-left: 20px;
+			}
 		}
 	}
 	.page-content {
@@ -78,9 +80,13 @@ body {
 		}
 		@media (min-width: @breakDesktop) {
 			nav {
+				margin-top: 1em;
 				a.logo-small {
 					top: 15px;
 					left: 5%;
+					width :140px;
+					height: 85px;
+					background-size: 140px auto;
 				}
 				ul {
 					width: 100%;
@@ -92,7 +98,6 @@ body {
 				.account-bar {
 					margin: 0;
 					float: right;
-					text-transform: uppercase;
 					position: absolute;
 					top: -2em;
 					right: 0;
@@ -112,6 +117,7 @@ body {
 							&.logout,
 							&.signup {
 								display: inline-block;
+								text-align: center;
 							}
 						}
 					}
@@ -125,9 +131,8 @@ body {
 			a.logo-smaller { display: none; }
 		}
 		@media (max-width: @breakDesktop) {
-			padding-top: 0;
 			.navbar {
-				position: fixed;
+				position: absolute;
 				top: 0;
 				right: 0;
 				width :100%;
@@ -186,7 +191,7 @@ body {
 			    text-indent: -9999px;
 			    display: block;
 			    background-size: 120px auto;
-			    margin: 0 0 10px 5px;
+			    margin: 0 0 1em 1.5em;
 					border-bottom: none;
 			}
 		}
@@ -268,7 +273,7 @@ body.home {
 			a.logo-smaller { display: none; }
 			@media (max-width: @breakMobileLandscape) {
 				.account-links {
-					span { display: none; }
+					span { display: block; }
 				}
 			}
 		}
@@ -389,15 +394,6 @@ body.home {
 		@media (min-width: @breakMobileLandscape) {
 			padding-bottom: 7em
 		}
-		@media (min-width: @breakTablet) {
-			padding-bottom: 9em
-		}
-		@media (min-width: @breakDesktop) {
-			padding-bottom: 12em
-		}
-		@media (min-width: @breakDesktopLarge) {
-			padding-bottom: 15em
-		}
 		@media (max-width: @breakDesktop) {
 			p {
 	      font-size: @baseFontSize * 1.25;
@@ -453,27 +449,42 @@ body.home {
 /* CMS Page
 ==================== */
 body.cms-page {
-	.page-head {
-		@media (min-width: @breakDesktop) {
-			margin-left: 20%;
-		}
+	header.main {
 		.container {
 			@media (min-width: @breakTablet) {
-				width: 76%;
-				margin: 0 12%;
-			}
-			@media (min-width: @breakDesktop) {
 				width: 100%;
 				margin: 0;
 			}
+			@media (min-width: @breakDesktop) {
+				width: 80%;
+				margin-left: 20%;
+				float: none;
+			}
+			@media (min-width: @breakTablet) and (max-width: @breakDesktop) {
+				.breadcrumb {
+					margin-left: 12%;
+				}
+			}
 		}
+	}
+	.page-head {
 		img {
 			@media (min-width: @breakDesktop) {
 				display: inline-block;
 			}
 		}
+		.container {
+			@media (min-width: @breakTablet) {
+				width: 76%;
+				margin: 2em 0 0;
+			}
+			@media (min-width: @breakDesktop) {
+				width: 80%;
+				margin: 0;
+				float: right;
+			}
+		}
 	}
-	header.main,
 	.page-content {
 		@media (min-width: @breakTablet) {
 	    .container {
@@ -488,14 +499,6 @@ body.cms-page {
 			.container {
 		    width: 60%;
 		    margin: 0 20%;
-		  }
-		}
-	}
-	header.main {
-		@media (min-width: @breakDesktop) {
-			.container {
-		    width: 64%;
-		    margin: 0 16% 0 20%;
 		  }
 		}
 	}
