@@ -107,6 +107,7 @@ class BaseExporter(object):
             csvwriter.writerow(dict([(fieldname, display(fieldname))
                                      for fieldname in fieldnames]))
             for obj in objects:
+                print("Writing a row to %s" % filename)
                 data = OrderedDict([(name, unicode(self.get_attribute(obj, getter)))
                             for name, getter in fields])
                 csvwriter.writerow(data)
@@ -132,8 +133,9 @@ class SpeakerBiosExporter(BaseExporter):
         queryset = Presentation.objects.exclude(cancelled=True)
         sort_key = lambda s: s.name.lower()
         all_speakers = []
-        kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk', 'Sponsor Tutorial']]
+        kinds = ProposalKind.objects.all()
+        # kinds = [ProposalKind.objects.get(name=name)
+        #          for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk', 'Sponsor Tutorial']]
         for kind in kinds:
             speakers = []
             for presentation in queryset.filter(proposal_base__kind=kind):
@@ -200,16 +202,17 @@ class PresentationsExporter(BaseExporter):
 
     def export(self):
         queryset = Presentation.objects.exclude(cancelled=True)
-        kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk',
-                              'Sponsor Tutorial']]
+        kinds = ProposalKind.objects.all()
+        # kinds = [ProposalKind.objects.get(name=name)
+        #          for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk',
+        #                       'Sponsor Tutorial']]
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
             filename = kind.name.lower().replace(' ', '_') + 's'
-            if kind.name in ['Talk', 'Tutorial']:
+            if kind.name.lower() in ['talk', 'tutorial']:
                 self.write(filename, presentations,
-                                self.fields + ['room', 'time'])
+                           self.fields + ['room', 'time'])
             else:
                 self.write(filename, presentations)
 
@@ -219,6 +222,11 @@ class ScheduleExporter(BaseExporter):
               'audience_level', 'category', 'url', 'abstract']
     basedir = 'schedule/'
     description_fields = []
+
+    def prepare_abstract(self, slot):
+        if slot.content and slot.content.abstract:
+            return slot.content.abstract
+        return ''
 
     def prepare_title(self, slot):
         if slot.content:
@@ -259,10 +267,12 @@ class ScheduleExporter(BaseExporter):
                     if slot.content and slot.content.cancelled:
                         continue
                     slots.append(slot)
+            print("There are %d slots for %s" % (len(slots), schedule.section.name))
             slots.sort(key=lambda s: s.rooms[0].name if s.rooms else '')
             slots.sort(key=lambda s: s.end)
             slots.sort(key=lambda s: s.start)
             slots.sort(key=lambda s: s.day.date)
+            print("There are %d slots for %s" % (len(slots), schedule.section.name))
             filename = schedule.section.name.lower().replace(' ', '_') + '_schedule'
             self.write(filename, slots)
 
