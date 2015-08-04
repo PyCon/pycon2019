@@ -320,7 +320,7 @@ footer {
     padding-bottom: 20px;
     p {
       padding-top: 0;
-      margin: 0 0 1em 0;
+      margin: 0 0 1.25em 0;
       font-size: 14px;
       line-height: 1.8em;
       a {
@@ -566,7 +566,7 @@ header.main {
       }
 
       .nav {
-        margin: 5px 10px 0 0;
+        margin: 0;
         li {
            a {
             font-size: @baseFontSize + 3;
@@ -663,29 +663,33 @@ header.main {
     }
   }
   .account-bar {
-    float: right;
+    float: none;
     text-transform: uppercase;
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    background-color: white;
+    &.loggedin {
+      span {
+        margin-left: 1em;
+      }
+    }
       a.login,
       a.signup,
       button.logout {
-        padding: 20px !important;
+        padding: 1em !important;
         height: 100%;
         border-radius: 0;
         background-color: @red;
         font-weight: 400;
         color: white;
-        display: inline-block;
+        display: block;
         position: relative;
         &:hover {
           background-color: @maroon;
         }
       }
       .login {
-        right: -5px;
-        border-right: 1px solid @maroon;
+        right: 0;
+        border-bottom: 1px solid @maroon;
       }
 
     span { color: @grayDark; }
@@ -741,6 +745,7 @@ body.home {
     img {
       display: block;
       margin: 0 auto;
+      width: 85%;
     }
     .by-the-com,
     .for-the-com,

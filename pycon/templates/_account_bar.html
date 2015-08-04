@@ -2,7 +2,7 @@
 {% load account_tags %}
 {% load i18n %}
 
-<div class="account-links row">
+<div class="account-links">
     {% if user.is_authenticated %}
         {% if request.user.get_full_name%}
             <span>

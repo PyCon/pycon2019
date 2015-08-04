@@ -79,8 +79,44 @@ body {
 					top: 15px;
 					left: auto;
 				}
+				ul {
+					width: 100%;
+					z-index: 0;
+				}
 				.navbar .nav li a {
 					padding: .5em 1.5em .5em 0;
+				}
+				.account-bar {
+					margin: 0;
+					float: right;
+					text-transform: uppercase;
+					position: absolute;
+					top: -1em;
+					right: 0;
+					background-color: transparent;
+					padding: 0;
+					z-index: 1;
+					&.loggedin {
+						position: relative;
+						span {
+							margin-left: 0;
+						}
+					}
+					.account-links {
+						button.logout,
+						a {
+							&.login,
+							&.logout,
+							&.signup {
+								display: inline-block;
+							}
+						}
+					}
+					.login {
+						right: -5px;
+						border-right: 2px solid @maroon;
+						border-bottom-color: @red;
+					}
 				}
 			}
 			a.logo-smaller { display: none; }
@@ -89,10 +125,10 @@ body {
 			.navbar {
 				position: fixed;
 				top: 0;
-				left: 0;
+				right: 0;
 				width :100%;
 				.btn-navbar {
-					float: left;
+					float: right;
 					padding: 20px;
 					margin: 0;
 			    .box-shadow(none);
@@ -126,22 +162,6 @@ body {
 					}
 				}
 			}
-			.account-bar {
-				margin: 0;
-				float: none;
-				.account-links {
-					position: relative;
-			    right: 0;
-			    top: 0;
-					a {
-			      &.login,
-			      &.logout,
-			      &.signup {
-							padding: 13px !important;
-						}
-					}
-				}
-			}
 			nav {
 				.navbar .navbar-inner {
 					margin: 0;
@@ -149,6 +169,10 @@ body {
 				}
 				a.logo-small {
 					display: none;
+				}
+				.account-bar form button[type=submit] {
+					margin: 1em 0 0;
+					width: 100%;
 				}
 			}
 			a.logo-smaller {
@@ -207,6 +231,7 @@ body.home {
 	@media (min-width: @breakDesktop) {
 		.landing-banner img {
 			padding: 4em 0 1em;
+			width: 100%;
 			.by-the-com,
 	    .for-the-com {
 	      float: left;
