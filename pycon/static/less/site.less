@@ -1136,9 +1136,38 @@ body.sponsors {
         overflow:auto;
       }
 
+      h3 a {
+        border-bottom: none;
+      }
+
       h4 {
         font-size:@baseFontSize + 3;
         line-height:30px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .span4 {
+        width: 45%;
+        margin: 0 2.5%;
+      }
+      .offset4 {
+        margin: 0 27.5%;
+      }
+      .offset2 {
+        margin-left: 27.5%;
+      }
+    }
+    @media (min-width: 979px) {
+      .span4 {
+        width: 30%;
+        margin: 0 1.66%;
+      }
+      .offset4 {
+        margin: 0 35%;
+      }
+      .offset2 {
+        margin-left: 18.5%;
       }
     }
   }
