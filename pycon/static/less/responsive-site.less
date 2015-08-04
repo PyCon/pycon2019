@@ -449,45 +449,47 @@ body.home {
 	}
 }
 
+header.main {
+	.container {
+		@media (min-width: @breakTablet) {
+			width: 100%;
+			margin: 0;
+		}
+		@media (min-width: @breakDesktop) {
+			width: 80%;
+			margin-left: 20%;
+			float: none;
+		}
+		@media (min-width: @breakTablet) and (max-width: @breakDesktop) {
+			.breadcrumb {
+				margin-left: 12%;
+			}
+		}
+	}
+}
+.page-head {
+	img {
+		@media (min-width: @breakDesktop) {
+			display: inline-block;
+		}
+	}
+	.container {
+		@media (min-width: @breakTablet) {
+			width: 76%;
+			margin: 2em 0 0;
+		}
+		@media (min-width: @breakDesktop) {
+			width: 80%;
+			margin: 0;
+			float: right;
+		}
+	}
+}
+
 /* CMS Page
 ==================== */
 body.cms-page {
-	header.main {
-		.container {
-			@media (min-width: @breakTablet) {
-				width: 100%;
-				margin: 0;
-			}
-			@media (min-width: @breakDesktop) {
-				width: 80%;
-				margin-left: 20%;
-				float: none;
-			}
-			@media (min-width: @breakTablet) and (max-width: @breakDesktop) {
-				.breadcrumb {
-					margin-left: 12%;
-				}
-			}
-		}
-	}
-	.page-head {
-		img {
-			@media (min-width: @breakDesktop) {
-				display: inline-block;
-			}
-		}
-		.container {
-			@media (min-width: @breakTablet) {
-				width: 76%;
-				margin: 2em 0 0;
-			}
-			@media (min-width: @breakDesktop) {
-				width: 80%;
-				margin: 0;
-				float: right;
-			}
-		}
-	}
+
 	.page-content {
 		@media (min-width: @breakTablet) {
 	    .container {
