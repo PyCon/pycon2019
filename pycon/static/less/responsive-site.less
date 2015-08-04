@@ -70,22 +70,26 @@ body {
 		}
 	}
 	header.main {
-		@media (max-width: @breakDesktop) {
-			padding-top: 0;
+		@media (min-width: @breakDesktopLarge) {
+			.navbar .nav li a {
+				padding-right: 1.5em;
+				font-size: @baseFontSize + 3;
+			}
 		}
 		@media (min-width: @breakDesktop) {
 			nav {
 				a.logo-small {
 					top: 15px;
-					left: auto;
+					left: 5%;
 				}
 				.navbar .nav li a {
-					padding: .5em 1.5em .5em 0;
+					padding-right: 1em;
 				}
 			}
 			a.logo-smaller { display: none; }
 		}
 		@media (max-width: @breakDesktop) {
+			padding-top: 0;
 			.navbar {
 				position: fixed;
 				top: 0;
@@ -152,19 +156,22 @@ body {
 				}
 			}
 			a.logo-smaller {
-			    width: 300px;
-			    height: 27px;
-			    background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
+			    width: 120px;
+			    height: 75px;
+			    background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
 			    text-indent: -9999px;
 			    display: block;
-			    background-size: 300px auto;
+			    background-size: 120px auto;
 			    margin: 0 0 10px 5px;
-			    @media (max-width: @breakMobileLandscape) {
-			    	 background-size: 290px auto;
-			    	 width: 290px;
-			    }
+					border-bottom: none;
 			}
 		}
+	}
+}
+
+.row {
+	@media (min-width: @breakDesktopLarge) {
+		margin-left: 0;
 	}
 }
 
@@ -335,36 +342,6 @@ body.home {
 		}
 	}
 
-	.sponsor-crawl {
-		@media (max-width: @breakMobileLandscape) {
-			padding: 20px 0;
-		}
-		.sponsorship-link {
-			@media (max-width: @breakTablet) {
-				position: relative;
-				display: block;
-				top: auto;
-				right: auto;
-				margin: 0 auto;
-				text-align: center;
-	      	}
-		}
-
-		.sponsor-scroll-item {
-			@media (max-width: @breakDesktopLarge) {
-				width: 21%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakTablet) {
-				width: 46%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakMobileLandscape) {
-				width: 90%;
-				margin: .5em 5%;
-			}
-		}
-	}
 	  /* Slideshow nav
   ==================== */
 	.scroll-title {
@@ -415,20 +392,87 @@ body.home {
 	}
 }
 
+/* Sponsor Carousel
+==================== */
+.sponsor-crawl {
+	@media (max-width: @breakMobileLandscape) {
+		padding: 20px 0;
+	}
+	.sponsorship-link {
+		@media (max-width: @breakTablet) {
+			position: relative;
+			display: block;
+			top: auto;
+			right: auto;
+			margin: 0 auto;
+			text-align: center;
+				}
+	}
+
+	.sponsor-scroll-item {
+		@media (max-width: @breakDesktopLarge) {
+			width: 21%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakTablet) {
+			width: 46%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			width: 90%;
+			margin: .5em 5%;
+		}
+	}
+}
+
 /* CMS Page
 ==================== */
 body.cms-page {
-	@media (min-width: @breakTablet) {
-		.internal-content{
-	    width: 80%;
-	    margin: 0 10%;
-	  }
+	.page-head {
+		@media (min-width: @breakDesktop) {
+			margin-left: 20%;
+		}
+		.container {
+			@media (min-width: @breakTablet) {
+				width: 76%;
+				margin: 0 12%;
+			}
+			@media (min-width: @breakDesktop) {
+				width: 100%;
+				margin: 0;
+			}
+		}
+		img {
+			@media (min-width: @breakDesktop) {
+				display: inline-block;
+			}
+		}
 	}
-	@media (min-width: @breakDesktop) {
-		.internal-content{
-	    width: 70%;
-	    margin: 0 15%;
-	  }
+	header.main,
+	.page-content {
+		@media (min-width: @breakTablet) {
+	    .container {
+	      width: 76%;
+	      margin: 0 12%;
+	    }
+			.box-content p {
+		    font-size: @baseFontSize * 1.5;
+		  }
+		}
+		@media (min-width: @breakDesktop) {
+			.container {
+		    width: 60%;
+		    margin: 0 20%;
+		  }
+		}
+	}
+	header.main {
+		@media (min-width: @breakDesktop) {
+			.container {
+		    width: 64%;
+		    margin: 0 16% 0 20%;
+		  }
+		}
 	}
 }
 
