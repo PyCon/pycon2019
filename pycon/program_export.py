@@ -148,14 +148,9 @@ class SpeakerBiosExporter(BaseExporter):
 
 
 class SponsorsExporter(BaseExporter):
-    fields = ['name', 'external_url', 'print_description', 'web_description']
+    fields = ['name', 'external_url', 'web_description']
     basedir = 'sponsors/'
-    description_fields = ['print_description', 'web_description']
-
-    def prepare_print_description(self, sponsor):
-        if sponsor.print_description_benefit:
-            return sponsor.sponsor_benefits.get(benefit__name='Print Description').text
-        return ''
+    description_fields = ['web_description']
 
     def prepare_web_description(self, sponsor):
         return sponsor.web_description
@@ -171,7 +166,7 @@ class SponsorsExporter(BaseExporter):
 
 class PresentationsExporter(BaseExporter):
     fields = [('name', 'title'), 'speakers', 'audience_level', 'category',
-              'description', 'url']
+              'description', 'abstract', 'url']
     basedir = 'presentations/'
     description_fields = ['description']
 
@@ -221,7 +216,7 @@ class PresentationsExporter(BaseExporter):
 
 class ScheduleExporter(BaseExporter):
     fields = [('name', 'title'), 'speakers', 'room', 'day', 'start', 'end',
-              'audience_level', 'category', 'url']
+              'audience_level', 'category', 'url', 'abstract']
     basedir = 'schedule/'
     description_fields = []
 
