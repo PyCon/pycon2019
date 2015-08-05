@@ -108,7 +108,7 @@
   </button>
 
 <!-- We use jQuery below to change the value of this input to the selected rows -->
-  <input id="multiInput" type="hidden" name="pk" value="" />
+  <input id="multiInput" type="hidden" name="pks" value="" />
   <select name="status">
     {% for k, v in status_options %}
       <option value="{{ k }}" {% if proposal.overall_status == k %}selected="selected"{% endif %}>
@@ -151,29 +151,23 @@
                 "sSwfPath": "{{ STATIC_URL }}tabletools/swf/copy_csv_xls.swf"
             }
         });
+        // When a row is clicked it becomes selected
+        $('table tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
+        });
+
+        // When the submit button is clicked all the selected rows are found and are sent as the value of multiInput
+        var table = $("table.table-reviews").DataTable();
+        $('#button').click( function () {
+            var new_list=[];
+            for (i=0; i<table.rows('.selected').data().length; i++){
+              pk = table.rows('.selected').data()[i][0];
+              new_list.push(pk);
+            };
+            $( "#multiInput" ).val( new_list );
+    } );
+
     });
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    var table = $("table.table-reviews").DataTable();
-
-    // When a row is clicked it becomes selected
-    $('table tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
-
-    // When the submit button is clicked all the selected rows are found and are sent as the value of multiInput
-    $('#button').click( function () {
-        var new_list=[];
-        for (i=0; i<table.rows('.selected').data().length; i++){
-          our_data = table.rows('.selected').data()[i][0];
-          new_list.push(our_data);
-        };
-        $( "#multiInput" ).val( new_list );
-    } );
-
-} );
 </script>
 
 {% endcompress %}
