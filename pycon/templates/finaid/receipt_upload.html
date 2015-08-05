@@ -35,24 +35,20 @@
     <div>
       <h3>{% trans "Your previously uploaded receipts:" %}</h3>
 
-    <table class="table table-striped table-bordered table-finaid">
-      <thead>
-        <th>{% trans "Description " %}<i class="icon-sort"></i></th>
-	<th>{% trans "Amount " %}<i class="icon-sort"></i></th>
-      </thead>
+      <table class="table table-striped table-bordered table-finaid">
+        <thead>
+          <th>{% trans "Description " %}<i class="icon-sort"></i></th>
+          <th>{% trans "Amount " %}<i class="icon-sort"></i></th>
+        </thead>
 
-      <tbody>
-        {% for receipt in receipts %}
-          <tr>
-            <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.description }}</a></td>
-            <td>{{ receipt.amount }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-
-
+        <tbody>
+          {% for receipt in receipts %}
+            <tr>
+              <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.description }}</a></td>
+              <td>{{ receipt.amount }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 {% endblock %}
