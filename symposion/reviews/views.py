@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.views.decorators.http import require_POST
 from taggit.utils import edit_string_for_tags
+from django.utils.translation import ugettext as _
 
 from pycon.models import PyConProposal
 
@@ -105,10 +106,7 @@ def review_section(request, section_slug, assigned=False):
                 proposal.overall_status = status
                 proposal.save()
         else:
-            messages.add_message(
-                request, messages.ERROR,
-                (u"Please select at least one application"))
-            return redirect(request.path)
+            messages.error(request, _("Please select at least one application"))
 
     if assigned:
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
