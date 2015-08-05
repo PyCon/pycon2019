@@ -94,7 +94,7 @@ def review_section(request, section_slug, assigned=False):
     queryset = ProposalBase.objects.filter(kind__section=section)
 
     if request.method == "POST" and can_manage:
-        pk_string = request.POST['pk']
+        pk_string = request.POST['pks']
         if pk_string != '':
             pk_list =  [int(i) for i in pk_string.split(',')]
             for pk in pk_list:
