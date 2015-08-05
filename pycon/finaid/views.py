@@ -444,7 +444,8 @@ def receipt_upload(request):
 
     else:
         form = ReceiptForm()
-        receipts = request.user.financial_aid.receipts.all()
+
+    receipts = request.user.financial_aid.receipts.all()
     return render(request, "finaid/receipt_upload.html", {
         'form': form,
         'receipts': receipts
