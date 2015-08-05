@@ -3,17 +3,17 @@
 {% load bootstrap_tags %}
 {% load i18n %}
 
-{% block head_title %}Receipt Upload{% endblock %}
+{% block head_title %}{% trans "Receipt Upload "%}{% endblock %}
 
-{% block body_id %}receipt_upload{% endblock %}
+{% block body_id %}{% trans "receipt_upload" %}{% endblock %}
 
-{% block page_title %}Receipt Application{% endblock %}
+{% block page_title %}{% trans "Receipt Application" %}{% endblock %}
 
 {% block body %}
     {% if form.errors %}
         <div class="alert">
             <p class="text-error">
-                There were errors in your form, please correct them and submit again.
+                {% trans "There were errors in your form, please correct them and submit again." %}
             </p>
         </div>
     {% endif %}
@@ -33,12 +33,12 @@
     </form>
 
     <div>
-      <h3>Your previously uploaded receipts:</h3>
+      <h3>{% trans "Your previously uploaded receipts:" %}</h3>
 
     <table class="table table-striped table-bordered table-finaid">
       <thead>
-        <th>Description <i class="icon-sort"></i></th>
-	<th>Amount <i class="icon-sort"></i></th>
+        <th>{% trans "Description " %}<i class="icon-sort"></i></th>
+	<th>{% trans "Amount " %}<i class="icon-sort"></i></th>
       </thead>
 
       <tbody>
