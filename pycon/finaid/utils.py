@@ -40,13 +40,11 @@ def has_application(user):
     return user._has_finaid_application
 
 
-def application_accepted(user):
-    """Return True if this user has an application with STATUS_ACCEPTED"""
-    if (has_application(user) and \
-        user.financial_aid.status == models.STATUS_ACCEPTED):
-        return True
-    else:
-        return False
+def offer_accepted(user):
+    """Return True if this user has an application that has been submitted,
+    an offer has been made, and user has accepted the offer.
+    """
+    return has_application(user) and user.financial_aid.status == models.STATUS_ACCEPTED:
 
 
 def email_address():
