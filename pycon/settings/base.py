@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # base settings - imported by other settings files, then overridden
 
+import copy
 from datetime import timedelta
 import os.path
 import posixpath
@@ -377,7 +378,11 @@ CACHES = {
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.
 from django.utils.log import DEFAULT_LOGGING
-LOGGING = DEFAULT_LOGGING
+LOGGING = copy.deepcopy(DEFAULT_LOGGING)
+LOGGING.setdefault('root', {
+    # Default root logger, just so everything has a handler and we don't see warnings
+    'handlers': ['null'],  # null handler is defined in the default logging config
+})
 
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 
@@ -390,6 +395,19 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # Need to switch from the now-default JSON serializer, or OAuth2 breaks trying
 # to serialize a datetime to JSON
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+
+
+# Celery
+BROKER_URL = 'redis://localhost:6379/0'  # Redis DB 0 for Celery.  (Cache will use DB 1)
+# We deliberately do not set CELERY_RESULT_BACKEND because we are discarding results.
+# Pickle is fine, our redis is only accessible on localhost
+CELERY_ACCEPT_CONTENT = ['pickle']
+# Some other options Celery docs say we should set when using Redis:
+BROKER_TRANSPORT_OPTIONS = {
+    'fanout_prefix': True,
+    'fanout_patterns': True
+}
+# NOTE: to start the worker, activate the venv and run "celery -A pycon worker [options]"
 
 # Send bulk emails every 5 minutes
 CELERYBEAT_SCHEDULE = {

@@ -1,4 +1,5 @@
-from pycon.finaid.utils import applications_open, has_application, is_reviewer
+from pycon.finaid.utils import applications_open, has_application, is_reviewer,\
+    offer_accepted
 
 
 def financial_aid(request):
@@ -9,6 +10,7 @@ def financial_aid(request):
         "show_finaid_status_button": has_application(request.user),
         "show_finaid_review_button": is_reviewer(request.user),
         "show_finaid_download_button": is_reviewer(request.user),
+        "show_finaid_receipt_form": offer_accepted(request.user),
     }
 
     ctx["show_financial_aid_section"] = \
