@@ -12,7 +12,6 @@ from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit
 from pycon.tests.factories import PyConTutorialProposalFactory
 from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.models import ProposalKind
-from symposion.proposals.tests.factories import ProposalBaseFactory
 from symposion.schedule.models import Schedule, Slot, Day, SlotKind
 from symposion.schedule.tests.factories import PresentationFactory
 
@@ -74,9 +73,6 @@ class ProgramExportTest(TestCase):
             end=now().time(),
         )
         pres = PresentationFactory(
-            title="Faffa the dog",
-            abstract="Tinkerbell",
-            description="Not very much, thank you",
             section=section,
             slot=slot,
             cancelled=False,
@@ -101,8 +97,6 @@ class ProgramExportTest(TestCase):
         prop_kind = ProposalKind.objects.get(name__iexact='tutorial')
         proposal = PyConTutorialProposalFactory(
             kind=prop_kind,
-            title="Faffa the dog",
-            abstract="Tinkerbell",
         )
         day=Day.objects.create(schedule=schedule, date=date.today())
         kind=SlotKind.objects.create(schedule=schedule, label="Foo")
@@ -115,7 +109,6 @@ class ProgramExportTest(TestCase):
         pres = PresentationFactory(
             title=proposal.title,
             abstract=proposal.abstract,
-            description="Not very much, thank you",
             section=section,
             slot=slot,
             cancelled=False,
