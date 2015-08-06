@@ -8,7 +8,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.timezone import now
-from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit
+from pycon.sponsorship.models import Benefit
+from pycon.sponsorship.tests.factories import SponsorFactory
 from pycon.tests.factories import PyConTutorialProposalFactory
 from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.models import ProposalKind
@@ -26,13 +27,7 @@ class ProgramExportTest(TestCase):
         self.url = reverse('program_export')
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
         conference = current_conference()
-        self.sponsor_level = SponsorLevel.objects.create(
-            conference=conference, name="Lead", cost=1)
-        self.sponsor = Sponsor.objects.create(
-            name="Big Daddy",
-            level=self.sponsor_level,
-            active=True,
-        )
+        self.sponsor = SponsorFactory(active=True)
 
         # Create our benefits, of various types
         self.text_benefit = Benefit.objects.create(name="text", type="text")
