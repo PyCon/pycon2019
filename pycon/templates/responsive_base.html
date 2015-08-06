@@ -29,16 +29,11 @@
     {% include "_messages.html" %}
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
+        <a class="logo-smaller" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, Or</a>
         <div class="container">
-            <a class="logo-smaller" href="{% url 'home' %}">{{ SITE_NAME }} in Montr&#233;al</a>
-            <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
-                {% block account_bar %}
-                {% include "_account_bar.html" %}
-                {% endblock %}
-            </div>
             {% block main_nav %}
                 <nav>
-                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Montr&#233;al</a>
+                    <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, Or</a>
 
                     <div class="navbar navbar-inverse">
                         <div class="navbar-inner">
@@ -50,16 +45,27 @@
                                 </a>
 
                                 <div class="nav-collapse collapse">
-                                {% block topbar %}
-                                    {% block nav %}
-                                    {% sitetree_menu from "main" include "trunk" %}
-                                    {% endblock %}
-                                {% endblock %}
+                                  <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
+                                      {% block account_bar %}
+                                      {% include "_account_bar.html" %}
+                                      {% endblock %}
+                                  </div>
+                                  {% block topbar %}
+                                      {% block nav %}
+                                      {% sitetree_menu from "main" include "trunk" %}
+                                      {% endblock %}
+                                  {% endblock %}
                                 </div>
                         </div>
                     </div>
                 </nav>
             {% endblock %}
+        </div>
+        <div class="page-head">
+            <img src="{{ STATIC_URL }}img/PNG/breadcrumbs-hills-left.png" width=460 height=180 alt="hills next to breadcrumb illustration">
+            <div class="container">
+                {% block breadcrumbs %}{% endblock %}
+            </div>
         </div>
     </header>
     {% block banner %}{% endblock %}

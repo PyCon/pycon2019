@@ -868,7 +868,7 @@ msgstr "COMMANDITAIRES"
 #, fuzzy, python-format
 msgid ""
 "\n"
-"                            %(SITE_NAME)s in Montr&#233;al is a production "
+"                            %(SITE_NAME)s in PORTLAND, OR is a production "
 "of the <a href=\"http://python.org/psf/\">Python Software Foundation</a>.</"
 "br>\n"
 "                            Site utilizes <a href=\"http://eldarion.com/"

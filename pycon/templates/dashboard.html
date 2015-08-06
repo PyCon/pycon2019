@@ -230,6 +230,12 @@
                             <span class="widget-label">Download applications</span>
                           </a>
                         {% endif %}
+                          {% if show_finaid_receipt_form %}
+                          <a href="{% url 'receipt_upload' %}" class="action">
+                            <i class="widget-icon icon-money"></i>
+                            <span class="widget-label">Upload Receipt</span>
+                          </a>
+                          {% endif %}
                       </div>
                     </div>
                   </div>

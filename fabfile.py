@@ -13,37 +13,32 @@ env.project = 'pycon'
 env.project_user = os.environ['LOGNAME']
 env.shell = '/bin/bash -c'
 env.settings = 'symposion.settings'
+env.use_ssh_config = True
 
 @task
 def staging():
     env.environment = 'staging'
-    env.hosts = ['virt-nsz0jn.psf.osuosl.org']
+    env.hosts = ['pycon-staging.iad1.psf.io']
     env.site_hostname = 'staging-pycon.python.org'
-    env.root = '/srv/staging-pycon.python.org'
+    env.root = '/srv/pycon'
     env.branch = 'staging'
-    env.db = 'psf-pycon-2016-staging'
-    env.db_host = 'pg2.osuosl.org'
-    env.db_user = 'psf-pycon-2016-staging'
     setup_path()
 
 @task
 def production():
     env.environment = 'production'
-    env.hosts = ['virt-ak9lsk.psf.osuosl.org']
+    env.hosts = ['pycon-prod.iad1.psf.io']
     env.site_hostname = 'us.pycon.org'
-    env.root = '/srv/staging-pycon.python.org'
+    env.root = '/srv/pycon'
     env.branch = 'production'
-    env.db = 'psf-pycon-2016'
-    env.db_host = 'pg2.osuosl.org'
-    env.db_user = 'psf-pycon-2016'
     setup_path()
 
 
 def setup_path():
-    env.home = '/home/%(project_user)s/' % env
-    env.code_root = os.path.join(env.root, 'current')
-    env.virtualenv_root = os.path.join(env.root, 'shared/env')
-    env.media_root = os.path.join(env.root, 'shared', 'media')
+    env.home = '/home/psf-users/%(project_user)s/' % env
+    env.code_root = os.path.join(env.root, 'pycon')
+    env.virtualenv_root = os.path.join(env.root, 'env')
+    env.media_root = os.path.join(env.root, 'media')
 
 
 @task
@@ -53,9 +48,8 @@ def manage_run(command):
     manage_cmd = ("{env.virtualenv_root}/bin/python "
         "manage.py {command}").format(env=env, command=command)
     dotenv_path = os.path.join(env.root, 'shared')
-    source_dotenv_cmd = ". {env}/.env".format(env=dotenv_path)
     with cd(env.code_root):
-        sudo(' && '.join((source_dotenv_cmd, manage_cmd)))
+        sudo(manage_cmd)
 
 
 @task
@@ -67,11 +61,11 @@ def manage_shell():
 @task
 def deploy():
     """Deploy to a given environment."""
-    # NOTE: chef will check every 30 minutes or so whether the
+    # NOTE: salt will check every 15 minutes whether the
     # repo has changed, and if so, redeploy.  Or you can use this
     # to make it run immediately.
     require('environment')
-    sudo('chef-client')
+    sudo('salt-call state.highstate')
 
 @task
 def ssh():
@@ -88,17 +82,17 @@ def get_db_dump(dbname, clean=True):
 
     """
     require('environment')
-    if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir on the server of interest (not your local system)")
+    run('sudo -u pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -s pgpass -R default 2>/dev/null > ~/.pgpass')
+    run('chmod 600 ~/.pgpass')
     dump_file = '%(project)s-%(environment)s.sql' % env
     flags = '-Ox'
+    dsn = sudo('/srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -R default 2>/dev/null', user='pycon').stdout
     if clean:
         flags += 'c'
-    pg_dump = 'pg_dump -h %s -U %s %s %s' % (env.db_host, env.db_user,
-                                             flags, env.db)
+    pg_dump = 'pg_dump "%s" %s' % (dsn, flags)
     host = '%s@%s' % (env.user, env.hosts[0])
     # save pg_dump output to file in local home directory
-    local('ssh -C %s %s > ~/%s' % (host, pg_dump, dump_file))
+    local('ssh -C %s \'%s\' > ~/%s' % (host, pg_dump, dump_file))
     local('dropdb %s; createdb %s' % (dbname, dbname))
     local('psql %s -f ~/%s' % (dbname, dump_file))
 
@@ -123,11 +117,12 @@ def load_db_dump(dump_file):
     """Given a dump on your home dir on the server, load it to the server's
     database, overwriting any existing data.  BE CAREFUL!"""
     require('environment')
-    if not files.exists("%(home)s/.pgpass" % env):
-        abort("Please get a copy of .pgpass and put it in your home dir")
+    run('sudo -u pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -s pgpass -R default 2>/dev/null > ~/.pgpass')
+    run('chmod 600 ~/.pgpass')
     temp_file = os.path.join(env.home, '%(project)s-%(environment)s.sql' % env)
     put(dump_file, temp_file)
-    run('psql -h %s -U %s -d %s -f %s' % (env.db_host, env.db_user, env.db, temp_file))
+    dsn = sudo('/srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -R default 2>/dev/null', user='pycon').stdout
+    run('psql "%s" -f %s' % (dsn, temp_file))
 
 @task
 def make_messages():

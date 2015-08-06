@@ -4,7 +4,7 @@ from django.forms import Textarea
 from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, FinancialAidEmailTemplate
+    FinancialAidReviewData, FinancialAidEmailTemplate, Receipt
 
 
 class FinancialAidApplicationForm(forms.ModelForm):
@@ -47,6 +47,9 @@ class FinancialAidReviewForm(forms.ModelForm):
 
     class Meta:
         model = FinancialAidReviewData
+        fields = ['status', 'amount', 'grant_letter_sent', 'cash_check',
+                  'notes', 'travel_cash_check', 'disbursement_notes',
+                  'promo_code']
         widgets = {
             'notes': Textarea(
                 attrs={'cols': 80, 'rows': 5,
@@ -86,3 +89,9 @@ class BulkEmailForm(forms.Form):
         queryset=FinancialAidEmailTemplate.objects.all(),
         empty_label=u"Pick a bulk mail template to use",
     )
+
+
+class ReceiptForm(forms.ModelForm):
+    class Meta:
+        model = Receipt
+        fields = ["description", "amount", "receipt_image"]

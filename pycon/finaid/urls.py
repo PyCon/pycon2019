@@ -1,8 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
     finaid_review_detail, finaid_status, finaid_download_csv, finaid_withdraw, \
-    finaid_decline, finaid_accept, finaid_request_more, finaid_provide_info
+    finaid_decline, finaid_accept, finaid_request_more, finaid_provide_info, \
+    receipt_upload
 
 
 urlpatterns = [
@@ -21,4 +22,6 @@ urlpatterns = [
     url(r"^mail/(?P<pks>[0-9,]+)/$", finaid_email, name="finaid_email"),
     url(r"^message/(?P<pks>[0-9,]+)/$", finaid_message, name="finaid_message"),
     url(r"^download/$", finaid_download_csv, name="finaid_download_csv"),
+    url(r"^receipt_upload/$", receipt_upload, name="receipt_upload"),
+
 ]
