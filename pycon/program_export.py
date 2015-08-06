@@ -259,12 +259,10 @@ class ScheduleExporter(BaseExporter):
                     if slot.content and slot.content.cancelled:
                         continue
                     slots.append(slot)
-            print("There are %d slots for %s" % (len(slots), schedule.section.name))
             slots.sort(key=lambda s: s.rooms[0].name if s.rooms else '')
             slots.sort(key=lambda s: s.end)
             slots.sort(key=lambda s: s.start)
             slots.sort(key=lambda s: s.day.date)
-            print("There are %d slots for %s" % (len(slots), schedule.section.name))
             filename = schedule.section.name.lower().replace(' ', '_') + '_schedule'
             self.write(filename, slots)
 
