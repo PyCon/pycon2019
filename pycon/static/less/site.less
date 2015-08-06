@@ -320,7 +320,7 @@ footer {
     padding-bottom: 20px;
     p {
       padding-top: 0;
-      margin: 0 0 1em 0;
+      margin: 0 0 1.25em 0;
       font-size: 14px;
       line-height: 1.8em;
       a {
@@ -340,38 +340,28 @@ footer {
 }
 
 .page-head {
-  padding: 120px 0 10px 0;
-  martgin-bottom: 0;
-  position: relative;
-  top: -100px;
-  background-color: white;
-  min-height: 40px;
-  .container {
-    margin-bottom: 0;
-    h1 {
-      margin-top: 0;
-    }
+  width: 100%;
+  margin-top: .5em;
+  img {
+    width: 20%;
+    height: 71px;
+    top: 0;
+    float: left;
+    position: relative;
+    display: none;
   }
-}
-
-.top-banner {
-  .row {
-    height: 50px;
-      img {
-        position: relative;
-        top: -130px;
-        max-width: 940px;
-        -webkit-transform: translate(-50%,0);
-        -moz-transform: translate(-50%,0);
-        -ms-transform: translate(-50%,0);
-        margin-left: 50.5%;
-        z-index: -1;
-      }
+  .container {
+    background-color: @greenHill;
+    padding: 1.0em 0 0;
+    min-height: 40px;
+    margin-left: 0;
+    position: initial;
+    z-index: 1;
   }
 }
 
 .page-content {
-  margin-top: -70px;
+  margin-top: 2em;
   min-height: 500px;
   .box {
     padding-right: 25px;
@@ -546,17 +536,29 @@ div.DTTT.btn-group {
 /* Navigation
 ==================== */
 header.main {
-  padding-top: 1em;
+  padding: 1em 0 0;
   position: relative;
   width: 100%;
   box-shadow: none;
+  z-index: 0;
+  a.logo-small {
+    position:absolute;
+    top: 5px;
+    left: 0;
+    width: 120px;
+    height: 75px;
+    background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
+    background-size: 120px auto;
+    text-indent: -9999px;
+    border-bottom: none;
+  }
   nav {
     background: @blueSky;
     .container {
       position: relative;
     }
     .navbar {
-      margin-bottom: 5px;
+      margin-bottom: 0;
 
       .navbar-inner {
         background: transparent;
@@ -566,10 +568,10 @@ header.main {
       }
 
       .nav {
-        margin: 5px 10px 0 0;
+        margin: 0;
         li {
            a {
-            font-size: @baseFontSize + 3;
+            font-size: @baseFontSize + 1;
             font-weight:400;
             margin: 0 0 0 0 !important;
             padding: .5em .5em .5em 0;
@@ -595,6 +597,9 @@ header.main {
             }
           }
           &.dropdown {
+            ul {
+              width: initial;
+            }
             .dropdown-toggle {
               &:hover,
               &:focus,
@@ -610,6 +615,16 @@ header.main {
                 border-top-color: @maroon;
               }
             }
+          }
+        }
+
+        li.dropdown.active {
+          a {
+            color: @maroon;
+            border-bottom: 1px solid @maroon;
+          }
+          .caret {
+            border-top-color: @maroon;
           }
         }
 
@@ -650,42 +665,36 @@ header.main {
         }
       }
     }
-
-    a.logo-small {
-      position:absolute;
-      top: 5px;
-      left: 0;
-      width: 300px;
-      height: 50px;
-      background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
-      background-size: 300px auto;
-      text-indent: -9999px;
-    }
   }
   .account-bar {
-    float: right;
+    float: none;
     text-transform: uppercase;
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    background-color: white;
+    &.loggedin {
+      span {
+        margin-left: 1em;
+      }
+    }
       a.login,
       a.signup,
       button.logout {
-        padding: 20px !important;
+        padding: 1em !important;
         height: 100%;
         border-radius: 0;
         background-color: @red;
         font-weight: 400;
         color: white;
-        display: inline-block;
+        display: block;
         position: relative;
+        text-align: left;
         &:hover {
           background-color: @maroon;
         }
       }
       .login {
-        right: -5px;
-        border-right: 1px solid @maroon;
+        right: 0;
+        border-bottom: 1px solid @maroon;
       }
 
     span { color: @grayDark; }
@@ -712,11 +721,15 @@ ul.breadcrumb {
   margin-right: 0;
   padding: 0;
   margin-bottom: 0;
-  > li {
+  li {
     text-shadow: none;
+    a {
+      color: white;
+      border-bottom-color: white;
+    }
   }
-  > .active, > .divider {
-    color: lighten(@gray, 20%);
+  .active, > .divider {
+    color: white;
   }
 }
 
@@ -725,7 +738,8 @@ ul.breadcrumb {
 body.home {
   min-width: 100%;
   margin: 0;
-  .logo-small {
+  .logo-small,
+  .page-head {
     display: none;
   }
   nav .navbar {
@@ -741,13 +755,13 @@ body.home {
     img {
       display: block;
       margin: 0 auto;
+      width: 85%;
     }
     .by-the-com,
     .for-the-com,
     .by-for-the-com {
       float: left;
-      position: relative;
-      top: 11.35em;
+      margin-top: 12.5em;
       font-family: 'roboto condensed', sans-serif;
       font-weight: 700;
       p {
@@ -768,7 +782,7 @@ body.home {
       float: right;
     }
     .by-for-the-com {
-      top: 1em;
+      margin-top: 1em;
       margin-bottom: 3em;
       p {
         font-size: @baseFontSize * 1.5;
@@ -813,13 +827,10 @@ body.home {
   }
 
   .city {
-    position: relative;
     background-color: @greenHill;
     img.skyline {
-      min-width: 100%;
+      width: 100%;
       height: auto;
-      position: absolute;
-      bottom: 0;
     }
   }
 
@@ -1096,8 +1107,6 @@ body.sponsors {
     text-align: left;
   }
   .page-content {
-    position: relative;
-    top: -20px;
     text-align: center;
     h2 {
       font-weight: 800;
@@ -1110,7 +1119,6 @@ body.sponsors {
       .border-radius(2px);
       padding:1px;
       background:@white;
-      position:relative;
       margin-bottom:20px;
 
       .sponsor-content {
@@ -1119,9 +1127,38 @@ body.sponsors {
         overflow:auto;
       }
 
+      h3 a {
+        border-bottom: none;
+      }
+
       h4 {
         font-size:@baseFontSize + 3;
         line-height:30px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .span4 {
+        width: 45%;
+        margin: 0 2.5%;
+      }
+      .offset4 {
+        margin: 0 27.5%;
+      }
+      .offset2 {
+        margin-left: 27.5%;
+      }
+    }
+    @media (min-width: 979px) {
+      .span4 {
+        width: 30%;
+        margin: 0 1.66%;
+      }
+      .offset4 {
+        margin: 0 35%;
+      }
+      .offset2 {
+        margin-left: 18.5%;
       }
     }
   }
@@ -1174,7 +1211,7 @@ body.venue {
 /* CMS Pages
 ==================== */
 body.cms-page {
-  h1, h2, h3 {
+  h2, h3, h4, h5, h6 {
     padding-top: .8em;
     line-height: 1.4em;
   }
@@ -1212,16 +1249,16 @@ body.cms-page {
       }
     }
   }
-  .internal-content{
-    width: 96%;
-    margin: 0 2%;
-    float: none;
+  .page-content {
+    .container {
+      float: none;
+    }
   }
   .sponsor-crawl {
     padding-top: 5em;
   }
   .box-content p {
-    font-size: @baseFontSize * 1.5;
+    font-size: @baseFontSize * 1.15;
     line-height: 1.7em;
   }
 }
@@ -1937,6 +1974,22 @@ body#group-registration {
       margin: 1em 1em 0 0;
       &.is-selected {
         background-color: #999;
+      }
+    }
+  }
+}
+
+body {
+  &.account, &.auth, &.login {
+    header.main {
+      .container nav .navbar {
+        margin-left: 17%;
+      }
+    }
+    .page-head {
+      .container {
+        width: 100%;
+        margin-top: 3.5em;
       }
     }
   }

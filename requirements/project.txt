@@ -18,7 +18,7 @@ raven==5.5.0
 django-constance[database]==1.0.1
 django-picklefield==0.3.0
 
-django-model-utils==1.4.0
+django-model-utils==2.3.1
 django-redis-cache==1.5.3
 redis==2.10.3
 hiredis==0.2.0

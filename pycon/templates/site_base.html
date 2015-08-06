@@ -54,11 +54,6 @@
     <header class="main">
         <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
         <div class="container">
-        <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
-            {% block account_bar %}
-            {% include "_account_bar.html" %}
-            {% endblock %}
-        </div>
         {% block main_nav %}
             <nav>
                 <div class="container">
@@ -76,6 +71,12 @@
             </nav>
         {% endblock %}
         </div>
+        <div class="page-head">
+            <img src="{{ STATIC_URL }}img/PNG/breadcrumbs-hills.png" width=460 height=180 alt="hills next to breadcrumb illustration">
+            <div class="container">
+                {% block breadcrumbs %}{% endblock %}
+            </div>
+        </div>
     </header>
     {% block banner %}{% endblock %}
 {% endblock %}
@@ -83,69 +84,56 @@
 {% block body_base %}
     <div id="content">
         {% block body_outer %}
-            <div class="page-head">
-                <div class="container">
-                    <h1>{% block page_title %}{% endblock %}</h1>
-                    {% block breadcrumbs %}{% endblock %}
-                </div>
-            </div>
-            <div class="top-banner">
-                <div class="row">
-                    <img src="{{ STATIC_URL }}img/pageHeader2.png" alt="top band">
-                </div>
-            </div>
             <div class="page-content">
                 {% block page_content %}
                 <div class="container">
-
-                    <div class="row">
-                        <div class="internal-content">
-                            {% block edit_page %}{% endblock %}
-                            <div class="box">
-                                <div class="box-content">{% block body %}{% endblock %}</div>
-                            </div>
-                        </div>
-                        <div class="span12 col-centered sponsor-crawl">
-                            {% cache 600 "homepage-sponsor-slider" %}
-                                <h2 class="scroll-title-first">Sponsors</h2>
-                                {% sponsors "diamond" as diamond_sponsors %}
-                                <div id="sponsorslider" class="carousel slide col-centered">
-                                    <!-- Carousel items -->
-                                    <div class="carousel-inner">
-                                        {% sponsors as all_sponsors %}
-                                        {# sponsors without levels, 12 per each slide #}
-                                        {% for sponsor in all_sponsors %}
-                                            {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                                <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                                            {% endif %}
-
-                                            <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                                                <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
-                                            </a>
-                                            {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
-                                        {% endfor %}
-                                    </div>
-
-
-                                    {% if all_sponsors.count > 12 %}
-                                      <!-- Carousel nav -->
-                                      <nav id="slider-nav">
-                                        <div class="slider-nav">
-                                            <div class="nav-container">
-                                            {% for sponsor in all_sponsors %}
-                                                {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                                    <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
-                                                {% endif %}
-                                            {% endfor %}
-                                            </div>
-                                        </div>
-                                      </nav>
-                                    {% endif %}
-                                </div>
-                            {% endcache %}
-                        </div>
+                    {% block edit_page %}{% endblock %}
+                    <h1>{% block page_title %}{% endblock %}</h1>
+                    <div class="box">
+                        <div class="box-content">{% block body %}{% endblock %}</div>
                     </div>
+                 </div>
+
+                <div class="span12 col-centered sponsor-crawl">
+                    {% cache 600 "homepage-sponsor-slider" %}
+                        <h2 class="scroll-title-first">Sponsors</h2>
+                        {% sponsors "diamond" as diamond_sponsors %}
+                        <div id="sponsorslider" class="carousel slide col-centered">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                {% sponsors as all_sponsors %}
+                                {# sponsors without levels, 12 per each slide #}
+                                {% for sponsor in all_sponsors %}
+                                    {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                        <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
+                                    {% endif %}
+
+                                    <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
+                                        <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
+                                    </a>
+                                    {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
+                                {% endfor %}
+                            </div>
+
+
+                            {% if all_sponsors.count > 12 %}
+                              <!-- Carousel nav -->
+                              <nav id="slider-nav">
+                                <div class="slider-nav">
+                                    <div class="nav-container">
+                                    {% for sponsor in all_sponsors %}
+                                        {% if forloop.first or forloop.counter0|divisibleby:"12" %}
+                                            <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                              </nav>
+                            {% endif %}
+                        </div>
+                    {% endcache %}
                 </div>
+
                 {% endblock %}
             </div>
         {% endblock %}

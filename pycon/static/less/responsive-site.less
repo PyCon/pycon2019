@@ -46,9 +46,14 @@ body {
 	}
 
 	.page-head {
+		@media (min-width: @breakDesktop) {
+			margin-top: 2.5em;
+		}
 		@media (max-width: @breakTablet) {
-			padding-right: 20px;
-			padding-left: 20px;
+			.container {
+				padding-right: 20px;
+				padding-left: 20px;
+			}
 		}
 	}
 	.page-content {
@@ -70,28 +75,72 @@ body {
 		}
 	}
 	header.main {
-		@media (max-width: @breakDesktop) {
-			padding-top: 0;
+		@media (min-width: @breakDesktopLarge) {
+			.navbar .nav li a {
+				padding-right: 1.5em;
+				font-size: @baseFontSize + 3;
+			}
 		}
 		@media (min-width: @breakDesktop) {
 			nav {
+				margin-top: 1em;
 				a.logo-small {
 					top: 15px;
-					left: auto;
+					left: 5%;
+					width :140px;
+					height: 85px;
+					background-size: 140px auto;
+				}
+				ul {
+					width: 100%;
+					z-index: 0;
 				}
 				.navbar .nav li a {
-					padding: .5em 1.5em .5em 0;
+					padding-right: 1em;
+				}
+				.account-bar {
+					margin: 0;
+					float: right;
+					position: absolute;
+					top: -2em;
+					right: 0;
+					background-color: transparent;
+					padding: 0;
+					z-index: 1;
+					&.loggedin {
+						position: relative;
+						span {
+							margin-left: 0;
+						}
+					}
+					.account-links {
+						button.logout,
+						a {
+							&.login,
+							&.logout,
+							&.signup {
+								display: inline-block;
+								text-align: center;
+							}
+						}
+					}
+					.login {
+						right: -5px;
+						border-right: 2px solid @maroon;
+						border-bottom-color: @red;
+					}
 				}
 			}
 			a.logo-smaller { display: none; }
 		}
 		@media (max-width: @breakDesktop) {
 			.navbar {
-				position: fixed;
+				position: absolute;
 				top: 0;
-				left: 0;
+				right: 0;
+				width :100%;
 				.btn-navbar {
-					float: left;
+					float: right;
 					padding: 20px;
 					margin: 0;
 			    .box-shadow(none);
@@ -104,19 +153,23 @@ body {
 			    }
 					.icon-bar { box-shadow: none; }
 				}
-			}
-			.account-bar {
-				margin: 0;
-				float: none;
-				.account-links {
-					position: relative;
-			    right: 0;
-			    top: 0;
-					a {
-			      &.login,
-			      &.logout,
-			      &.signup {
-							padding: 13px !important;
+
+				.nav-collapse .nav {
+					background-color: white;
+					li.dropdown .dropdown-toggle:hover {
+						background-color: @maroon;
+						color: white;
+					}
+					li a {
+						padding: 1em;
+						border-radius: 0;
+						display: block;
+						&:hover {
+							color: white;
+							background-color: @maroon;
+						}
+						.caret {
+							border-top-color: white;
 						}
 					}
 				}
@@ -129,22 +182,27 @@ body {
 				a.logo-small {
 					display: none;
 				}
+				.account-bar form button[type=submit] {
+					margin: 1em 0 0;
+					width: 100%;
+				}
 			}
 			a.logo-smaller {
-			    width: 300px;
-			    height: 27px;
-			    background:url(../img/pycon2015-logo_sub.png) no-repeat 0 0;
+			    width: 120px;
+			    height: 75px;
+			    background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
 			    text-indent: -9999px;
 			    display: block;
-			    background-size: 300px auto;
-			    margin: 0 0 10px 5px;
-			    @media (max-width: @breakMobileLandscape) {
-			    	 background-size: 290px auto;
-			    	 width: 290px;
-			    }
+			    background-size: 120px auto;
+			    margin: 0 0 1em 1.5em;
+					border-bottom: none;
 			}
 		}
 	}
+}
+
+.row {
+	margin-left: 0;
 }
 
 p {
@@ -186,6 +244,7 @@ body.home {
 	@media (min-width: @breakDesktop) {
 		.landing-banner img {
 			padding: 4em 0 1em;
+			width: 100%;
 			.by-the-com,
 	    .for-the-com {
 	      float: left;
@@ -215,7 +274,7 @@ body.home {
 			a.logo-smaller { display: none; }
 			@media (max-width: @breakMobileLandscape) {
 				.account-links {
-					span { display: none; }
+					span { display: block; }
 				}
 			}
 		}
@@ -314,36 +373,6 @@ body.home {
 		}
 	}
 
-	.sponsor-crawl {
-		@media (max-width: @breakMobileLandscape) {
-			padding: 20px 0;
-		}
-		.sponsorship-link {
-			@media (max-width: @breakTablet) {
-				position: relative;
-				display: block;
-				top: auto;
-				right: auto;
-				margin: 0 auto;
-				text-align: center;
-	      	}
-		}
-
-		.sponsor-scroll-item {
-			@media (max-width: @breakDesktopLarge) {
-				width: 21%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakTablet) {
-				width: 46%;
-				margin: .5em 2%;
-			}
-			@media (max-width: @breakMobileLandscape) {
-				width: 90%;
-				margin: .5em 5%;
-			}
-		}
-	}
 	  /* Slideshow nav
   ==================== */
 	.scroll-title {
@@ -366,15 +395,6 @@ body.home {
 		@media (min-width: @breakMobileLandscape) {
 			padding-bottom: 7em
 		}
-		@media (min-width: @breakTablet) {
-			padding-bottom: 9em
-		}
-		@media (min-width: @breakDesktop) {
-			padding-bottom: 12em
-		}
-		@media (min-width: @breakDesktopLarge) {
-			padding-bottom: 15em
-		}
 		@media (max-width: @breakDesktop) {
 			p {
 	      font-size: @baseFontSize * 1.25;
@@ -394,20 +414,96 @@ body.home {
 	}
 }
 
+/* Sponsor Carousel
+==================== */
+.sponsor-crawl {
+	@media (max-width: @breakMobileLandscape) {
+		padding: 20px 0;
+	}
+	.sponsorship-link {
+		@media (max-width: @breakTablet) {
+			position: relative;
+			display: block;
+			top: auto;
+			right: auto;
+			margin: 0 auto;
+			text-align: center;
+				}
+	}
+
+	.sponsor-scroll-item {
+		@media (max-width: @breakDesktopLarge) {
+			width: 21%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakTablet) {
+			width: 46%;
+			margin: .5em 2%;
+		}
+		@media (max-width: @breakMobileLandscape) {
+			width: 90%;
+			margin: .5em 5%;
+		}
+	}
+}
+
+header.main {
+	.container {
+		@media (min-width: @breakTablet) {
+			width: 100%;
+			margin: 0;
+		}
+		@media (min-width: @breakDesktop) {
+			width: 80%;
+			margin-left: 20%;
+			float: none;
+		}
+		@media (min-width: @breakTablet) and (max-width: @breakDesktop) {
+			.breadcrumb {
+				margin-left: 12%;
+			}
+		}
+	}
+}
+.page-head {
+	img {
+		@media (min-width: @breakDesktop) {
+			display: inline-block;
+		}
+	}
+	.container {
+		@media (min-width: @breakTablet) {
+			width: 76%;
+			margin: 2em 0 0;
+		}
+		@media (min-width: @breakDesktop) {
+			width: 80%;
+			margin: 0;
+			float: right;
+		}
+	}
+}
+
 /* CMS Page
 ==================== */
 body.cms-page {
-	@media (min-width: @breakTablet) {
-		.internal-content{
-	    width: 80%;
-	    margin: 0 10%;
-	  }
-	}
-	@media (min-width: @breakDesktop) {
-		.internal-content{
-	    width: 70%;
-	    margin: 0 15%;
-	  }
+
+	.page-content {
+		@media (min-width: @breakTablet) {
+	    .container {
+	      width: 76%;
+	      margin: 0 12%;
+	    }
+			.box-content p {
+		    font-size: @baseFontSize * 1.5;
+		  }
+		}
+		@media (min-width: @breakDesktop) {
+			.container {
+		    width: 60%;
+		    margin: 0 20%;
+		  }
+		}
 	}
 }
 
