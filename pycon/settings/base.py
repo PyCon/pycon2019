@@ -374,8 +374,13 @@ CACHES = {
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.
+import copy
 from django.utils.log import DEFAULT_LOGGING
-LOGGING = DEFAULT_LOGGING
+LOGGING = copy.deepcopy(DEFAULT_LOGGING)
+LOGGING.setdefault('root', {
+    # Default root logger, just so everything has a handler and we don't see warnings
+    'handlers': ['null'],  # null handler is defined in the default logging config
+})
 
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 
