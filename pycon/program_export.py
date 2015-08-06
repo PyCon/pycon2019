@@ -12,8 +12,6 @@ from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
 from pycon.sponsorship.models import Sponsor, SponsorLevel
 
-from django.conf import settings
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 
 
@@ -107,7 +105,6 @@ class BaseExporter(object):
             csvwriter.writerow(dict([(fieldname, display(fieldname))
                                      for fieldname in fieldnames]))
             for obj in objects:
-                print("Writing a row to %s" % filename)
                 data = OrderedDict([(name, unicode(self.get_attribute(obj, getter)))
                             for name, getter in fields])
                 csvwriter.writerow(data)
@@ -134,8 +131,6 @@ class SpeakerBiosExporter(BaseExporter):
         sort_key = lambda s: s.name.lower()
         all_speakers = []
         kinds = ProposalKind.objects.all()
-        # kinds = [ProposalKind.objects.get(name=name)
-        #          for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk', 'Sponsor Tutorial']]
         for kind in kinds:
             speakers = []
             for presentation in queryset.filter(proposal_base__kind=kind):
@@ -203,9 +198,6 @@ class PresentationsExporter(BaseExporter):
     def export(self):
         queryset = Presentation.objects.exclude(cancelled=True)
         kinds = ProposalKind.objects.all()
-        # kinds = [ProposalKind.objects.get(name=name)
-        #          for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk',
-        #                       'Sponsor Tutorial']]
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
