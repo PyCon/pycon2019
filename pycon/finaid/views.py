@@ -408,7 +408,7 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
             user=request.user,
             application=application,
             visible=True,
-            message="The applicant has accepted their financial aid offer",
+            message=self.user_message,
         )
         context = email_context(request, application, message)
         send_email_message("reviewer/message",
