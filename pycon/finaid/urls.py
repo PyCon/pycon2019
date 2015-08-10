@@ -1,19 +1,19 @@
 from django.conf.urls import url
 
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
-    finaid_review_detail, finaid_status, finaid_download_csv, finaid_withdraw, \
-    finaid_decline, finaid_accept, finaid_request_more, finaid_provide_info, \
-    receipt_upload
+    finaid_review_detail, finaid_status, finaid_download_csv, \
+    receipt_upload, FinaidAcceptView, FinaidDeclineView, \
+    FinaidProvideInfoView, FinaidWithdrawView, FinaidRequestMoreView
 
 
 urlpatterns = [
     url(r"^apply/$", finaid_edit, name="finaid_apply"),
     url(r"^edit/$", finaid_edit, name="finaid_edit"),
-    url(r'^provide_info/$', finaid_provide_info, name="finaid_provide_info"),
-    url(r"^withdraw/$", finaid_withdraw, name="finaid_withdraw"),
-    url(r"^decline/$", finaid_decline, name="finaid_decline"),
-    url(r"^accept/$", finaid_accept, name="finaid_accept"),
-    url(r"^request_more/$", finaid_request_more, name="finaid_request_more"),
+    url(r'^provide_info/$', FinaidProvideInfoView.as_view(), name="finaid_provide_info"),
+    url(r"^withdraw/$", FinaidWithdrawView.as_view(), name="finaid_withdraw"),
+    url(r"^decline/$", FinaidDeclineView.as_view(), name="finaid_decline"),
+    url(r"^accept/$", FinaidAcceptView.as_view(), name="finaid_accept"),
+    url(r"^request_more/$", FinaidRequestMoreView.as_view(), name="finaid_request_more"),
     url(r"^review/$", finaid_review, name="finaid_review"),
     url(r"^review/(?P<pks>[0-9,]+)/$", finaid_review, name="finaid_review"),
     url(r"^review/details/(?P<pk>\d+)/$", finaid_review_detail,
