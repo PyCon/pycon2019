@@ -46,7 +46,7 @@
 
                                     <h4>{{ sponsor.name }}</h4>
                                     <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                                    <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
+                                    <p>{{ sponsor.web_description|urlize|linebreaks }}</p>
                                 </div>
                             </div>
                         </div>
