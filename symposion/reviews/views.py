@@ -11,12 +11,12 @@ from django.views.decorators.http import require_POST
 from taggit.utils import edit_string_for_tags
 from django.utils.translation import ugettext as _
 
-from pycon.models import PyConProposal
+from pycon.models import PyConProposal, PyConProposalCategory
 
 from symposion.conf import settings
 from symposion.conference.models import Section
 from symposion.proposals.forms import ProposalTagsForm
-from symposion.proposals.models import ProposalBase
+from symposion.proposals.models import ProposalBase, AdditionalSpeaker
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
@@ -42,38 +42,64 @@ def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
         current user is a speaker.
     """
 
+    if user_pk is None:
+        user_pk = request.user.pk
+
+    if check_speaker:
+        # Exclude the ones where the current user is speaking
+        queryset = queryset.exclude(speaker__user=request.user)
+
+        addl_speaker_proposals = AdditionalSpeaker.objects.filter(
+            speaker__user=request.user,
+            status__in=[AdditionalSpeaker.SPEAKING_STATUS_PENDING, AdditionalSpeaker.SPEAKING_STATUS_ACCEPTED],
+        ).values_list('proposalbase_id', flat=True)
+        queryset = queryset.exclude(pk__in=addl_speaker_proposals)
+
+    latest_votes = {
+        vote.proposal_id: vote
+        for vote in LatestVote.objects.filter(user__pk=user_pk, proposal__in=queryset).select_related("vote")
+    }
+
+    results_by_proposal = {
+        result.proposal_id: result
+        for result in ProposalResult.objects.filter(proposal__in=queryset).select_related("group")
+    }
+
+    category_by_id = {
+        cat.pk: cat for cat in PyConProposalCategory.objects.all()
+    }
+
+    result_list = []
+
     for obj in queryset:
-        # @@@ this sucks; we can do better
-        if check_speaker:
-            if request.user in [s.user for s in obj.speakers()]:
-                continue
 
-        try:
-            obj.result
-        except ProposalResult.DoesNotExist:
-            ProposalResult.objects.get_or_create(proposal=obj)
-
-        obj.comment_count = obj.result.comment_count
-        obj.total_votes = obj.result.vote_count
-        obj.plus_one = obj.result.plus_one
-        obj.plus_zero = obj.result.plus_zero
-        obj.minus_zero = obj.result.minus_zero
-        obj.minus_one = obj.result.minus_one
-        lookup_params = dict(proposal=obj)
-
-        if user_pk:
-            lookup_params["user__pk"] = user_pk
+        if obj.pk in results_by_proposal:
+            obj.result = results_by_proposal[obj.pk]
         else:
-            lookup_params["user"] = request.user
+            obj.result = ProposalResult.objects.create(proposal=obj)
 
-        try:
-            obj.user_vote = LatestVote.objects.get(**lookup_params).vote
-            obj.user_vote_css = LatestVote.objects.get(**lookup_params).css_class()
-        except LatestVote.DoesNotExist:
+        result = obj.result
+        obj.comment_count = result.comment_count
+        obj.total_votes = result.vote_count
+        obj.plus_one = result.plus_one
+        obj.plus_zero = result.plus_zero
+        obj.minus_zero = result.minus_zero
+        obj.minus_one = result.minus_one
+
+        if obj.pk in latest_votes:
+            obj.user_vote = latest_votes[obj.pk].vote
+            obj.user_vote_css = latest_votes[obj.pk].css_class()
+        else:
             obj.user_vote = None
             obj.user_vote_css = "no-vote"
 
-        yield obj
+        try:
+            obj.category = category_by_id[obj.category_id]
+        except AttributeError:
+            pass
+
+        result_list.append(obj)
+    return result_list
 
 
 @login_required
@@ -112,9 +138,9 @@ def review_section(request, section_slug, assigned=False):
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
         queryset = queryset.filter(id__in=assignments)
 
-    queryset = queryset.select_related("result").select_subclasses()
+    queryset = queryset.select_related("result", "kind", "speaker__user", "tags").select_subclasses()
 
-    proposals = proposals_generator(request, queryset)
+    proposals = list(proposals_generator(request, queryset))
     ctx = {
         "proposals": proposals,
         "section": section,
@@ -263,6 +289,7 @@ def review_detail(request, pk):
 
                 tags = proposal_tags_form.cleaned_data['tags']
                 proposal.tags.set(*tags)
+                proposal.cache_tags()
 
                 return redirect(request.path)
             else:

@@ -109,19 +109,29 @@ class ProposalBase(models.Model):
     additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
     cancelled = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
+    cached_tags = models.TextField(blank=True, default='')
 
     def __unicode__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # If already in database, update cached tags before saving
+            self.cached_tags = self.get_tags_display()
+        super(ProposalBase, self).save(*args, **kwargs)
+
     def can_edit(self):
-        if hasattr(self, "presentation") and self.presentation:
+        if hasattr(self, "presentation") and self.presentation_id:
             return False
         else:
             return True
 
+    def cache_tags(self):
+        self.cached_tags = self.get_tags_display()
+        self.save()
+
     def get_tags_display(self):
-        # No idea why django-taggit doesn't offer this itself
-        return u", ".join(tag.name for tag in self.tags.all())
+        return u", ".join(self.tags.names())
 
     @property
     def section(self):
