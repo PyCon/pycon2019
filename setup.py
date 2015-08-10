@@ -18,7 +18,7 @@ setup(
               'symposion.speakers.management.commands', 'symposion.proposals',
               'symposion.proposals.templatetags', 'symposion.conference',
               'symposion.social_auth', 'symposion.social_auth.pipeline'],
-    url='https://github.com/caktus/pycon/',
+    url='https://github.com/pycon/pycon/',
     license='LICENSE',
     maintainer='Caktus Consulting Group',
     maintainer_email='pycon@caktusgroup.com',

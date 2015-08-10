@@ -1,0 +1,54 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Receipt Upload "%}{% endblock %}
+
+{% block body_id %}{% trans "receipt_upload" %}{% endblock %}
+
+{% block page_title %}{% trans "Receipt Application" %}{% endblock %}
+
+{% block body %}
+    {% if form.errors %}
+        <div class="alert">
+            <p class="text-error">
+                {% trans "There were errors in your form, please correct them and submit again." %}
+            </p>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        {% if form.errors and not form.non_field_errors %}
+          <div class="alert alert-error">
+            {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+          </div>
+        {% endif %}
+
+        {{ form|as_bootstrap }}
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+    </form>
+
+    <div>
+      <h3>{% trans "Your previously uploaded receipts:" %}</h3>
+
+      <table class="table table-striped table-bordered table-finaid">
+        <thead>
+          <th>{% trans "Description " %}<i class="icon-sort"></i></th>
+          <th>{% trans "Amount " %}<i class="icon-sort"></i></th>
+        </thead>
+
+        <tbody>
+          {% for receipt in receipts %}
+            <tr>
+              <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.description }}</a></td>
+              <td>{{ receipt.amount }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
