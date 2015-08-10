@@ -46,7 +46,7 @@ def manage_run(command):
     """Run a Django management command on the remote server."""
     if command == 'dbshell':
         # Need custom code for dbshell to work
-        exec(dbshell)
+        dbshell()
         return
     require('environment')
     manage_cmd = ("{env.virtualenv_root}/bin/python "
