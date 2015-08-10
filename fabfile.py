@@ -44,6 +44,10 @@ def setup_path():
 @task
 def manage_run(command):
     """Run a Django management command on the remote server."""
+    if command == 'dbshell':
+        # Need custom code for dbshell to work
+        exec(dbshell)
+        return
     require('environment')
     manage_cmd = ("{env.virtualenv_root}/bin/python "
         "manage.py {command}").format(env=env, command=command)
@@ -72,6 +76,14 @@ def ssh():
     """Ssh to a given server"""
     require('environment')
     local("ssh %s" % env.hosts[0])
+
+@task
+def dbshell():
+    require('environment')
+    dsn = sudo('/srv/pycon/env/bin/python /srv/pycon/pycon/manage.py sqldsn -q -R default 2>/dev/null', user='pycon').stdout
+    host = '%s@%s' % (env.user, env.hosts[0])
+    psql = 'psql "%s"' % dsn
+    local("ssh -t %s \'%s\'" % (host, psql))
 
 @task
 def get_db_dump(dbname, clean=True):
