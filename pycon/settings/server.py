@@ -26,6 +26,8 @@ ALLOWED_HOSTS = [
 
 SECRET_KEY = env_or_default('SECRET_KEY', '')
 
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin@gmail.com'),
     ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
