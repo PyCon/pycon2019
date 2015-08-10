@@ -11,7 +11,8 @@ urlpatterns = patterns("",
         name='proposal_irc_logs',
     ),
 
-    url(r'^thunderdome_groups/$', views.thunderdome_group_list),
-    url(r'^thunderdome_groups/add/$', views.thunderdome_group_add),
-    url(r'^thunderdome_groups/(?P<td_group_code>[\w\d-]+)/$', views.thunderdome_group_decide),
+    url(r'^thunderdome_groups/$', views.thunderdome_group_list, name='thunderdome_groups'),
+    url(r'^thunderdome_groups/add/$', views.thunderdome_group_add, name='thunderdome_group_add'),
+    url(r'^thunderdome_groups/(?P<td_group_code>[\w\d-]+)/$', views.thunderdome_group_decide,
+        name='thunderdome_group_decide'),
 )

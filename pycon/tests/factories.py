@@ -7,10 +7,11 @@ import factory.fuzzy
 from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal, PyConTutorialProposal
+    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
+from symposion.reviews.models import ProposalResult
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -20,6 +21,10 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = factory.fuzzy.FuzzyText()
     last_name = factory.fuzzy.FuzzyText()
     email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
+
+
+class ProposalResultFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = ProposalResult
 
 
 class PyConProposalCategoryFactory(factory.django.DjangoModelFactory):
@@ -59,3 +64,7 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     more_info = "more info"
     audience = "audience"
     perceived_value = "perceived_value"
+
+
+class ThunderdomeGroupFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = ThunderdomeGroup
