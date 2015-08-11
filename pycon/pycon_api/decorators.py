@@ -27,6 +27,15 @@ def api_view(method):
 
     Calls to the view that do not have an appropriate key
     will return a 403 response.
+
+    The "view" should return a tuple: (data, status_code)
+    and this decorator will return a JSON-encoded response
+    with two keys:
+
+        {
+            'code':  the status code,
+            'data':  the data
+        }
     """
     def f(request, *args, **kwargs):
         # Ensure that there is an appropriate key attached

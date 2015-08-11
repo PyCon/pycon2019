@@ -26,7 +26,7 @@ from symposion.schedule.tests.factories import PresentationFactory
 
 class RawDataClientMixin(object):
     """Mix this into a TestCase class to be able to post raw data through
-    the test client.
+    the test client and use API keys (put at self.auth_key).
     """
     def post_raw_data(self, path, post_data):
         """
