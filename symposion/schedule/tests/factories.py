@@ -10,26 +10,30 @@ from ..models import Presentation, Slot, SlotKind, Day, Schedule
 
 
 class ScheduleFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Schedule
+    class Meta:
+        model = Schedule
 
     section = factory.SubFactory(SectionFactory)
 
 
 class DayFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Day
+    class Meta:
+        model = Day
     schedule = factory.SubFactory(ScheduleFactory)
     date = factory.fuzzy.FuzzyDate(start_date=datetime.date.today())
 
 
 class SlotKindFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = SlotKind
+    class Meta:
+        model = SlotKind
 
     schedule = factory.SubFactory(ScheduleFactory)
     label = factory.fuzzy.FuzzyText()
 
 
 class SlotFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Slot
+    class Meta:
+        model = Slot
 
     day = factory.SubFactory(DayFactory)
     # .kind and .day both need to point at the same schedule
@@ -42,7 +46,8 @@ class SlotFactory(factory.DjangoModelFactory):
 
 
 class PresentationFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Presentation
+    class Meta:
+        model = Presentation
 
     title = 'Presentation'
     description = 'Description'

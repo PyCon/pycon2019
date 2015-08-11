@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
 from account.models import Account
+from django.test import override_settings
 
 from pycon.tests import factories
 from pycon.tests.base import TransactionViewTestCase, ViewTestCase
@@ -42,11 +43,9 @@ class GroupRegistrationTestMixin(object):
         self.user.user_permissions.add(self.permission)
         self.login_user(self.user)
 
+    @override_settings(ACCOUNT_CREATE_ON_SAVE=False)
     def create_user(self, **kwargs):
-        user = factories.UserFactory.build(**kwargs)
-        user._disable_account_creation = True
-        user.save()
-        return user
+        return factories.UserFactory(**kwargs)
 
     def post(self, data):
         # By default, the Django test client interprets POST data as a
