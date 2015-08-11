@@ -20,15 +20,16 @@ git+https://github.com/dpoirier/django-openid.git@minimal_django17#egg=django-op
 
 python-openid==2.2.5
 django_compressor==1.5
-git+git://github.com/caktus/biblion.git@feature/django-1.7#egg=biblion
--e git+git://github.com/daaray/django-sitetree.git#egg=django-sitetree
+git+git://github.com/caktus/biblion.git@feature/django-1.8#egg=biblion
+git+git://github.com/caktus/django-sitetree.git#egg=django-sitetree
 -e git+git://github.com/shvechikov/python-rtfng.git#egg=python-rtfng
 
 django-taggit==0.15.0
-django-reversion==1.7
+# Django-reversion 1.9.2 for Django 1.7+
+django-reversion==1.9.2
 django-markitup==1.0.0
 Markdown==2.3.1
-django-selectable==0.7.0
+django-selectable==0.9.0
 
 django-forms-bootstrap==2.0.3.post1
 django-uni-form==0.9.0
@@ -37,3 +38,5 @@ requests==2.0.0
 bleach==1.4
 
 django-multi-email-field==0.3.1
+
+celery[redis]==3.1.18

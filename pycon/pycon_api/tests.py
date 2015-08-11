@@ -14,8 +14,9 @@ from django.test import TestCase
 from django.test.client import FakePayload
 from django.utils.encoding import force_str
 
-from pycon.models import PyConTalkProposal
-from pycon.tests.factories import PyConTalkProposalFactory
+from pycon.models import PyConTalkProposal, ThunderdomeGroup
+from pycon.tests.factories import PyConTalkProposalFactory, ThunderdomeGroupFactory, \
+    ProposalResultFactory
 
 from .models import APIAuth, ProposalData, IRCLogLine
 from .decorators import DATETIME_FORMAT
@@ -70,6 +71,130 @@ class RawDataClientMixin(object):
             'HTTP_X_API_SIGNATURE': sha1(base_string).hexdigest(),
             'HTTP_X_API_TIMESTAMP': timestamp,
         }
+
+
+class ThunderdomeGroupListApiTest(RawDataClientMixin, TestCase):
+    def setUp(self):
+        self.auth_key = APIAuth.objects.create(name="test")
+        self.url = reverse('thunderdome_groups')
+
+    def test_get_some(self):
+        ThunderdomeGroupFactory(label='curly', code='3')
+        ThunderdomeGroupFactory(label='larry', code='2')
+        ThunderdomeGroupFactory(label='moe', code='1')
+        rsp = self.client.get(self.url, **self.get_signature(self.url))
+        self.assertEqual(200, rsp.status_code)
+        data = json.loads(rsp.content)
+        groups = data['data']
+        # We got the 3 groups, in order by code
+        self.assertEqual(groups[0]['label'], 'moe')
+        self.assertEqual(groups[1]['label'], 'larry')
+        self.assertEqual(groups[2]['label'], 'curly')
+
+    def test_get_undecided(self):
+        ThunderdomeGroupFactory(label='curly', code='3')
+        ThunderdomeGroupFactory(label='larry', code='2', decided=True)
+        ThunderdomeGroupFactory(label='moe', code='1', decided=True)
+        url = self.url + "?undecided=1"
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(200, rsp.status_code)
+        data = json.loads(rsp.content)
+        groups = data['data']
+        self.assertEqual(1, len(groups))
+        self.assertEqual('curly', groups[0]['label'])
+
+
+class ThunderdomeGroupAddApiTest(RawDataClientMixin, TestCase):
+    def setUp(self):
+        self.auth_key = APIAuth.objects.create(name="test")
+        self.url = reverse('thunderdome_group_add')
+
+    def test_get(self):
+        # This is post-only
+        rsp = self.client.get(self.url, **self.get_signature(self.url))
+        self.assertEqual(405, rsp.status_code)
+
+    def test_make_one(self):
+        data = {
+            'label': 'My_label',
+            'code': 'My_code'
+        }
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.assertEqual(201, rsp.status_code)
+        group = ThunderdomeGroup.objects.get()
+        self.assertEqual(group.code, 'my-code')  # _ changes to - and all lowered
+        self.assertEqual(group.label, 'My_label')
+        # Response includes the modified code
+        code = json.loads(rsp.content)['data']['code']
+        self.assertEqual(code, group.code)
+
+    def test_missing_label(self):
+        data = {
+            'code': 'My_code'
+        }
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.assertEqual(400, rsp.status_code)
+
+    def test_missing_code(self):
+        data = {
+            'label': 'My_label',
+        }
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.assertEqual(400, rsp.status_code)
+
+
+class ThunderdomeGroupDecideTest(RawDataClientMixin, TestCase):
+    def setUp(self):
+        self.group = ThunderdomeGroupFactory(code='fred')
+        self.auth_key = APIAuth.objects.create(name="test")
+        self.url = reverse('thunderdome_group_decide', args=(self.group.code,))
+        self.talk1 = PyConTalkProposalFactory(thunderdome_group=self.group)
+        self.talk2 = PyConTalkProposalFactory(thunderdome_group=self.group)
+
+        ProposalResultFactory(proposal=self.talk1, status="undecided")
+        ProposalResultFactory(proposal=self.talk2, status="undecided")
+
+    def test_get(self):
+        # This is post-only
+        rsp = self.client.get(self.url, **self.get_signature(self.url))
+        self.assertEqual(405, rsp.status_code)
+
+    def test_no_such_group(self):
+        bad_id = self.group.id + 1
+        url = reverse('thunderdome_group_decide', args=(self.group.id,))
+        rsp = self.post_raw_data(url, '')
+        self.assertEqual(400, rsp.status_code, rsp.content.decode('utf-8'))
+
+    def test_undeciding_a_group(self):
+        # If no talk statuses are provided, all talk statuses should
+        # change to standby
+        data = {}
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.assertEqual(202, rsp.status_code, rsp.content.decode('utf-8'))
+        group = ThunderdomeGroup.objects.get(id=self.group.id)
+
+    def test_not_all_talks(self):
+        # We only process if all talks in the group have a new status provided
+        data = {
+            'talks': [
+                (self.talk1.id, 'accepted'),
+            ]
+        }
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.assertEqual(400, rsp.status_code, rsp.content.decode('utf-8'))
+
+    def test_update_talk_statuses(self):
+        data = {
+            'talks': [
+                (self.talk1.id, 'accepted'),
+                (self.talk2.id, 'rejected')
+            ]
+        }
+        rsp = self.post_raw_data(self.url, json.dumps(data))
+        talk1 = PyConTalkProposal.objects.get(id=self.talk1.id)
+        self.assertEqual('accepted', talk1.result.status)
+        talk1 = PyConTalkProposal.objects.get(id=self.talk2.id)
+        self.assertEqual('rejected', talk1.result.status)
 
 
 class PyConIRCLogsApiTest(TestCase, RawDataClientMixin):

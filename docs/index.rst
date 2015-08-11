@@ -25,6 +25,7 @@ Apps:
    deploying
    translation
    api
+   changes
 
 
 Indices and tables

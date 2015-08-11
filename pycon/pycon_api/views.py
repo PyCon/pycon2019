@@ -95,6 +95,7 @@ def thunderdome_group_decide(request, td_group_code):
     # If not, we are **undeciding** this thunderdome group.
     if not data.get('talks', ()):
         td_group.decided = False
+        td_group.save()
         for talk in td_group.talks.all():
             talk.result.status = 'standby'
             talk.result.save()
@@ -112,7 +113,7 @@ def thunderdome_group_decide(request, td_group_code):
                          'for EVERY talk in the group.\n'
                          'Missing: %s' % expected_talk_ids.difference(
                                             provided_talk_ids,
-                                         )}
+                                         )}, 400
 
     # Iterate over each of the talks in this TD group, and set their
     # new status.

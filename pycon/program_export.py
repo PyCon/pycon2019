@@ -12,8 +12,6 @@ from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
 from pycon.sponsorship.models import Sponsor, SponsorLevel
 
-from django.conf import settings
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 
 
@@ -132,8 +130,7 @@ class SpeakerBiosExporter(BaseExporter):
         queryset = Presentation.objects.exclude(cancelled=True)
         sort_key = lambda s: s.name.lower()
         all_speakers = []
-        kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk', 'Sponsor Tutorial']]
+        kinds = ProposalKind.objects.all()
         for kind in kinds:
             speakers = []
             for presentation in queryset.filter(proposal_base__kind=kind):
@@ -148,14 +145,9 @@ class SpeakerBiosExporter(BaseExporter):
 
 
 class SponsorsExporter(BaseExporter):
-    fields = ['name', 'external_url', 'print_description', 'web_description']
+    fields = ['name', 'external_url', 'web_description']
     basedir = 'sponsors/'
-    description_fields = ['print_description', 'web_description']
-
-    def prepare_print_description(self, sponsor):
-        if sponsor.print_description_benefit:
-            return sponsor.sponsor_benefits.get(benefit__name='Print Description').text
-        return ''
+    description_fields = ['web_description']
 
     def prepare_web_description(self, sponsor):
         return sponsor.web_description
@@ -171,7 +163,7 @@ class SponsorsExporter(BaseExporter):
 
 class PresentationsExporter(BaseExporter):
     fields = [('name', 'title'), 'speakers', 'audience_level', 'category',
-              'description', 'url']
+              'description', 'abstract', 'url']
     basedir = 'presentations/'
     description_fields = ['description']
 
@@ -205,25 +197,28 @@ class PresentationsExporter(BaseExporter):
 
     def export(self):
         queryset = Presentation.objects.exclude(cancelled=True)
-        kinds = [ProposalKind.objects.get(name=name)
-                 for name in ['Talk', 'Poster', 'Tutorial', 'Lightning Talk',
-                              'Sponsor Tutorial']]
+        kinds = ProposalKind.objects.all()
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
             filename = kind.name.lower().replace(' ', '_') + 's'
-            if kind.name in ['Talk', 'Tutorial']:
+            if kind.name.lower() in ['talk', 'tutorial']:
                 self.write(filename, presentations,
-                                self.fields + ['room', 'time'])
+                           self.fields + ['room', 'time'])
             else:
                 self.write(filename, presentations)
 
 
 class ScheduleExporter(BaseExporter):
     fields = [('name', 'title'), 'speakers', 'room', 'day', 'start', 'end',
-              'audience_level', 'category', 'url']
+              'audience_level', 'category', 'url', 'abstract']
     basedir = 'schedule/'
     description_fields = []
+
+    def prepare_abstract(self, slot):
+        if slot.content and slot.content.abstract:
+            return slot.content.abstract
+        return ''
 
     def prepare_title(self, slot):
         if slot.content:

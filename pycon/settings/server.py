@@ -9,11 +9,11 @@ from .base import *
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ['DB_NAME'],
-        "USER": os.environ['DB_USER'],
-        "PASSWORD": os.environ['DB_PASSWORD'],
-        "HOST": os.environ['DB_HOST'],
-        "PORT": os.environ['DB_PORT'],
+        "NAME": env_or_default('DB_NAME', ''),
+        "USER": env_or_default('DB_USER', ''),
+        "PASSWORD": env_or_default('DB_PASSWORD', ''),
+        "HOST": env_or_default('DB_HOST', ''),
+        "PORT": env_or_default('DB_PORT', ''),
     }
 }
 
@@ -24,7 +24,9 @@ ALLOWED_HOSTS = [
     socket.getfqdn(),
 ]
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env_or_default('SECRET_KEY', '')
+
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin@gmail.com'),
@@ -45,7 +47,7 @@ SERVE_MEDIA = False
 # yes, use django-compressor on the server
 COMPRESS_ENABLED = True
 
-MEDIA_ROOT = os.environ['MEDIA_ROOT']
+MEDIA_ROOT = env_or_default('MEDIA_ROOT', '')
 
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = DEFAULT_LOGGING.copy()
@@ -74,7 +76,7 @@ LOGGING['handlers'].update(
         },
         'sam_gelf': {
             'class': 'graypy.GELFHandler',
-            'host': os.environ['GRAYLOG_HOST'],
+            'host': env_or_default('GRAYLOG_HOST', ''),
             'port': 12201,
             'filters': ['static_fields', 'django_exc'],
         }
@@ -98,4 +100,36 @@ LOGGING['loggers'].update(
             'level': 'WARNING',
         }
     }
+)
+
+# Caching
+INSTALLED_APPS.append('redis_cache')
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            'localhost:6379',
+        ],
+        'OPTIONS': {
+            # Caching will use Redis DB 1.  (Celery will use Redis DB 0.)
+            'DB': 1,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': 2,
+        },
+    },
+}
+
+# Keep sessions in cache
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+# Use the caching template loader around whatever template loaders we've
+# previously configured
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
 )

@@ -5,7 +5,7 @@
 
     <id>{{ feed_id }}</id>
 
-    <title>{{ SITE_NAME }} in Montr&#233;al Announcements</title>
+    <title>{{ SITE_NAME }} in Portland, OR Announcements</title>
 
     <link rel="alternate" type="text/html" href="{% url 'home' %}" />
 
