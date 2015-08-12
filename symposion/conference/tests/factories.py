@@ -3,10 +3,12 @@ from symposion.conference.models import Section, Conference
 
 
 class ConferenceFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Conference
+    class Meta:
+        model = Conference
 
 
 class SectionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Section
+    class Meta:
+        model = Section
 
     conference = factory.SubFactory(ConferenceFactory)

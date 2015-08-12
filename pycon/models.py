@@ -218,7 +218,7 @@ class PyConTutorialProposal(PyConProposal):
 
     # Populated by update_tutorial_registrant command.
     registrants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, blank=True, null=True, editable=False,
+        settings.AUTH_USER_MODEL, blank=True, editable=False,
         help_text=_(u'CTE registered participants for this tutorial.'))
     registration_count = models.IntegerField(
         default=0, editable=False,

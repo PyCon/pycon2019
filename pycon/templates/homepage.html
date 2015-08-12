@@ -1,4 +1,4 @@
-{% extends "responsive_base.html" %}
+{% extends "site_base.html" %}
 
 {% load i18n %}
 {% load cache %}
@@ -105,9 +105,11 @@
               <!-- Past PyCon Carousel -->
               <div class="gallery js-flickity"
               data-flickity-options='{ "wrapAround": true, "contain": true }'>
-                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
-                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
-                <img src="http://i.imgur.com/bwy74ok.jpg" alt="orange tree" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/2015-escalator.jpg" alt="interior of Palais des congrès de Montréal" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/2014-speaker.jpg" alt="speaker at PyCon 2014" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/2014-conference-hall.jpg" alt="2014 conference hall" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/2012-speaker.jpg" alt="speaker at PyCon 2012" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/psf-booth.jpg" alt="Python software foundation booth" />
               </div>
             </div>
     {# Announcements #}
