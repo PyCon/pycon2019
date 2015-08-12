@@ -16,13 +16,13 @@ django-mailer==0.2a1
 django-timezones==0.2
 pytz==2014.4
 
-git+https://github.com/dpoirier/django-openid.git@minimal_django17#egg=django-openid
+git+https://github.com/dpoirier/django-openid.git@minimal_django18#egg=django-openid
 
 python-openid==2.2.5
 django_compressor==1.5
-git+git://github.com/caktus/biblion.git@feature/django-1.8#egg=biblion
-git+git://github.com/caktus/django-sitetree.git#egg=django-sitetree
--e git+git://github.com/shvechikov/python-rtfng.git#egg=python-rtfng
+git+https://github.com/caktus/biblion.git@feature/django-1.8#egg=biblion
+git+https://github.com/caktus/django-sitetree.git#egg=django-sitetree
+git+https://github.com/shvechikov/python-rtfng.git#egg=python-rtfng
 
 django-taggit==0.15.0
 # Django-reversion 1.9.2 for Django 1.7+
