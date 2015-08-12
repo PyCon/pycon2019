@@ -61,6 +61,21 @@
     <div class="abstract">{{ presentation.abstract|bleach|safe }}</div>
     {% endif %}
 
+    {% if presentation.has_urls %}
+    <h3>{% trans "Links" %}</h3>
+    <ul>
+      {% if presentation.video_url %}
+        <li><a href="{{ presentation.video_url }}">{% trans "Video of talk" %}</a></li>
+      {% endif %}
+      {% if presentation.slides_url %}
+        <li><a href="{{ presentation.slides_url }}">{% trans "Slides from talk" %}</a></li>
+      {% endif %}
+      {% if presentation.assets_url %}
+        <li><a href="{{ presentation.assets_url }}">{% trans "Misc. assets for talk" %}</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+
     {# Determine if the proposal is a Tutorial #}
     {% if proposal.domain_level %}
           <h3>{% trans "Student Handout" %}</h3>
