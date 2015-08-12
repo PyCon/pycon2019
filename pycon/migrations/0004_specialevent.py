@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pycon', '0002_remove_old_google_openid_auths'),
+        ('pycon', '0003_auto_20150731_1306'),
     ]
 
     operations = [
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('start', models.DateTimeField()),
                 ('end', models.DateTimeField()),
                 ('description', models.TextField(help_text=b'markdown')),
-                ('published', models.BooleanField(default=True)),
+                ('published', models.BooleanField(default=False)),
             ],
             options={
                 'verbose_name': 'PyCon Special Event',
