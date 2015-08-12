@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import datetime
 import json
 import pytz
@@ -18,6 +20,8 @@ from pycon.tests.factories import PyConTalkProposalFactory, ThunderdomeGroupFact
 
 from .models import APIAuth, ProposalData, IRCLogLine
 from .decorators import DATETIME_FORMAT
+from symposion.schedule.models import Presentation
+from symposion.schedule.tests.factories import PresentationFactory
 
 
 class RawDataClientMixin(object):
@@ -459,3 +463,59 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
         self.assertEqual(rsp.status_code, 200, rsp.content)
         self.assertEqual(len(json.loads(rsp.content)['data']), 1)
 
+
+class SetPresentationURLsTest(RawDataClientMixin, TestCase):
+    def setUp(self):
+        self.auth_key = APIAuth.objects.create(name="test")
+        self.presentation = PresentationFactory(
+            video_url='http://video.example.com',
+            assets_url='http://assets.example.com',
+            slides_url='http://slides.example.com',
+        )
+        self.url = reverse('set_talk_urls', args=[self.presentation.slot.pk])
+
+    def test_invalid_request_data(self):
+        TEST_DATA = {'stuff': 'Foo! Bar! Sis boom bah!'}
+        rsp = self.post_raw_data(self.url, post_data=json.dumps(TEST_DATA))
+        self.assertEqual(400, rsp.status_code, rsp.content)
+        response_data = json.loads(rsp.content)
+        self.assertEqual({'code': 400, 'data': {'error': 'Must provide at least one of video_url, slides_url, and assets_url.'}},
+                         response_data)
+
+    def test_change_assets_url(self):
+        # A valid request
+        TEST_DATA = {'assets_url': 'http://example.com'}
+        rsp = self.post_raw_data(self.url, post_data=json.dumps(TEST_DATA))
+        self.assertEqual(202, rsp.status_code, rsp.content)
+        presentation = Presentation.objects.get(pk=self.presentation.pk)
+        self.assertEqual(presentation.assets_url, TEST_DATA['assets_url'])
+        self.assertEqual(presentation.video_url, self.presentation.video_url)
+        self.assertEqual(presentation.slides_url, self.presentation.slides_url)
+        response_data = json.loads(rsp.content)
+        self.assertEqual({'code': 202, 'data': {'message': 'Talk updated.'}},
+                         response_data)
+
+    def test_change_all_urls(self):
+        # A valid request
+        TEST_DATA = {
+            'assets_url': 'http://example.com',
+            'video_url': 'https://v.example.com',
+            'slides_url': 'http://superslide.toys'
+        }
+        rsp = self.post_raw_data(self.url, post_data=json.dumps(TEST_DATA))
+        self.assertEqual(202, rsp.status_code, rsp.content)
+        presentation = Presentation.objects.get(pk=self.presentation.pk)
+        self.assertEqual(presentation.assets_url, TEST_DATA['assets_url'])
+        self.assertEqual(presentation.video_url, TEST_DATA['video_url'])
+        self.assertEqual(presentation.slides_url, TEST_DATA['slides_url'])
+        response_data = json.loads(rsp.content)
+        self.assertEqual({'code': 202, 'data': {'message': 'Talk updated.'}},
+                         response_data)
+
+    def test_invalid_url(self):
+        TEST_DATA = {'video_url': 'Foo! Bar! Sis boom bah!'}
+        rsp = self.post_raw_data(self.url, post_data=json.dumps(TEST_DATA))
+        self.assertEqual(400, rsp.status_code, rsp.content)
+        response_data = json.loads(rsp.content)
+        self.assertEqual({'code': 400, 'data': {'error': {'video_url': ['Enter a valid URL.']}}},
+                         response_data)

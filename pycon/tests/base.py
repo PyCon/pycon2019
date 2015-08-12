@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpRequest
 from django.test import TestCase, TransactionTestCase
 from django.utils.encoding import force_text
+from symposion.conference.models import Conference
 
-from symposion.conference.tests.factories import ConferenceFactory
 
 from . import factories
 
@@ -16,7 +16,7 @@ class PyConTestMixin(object):
 
     def setUp(self):
         super(PyConTestMixin, self).setUp()
-        self.conference = ConferenceFactory(id=settings.CONFERENCE_ID)
+        self.conference, __ = Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
 
 
 class ViewTestMixin(object):

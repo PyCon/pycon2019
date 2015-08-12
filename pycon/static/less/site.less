@@ -298,7 +298,7 @@ input[type="submit"],
   // --------------------------------------------------
   .control-group.error &   { .input-states(@danger) }
   .control-group.success & { .input-states(@greenDark) }
-  .control-group.warning & { .input-states(@yellowBeak) }
+  .control-group.warning & { .input-states(@gold) }
   .control-group.info &    { .input-states(@blueLight) }
 
   .control-group & { margin-bottom: 0; }
@@ -396,8 +396,11 @@ footer {
     p {
       padding-top: 0;
       margin: 0 0 1.25em 0;
-      font-size: 14px;
+      font-size: @baseFontSize * .90;
       line-height: 1.8em;
+      @media (min-width: @breakTablet) {
+        font-size: @baseFontSize;
+      }
       a {
         color: @tanCity;
         border-bottom: 1px dotted @tanCity;
@@ -492,14 +495,14 @@ footer {
 
 aside.list {
   text-align: left;
-  border: 1px solid @grayLighter;
-  .border-radius(8px);
   padding: 15px 0;
   ul li {
     a {
       text-shadow: none;
+      border-bottom: none;
+      padding: .5em 1em;
       &:hover {
-        background-color: @blueLight;
+        background-color: @maroon;
         color: @white;
       }
     }
@@ -575,7 +578,7 @@ aside.list {
   // Set the backgrounds
   // -------------------------
   &.btn-primary {
-    .swap-button-color(@blueLight, @button-primary-hover, @button-primary-active);
+    .swap-button-color(@red, @button-primary-hover, @button-primary-active);
     border: none;
     color: @white;
     &:hover {
@@ -583,7 +586,7 @@ aside.list {
     }
   }
   &.btn-info    {
-    .swap-button-color(@blueLight, @button-info-hover, @button-info-active);
+    .swap-button-color(@red, @button-info-hover, @button-info-active);
     border: none;
     color: @white;
   }
@@ -593,12 +596,12 @@ aside.list {
     color: @white;
   }
   &.btn-success {
-    .swap-button-color(@blueLight, @button-success-hover, @button-success-active);
+    .swap-button-color(@red, @button-success-hover, @button-success-active);
     border: none;
     color: @white;
   }
   &.btn-warning {
-    .swap-button-color(@yellowDark, @button-warning-hover, @button-warning-active);
+    .swap-button-color(@goldDark, @button-warning-hover, @button-warning-active);
     border: none;
     color: @white;
   }
@@ -727,16 +730,20 @@ header.main {
               background-color: @maroon;
               color: white;
             }
-            li a {
-              padding: 1em;
-              border-radius: 0;
-              display: block;
+            li {
               &:hover {
-                color: white;
-                background-color: @maroon;
+                .caret {
+                  border-top-color: white;
+                }
               }
-              .caret {
-                border-top-color: white;
+              a {
+                padding: 1em;
+                border-radius: 0;
+                display: block;
+                &:hover {
+                  color: white;
+                  background-color: @maroon;
+                }
               }
             }
           }
@@ -755,7 +762,7 @@ header.main {
             text-shadow: none;
             color: @maroon;
             font-weight: 400;
-            border-bottom: none;
+            border-bottom: 1px solid transparent;
             @media (min-width: @breakDesktop) {
               padding-right: 1em;
             }
@@ -1075,7 +1082,7 @@ body.home {
       font-size: @baseFontSize * 1.65;
       line-height: 1.75;
       @media (max-width: @breakDesktop) {
-        font-size: @baseFontSize * 1.25;
+        font-size: @baseFontSize * 1.1;
         line-height: 1.85em;
       }
     }
@@ -1113,7 +1120,13 @@ body.home {
         margin-bottom: 1em;
       }
       h3 .dates { font-weight: 400; }
-      p { margin-bottom: 3em; }
+      p {
+        margin-bottom: 3em;
+        @media (max-width: @breakDesktop) {
+          font-size: @baseFontSize * 1.1;
+          line-height: 1.85em;
+        }
+      }
     }
   }
 
@@ -1141,7 +1154,6 @@ body.home {
         border-bottom: none;
         color: white;
         @media (max-width: @breakMobileLandscape) {
-          font-size: 12px;
           margin: 0 0 20px;
           padding: 10px 50px;
         }
@@ -1192,7 +1204,7 @@ body.home {
           right: 1%;
         }
         @media (min-width:@breakDesktop ) {
-          width: 50%;
+          width: 49%;
           right: 0;
         }
         img.announcement-banner {
@@ -1432,7 +1444,7 @@ ul#slider {
 /* labels
 ==================== */
 .label-important, .badge-important {
-  background-color: @pinkDark;
+  background-color: @redDark;
 }
 .label-info, .badge-info {
   background-color: #27a9e1
@@ -1715,17 +1727,18 @@ body.auth {
     textarea {
       width: 600px;
     }
-    .form-actions {
-      input[type=submit] {
-        .btn;
-        .btn-primary;
-        border: 1px solid #27A9E1;
-        .border-radius(4px);
-        line-height: 24px;
-        &:hover {
-          border: 1px solid #27A9E1;
-        }
-      }
+  }
+}
+.form-actions {
+  background-color: darken(@tanCity, 4%);
+  input[type=submit] {
+    .btn;
+    .btn-primary;
+    border: 1px solid @red;
+    .border-radius(4px);
+    line-height: 24px;
+    &:hover {
+      border: 1px solid @redDark;
     }
   }
 }
@@ -1988,9 +2001,9 @@ body.job-fair {
       .btn-success;
         margin-top: 10px;
         margin-bottom: 30px;
-        background-color: @blueLight;
+        background-color: @greenForest;
         &:hover {
-          background-color: @blueEXDark;
+          background-color: @greenDark;
         }
       display: block;
       width: 275px;
@@ -2085,9 +2098,9 @@ table.calendar {
     }
 
     .title > a {
-      color: @blueLight;
+      color: @gold;
       &:hover {
-        color: @yellowDark;
+        color: @goldDark;
       }
     }
 
@@ -2288,6 +2301,9 @@ body#group-registration {
   float: left;
   position: relative;
   margin-bottom: 1em;
+  &:focus {
+    outline: none;
+  }
   .flickity-viewport {
     overflow: hidden;
     height: 224px;

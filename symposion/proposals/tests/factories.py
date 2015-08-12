@@ -5,14 +5,16 @@ from symposion.speakers.tests.factories import SpeakerFactory
 
 
 class ProposalKindFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ProposalKind
-    FACTORY_DJANGO_GET_OR_CREATE = ('slug',)
+    class Meta:
+        model = ProposalKind
+        django_get_or_create = ('slug',)
 
     section = factory.SubFactory(SectionFactory)
 
 
 class ProposalBaseFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ProposalBase
-    ABSTRACT_FACTORY = True
+    class Meta:
+        model = ProposalBase
+        abstract = True
 
     speaker = factory.SubFactory(SpeakerFactory)
