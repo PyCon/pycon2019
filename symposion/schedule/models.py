@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from symposion.proposals.models import ProposalBase
@@ -143,6 +144,14 @@ class Presentation(models.Model):
     proposal_base = models.OneToOneField(ProposalBase, related_name="presentation")
     section = models.ForeignKey(Section, related_name="presentations")
 
+    video_url = models.URLField(blank=True, default='')
+    slides_url = models.URLField(blank=True, default='')
+    assets_url = models.URLField(blank=True, default='')
+
+    @property
+    def has_urls(self):
+        return bool(self.video_url or self.slides_url or self.assets_url)
+
     @property
     def number(self):
         return self.proposal.number
@@ -161,6 +170,9 @@ class Presentation(models.Model):
 
     def __unicode__(self):
         return u"#%s %s (%s)" % (self.number, self.title, self.speaker)
+
+    def get_absolute_url(self):
+        return reverse('schedule_presentation_detail', args=[self.pk])
 
     class Meta:
         ordering = ["slot"]
