@@ -25,7 +25,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('pycon', '0001_initial'),
-        ('social_auth', '0001_initial'),
     ]
 
     operations = [
