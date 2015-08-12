@@ -33,9 +33,9 @@ def access_not_permitted(request):
     return render(request, "reviews/access_not_permitted.html")
 
 
-def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
+def proposals_list(request, queryset, user_pk=None, check_speaker=True):
     """
-    Yields a series of proposal objects filtered from the queryset.  Ensures
+    Returns a list of proposal objects filtered from the queryset.  Ensures
     that each proposal has a result object associated with it.
 
     :param boolean check_speaker: If True, omits any proposals for which the
@@ -140,7 +140,7 @@ def review_section(request, section_slug, assigned=False):
 
     queryset = queryset.select_related("result", "kind", "speaker__user", "tags").select_subclasses()
 
-    proposals = list(proposals_generator(request, queryset))
+    proposals = proposals_list(request, queryset)
     ctx = {
         "proposals": proposals,
         "section": section,
@@ -168,7 +168,7 @@ def review_list(request, section_slug, user_pk):
 
     admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
 
-    proposals = proposals_generator(request, proposals, user_pk=user_pk, check_speaker=not admin)
+    proposals = proposals_list(request, proposals, user_pk=user_pk, check_speaker=not admin)
 
     ctx = {
         "proposals": proposals,
@@ -289,7 +289,6 @@ def review_detail(request, pk):
 
                 tags = proposal_tags_form.cleaned_data['tags']
                 proposal.tags.set(*tags)
-                proposal.cache_tags()
 
                 return redirect(request.path)
             else:
@@ -438,7 +437,7 @@ def review_status(request, section_slug=None, key=None):
     for status in proposals:
         if key and key != status:
             continue
-        proposals[status] = list(proposals_generator(request, proposals[status], check_speaker=not admin))
+        proposals[status] = proposals_list(request, proposals[status], check_speaker=not admin)
 
     if key:
         ctx.update({

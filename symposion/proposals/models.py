@@ -2,19 +2,21 @@ import datetime
 import os
 import uuid
 
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.utils.translation import ugettext_lazy as _
-
-from django.contrib.auth.models import User
 
 import json
 import reversion
 
 from model_utils.managers import InheritanceManager
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItem
 
 from symposion.conference.models import Section
 
@@ -114,12 +116,6 @@ class ProposalBase(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if self.pk:
-            # If already in database, update cached tags before saving
-            self.cached_tags = self.get_tags_display()
-        super(ProposalBase, self).save(*args, **kwargs)
-
     def can_edit(self):
         if hasattr(self, "presentation") and self.presentation_id:
             return False
@@ -192,6 +188,35 @@ class ProposalBase(models.Model):
             "speakers": ', '.join([x.name for x in self.speakers()]),
             "kind": self.kind.name,
         }
+
+
+def tagitem_presave(sender, instance, raw, **kwargs):
+    if not raw and instance.pk:
+        # TagItem already existed, might have pointed at a different record
+        proposal_ct = ContentType.objects.get_for_model(ProposalBase)
+        if instance.content_type == proposal_ct:
+            pre_save_tagitem = sender.objects.get(pk=instance.pk)
+            if pre_save_tagitem.object_id != instance.object_id:
+                instance.pre_save_object_id = pre_save_tagitem.object_id
+pre_save.connect(tagitem_presave, sender=TaggedItem)
+
+
+def tagitem_saved(sender, instance, raw, created, using, update_fields, **kwargs):
+    if not raw:
+        proposal_ct = ContentType.objects.get_for_model(ProposalBase)
+        if instance.content_type == proposal_ct:
+            ProposalBase.objects.get(id=instance.object_id).cache_tags()
+            if hasattr(instance, 'pre_save_object_id'):
+                # If it pointed elsewhere before the save, update that one too
+                ProposalBase.objects.get(id=instance.pre_save_object_id).cache_tags()
+post_save.connect(tagitem_saved, sender=TaggedItem)
+
+
+def tagitem_deleted(sender, instance, **kwargs):
+    proposal_ct = ContentType.objects.get_for_model(ProposalBase)
+    if instance.content_type == proposal_ct:
+        ProposalBase.objects.get(id=instance.object_id).cache_tags()
+post_delete.connect(tagitem_deleted, sender=TaggedItem)
 
 
 reversion.register(ProposalBase)
