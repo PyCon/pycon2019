@@ -190,11 +190,20 @@ class ProposalBase(models.Model):
         }
 
 
+# Use signals to update our cached tags whenever taggeditems
+# that refer to proposals get updated.  Basically we want to
+# figure out which proposal or proposals are affected and call
+# .cache_tags() on them.
 def tagitem_presave(sender, instance, raw, **kwargs):
+    """
+    We just use the presave to notice if the save is going to
+    change which proposal is linked to, and remember that for
+    later.
+    """
     if not raw and instance.pk:
         # TagItem already existed, might have pointed at a different record
         proposal_ct = ContentType.objects.get_for_model(ProposalBase)
-        if instance.content_type == proposal_ct:
+        if instance.content_type_id == proposal_ct.id:
             pre_save_tagitem = sender.objects.get(pk=instance.pk)
             if pre_save_tagitem.object_id != instance.object_id:
                 instance.pre_save_object_id = pre_save_tagitem.object_id
@@ -202,9 +211,13 @@ pre_save.connect(tagitem_presave, sender=TaggedItem)
 
 
 def tagitem_saved(sender, instance, raw, created, using, update_fields, **kwargs):
+    """
+    When a tagitem linked to a proposal changes, update the proposal
+    it links to.  Also update the proposal it linked to before, if different.
+    """
     if not raw:
         proposal_ct = ContentType.objects.get_for_model(ProposalBase)
-        if instance.content_type == proposal_ct:
+        if instance.content_type_id == proposal_ct.id:
             ProposalBase.objects.get(id=instance.object_id).cache_tags()
             if hasattr(instance, 'pre_save_object_id'):
                 # If it pointed elsewhere before the save, update that one too
@@ -213,8 +226,12 @@ post_save.connect(tagitem_saved, sender=TaggedItem)
 
 
 def tagitem_deleted(sender, instance, **kwargs):
+    """
+    When a tagitem linked to a proposal is deleted, update the proposal
+    it links to.
+    """
     proposal_ct = ContentType.objects.get_for_model(ProposalBase)
-    if instance.content_type == proposal_ct:
+    if instance.content_type_id == proposal_ct.id:
         ProposalBase.objects.get(id=instance.object_id).cache_tags()
 post_delete.connect(tagitem_deleted, sender=TaggedItem)
 
