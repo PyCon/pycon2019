@@ -28,6 +28,11 @@ FIXTURE_DIR = os.path.join(os.path.dirname(__file__), '../../../fixtures')
 
 
 class TestSponsorZipDownload(TestCase):
+    fixtures = [
+        os.path.join(FIXTURE_DIR, 'conference.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_levels.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_benefits.json'),
+    ]
 
     def setUp(self):
         self.user = User.objects.create_user(username='joe',
@@ -53,12 +58,9 @@ class TestSponsorZipDownload(TestCase):
         # Create our benefits, of various types
         self.text_benefit = Benefit.objects.create(name="text", type="text")
         self.file_benefit = Benefit.objects.create(name="file", type="file")
-        # These names must be spelled exactly this way:
-        self.weblogo_benefit = Benefit.objects.create(
-            name="Web logo", type="weblogo")
-        self.printlogo_benefit = Benefit.objects.create(
+        self.printlogo_benefit = Benefit.objects.get(
             name="Print logo", type="file")
-        self.advertisement_benefit = Benefit.objects.create(
+        self.advertisement_benefit = Benefit.objects.get(
             name="Advertisement", type="file")
 
     def validate_response(self, rsp, names_and_sizes):
@@ -138,16 +140,13 @@ class TestSponsorZipDownload(TestCase):
                 )
 
                 self.make_temp_file("file2", 20)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
-                    upload="file2"
-                )
+                self.sponsor.web_logo = "file2"
+                self.sponsor.save()
 
                 # Benefit whose file is missing from the disk
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
+                    benefit=self.printlogo_benefit,
                     upload="file3"
                 )
 
@@ -199,11 +198,8 @@ class TestSponsorZipDownload(TestCase):
 
                 # Give our sponsors some benefits
                 self.make_temp_file("file1", 10)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
-                    upload="file1"
-                )
+                self.sponsor.web_logo = "file1"
+                self.sponsor.save()
                 # print logo benefit
                 self.make_temp_file("file2", 20)
                 SponsorBenefit.objects.create(
@@ -213,11 +209,8 @@ class TestSponsorZipDownload(TestCase):
                 )
                 # Sponsor 2
                 self.make_temp_file("file3", 30)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor2,
-                    benefit=self.weblogo_benefit,
-                    upload="file3"
-                )
+                self.sponsor2.web_logo = "file3"
+                self.sponsor2.save()
                 # print logo benefit
                 self.make_temp_file("file4", 42)
                 SponsorBenefit.objects.create(
