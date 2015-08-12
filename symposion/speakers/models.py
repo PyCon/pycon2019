@@ -49,7 +49,9 @@ class Speaker(models.Model):
         ordering = ['name']
 
     def __unicode__(self):
-        if self.user:
+        # Test self.user_id instead of self.user because referencing self.user
+        # forces a query.
+        if self.user_id is not None:
             return self.name
         else:
             return u"?"
