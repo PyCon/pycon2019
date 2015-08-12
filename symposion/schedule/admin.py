@@ -72,8 +72,7 @@ class PresentationAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(PresentationAdmin, self).get_queryset(request)
-        return qs.select_related('speaker', 'speaker__user',
-                                 )
+        return qs.select_related('speaker', 'speaker__user')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'proposal_base':
