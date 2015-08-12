@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='proposalbase',
             name='cached_tags',
-            field=models.TextField(default=b'', blank=True),
+            field=models.TextField(default=b'', editable=False, blank=True),
             preserve_default=True,
         ),
     ]

@@ -7,7 +7,7 @@ import factory.fuzzy
 from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup
+    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, PyConLightningTalkProposal
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
@@ -75,3 +75,12 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
 class ThunderdomeGroupFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ThunderdomeGroup
+
+
+class PyConLightningTalkProposalFactory(PyConProposalFactory):
+    class Meta:
+        model = PyConLightningTalkProposal
+
+    kind = factory.SubFactory(ProposalKindFactory,
+                              name="lightning",
+                              slug="lightning")

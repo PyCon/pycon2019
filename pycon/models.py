@@ -40,7 +40,7 @@ class ThunderdomeGroup(models.Model):
 
 
 class PyConProposal(ProposalBase):
-
+    # ABSTRACT MODEL
     AUDIENCE_LEVEL_NOVICE = 1
     AUDIENCE_LEVEL_EXPERIENCED = 2
     AUDIENCE_LEVEL_INTERMEDIATE = 3
