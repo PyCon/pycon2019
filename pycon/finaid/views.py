@@ -4,6 +4,7 @@ import re
 
 from smtplib import SMTPException
 
+import django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
@@ -358,6 +359,17 @@ def finaid_status(request):
     })
 
 
+def get_names_of_fields(model):
+    if django.VERSION < (1, 8):
+        # Old way, stops working in Django 1.8 (but new way doesn't work before Django 1.8)
+        return [
+            f.attname for f, model in model._meta.get_fields_with_model()
+        ]
+
+    # https://docs.djangoproject.com/en/1.8/ref/models/meta/#migrating-from-the-old-api
+    return [f.name for f in model._meta.get_fields()]
+
+
 @login_required
 def finaid_download_csv(request):
     # Download financial aid application data as a .CSV file
@@ -367,12 +379,12 @@ def finaid_download_csv(request):
 
     # Fields to include
     application_field_names = ['id'] + [
-        f.attname for f, model in FinancialAidApplication._meta.get_fields_with_model()
-        if f.attname not in ['id', 'review']
+        name for name in get_names_of_fields(FinancialAidApplication)
+        if name not in ['id', 'review']
     ] + ['email', 'user']
     reviewdata_field_names = [
-        f.attname for f, model in FinancialAidReviewData._meta.get_fields_with_model()
-        if f.attname not in ['application', 'id', 'last_update']
+        name for name in get_names_of_fields(FinancialAidReviewData)
+        if name not in ['application', 'id', 'last_update']
     ]
 
     # For these fields, use the get_FIELDNAME_display() method so we get

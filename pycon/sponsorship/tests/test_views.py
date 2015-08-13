@@ -95,7 +95,7 @@ class TestSponsorZipDownload(TestCase):
         self.client.logout()
         rsp = self.client.get(self.url, follow=True)
         self.assertEqual(200, rsp.status_code)
-        self.assertIn("""<body class="login">""", rsp.content)
+        self.assertContains(rsp, """<body class="login">""")
 
     def test_must_be_staff(self):
         # Only staff can use the view
@@ -107,7 +107,7 @@ class TestSponsorZipDownload(TestCase):
         self.assertEqual(200, rsp.status_code)
         self.assertIn("""<body class="login">""", rsp.content)
         rsp = self.client.get(reverse('dashboard'))
-        self.assertNotIn(self.url, rsp.content)
+        self.assertNotContains(rsp, self.url)
 
     def test_no_files(self):
         # If there are no sponsor files, we still work
@@ -115,7 +115,7 @@ class TestSponsorZipDownload(TestCase):
         rsp = self.client.get(self.url)
         self.validate_response(rsp, [])
         rsp = self.client.get(reverse('dashboard'))
-        self.assertIn(self.url, rsp.content)
+        self.assertContains(rsp, self.url)
 
     def test_different_benefit_types(self):
         # We only get files from the benefits named "Print logo" and "Web logo"
