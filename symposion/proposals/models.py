@@ -1,22 +1,18 @@
 import datetime
+import json
 import os
 import uuid
 
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import post_save, post_delete, pre_save
 from django.utils.translation import ugettext_lazy as _
 
-import json
 import reversion
-
 from model_utils.managers import InheritanceManager
 from taggit.managers import TaggableManager
-from taggit.models import TaggedItem
 
 from symposion.conference.models import Section
 
@@ -188,33 +184,6 @@ class ProposalBase(models.Model):
             "speakers": ', '.join([x.name for x in self.speakers()]),
             "kind": self.kind.name,
         }
-
-
-# Use signals to update our cached tags whenever taggeditems
-# that refer to proposals get updated.  Basically we want to
-# figure out which proposal or proposals are affected and call
-# .cache_tags() on them.
-def tagitem_saved(sender, instance, raw, created, using, update_fields, **kwargs):
-    """
-    When a tagitem linked to a proposal changes, update the proposal
-    it links to.
-    """
-    if not raw:
-        thing_tagged = instance.content_object
-        if isinstance(thing_tagged, ProposalBase):
-            thing_tagged.cache_tags()
-post_save.connect(tagitem_saved, sender=TaggedItem)
-
-
-def tagitem_deleted(sender, instance, **kwargs):
-    """
-    When a tagitem linked to a proposal is deleted, update the proposal
-    it links to.
-    """
-    thing_tagged = instance.content_object
-    if isinstance(thing_tagged, ProposalBase):
-        ProposalBase.objects.get(id=instance.object_id).cache_tags()
-post_delete.connect(tagitem_deleted, sender=TaggedItem)
 
 
 reversion.register(ProposalBase)
