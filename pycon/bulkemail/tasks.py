@@ -1,6 +1,10 @@
 from datetime import timedelta
 import logging
+
+from celery import shared_task
+
 from django.utils.timezone import now
+
 from pycon.bulkemail.models import BulkEmail, UNSENT, ERROR, INPROGRESS
 
 
@@ -15,7 +19,7 @@ RETRY_INTERVAL = timedelta(hours=4)
 MAX_TIME = timedelta(hours=4)
 
 
-# FIXME: Make this a task once Celery is enabled.
+@shared_task
 def send_bulk_emails():
 
     # If any INPROGRESS email has been that way too long, change it back to

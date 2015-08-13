@@ -116,8 +116,8 @@ def tutorial_message(request, pk):
                                bcc=recipients,
                                context=context)
             messages.add_message(request, messages.INFO, _(u"Message queued to be sent."))
-        url = reverse('schedule_presentation_detail', args=[presentation.pk])
-        return redirect(url)
+            url = reverse('schedule_presentation_detail', args=[presentation.pk])
+            return redirect(url)
 
     return render(request, "tutorials/message.html", {
         'presentation': presentation,
