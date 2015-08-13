@@ -17,7 +17,7 @@ from pycon.models import PyConTutorialProposal
 
 from .forms import BulkEmailForm, TutorialMessageForm
 from .models import PyConTutorialMessage
-from .utils import email_context, send_email_message, is_attendee_or_speaker
+from .utils import email_context, queue_email_message, is_attendee_or_speaker
 
 
 log = logging.getLogger(__name__)
@@ -53,13 +53,12 @@ def tutorial_email(request, pk, pks):
                 subject=subject)
             try:
                 # Send Email to each recipient separately,
-                send_email_message("direct_email",
+                queue_email_message("direct_email",
                                    from_=settings.DEFAULT_FROM_EMAIL,
                                    to=[],
                                    bcc=emails,
                                    context=context,
-                                   headers={'Reply-To': request.user.email},
-                                   )
+                                   headers={'Reply-To': request.user.email})
             except SMTPException:
                 log.exception("ERROR sending Tutorial emails")
                 messages.add_message(request, messages.ERROR,
@@ -111,7 +110,7 @@ def tutorial_message(request, pk):
             recipients = speakers + attendees
 
             # Send new message notice to speakers/attendees
-            send_email_message("message",
+            queue_email_message("message",
                                from_=settings.DEFAULT_FROM_EMAIL,
                                to=[request.user.email],
                                bcc=recipients,

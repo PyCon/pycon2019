@@ -42,7 +42,7 @@ def email_context(request, proposal, message=None, subject=None):
     return context
 
 
-def send_email_message(template_name, from_, to, bcc, context, headers=None):
+def queue_email_message(template_name, from_, to, bcc, context, headers=None):
     """
     Send an email message.
 

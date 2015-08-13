@@ -119,8 +119,8 @@ class TestTutorialEmailView(TestCase, TestMixin):
             'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
-    @patch('pycon.tutorials.views.send_email_message')
-    def test_email_submit_as_attendee(self, mock_send_mail):
+    @patch('pycon.tutorials.views.queue_email_message')
+    def test_email_submit_as_attendee(self, mock_queue_mail):
         user = self.create_user('speaker', 'speaker@conf.com')
         speaker = SpeakerFactory(user=user)
         self.presentation.speaker = speaker
@@ -139,13 +139,13 @@ class TestTutorialEmailView(TestCase, TestMixin):
                 'pks': self.presentation.speaker.user.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
-        self.assertEqual(1, mock_send_mail.call_count)
-        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(1, mock_queue_mail.call_count)
+        args, kwargs = mock_queue_mail.call_args
         email = self.presentation.speaker.user.email
         self.assertEqual(kwargs['bcc'][0], email)
 
-    @patch('pycon.tutorials.views.send_email_message')
-    def test_email_submit_as_speaker(self, mock_send_mail):
+    @patch('pycon.tutorials.views.queue_email_message')
+    def test_email_submit_as_speaker(self, mock_queue_mail):
         attendee = self.create_user(username='foo', email="foo@bar.com")
         speaker = SpeakerFactory(user=self.user)
         self.presentation.speaker = speaker
@@ -164,8 +164,8 @@ class TestTutorialEmailView(TestCase, TestMixin):
                 'pks': attendee.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
-        self.assertEqual(1, mock_send_mail.call_count)
-        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(1, mock_queue_mail.call_count)
+        args, kwargs = mock_queue_mail.call_args
         self.assertEqual(kwargs['bcc'][0], attendee.email)
 
 
