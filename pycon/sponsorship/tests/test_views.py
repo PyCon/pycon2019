@@ -48,7 +48,7 @@ class TestSponsorZipDownload(TestCase):
         Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         conference = current_conference()
         self.sponsor_level = SponsorLevel.objects.create(
-            conference=conference, name="Lead", cost=1)
+            conference=conference, name="Lead", cost=1, order=199)
         self.sponsor = Sponsor.objects.create(
             name="Big Daddy",
             level=self.sponsor_level,
@@ -184,7 +184,7 @@ class TestSponsorZipDownload(TestCase):
         # Add another sponsor at a different sponsor level
         conference = current_conference()
         self.sponsor_level2 = SponsorLevel.objects.create(
-            conference=conference, name="Silly putty", cost=1)
+            conference=conference, name="Silly putty", cost=1, order=299)
         self.sponsor2 = Sponsor.objects.create(
             name="Big Mama",
             level=self.sponsor_level2,
