@@ -9,6 +9,61 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.3
+--------------
+
+Wednesday, August 12, 2015
+
+* Undo bad last-minute migration fix.
+
+Version 2016.2
+--------------
+
+Wednesday, August 12, 2015
+
+* Fix sponsor logo download (#436)
+* Update button colors (#470)
+* Past Pycons slideshow (442)
+* Combine site style files (#465)
+* Add talk URLs (#389):
+
+    TALKS/SESSION CHAIRS
+    • Add the following fields to each talk slot:
+    ⁃ Talk video URL
+    ⁃ Talk slides URL
+    ⁃ Talk assets URL
+    ⁃ Those fields should exist in the /schedule/conference.json feed
+    ⁃ There should be an API which I can use to update those URLs
+    ⁃ it should be as simple as possible, since I'll call it from scripts
+    ⁃ I don't care what it looks like, so long as I can call it with 3 lines
+    of requests (ex, no oauth or anything complex)
+    ⁃ Those fields should be editable from the django admin
+    ⁃ If present and non-empty, they should be shown on the talk description page
+
+    Set the video, slides, and assets URLs for a talk.
+
+    Expects a POST, with an identifier for the talk as returned in
+    the conf_key from the conference JSON API (/YYYY/schedule/conference.json)
+    as part of the URL:
+
+        http[s]://xxxxxxxxx/api/set_talk_urls/12345/
+
+    and the request body a JSON-encoded dictionary with up to three keys:
+
+      * video_url
+      * slides_url
+      * assets_url
+
+    whose values are syntactically valid URLs.  The provided values will be
+    set on the talk.
+
+    Authentication is via an API key like other Pycon site APIs.
+
+    :param conf_key: The 'conf_key' value returned for a slot by the conference
+     JSON method.
+    :returns: 202 status if successful
+
+
 Version 2016.1
 --------------
 
