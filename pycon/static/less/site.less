@@ -1129,32 +1129,39 @@ body.home {
     }
   }
 
-  .register-banner {
-    background: url("/2016/site_media/static/img/PNG/Register-Banner.png") no-repeat;
-    background-size: contain;
-    width: 100%;
-    max-width: 21.75em;
-    height: 5em;
-    margin: 2em auto;
-    text-align: center;
-    padding-top: 1.35em;
-    .promo {
-      @media (max-width: @breakDesktop) {
-        &.no-link {
-          top: 20px;
-        }
+  .register {
+    margin-bottom: 3em;
+    .register-banner {
+      background: url("/2016/site_media/static/img/PNG/Register-Banner.png") center center no-repeat;
+      background-size: 100% 100%;
+      width: 100%;
+      margin: 1em auto;
+      text-align: center;
+      padding: 1.5em 0;
+      font-size: @baseFontSize * .75;
+      @media (min-width: @breakTablet) {
+        width: 50%;
+        padding: 2em;
       }
-      a {
-        font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: @baseFontSize * 2;
-        text-decoration: none;
-        border-bottom: none;
-        color: white;
-        @media (max-width: @breakMobileLandscape) {
-          margin: 0 0 20px;
-          padding: 10px 50px;
+      @media (min-width: @breakDesktop) {
+        width: 35%;
+        padding: 2em;
+        margin: 0 auto 2em;
+      }
+      .promo {
+        @media (max-width: @breakDesktop) {
+          &.no-link {
+            top: 20px;
+          }
+        }
+        a {
+          font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: @baseFontSize * 2;
+          text-decoration: none;
+          border-bottom: none;
+          color: white;
         }
       }
     }
@@ -1817,12 +1824,6 @@ body.signup, body.login {
     .forgot {
       margin-top: 15px;
     }
-  }
-}
-
-body.login {
-  .page-content {
-    .box { border-right: 1px solid @grayLighter; }
   }
 }
 
