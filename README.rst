@@ -9,6 +9,11 @@ will just make things more difficult for you.
 Installation instructions are in this README.  There's more documentation
 at https://readthedocs.org/projects/pycon/.
 
+Build status for develop branch:
+
+.. image:: https://travis-ci.org/PyCon/pycon.svg?branch=develop
+    :target: https://travis-ci.org/PyCon/pycon
+
 To get running locally
 ----------------------
 
