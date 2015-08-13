@@ -1,4 +1,4 @@
-.PHONY: all test flake8
+.PHONY: all test flake8 docs
 
 MAKEFLAGS = silent
 
@@ -15,3 +15,7 @@ flake8:
 	$(info ----Flake8 report----)
 	@flake8 pycon
 	@flake8 symposion
+
+# If 'make docs' fails, try pip installing requirements/docs.txt
+docs:
+	(cd docs; DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS_MODULE) make html)

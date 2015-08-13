@@ -28,6 +28,11 @@ FIXTURE_DIR = os.path.join(os.path.dirname(__file__), '../../../fixtures')
 
 
 class TestSponsorZipDownload(TestCase):
+    fixtures = [
+        os.path.join(FIXTURE_DIR, 'conference.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_levels.json'),
+        os.path.join(FIXTURE_DIR, 'sponsorship_benefits.json'),
+    ]
 
     def setUp(self):
         self.user = User.objects.create_user(username='joe',
@@ -43,7 +48,7 @@ class TestSponsorZipDownload(TestCase):
         Conference.objects.get_or_create(pk=settings.CONFERENCE_ID)
         conference = current_conference()
         self.sponsor_level = SponsorLevel.objects.create(
-            conference=conference, name="Lead", cost=1)
+            conference=conference, name="Lead", cost=1, order=199)
         self.sponsor = Sponsor.objects.create(
             name="Big Daddy",
             level=self.sponsor_level,
@@ -53,12 +58,9 @@ class TestSponsorZipDownload(TestCase):
         # Create our benefits, of various types
         self.text_benefit = Benefit.objects.create(name="text", type="text")
         self.file_benefit = Benefit.objects.create(name="file", type="file")
-        # These names must be spelled exactly this way:
-        self.weblogo_benefit = Benefit.objects.create(
-            name="Web logo", type="weblogo")
-        self.printlogo_benefit = Benefit.objects.create(
+        self.printlogo_benefit = Benefit.objects.get(
             name="Print logo", type="file")
-        self.advertisement_benefit = Benefit.objects.create(
+        self.advertisement_benefit = Benefit.objects.get(
             name="Advertisement", type="file")
 
     def validate_response(self, rsp, names_and_sizes):
@@ -93,7 +95,7 @@ class TestSponsorZipDownload(TestCase):
         self.client.logout()
         rsp = self.client.get(self.url, follow=True)
         self.assertEqual(200, rsp.status_code)
-        self.assertIn("""<body class="login">""", rsp.content)
+        self.assertContains(rsp, """<body class="login">""")
 
     def test_must_be_staff(self):
         # Only staff can use the view
@@ -105,7 +107,7 @@ class TestSponsorZipDownload(TestCase):
         self.assertEqual(200, rsp.status_code)
         self.assertIn("""<body class="login">""", rsp.content)
         rsp = self.client.get(reverse('dashboard'))
-        self.assertNotIn(self.url, rsp.content)
+        self.assertNotContains(rsp, self.url)
 
     def test_no_files(self):
         # If there are no sponsor files, we still work
@@ -113,7 +115,7 @@ class TestSponsorZipDownload(TestCase):
         rsp = self.client.get(self.url)
         self.validate_response(rsp, [])
         rsp = self.client.get(reverse('dashboard'))
-        self.assertIn(self.url, rsp.content)
+        self.assertContains(rsp, self.url)
 
     def test_different_benefit_types(self):
         # We only get files from the benefits named "Print logo" and "Web logo"
@@ -138,16 +140,13 @@ class TestSponsorZipDownload(TestCase):
                 )
 
                 self.make_temp_file("file2", 20)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
-                    upload="file2"
-                )
+                self.sponsor.web_logo = "file2"
+                self.sponsor.save()
 
                 # Benefit whose file is missing from the disk
                 SponsorBenefit.objects.create(
                     sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
+                    benefit=self.printlogo_benefit,
                     upload="file3"
                 )
 
@@ -185,7 +184,7 @@ class TestSponsorZipDownload(TestCase):
         # Add another sponsor at a different sponsor level
         conference = current_conference()
         self.sponsor_level2 = SponsorLevel.objects.create(
-            conference=conference, name="Silly putty", cost=1)
+            conference=conference, name="Silly putty", cost=1, order=299)
         self.sponsor2 = Sponsor.objects.create(
             name="Big Mama",
             level=self.sponsor_level2,
@@ -199,11 +198,8 @@ class TestSponsorZipDownload(TestCase):
 
                 # Give our sponsors some benefits
                 self.make_temp_file("file1", 10)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor,
-                    benefit=self.weblogo_benefit,
-                    upload="file1"
-                )
+                self.sponsor.web_logo = "file1"
+                self.sponsor.save()
                 # print logo benefit
                 self.make_temp_file("file2", 20)
                 SponsorBenefit.objects.create(
@@ -213,11 +209,8 @@ class TestSponsorZipDownload(TestCase):
                 )
                 # Sponsor 2
                 self.make_temp_file("file3", 30)
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor2,
-                    benefit=self.weblogo_benefit,
-                    upload="file3"
-                )
+                self.sponsor2.web_logo = "file3"
+                self.sponsor2.save()
                 # print logo benefit
                 self.make_temp_file("file4", 42)
                 SponsorBenefit.objects.create(

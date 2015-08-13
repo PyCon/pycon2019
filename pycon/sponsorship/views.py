@@ -21,7 +21,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from pycon.sponsorship.forms import SponsorApplicationForm, \
     SponsorBenefitsFormSet, SponsorDetailsForm, SponsorEmailForm
-from pycon.sponsorship.models import Benefit, Sponsor, SponsorBenefit, \
+from pycon.sponsorship.models import Sponsor, SponsorBenefit, \
     SponsorLevel
 
 
@@ -131,6 +131,27 @@ def sponsor_export_data(request):
     return HttpResponse(data, content_type="text/plain;charset=utf-8")
 
 
+def _get_benefit_filenames(sponsor, benefit_name):
+    """
+    Given a sponsor and one benefit name, return a list of the absolute
+    paths of the files that exist for that sponsor's benefit of that name.
+    """
+    paths = []
+    if benefit_name == 'Web logo':
+        if sponsor.web_logo:
+            paths = [sponsor.web_logo.path]
+    else:
+        benefits = SponsorBenefit.objects.filter(sponsor=sponsor,
+                                                 benefit__name=benefit_name,
+                                                 active=True)\
+                                         .exclude(upload='')
+        paths = [
+            sponsor_benefit.upload.path
+            for sponsor_benefit in benefits
+        ]
+    return [path for path in paths if os.path.exists(path)]
+
+
 @staff_member_required
 def sponsor_zip_logo_files(request):
     """Return a zip file of sponsor web and print logos"""
@@ -140,26 +161,19 @@ def sponsor_zip_logo_files(request):
         for benefit_name, dir_name in (("Web logo", "web_logos"),
                                        ("Print logo", "print_logos"),
                                        ("Advertisement", "advertisement")):
-            benefit = Benefit.objects.get(name=benefit_name)
             for level in SponsorLevel.objects.all():
                 level_name = level.name.lower().replace(" ", "_")
                 for sponsor in Sponsor.objects.filter(level=level, active=True):
                     sponsor_name = sponsor.name.lower().replace(" ", "_")
                     full_dir = "/".join([dir_name, level_name, sponsor_name])
-                    for sponsor_benefit in SponsorBenefit.objects.filter(
-                        benefit=benefit,
-                        sponsor=sponsor,
-                        active=True,
-                    ).exclude(upload=''):
-                        if os.path.exists(sponsor_benefit.upload.path):
-                            modtime = time.gmtime(os.stat(sponsor_benefit.upload.path).st_mtime)
-                            with open(sponsor_benefit.upload.path, "rb") as f:
-                                fname = os.path.split(sponsor_benefit.upload.name)[-1]
-                                zipinfo = ZipInfo(filename=full_dir + "/" + fname,
-                                                  date_time=modtime)
-                                zipfile.writestr(zipinfo, f.read())
-                        else:
-                            log.debug("No such sponsor file: %s" % sponsor_benefit.upload.path)
+                    paths = _get_benefit_filenames(sponsor, benefit_name)
+                    for path in paths:
+                        modtime = time.gmtime(os.stat(path).st_mtime)
+                        with open(path, "rb") as f:
+                            fname = os.path.basename(path)
+                            zipinfo = ZipInfo(filename=full_dir + "/" + fname,
+                                              date_time=modtime)
+                            zipfile.writestr(zipinfo, f.read())
 
     response = HttpResponse(zip_stringio.getvalue(),
                             content_type="application/zip")

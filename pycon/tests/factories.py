@@ -7,14 +7,16 @@ import factory.fuzzy
 from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal, PyConTutorialProposal
+    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
+from symposion.reviews.models import ProposalResult
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = auth.User
+    class Meta:
+        model = auth.User
 
     username = factory.fuzzy.FuzzyText()
     first_name = factory.fuzzy.FuzzyText()
@@ -22,20 +24,28 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
 
 
+class ProposalResultFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ProposalResult
+
+
 class PyConProposalCategoryFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = PyConProposalCategory
+    class Meta:
+        model = PyConProposalCategory
 
 
 class PyConProposalFactory(ProposalBaseFactory):
-    FACTORY_FOR = PyConProposal
-    ABSTRACT_FACTORY = True
+    class Meta:
+        model = PyConProposal
+        abstract = True
 
     category = factory.SubFactory(PyConProposalCategoryFactory)
     audience_level = factory.LazyAttribute(lambda a: random.choice([1, 2, 3]))
 
 
 class PyConTalkProposalFactory(PyConProposalFactory):
-    FACTORY_FOR = PyConTalkProposal
+    class Meta:
+        model = PyConTalkProposal
 
     duration = 0
 
@@ -48,7 +58,8 @@ class PyConTalkProposalFactory(PyConProposalFactory):
 
 
 class PyConTutorialProposalFactory(PyConProposalFactory):
-    FACTORY_FOR = PyConTutorialProposal
+    class Meta:
+        model = PyConTutorialProposal
 
     kind = factory.SubFactory(ProposalKindFactory,
                               name="tutorial",
@@ -59,3 +70,8 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     more_info = "more info"
     audience = "audience"
     perceived_value = "perceived_value"
+
+
+class ThunderdomeGroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ThunderdomeGroup

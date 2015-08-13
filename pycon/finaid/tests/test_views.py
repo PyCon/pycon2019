@@ -205,8 +205,8 @@ class TestFinaidStatusView(TestCase, TestMixin):
         # Status view
         url = reverse("finaid_status")
         rsp = self.client.get(url)
-        self.assertIn("Star Trek!", rsp.content)
-        self.assertNotIn("Burma Shave!", rsp.content)
+        self.assertContains(rsp, "Star Trek!")
+        self.assertNotContains(rsp, "Burma Shave!")
 
 
 class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
@@ -340,8 +340,9 @@ class TestFinaidMessageView(TestCase, TestMixin, ReviewTestMixin):
         self.assertEqual(4, len(mail.outbox))
 
 
-class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
+class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
     def setUp(self):
+        super(TestCSVExport, self).setUp()
         self.url = reverse('finaid_download_csv')
         self.login_url = reverse('account_login')
         self.user = self.create_user()
@@ -381,14 +382,14 @@ class TestCSVExport(TestCase, TestMixin, ReviewTestMixin):
         # and non-reviewers don't see the download link on their dashboard
         rsp = self.client.get(reverse('dashboard'))
         self.assertEqual(200, rsp.status_code)
-        self.assertNotIn(self.url, rsp.content)
+        self.assertNotContains(rsp, self.url)
 
     def test_link_on_dashboard(self):
         # Reviewers get a link on their dashboard
         self.login()
         rsp = self.client.get(reverse('dashboard'))
         self.assertEqual(200, rsp.status_code)
-        self.assertIn(self.url, rsp.content, msg=rsp.content)
+        self.assertContains(rsp, self.url, msg_prefix=rsp.content.decode('utf-8'))
 
     def test_empty_data(self):
         # No data, should be able to get a CSV response anyway

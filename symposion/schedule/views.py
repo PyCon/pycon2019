@@ -180,7 +180,6 @@ def schedule_json(request):
     slots = Slot.objects.all().order_by("start")
     data = []
     for slot in slots:
-        print slot.kind
         if slot.kind.label in ["talk", "tutorial", "plenary"] and slot.content:
             slot_data = {
                 "name": slot.content.title,
@@ -200,6 +199,9 @@ def schedule_json(request):
                     reverse("schedule_presentation_detail", args=[slot.content.pk])
                 ),
                 "kind": slot.kind.label,
+                "video_url": slot.content.video_url,
+                "slides_url": slot.content.slides_url,
+                "assets_url": slot.content.assets_url,
                 "tags": "",
             }
         else:

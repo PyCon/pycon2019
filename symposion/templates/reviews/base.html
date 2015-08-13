@@ -35,6 +35,18 @@
             background-color: white;
         }
 
+        tr.selected {
+            background-color: grey;
+        }
+
+        .table-striped tbody > tr:nth-child(odd).selected > td {
+            background-color: transparent;
+        }
+
+        .table-striped tbody > tr:nth-child(odd).selected > th {
+            background-color: transparent;
+        }
+
         table.table thead .sorting,
         table.table thead .sorting_asc,
         table.table thead .sorting_desc,
