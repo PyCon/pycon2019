@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.test import TestCase
 from pycon.models import PyConTalkProposal, PyConLightningTalkProposal, PyConTutorialProposal
 from pycon.tests.factories import PyConTalkProposalFactory, PyConLightningTalkProposalFactory, \
@@ -21,7 +23,7 @@ class TagCachingTestMixin():
         self.proposal.tags.set('huey', 'dewey')
         print("tags display: %s" % self.proposal.get_tags_display())
         proposal = self.model.objects.get(id=self.proposal.id)
-        self.assertEqual('huey, dewey', proposal.cached_tags)
+        self.assertEqual(set(['huey', 'dewey']), set(proposal.cached_tags.split(', ')))
 
     def test_remove_one_tag(self):
         self.proposal.tags.set('huey')
