@@ -1,8 +1,14 @@
 # requirements for development of `pycon`
 -r project.txt
 
-nose==1.3.0
-django-nose==1.4.1
+nose==1.3.7
+
+# django-nose 1.4.1 broken on Django 1.8 and no more recent release
+# django-nose==1.4.1
+# Grab a commit where it's been fixed
+git+https://github.com/django-nose/django-nose.git@7cf2d6b#egg=django-nose
+
+
 Fabric==1.6.1
 factory_boy==2.5.2
 mock==1.0.1

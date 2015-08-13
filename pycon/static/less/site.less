@@ -971,21 +971,20 @@ body.home {
         }
       }
     }
-    .container {
-      @media (min-width: @breakDesktop) {
-        width: 940px;
-      }
-      @media (min-width: @breakDesktopLarge) {
-        width: 1170px;
-      }
-    }
   }
   nav {
     padding-left: 0;
     .navbar {
       margin-bottom: 0;
       .nav { margin: 0; }
-      .navbar-inner { margin: 0; }
+      .navbar-inner {
+        margin: 0;
+        .nav-collapse > ul {
+          @media (min-width: @breakDesktop) {
+            padding-left: 8%;
+          }
+        }
+      }
     }
   }
   .landing-banner {
