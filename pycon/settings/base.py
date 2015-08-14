@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # base settings - imported by other settings files, then overridden
 
+import copy
+from datetime import timedelta
 import os.path
 import posixpath
 
@@ -222,6 +224,7 @@ INSTALLED_APPS = [
     # custom
     "markedit",
     "pycon",
+    "pycon.bulkemail",
     "pycon.sponsorship",
     "pycon.registration",
     "pycon.schedule",
@@ -373,7 +376,6 @@ CACHES = {
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.
-import copy
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = copy.deepcopy(DEFAULT_LOGGING)
 LOGGING.setdefault('root', {
@@ -405,3 +407,11 @@ BROKER_TRANSPORT_OPTIONS = {
     'fanout_patterns': True
 }
 # NOTE: to start the worker, activate the venv and run "celery -A pycon worker [options]"
+
+# Send bulk emails every 5 minutes
+CELERYBEAT_SCHEDULE = {
+    'send_bulk_emails': {
+        'task': 'pycon.bulkemail.tasks.send_bulk_emails',
+        'schedule': timedelta(minutes=5),
+    }
+}
