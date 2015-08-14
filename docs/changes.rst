@@ -9,6 +9,18 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.4
+--------------
+
+Friday, August 14, 2015
+
+* Send tutorial mass emails in the background (#393, #455)
+* Django 1.8 (#473)
+* Updates for continuous integration with Travis CI (#476)
+* Move homepage login/logout buttons to upper right corner
+  like the rest of the pages (#467, #474)
+* Small test fix (#475)
+
 Version 2016.3
 --------------
 
