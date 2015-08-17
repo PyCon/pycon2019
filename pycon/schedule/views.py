@@ -106,29 +106,31 @@ def session_detail(request, session_id):
 @api_view
 def session_staff_json(request):
     """
-    Return session runners and chairs in JSON format.  E.g.
+    Return session runners and chairs in JSON format.
 
+    Requires API Key.
 
-    GET /schedule/session-staff.json
+    URL: /<YEAR>/schedule/session-staff.json
 
-    returns
-    {
-        'code': 200,
-        'data':
-            [
-                {
-                    "conf_key": 123, // fk into conference.json
-                    "chair_name": "Jane Smith",
-                    "chair_email": "jane@smith.net"
-                    "runner_name": "John Doe",
-                    "runner_email": "john@doe.net"
-                },
-                {
-                    "conf_key": 456,
-                    ...
-                }
-            ]
-    }
+    The data returned is in JSON format, and looks like::
+
+        {
+            'code': 200,
+            'data': [<slotdata>, <slotdata>, ..., <slotdata>]
+        }
+
+    where each `<slotdata>` looks like::
+
+        {
+            "conf_key": 123, // fk into conference.json
+            "chair_name": "Jane Smith",
+            "chair_email": "jane@smith.net"
+            "runner_name": "John Doe",
+            "runner_email": "john@doe.net"
+        }
+
+    The conf_key is the same as the conf_key returned for talks by the
+    `schedule_json` API.
     """
     data = []
     for slot in Slot.objects.all().order_by("start"):

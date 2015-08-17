@@ -1,5 +1,6 @@
 # requirements for development of `pycon`
 -r project.txt
+-r docs.txt
 
 nose==1.3.7
 

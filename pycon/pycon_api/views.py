@@ -25,7 +25,35 @@ PROPOSAL_TYPES = {
 
 @api_view
 def thunderdome_group_add(request):
-    """Add a thunderdome group."""
+    """Add a thunderdome group.
+
+    Requires an API key.
+
+    URL: /<year>/pycon_api/thunderdome_groups/add/
+
+    To use, POST data as JSON to the API. The JSON data should look like::
+
+        {
+            'label': 'something',
+            'code': 'something else'
+        }
+
+    The value passed as 'code' will be cleaned up, including lowercasing and
+    replacing spaces and underscores with dashes. The final code will be returned
+    if successful.
+
+    On success, returns::
+
+        {
+            'code': 201,
+            'data': {
+                'message': 'success',
+                'code': 'code-that-was-used'
+            }
+        }
+
+    You may then use the proposal_detail API to add proposals to the group.
+    """
 
     # If this isn't a POST request, fail out.
     if request.method != 'POST':
@@ -57,6 +85,34 @@ def thunderdome_group_add(request):
 def thunderdome_group_list(request):
     """Retrieve and return a list of thunderdome groups, optionally filtering
     out decided groups.
+
+    Requires an API key.
+
+    URL: /<year>/pycon_api/thunderdome_groups/
+
+    The return value looks like::
+
+        {
+            'code': 200,
+            'data': [<item>, <item>, ..., <item>]
+        }
+
+    where each <item> looks like::
+
+        {
+            'code': group code,
+            'decided': whether the group has been decided,
+            'label': group label,
+            'talks': [<proposal>, <proposal>, ...]
+        }
+
+    The <proposal> is in the same syntax as from the proposals_list API.
+
+    You can include only undecided groups by adding a GET query paramter
+    of 'undecided' with a value of 'true' or '1'::
+
+        GET /<year>/pycon_api/thunderdome_groups/?undecided=1
+
     """
     groups = ThunderdomeGroup.objects.order_by('code')
 
@@ -73,6 +129,48 @@ def thunderdome_group_list(request):
 def thunderdome_group_decide(request, td_group_code):
     """Decide (or undecide) the talks in the given thunderdome group,
     and return a representation of the group after those updates are made.
+
+    Requires an API key.
+
+    URL: /<year>/pycon_api/thunderdome_groups/<td_group_code>/
+
+    where `<td_group_code>` is the code of a thunderdome group.
+
+    To use, POST a dictionary in JSON encoding to the URL.
+
+    To mark all the talks in the group *undecided*, do not include
+    a 'talks' key in the dictionary.  All talks' status will be changed
+    to 'standby', and the group will be changed to undecided.
+
+    Otherwise, a 'talks' key must be provided, whose value is a list
+    of 2-element lists like this::
+
+        {
+            'talks': [
+                [1, 'accepted'],
+                [15, 'rejected'],
+                ...,
+                [302, 'accepted']
+            ]
+        }
+
+    The first entry in each 2-element list must be the key of a proposal.
+    ALL proposals in the thunderdome group must be included (and no proposals
+    not in the group), or the entire request will fail.
+
+    If all proposals are included, then each proposal's status will be set
+    to the specified new status, and the thunderdome group will be set to
+    decided.
+
+    The return value on success looks like::
+
+        {
+            'code': 202,
+            'data': {
+                'message': 'Thunderdome group decided.'| 'Thunderdome group undecided.',
+                'thunderdome_group': group as returned by thunderdome list API
+            }
+        }
     """
     # If this isn't a POST request, fail out.
     if request.method != 'POST':
@@ -137,6 +235,46 @@ def thunderdome_group_decide(request, td_group_code):
 def proposal_list(request):
     """Retrieve and return a list of proposals, optionally
     filtered by the given acceptance status.
+
+    Requires API Key.
+
+    URL: /<YEAR>/pycon_api/proposals/
+
+    To filter by proposal type, add a GET query param "type" with
+    a value of "talk", "tutorial", "lightning", or "poster", e.g.::
+
+        GET /<YEAR>/pycon_api/proposals/?type=tutorial
+
+    To filter by proposal status, add a GET query param "status" with
+    a value of "undecided", "rejected", "accepted", or "standby".
+
+    So if you wanted to filter by both type and status, you might use::
+
+        GET /<YEAR>/pycon_api/proposals/?type=tutorial&status=accepted
+
+
+    The return data, in JSON, looks like::
+
+        {
+            'code': 200,
+            'data': [<item>, <item>, ..., <item>]
+        }
+
+    where each <item> looks like::
+
+        {
+            'id': 13,  # proposal key
+            'speakers': [<speaker>, <speaker>, ..., <speaker>],
+            'status': "undecided"|"accepted"|"rejected"|"standby"
+            'title': "Title of talk"
+        }
+
+    and a <speaker> looks like::
+
+        {
+            'name': "Speaker Name",
+            'email': "addr@example.com"
+        }
     """
     # What model should we be pulling from?
     model = ProposalBase
@@ -176,8 +314,49 @@ def proposal_list(request):
 
 @api_view
 def proposal_detail(request, proposal_id):
-    """Retrieve and return information about the given proposal.
-    If this is a POST request, write the appropriate data instead.
+    """Retrieve and return information about the given proposal, or
+    if this is a POST request, write the appropriate data instead.
+
+    Requires an API key.
+
+    URL:  /<year>/pycon_api/proposals/DD/
+
+    where `DD` is the key for the desired proposal. Keys can be found
+    using the proposals_list API.
+
+    On a GET, the data returned is JSON that looks like the data from
+    the proposals_list API, with some additional fields::
+
+        {
+            'id': 13,  # proposal key
+            'speakers': [<speaker>, <speaker>, ..., <speaker>],
+            'status': "undecided"|"accepted"|"rejected"|"standby"
+            'title': "Title of talk",
+            'details': {
+                'abstract': "abstract",
+                'description': "description",
+                'notes': "additional notes"
+            },
+            'extra': 'BLOB'   # Only if this API has been used to set extra data
+        }
+
+    If no extra data has been set, the 'extra' key is not present.
+
+    If the method is POST and the body is a dictionary, the API allows updating
+    a limited part of the data in the proposal as follows:
+
+        status
+            If the value is one of 'accepted', 'rejected', 'standby', or 'undecided',
+            update the proposal's status to the new value
+        thunderdome_group
+            If the value is the code for a thunderdome group, the proposal is added
+            to the specified group.
+
+    Anything else in the dictionary is ignored.
+
+    If the body is not a dictionary, then it is stored as the 'extra'
+    data for the proposal, and will be returned when the proposal is retrieved
+    again using this API.
     """
     # Retrieve the proposal.
     proposal = get_object_or_404(ProposalBase, pk=int(proposal_id))
@@ -236,15 +415,53 @@ def proposal_detail(request, proposal_id):
 
 @api_view
 def proposal_irc_logs(request, proposal_id):
-    """Write or retrieve the IRC logs for a given proposal.
+    """Add to or retrieve the IRC logs for a given proposal.
 
-    If writing logs, each log entry must have the following
-    JSON format:
+    URL: /<year>/pycon_api/proposals/<proposal_id>/logs/
+
+    Requires API key.
+
+    The API tracks timestamps to the microsecond (if the database supports
+    it), but be warned that the microseconds will be lost if
+    you edit a log line using the Django admin.
+
+    To add logs to a proposal, POST a JSON list where each
+    entry looks like::
+
         {
             'user': '(text identifying the user)',
             'line': '(the IRC line)',
             'timestamp': '%Y-%m-%d %H:%M:%S.%f',
         }
+
+    Each new entry will be added.  The return value will be::
+
+        {
+            'code': 201,
+            'data': {
+                'message': 'Log entry added.'
+            }
+        }
+
+    To retrieve the logs for a proposal, simply GET the API's URL.
+    The return value will look like::
+
+        {
+            'code': 200,
+            'data': [
+                {
+                    'line': xxx,
+                    'proposal_id': yyy,
+                    'timestamp': '%Y-%m-%d %H:%M:%S.%f',
+                    'user': '(text)'
+                },
+                {
+                    ...
+                },
+                ...
+            ]
+        }
+
     """
     # Retrieve the proposal.
     proposal = get_object_or_404(ProposalBase, pk=int(proposal_id))
@@ -280,13 +497,14 @@ def set_talk_urls(request, conf_key):
     """
     Set the video, slides, and assets URLs for a talk.
 
-    Expects a POST, with an identifier for the talk as returned in
-    the conf_key from the conference JSON API (/YYYY/schedule/conference.json)
-    as part of the URL:
+    Requires an API key.
 
-        http[s]://xxxxxxxxx/api/set_talk_urls/12345/
+    URL: /<year>/pycon_api/set_talk_urls/<conf_key>/
 
-    and the request body a JSON-encoded dictionary with up to three keys:
+    where `<conf_key>` is the key returned by the `proposals_list` API
+    for the talk.
+
+    Expects a POST, with the request body a JSON-encoded dictionary with up to three keys:
 
       * video_url
       * slides_url
@@ -295,9 +513,7 @@ def set_talk_urls(request, conf_key):
     whose values are syntactically valid URLs.  The provided values will be
     set on the talk.
 
-    :param conf_key: The 'conf_key' value returned for a slot by the conference
-     JSON method.
-    :returns: 202 status if successful
+    On success, returns `{'code': 202, 'data': {'message': 'Talk updated.'}}`
     """
     if request.method != 'POST':
         return ({ 'error': 'POST request required.' }, 405)
