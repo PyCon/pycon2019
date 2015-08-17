@@ -6,7 +6,8 @@ from .. import models
 
 
 class SponsorLevelFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = models.SponsorLevel
+    class Meta:
+        model = models.SponsorLevel
 
     conference = factory.SubFactory(
         'symposion.conference.tests.factories.ConferenceFactory')
@@ -15,7 +16,8 @@ class SponsorLevelFactory(factory.django.DjangoModelFactory):
 
 
 class SponsorFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = models.Sponsor
+    class Meta:
+        model = models.Sponsor
 
     applicant = factory.SubFactory('pycon.tests.factories.UserFactory')
     name = factory.fuzzy.FuzzyText()

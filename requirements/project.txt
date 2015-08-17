@@ -9,17 +9,29 @@
 Pillow==2.9.0
 easy-thumbnails==1.5
 html5lib==0.999
-django-social-auth==0.7.28
+
+# django-social-auth is no longer maintained, and only has old-style migrations
+# django-social-auth==0.7.28
+# Use a fork to which we've added Django migrations, so we can keep using it a little
+# longer.
+git+https://github.com/caktus/django-social-auth@add_migrations#egg=django-social-auth
 
 psycopg2==2.5.3
 gunicorn==19.3.0
 django-secure==1.0
 raven==5.5.0
-django-constance[database]==1.0.1
+
+# django-constance 1.0.1 broken on Django 1.8
+#django-constance[database]==1.0.1
+
+# Use a fork with fixes for now:
+git+https://github.com/caktus/django-constance@fixes_recent_djangos#egg=django-constance[database]
+
+
 django-picklefield==0.3.0
 
 django-model-utils==2.3.1
-django-redis-cache==1.5.3
+django-redis-cache==1.6.0
 redis==2.10.3
 hiredis==0.2.0
 

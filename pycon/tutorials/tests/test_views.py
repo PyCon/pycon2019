@@ -1,9 +1,10 @@
-from django.conf import settings
 from mock import patch
 
+from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from pycon.bulkemail.tasks import send_bulk_emails
 
 from pycon.finaid.tests.utils import TestMixin
 from symposion.conference.models import Conference
@@ -118,8 +119,8 @@ class TestTutorialEmailView(TestCase, TestMixin):
             'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
 
-    @patch('pycon.tutorials.views.send_email_message')
-    def test_email_submit_as_attendee(self, mock_send_mail):
+    @patch('pycon.tutorials.views.queue_email_message')
+    def test_email_submit_as_attendee(self, mock_queue_mail):
         user = self.create_user('speaker', 'speaker@conf.com')
         speaker = SpeakerFactory(user=user)
         self.presentation.speaker = speaker
@@ -138,13 +139,13 @@ class TestTutorialEmailView(TestCase, TestMixin):
                 'pks': self.presentation.speaker.user.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
-        self.assertEqual(1, mock_send_mail.call_count)
-        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(1, mock_queue_mail.call_count)
+        args, kwargs = mock_queue_mail.call_args
         email = self.presentation.speaker.user.email
         self.assertEqual(kwargs['bcc'][0], email)
 
-    @patch('pycon.tutorials.views.send_email_message')
-    def test_email_submit_as_speaker(self, mock_send_mail):
+    @patch('pycon.tutorials.views.queue_email_message')
+    def test_email_submit_as_speaker(self, mock_queue_mail):
         attendee = self.create_user(username='foo', email="foo@bar.com")
         speaker = SpeakerFactory(user=self.user)
         self.presentation.speaker = speaker
@@ -163,8 +164,8 @@ class TestTutorialEmailView(TestCase, TestMixin):
                 'pks': attendee.pk})
         rsp = self.client.post(url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
-        self.assertEqual(1, mock_send_mail.call_count)
-        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(1, mock_queue_mail.call_count)
+        args, kwargs = mock_queue_mail.call_args
         self.assertEqual(kwargs['bcc'][0], attendee.email)
 
 
@@ -198,6 +199,8 @@ class TestTutorialMessageView(TestMixin, TestCase):
             tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
 
+        send_bulk_emails()
+
         # For each message, it's visible, so it should have been emailed to
         # both the other attendees and speakers. Total: 1 message for this case
         self.assertEqual(1, len(mail.outbox))
@@ -225,6 +228,8 @@ class TestTutorialMessageView(TestMixin, TestCase):
             user=self.user,
             tutorial=self.presentation.proposal)
         self.assertEqual(test_message, msg.message)
+
+        send_bulk_emails()
 
         # For each message, it's visible, so it should have been emailed to
         # both the other attendees and speakers. Total: 1 message for this case

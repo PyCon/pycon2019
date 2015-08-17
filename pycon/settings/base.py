@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # base settings - imported by other settings files, then overridden
 
+import copy
+from datetime import timedelta
 import os.path
 import posixpath
 
@@ -39,6 +41,8 @@ DATABASES = {
         "PASSWORD": env_or_default("DB_PASSWORD", ""),
         "HOST": env_or_default("DB_HOST", ""),
         "PORT": env_or_default("DB_PORT", ""),
+        # https://docs.djangoproject.com/en/1.8/ref/databases/#persistent-connections
+        "CONN_MAX_AGE": int(env_or_default("CONN_MAX_AGE", 300)),
     }
 }
 
@@ -204,7 +208,6 @@ INSTALLED_APPS = [
     "raven.contrib.django.raven_compat",
     "constance.backends.database",
     "constance",
-    "redis_cache",
     "uni_form",
     "gunicorn",
     "selectable",
@@ -223,6 +226,7 @@ INSTALLED_APPS = [
     # custom
     "markedit",
     "pycon",
+    "pycon.bulkemail",
     "pycon.sponsorship",
     "pycon.registration",
     "pycon.schedule",
@@ -374,7 +378,6 @@ CACHES = {
 # Is somebody clobbering this?  We shouldn't have to set it ourselves,
 # but if we don't, gunicorn's django_wsgi blows up trying to configure
 # logging with an empty dictionary.
-import copy
 from django.utils.log import DEFAULT_LOGGING
 LOGGING = copy.deepcopy(DEFAULT_LOGGING)
 LOGGING.setdefault('root', {
@@ -406,3 +409,11 @@ BROKER_TRANSPORT_OPTIONS = {
     'fanout_patterns': True
 }
 # NOTE: to start the worker, activate the venv and run "celery -A pycon worker [options]"
+
+# Send bulk emails every 5 minutes
+CELERYBEAT_SCHEDULE = {
+    'send_bulk_emails': {
+        'task': 'pycon.bulkemail.tasks.send_bulk_emails',
+        'schedule': timedelta(minutes=5),
+    }
+}

@@ -1,79 +1,134 @@
 [
     {
-        "pk": 1, 
-        "model": "sponsorship.sponsorlevel", 
         "fields": {
             "conference": 1,
-            "description": "", 
-            "cost": 10000, 
-            "name": "Diamond", 
-            "order": 0
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "sponsorship.sponsorlevel", 
-        "fields": {
-            "conference": 1,
-            "description": "", 
-            "cost": 5000, 
-            "name": "Platinum", 
-            "order": 1
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "sponsorship.sponsorlevel", 
-        "fields": {
-            "conference": 1,
-            "description": "", 
-            "cost": 2000, 
-            "name": "Gold", 
-            "order": 2
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "sponsorship.sponsorlevel", 
-        "fields": {
-            "conference": 1,
-            "description": "", 
-            "cost": 1000, 
-            "name": "Silver", 
+            "description": "",
+            "cost": 35000,
+            "name": "Diamond",
             "order": 3
-        }
-    }, 
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 1
+    },
     {
-        "pk": 5, 
-        "model": "sponsorship.sponsorlevel", 
         "fields": {
             "conference": 1,
-            "description": "", 
-            "cost": 500, 
-            "name": "Patron", 
-            "order": 4
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "sponsorship.sponsorlevel", 
-        "fields": {
-            "conference": 1,
-            "description": "", 
-            "cost": 100, 
-            "name": "Vendor I", 
+            "description": "",
+            "cost": 17000,
+            "name": "Platinum",
             "order": 5
-        }
-    }, 
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 2
+    },
     {
-        "pk": 7, 
-        "model": "sponsorship.sponsorlevel", 
         "fields": {
             "conference": 1,
-            "description": "", 
-            "cost": 0, 
-            "name": "Media", 
+            "description": "",
+            "cost": 7000,
+            "name": "Gold",
             "order": 6
-        }
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 4000,
+            "name": "Silver",
+            "order": 7
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 1500,
+            "name": "Patron",
+            "order": 8
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 0,
+            "name": "Media",
+            "order": 11
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 0,
+            "name": "Open Source and Community",
+            "order": 10
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 40000,
+            "name": "Financial Aid Sponsor",
+            "order": 1
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 5000,
+            "name": "Job Fair",
+            "order": 9
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 36000,
+            "name": "Coffee Sponsor",
+            "order": 2
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 50000,
+            "name": "Keystone",
+            "order": 0
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "cost": 16000,
+            "name": "Captioning Sponsor",
+            "order": 4
+        },
+        "model": "sponsorship.sponsorlevel",
+        "pk": 13
     }
 ]

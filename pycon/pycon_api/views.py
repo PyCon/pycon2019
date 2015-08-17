@@ -1,8 +1,8 @@
 import json
+from django.core.exceptions import ValidationError
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.views.decorators.http import require_POST
 
 from .decorators import api_view
 from .models import ProposalData, IRCLogLine
@@ -12,6 +12,7 @@ from pycon.models import (PyConTalkProposal, PyConTutorialProposal,
             ThunderdomeGroup)
 
 from symposion.proposals.models import ProposalBase
+from symposion.schedule.models import Slot
 
 
 PROPOSAL_TYPES = {
@@ -94,6 +95,7 @@ def thunderdome_group_decide(request, td_group_code):
     # If not, we are **undeciding** this thunderdome group.
     if not data.get('talks', ()):
         td_group.decided = False
+        td_group.save()
         for talk in td_group.talks.all():
             talk.result.status = 'standby'
             talk.result.save()
@@ -111,7 +113,7 @@ def thunderdome_group_decide(request, td_group_code):
                          'for EVERY talk in the group.\n'
                          'Missing: %s' % expected_talk_ids.difference(
                                             provided_talk_ids,
-                                         )}
+                                         )}, 400
 
     # Iterate over each of the talks in this TD group, and set their
     # new status.
@@ -271,3 +273,57 @@ def proposal_irc_logs(request, proposal_id):
 
     # Return the data.
     return logs
+
+
+@api_view
+def set_talk_urls(request, conf_key):
+    """
+    Set the video, slides, and assets URLs for a talk.
+
+    Expects a POST, with an identifier for the talk as returned in
+    the conf_key from the conference JSON API (/YYYY/schedule/conference.json)
+    as part of the URL:
+
+        http[s]://xxxxxxxxx/api/set_talk_urls/12345/
+
+    and the request body a JSON-encoded dictionary with up to three keys:
+
+      * video_url
+      * slides_url
+      * assets_url
+
+    whose values are syntactically valid URLs.  The provided values will be
+    set on the talk.
+
+    :param conf_key: The 'conf_key' value returned for a slot by the conference
+     JSON method.
+    :returns: 202 status if successful
+    """
+    if request.method != 'POST':
+        return ({ 'error': 'POST request required.' }, 405)
+
+    try:
+        slot = Slot.objects.get(pk=int(conf_key))
+    except Slot.DoesNotExist:
+        return ({'error': 'No such key', 'conf_key': conf_key}, 404)
+
+    content = slot.content
+    data = json.loads(request.body)
+
+    if not any(['video_url' in data, 'slides_url' in data, 'assets_url' in data]):
+        return ({'error': 'Must provide at least one of video_url, slides_url, and assets_url.'},
+                 400)
+
+    if 'video_url' in data:
+        content.video_url = data['video_url']
+    if 'slides_url' in data:
+        content.slides_url = data['slides_url']
+    if 'assets_url' in data:
+        content.assets_url = data['assets_url']
+    try:
+        content.full_clean()
+    except ValidationError as e:
+        return ({'error': e.message_dict}, 400)
+    content.save()
+
+    return ({'message': 'Talk updated.'}, 202)
