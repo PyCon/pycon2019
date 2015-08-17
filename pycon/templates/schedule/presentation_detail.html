@@ -139,12 +139,14 @@
                   <script src="{{ STATIC_URL }}datatables/js/dataTables.bootstrap.js" type="text/javascript"></script>
                   <script type="text/javascript">
                     $(function() {
+
                       $(".tip").tooltip();
                       $("table.table-messages").dataTable({
-                        "sDom": "<'filter'<'sort'l><'search'f>r>t<'table-pagination'p>>",
+                        "sDom": "<'filter'<'sort'l><'search'f>r>t<'table-pagination'p>",
                         "sPaginationType": "bootstrap",
                         "bStateSave": true
                       });
+
                     });
                   </script>
                 {% endcompress %}
