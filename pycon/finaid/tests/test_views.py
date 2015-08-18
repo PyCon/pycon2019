@@ -14,7 +14,8 @@ from mock import patch
 from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod, FinancialAidMessage, \
     FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData, \
-    STATUS_INFO_NEEDED
+    STATUS_INFO_NEEDED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, STATUS_WITHDRAWN, \
+    STATUS_NEED_MORE
 from pycon.finaid.utils import email_address
 from .utils import TestMixin, create_application, ReviewTestMixin
 
@@ -443,3 +444,162 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
         self.assertEqual(application1.experience_level, app['experience_level'])
         self.assertEqual('Submitted', app['status'])
         self.assertEqual(user1.email, app['email'])
+
+
+class TestFinaidDashboardButtons(TestCase, TestMixin):
+    def setUp(self):
+        super(TestFinaidDashboardButtons, self).setUp()
+        self.dashboard_url = reverse('dashboard')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
+        self.login()
+        # financial aid applications are open
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+
+    def assert_buttons(self, button_list):
+        """
+        Assert that the buttons named in the list are displayed, and
+        any not named are not.
+        Button names are the corresponding URL name, e.g. 'finaid_edit'
+        or 'finaid_withdraw'.
+        """
+        rsp = self.client.get(self.dashboard_url)
+        self.assertEqual(200, rsp.status_code)
+        all_buttons = [
+            'finaid_apply', 'finaid_withdraw',
+            'finaid_decline', 'finaid_accept', 'finaid_request_more',
+            'finaid_edit', 'finaid_status', 'finaid_review',
+            'finaid_download_csv', 'finaid_provide_info'
+        ]
+        buttons_in_page = set()
+        for name in all_buttons:
+            text_repr, real_count, msg_prefix = self._assert_contains(
+                rsp, reverse(name), 200, '', False)
+            if real_count:
+                buttons_in_page.add(name)
+        self.assertEqual(set(button_list), buttons_in_page,
+                         msg="Expected %r on page, but found %r." % (button_list, buttons_in_page))
+
+    def test_applications_not_open_no_application(self):
+        self.period.delete()
+        self.assert_buttons([])
+
+    def test_applications_not_open_with_application(self):
+        self.period.delete()
+        application = create_application(user=self.user, save=True)
+        self.assert_buttons(['finaid_edit', 'finaid_status', 'finaid_withdraw'])
+
+    def test_not_applied(self):
+        self.assert_buttons(['finaid_apply'])
+
+    def test_just_submitted(self):
+        application = create_application(user=self.user, save=True)
+        self.assert_buttons(['finaid_edit', 'finaid_status', 'finaid_withdraw'])
+
+    def test_offered(self):
+        application = create_application(user=self.user, save=True)
+        application.set_status(STATUS_OFFERED, save=True)
+        self.assert_buttons(['finaid_accept', 'finaid_decline', 'finaid_request_more',
+                             'finaid_status'])
+
+    def test_accepted(self):
+        application = create_application(user=self.user, save=True)
+        application.set_status(STATUS_ACCEPTED, save=True)
+        self.assert_buttons(['finaid_status'])
+
+    def test_declined(self):
+        application = create_application(user=self.user, save=True)
+        application.set_status(STATUS_DECLINED, save=True)
+        self.assert_buttons(['finaid_status'])
+
+    def test_withdrawn(self):
+        application = create_application(user=self.user, save=True)
+        application.set_status(STATUS_WITHDRAWN, save=True)
+        self.assert_buttons(['finaid_apply'])
+
+    def test_info_needed(self):
+        application = create_application(user=self.user, save=True)
+        application.set_status(STATUS_INFO_NEEDED, save=True)
+        self.assert_buttons(['finaid_status', 'finaid_provide_info', 'finaid_withdraw'])
+
+
+class FinaidViewTestMixin(object):
+    post_kwargs = {}
+
+    def setUp(self):
+        super(FinaidViewTestMixin, self).setUp()
+        self.dashboard_url = reverse('dashboard')
+        self.login_url = reverse('account_login')
+        self.user = self.create_user()
+        self.login()
+        # financial aid applications are open
+        self.period = FinancialAidApplicationPeriod.objects.create(
+            start=today - one_day,
+            end=today + one_day
+        )
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+        self.url = reverse(self.url_name)
+        application = create_application(user=self.user, save=True)
+        application.set_status(self.initial_status, save=True)
+
+    def test_get_page(self):
+        rsp = self.client.get(self.url)
+        self.assertEqual(200, rsp.status_code)
+        application = FinancialAidApplication.objects.get(user=self.user)
+        self.assertEqual(self.initial_status, application.status)
+
+    def test_submit(self):
+        rsp = self.client.post(self.url, self.post_kwargs)
+        self.assertRedirects(rsp, reverse('dashboard'))
+        application = FinancialAidApplication.objects.get(user=self.user)
+        self.assertEqual(self.final_status, application.status)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, self.subject)
+
+
+class TestFinaidAccept(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_accept'
+    initial_status = STATUS_OFFERED
+    final_status = STATUS_ACCEPTED
+    subject = 'Joe Smith has accepted their financial aid offer'
+
+
+class TestFinaidDecline(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_decline'
+    initial_status = STATUS_OFFERED
+    final_status = STATUS_DECLINED
+    subject = 'Joe Smith has declined their financial aid offer'
+
+
+class TestFinaidWithdraw(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_withdraw'
+    initial_status = STATUS_SUBMITTED
+    final_status = STATUS_WITHDRAWN
+    subject = 'Joe Smith has withdrawn their financial aid application'
+
+
+class TestFinaidWithdrawWhenInfoNeeded(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_withdraw'
+    initial_status = STATUS_INFO_NEEDED
+    final_status = STATUS_WITHDRAWN
+    subject = 'Joe Smith has withdrawn their financial aid application'
+
+
+class TestProvideInfoNeeded(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_provide_info'
+    initial_status = STATUS_INFO_NEEDED
+    final_status = STATUS_SUBMITTED
+    post_kwargs = {'message': 'Here you go'}
+    subject = 'Message from Joe Smith providing requested information.'
+
+
+class TestRequestMore(FinaidViewTestMixin, TestMixin, TestCase):
+    url_name = 'finaid_request_more'
+    initial_status = STATUS_OFFERED
+    final_status = STATUS_NEED_MORE
+    post_kwargs = {'message': 'I am greed'}
+    subject = 'Message from Joe Smith requesting more assistance.'
