@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mass_mail
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseBadRequest, HttpResponseNotAllowed
 from django.shortcuts import render, redirect, get_object_or_404
@@ -95,7 +96,7 @@ def review_section(request, section_slug, assigned=False):
     queryset = ProposalBase.objects.filter(kind__section=section)
 
     if request.method == "POST" and can_manage:
-        pk_string = request.POST['pks']
+        pk_string = request.POST.get('pk', request.POST.get('pks', ''))
         if pk_string != '':
             pk_list =  [int(i) for i in pk_string.split(',')]
             for pk in pk_list:
@@ -107,6 +108,9 @@ def review_section(request, section_slug, assigned=False):
                 proposal.save()
         else:
             messages.error(request, _("Please select at least one application"))
+
+        url_name = "review_section_assignments" if assigned else "review_section"
+        return redirect(reverse(url_name, kwargs={'section_slug': section_slug}))
 
     if assigned:
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
