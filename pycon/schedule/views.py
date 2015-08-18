@@ -1,5 +1,3 @@
-import json
-
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -9,7 +7,6 @@ from django.contrib.auth.models import User
 from .models import Session, SessionRole
 from pycon.pycon_api.decorators import api_view
 from symposion.schedule.models import Slot
-from symposion.schedule.views import json_serializer
 
 
 def session_list(request):

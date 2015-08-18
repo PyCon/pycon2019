@@ -161,7 +161,7 @@ class ThunderdomeGroupDecideTest(RawDataClientMixin, TestCase):
 
     def test_no_such_group(self):
         bad_id = self.group.id + 1
-        url = reverse('thunderdome_group_decide', args=(self.group.id,))
+        url = reverse('thunderdome_group_decide', args=(bad_id,))
         rsp = self.post_raw_data(url, '')
         self.assertEqual(400, rsp.status_code, rsp.content.decode('utf-8'))
 
@@ -171,7 +171,7 @@ class ThunderdomeGroupDecideTest(RawDataClientMixin, TestCase):
         data = {}
         rsp = self.post_raw_data(self.url, json.dumps(data))
         self.assertEqual(202, rsp.status_code, rsp.content.decode('utf-8'))
-        group = ThunderdomeGroup.objects.get(id=self.group.id)
+        ThunderdomeGroup.objects.get(id=self.group.id)
 
     def test_not_all_talks(self):
         # We only process if all talks in the group have a new status provided
@@ -190,7 +190,7 @@ class ThunderdomeGroupDecideTest(RawDataClientMixin, TestCase):
                 (self.talk2.id, 'rejected')
             ]
         }
-        rsp = self.post_raw_data(self.url, json.dumps(data))
+        self.post_raw_data(self.url, json.dumps(data))
         talk1 = PyConTalkProposal.objects.get(id=self.talk1.id)
         self.assertEqual('accepted', talk1.result.status)
         talk1 = PyConTalkProposal.objects.get(id=self.talk2.id)
@@ -219,8 +219,8 @@ class PyConIRCLogsApiTest(TestCase, RawDataClientMixin):
         self.auth_key.enabled = False
         self.auth_key.save()
         url = reverse('proposal_irc_logs',
-            kwargs={'proposal_id': str(self.proposal.id)}
-        )
+                      kwargs={'proposal_id': str(self.proposal.id)}
+                      )
         rsp = self.client.get(url, HTTP_X_API_KEY=self.auth_key.auth_key)
         self.assertEqual(403, rsp.status_code)
         self.assertEqual(
@@ -234,7 +234,6 @@ class PyConIRCLogsApiTest(TestCase, RawDataClientMixin):
             'proposal_id': str(self.proposal.id),
         })
         rsp = self.client.get(url, **self.get_signature(url))
-
 
         self.assertEqual(200, rsp.status_code, rsp.content)
         logs = json.loads(rsp.content)['data']
@@ -346,9 +345,9 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
         self.proposal = PyConTalkProposalFactory.create()
 
     def test_get_data_bad_auth(self):
-        auth_key = uuid.uuid4()
+        self.auth_key.secret = uuid.uuid4()
         # If proposal has no data, we get back an empty string.
-        url = reverse('proposal_detail', kwargs={ 
+        url = reverse('proposal_detail', kwargs={
             'proposal_id': self.proposal.id,
         })
         rsp = self.client.get(url)
@@ -479,7 +478,11 @@ class SetPresentationURLsTest(RawDataClientMixin, TestCase):
         rsp = self.post_raw_data(self.url, post_data=json.dumps(TEST_DATA))
         self.assertEqual(400, rsp.status_code, rsp.content)
         response_data = json.loads(rsp.content)
-        self.assertEqual({'code': 400, 'data': {'error': 'Must provide at least one of video_url, slides_url, and assets_url.'}},
+        self.assertEqual({'code': 400,
+                          'data': {
+                              'error':
+                                  'Must provide at least one of video_url, slides_url, '
+                                  'and assets_url.'}},
                          response_data)
 
     def test_change_assets_url(self):
