@@ -80,8 +80,8 @@ def queue_email_message(template_name, from_, to, bcc, context, headers=None):
         subject=subject,
         body=body,
         from_address=from_,
-        to_addresses=to,
-        bcc_addresses=bcc,
+        to_addresses=list(to),
+        bcc_addresses=list(bcc),
         headers=json.dumps(headers),
     )
 
