@@ -10,6 +10,7 @@ from symposion.teams.models import Team, Membership
 
 def create_application(user, **kwargs):
     """Return application object (unsaved) for this user."""
+    save = kwargs.pop('save', False)
     defaults = dict(
         user=user,
         profession="Foo",
@@ -19,7 +20,10 @@ def create_application(user, **kwargs):
         presenting=1,
     )
     defaults.update(kwargs)
-    return FinancialAidApplication(**defaults)
+    application = FinancialAidApplication(**defaults)
+    if save:
+        application.save()
+    return application
 
 
 class TestMixin(object):
@@ -29,10 +33,15 @@ class TestMixin(object):
 
     def create_user(self, username="joe",
                     email="joe@example.com",
-                    password="snoopy"):
+                    password="snoopy",
+                    first_name="Joe",
+                    last_name="Smith"
+                    ):
         return User.objects.create_user(username,
                                         email=email,
-                                        password=password)
+                                        password=password,
+                                        first_name=first_name,
+                                        last_name=last_name)
 
     def login(self, username="joe@example.com", password="snoopy"):
         # The auth backend that pycon is using is kind of gross. It expects
