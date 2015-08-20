@@ -35,7 +35,8 @@ class TutorialAdmin(ProposalMarkEditAdmin):
     list_display = [
         'title',
         'kind',
-        'status',
+        'overall_status',
+        'status',  # result.status
         'submitted',
         'speaker',
         'category',

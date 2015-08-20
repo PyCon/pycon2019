@@ -9,6 +9,31 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.5
+--------------
+
+Tuesday, August 18, 2015
+
+* New dashboard buttons for applicants to accept, reject,
+  withdraw, etc. their financial aid applications (#433, #385)
+* Fix for tables not displaying on two pages (#485)
+* Fix for sending tutorial emails (#488)
+* Fix for changing status of single proposals (#487)
+* Fix dropdown menus displaying below sponsor area (#479, #480)
+* Enable persistent database connections for performance (#481)
+
+Version 2016.4
+--------------
+
+Friday, August 14, 2015
+
+* Send tutorial mass emails in the background (#393, #455)
+* Django 1.8 (#473)
+* Updates for continuous integration with Travis CI (#476)
+* Move homepage login/logout buttons to upper right corner
+  like the rest of the pages (#467, #474)
+* Small test fix (#475)
+
 Version 2016.3
 --------------
 
