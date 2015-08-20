@@ -9,7 +9,6 @@ from django.template import loader, Context
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 
-from pycon.models import SpecialEvent
 from pycon.tutorials.models import PyConTutorialProposal
 from pycon.tutorials.utils import process_tutorial_request
 
@@ -229,18 +228,6 @@ def schedule_json(request):
             "released": poster.proposal.recording_release,
         }
         data.append(poster_data)
-
-    for event in SpecialEvent.objects.filter(published=True):
-        event_data = {
-            "name": event.name,
-            "slug": event.slug,
-            "location": event.location,
-            "start": event.start.isoformat(),
-            "end": event.end.isoformat(),
-            "description": event.description,
-            "kind": "special event"
-        }
-        data.append(event_data)
 
     return HttpResponse(
         json.dumps(data, default=json_serializer),

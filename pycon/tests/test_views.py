@@ -32,4 +32,3 @@ class SpecialEventViewTest(TestCase):
         self.event.save()
         rsp = self.client.get(self.event.get_absolute_url())
         self.assertEqual(NOT_FOUND, rsp.status_code)
-

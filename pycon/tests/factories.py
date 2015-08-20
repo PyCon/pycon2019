@@ -90,8 +90,8 @@ class SpecialEventFactory(factory.django.DjangoModelFactory):
     start = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() - timedelta(days=2),
                                         end_dt=aware_now() - timedelta(days=1))
     end = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() + timedelta(days=1),
-                                        end_dt=aware_now() + timedelta(days=2))
-    description = factory.fuzzy.FuzzyText
+                                      end_dt=aware_now() + timedelta(days=2))
+    description = factory.fuzzy.FuzzyText()
     published = True
 
 

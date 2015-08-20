@@ -96,7 +96,8 @@ class PyConProposal(ProposalBase):
     damaged_score = models.IntegerField(
         blank=True,
         null=True,
-        help_text=_(u"Numerical indicator of the amount of interest in a talk set to 'damaged' status."))
+        help_text=_(u"Numerical indicator of the amount of interest in a talk set "
+                    u"to 'damaged' status."))
     rejection_status = models.IntegerField(
         blank=True,
         null=True,
@@ -104,13 +105,20 @@ class PyConProposal(ProposalBase):
         help_text=_(u'The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
-        help_text=_(u"By submitting your talk proposal, you agree to give permission to the Python Software Foundation to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box. See <a href='https://us.pycon.org/2016/speaking/recording/' target='_blank'>PyCon 2016 Recording Release</a> for details.")
+        help_text=_(u"By submitting your talk proposal, you agree to give permission to "
+                    u"the Python Software Foundation to record, edit, and release audio "
+                    u"and/or video of your presentation. If you do not agree to this, "
+                    u"please uncheck this box. See "
+                    u"<a href='https://us.pycon.org/2016/speaking/recording/' "
+                    u"target='_blank'>PyCon 2016 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(
         _(u"Additional requirements"),
         blank=True,
-        help_text=_(u"Please let us know if you have any specific needs (A/V requirements, multiple microphones, a table, etc).  Note for example that 'audio out' is not provided for your computer unless you tell us in advance.")
+        help_text=_(u"Please let us know if you have any specific needs (A/V requirements, "
+                    u"multiple microphones, a table, etc).  Note for example that 'audio out' "
+                    u"is not provided for your computer unless you tell us in advance.")
     )
 
     class Meta:
@@ -144,7 +152,8 @@ class PyConTalkProposal(PyConProposal):
                     u"know before?"),
     )
 
-    thunderdome_group = models.ForeignKey(ThunderdomeGroup,
+    thunderdome_group = models.ForeignKey(
+        ThunderdomeGroup,
         blank=True,
         default=None,
         null=True,
