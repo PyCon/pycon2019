@@ -1,0 +1,2 @@
+{% load account_tags %}
+Presentation "{{ presentation.title }}" has been updated.

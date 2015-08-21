@@ -1,0 +1,13 @@
+{% load account_tags %}
+<p>
+  The following presentation has been updated: <strong>{{ presentation }}</strong>.
+  Currently the presentation consists of:
+  Title: "{{ presentation.title }}"
+  Speaker: {{ presentation.speaker.user.get_full_name }}
+  Description: {{ presentation.description }}
+  Abstract: {{ presentation.abstract }}
+</p>
+<p>
+  {% url 'schedule_presentation_detail' presentation.pk as detail_url %}
+  View the latest version of the presentation online at <a href="http://{{ current_site }}{{ detail_url }}">http://{{ current_site }}{{ detail_url }}</a>
+</p>
