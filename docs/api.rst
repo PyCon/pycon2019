@@ -64,7 +64,7 @@ On failure, the response will typically look like::
 In all cases, the 'code' in the response body data will be the same as the
 HTTP protocol status code that is returned.
 
-The few APIs that don't require an API are a bit more varied in their behavior.
+The few APIs that don't require an API key are a bit more varied in their behavior.
 
 
 Proposal APIs
