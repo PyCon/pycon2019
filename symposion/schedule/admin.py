@@ -107,8 +107,8 @@ class PresentationAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         send_email(
             ["pycon-staff@python.org"],
-             "presentation_updated",
-             context={"presentation": obj}
+            "presentation_updated",
+            context={"presentation": obj}
         )
         # And also save the object as the admin requested
         obj.save()
