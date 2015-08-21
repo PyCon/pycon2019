@@ -106,7 +106,7 @@ class PresentationAdmin(admin.ModelAdmin):
     # When a presentation is saved in the admin we send an email to the staff
     def save_model(self, request, obj, form, change):
         send_email(
-            ["dchukhin@caktusgroup.com"],
+            ["pycon-staff@python.org"],
              "presentation_updated",
              context={"presentation": obj}
         )
