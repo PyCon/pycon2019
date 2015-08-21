@@ -34,7 +34,7 @@ from symposion.reviews.models import (
 
 
 def access_not_permitted(request):
-    return render(request, "reviews/access_not_permitted.html")
+    return render(request, "reviews/access_not_permitted.html", status=FORBIDDEN)
 
 
 def proposals_list(request, queryset, user_pk=None, check_speaker=True):
