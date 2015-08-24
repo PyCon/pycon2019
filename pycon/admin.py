@@ -6,7 +6,7 @@ from markedit.admin import MarkEditAdmin
 from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
                           PyConTalkProposal, PyConTutorialProposal,
                           PyConPosterProposal, PyConLightningTalkProposal,
-                          PyConOpenSpaceProposal)
+                          PyConOpenSpaceProposal, SpecialEvent)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -136,6 +136,20 @@ class SponsorTutorialAdmin(ProposalMarkEditAdmin):
     ]
 
 
+class SpecialEventAdmin(MarkEditAdmin):
+    list_display = [
+        'name',
+        'start',
+        'end',
+        'location',
+        'published'
+    ]
+    list_filter = ['published']
+    search_fields = ['name', 'description', 'location']
+    ordering = ['-start']
+    prepopulated_fields = {"slug": ("name",)}
+
+
 admin.site.register(PyConProposalCategory)
 admin.site.register(PyConTalkProposal, TalkAdmin)
 admin.site.register(PyConTutorialProposal, TutorialAdmin)
@@ -143,6 +157,7 @@ admin.site.register(PyConPosterProposal, PosterAdmin)
 admin.site.register(PyConOpenSpaceProposal, OpenSpaceAdmin)
 admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
 admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
+admin.site.register(SpecialEvent, SpecialEventAdmin)
 
 
 from account.models import Account, EmailAddress

@@ -80,13 +80,13 @@ CONFERENCE_URL_PREFIXES = {
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 gettext = lambda s: s
 
 LANGUAGES = (
     ('en', gettext('English')),
-    ('fr', gettext('French')),
+    # ('fr', gettext('French')),
 )
 
 LOCALE_PATHS = [os.path.join(PROJECT_ROOT, "locale")]
@@ -335,7 +335,6 @@ CONSTANCE_CONFIG = {
     "CTE_BASICAUTH_PASS": ("", "Shared User password for accessing CTE Registration data"),
     "CTE_TUTORIAL_DATA_URL": ("", "URL for the CSV of CTE Tutorial Registration Data"),
     "REGISTRATION_URL": ("", "URL for registration"),
-    "SHOW_LANGUAGE_SELECTOR": (False, "Show language selector on dashboard"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
     "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }

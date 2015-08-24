@@ -10,7 +10,7 @@ from django.test import TestCase
 from django.utils.timezone import now
 from pycon.sponsorship.models import Benefit
 from pycon.sponsorship.tests.factories import SponsorFactory
-from pycon.tests.factories import PyConTutorialProposalFactory
+from pycon.tests.factories import PyConTutorialProposalFactory, SpecialEventFactory
 from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Schedule, Slot, Day, SlotKind
@@ -52,15 +52,34 @@ class ProgramExportTest(TestCase):
                               start_date=yesterday,
                               end_date=tomorrow,
                               slug=slug))
-            ProposalKind.objects.get_or_create(name__iexact=kind_name, defaults=dict(slug=slug, section=section))
+            ProposalKind.objects.get_or_create(name__iexact=kind_name,
+                                               defaults=dict(slug=slug, section=section))
             Schedule.objects.get_or_create(section=section)
 
-    def test_talks_schedule(self):
-        section=Section.objects.get(name='Talks')
-        schedule=Schedule.objects.get(section=section)
+    def test_special_events_export(self):
+        self.unpublished_special = SpecialEventFactory(published=False)
+        self.published_special = SpecialEventFactory(published=True)
+        rsp = self.client.get(self.url)
+        self.assertEqual(OK, rsp.status_code)
+        self.assertEqual('attachment; filename=program_export.zip', rsp['Content-Disposition'])
 
-        day=Day.objects.create(schedule=schedule, date=date.today())
-        kind=SlotKind.objects.create(schedule=schedule, label="Foo")
+        zipfile = ZipFile(StringIO(rsp.content), "r")
+        # Check out the zip - testzip() returns None if no errors found
+        self.assertIsNone(zipfile.testzip())
+
+        fname = "program_export/special_events/csv/special_events_schedule.csv"
+        file_contents = zipfile.open(fname, "U").read().decode('utf-8')
+        self.assertIn(self.published_special.name, file_contents)
+        self.assertIn(self.published_special.description, file_contents)
+        self.assertNotIn(self.unpublished_special.name, file_contents)
+        self.assertNotIn(self.unpublished_special.description, file_contents)
+
+    def test_talks_schedule(self):
+        section = Section.objects.get(name='Talks')
+        schedule = Schedule.objects.get(section=section)
+
+        day = Day.objects.create(schedule=schedule, date=date.today())
+        kind = SlotKind.objects.create(schedule=schedule, label="Foo")
         slot = Slot.objects.create(
             day=day,
             kind=kind,
@@ -87,14 +106,14 @@ class ProgramExportTest(TestCase):
         self.assertIn(pres.abstract, file_contents)
 
     def test_tutorials_presentation(self):
-        section=Section.objects.get(name='Tutorials')
-        schedule=Schedule.objects.get(section=section)
+        section = Section.objects.get(name='Tutorials')
+        schedule = Schedule.objects.get(section=section)
         prop_kind = ProposalKind.objects.get(name__iexact='tutorial')
         proposal = PyConTutorialProposalFactory(
             kind=prop_kind,
         )
-        day=Day.objects.create(schedule=schedule, date=date.today())
-        kind=SlotKind.objects.create(schedule=schedule, label="Foo")
+        day = Day.objects.create(schedule=schedule, date=date.today())
+        kind = SlotKind.objects.create(schedule=schedule, label="Foo")
         slot = Slot.objects.create(
             day=day,
             kind=kind,

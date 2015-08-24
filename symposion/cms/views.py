@@ -37,7 +37,7 @@ def page(request, path):
         else:
             raise Http404
 
-    use_french = request.LANGUAGE_CODE.startswith('fr') and page.body_fr
+    use_french = settings.USE_I18N and request.LANGUAGE_CODE.startswith('fr') and page.body_fr
 
     return render(request, "cms/page_detail.html", {
         "page": page,
