@@ -9,6 +9,23 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.6
+--------------
+
+Monday, August 24, 2015
+
+* Clean up requirements (#489)
+* Django 1.8.4 (#490)
+* API to return session chair & runner data (#390, #484):
+* Update organizer email address (#492)
+* Add all APIs to the API docs (#392, #491)
+* Special event model (#397, #398, #399, #400)
+* Make page cache separate from session cache (#493)
+* Completely disable French (#497)
+* Add help for URL field (#500)
+* Add box for intro text on venues page above hotels (#501)
+* Fix bulk email test (#499)
+
 Version 2016.5
 --------------
 
