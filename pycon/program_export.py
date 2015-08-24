@@ -4,12 +4,14 @@ import csv
 import os
 import shutil
 import sys
+from django.contrib.sites.models import Site
 
 from rtfng import Styles, Renderer, Elements
 from rtfng.document.paragraph import Paragraph
 
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
+from pycon.models import SpecialEvent
 from pycon.sponsorship.models import Sponsor, SponsorLevel
 
 from django.core.urlresolvers import reverse
@@ -26,10 +28,12 @@ def export(pardir='program_export/'):
     SponsorsExporter(pardir).export()
     PresentationsExporter(pardir).export()
     ScheduleExporter(pardir).export()
+    SpecialEventsExporter(pardir).export()
 
 
 def full_url(url):
-    return 'http://us.pycon.org' + url
+    site = Site.objects.get_current()
+    return 'https://' + site.domain + url
 
 
 def get_paragraph_list(text):
@@ -98,7 +102,7 @@ class BaseExporter(object):
             if not (isinstance(field, tuple) or isinstance(field, list)):
                 fields[i] = (field, field)
         with open(self.get_csv_path(filename), 'w') as csvfile:
-            fieldnames = [field[0] for field in fields]
+            fieldnames = [fld[0] for fld in fields]
             csvwriter = UnicodeCSVDictWriter(csvfile, fieldnames)
             rtfdoc = RTFDoc("Program Export", self.get_rtf_path(filename),
                             self.description_fields)
@@ -106,7 +110,7 @@ class BaseExporter(object):
                                      for fieldname in fieldnames]))
             for obj in objects:
                 data = OrderedDict([(name, unicode(self.get_attribute(obj, getter)))
-                            for name, getter in fields])
+                                    for name, getter in fields])
                 csvwriter.writerow(data)
                 rtfdoc.add_pycon_section(data)
         rtfdoc.write()
@@ -122,8 +126,10 @@ class SpeakerBiosExporter(BaseExporter):
 
     def prepare_kinds(self, speaker):
         kinds = []
-        kinds.extend(list(speaker.presentations.values_list('proposal_base__kind__name', flat=True)))
-        kinds.extend(list(speaker.copresentations.values_list('proposal_base__kind__name', flat=True)))
+        kinds.extend(list(speaker.presentations
+                          .values_list('proposal_base__kind__name', flat=True)))
+        kinds.extend(list(speaker.copresentations
+                          .values_list('proposal_base__kind__name', flat=True)))
         return ', '.join(kinds)
 
     def export(self):
@@ -207,6 +213,27 @@ class PresentationsExporter(BaseExporter):
                            self.fields + ['room', 'time'])
             else:
                 self.write(filename, presentations)
+
+
+class SpecialEventsExporter(BaseExporter):
+    fields = ['name', 'location', 'time', 'description', 'url']
+    basedir = 'special_events/'
+    description_fields = ['description']
+
+    def prepare_url(self, event):
+        return full_url(event.get_absolute_url())
+
+    def prepare_time(self, event):
+        return '{0} from {1} to {2}'.format(
+            event.start.strftime('%b %d'),
+            event.start.strftime('%H:%M'),
+            event.end.strftime('%H:%M'),
+        )
+
+    def export(self):
+        queryset = SpecialEvent.objects.filter(published=True).order_by('start', 'name')
+        filename = 'special_events_schedule'
+        self.write(filename, queryset)
 
 
 class ScheduleExporter(BaseExporter):
