@@ -1,6 +1,7 @@
 {% load account_tags %}
 <p>
-  The following presentation has been updated: <strong>{{ presentation }}</strong>.
+  {{ user.get_full_name }} has just updated the following presentation: <strong>{{ presentation }}</strong> at {{ time }}.
+
   Currently the presentation consists of:
   Title: "{{ presentation.title }}"
   Speaker: {{ presentation.speaker.user.get_full_name }}

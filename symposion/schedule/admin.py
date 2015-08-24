@@ -6,6 +6,9 @@ from symposion.schedule.models import Schedule, Day, Room, SlotKind, Slot, \
     SlotRoom, Presentation
 from symposion.utils.mail import send_email
 
+import datetime
+
+
 admin.site.register(Schedule, list_display=("section", "published"))
 admin.site.register(Day, list_display=("date", "schedule",))
 admin.site.register(Room, list_display=("name", "schedule"))
@@ -108,10 +111,13 @@ class PresentationAdmin(admin.ModelAdmin):
         # First, save the object
         obj.save()
         # Next, send an email to python staff
+        now = datetime.datetime.now()
         send_email(
             ["pycon-staff@python.org"],
             "presentation_updated",
-            context={"presentation": obj}
+            context={"presentation": obj,
+                     "time": now,
+                     "user": request.user}
         )
 
 
