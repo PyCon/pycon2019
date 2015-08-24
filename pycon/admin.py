@@ -144,6 +144,8 @@ class SpecialEventAdmin(MarkEditAdmin):
         'location',
         'published'
     ]
+    list_filter = ['published']
+    search_fields = ['name', 'description', 'location']
     ordering = ['-start']
     prepopulated_fields = {"slug": ("name",)}
 
