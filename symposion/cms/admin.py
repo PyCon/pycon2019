@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 
 import reversion
@@ -16,6 +17,9 @@ class PageAdmin(reversion.VersionAdmin, MarkEditAdmin):
         'publish_date',
     ]
 
+    if not settings.USE_I18N:
+        list_display.remove('has_fr')
+
     def has_fr(self, page):
         return bool(page.body_fr)
 
@@ -24,5 +28,7 @@ class PageAdmin(reversion.VersionAdmin, MarkEditAdmin):
         options = {
             'preview': 'below'
         }
+        if not settings.USE_I18N:
+            fields.remove('body_fr')
 
 admin.site.register(Page, PageAdmin)
