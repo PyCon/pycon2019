@@ -105,13 +105,14 @@ class PresentationAdmin(admin.ModelAdmin):
 
     # When a presentation is saved in the admin we send an email to the staff
     def save_model(self, request, obj, form, change):
+        # First, save the object
+        obj.save()
+        # Next, send an email to python staff
         send_email(
             ["pycon-staff@python.org"],
             "presentation_updated",
             context={"presentation": obj}
         )
-        # And also save the object as the admin requested
-        obj.save()
 
 
 admin.site.register(Presentation, PresentationAdmin)
