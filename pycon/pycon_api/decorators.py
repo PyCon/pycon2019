@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from datetime import datetime
-from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from functools import update_wrapper
@@ -13,6 +12,8 @@ import json
 # encoder won't do. We also want to be sure to use a known format that
 # preserved microseconds.
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S.%f'
+
+
 class JSONDatetimeEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, datetime):
@@ -27,6 +28,15 @@ def api_view(method):
 
     Calls to the view that do not have an appropriate key
     will return a 403 response.
+
+    The "view" should return a tuple: (data, status_code)
+    and this decorator will return a JSON-encoded response
+    with two keys:
+
+        {
+            'code':  the status code,
+            'data':  the data
+        }
     """
     def f(request, *args, **kwargs):
         # Ensure that there is an appropriate key attached
@@ -67,11 +77,11 @@ def api_view(method):
             return HttpResponse(
                 content=json.dumps({
                     'code': 404,
-                    'error': msg if msg else 'not found',    
+                    'error': msg if msg else 'not found',
                 }),
                 content_type='application/json',
                 status=404,
             )
-            
+
     f = csrf_exempt(f)
     return update_wrapper(f, method)

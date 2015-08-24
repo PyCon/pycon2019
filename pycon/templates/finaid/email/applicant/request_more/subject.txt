@@ -1,0 +1,1 @@
+{% load review_tags %}Message from {{ user.get_full_name|bleach|safe }} requesting more assistance.

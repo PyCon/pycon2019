@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.core.mail.message import EmailMessage
-from django.template import Context
+from django.template import Context, Template
 from django.template.loader import get_template
 from pycon.finaid.models import FinancialAidApplication, \
-    FinancialAidApplicationPeriod
+    FinancialAidApplicationPeriod, STATUS_WITHDRAWN
 from . import models
 
 
@@ -47,6 +47,12 @@ def offer_accepted(user):
     return has_application(user) and user.financial_aid.status == models.STATUS_ACCEPTED
 
 
+def has_withdrawn_application(user):
+    if not has_application(user):
+        return False
+    return user.financial_aid.status == STATUS_WITHDRAWN
+
+
 def email_address():
     """
     Return the email address that financial aid emails should come from,
@@ -75,7 +81,7 @@ def email_context(request, application, message=None):
     return context
 
 
-def send_email_message(template_name, from_, to, context, headers=None):
+def send_email_message(template_name, from_, to, context, headers=None, subject_template=None):
     """
     Send an email message.
 
@@ -87,11 +93,16 @@ def send_email_message(template_name, from_, to, context, headers=None):
     :param context: Dictionary with context to use when rendering the
     templates.
     :param headers: dict of optional, additional email headers
+    :param subject_template: optional string to use as the subject template, in place of
+       finaid/email/{{ template_name }}/subject.txt
     """
     context = Context(context)
 
     name = "finaid/email/%s/subject.txt" % template_name
-    subject_template = get_template(name)
+    if subject_template:
+        subject_template = Template(subject_template)
+    else:
+        subject_template = get_template(name)
     subject = subject_template.render(context)
     # subjects must be a single line, no newlines
     # if there's a trailing newline, strip it; anything more than that,

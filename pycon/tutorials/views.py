@@ -17,7 +17,7 @@ from pycon.models import PyConTutorialProposal
 
 from .forms import BulkEmailForm, TutorialMessageForm
 from .models import PyConTutorialMessage
-from .utils import email_context, send_email_message, is_attendee_or_speaker
+from .utils import email_context, queue_email_message, is_attendee_or_speaker
 
 
 log = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ def tutorial_email(request, pk, pks):
                 subject=subject)
             try:
                 # Send Email to each recipient separately,
-                send_email_message("direct_email",
+                queue_email_message("direct_email",
                                    from_=settings.DEFAULT_FROM_EMAIL,
                                    to=[],
                                    bcc=emails,
@@ -66,7 +66,7 @@ def tutorial_email(request, pk, pks):
                                        u"not all of them might have made it"))
             else:
                 messages.add_message(request, messages.INFO,
-                                     _(u"Email(s) sent"))
+                                     _(u"Email(s) queued to be sent."))
             url = reverse(
                 'schedule_presentation_detail',
                 args=[presentation.pk]
@@ -102,20 +102,22 @@ def tutorial_message(request, pk):
             context = email_context(request, tutorial, message)
             sender_email = request.user.email
             speakers = [x.email for x in tutorial.speakers()
-                        if x.email != sender_email]
+                        if x.email != sender_email
+                        and x.email]
             attendees = [x.email for x in tutorial.registrants.all()
-                         if x.email != sender_email]
+                         if x.email != sender_email
+                         and x.email]
             recipients = speakers + attendees
 
             # Send new message notice to speakers/attendees
-            send_email_message("message",
+            queue_email_message("message",
                                from_=settings.DEFAULT_FROM_EMAIL,
                                to=[request.user.email],
                                bcc=recipients,
                                context=context)
-        messages.add_message(request, messages.INFO, _(u"Message sent"))
-        url = reverse('schedule_presentation_detail', args=[presentation.pk])
-        return redirect(url)
+            messages.add_message(request, messages.INFO, _(u"Message queued to be sent."))
+            url = reverse('schedule_presentation_detail', args=[presentation.pk])
+            return redirect(url)
 
     return render(request, "tutorials/message.html", {
         'presentation': presentation,

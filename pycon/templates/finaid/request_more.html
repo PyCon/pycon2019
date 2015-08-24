@@ -1,0 +1,18 @@
+{% extends 'finaid/base.html' %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block body %}
+  <form method="POST">
+    {% csrf_token %}
+    <p>{% trans "If you want to request more aid than was offered, please provide an explanation and details of the increased request." %}</p>
+    <fieldset>
+      {{ form|as_bootstrap }}
+    </fieldset>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+
+      <a class="btn btn-default" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+{% endblock body %}

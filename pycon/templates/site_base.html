@@ -113,7 +113,9 @@
                     {% block edit_page %}{% endblock %}
                     <h1>{% block page_title %}{% endblock %}</h1>
                     <div class="box">
+                      {% block box %}
                         <div class="box-content">{% block body %}{% endblock %}</div>
+                      {% endblock %}
                     </div>
                  </div>
 
