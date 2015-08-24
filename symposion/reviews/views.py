@@ -57,7 +57,7 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
 
     latest_votes = {
         vote.proposal_id: vote
-        for vote in LatestVote.objects.filter(user__pk=user_pk, proposal__in=queryset).select_related("vote")
+        for vote in LatestVote.objects.filter(user__pk=user_pk, proposal__in=queryset)
     }
 
     results_by_proposal = {
@@ -138,7 +138,7 @@ def review_section(request, section_slug, assigned=False):
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
         queryset = queryset.filter(id__in=assignments)
 
-    queryset = queryset.select_related("result", "kind", "speaker__user", "tags").select_subclasses()
+    queryset = queryset.select_related("result", "kind", "speaker__user")
 
     proposals = proposals_list(request, queryset)
     ctx = {
