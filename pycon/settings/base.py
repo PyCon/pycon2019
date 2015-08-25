@@ -347,15 +347,6 @@ BIBLION_SECTIONS = [
 
 SYMPOSION_PAGE_REGEX = r"(([\w-]{1,})(/[\w-]{1,})*)/$"
 
-PROPOSAL_FORMS = {
-    "tutorial": "pycon.forms.PyConTutorialProposalForm",
-    "talk": "pycon.forms.PyConTalkProposalForm",
-    "poster": "pycon.forms.PyConPosterProposalForm",
-    "sponsor-tutorial": "pycon.forms.PyConSponsorTutorialForm",
-    "lightning-talk": "pycon.forms.PyConLightningTalkProposalForm",
-    "open-space": "pycon.forms.PyConOpenSpaceProposalForm",
-}
-
 USE_X_ACCEL_REDIRECT = False
 
 MARKEDIT_DEFAULT_SETTINGS = {

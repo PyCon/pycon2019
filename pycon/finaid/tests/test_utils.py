@@ -1,7 +1,6 @@
 """Test for the finaid.utils package"""
 
 import datetime
-import unittest
 
 from mock import patch
 
@@ -124,7 +123,7 @@ class TestFinAidUtils(TestCase):
 
 
 @patch('pycon.finaid.utils.get_template')
-class TestSendEmailMessage(unittest.TestCase):
+class TestSendEmailMessage(TestCase):
     # def send_email_message(template_name, from_, to, context, header=None):
 
     def test_send_email_message(self, get_template):

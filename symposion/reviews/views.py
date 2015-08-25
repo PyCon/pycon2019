@@ -1,7 +1,9 @@
 import datetime
+from httplib import FORBIDDEN
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import send_mass_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -17,6 +19,7 @@ from pycon.models import PyConProposal, PyConProposalCategory
 from symposion.conf import settings
 from symposion.conference.models import Section
 from symposion.proposals.forms import ProposalTagsForm
+from symposion.proposals.kinds import get_proposal_model, get_proposal_model_from_section_slug
 from symposion.proposals.models import ProposalBase, AdditionalSpeaker
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
@@ -42,6 +45,7 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
     :param boolean check_speaker: If True, omits any proposals for which the
         current user is a speaker.
     """
+    queryset = queryset.select_related('kind', 'result', 'speaker__user')
 
     if user_pk is None:
         user_pk = request.user.pk
@@ -61,31 +65,31 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
         for vote in LatestVote.objects.filter(user__pk=user_pk, proposal__in=queryset)
     }
 
-    results_by_proposal = {
-        result.proposal_id: result
-        for result in ProposalResult.objects.filter(proposal__in=queryset).select_related("group")
-    }
-
     category_by_id = {
-        cat.pk: cat for cat in PyConProposalCategory.objects.all()
+        cat.pk: cat
+        for cat in PyConProposalCategory.objects.all()
     }
 
     result_list = []
 
     for obj in queryset:
 
-        if obj.pk in results_by_proposal:
-            obj.result = results_by_proposal[obj.pk]
-        else:
-            obj.result = ProposalResult.objects.create(proposal=obj)
+        # Force obj to be the most specific type, if it isn't already
+        obj_model = get_proposal_model(obj.kind.slug)
+        if not isinstance(obj, obj_model):
+            obj = getattr(obj, obj_model._meta.model_name.lower())
 
-        result = obj.result
-        obj.comment_count = result.comment_count
-        obj.total_votes = result.vote_count
-        obj.plus_one = result.plus_one
-        obj.plus_zero = result.plus_zero
-        obj.minus_zero = result.minus_zero
-        obj.minus_one = result.minus_one
+        try:
+            obj.result
+        except ProposalResult.DoesNotExist:
+            ProposalResult.objects.get_or_create(proposal=obj)
+
+        obj.comment_count = obj.result.comment_count
+        obj.total_votes = obj.result.vote_count
+        obj.plus_one = obj.result.plus_one
+        obj.plus_zero = obj.result.plus_zero
+        obj.minus_zero = obj.result.minus_zero
+        obj.minus_one = obj.result.minus_one
 
         if obj.pk in latest_votes:
             obj.user_vote = latest_votes[obj.pk].vote
@@ -94,10 +98,17 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
             obj.user_vote = None
             obj.user_vote_css = "no-vote"
 
+        # We can't do select_related('category') on the initial queryset
+        # because not all models have a category field, so we
+        # stick a reference to a category onto the record IFFI this
+        # model type has a category.
         try:
-            obj.category = category_by_id[obj.category_id]
-        except AttributeError:
+            obj._meta.get_field('category')
+        except FieldDoesNotExist:
             pass
+        else:
+            if obj.category_id in category_by_id:
+                obj.category = category_by_id[obj.category_id]
 
         result_list.append(obj)
     return result_list
@@ -119,7 +130,8 @@ def review_section(request, section_slug, assigned=False):
     if request.user.has_perm("reviews.can_manage_%s" % section_slug):
         can_manage = True
     section = get_object_or_404(Section, slug=section_slug)
-    queryset = ProposalBase.objects.filter(kind__section=section)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.all()
 
     if request.method == "POST" and can_manage:
         pk_string = request.POST.get('pk', request.POST.get('pks', ''))
@@ -142,8 +154,6 @@ def review_section(request, section_slug, assigned=False):
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
         queryset = queryset.filter(id__in=assignments)
 
-    queryset = queryset.select_related("result", "kind", "speaker__user")
-
     proposals = proposals_list(request, queryset)
     ctx = {
         "proposals": proposals,
@@ -165,9 +175,9 @@ def review_list(request, section_slug, user_pk):
         if not request.user.pk == user_pk:
             return access_not_permitted(request)
 
-    queryset = ProposalBase.objects.select_related("speaker__user", "result")
     reviewed = LatestVote.objects.filter(user__pk=user_pk).values_list("proposal", flat=True)
-    queryset = queryset.filter(pk__in=reviewed)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.filter(pk__in=reviewed)
     proposals = queryset.order_by("submitted")
 
     admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
@@ -406,7 +416,7 @@ def review_delete(request, pk):
 
 
 @login_required
-def review_status(request, section_slug=None, key=None):
+def review_status(request, section_slug, key=None):
 
     if not request.user.has_perm("reviews.can_review_%s" % section_slug):
         return access_not_permitted(request)
@@ -418,9 +428,8 @@ def review_status(request, section_slug=None, key=None):
         "vote_threshold": VOTE_THRESHOLD,
     }
 
-    queryset = ProposalBase.objects.select_related("speaker__user", "result").select_subclasses()
-    if section_slug:
-        queryset = queryset.filter(kind__section__slug=section_slug)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.filter(kind__section__slug=section_slug)
     queryset = queryset.exclude(cancelled=True)
 
     proposals = {
@@ -510,7 +519,8 @@ def result_notification(request, section_slug, status):
     if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
         return access_not_permitted(request)
 
-    proposals = ProposalBase.objects.filter(kind__section__slug=section_slug, result__status=status).select_related("speaker__user", "result").select_subclasses()
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(result__status=status).prefetch_related('notifications')
     notification_templates = NotificationTemplate.objects.all()
 
     ctx = {
@@ -536,13 +546,11 @@ def result_notification_prepare(request, section_slug, status):
             proposal_pks.append(int(pk))
     except ValueError:
         return HttpResponseBadRequest()
-    proposals = ProposalBase.objects.filter(
-        kind__section__slug=section_slug,
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(
         result__status=status,
     )
     proposals = proposals.filter(pk__in=proposal_pks)
-    proposals = proposals.select_related("speaker__user", "result")
-    proposals = proposals.select_subclasses()
 
     notification_template_pk = request.POST.get("notification_template", "")
     if notification_template_pk:
@@ -576,13 +584,11 @@ def result_notification_send(request, section_slug, status):
     except ValueError:
         return HttpResponseBadRequest()
 
-    proposals = ProposalBase.objects.filter(
-        kind__section__slug=section_slug,
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(
         result__status=status,
     )
     proposals = proposals.filter(pk__in=proposal_pks)
-    proposals = proposals.select_related("speaker__user", "result")
-    proposals = proposals.select_subclasses()
 
     notification_template_pk = request.POST.get("notification_template", "")
     if notification_template_pk:
