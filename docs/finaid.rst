@@ -4,13 +4,10 @@ Financial Aid
 Settings
 --------
 
-Create a FINANCIAL_AID setting in Django settings. It should be a dictionary.
-Values can include:
-
-    email
-        The email address that messages related to financial aid come from,
-        and that users should email with questions. Defaults to
-        ``pycon-aid@python.org``.
+Create a FINANCIAL_AID_EMAIL setting in Django settings with the email
+address that messages related to financial aid come from,
+and that users should email with questions. Defaults to
+``pycon-aid@python.org``.
 
 
 To enable applications, use the admin to create new

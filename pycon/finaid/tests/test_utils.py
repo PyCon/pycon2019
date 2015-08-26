@@ -108,18 +108,15 @@ class TestFinAidUtils(TestCase):
         # be sure it'll be restored to its pre-test value when we're
         # done.
         expected = DEFAULT_EMAIL_ADDRESS
-        with self.settings(FINANCIAL_AID=None):
+        with self.settings(FINANCIAL_AID_EMAIL=None):
             # no settings at all
-            delattr(settings, 'FINANCIAL_AID')
-            self.assertEqual(expected, email_address())
-            # email entry not set
-            settings.FINANCIAL_AID = {}
+            delattr(settings, 'FINANCIAL_AID_EMAIL')
             self.assertEqual(expected, email_address())
 
     def test_email_address_override(self):
         # settings can override email address
         expected = "foo@example.com"
-        with self.settings(FINANCIAL_AID={'email': expected}):
+        with self.settings(FINANCIAL_AID_EMAIL=expected):
             self.assertEqual(expected, email_address())
 
 

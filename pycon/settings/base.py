@@ -56,7 +56,6 @@ ADMINS = [
 
 MANAGERS = ADMINS
 
-THEME_CONTACT_EMAIL = 'pycon-reg@python.org'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -321,7 +320,6 @@ GOOGLE_OAUTH2_CLIENT_SECRET = env_or_default('GOOGLE_OAUTH2_CLIENT_SECRET', '')
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-DEFAULT_FROM_EMAIL = "PyCon {} <no-reply@us.pycon.org>".format(CONFERENCE_YEAR)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -416,3 +414,12 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(minutes=5),
     }
 }
+
+# EMAIL ADDRESSES
+# Override in more specific settings files, please.
+DEFAULT_FROM_EMAIL = 'pycon@caktusgroup.com'
+FINANCIAL_AID_EMAIL = 'pycon@caktusgroup.com'
+ORGANIZERS_EMAIL = 'pycon@caktusgroup.com'
+REGISTRATION_EMAIL = 'pycon@caktusgroup.com'
+SPONSORSHIP_EMAIL = 'pycon@caktusgroup.com'
+THEME_CONTACT_EMAIL = 'pycon@caktusgroup.com'
