@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.conf import settings
 from symposion.conference.models import Section
 
 from symposion.proposals.models import ProposalBase
@@ -113,7 +114,7 @@ class PresentationAdmin(admin.ModelAdmin):
         # Next, send an email to python staff
         now = datetime.datetime.now()
         send_email(
-            ["pycon-staff@python.org"],
+            [settings.REGISTRATION_EMAIL],
             "presentation_updated",
             context={"presentation": obj,
                      "time": now,
