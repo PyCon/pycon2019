@@ -65,8 +65,16 @@ class Sponsor(models.Model):
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True, on_delete=SET_NULL)
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
-    display_url = models.URLField(_("Link text - text to display on link to sponsor page, if different from the actual link"), blank=True)
-    external_url = models.URLField(_("Link to sponsor web page"))
+    display_url = models.CharField(
+        _("Link text - text to display on link to sponsor page, if different from the actual link"),
+        max_length=200,
+        default='',
+        blank=True
+    )
+    external_url = models.URLField(
+        _("Link to sponsor web page"),
+        help_text=_("(Must include https:// or http://.)")
+    )
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
     contact_emails = MultiEmailField(

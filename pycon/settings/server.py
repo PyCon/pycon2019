@@ -102,7 +102,15 @@ LOGGING['loggers'].update(
     }
 )
 
+# Keep sessions in cache
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = 'session'
+
 # Caching
+# Celery will use Redis DB 0 for itself.
+# General caching will use Redis DB 1.
+# Session caching will use Redis DB 2 (so we can clear general cache without
+# killing everyone's sessions.)
 INSTALLED_APPS.append('redis_cache')
 CACHES = {
     'default': {
@@ -111,7 +119,6 @@ CACHES = {
             'localhost:6379',
         ],
         'OPTIONS': {
-            # Caching will use Redis DB 1.  (Celery will use Redis DB 0.)
             'DB': 1,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
@@ -123,10 +130,24 @@ CACHES = {
             'PICKLE_VERSION': 2,
         },
     },
+    SESSION_CACHE_ALIAS: {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            'localhost:6379',
+        ],
+        'OPTIONS': {
+            'DB': 2,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': 2,
+        },
+    },
 }
-
-# Keep sessions in cache
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Use the caching template loader around whatever template loaders we've
 # previously configured

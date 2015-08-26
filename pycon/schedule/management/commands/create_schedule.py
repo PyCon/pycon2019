@@ -16,6 +16,7 @@ START_KEY = 'Start Time'
 DURATION_KEY = 'Duration'
 PRESENTATION_ID_KEY = 'ID'
 
+
 class Command(BaseCommand):
 
     def _get_start_end_times(self, data):
@@ -53,7 +54,8 @@ class Command(BaseCommand):
                 else:
                     start = datetime(100, 1, 1, 12, 40, 00)
                 end = start + timedelta(minutes=60)
-                slot = Slot.objects.create(kind=slot_kind, day=day, start=start.time(), end=end.time())
+                slot = Slot.objects.create(
+                    kind=slot_kind, day=day, start=start.time(), end=end.time())
                 SlotRoom.objects.get_or_create(slot=slot, room=room)
 
     def _build_breaks(self, schedule):
@@ -68,13 +70,14 @@ class Command(BaseCommand):
                 else:
                     start = datetime(100, 1, 1, 15, 45, 00)
                 end = start + timedelta(minutes=30)
-                slot = Slot.objects.create(kind=slot_kind, day=day, start=start.time(), end=end.time())
+                slot = Slot.objects.create(
+                    kind=slot_kind, day=day, start=start.time(), end=end.time())
                 SlotRoom.objects.get_or_create(slot=slot, room=room)
 
     def handle(self, *args, **options):
         if len(args) != 2:
-            raise CommandError("The first argument must be a Schedule Type (ex. Talk)" \
-                " and the second argument a path/to/csv")
+            raise CommandError("The first argument must be a Schedule Type (ex. Talk)"
+                               " and the second argument a path/to/csv")
         else:
             section_name, path = args
 
@@ -83,7 +86,8 @@ class Command(BaseCommand):
         # TODO: Pin start and end dates for the section?
         section, _ = Section.objects.get_or_create(name=section_name, conference=conf)
         schedule, _ = Schedule.objects.get_or_create(section=section)
-        slot_kind, _ = SlotKind.objects.get_or_create(label=section_name.rstrip('s').lower(), schedule=schedule)
+        slot_kind, _ = SlotKind.objects.get_or_create(
+            label=section_name.rstrip('s').lower(), schedule=schedule)
 
         with open(path, 'rb') as f:
             data = [x for x in csv.DictReader(f)]

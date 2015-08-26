@@ -3,6 +3,8 @@ Translation
 
 The PyCon site is set up for use in English and French, for the most part.
 
+To disable the features documented here, change the USE_I18N setting to False.
+
 Which language is displayed
 ---------------------------
 
@@ -11,11 +13,9 @@ can change their brower's settings to say what their preferred languages are,
 and if French comes before English, the site will use French when available.
 It'll fall back to English for text that isn't translated.
 
-A language selector can optionally be displayed on the Dashboard page. This
+A language selector is displayed on the Dashboard page. This
 allows a user to temporarily override the displayed language for the current
-session. Whether the language selector is displayed is controlled by the
-django-constance setting SHOW_LANGUAGE_SELECTOR, which can be changed in the
-admin at /YEAR/admin/constance/config/.
+session.
 
 Translating
 -----------

@@ -177,6 +177,58 @@ def json_serializer(obj):
 
 
 def schedule_json(request):
+    """
+    Returns information about the schedule.
+
+    *No authentication required.*
+
+    URL:  /<YEAR>/schedule/conference.json
+
+    The data returned is in JSON format, and looks like::
+
+        [ <slot>, <slot>, ..., <poster>, <poster> ...]
+
+    where a slot represents a talk, tutorial, or plenary and looks like::
+
+        {
+            "kind": "talk"|"tutorial"|"plenary",
+            "name": "Title of talk",
+            "room": "roomname1, roomname2, ..., roomnameN",
+            "start": "HH:MM:SS",  # ISO format
+            "end": "HH:MM:SS",  # ISO format
+            "duration": 30,  # minutes
+            "authors" ["author name 1", "author name 2", ..., "author name N"],
+            "released":  true | false,   # recording release agreed to
+            "license": "xx",
+            "contact": ["email1", "email2", .., "emailN"],  # emails of authors
+            "abstract": "Lorem ipsum and so forth and so on",
+            "description: "Lorem ipsum and so forth and so on",
+            "conf_key": 27,
+            "conf_url": "https://conference_domain/path/to/talk",
+            "video_url": "https://somehost/path/to/video_of_talk",
+            "slides_url": "https://somehost/path/to/slides_of_talk",
+            "assets_url": "https://somehost/path/to/assets_for_talk",
+            "tags": "tag1, tag2, ..., tagN"
+        }
+
+    and a poster looks like::
+
+        {
+            "kind": "poster",
+            "name": "Title of poster",
+            "authors" ["author name 1", "author name 2", ..., "author name N"],
+            "abstract": "Lorem ipsum and so forth and so on",
+            "description: "Lorem ipsum and so forth and so on",
+            "license": "xx",
+            "room": "roomname1, roomname2, ..., roomnameN",
+            "start": "HH:MM:SS",  # Provided but meaningless, ignore...
+            "end": "HH:MM:SS",  # Provided but meaningless, ignore...
+            "contact": ["email1", "email2", .., "emailN"],  # emails of authors
+            "conf_key": 1227,
+            "conf_url": "https://conference_domain/path/to/page/about/talk",
+            "released":  true | false,   # recording release agreed to
+        }
+    """
     slots = Slot.objects.all().order_by("start")
     data = []
     for slot in slots:
