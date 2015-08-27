@@ -156,7 +156,7 @@ class FinancialAidApplication(models.Model):
         return last_update
 
     def get_last_update_display(self):
-        return unicode(self.get_last_update())
+        return self.get_last_update().isoformat(' ')
 
     def fa_app_url(self):
         """URL for the detail view of a financial aid application"""
@@ -254,12 +254,11 @@ class FinancialAidReviewData(models.Model):
                                  default=STATUS_SUBMITTED)
     amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    grant_letter_sent = models.DateField(blank=True, null=True)
+    grant_letter_sent = models.BooleanField(default=False)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
+                                     help_text="Payment type",
                                      blank=True, null=True)
     notes = models.TextField(blank=True)
-    travel_cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
-                                            blank=True, null=True)
     disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
 

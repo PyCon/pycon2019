@@ -48,7 +48,7 @@ class FinancialAidReviewForm(forms.ModelForm):
     class Meta:
         model = FinancialAidReviewData
         fields = ['status', 'amount', 'grant_letter_sent', 'cash_check',
-                  'notes', 'travel_cash_check', 'disbursement_notes',
+                  'notes', 'disbursement_notes',
                   'promo_code']
         widgets = {
             'notes': Textarea(
