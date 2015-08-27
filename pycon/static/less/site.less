@@ -416,7 +416,7 @@ footer {
   width: 100%;
   overflow: auto;
   @media (min-width: @breakDesktop) {
-    margin-top: 2em;
+    margin-top: 1.2em;
   }
   @media (max-width: @breakTablet) {
     .container {
@@ -625,7 +625,7 @@ div.DTTT.btn-group {
 /* Navigation
 ==================== */
 header.main {
-  padding: 1em 0 0;
+  padding: 0;
   position: relative;
   width: 100%;
   box-shadow: none;
@@ -640,12 +640,13 @@ header.main {
     @media (max-width: @breakDesktop) {
       display: inline-block;
       width: 120px;
-      height: 75px;
+      height: 6.5em;
       background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
+      background-position-y: 1em;
       text-indent: -9999px;
       display: block;
       background-size: 120px auto;
-      margin: 0 0 1em 1.5em;
+      margin-left: 1em;
       border-bottom: none;
     }
   }
@@ -658,25 +659,23 @@ header.main {
   nav {
     background: @blueSky;
     @media (min-width: @breakDesktop) {
-      margin-top: 1em;
+      margin-top: 1.5em;
       padding-left: 20%;
+      font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
     }
     a.logo-small {
       position:absolute;
       top: 5px;
       left: 0;
-      width: 120px;
-      height: 75px;
+      width: 110px;
+      height: 70px;
       background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
-      background-size: 120px auto;
+      background-size: 110px auto;
       text-indent: -9999px;
       border-bottom: none;
       @media (min-width: @breakDesktop) {
         top: 15px;
         left: 5%;
-        width :140px;
-        height: 85px;
-        background-size: 140px auto;
       }
       @media (max-width: @breakDesktop) {
           display: none;
@@ -756,7 +755,7 @@ header.main {
         margin: 0;
         li {
            a {
-            font-size: @baseFontSize + 1;
+            font-size: @baseFontSize + 3;
             font-weight:400;
             margin: 0 0 0 0 !important;
             padding: .5em .5em .5em 0;
@@ -770,13 +769,13 @@ header.main {
             }
             &:hover {
               color: @maroon;
-              border-bottom: 1px solid @maroon;
+              border-bottom: 2px solid @maroon;
               .transition(0.35s);
               &:focus {
               }
             }
             &:active {
-              border-bottom: 1px solid @maroon;
+              border-bottom: 2px solid @maroon;
             }
             &:focus {
               .caret {
@@ -809,7 +808,7 @@ header.main {
         li.dropdown.active {
           a {
             color: @maroon;
-            border-bottom: 1px solid @maroon;
+            border-bottom: 2px solid @maroon;
           }
           .caret {
             border-top-color: @maroon;
@@ -880,14 +879,14 @@ header.main {
   }
   .account-bar {
     float: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
     position: relative;
     background-color: white;
     @media (min-width: @breakDesktop) {
       margin: 0;
       float: right;
       position: absolute;
-      top: -2em;
+      top: -1.5em;
       right: 0;
       background-color: transparent;
       padding: 0;
@@ -910,7 +909,7 @@ header.main {
         &.login,
         &.logout,
         &.signup {
-          padding: 1em !important;
+          padding: 1.75em 1.5em !important;
           height: 100%;
           border-radius: 0;
           background-color: @red;
@@ -933,9 +932,12 @@ header.main {
       right: 0;
       border-bottom: 1px solid @maroon;
       @media (min-width: @breakDesktop) {
-        right: -5px;
+        right: -4px;
         border-right: 2px solid @maroon;
         border-bottom-color: @red;
+        &:hover {
+          border-bottom-color: @maroon;
+        }
       }
     }
 
