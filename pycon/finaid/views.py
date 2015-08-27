@@ -5,6 +5,7 @@ import re
 from smtplib import SMTPException
 
 import django
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mass_mail
@@ -21,7 +22,7 @@ from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN
 from pycon.finaid.models import STATUS_SUBMITTED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, \
     STATUS_NEED_MORE, STATUS_INFO_NEEDED
-from .utils import applications_open, email_address, email_context, \
+from .utils import applications_open, email_context, \
     has_application, is_reviewer, send_email_message
 
 
@@ -62,14 +63,14 @@ def finaid_edit(request):
         template_name = "applicant/" + \
                         ("submitted" if applying else "edited")
         send_email_message(template_name,
-                           from_=email_address(),
+                           from_=settings.FINANCIAL_AID_EMAIL,
                            to=[request.user.email],
                            context=context)
         template_name = "reviewer/" + \
                         ("submitted" if applying else "edited")
         send_email_message(template_name,
                            from_=request.user.email,
-                           to=[email_address()],
+                           to=[settings.FINANCIAL_AID_EMAIL],
                            context=context)
 
         # Also display a message to them
@@ -172,9 +173,9 @@ def finaid_message(request, pks):
                 send_email_message("reviewer/message",
                                    # From whoever is logged in clicking the buttons
                                    from_=request.user.email,
-                                   to=[email_address()],
+                                   to=[settings.FINANCIAL_AID_EMAIL],
                                    context=context,
-                                   headers={'Reply-To': email_address()}
+                                   headers={'Reply-To': settings.FINANCIAL_AID_EMAIL}
                                    )
                 # If visible to applicant, notify them as well
                 if message.visible:
@@ -182,7 +183,7 @@ def finaid_message(request, pks):
                                        from_=request.user.email,
                                        to=[application.user.email],
                                        context=context,
-                                       headers={'Reply-To': email_address()}
+                                       headers={'Reply-To': settings.FINANCIAL_AID_EMAIL}
                                        )
             messages.add_message(request, messages.INFO, _(u"Messages sent"))
         return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
@@ -209,7 +210,7 @@ def finaid_email(request, pks):
         form = BulkEmailForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            from_email = email_address()
+            from_email = settings.FINANCIAL_AID_EMAIL
             template_text = form.cleaned_data['template'].template
             template = Template(template_text)
             # emails will be the datatuple arg to send_mail_mail
@@ -282,7 +283,7 @@ def finaid_review_detail(request, pk):
                 # Notify reviewers
                 send_email_message("reviewer/message",
                                    from_=request.user.email,
-                                   to=[email_address()],
+                                   to=[settings.FINANCIAL_AID_EMAIL],
                                    context=context)
                 # If visible to applicant, notify them as well
                 if message.visible:
@@ -347,7 +348,7 @@ def finaid_status(request):
             context = email_context(request, application, message)
             send_email_message("reviewer/message",
                                from_=request.user.email,
-                               to=[email_address()],
+                               to=[settings.FINANCIAL_AID_EMAIL],
                                context=context)
 
             return redirect(request.path)
@@ -372,7 +373,7 @@ def get_names_of_fields(model):
     if django.VERSION < (1, 8):
         # Old way, stops working in Django 1.8 (but new way doesn't work before Django 1.8)
         return [
-            f.attname for f, model in model._meta.get_fields_with_model()
+            f.attname for f, __ in model._meta.get_fields_with_model()
         ]
 
     # https://docs.djangoproject.com/en/1.8/ref/models/meta/#migrating-from-the-old-api
@@ -425,7 +426,7 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
         context = email_context(request, application, message)
         send_email_message("reviewer/message",
                            from_=request.user.email,
-                           to=[email_address()],
+                           to=[settings.FINANCIAL_AID_EMAIL],
                            context=context,
                            subject_template=self.staff_message_template,
                            )
@@ -490,7 +491,7 @@ class SendFinaidMessageViewBase(LoginRequiredMixin, View):
             context = email_context(request, application, message)
             send_email_message(self.email_template,
                                from_=request.user.email,
-                               to=[email_address()],
+                               to=[settings.FINANCIAL_AID_EMAIL],
                                context=context)
 
             application.set_status(self.new_status)

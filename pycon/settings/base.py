@@ -291,7 +291,7 @@ SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 # Don't clobber User.email if someone associates a social account that
 # happens to have a different email address
 # http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
 
 # To get the Google OAuth2 Client ID and Secret:
 #
@@ -392,7 +392,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Need to switch from the now-default JSON serializer, or OAuth2 breaks trying
 # to serialize a datetime to JSON
-SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 
 # Celery

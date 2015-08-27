@@ -1,19 +1,16 @@
 """Test for the finaid.utils package"""
 
 import datetime
-import unittest
 
 from mock import patch
 
-from django.conf import settings
 from django.core import mail
 from django.contrib.auth.models import User, AnonymousUser
 from django.template import Template
 from django.test import TestCase
 
 from ..models import FinancialAidApplication, FinancialAidApplicationPeriod
-from ..utils import DEFAULT_EMAIL_ADDRESS, applications_open, \
-    email_address, has_application, send_email_message
+from ..utils import applications_open, has_application, send_email_message
 
 
 today = datetime.date.today()
@@ -30,7 +27,7 @@ class TestFinAidUtils(TestCase):
 
     def test_has_application_true(self):
         user = User.objects.create_user('joe')
-         # Just the minimum required fields
+        # Just the minimum required fields
         FinancialAidApplication.objects.create(
             user=user,
             profession="Foo",
@@ -102,26 +99,9 @@ class TestFinAidUtils(TestCase):
         )
         self.assertTrue(applications_open())
 
-    def test_email_address_default(self):
-        # If not set, email address is the default.
-        # Set dummy FINANCIAL_AID just so we can delete the setting, and
-        # be sure it'll be restored to its pre-test value when we're
-        # done.
-        expected = DEFAULT_EMAIL_ADDRESS
-        with self.settings(FINANCIAL_AID_EMAIL=None):
-            # no settings at all
-            delattr(settings, 'FINANCIAL_AID_EMAIL')
-            self.assertEqual(expected, email_address())
-
-    def test_email_address_override(self):
-        # settings can override email address
-        expected = "foo@example.com"
-        with self.settings(FINANCIAL_AID_EMAIL=expected):
-            self.assertEqual(expected, email_address())
-
 
 @patch('pycon.finaid.utils.get_template')
-class TestSendEmailMessage(unittest.TestCase):
+class TestSendEmailMessage(TestCase):
     # def send_email_message(template_name, from_, to, context, header=None):
 
     def test_send_email_message(self, get_template):
