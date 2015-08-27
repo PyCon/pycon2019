@@ -1,11 +1,11 @@
 """Test for the tutorials.utils package"""
 
 import datetime
-import unittest
 
 from mock import patch
 
 from django.template import Template
+from django.test import TestCase
 
 from pycon.bulkemail.models import BulkEmail
 
@@ -15,7 +15,7 @@ from ..utils import queue_email_message
 today = datetime.date.today()
 
 
-class TestSendEmailMessage(unittest.TestCase):
+class TestSendEmailMessage(TestCase):
     @patch('django.core.mail.message.EmailMessage.send')
     @patch('pycon.tutorials.utils.get_template')
     def test_send_email_message(self, get_template, send_mail):

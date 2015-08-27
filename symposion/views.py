@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 
 import account.views
-import constance
 
 from pycon.finaid.context_processors import financial_aid
 import symposion.forms
@@ -40,7 +40,7 @@ def dashboard(request):
                         request.session["pending-token"])
     context = {'proposals_are_open': bool(ProposalSection.available()), }
     context.update(financial_aid(request))
-    if constance.config.SHOW_LANGUAGE_SELECTOR:
+    if settings.USE_I18N:
         context['language_form'] = LanguageForm(
             initial={'language': request.LANGUAGE_CODE})
     return render(

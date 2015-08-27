@@ -1,5 +1,7 @@
 import datetime
+from django.conf import settings
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -65,8 +67,16 @@ class Sponsor(models.Model):
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True, on_delete=SET_NULL)
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
-    display_url = models.URLField(_("Link text - text to display on link to sponsor page, if different from the actual link"), blank=True)
-    external_url = models.URLField(_("Link to sponsor web page"))
+    display_url = models.CharField(
+        _("Link text - text to display on link to sponsor page, if different from the actual link"),
+        max_length=200,
+        default='',
+        blank=True
+    )
+    external_url = models.URLField(
+        _("Link to sponsor web page"),
+        help_text=_("(Must include https:// or http://.)")
+    )
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
     contact_emails = MultiEmailField(
@@ -254,7 +264,7 @@ def _send_admin_email(sender, instance, created, **kwargs):
     """
     if created:
         send_email(
-            to=['pycon-sponsors@python.org'],
+            to=[settings.SPONSORSHIP_EMAIL],
             kind='new_sponsor',
             context={
                 'sponsor': instance,
