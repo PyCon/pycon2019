@@ -1035,7 +1035,7 @@ body.home {
     .for-the-com,
     .by-for-the-com {
       float: left;
-      margin-top: 11.5em;
+      margin-top: 9.5em;
       font-family: 'roboto condensed', sans-serif;
       font-weight: 700;
       p {
@@ -1044,9 +1044,12 @@ body.home {
         margin: 0 auto;
         text-align: center;
         text-transform: uppercase;
-        font-size: @baseFontSize * 1.5;
-        border-top: 1px solid @greenDark;
-        border-bottom: 1px solid @greenDark;
+        font-weight: 400;
+      }
+      .rule {
+        width: 45%;
+        margin: 1em auto;
+        border-top: 2px solid @greenDark;
       }
     }
     @media (min-width: @breakDesktop) {
@@ -1054,16 +1057,18 @@ body.home {
 	    .for-the-com {
 	      float: left;
 	      font-family: 'roboto condensed', sans-serif;
+        margin-top: 9em;
 	      p {
 	        display: table;
 	        margin: 0 auto;
+          font-size: @baseFontSize * 2;
 	      }
 	    }
     }
     @media (min-width: @breakDesktopLarge) {
       .by-the-com,
 	    .for-the-com {
-        margin-top: 12.5em;
+        margin-top: 10.85em;
       }
     }
     .by-the-com {
@@ -1073,7 +1078,7 @@ body.home {
       float: right;
     }
     .by-for-the-com {
-      margin-top: 1em;
+      margin-top: 0;
       margin-bottom: 3em;
       p {
         font-size: @baseFontSize * 1.5;
@@ -1160,9 +1165,11 @@ body.home {
     margin-bottom: 3em;
     .register-banner {
       background: url("/2016/site_media/static/img/PNG/Register-Banner.png") center center no-repeat;
-      background-size: 100% 100%;
+      background: url("/2016/site_media/static/img/SVG/Register-Banner.svg") center center no-repeat;
       width: 100%;
-      margin: 1em auto;
+      height: auto;
+      background-size: cover;
+      margin: 1.25em auto 1em;
       text-align: center;
       padding: 1.5em 0;
       font-size: @baseFontSize * .75;
@@ -1177,6 +1184,7 @@ body.home {
       }
       .promo {
         @media (max-width: @breakDesktop) {
+          margin-top: .75em;
           &.no-link {
             top: 20px;
           }
@@ -2321,6 +2329,9 @@ body#group-registration {
     width: 50px !important;
     position: absolute;
     top: 27%;
+    @media (min-width: @breakMobileLandscape) {
+        top: 34%;
+    }
   }
   .next {
     right: .25em;
@@ -2383,6 +2394,7 @@ body#group-registration {
 			top: 34%;
 		}
 	}
+
 } /* End Flickity */
 
 body {
