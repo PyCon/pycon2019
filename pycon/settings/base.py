@@ -56,7 +56,6 @@ ADMINS = [
 
 MANAGERS = ADMINS
 
-THEME_CONTACT_EMAIL = 'pycon-reg@python.org'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -292,7 +291,7 @@ SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
 # Don't clobber User.email if someone associates a social account that
 # happens to have a different email address
 # http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
 
 # To get the Google OAuth2 Client ID and Secret:
 #
@@ -321,7 +320,6 @@ GOOGLE_OAUTH2_CLIENT_SECRET = env_or_default('GOOGLE_OAUTH2_CLIENT_SECRET', '')
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-DEFAULT_FROM_EMAIL = "PyCon {} <no-reply@us.pycon.org>".format(CONFERENCE_YEAR)
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
@@ -394,7 +392,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Need to switch from the now-default JSON serializer, or OAuth2 breaks trying
 # to serialize a datetime to JSON
-SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 
 # Celery
@@ -416,3 +414,12 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(minutes=5),
     }
 }
+
+# EMAIL ADDRESSES
+# Override in more specific settings files, please.
+DEFAULT_FROM_EMAIL = 'pycon@caktusgroup.com'
+FINANCIAL_AID_EMAIL = 'pycon@caktusgroup.com'
+ORGANIZERS_EMAIL = 'pycon@caktusgroup.com'
+REGISTRATION_EMAIL = 'pycon@caktusgroup.com'
+SPONSORSHIP_EMAIL = 'pycon@caktusgroup.com'
+THEME_CONTACT_EMAIL = 'pycon@caktusgroup.com'

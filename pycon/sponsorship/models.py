@@ -1,5 +1,7 @@
 import datetime
+from django.conf import settings
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -262,7 +264,7 @@ def _send_admin_email(sender, instance, created, **kwargs):
     """
     if created:
         send_email(
-            to=['pycon-sponsors@python.org'],
+            to=[settings.SPONSORSHIP_EMAIL],
             kind='new_sponsor',
             context={
                 'sponsor': instance,

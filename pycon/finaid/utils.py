@@ -59,10 +59,9 @@ def email_address():
     applications should send emails to with questions, etc.
 
     Default is ``pycon-aid@python.org``. Override by setting
-    FINANCIAL_AID['email'].
+    FINANCIAL_AID_EMAIL.
     """
-    return getattr(settings, "FINANCIAL_AID", {})\
-        .get('email', DEFAULT_EMAIL_ADDRESS)
+    return getattr(settings, "FINANCIAL_AID_EMAIL", DEFAULT_EMAIL_ADDRESS)
 
 
 def email_context(request, application, message=None):
