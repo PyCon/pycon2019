@@ -45,7 +45,7 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
     :param boolean check_speaker: If True, omits any proposals for which the
         current user is a speaker.
     """
-    queryset = queryset.select_related('kind', 'result', 'speaker__user')
+    queryset = queryset.select_related('kind', 'result__group', 'speaker__user')
 
     if user_pk is None:
         user_pk = request.user.pk

@@ -5,7 +5,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 
-from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory
+from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory, \
+    ProposalResultFactory
 from symposion.conference.models import Section
 from symposion.conference.tests.factories import SectionFactory
 from symposion.proposals.models import ProposalBase, ProposalKind
@@ -194,7 +195,7 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         )
         # Make a few more talks to inflate the queries if we haven't optimized them properly
         for __ in range(10):
-            PyConTalkProposalFactory()
+            ProposalResultFactory(proposal=PyConTalkProposalFactory())
         tutorial = PyConTutorialProposalFactory(
             title="My tutorial",
             category__name="My tutorial category"
