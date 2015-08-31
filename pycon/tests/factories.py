@@ -9,12 +9,18 @@ import factory.fuzzy
 from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
-    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, \
+    PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, PyConLightningTalkProposal, \
     SpecialEvent
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
-from symposion.reviews.models import ProposalResult
+from symposion.reviews.models import ProposalResult, ProposalGroup
+
+
+def aware_now():
+    """Return the current time as an aware datetime object in the
+    current time zone"""
+    return localtime(datetime.utcnow().replace(tzinfo=utc))
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -27,9 +33,24 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
 
 
+class ProposalGroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ProposalGroup
+
+    review_start = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() - timedelta(days=2),
+                                               end_dt=aware_now() - timedelta(days=1))
+    vote_start = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() - timedelta(days=2),
+                                             end_dt=aware_now() - timedelta(days=1))
+    vote_end = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() + timedelta(days=1),
+                                           end_dt=aware_now() + timedelta(days=2))
+
+
+
 class ProposalResultFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ProposalResult
+
+    group = factory.SubFactory(ProposalGroupFactory)
 
 
 class PyConProposalCategoryFactory(factory.django.DjangoModelFactory):
@@ -75,12 +96,6 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     perceived_value = "perceived_value"
 
 
-def aware_now():
-    """Return the current time as an aware datetime object in the
-    current time zone"""
-    return localtime(datetime.utcnow().replace(tzinfo=utc))
-
-
 class SpecialEventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = SpecialEvent
@@ -98,3 +113,12 @@ class SpecialEventFactory(factory.django.DjangoModelFactory):
 class ThunderdomeGroupFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ThunderdomeGroup
+
+
+class PyConLightningTalkProposalFactory(PyConProposalFactory):
+    class Meta:
+        model = PyConLightningTalkProposal
+
+    kind = factory.SubFactory(ProposalKindFactory,
+                              name="lightning",
+                              slug="lightning")

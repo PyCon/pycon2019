@@ -1,7 +1,9 @@
 import datetime
+from httplib import FORBIDDEN
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import send_mass_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -12,12 +14,13 @@ from django.views.decorators.http import require_POST
 from taggit.utils import edit_string_for_tags
 from django.utils.translation import ugettext as _
 
-from pycon.models import PyConProposal
+from pycon.models import PyConProposal, PyConProposalCategory
 
 from symposion.conf import settings
 from symposion.conference.models import Section
 from symposion.proposals.forms import ProposalTagsForm
-from symposion.proposals.models import ProposalBase
+from symposion.proposals.kinds import get_proposal_model, get_proposal_model_from_section_slug
+from symposion.proposals.models import ProposalBase, AdditionalSpeaker
 from symposion.teams.models import Team
 from symposion.utils.mail import send_email
 
@@ -34,20 +37,47 @@ def access_not_permitted(request):
     return render(request, "reviews/access_not_permitted.html")
 
 
-def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
+def proposals_list(request, queryset, user_pk=None, check_speaker=True):
     """
-    Yields a series of proposal objects filtered from the queryset.  Ensures
+    Returns a list of proposal objects filtered from the queryset.  Ensures
     that each proposal has a result object associated with it.
 
     :param boolean check_speaker: If True, omits any proposals for which the
         current user is a speaker.
     """
+    queryset = queryset.select_related('kind', 'result__group', 'speaker__user')
+
+    if user_pk is None:
+        user_pk = request.user.pk
+
+    if check_speaker:
+        # Exclude the ones where the current user is speaking
+        queryset = queryset.exclude(speaker__user=request.user)
+
+        addl_speaker_proposals = AdditionalSpeaker.objects.filter(
+            speaker__user=request.user,
+            status__in=[AdditionalSpeaker.SPEAKING_STATUS_PENDING, AdditionalSpeaker.SPEAKING_STATUS_ACCEPTED],
+        ).values_list('proposalbase_id', flat=True)
+        queryset = queryset.exclude(pk__in=addl_speaker_proposals)
+
+    latest_votes = {
+        vote.proposal_id: vote
+        for vote in LatestVote.objects.filter(user__pk=user_pk, proposal__in=queryset)
+    }
+
+    category_by_id = {
+        cat.pk: cat
+        for cat in PyConProposalCategory.objects.all()
+    }
+
+    result_list = []
 
     for obj in queryset:
-        # @@@ this sucks; we can do better
-        if check_speaker:
-            if request.user in [s.user for s in obj.speakers()]:
-                continue
+
+        # Force obj to be the most specific type, if it isn't already
+        obj_model = get_proposal_model(obj.kind.slug)
+        if not isinstance(obj, obj_model):
+            obj = getattr(obj, obj_model._meta.model_name.lower())
 
         try:
             obj.result
@@ -60,21 +90,28 @@ def proposals_generator(request, queryset, user_pk=None, check_speaker=True):
         obj.plus_zero = obj.result.plus_zero
         obj.minus_zero = obj.result.minus_zero
         obj.minus_one = obj.result.minus_one
-        lookup_params = dict(proposal=obj)
 
-        if user_pk:
-            lookup_params["user__pk"] = user_pk
+        if obj.pk in latest_votes:
+            obj.user_vote = latest_votes[obj.pk].vote
+            obj.user_vote_css = latest_votes[obj.pk].css_class()
         else:
-            lookup_params["user"] = request.user
-
-        try:
-            obj.user_vote = LatestVote.objects.get(**lookup_params).vote
-            obj.user_vote_css = LatestVote.objects.get(**lookup_params).css_class()
-        except LatestVote.DoesNotExist:
             obj.user_vote = None
             obj.user_vote_css = "no-vote"
 
-        yield obj
+        # We can't do select_related('category') on the initial queryset
+        # because not all models have a category field, so we
+        # stick a reference to a category onto the record IFFI this
+        # model type has a category.
+        try:
+            obj._meta.get_field('category')
+        except FieldDoesNotExist:
+            pass
+        else:
+            if obj.category_id in category_by_id:
+                obj.category = category_by_id[obj.category_id]
+
+        result_list.append(obj)
+    return result_list
 
 
 @login_required
@@ -93,7 +130,8 @@ def review_section(request, section_slug, assigned=False):
     if request.user.has_perm("reviews.can_manage_%s" % section_slug):
         can_manage = True
     section = get_object_or_404(Section, slug=section_slug)
-    queryset = ProposalBase.objects.filter(kind__section=section)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.all()
 
     if request.method == "POST" and can_manage:
         pk_string = request.POST.get('pk', request.POST.get('pks', ''))
@@ -116,9 +154,7 @@ def review_section(request, section_slug, assigned=False):
         assignments = ReviewAssignment.objects.filter(user=request.user).values_list("proposal__id")
         queryset = queryset.filter(id__in=assignments)
 
-    queryset = queryset.select_related("result").select_subclasses()
-
-    proposals = proposals_generator(request, queryset)
+    proposals = proposals_list(request, queryset)
     ctx = {
         "proposals": proposals,
         "section": section,
@@ -139,14 +175,14 @@ def review_list(request, section_slug, user_pk):
         if not request.user.pk == user_pk:
             return access_not_permitted(request)
 
-    queryset = ProposalBase.objects.select_related("speaker__user", "result")
     reviewed = LatestVote.objects.filter(user__pk=user_pk).values_list("proposal", flat=True)
-    queryset = queryset.filter(pk__in=reviewed)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.filter(pk__in=reviewed)
     proposals = queryset.order_by("submitted")
 
     admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
 
-    proposals = proposals_generator(request, proposals, user_pk=user_pk, check_speaker=not admin)
+    proposals = proposals_list(request, proposals, user_pk=user_pk, check_speaker=not admin)
 
     ctx = {
         "proposals": proposals,
@@ -380,7 +416,7 @@ def review_delete(request, pk):
 
 
 @login_required
-def review_status(request, section_slug=None, key=None):
+def review_status(request, section_slug, key=None):
 
     if not request.user.has_perm("reviews.can_review_%s" % section_slug):
         return access_not_permitted(request)
@@ -392,9 +428,8 @@ def review_status(request, section_slug=None, key=None):
         "vote_threshold": VOTE_THRESHOLD,
     }
 
-    queryset = ProposalBase.objects.select_related("speaker__user", "result").select_subclasses()
-    if section_slug:
-        queryset = queryset.filter(kind__section__slug=section_slug)
+    model = get_proposal_model_from_section_slug(section_slug)
+    queryset = model.objects.filter(kind__section__slug=section_slug)
     queryset = queryset.exclude(cancelled=True)
 
     proposals = {
@@ -415,7 +450,7 @@ def review_status(request, section_slug=None, key=None):
     for status in proposals:
         if key and key != status:
             continue
-        proposals[status] = list(proposals_generator(request, proposals[status], check_speaker=not admin))
+        proposals[status] = proposals_list(request, proposals[status], check_speaker=not admin)
 
     if key:
         ctx.update({
@@ -484,7 +519,8 @@ def result_notification(request, section_slug, status):
     if not request.user.has_perm("reviews.can_manage_%s" % section_slug):
         return access_not_permitted(request)
 
-    proposals = ProposalBase.objects.filter(kind__section__slug=section_slug, result__status=status).select_related("speaker__user", "result").select_subclasses()
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(result__status=status).prefetch_related('notifications')
     notification_templates = NotificationTemplate.objects.all()
 
     ctx = {
@@ -510,13 +546,11 @@ def result_notification_prepare(request, section_slug, status):
             proposal_pks.append(int(pk))
     except ValueError:
         return HttpResponseBadRequest()
-    proposals = ProposalBase.objects.filter(
-        kind__section__slug=section_slug,
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(
         result__status=status,
     )
     proposals = proposals.filter(pk__in=proposal_pks)
-    proposals = proposals.select_related("speaker__user", "result")
-    proposals = proposals.select_subclasses()
 
     notification_template_pk = request.POST.get("notification_template", "")
     if notification_template_pk:
@@ -550,13 +584,11 @@ def result_notification_send(request, section_slug, status):
     except ValueError:
         return HttpResponseBadRequest()
 
-    proposals = ProposalBase.objects.filter(
-        kind__section__slug=section_slug,
+    model = get_proposal_model_from_section_slug(section_slug)
+    proposals = model.objects.filter(
         result__status=status,
     )
     proposals = proposals.filter(pk__in=proposal_pks)
-    proposals = proposals.select_related("speaker__user", "result")
-    proposals = proposals.select_subclasses()
 
     notification_template_pk = request.POST.get("notification_template", "")
     if notification_template_pk:

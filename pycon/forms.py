@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from markedit.widgets import MarkEdit
 
+from symposion.proposals.kinds import register_proposal_form
 from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConTutorialProposal, PyConPosterProposal,
                      PyConLightningTalkProposal, PyConSponsorTutorialProposal,
@@ -56,6 +57,9 @@ class PyConTalkProposalForm(PyConProposalForm):
         }
 
 
+register_proposal_form('talk', PyConTalkProposalForm)
+
+
 class PyConLightningTalkProposalForm(PyConProposalForm):
 
     def __init__(self, *args, **kwargs):
@@ -80,6 +84,9 @@ class PyConLightningTalkProposalForm(PyConProposalForm):
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
             "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
+
+
+register_proposal_form('lightning-talk', PyConLightningTalkProposalForm)
 
 
 class PyConTutorialProposalForm(PyConProposalForm):
@@ -115,6 +122,9 @@ class PyConTutorialProposalForm(PyConProposalForm):
         }
 
 
+register_proposal_form('tutorial', PyConTutorialProposalForm)
+
+
 class PyConPosterProposalForm(PyConProposalForm):
 
     class Meta:
@@ -136,6 +146,9 @@ class PyConPosterProposalForm(PyConProposalForm):
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
             "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
         }
+
+
+register_proposal_form('poster', PyConPosterProposalForm)
 
 
 class PyConOpenSpaceProposalForm(PyConProposalForm):
@@ -167,6 +180,9 @@ class PyConOpenSpaceProposalForm(PyConProposalForm):
         return value
 
 
+register_proposal_form('open-space', PyConOpenSpaceProposalForm)
+
+
 class PyConSponsorTutorialForm(PyConProposalForm):
 
     class Meta:
@@ -183,3 +199,6 @@ class PyConSponsorTutorialForm(PyConProposalForm):
             "abstract": MarkEdit(),
             "additional_notes": MarkEdit(attrs={'rows': '3'}),
         }
+
+
+register_proposal_form('sponsor-tutorial', PyConSponsorTutorialForm)

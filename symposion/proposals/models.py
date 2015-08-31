@@ -1,18 +1,16 @@
 import datetime
+import json
 import os
 import uuid
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from django.contrib.auth.models import User
-
-import json
 import reversion
-
 from model_utils.managers import InheritanceManager
 from taggit.managers import TaggableManager
 
@@ -109,19 +107,23 @@ class ProposalBase(models.Model):
     additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
     cancelled = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
+    cached_tags = models.TextField(blank=True, default='', editable=False)
 
     def __unicode__(self):
         return self.title
 
     def can_edit(self):
-        if hasattr(self, "presentation") and self.presentation:
+        if hasattr(self, "presentation") and self.presentation_id:
             return False
         else:
             return True
 
+    def cache_tags(self):
+        self.cached_tags = self.get_tags_display()
+        self.save()
+
     def get_tags_display(self):
-        # No idea why django-taggit doesn't offer this itself
-        return u", ".join(tag.name for tag in self.tags.all())
+        return u", ".join(self.tags.names())
 
     @property
     def section(self):

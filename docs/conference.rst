@@ -35,22 +35,30 @@ overall conference.
 Proposals
 ---------
 
-Create different kinds of proposals, e.g. `talk` or `tutorial`, by creating
-ProposalKind objects. You'll also need to create a Form in the code for
-that kind of proposal, and update the setting ``PROPOSAL_FORMS`` with
-the ProposalKind's ``slug`` as key, and the full package path to the form
-to use as value.  For example::
+Adding a new kind of talk (or tutorial or poster session, etc) requires
+several steps.
 
-    PROPOSAL_FORMS = {
-        "tutorial": "pycon.forms.PyConTutorialProposalForm",
-        "talk": "pycon.forms.PyConTalkProposalForm",
-        "poster": "pycon.forms.PyConPosterProposalForm",
-    }
+First, define a new ProposalKind object and add a new migration to create an
+instance of it if there isn't one already.  The new object must have a unique
+slug, which we'll call the kind_slug.
 
-To allow submitting proposals for a particular Section of the conference,
-create a ProposalSection. The site will allow submitting proposals for that
-Section between the ProposalSection's ``start`` and ``end``, unless
-``closed`` has been set.
+Next, define a new model in pycon/models.py, inheriting from PyConProposal
+or a more specific model, whichever seems appropriate.
+
+After the model, add a call to register the model for that kind_slug::
+
+    register_proposal_model('talk', PyConTalkProposal)
+
+Next, define a new form in pycon/forms.py, again inheriting from whatever
+existing form class seems appropriate. The form needs to be registered
+too::
+
+    register_proposal_form('talk', PyConTalkProposalForm)
+
+To allow submitting proposals of the new type, create a new Section object
+for the conference, and a corresponding ProposalSection object. The site
+will allow submitting proposals for that Section between the ProposalSection's
+``start`` and ``end``, unless ``closed`` has been set.
 
 
 Helper Functions

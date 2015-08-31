@@ -43,7 +43,7 @@
                 </td>
                 <td>{{ proposal.title }}</td>
                 <td>{{ proposal.category }}</td>
-                <td>{{ proposal.get_tags_display }}</td>
+                <td>{{ proposal.cached_tags }}</td>
                 {% if section_slug == "talks" %}
                     <td>{{ proposal.result.group.review_start|date:"M. j H:i T" }}</td>
                 {% endif %}
