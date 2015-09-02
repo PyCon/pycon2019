@@ -5,6 +5,6 @@
     {% csrf_token %}
     <p>{{ message }}</p>
     <button class="btn btn-primary" type="submit">{% trans "Yes" %}</button>
-    <a class="btn btn-default" href="{% url 'dashboard' %}">{% trans "No" %}</a>
+    <a href="{% url 'dashboard' %}"><button class="btn btn-default">{% trans "No" %}</button></a>
   </form>
 {% endblock body %}
