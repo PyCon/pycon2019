@@ -195,6 +195,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: @maroon;
   text-transform: uppercase;
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
 }
 
 h1 { font-size: @baseFontSize * 2; }
@@ -426,7 +427,7 @@ footer {
   }
   img {
     width: 20%;
-    height: 71px;
+    height: 64px;
     top: 0;
     float: left;
     position: relative;
@@ -440,7 +441,7 @@ footer {
     position: initial;
     z-index: 1;
     @media (min-width: @breakDesktop) {
-      min-height: 4.45em;
+      min-height: 4em;
     }
   }
 }
@@ -451,6 +452,9 @@ footer {
   @media (max-width: @breakTablet) {
     padding-right: 20px;
     padding-left: 20px;
+  }
+  @media (min-width: @breakDesktop) {
+    margin-top: 4em;
   }
   .box {
     padding-right: 25px;
@@ -964,6 +968,8 @@ h1 {
 }
 ul.breadcrumb {
   background: transparent;
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   li {
     text-shadow: none;
     a {
@@ -981,9 +987,6 @@ ul.breadcrumb {
 body.home {
   min-width: 100%;
   margin: 0;
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-  }
   .logo-small,
   .page-head {
     display: none;
@@ -1589,6 +1592,12 @@ body.venue {
 /* CMS Pages
 ==================== */
 body.cms-page {
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: capitalize;
+  }
+  h1 {
+    font-size: 2.4em;
+  }
   h2, h3, h4, h5, h6 {
     padding-top: .8em;
     line-height: 1.4em;
@@ -1645,7 +1654,8 @@ body.cms-page {
   }
   .box-content p {
     font-size: @baseFontSize * 1.15;
-    line-height: 1.7em;
+    line-height: 1.85em;
+    margin-bottom: 1.25em;
     @media (min-width: @breakTablet) {
       font-size: @baseFontSize * 1.5;
     }
@@ -2411,7 +2421,7 @@ body {
     margin: 0;
     font-size: 10pt;
   	@media (min-width: @breakDesktop) {
-      padding: 1.4em 0;
+      padding: 1.2em 0;
       font-size: initial;
   	}
   }
