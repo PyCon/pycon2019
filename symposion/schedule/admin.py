@@ -110,7 +110,7 @@ class PresentationAdmin(admin.ModelAdmin):
     # When a presentation is saved in the admin we send an email to the staff
     def save_model(self, request, obj, form, change):
         # First, save the object
-        obj.save()
+        super(PresentationAdmin, self).save_model(request, obj, form, change)
         # Next, send an email to python staff
         now = datetime.datetime.now()
         send_email(
