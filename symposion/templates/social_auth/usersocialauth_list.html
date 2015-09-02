@@ -7,7 +7,7 @@
   <h1 class="account-heading">{% trans "Associations" %}</h1>
 
   <div class="row">
-    <div class="span10">
+    <div class="span9">
       <table class="table table-striped">
         {% for object in object_list %}
           <tr>
@@ -24,29 +24,11 @@
     </div>
   </div>
 
+  <h2>{% trans "Associate another account" %}</h2>
   <div class="row">
-    <div class="span6">
-      <form action="{% url "socialauth_begin" "openid" %}?next={{ request.path }}" method="POST" autocapitalize="off" class="form-horizontal">
-        <legend>Associate an OpenID</legend>
+    <div class="span9">
 
-        {% csrf_token %}
-
-        <div class="control-group">
-          <label class="control-label" for="openid_url">OpenID Identifier</label>
-          <div class="controls">
-            <input class="openid" type="text" name="openid_identifier" />
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <input type="submit" value="Sign in with OpenID" class="btn btn-primary" />
-        </div>
-      </form>
-    </div>
-
-    <div class="span4">
-      <h4>{% trans "Sign in with another account:" %}</h4>
-      <ul class="unstyled">
+      <ul class="unstyled signin-list">
           <li>
               <a href="{% url "socialauth_begin" "google-oauth2" %}?next={{ request.path }}">Sign-in using Google</a>
           </li>
@@ -54,6 +36,13 @@
               <a href="{% url "socialauth_begin" "yahoo" %}?next={{ request.path }}">Sign-in using Yahoo!</a>
           </li>
       </ul>
+      <form action="{% url "socialauth_begin" "openid" %}?next={{ request.path }}" method="POST" autocapitalize="off" class="form-inline">
+        <p>{% trans "Sign-in using OpenID" %}</p>
+
+        {% csrf_token %}
+        <input class="openid" type="text" name="openid_identifier" placeholder="Your OpenID Identifier"/>
+        <input type="submit" value="Sign in" class="btn btn-primary" />
+      </form>
     </div>
   </div>
 {% endblock %}
