@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from ..models import FinancialAidApplication, FinancialAidMessage
+from ..models import FinancialAidApplication, FinancialAidMessage, PYTHON_EXPERIENCE_BEGINNER
 from pycon.finaid.forms import FinancialAidApplicationForm, ReviewerMessageForm
 
 
@@ -19,7 +19,7 @@ class FinancialAidTest(TestCase):
         self.assertFalse(form.is_valid())
         data = dict(
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
             use_of_python="fun",
             presenting=1,
@@ -40,7 +40,7 @@ class FinancialAidTest(TestCase):
         application = FinancialAidApplication.objects.create(
             user=user,
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
             use_of_python="fun",
             presenting=1,

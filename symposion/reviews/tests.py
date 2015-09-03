@@ -1,19 +1,15 @@
 from httplib import OK
 from unittest import SkipTest
 
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 
 from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory, \
     ProposalResultFactory
-from symposion.conference.models import Section
-from symposion.conference.tests.factories import SectionFactory
 from symposion.proposals.models import ProposalBase, ProposalKind
-from symposion.proposals.tests.factories import ProposalBaseFactory, ProposalKindFactory, \
-    ProposalSectionFactory
 from symposion.reviews.models import Review, ReviewAssignment
-from symposion.teams.models import Team
 
 
 class login(object):
@@ -183,7 +179,6 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
     fixtures = [
         'conference.json',
         'proposal_base.json',
-        'permissions.json',
     ]
 
     def test_review_section(self):
@@ -209,7 +204,9 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         kind = ProposalKind.objects.get(slug='talk')
         section = kind.section
         url = reverse('review_section', kwargs={'section_slug': section.slug})
-        perm = Permission.objects.get(codename="can_review_%s" % section.slug)
+        ct = ContentType.objects.get_for_model(Review)
+        perm, __ = Permission.objects.get_or_create(codename="can_review_%s" % section.slug,
+                                                    content_type=ct)
         self.user.user_permissions.add(perm)
 
         # Run it once to force creation of result objects
@@ -228,7 +225,8 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         # Now make sure the tutorial section has tutorial data but not talk.
         kind2 = ProposalKind.objects.get(slug='tutorial')
         section = kind2.section
-        perm = Permission.objects.get(codename="can_review_%s" % section.slug)
+        perm, __ = Permission.objects.get_or_create(codename="can_review_%s" % section.slug,
+                                                    content_type=ct)
         self.user.user_permissions.add(perm)
         url = reverse('review_section', kwargs={'section_slug': section.slug})
         rsp = self.client.get(url)

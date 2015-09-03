@@ -47,6 +47,15 @@ PAYMENT_CHOICES = (
     (PAYMENT_CHECK, _(u"Check")),
 )
 
+PYTHON_EXPERIENCE_BEGINNER = "Beginner"
+PYTHON_EXPERIENCE_INTERMEDIATE = "Intermediate"
+PYTHON_EXPERIENCE_EXPERT = "Expert"
+PYTHON_EXPERIENCE_CHOICES = (
+    (PYTHON_EXPERIENCE_BEGINNER, _("Beginner")),
+    (PYTHON_EXPERIENCE_INTERMEDIATE, _("Intermediate")),
+    (PYTHON_EXPERIENCE_EXPERT, _("Expert")),
+)
+
 
 class FinancialAidApplication(models.Model):
     # The primary key ('id') is used as application number
@@ -104,6 +113,7 @@ class FinancialAidApplication(models.Model):
     experience_level = models.CharField(
         verbose_name=_("Python experience level"),
         help_text=_("What is your experience level with Python?"),
+        choices=PYTHON_EXPERIENCE_CHOICES,
         max_length=200)
     first_time = models.BooleanField(
         default=True,

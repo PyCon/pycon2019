@@ -36,10 +36,6 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
-            'experience_level': Textarea(
-                attrs={'cols': 80, 'rows': 2,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 200}),
         }
 
 
