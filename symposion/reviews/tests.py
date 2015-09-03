@@ -1,11 +1,19 @@
+from httplib import OK
 from unittest import SkipTest
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.contrib.auth.models import User, Group, Permission
 
-from django.contrib.auth.models import User, Group
-
-from symposion.proposals.models import ProposalBase
+from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory, \
+    ProposalResultFactory
+from symposion.conference.models import Section
+from symposion.conference.tests.factories import SectionFactory
+from symposion.proposals.models import ProposalBase, ProposalKind
+from symposion.proposals.tests.factories import ProposalBaseFactory, ProposalKindFactory, \
+    ProposalSectionFactory
 from symposion.reviews.models import Review, ReviewAssignment
+from symposion.teams.models import Team
 
 
 class login(object):
@@ -22,6 +30,29 @@ class login(object):
 
     def __exit__(self, *args):
         self.testcase.client.logout()
+
+
+class ReviewTestMixin(object):
+    def create_user(self, username="joe",
+                    email=None,
+                    password="snoopy",
+                    first_name="Joe",
+                    last_name="Smith"
+                    ):
+        if email is None:
+            email = "%s@example.com" % username
+        return User.objects.create_user(username,
+                                        email=email,
+                                        password=password,
+                                        first_name=first_name,
+                                        last_name=last_name)
+
+    def login(self, username="joe@example.com", password="snoopy"):
+        # The auth backend that pycon is using is kind of gross. It expects
+        # username to contain the email address.
+        self.assertTrue(self.client.login(username=username,
+                                          password=password),
+                        "Login failed")
 
 
 class ReviewTests(TestCase):
@@ -146,3 +177,63 @@ class ReviewTests(TestCase):
             response = self.get("review_comment", pk=guidos_proposal.pk)
             # Matz can't comment.
             self.assertEqual(response.status_code, 302)
+
+
+class ReviewPageTest(ReviewTestMixin, TestCase):
+    fixtures = [
+        'conference.json',
+        'proposal_base.json',
+        'permissions.json',
+    ]
+
+    def test_review_section(self):
+
+        talk = PyConTalkProposalFactory(
+            title="My talk",
+            description="Description of the talk",
+            category__name="My talk category"
+        )
+        # Make a few more talks to inflate the queries if we haven't optimized them properly
+        for __ in range(10):
+            ProposalResultFactory(proposal=PyConTalkProposalFactory())
+        tutorial = PyConTutorialProposalFactory(
+            title="My tutorial",
+            category__name="My tutorial category"
+        )
+
+        self.user = self.create_user()
+        self.login()
+
+        # If we go to the talk section, we only see talk data (not
+        # tutorial data).
+        kind = ProposalKind.objects.get(slug='talk')
+        section = kind.section
+        url = reverse('review_section', kwargs={'section_slug': section.slug})
+        perm = Permission.objects.get(codename="can_review_%s" % section.slug)
+        self.user.user_permissions.add(perm)
+
+        # Run it once to force creation of result objects
+        rsp = self.client.get(url)
+        self.assertEqual(OK, rsp.status_code)
+
+        # Now run it for the test, making sure we don't need more queries than reasonable
+        with self.assertNumQueries(16):
+            rsp = self.client.get(url)
+        self.assertEqual(OK, rsp.status_code)
+        self.assertContains(rsp, talk.title)
+        self.assertContains(rsp, "My talk category")
+        self.assertNotContains(rsp, tutorial.title)
+        self.assertNotContains(rsp, "My tutorial category")
+
+        # Now make sure the tutorial section has tutorial data but not talk.
+        kind2 = ProposalKind.objects.get(slug='tutorial')
+        section = kind2.section
+        perm = Permission.objects.get(codename="can_review_%s" % section.slug)
+        self.user.user_permissions.add(perm)
+        url = reverse('review_section', kwargs={'section_slug': section.slug})
+        rsp = self.client.get(url)
+        self.assertEqual(OK, rsp.status_code)
+        self.assertNotContains(rsp, talk.title)
+        self.assertNotContains(rsp, "My talk category")
+        self.assertContains(rsp, tutorial.title)
+        self.assertContains(rsp, "My tutorial category")

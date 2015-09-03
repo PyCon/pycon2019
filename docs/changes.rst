@@ -9,6 +9,49 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.7
+--------------
+
+Thursday, September 3, 2015
+
+* Fix grammar in fixture that creates volunteers team (#522)
+* CMS page fixes (#506, #519):
+
+    Nav
+    * [x] Just above 980px the logo is needs to be centered in between the edge of the screen and the navigation. It is currently to close to the nav.
+    * [x] The “you are here” underline in the mockup nav bar (a) is tightly attached beneath its word, (b) does not stick out from under its word in either direction, and (c) is several pixels high to give it weight and to visually match the stroke width of the nice and weighty font. The line is too far beneath the word, and sticks out awkwardly to the right. It should be made to match the mockup if possible.
+
+    Breadcrumbs
+    * [x] The green breadcrumb container needs to be shorter and match the mockup i.e. less space above and below the breadcrumb text.
+    * [x] Use Roboto Condensed Bold for the breadcrumb font.
+
+* Nav and account bar fixes (#504, #507):
+
+    * [x] Align the bottom of the main nav links with the bottom of the copy in the account buttons.
+    * [x] Make account bar links Title case.
+    * [x] Change main nav font family from Open Sans to Roboto Condensed.
+
+* Home page design updates (#505, #514):
+
+    Motto:
+    * [x] The top and bottom rules should be 80% of the width of the text.
+    * [x] Need more space between the top and bottom rules and the motto text.
+    * [x] The font size should be larger, and the line height should be shorter.
+
+    City Skyline:
+    * [x] Double check that the color of the city image and the tan background of the main content section are exactly the same color they are currently slightly different and that must be corrected.
+
+* Display social login links (#441)
+** On login page
+** On settings/associations page
+* Fix styling on finaid confirm buttons (#517, #518)
+* Speed up review pages (lists of proposals for review) (#469)
+* Fix rendering of proposal table on review pages to be beside
+  the sidebar (#482, #515)
+* Move all email addresses to settings from code (#502)
+* Registration banner (#477, #478)
+** The register now banner on the home page needs to be wider to accommodate more copy in the link.
+
 Version 2016.6
 --------------
 

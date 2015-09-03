@@ -16,7 +16,6 @@ from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData, \
     STATUS_INFO_NEEDED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, STATUS_WITHDRAWN, \
     STATUS_NEED_MORE
-from pycon.finaid.utils import email_address
 from .utils import TestMixin, create_application, ReviewTestMixin
 
 from symposion.conference.models import Conference
@@ -104,10 +103,10 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         #       (msg.from_email, ", ".join(msg.recipients()),
         #        msg.subject, msg.body))
         self.assertIn(app.user.email, msg.recipients())
-        self.assertEqual(email_address(), msg.from_email)
+        self.assertEqual(settings.FINANCIAL_AID_EMAIL, msg.from_email)
         self.assertIn("received", msg.body)
         msg = mail.outbox[1]
-        self.assertIn(email_address(), msg.recipients())
+        self.assertIn(settings.FINANCIAL_AID_EMAIL, msg.recipients())
         self.assertEqual(app.user.email, msg.from_email)
         self.assertIn("submitted", msg.body)
 
@@ -156,12 +155,12 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         self.assertEqual(2, len(mail.outbox))
         msg = mail.outbox[0]
         self.assertIn("edited", msg.body)
-        self.assertIn(email_address(), msg.from_email)
+        self.assertIn(settings.FINANCIAL_AID_EMAIL, msg.from_email)
         self.assertIn(app.user.email, msg.recipients())
         self.assertIn(app.fa_app_url(), msg.body)
         msg = mail.outbox[1]
         self.assertIn("edited", msg.body)
-        self.assertIn(email_address(), msg.recipients())
+        self.assertIn(settings.FINANCIAL_AID_EMAIL, msg.recipients())
         self.assertIn(app.user.email, msg.from_email)
         self.assertIn(app.fa_app_url(), msg.body)
         # And a message was displayed
@@ -267,7 +266,7 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         rsp = self.client.post(self.url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
         # we tried to send the right emails
-        expected_msgs = [(subject, template_text, email_address(),
+        expected_msgs = [(subject, template_text, settings.FINANCIAL_AID_EMAIL,
                           [self.user.email])]
         mock_send_mass_mail.assert_called_with(expected_msgs)
         # the template was rendered with a good context
@@ -424,7 +423,6 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
         self.assertEqual("Information needed", app['status'])
         self.assertEqual(self.user.email, app['email'])
 
-
     def test_two_applications(self):
         # A couple users and applications, without review data
         user1 = self.create_user("bob", "bob@example.com", "snoopy")
@@ -490,14 +488,14 @@ class TestFinaidDashboardButtons(TestCase, TestMixin):
 
     def test_applications_not_open_with_application(self):
         self.period.delete()
-        application = create_application(user=self.user, save=True)
+        create_application(user=self.user, save=True)
         self.assert_buttons(['finaid_edit', 'finaid_status', 'finaid_withdraw'])
 
     def test_not_applied(self):
         self.assert_buttons(['finaid_apply'])
 
     def test_just_submitted(self):
-        application = create_application(user=self.user, save=True)
+        create_application(user=self.user, save=True)
         self.assert_buttons(['finaid_edit', 'finaid_status', 'finaid_withdraw'])
 
     def test_offered(self):

@@ -14,7 +14,7 @@
     <div class="container">
         <div class="span12">
             <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                <legend>{% trans "Create a new account" %}</legend>
+                <legend><h1>{% trans "Create a new account" %}</h1></legend>
                 <fieldset>
                     {% csrf_token %}
                     {{ form|as_bootstrap }}

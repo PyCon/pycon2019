@@ -21,16 +21,28 @@
             <div class="full landing-banner">
               <div class="container">
                 <div itemprop="summary" class="logo"></div>
-                <div class="span3 by-the-com hide-tablet-down"><p>By the python<br>community</p></div>
-                <div class="span6"><img src="{{ STATIC_URL }}img/PNG/PyCon16-logo.png" width=460 height=285 alt="PyCon 2016 logo"></image></div>
-                <div class="span3 for-the-com hide-tablet-down"><p>For the python<br>community</p></div>
-                <div class="span3 by-for-the-com hide-tablet-up"><p>By the python community<br>For the python community</p></div>
+                <div class="span3 by-the-com hide-tablet-down">
+                  <div class="rule"></div>
+                  <p>By the python<br>community</p>
+                  <div class="rule"></div>
+                </div>
+                <div class="span6"><img src="{{ STATIC_URL }}img/SVG/PyCon16-logo.svg" width=460 height=285 alt="PyCon 2016 logo"></image></div>
+                <div class="span3 for-the-com hide-tablet-down">
+                  <div class="rule"></div>
+                  <p>For the python<br>community</p>
+                  <div class="rule"></div>
+                </div>
+                <div class="span3 by-for-the-com hide-tablet-up">
+                  <div class="rule"></div>
+                  <p>By the python community<br>For the python community</p>
+                  <div class="rule"></div>
+                </div>
               </div>
             </div>
           </div>
           <div class="row landing-hills">
             <div class="hills">
-              <img src="{{ STATIC_URL }}img/PNG/landing-hills.png" width=460 height=180 alt="evergreen tree covered hill illustration">
+              <img class="skyline" src="{{ STATIC_URL }}img/SVG/landing-hills.svg" src="{{ STATIC_URL }}img/PNG/landing-hills.png" width=100% height=auto alt="Evergreen tree covered hills illustration">
             </div>
           </div>
   {# About #}
@@ -43,14 +55,14 @@
             </div>
           </div>
           <div class="city">
-            <img class="skyline" src="{{ STATIC_URL }}img/PNG/skyline.png" width=460 height=180 alt="evergreen tree covered hill illustration">
+            <img class="skyline" src="{{ STATIC_URL }}img/SVG/Skyline.svg" src="{{ STATIC_URL }}img/PNG/skyline.png" width=100% height=auto alt="city of Portland, OR city skyline illustration">
           </div>
   {# Schedule Overview #}
           <div class="row">
             <div class="schedule-overview full">
               <div class="container">
                 <div class="schedule third">
-                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/tutorials-icon.png" width=130 height=130 alt="Tutorials icon">
+                  <img class="schedule-icon" xlink:href="{{ STATIC_URL }}img/SVG/tutorials-icon.svg" src="{{ STATIC_URL }}img/PNG/tutorials-icon.png" width=130 height=130 alt="Tutorials icon">
                   <h3>{% trans "Tutorials" %}<span class="dates"> May 28&ndash;29</span></h3>
                   <p>PyCon 2015 is proud to once again offer a stellar array
                     of tutorials prior to PyCon 2015's main conference days!
@@ -58,13 +70,13 @@
                     Pythonistas and instructors.</p>
                 </div>
                 <div class="schedule third">
-                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/conference-icon.png" width=130 height=130 alt="Conference icon">
+                  <img class="schedule-icon" xlink:href="{{ STATIC_URL }}img/SVG/conference-icon.svg" src="{{ STATIC_URL }}img/PNG/conference-icon.png" width=130 height=130 alt="Conference icon">
                   <h3>{% trans "Conference" %}<span class="dates"> May 30&ndash;June 1</h3>
                   <p>PyCon is the largest annual gathering for the community
                     using and developing the open-source Python programming language.</p>
                 </div>
                 <div class="schedule third">
-                  <img class="schedule-icon" src="{{ STATIC_URL }}img/PNG/Sprints-Icon.png" width=130 height=130 alt="Sprints icon">
+                  <img class="schedule-icon" xlink:href="{{ STATIC_URL }}img/SVG/Sprints-Icon.svg" src="{{ STATIC_URL }}img/PNG/Sprints-Icon.png" width=130 height=130 alt="Sprints icon">
                   <h3>{% trans "Sprints" %}<span class="dates"> Starting June 2</span></h3>
                   <p>Development sprints are a key part of PyCon, and a chance
                     for the contributors to open-source projects to get together
@@ -103,13 +115,13 @@
             <div class="half pycon-past">
               <h2 class="scroll-title">{% trans "A look at past PyCons" %}</h2>
               <!-- Past PyCon Carousel -->
-              <div class="gallery js-flickity"
-              data-flickity-options='{ "wrapAround": true, "contain": true }'>
-                <img src="{{ STATIC_URL }}img/landing-slideshow/2015-escalator.jpg" alt="interior of Palais des congrès de Montréal" />
-                <img src="{{ STATIC_URL }}img/landing-slideshow/2014-speaker.jpg" alt="speaker at PyCon 2014" />
-                <img src="{{ STATIC_URL }}img/landing-slideshow/2014-conference-hall.jpg" alt="2014 conference hall" />
-                <img src="{{ STATIC_URL }}img/landing-slideshow/2012-speaker.jpg" alt="speaker at PyCon 2012" />
-                <img src="{{ STATIC_URL }}img/landing-slideshow/psf-booth.jpg" alt="Python software foundation booth" />
+              <div class="js-flickity main-gallery"
+              data-flickity-options='{ "contain": true, "wrapAround": true }'>
+                <img src="{{ STATIC_URL }}img/landing-slideshow/Small/2015-escalator-sm.jpg" alt="interior of Palais des congrès de Montréal" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/Small/2014-speaker-sm.jpg" alt="speaker at PyCon 2014" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/Small/2014-conference-hall-sm.jpg" alt="2014 conference hall" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/Small/2012-speaker-sm.jpg" alt="speaker at PyCon 2012" />
+                <img src="{{ STATIC_URL }}img/landing-slideshow/Small/psf-booth-sm.jpg" alt="Python software foundation booth" />
               </div>
             </div>
     {# Announcements #}

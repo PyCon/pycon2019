@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+
+from symposion.proposals.kinds import register_proposal_model
 from symposion.proposals.models import ProposalBase
 
 
@@ -41,7 +43,7 @@ class ThunderdomeGroup(models.Model):
 
 
 class PyConProposal(ProposalBase):
-
+    # ABSTRACT MODEL
     AUDIENCE_LEVEL_NOVICE = 1
     AUDIENCE_LEVEL_EXPERIENCED = 2
     AUDIENCE_LEVEL_INTERMEDIATE = 3
@@ -173,10 +175,16 @@ class PyConTalkProposal(PyConProposal):
         return answer
 
 
+register_proposal_model('talk', PyConTalkProposal)
+
+
 class PyConLightningTalkProposal(PyConProposal):
 
     class Meta:
         verbose_name = "PyCon lightning talk proposal"
+
+
+register_proposal_model('lightning-talk', PyConLightningTalkProposal)
 
 
 class PyConTutorialProposal(PyConProposal):
@@ -241,9 +249,15 @@ class PyConTutorialProposal(PyConProposal):
         verbose_name = "PyCon tutorial proposal"
 
 
+register_proposal_model('tutorial', PyConTutorialProposal)
+
+
 class PyConPosterProposal(PyConProposal):
     class Meta:
         verbose_name = "PyCon Poster proposal"
+
+
+register_proposal_model('poster', PyConPosterProposal)
 
 
 class PyConSponsorTutorialProposal(ProposalBase):
@@ -254,9 +268,15 @@ class PyConSponsorTutorialProposal(ProposalBase):
         return self.title
 
 
+register_proposal_model('sponsor-tutorial', PyConSponsorTutorialProposal)
+
+
 class PyConOpenSpaceProposal(PyConProposal):
     class Meta:
         verbose_name = "PyCon Open Space proposal"
+
+
+register_proposal_model('open-space', PyConOpenSpaceProposal)
 
 
 class SpecialEvent(models.Model):
