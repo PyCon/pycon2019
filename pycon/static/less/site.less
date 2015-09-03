@@ -195,6 +195,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: @maroon;
   text-transform: uppercase;
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
 }
 
 h1 { font-size: @baseFontSize * 2; }
@@ -416,7 +417,7 @@ footer {
   width: 100%;
   overflow: auto;
   @media (min-width: @breakDesktop) {
-    margin-top: 2em;
+    margin-top: 1.2em;
   }
   @media (max-width: @breakTablet) {
     .container {
@@ -426,7 +427,7 @@ footer {
   }
   img {
     width: 20%;
-    height: 71px;
+    height: 64px;
     top: 0;
     float: left;
     position: relative;
@@ -440,7 +441,7 @@ footer {
     position: initial;
     z-index: 1;
     @media (min-width: @breakDesktop) {
-      min-height: 4.45em;
+      min-height: 4em;
     }
   }
 }
@@ -451,6 +452,9 @@ footer {
   @media (max-width: @breakTablet) {
     padding-right: 20px;
     padding-left: 20px;
+  }
+  @media (min-width: @breakDesktop) {
+    margin-top: 4em;
   }
   .box {
     padding-right: 25px;
@@ -511,6 +515,10 @@ aside.list {
 
 .text-center {
     text-align: center;
+}
+
+.signin-list li {
+  padding: 0.5em 0;
 }
 
 /* Buttons
@@ -625,7 +633,7 @@ div.DTTT.btn-group {
 /* Navigation
 ==================== */
 header.main {
-  padding: 1em 0 0;
+  padding: 0;
   position: relative;
   width: 100%;
   box-shadow: none;
@@ -640,12 +648,13 @@ header.main {
     @media (max-width: @breakDesktop) {
       display: inline-block;
       width: 120px;
-      height: 75px;
+      height: 6.5em;
       background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
+      background-position-y: 1em;
       text-indent: -9999px;
       display: block;
       background-size: 120px auto;
-      margin: 0 0 1em 1.5em;
+      margin-left: 1em;
       border-bottom: none;
     }
   }
@@ -658,25 +667,23 @@ header.main {
   nav {
     background: @blueSky;
     @media (min-width: @breakDesktop) {
-      margin-top: 1em;
+      margin-top: 1.5em;
       padding-left: 20%;
+      font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
     }
     a.logo-small {
       position:absolute;
       top: 5px;
       left: 0;
-      width: 120px;
-      height: 75px;
+      width: 110px;
+      height: 70px;
       background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
-      background-size: 120px auto;
+      background-size: 110px auto;
       text-indent: -9999px;
       border-bottom: none;
       @media (min-width: @breakDesktop) {
         top: 15px;
         left: 5%;
-        width :140px;
-        height: 85px;
-        background-size: 140px auto;
       }
       @media (max-width: @breakDesktop) {
           display: none;
@@ -756,7 +763,7 @@ header.main {
         margin: 0;
         li {
            a {
-            font-size: @baseFontSize + 1;
+            font-size: @baseFontSize + 3;
             font-weight:400;
             margin: 0 0 0 0 !important;
             padding: .5em .5em .5em 0;
@@ -770,13 +777,13 @@ header.main {
             }
             &:hover {
               color: @maroon;
-              border-bottom: 1px solid @maroon;
+              border-bottom: 2px solid @maroon;
               .transition(0.35s);
               &:focus {
               }
             }
             &:active {
-              border-bottom: 1px solid @maroon;
+              border-bottom: 2px solid @maroon;
             }
             &:focus {
               .caret {
@@ -809,7 +816,7 @@ header.main {
         li.dropdown.active {
           a {
             color: @maroon;
-            border-bottom: 1px solid @maroon;
+            border-bottom: 2px solid @maroon;
           }
           .caret {
             border-top-color: @maroon;
@@ -880,14 +887,14 @@ header.main {
   }
   .account-bar {
     float: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
     position: relative;
     background-color: white;
     @media (min-width: @breakDesktop) {
       margin: 0;
       float: right;
       position: absolute;
-      top: -2em;
+      top: -1.5em;
       right: 0;
       background-color: transparent;
       padding: 0;
@@ -910,7 +917,7 @@ header.main {
         &.login,
         &.logout,
         &.signup {
-          padding: 1em !important;
+          padding: 1.75em 1.5em !important;
           height: 100%;
           border-radius: 0;
           background-color: @red;
@@ -919,6 +926,7 @@ header.main {
           display: block;
           position: relative;
           text-align: left;
+          text-transform: capitalize;
           &:hover {
             background-color: @maroon;
           }
@@ -933,9 +941,12 @@ header.main {
       right: 0;
       border-bottom: 1px solid @maroon;
       @media (min-width: @breakDesktop) {
-        right: -5px;
+        right: -4px;
         border-right: 2px solid @maroon;
         border-bottom-color: @red;
+        &:hover {
+          border-bottom-color: @maroon;
+        }
       }
     }
 
@@ -964,6 +975,8 @@ h1 {
 }
 ul.breadcrumb {
   background: transparent;
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   li {
     text-shadow: none;
     a {
@@ -981,9 +994,6 @@ ul.breadcrumb {
 body.home {
   min-width: 100%;
   margin: 0;
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-  }
   .logo-small,
   .page-head {
     display: none;
@@ -1035,7 +1045,7 @@ body.home {
     .for-the-com,
     .by-for-the-com {
       float: left;
-      margin-top: 11.5em;
+      margin-top: 9.5em;
       font-family: 'roboto condensed', sans-serif;
       font-weight: 700;
       p {
@@ -1044,9 +1054,12 @@ body.home {
         margin: 0 auto;
         text-align: center;
         text-transform: uppercase;
-        font-size: @baseFontSize * 1.5;
-        border-top: 1px solid @greenDark;
-        border-bottom: 1px solid @greenDark;
+        font-weight: 400;
+      }
+      .rule {
+        width: 45%;
+        margin: 1em auto;
+        border-top: 2px solid @greenDark;
       }
     }
     @media (min-width: @breakDesktop) {
@@ -1054,16 +1067,18 @@ body.home {
 	    .for-the-com {
 	      float: left;
 	      font-family: 'roboto condensed', sans-serif;
+        margin-top: 9em;
 	      p {
 	        display: table;
 	        margin: 0 auto;
+          font-size: @baseFontSize * 2;
 	      }
 	    }
     }
     @media (min-width: @breakDesktopLarge) {
       .by-the-com,
 	    .for-the-com {
-        margin-top: 12.5em;
+        margin-top: 10.85em;
       }
     }
     .by-the-com {
@@ -1073,7 +1088,7 @@ body.home {
       float: right;
     }
     .by-for-the-com {
-      margin-top: 1em;
+      margin-top: 0;
       margin-bottom: 3em;
       p {
         font-size: @baseFontSize * 1.5;
@@ -1158,11 +1173,14 @@ body.home {
 
   .register {
     margin-bottom: 3em;
+    .full { padding: 10px; }
     .register-banner {
       background: url("/2016/site_media/static/img/PNG/Register-Banner.png") center center no-repeat;
-      background-size: 100% 100%;
+      background: url("/2016/site_media/static/img/SVG/Register-Banner.svg") center center no-repeat;
       width: 100%;
-      margin: 1em auto;
+      height: auto;
+      background-size: cover;
+      margin: 1.25em auto 1em;
       text-align: center;
       padding: 1.5em 0;
       font-size: @baseFontSize * .75;
@@ -1177,6 +1195,7 @@ body.home {
       }
       .promo {
         @media (max-width: @breakDesktop) {
+          margin-top: .75em;
           &.no-link {
             top: 20px;
           }
@@ -1233,8 +1252,8 @@ body.home {
         right: 3%;
         @media (min-width:@breakMobileLandscape ) {
           height: 370px;
-          width: 98%;
-          right: 1%;
+          width: 94%;
+          right: 3%;
         }
         @media (min-width:@breakDesktop ) {
           width: 49%;
@@ -1589,6 +1608,12 @@ body.venue {
 /* CMS Pages
 ==================== */
 body.cms-page {
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: capitalize;
+  }
+  h1 {
+    font-size: 2.4em;
+  }
   h2, h3, h4, h5, h6 {
     padding-top: .8em;
     line-height: 1.4em;
@@ -1645,7 +1670,8 @@ body.cms-page {
   }
   .box-content p {
     font-size: @baseFontSize * 1.15;
-    line-height: 1.7em;
+    line-height: 1.85em;
+    margin-bottom: 1.25em;
     @media (min-width: @breakTablet) {
       font-size: @baseFontSize * 1.5;
     }
@@ -1814,8 +1840,12 @@ body.signup, body.login {
   }
   .page-content {
     margin-top: 0;
+    .box-content {
+      padding-right: 25px;
+      border-right: 1px solid #eeeeee;
+    }
     @media (max-width: @breakTablet) {
-      .box {
+      .box-content {
         border: none;
       }
     }
@@ -2321,6 +2351,9 @@ body#group-registration {
     width: 50px !important;
     position: absolute;
     top: 27%;
+    @media (min-width: @breakMobileLandscape) {
+        top: 34%;
+    }
   }
   .next {
     right: .25em;
@@ -2383,6 +2416,7 @@ body#group-registration {
 			top: 34%;
 		}
 	}
+
 } /* End Flickity */
 
 body {
@@ -2411,7 +2445,7 @@ body {
     margin: 0;
     font-size: 10pt;
   	@media (min-width: @breakDesktop) {
-      padding: 1.4em 0;
+      padding: 1.2em 0;
       font-size: initial;
   	}
   }

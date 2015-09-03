@@ -1,6 +1,6 @@
 import factory
 from symposion.conference.tests.factories import SectionFactory
-from symposion.proposals.models import ProposalKind, ProposalBase
+from symposion.proposals.models import ProposalKind, ProposalBase, ProposalSection
 from symposion.speakers.tests.factories import SpeakerFactory
 
 
@@ -15,6 +15,10 @@ class ProposalKindFactory(factory.DjangoModelFactory):
 class ProposalBaseFactory(factory.DjangoModelFactory):
     class Meta:
         model = ProposalBase
-        abstract = True
 
     speaker = factory.SubFactory(SpeakerFactory)
+
+
+class ProposalSectionFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = ProposalSection

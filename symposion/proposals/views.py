@@ -1,6 +1,5 @@
 import hashlib
 import random
-import sys
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,19 +13,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from account.models import EmailAddress
+from symposion.proposals.kinds import get_proposal_form
 from symposion.proposals.models import ProposalBase, ProposalSection, ProposalKind
 from symposion.proposals.models import SupportingDocument, AdditionalSpeaker
 from symposion.speakers.models import Speaker
 from symposion.utils.mail import send_email
 
 from symposion.proposals.forms import AddSpeakerForm, SupportingDocumentCreateForm
-
-
-def get_form(name):
-    dot = name.rindex('.')
-    mod_name, form_name = name[:dot], name[dot + 1:]
-    __import__(mod_name)
-    return getattr(sys.modules[mod_name], form_name)
 
 
 def proposal_submit(request):
@@ -63,7 +56,7 @@ def proposal_submit_kind(request, kind_slug):
     if not kind.section.proposalsection.is_available():
         return redirect("proposal_submit")
 
-    form_class = get_form(settings.PROPOSAL_FORMS[kind_slug])
+    form_class = get_proposal_form(kind_slug)
 
     if request.method == "POST":
         form = form_class(request.POST, request.FILES)
@@ -189,7 +182,7 @@ def proposal_edit(request, pk):
         }
         return render(request, "proposals/proposal_error.html", ctx)
 
-    form_class = get_form(settings.PROPOSAL_FORMS[proposal.kind.slug])
+    form_class = get_proposal_form(proposal.kind.slug)
 
     if request.method == "POST":
         form = form_class(request.POST, request.FILES, instance=proposal)
