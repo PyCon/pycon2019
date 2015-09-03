@@ -56,7 +56,8 @@ def proposals_list(request, queryset, user_pk=None, check_speaker=True):
 
         addl_speaker_proposals = AdditionalSpeaker.objects.filter(
             speaker__user=request.user,
-            status__in=[AdditionalSpeaker.SPEAKING_STATUS_PENDING, AdditionalSpeaker.SPEAKING_STATUS_ACCEPTED],
+            status__in=[AdditionalSpeaker.SPEAKING_STATUS_PENDING,
+                        AdditionalSpeaker.SPEAKING_STATUS_ACCEPTED],
         ).values_list('proposalbase_id', flat=True)
         queryset = queryset.exclude(pk__in=addl_speaker_proposals)
 
@@ -136,7 +137,7 @@ def review_section(request, section_slug, assigned=False):
     if request.method == "POST" and can_manage:
         pk_string = request.POST.get('pk', request.POST.get('pks', ''))
         if pk_string != '':
-            pk_list =  [int(i) for i in pk_string.split(',')]
+            pk_list = [int(i) for i in pk_string.split(',')]
             for pk in pk_list:
                 status = request.POST['status']
                 base_obj = queryset.get(pk=pk)
@@ -282,7 +283,8 @@ def review_detail(request, pk):
         if request.user in speakers:
             return access_not_permitted(request)
 
-        if "vote_submit" in request.POST and (is_voting_period_active(proposal) or is_review_period_active(proposal)):
+        if "vote_submit" in request.POST \
+                and (is_voting_period_active(proposal) or is_review_period_active(proposal)):
             if is_voting_period_active(proposal):
                 review_form = ReviewForm(request.POST)
             else:
@@ -433,16 +435,29 @@ def review_status(request, section_slug, key=None):
     queryset = queryset.exclude(cancelled=True)
 
     proposals = {
-        # proposals with at least VOTE_THRESHOLD reviews and at least one +1 and no -1s, sorted by the 'score'
-        "positive": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD, result__plus_one__gt=0, result__minus_one=0).order_by("-result__score"),
-        # proposals with at least VOTE_THRESHOLD reviews and at least one -1 and no +1s, reverse sorted by the 'score'
-        "negative": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD, result__minus_one__gt=0, result__plus_one=0).order_by("result__score"),
-        # proposals with at least VOTE_THRESHOLD reviews and neither a +1 or a -1, sorted by total votes (lowest first)
-        "indifferent": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD, result__minus_one=0, result__plus_one=0).order_by("result__vote_count"),
-        # proposals with at least VOTE_THRESHOLD reviews and both a +1 and -1, sorted by total votes (highest first)
-        "controversial": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD, result__plus_one__gt=0, result__minus_one__gt=0).order_by("-result__vote_count"),
+        # proposals with at least VOTE_THRESHOLD reviews and at least one +1 and no -1s,
+        # sorted by the 'score'
+        "positive": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD,
+                                    result__plus_one__gt=0, result__minus_one=0
+                                    ).order_by("-result__score"),
+        # proposals with at least VOTE_THRESHOLD reviews and at least one -1 and no +1s,
+        # reverse sorted by the 'score'
+        "negative": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD,
+                                    result__minus_one__gt=0, result__plus_one=0
+                                    ).order_by("result__score"),
+        # proposals with at least VOTE_THRESHOLD reviews and neither a +1 or a -1, sorted
+        # by total votes (lowest first)
+        "indifferent": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD,
+                                       result__minus_one=0, result__plus_one=0
+                                       ).order_by("result__vote_count"),
+        # proposals with at least VOTE_THRESHOLD reviews and both a +1 and -1, sorted by
+        # total votes (highest first)
+        "controversial": queryset.filter(result__vote_count__gte=VOTE_THRESHOLD,
+                                         result__plus_one__gt=0, result__minus_one__gt=0
+                                         ).order_by("-result__vote_count"),
         # proposals with fewer than VOTE_THRESHOLD reviews
-        "too_few": queryset.filter(result__vote_count__lt=VOTE_THRESHOLD).order_by("result__vote_count"),
+        "too_few": queryset.filter(result__vote_count__lt=VOTE_THRESHOLD
+                                   ).order_by("result__vote_count"),
     }
 
     admin = request.user.has_perm("reviews.can_manage_%s" % section_slug)
@@ -489,7 +504,8 @@ def review_assignment_opt_out(request, pk):
     if not review_assignment.opted_out:
         review_assignment.opted_out = True
         review_assignment.save()
-        ReviewAssignment.create_assignments(review_assignment.proposal, origin=ReviewAssignment.AUTO_ASSIGNED_LATER)
+        ReviewAssignment.create_assignments(review_assignment.proposal,
+                                            origin=ReviewAssignment.AUTO_ASSIGNED_LATER)
     return redirect("review_assignments")
 
 

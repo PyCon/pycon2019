@@ -8,13 +8,8 @@ from django.contrib.auth.models import User, Group, Permission
 
 from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory, \
     ProposalResultFactory
-from symposion.conference.models import Section
-from symposion.conference.tests.factories import SectionFactory
 from symposion.proposals.models import ProposalBase, ProposalKind
-from symposion.proposals.tests.factories import ProposalBaseFactory, ProposalKindFactory, \
-    ProposalSectionFactory
 from symposion.reviews.models import Review, ReviewAssignment
-from symposion.teams.models import Team
 
 
 class login(object):
