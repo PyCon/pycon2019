@@ -78,7 +78,7 @@
   "pk": 4, 
   "model": "teams.team", 
   "fields": {
-    "description": "Pool of people whom are volunteering.", 
+    "description": "Pool of people who are volunteering.",
     "created": "2013-01-08T18:41:25.238", 
     "manager_permissions": [], 
     "name": "Volunteers", 
