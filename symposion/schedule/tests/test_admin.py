@@ -32,7 +32,6 @@ class TestPresentationAdmin(TestCase):
             args=[self.pres_1.pk])
         request_1 = self.client.post(url_1).wsgi_request
 
-        len_mailbox_before_send = len(mail.outbox)
         # Make the update on pres_1
         self.pres_1_admin.save_model(
             request_1,
@@ -42,7 +41,7 @@ class TestPresentationAdmin(TestCase):
         len_mailbox_after_send = len(mail.outbox)
 
         # Assertions
-        self.assertEqual(len_mailbox_before_send + 1, len_mailbox_after_send)
+        self.assertEqual(1, len_mailbox_after_send)
         self.assertTrue(self.pres_1.title in mail.outbox[0].subject)
         self.assertTrue(self.pres_1.title in mail.outbox[0].body)
 
@@ -57,7 +56,6 @@ class TestPresentationAdmin(TestCase):
             "admin:{}_{}_change".format(self.app_label, self.model_name),
             args=[self.pres_1.pk])
         request_2 = self.client.post(url_2).wsgi_request
-        len_mailbox_before_send = len(mail.outbox)
 
         pres_1_updates = 1
         pres_2_updates = 3
@@ -78,7 +76,7 @@ class TestPresentationAdmin(TestCase):
         len_mailbox_after_send = len(mail.outbox)
 
         self.assertEqual(
-            len_mailbox_before_send + pres_1_updates + pres_2_updates,
+            pres_1_updates + pres_2_updates,
             len_mailbox_after_send)
         # Assert for each update of pres_1
         for i in range(0, pres_1_updates):
