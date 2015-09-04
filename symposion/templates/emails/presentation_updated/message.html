@@ -1,0 +1,13 @@
+<p>
+  {{ user.get_full_name }} has just updated the following presentation: <strong>{{ presentation }}</strong> at {{ time }}.
+
+  Currently the presentation consists of:
+  Title: "{{ presentation.title }}"
+  Speaker: {{ presentation.speaker.user.get_full_name }}
+  Description: {{ presentation.description }}
+  Abstract: {{ presentation.abstract }}
+</p>
+<p>
+  {% url 'schedule_presentation_detail' presentation.pk as detail_url %}
+  View the latest version of the presentation online at <a href="http://{{ current_site }}{{ detail_url }}">http://{{ current_site }}{{ detail_url }}</a>
+</p>
