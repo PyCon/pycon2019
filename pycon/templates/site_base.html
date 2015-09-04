@@ -32,9 +32,7 @@
         {% endcompress %}
     {% endif %}
 
-    {% compress css %}
-        {% include "markedit/includes/markedit-css.html" %}
-    {% endcompress %}
+    {% include "markedit/includes/markedit-css.html" %}
 
     {% block extra_style %}{% endblock %}
 {% endblock %}
