@@ -271,6 +271,14 @@ class PyConSponsorTutorialProposal(ProposalBase):
 register_proposal_model('sponsor-tutorial', PyConSponsorTutorialProposal)
 
 
+class EduSummitTalkProposal(PyConProposal):
+    class Meta:
+        verbose_name = "Python Education Summit talk proposal"
+
+
+register_proposal_model('edusummit', EduSummitTalkProposal)
+
+
 class PyConOpenSpaceProposal(PyConProposal):
     class Meta:
         verbose_name = "PyCon Open Space proposal"
