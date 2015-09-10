@@ -9,9 +9,12 @@ class MarkEditAdmin(admin.ModelAdmin):
         options = {}
 
     class Media:
-        css = {'all': ('css/jquery-ui-1.10.3.min.css', 'css/jquery.markedit.css', )}
+        css = {'all': (
+            '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css',
+            'css/jquery.markedit.css',
+        )}
         js = ('js/jquery.admin.js',
-              'js/jquery-ui-1.10.3.custom.min.js',
+              '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js',
               'js/jquery.markedit.js',
               'js/showdown.js', )
 
