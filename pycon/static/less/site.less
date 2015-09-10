@@ -427,7 +427,7 @@ footer {
   }
   img {
     width: 20%;
-    height: 64px;
+    height: 65px;
     top: 0;
     float: left;
     position: relative;
@@ -668,26 +668,7 @@ header.main {
     background: @blueSky;
     @media (min-width: @breakDesktop) {
       margin-top: 1.5em;
-      padding-left: 20%;
       font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-    }
-    a.logo-small {
-      position:absolute;
-      top: 5px;
-      left: 0;
-      width: 110px;
-      height: 70px;
-      background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
-      background-size: 110px auto;
-      text-indent: -9999px;
-      border-bottom: none;
-      @media (min-width: @breakDesktop) {
-        top: 15px;
-        left: 5%;
-      }
-      @media (max-width: @breakDesktop) {
-          display: none;
-      }
     }
     @media (min-width: @breakDesktop) {
       ul {
@@ -740,11 +721,6 @@ header.main {
               .caret {
                 border-top-color: @maroon;
               }
-              &:hover {
-                .caret {
-                  border-top-color: white;
-                }
-              }
               a {
                 padding: 1em;
                 border-radius: 0;
@@ -752,6 +728,9 @@ header.main {
                 &:hover {
                   color: white;
                   background-color: @maroon;
+                  .caret {
+                    border-top-color: white;
+                  }
                 }
               }
             }
@@ -759,10 +738,38 @@ header.main {
         }
       }
 
+      .nav > li.dropdown > a {
+        padding-right: 0;
+      }
+
       .nav {
         margin: 0;
+        @media (min-width: @breakDesktop) {
+          padding-left: 20%;
+          width: 80%;
+        }
         li {
-           a {
+          border-bottom: 2px solid transparent;
+          &:hover {
+            color: @maroon;
+            border-bottom: 2px solid @maroon;
+            .transition(0.25s);
+          }
+          &.active {
+            border-bottom: 2px solid @maroon;
+          }
+          &:focus {
+            .caret {
+              border-top-color: @maroon;
+            }
+          }
+          &.open {
+            border-bottom: none;
+          }
+          @media (min-width: @breakDesktop) {
+            margin-right: 1em;
+          }
+          a {
             font-size: @baseFontSize + 3;
             font-weight:400;
             margin: 0 0 0 0 !important;
@@ -770,26 +777,7 @@ header.main {
             box-shadow: none !important;
             text-shadow: none;
             color: @maroon;
-            font-weight: 400;
-            border-bottom: 1px solid transparent;
-            @media (min-width: @breakDesktop) {
-              padding-right: 1em;
-            }
-            &:hover {
-              color: @maroon;
-              border-bottom: 2px solid @maroon;
-              .transition(0.35s);
-              &:focus {
-              }
-            }
-            &:active {
-              border-bottom: 2px solid @maroon;
-            }
-            &:focus {
-              .caret {
-                border-top-color: @maroon;
-              }
-            }
+            border-bottom: none;
           }
           &.dropdown {
             ul {
@@ -816,7 +804,6 @@ header.main {
         li.dropdown.active {
           a {
             color: @maroon;
-            border-bottom: 2px solid @maroon;
           }
           .caret {
             border-top-color: @maroon;
@@ -847,6 +834,7 @@ header.main {
             }
           }
           li {
+            margin-right: 0;
             &.active {
               a {
                 color: @maroon;
@@ -860,12 +848,20 @@ header.main {
               @media (max-width: @breakDesktop) {
                 padding-left: 2em !important;
               }
+
               &:hover,
-              &:active,
+              &:focus,
+              &.active {
+                background-image: none;
+              }
+
+              &:hover,
               &:focus {
+                background-color: white;
+              }
+              &.active {
                 background-color: @maroon;
                 color: @white;
-                background-image: none;
               }
             }
           }
@@ -891,6 +887,7 @@ header.main {
     position: relative;
     background-color: white;
     @media (min-width: @breakDesktop) {
+      width: 100%;
       margin: 0;
       float: right;
       position: absolute;
@@ -901,23 +898,56 @@ header.main {
       z-index: 1;
     }
     &.loggedin {
+      color: white;
+      background-color: @maroon;
+      .account-links {
+        padding-top: 0.75em;
+        @media (min-width: @breakDesktop) {
+          padding-top: 0;
+        }
+        span,
+        a {
+          margin: 0 6px;
+          color: white;
+          border-bottom: none;
+        }
+        span { margin-left: 1em; }
+        a.logo-small { top: 3.5em; }
+      }
       @media (min-width: @breakDesktop) {
         position: relative;
-      }
-      span {
-        margin-left: 1em;
-        @media (min-width: @breakDesktop) {
-          margin-left: 0;
-        }
+
+        span { margin-left: 0; }
       }
     }
     .account-links {
+      @media (min-width: @breakDesktop) {
+        float: right;
+      }
+      a.logo-small {
+        position:absolute;
+        top: 5px;
+        left: 0;
+        width: 110px;
+        height: 70px;
+        background:url(../img/PNG/pycon16-logo-small.png) no-repeat 0 0;
+        background-size: 110px auto;
+        text-indent: -9999px;
+        border-bottom: none;
+        @media (min-width: @breakDesktop) {
+          top: 15px;
+          left: 5%;
+        }
+        @media (max-width: @breakDesktop) {
+            display: none;
+        }
+      }
       button.logout,
       a {
         &.login,
         &.logout,
         &.signup {
-          padding: 1.75em 1.5em !important;
+          padding: 1.75em 1em !important;
           height: 100%;
           border-radius: 0;
           background-color: @red;
@@ -933,7 +963,11 @@ header.main {
           @media (min-width: @breakDesktop) {
             display: inline-block;
             text-align: center;
+            padding: 1.75em 1.5em !important;
           }
+        }
+        @media (min-width: @breakDesktop) {
+          &.logout { padding: .75em 1.5em !important; }
         }
       }
     }
