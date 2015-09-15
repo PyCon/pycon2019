@@ -9,6 +9,16 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.8
+--------------
+
+Thursday, September 10, 2015
+
+* Fix missing image (#524, #530)
+* Redirect from homepage to sponsor prospectus page (temporary) (#532)
+* Send emails when presentations are saved in the admin (#496, #402)
+* Add proposal type for education summit (#494, #521)
+
 Version 2016.7
 --------------
 

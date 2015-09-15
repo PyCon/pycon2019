@@ -205,8 +205,10 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         section = kind.section
         url = reverse('review_section', kwargs={'section_slug': section.slug})
         ct = ContentType.objects.get_for_model(Review)
-        perm, __ = Permission.objects.get_or_create(codename="can_review_%s" % section.slug,
-                                                    content_type=ct)
+        perm, __ = Permission.objects.get_or_create(
+            codename="can_review_%s" % section.slug,
+            content_type=ct,
+        )
         self.user.user_permissions.add(perm)
 
         # Run it once to force creation of result objects
@@ -225,8 +227,10 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         # Now make sure the tutorial section has tutorial data but not talk.
         kind2 = ProposalKind.objects.get(slug='tutorial')
         section = kind2.section
-        perm, __ = Permission.objects.get_or_create(codename="can_review_%s" % section.slug,
-                                                    content_type=ct)
+        perm, __ = Permission.objects.get_or_create(
+            codename="can_review_%s" % section.slug,
+            content_type=ct,
+        )
         self.user.user_permissions.add(perm)
         url = reverse('review_section', kwargs={'section_slug': section.slug})
         rsp = self.client.get(url)

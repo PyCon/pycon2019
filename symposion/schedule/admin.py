@@ -1,9 +1,13 @@
 from django.contrib import admin
+from django.conf import settings
 from symposion.conference.models import Section
 
 from symposion.proposals.models import ProposalBase
 from symposion.schedule.models import Schedule, Day, Room, SlotKind, Slot, \
     SlotRoom, Presentation
+from symposion.utils.mail import send_email
+
+import datetime
 
 
 admin.site.register(Schedule, list_display=("section", "published"))
@@ -102,6 +106,20 @@ class PresentationAdmin(admin.ModelAdmin):
     def tutorial_max(self, presentation):
         return getattr(presentation.proposal, 'max_attendees', 'N/A')
     tutorial_max.short_description = 'Attendees Max'
+
+    # When a presentation is saved in the admin we send an email to the staff
+    def save_model(self, request, obj, form, change):
+        # First, save the object
+        super(PresentationAdmin, self).save_model(request, obj, form, change)
+        # Next, send an email to python staff
+        now = datetime.datetime.now()
+        send_email(
+            [settings.REGISTRATION_EMAIL],
+            "presentation_updated",
+            context={"presentation": obj,
+                     "time": now,
+                     "user": request.user}
+        )
 
 
 admin.site.register(Presentation, PresentationAdmin)
