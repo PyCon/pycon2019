@@ -665,15 +665,12 @@ header.main {
     border-top-color: @maroon;
   }
   nav {
-    background: @blueSky;
     @media (min-width: @breakDesktop) {
       margin-top: 1.5em;
       font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-    }
-    @media (min-width: @breakDesktop) {
       ul {
         width: 100%;
-        z-index: 0;
+        z-index: 1;
       }
     }
     .container {
@@ -713,25 +710,19 @@ header.main {
           padding: 0;
           .nav-collapse .nav {
             background-color: white;
+            padding: 0 1em;
             li.dropdown .dropdown-toggle:hover {
-              background-color: @maroon;
-              color: white;
+              background-color: white;
+              color: @maroon;
             }
             li {
               .caret {
                 border-top-color: @maroon;
               }
               a {
-                padding: 1em;
+                padding: 1em 0;
                 border-radius: 0;
                 display: block;
-                &:hover {
-                  color: white;
-                  background-color: @maroon;
-                  .caret {
-                    border-top-color: white;
-                  }
-                }
               }
             }
           }
@@ -745,7 +736,7 @@ header.main {
       .nav {
         margin: 0;
         @media (min-width: @breakDesktop) {
-          padding-left: 20%;
+          left: 20%;
           width: 80%;
         }
         li {
@@ -763,9 +754,6 @@ header.main {
               border-top-color: @maroon;
             }
           }
-          &.open {
-            border-bottom: none;
-          }
           @media (min-width: @breakDesktop) {
             margin-right: 1em;
           }
@@ -776,8 +764,13 @@ header.main {
             padding: .5em .5em .5em 0;
             box-shadow: none !important;
             text-shadow: none;
-            color: @maroon;
+            color: @maroon !important;
             border-bottom: none;
+            &:hover {
+              @media (max-width: @breakDesktop) {
+                background-color: white;
+              }
+            }
           }
           &.dropdown {
             ul {
@@ -810,9 +803,20 @@ header.main {
           }
         }
 
+        li.dropdown.active.open {
+          border-bottom: none;
+        }
+
+        li.open > a {
+          border-bottom: 2px solid @maroon;
+          &:hover {
+            border-bottom: 2px solid @maroon;
+          }
+        }
+
         .dropdown-menu {
           margin: 8px 0 0 0;
-          padding: 0;
+          padding: 0 1.3em;
           .transition(0.35s);
           border: 0;
           border-radius: 2px;
@@ -826,7 +830,6 @@ header.main {
           }
           @media (max-width: @breakDesktop) {
             margin: 0;
-            background-color: darken(@tanCity, 4%)
           }
           &:last-child {
             @media (max-width: @breakDesktop) {
@@ -835,6 +838,7 @@ header.main {
           }
           li {
             margin-right: 0;
+            max-width: 300px;
             &.active {
               a {
                 color: @maroon;
@@ -844,9 +848,9 @@ header.main {
             a {
               margin: 0;
               color: @grayDark;
-              padding: 1em 1.75em;
+              padding: 1em 0;
               @media (max-width: @breakDesktop) {
-                padding-left: 2em !important;
+                padding-left: 0 !important;
               }
 
               &:hover,
@@ -869,18 +873,6 @@ header.main {
       }
     }
   }
-  @media (max-width: @breakDesktop) {
-    .navbar-inverse .nav li.dropdown.open > a.dropdown-toggle {
-      background-color: @maroon;
-      color: white;
-      .caret {
-        border-top-color: white;
-      }
-    }
-    header.main nav .navbar .navbar-inner .nav-collapse .nav li.dropdown.open ul a {
-      padding-left: 2em;
-    }
-  }
   .account-bar {
     float: none;
     text-transform: capitalize;
@@ -895,11 +887,11 @@ header.main {
       right: 0;
       background-color: transparent;
       padding: 0;
-      z-index: 1;
+      z-index: 0;
     }
     &.loggedin {
       color: white;
-      background-color: @maroon;
+      background-color: #91CAD4;
       .account-links {
         padding-top: 0.75em;
         @media (min-width: @breakDesktop) {
@@ -1051,6 +1043,7 @@ body.home {
         @media (min-width: @breakDesktop) {
           width: 92%;
           margin-left: 8%;
+          left: 0;
         }
       }
       .navbar-inner {
@@ -1137,10 +1130,13 @@ body.home {
   ==================== */
   .landing-hills {
     margin-left: 0 !important;
-    .hills img {
-      min-width: 100%;
-      height: auto;
-      margin-right: -30px;
+    .hills {
+      overflow: hidden;
+      img {
+        min-width: 101%;
+        height: auto;
+        margin-right: -30px;
+      }
     }
   }
 
