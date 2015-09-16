@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import Textarea
+from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
@@ -36,10 +36,6 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
-            'experience_level': Textarea(
-                attrs={'cols': 80, 'rows': 2,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 200}),
         }
 
 
@@ -48,7 +44,7 @@ class FinancialAidReviewForm(forms.ModelForm):
     class Meta:
         model = FinancialAidReviewData
         fields = ['status', 'amount', 'grant_letter_sent', 'cash_check',
-                  'notes', 'travel_cash_check', 'disbursement_notes',
+                  'notes', 'disbursement_notes',
                   'promo_code']
         widgets = {
             'notes': Textarea(
@@ -57,6 +53,12 @@ class FinancialAidReviewForm(forms.ModelForm):
             'travel_preferred_disbursement': Textarea(
                 attrs={'cols': 80, 'rows': 5,
                        'class': 'fullwidth-textarea'}),
+            'grant_letter_sent': Select(
+                choices=(
+                    (False, _("No")),
+                    (True, _("Yes")),
+                )
+            ),
         }
 
 

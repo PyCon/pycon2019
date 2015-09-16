@@ -179,7 +179,6 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
     fixtures = [
         'conference.json',
         'proposal_base.json',
-        'permissions.json',
     ]
 
     def test_review_section(self):

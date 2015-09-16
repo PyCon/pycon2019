@@ -15,7 +15,7 @@ from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod, FinancialAidMessage, \
     FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData, \
     STATUS_INFO_NEEDED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, STATUS_WITHDRAWN, \
-    STATUS_NEED_MORE
+    STATUS_NEED_MORE, PYTHON_EXPERIENCE_EXPERT, PYTHON_EXPERIENCE_BEGINNER
 from .utils import TestMixin, create_application, ReviewTestMixin
 
 from symposion.conference.models import Conference
@@ -81,7 +81,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         self.login()
         data = dict(
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_EXPERT,
             what_you_want="money",
             use_of_python="fun",
             presenting='1',
@@ -126,7 +126,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         FinancialAidApplication.objects.create(
             user=self.user,
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_EXPERT,
             what_you_want="money",
             use_of_python="fun",
             presenting=1,
@@ -136,7 +136,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         # New data
         data = dict(
             profession="Gourmet",
-            experience_level="none",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
             use_of_python="fun",
             presenting='1',
@@ -150,7 +150,7 @@ class TestFinaidApplicationView(TestCase, TestMixin):
         # And the application now has new data
         app = FinancialAidApplication.objects.get(user=self.user)
         self.assertEqual("Gourmet", app.profession)
-        self.assertEqual("none", app.experience_level)
+        self.assertEqual(PYTHON_EXPERIENCE_BEGINNER, app.experience_level)
         # And an email was sent to user and committee
         self.assertEqual(2, len(mail.outbox))
         msg = mail.outbox[0]
@@ -403,7 +403,7 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
         application = FinancialAidApplication.objects.create(
             user=self.user,
             profession=u"Föo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want=u"money\nand\n'lóts' of it.",
             use_of_python="fun",
             presenting=1,
@@ -429,7 +429,7 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
         user2 = self.create_user("fred", "fred@example.com", "linus")
 
         application1 = create_application(user1,
-                                          experience_level="foo\nbar")
+                                          experience_level=PYTHON_EXPERIENCE_BEGINNER)
         application1.save()
         application2 = create_application(user2)
         application2.save()
