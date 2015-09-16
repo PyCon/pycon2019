@@ -3,6 +3,9 @@
 {% load i18n %}
 
 <div class="account-links">
+
+  <a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, Or</a>
+
     {% if user.is_authenticated %}
         {% if request.user.get_full_name%}
             <span>

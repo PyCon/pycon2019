@@ -47,6 +47,15 @@ PAYMENT_CHOICES = (
     (PAYMENT_CHECK, _(u"Check")),
 )
 
+PYTHON_EXPERIENCE_BEGINNER = "Beginner"
+PYTHON_EXPERIENCE_INTERMEDIATE = "Intermediate"
+PYTHON_EXPERIENCE_EXPERT = "Expert"
+PYTHON_EXPERIENCE_CHOICES = (
+    (PYTHON_EXPERIENCE_BEGINNER, _("Beginner")),
+    (PYTHON_EXPERIENCE_INTERMEDIATE, _("Intermediate")),
+    (PYTHON_EXPERIENCE_EXPERT, _("Expert")),
+)
+
 
 class FinancialAidApplication(models.Model):
     # The primary key ('id') is used as application number
@@ -104,6 +113,7 @@ class FinancialAidApplication(models.Model):
     experience_level = models.CharField(
         verbose_name=_("Python experience level"),
         help_text=_("What is your experience level with Python?"),
+        choices=PYTHON_EXPERIENCE_CHOICES,
         max_length=200)
     first_time = models.BooleanField(
         default=True,
@@ -156,7 +166,7 @@ class FinancialAidApplication(models.Model):
         return last_update
 
     def get_last_update_display(self):
-        return unicode(self.get_last_update())
+        return self.get_last_update().isoformat(' ')
 
     def fa_app_url(self):
         """URL for the detail view of a financial aid application"""
@@ -254,12 +264,11 @@ class FinancialAidReviewData(models.Model):
                                  default=STATUS_SUBMITTED)
     amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    grant_letter_sent = models.DateField(blank=True, null=True)
+    grant_letter_sent = models.BooleanField(default=False)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
+                                     verbose_name="Payment type",
                                      blank=True, null=True)
     notes = models.TextField(blank=True)
-    travel_cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
-                                            blank=True, null=True)
     disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
 

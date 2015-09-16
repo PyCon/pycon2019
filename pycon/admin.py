@@ -6,7 +6,7 @@ from markedit.admin import MarkEditAdmin
 from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
                           PyConTalkProposal, PyConTutorialProposal,
                           PyConPosterProposal, PyConLightningTalkProposal,
-                          PyConOpenSpaceProposal, SpecialEvent)
+                          PyConOpenSpaceProposal, SpecialEvent, EduSummitTalkProposal)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -157,6 +157,7 @@ admin.site.register(PyConPosterProposal, PosterAdmin)
 admin.site.register(PyConOpenSpaceProposal, OpenSpaceAdmin)
 admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
 admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
+admin.site.register(EduSummitTalkProposal)
 admin.site.register(SpecialEvent, SpecialEventAdmin)
 
 

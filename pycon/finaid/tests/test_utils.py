@@ -9,7 +9,8 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.template import Template
 from django.test import TestCase
 
-from ..models import FinancialAidApplication, FinancialAidApplicationPeriod
+from ..models import FinancialAidApplication, FinancialAidApplicationPeriod, \
+    PYTHON_EXPERIENCE_BEGINNER
 from ..utils import applications_open, has_application, send_email_message
 
 
@@ -31,7 +32,7 @@ class TestFinAidUtils(TestCase):
         FinancialAidApplication.objects.create(
             user=user,
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
             use_of_python="fun",
             presenting=1,

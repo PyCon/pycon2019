@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-from pycon.finaid.models import FinancialAidApplication
+from pycon.finaid.models import FinancialAidApplication, PYTHON_EXPERIENCE_BEGINNER
 from symposion.conference.models import Conference
 from symposion.teams.models import Team, Membership
 
@@ -14,7 +14,7 @@ def create_application(user, **kwargs):
     defaults = dict(
         user=user,
         profession="Foo",
-        experience_level="lots",
+        experience_level=PYTHON_EXPERIENCE_BEGINNER,
         what_you_want="money",
         use_of_python="fun",
         presenting=1,
