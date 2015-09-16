@@ -266,7 +266,7 @@ class FinancialAidReviewData(models.Model):
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     grant_letter_sent = models.BooleanField(default=False)
     cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
-                                     help_text="Payment type",
+                                     verbose_name="Payment type",
                                      blank=True, null=True)
     notes = models.TextField(blank=True)
     disbursement_notes = models.TextField(blank=True)

@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import Textarea
+from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
@@ -53,6 +53,12 @@ class FinancialAidReviewForm(forms.ModelForm):
             'travel_preferred_disbursement': Textarea(
                 attrs={'cols': 80, 'rows': 5,
                        'class': 'fullwidth-textarea'}),
+            'grant_letter_sent': Select(
+                choices=(
+                    (False, _("No")),
+                    (True, _("Yes")),
+                )
+            ),
         }
 
 
