@@ -7,7 +7,7 @@ from symposion.proposals.kinds import register_proposal_form
 from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConTutorialProposal, PyConPosterProposal,
                      PyConLightningTalkProposal, PyConSponsorTutorialProposal,
-                     PyConOpenSpaceProposal)
+                     PyConOpenSpaceProposal, EduSummitTalkProposal, PyConProposal)
 
 
 class PyConProposalForm(forms.ModelForm):
@@ -209,10 +209,10 @@ class EducationSummitTalkProposalForm(PyConProposalForm):
     def __init__(self, *args, **kwargs):
         super(EducationSummitTalkProposalForm, self).__init__(*args, **kwargs)
         self.fields['audience_level'].widget = forms.HiddenInput()
-        self.fields['audience_level'].initial = PyConLightningTalkProposal.AUDIENCE_LEVEL_NOVICE
+        self.fields['audience_level'].initial = PyConProposal.AUDIENCE_LEVEL_NOVICE
 
     class Meta:
-        model = PyConLightningTalkProposal
+        model = EduSummitTalkProposal
         fields = [
             "title",
             "category",
