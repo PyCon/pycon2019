@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from ..models import FinancialAidApplication
+from ..models import FinancialAidApplication, PYTHON_EXPERIENCE_BEGINNER
 
 
 today = datetime.date.today()
@@ -23,7 +23,7 @@ class TestFinancialAidModels(TestCase):
         x = FinancialAidApplication.objects.create(
             user=user,
             profession="Foo",
-            experience_level="lots",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
             use_of_python="fun",
             presenting=1,

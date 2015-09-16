@@ -9,6 +9,27 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.10
+---------------
+
+Wednesday, September 16, 2015
+
+* Bug fix for Education Summit Proposals (#539, #540)
+* Implement changes for some financial aid feedback (#508):
+
+- [x] Python Experience Level: Should be a dropdown.
+- [x] Sorting only sorts the names on the current page in review financial aid appellations page, not all.
+- [x] Sorting doesn't sort correctly (we tried sorting date by see screenshot. Date field is being sorted lexicographically) (even when sorting just the names on the current page.)
+- [x] "Grant letter sent" should have a drop-down Yes/No menu
+- [x] "Cash check" should be called payment type
+- [x] Travel Cash Check should go away.
+
+* Changes to page nav/header and CMS styling (#537)
+
+- [x] Fix navbar overlapping account links
+- [x] Change account bar background and nav bar link padding
+- [x] Fix navigation and breadcrumb issues
+
 Version 2016.9
 --------------
 
