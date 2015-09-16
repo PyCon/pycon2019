@@ -1,6 +1,9 @@
-from sitetree.sitetreeapp import register_i18n_trees
+from django.apps import AppConfig
 
 
-class PyCon(object):
-    def __init__(self):
-        register_i18n_trees(['main'])
+class PyConConfig(AppConfig):
+    name = 'pycon'
+
+    def ready(self):
+        # Import forms so they get registered with our proposal kind registry
+        from . import forms  # noqa

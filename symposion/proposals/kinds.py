@@ -33,11 +33,17 @@ def register_proposal_form(kind_slug, form_class):
 
 
 def get_proposal_model(kind_slug):
-    return _get_tracker(kind_slug).model_class
+    model_class = _get_tracker(kind_slug).model_class
+    if not model_class:
+        raise ValueError("No model_class has been registered for proposal kind %r" % kind_slug)
+    return model_class
 
 
 def get_proposal_form(kind_slug):
-    return _get_tracker(kind_slug).form_class
+    form_class = _get_tracker(kind_slug).form_class
+    if not form_class:
+        raise ValueError("No form class has been registered for proposal kind %r" % kind_slug)
+    return form_class
 
 
 def get_proposal_model_from_section_slug(section_slug):
