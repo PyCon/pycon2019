@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, Group, Permission
 from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposalFactory, \
     ProposalResultFactory
 from symposion.proposals.models import ProposalBase, ProposalKind
+from symposion.proposals.tests.factories import init_kinds
 from symposion.reviews.models import Review, ReviewAssignment
 
 
@@ -29,6 +30,10 @@ class login(object):
 
 
 class ReviewTestMixin(object):
+    def setUp(self):
+        super(ReviewTestMixin, self).setUp()
+        init_kinds()
+
     def create_user(self, username="joe",
                     email=None,
                     password="snoopy",

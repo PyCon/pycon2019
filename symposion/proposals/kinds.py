@@ -50,4 +50,11 @@ def get_proposal_model_from_section_slug(section_slug):
     if section_slug not in trackers_by_section_slug:
         kind = ProposalKind.objects.get(section__slug=section_slug)
         trackers_by_section_slug[section_slug] = _get_tracker(kind.slug)
-    return trackers_by_section_slug[section_slug].model_class
+    model_class = trackers_by_section_slug[section_slug].model_class
+    if not model_class:
+        raise ValueError("No model class has been registered for section slug %r" % section_slug)
+    return model_class
+
+
+def get_kind_slugs():
+    return trackers.keys()
