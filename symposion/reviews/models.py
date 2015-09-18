@@ -18,6 +18,14 @@ PROPOSAL_SCORE_EXPRESSION = \
 
 
 class Votes(object):
+    """
+    *** NOTE ***
+
+    The MINUS_ZERO and MINUS_ONE values here are using fancy Unicode
+    minus signs instead of ASCII minus sign/dashes.  This works fine so
+    long as everything using these does it consistently; just be careful
+    to use VOTES.MINUS_ZERO instead of writing out "-0" anywhere.
+    """
     PLUS_ONE = "+1"
     PLUS_ZERO = "+0"
     MINUS_ZERO = u"−0"

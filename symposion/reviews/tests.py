@@ -281,7 +281,7 @@ class SubmitReviewTest(ReviewTestMixin, TestCase):
         user2.user_permissions.add(perm)
 
         # User submits first vote: +1
-        talk = self.submit_review(talk, self.user, "+1")
+        talk = self.submit_review(talk, self.user, Votes.PLUS_ONE)
         # One +1 vote gives a score of 3
         self.assertEqual(3, talk.result.score)
 
@@ -293,6 +293,6 @@ class SubmitReviewTest(ReviewTestMixin, TestCase):
 
         # Now, add a vote from a different user, which should be counted
         # separately and adjust the score
-        talk = self.submit_review(talk, user2, "+1")
+        talk = self.submit_review(talk, user2, Votes.PLUS_ONE)
         # Adding a new +1 vote adds 3 to the previous score
         self.assertEqual(2, talk.result.score)
