@@ -20,7 +20,7 @@ class DayFactory(factory.DjangoModelFactory):
     class Meta:
         model = Day
     schedule = factory.SubFactory(ScheduleFactory)
-    date = factory.fuzzy.FuzzyDate(start_date=datetime.date.today())
+    date = factory.fuzzy.FuzzyDate(start_date=datetime.date(1900, 1, 1))
 
 
 class SlotKindFactory(factory.DjangoModelFactory):

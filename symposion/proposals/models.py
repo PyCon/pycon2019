@@ -70,10 +70,19 @@ class ProposalKind(models.Model):
     section = models.ForeignKey(Section, related_name="proposal_kinds")
 
     name = models.CharField(_("Name"), max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(
+        help_text="kind slugs are lowercase and singular, e.g. 'tutorial'",
+        unique=True
+    )
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.section.slug != self.slug + "s":
+            raise ValueError("section slug %s should be kind slug %s with an 's' added"
+                             % (self.section.slug, self.slug))
+        super(ProposalKind, self).save(*args, **kwargs)
 
 
 class ProposalBase(models.Model):
@@ -86,7 +95,8 @@ class ProposalBase(models.Model):
     description = models.TextField(
         _("Description"),
         max_length=400,  # @@@ need to enforce 400 in UI
-        help_text="If your talk is accepted this will be made public and printed in the program. Should be one paragraph, maximum 400 characters."
+        help_text="If your talk is accepted this will be made public and printed in the "
+                  "program. Should be one paragraph, maximum 400 characters."
     )
     abstract = models.TextField(
         _("Detailed Abstract"),
@@ -104,7 +114,8 @@ class ProposalBase(models.Model):
         editable=False,
     )
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
-    additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker", blank=True)
+    additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker",
+                                                 blank=True)
     cancelled = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     cached_tags = models.TextField(blank=True, default='', editable=False)
@@ -174,7 +185,8 @@ class ProposalBase(models.Model):
 
     def speakers(self):
         yield self.speaker
-        for speaker in self.additional_speakers.exclude(additionalspeaker__status=AdditionalSpeaker.SPEAKING_STATUS_DECLINED):
+        for speaker in self.additional_speakers.exclude(
+                additionalspeaker__status=AdditionalSpeaker.SPEAKING_STATUS_DECLINED):
             yield speaker
 
     def notification_email_context(self):
@@ -227,4 +239,5 @@ class SupportingDocument(models.Model):
     description = models.CharField(max_length=140)
 
     def download_url(self):
-        return reverse("proposal_document_download", args=[self.pk, os.path.basename(self.file.name).lower()])
+        return reverse("proposal_document_download",
+                       args=[self.pk, os.path.basename(self.file.name).lower()])
