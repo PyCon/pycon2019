@@ -10,7 +10,8 @@ from pycon.tests.factories import PyConTalkProposalFactory, PyConTutorialProposa
     ProposalResultFactory
 from symposion.proposals.models import ProposalBase, ProposalKind
 from symposion.proposals.tests.factories import init_kinds
-from symposion.reviews.models import Review, ReviewAssignment
+from symposion.reviews.models import Review, ReviewAssignment, Votes
+from symposion.reviews.views import is_voting_period_active
 
 
 class login(object):
@@ -244,3 +245,54 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         self.assertNotContains(rsp, "My talk category")
         self.assertContains(rsp, tutorial.title)
         self.assertContains(rsp, "My tutorial category")
+
+
+class SubmitReviewTest(ReviewTestMixin, TestCase):
+    fixtures = [
+        'conference.json',
+        'proposal_base.json',
+    ]
+
+    def submit_review(self, proposal, user, vote):
+        # Submit a vote and return the updated proposal object
+        assert is_voting_period_active(proposal)
+        self.login(username=user.username)
+        url = reverse('review_detail', kwargs={'pk': proposal.pk})
+        data = dict(
+            vote_submit="yep",
+            vote=vote,
+            comment="deep thoughts",
+        )
+        rsp = self.client.post(url, data)
+        self.assertRedirects(rsp, url)
+        return type(proposal).objects.get(pk=proposal.pk)
+
+    def test_submit_review(self):
+        # Reviewers can submit multiple reviews. Only their most recent vote counts.
+        talk = PyConTalkProposalFactory(title="talk", description="talk",
+                                        category__name="My talk category")
+        self.user = self.create_user()
+        perm, __ = Permission.objects.get_or_create(
+            codename="can_review_talks",
+            content_type=ContentType.objects.get_for_model(Review),
+        )
+        self.user.user_permissions.add(perm)
+        user2 = self.create_user(username="user2")
+        user2.user_permissions.add(perm)
+
+        # User submits first vote: +1
+        talk = self.submit_review(talk, self.user, Votes.PLUS_ONE)
+        # One +1 vote gives a score of 3
+        self.assertEqual(3, talk.result.score)
+
+        # Let's try adding another vote - because it's from the same
+        # user, it should supersede their previous vote in the score.
+        talk = self.submit_review(talk, self.user, Votes.MINUS_ZERO)
+        # A -0 vote is a score of -1
+        self.assertEqual(-1, talk.result.score)
+
+        # Now, add a vote from a different user, which should be counted
+        # separately and adjust the score
+        talk = self.submit_review(talk, user2, Votes.PLUS_ONE)
+        # Adding a new +1 vote adds 3 to the previous score
+        self.assertEqual(2, talk.result.score)

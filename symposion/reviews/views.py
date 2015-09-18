@@ -246,9 +246,10 @@ def is_review_period_active(proposal):
 
 
 def is_voting_period_active(proposal):
-    if proposal.result is None or proposal.result.group is None:
+    result = ProposalResult.objects.filter(proposal=proposal).first()
+    if result is None or result.group is None:
         return True
-    group = proposal.result.group
+    group = result.group
     return group.vote_start <= datetime.datetime.now() <= group.vote_end
 
 

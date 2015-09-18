@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, F
 from django.db.models.signals import post_save
 
 from django.contrib.auth.models import User
@@ -12,17 +12,20 @@ from symposion.proposals.models import ProposalBase
 from symposion.schedule.models import Presentation
 
 
-class ProposalScoreExpression(object):
-
-    def as_sql(self, qn, connection=None):
-        sql = "((3 * plus_one + plus_zero) - (minus_zero + 3 * minus_one))"
-        return sql, []
-
-    def prepare_database_save(self, unused):
-        return self
+# How we compute proposal scores: 3*(+1's) + (+0's) - (-0's) - 3*(-1's)
+PROPOSAL_SCORE_EXPRESSION = \
+    3 * F('plus_one') + F('plus_zero') - F('minus_zero') - 3 * F('minus_one')
 
 
 class Votes(object):
+    """
+    *** NOTE ***
+
+    The MINUS_ZERO and MINUS_ONE values here are using fancy Unicode
+    minus signs instead of ASCII minus sign/dashes.  This works fine so
+    long as everything using these does it consistently; just be careful
+    to use VOTES.MINUS_ZERO instead of writing out "-0" anywhere.
+    """
     PLUS_ONE = "+1"
     PLUS_ZERO = "+0"
     MINUS_ZERO = u"−0"
@@ -115,6 +118,9 @@ class Review(models.Model):
                     submitted_at = self.submitted_at,
                 )
             )
+            # Ensure there's a result object
+            ProposalResult.objects.get_or_create(proposal=self.proposal)
+            # Update the score
             if not created:
                 LatestVote.objects.filter(pk=vote.pk).update(vote=self.vote)
                 self.proposal.result.update_vote(self.vote, previous=vote.vote)
@@ -249,7 +255,7 @@ class ProposalResult(models.Model):
                 vote = VOTES.MINUS_ONE
             ).count()
             result.save()
-            cls._default_manager.filter(pk=result.pk).update(score=ProposalScoreExpression())
+            cls._default_manager.filter(pk=result.pk).update(score=PROPOSAL_SCORE_EXPRESSION)
 
     def update_vote(self, vote, previous=None, removal=False):
         mapping = {
@@ -278,7 +284,7 @@ class ProposalResult(models.Model):
             self.comment_count = models.F("comment_count") + 1
         self.save()
         model = self.__class__
-        model._default_manager.filter(pk=self.pk).update(score=ProposalScoreExpression())
+        model._default_manager.filter(pk=self.pk).update(score=PROPOSAL_SCORE_EXPRESSION)
 
 
 class Comment(models.Model):
