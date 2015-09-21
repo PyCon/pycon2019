@@ -1,14 +1,16 @@
 import datetime
+import StringIO
 
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.base import ContentFile
 
 from ..models import FinancialAidApplication, FinancialAidMessage,\
     PYTHON_EXPERIENCE_BEGINNER, Receipt
 from pycon.finaid.forms import FinancialAidApplicationForm, ReviewerMessageForm,\
     ReceiptForm
 
+from PIL import Image
 
 today = datetime.date.today()
 
@@ -86,56 +88,45 @@ class TestReceiptForm(TestCase):
 
     def test_valid_receipt(self):
         """Checks form is valid with SimpleUploadeFile extension pdf or png."""
-        simple_file_pdf = SimpleUploadedFile(
-            'test_file.pdf',
-            str('contents of the test file'))
-        simple_file_png = SimpleUploadedFile(
-            'test_file.png',
-            str('contents of the test file'))
-        receipt_pdf = Receipt(
-            application=self.application,
-            description='description_pdf',
-            amount=1,
-            receipt_image=simple_file_pdf)
+        # Use StringIO to create files
+        png_file = StringIO.StringIO('portable network graphics file')
+        pdf_file = StringIO.StringIO('portable document format file')
+        # Use PIL Image to create new png and pdf files
+        Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(png_file, 'png')
+        Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(pdf_file, 'pdf')
+        png_file.seek(0)
+        pdf_file.seek(0)
+        # Django-friendly ContentFiles
+        django_friendly_png_file = ContentFile(png_file.read(), 'test_file.png')
+        django_friendly_pdf_file = ContentFile(pdf_file.read(), 'test_file.pdf')
+        # Create receipts with these files in the receipt_image field
         receipt_png = Receipt(
             application=self.application,
-            description='description_png',
+            description='description png',
             amount=1,
-            receipt_image=simple_file_png)
-        receipt_pdf.user = self.user
-        receipt_png.user = self.user
-        receipt_pdf.save()
-        receipt_png.save()
-        data_pdf = {'description': 'description_pdf',
-                    'amount': 1,
-                    'receipt_image': simple_file_pdf}
-        data_png = {'description': 'description_png',
-                    'amount': 1,
-                    'receipt_image': simple_file_png}
-        form_pdf = ReceiptForm(data_pdf, instance=receipt_pdf)
-        form_png = ReceiptForm(data_png, instance=receipt_png)
-
-        self.assertTrue(form_pdf.is_valid())
-        self.assertTrue(form_png.is_valid())
-
-    def test_invalid_format(self):
-        """Invalid receipt image formats should cause the form to be invalid."""
-        simple_file_txt = SimpleUploadedFile(
-            'test_file.txt',
-            str('contents of the test file'))
-        receipt_txt = Receipt(
+            receipt_image=django_friendly_png_file)
+        receipt_pdf = Receipt(
             application=self.application,
-            description='description_txt',
+            description='description pdf',
             amount=1,
-            receipt_image=simple_file_txt)
-        receipt_txt.user = self.user
-        receipt_txt.save()
-        data_txt = {'description': 'description_txt',
+            receipt_image=django_friendly_pdf_file)
+        receipt_png.user = self.user
+        receipt_pdf.user = self.user
+        # Save the receipts
+        receipt_png.save()
+        receipt_pdf.save()
+        # Data for the form
+        data_png = {'description': 'description png',
                     'amount': 1,
-                    'receipt_image': simple_file_txt}
-        form_txt = ReceiptForm(data_txt, instance=receipt_txt)
+                    'receipt_image': django_friendly_png_file}
+        data_pdf = {'description': 'description pdf',
+                    'amount': 1,
+                    'receipt_image': django_friendly_pdf_file}
+        form_png = ReceiptForm(data_png, instance=receipt_png)
+        form_pdf = ReceiptForm(data_pdf, instance=receipt_pdf)
 
-        self.assertFalse(form_txt.is_valid())
+        self.assertTrue(form_png.is_valid())
+        self.assertTrue(form_pdf.is_valid())
 
     def test_missing_image(self):
         """Verifies the form is not valid when the receipt_image field is blank."""

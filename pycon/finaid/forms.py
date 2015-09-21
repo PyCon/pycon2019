@@ -1,4 +1,3 @@
-import os
 from django import forms
 from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
@@ -98,12 +97,10 @@ class ReceiptForm(forms.ModelForm):
         """We require the receipt image field to be the correct format."""
         cleaned_data = super(ReceiptForm, self).clean()
         receipt_field = cleaned_data.get("receipt_image")
-        accepted_formats = ['.bmp', '.jpeg', '.jpg', '.png', '.pdf']
         if receipt_field is not None:
-            if os.path.splitext(receipt_field.file.name)[1] not in accepted_formats:
-                raise forms.ValidationError(
-                    "File format was not accepted. The only acceptable formats "
-                    "are: .bmp, .jpeg, .jpg, .png, .pdf.")
+            # Make sure that the receipt image field can be converted to python
+            # This does validation based on the field type (ImageField or FileField)
+            self.fields['receipt_image'].to_python(receipt_field)
         else:
             raise forms.ValidationError("No receipt image uploaded.")
 
