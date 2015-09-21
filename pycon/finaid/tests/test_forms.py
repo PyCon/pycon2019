@@ -94,22 +94,22 @@ class TestReceiptForm(TestCase):
             str('contents of the test file'))
         receipt_pdf = Receipt(
             application=self.application,
-            description='description',
+            description='description_pdf',
             amount=1,
             receipt_image=simple_file_pdf)
         receipt_png = Receipt(
             application=self.application,
-            description='description',
+            description='description_png',
             amount=1,
             receipt_image=simple_file_png)
         receipt_pdf.user = self.user
         receipt_png.user = self.user
         receipt_pdf.save()
         receipt_png.save()
-        data_pdf = {'description': 'description',
+        data_pdf = {'description': 'description_pdf',
                     'amount': 1,
                     'receipt_image': simple_file_pdf}
-        data_png = {'description': 'description',
+        data_png = {'description': 'description_png',
                     'amount': 1,
                     'receipt_image': simple_file_png}
         form_pdf = ReceiptForm(data_pdf, instance=receipt_pdf)
@@ -118,15 +118,34 @@ class TestReceiptForm(TestCase):
         self.assertTrue(form_pdf.is_valid())
         self.assertTrue(form_png.is_valid())
 
+    def test_invalid_format(self):
+        """Invalid receipt image formats should cause the form to be invalid."""
+        simple_file_txt = SimpleUploadedFile(
+            'test_file.txt',
+            str('contents of the test file'))
+        receipt_txt = Receipt(
+            application=self.application,
+            description='description_txt',
+            amount=1,
+            receipt_image=simple_file_txt)
+        receipt_txt.user = self.user
+        receipt_txt.save()
+        data_txt = {'description': 'description_txt',
+                    'amount': 1,
+                    'receipt_image': simple_file_txt}
+        form_txt = ReceiptForm(data_txt, instance=receipt_txt)
+
+        self.assertFalse(form_txt.is_valid())
+
     def test_missing_image(self):
         """Verifies the form is not valid when the receipt_image field is blank."""
         receipt = Receipt(
             application=self.application,
-            description='description',
+            description='description of file',
             amount=1)
         receipt.user = self.user
         receipt.save()
-        data = {'description': 'description',
+        data = {'description': 'description of file',
                 'amount': 1}
         form = ReceiptForm(data, instance=receipt)
 
