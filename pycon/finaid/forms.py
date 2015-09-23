@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
 
