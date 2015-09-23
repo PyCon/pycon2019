@@ -608,7 +608,6 @@ def receipt_upload(request):
         form = ReceiptForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.instance.user = request.user
             form.instance.application = request.user.financial_aid
             form.save()
 

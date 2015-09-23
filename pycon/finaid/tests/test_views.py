@@ -1,11 +1,14 @@
 # coding=utf-8
-from cStringIO import StringIO
 import csv
 import datetime
 from decimal import Decimal
+import StringIO
+
+from PIL import Image
 
 from django.conf import settings
 from django.core import mail
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -15,7 +18,7 @@ from pycon.finaid.models import FinancialAidApplication, \
     FinancialAidApplicationPeriod, FinancialAidMessage, \
     FinancialAidEmailTemplate, STATUS_SUBMITTED, FinancialAidReviewData, \
     STATUS_INFO_NEEDED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, STATUS_WITHDRAWN, \
-    STATUS_NEED_MORE, PYTHON_EXPERIENCE_EXPERT, PYTHON_EXPERIENCE_BEGINNER
+    STATUS_NEED_MORE, PYTHON_EXPERIENCE_EXPERT, PYTHON_EXPERIENCE_BEGINNER, Receipt
 from .utils import TestMixin, create_application, ReviewTestMixin
 
 from symposion.conference.models import Conference
@@ -24,6 +27,46 @@ from symposion.conference.models import Conference
 today = datetime.date.today()
 now = datetime.datetime.now()
 one_day = datetime.timedelta(days=1)
+
+
+class TestUploadFinaidReceipt(TestMixin, TestCase):
+    def test_upload_pdf(self):
+        Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
+        self.user = self.create_user()
+        self.login()
+
+        # User has applied and accepted the offer
+        application = FinancialAidApplication.objects.create(
+            user=self.user,
+            profession="Foo",
+            experience_level=PYTHON_EXPERIENCE_EXPERT,
+            what_you_want="money",
+            use_of_python="fun",
+            presenting=1,
+            travel_plans="get there",
+        )
+        FinancialAidReviewData.objects.create(
+            application=application,
+            status=STATUS_ACCEPTED,
+        )
+
+        # Use PIL Image to create new pdf file
+        pdf_file = StringIO.StringIO()
+        Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(pdf_file, 'pdf')
+        pdf_file.seek(0)
+        # Django-friendly ContentFiles
+        django_friendly_pdf_file = ContentFile(pdf_file.read(), 'test_file.pdf')
+
+        data = {
+            'description': 'My receipt',
+            'amount': Decimal('1.00'),
+            'receipt_image': django_friendly_pdf_file,
+        }
+        url = reverse('receipt_upload')
+        rsp = self.client.post(url, data=data)
+        self.assertRedirects(rsp, url)
+        # A Receipt was created
+        Receipt.objects.get(application=application)
 
 
 class TestFinaidApplicationView(TestCase, TestMixin):
@@ -355,7 +398,7 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
         self.assertEqual(200, rsp.status_code)
         dialect = csv.excel()
         dialect.strict = True
-        reader = csv.DictReader(StringIO(rsp.content), dialect=dialect)
+        reader = csv.DictReader(StringIO.StringIO(rsp.content), dialect=dialect)
         result = []
         for item in reader:
             for k, v in item.iteritems():

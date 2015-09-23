@@ -1,11 +1,16 @@
 import datetime
+import StringIO
 
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
-from ..models import FinancialAidApplication, FinancialAidMessage, PYTHON_EXPERIENCE_BEGINNER
-from pycon.finaid.forms import FinancialAidApplicationForm, ReviewerMessageForm
+from ..models import FinancialAidApplication, FinancialAidMessage,\
+    PYTHON_EXPERIENCE_BEGINNER, Receipt
+from pycon.finaid.forms import FinancialAidApplicationForm, ReviewerMessageForm,\
+    ReceiptForm
 
+from PIL import Image
 
 today = datetime.date.today()
 
@@ -64,3 +69,66 @@ class FinancialAidTest(TestCase):
         message = form.save()
         message = FinancialAidMessage.objects.get(pk=message.pk)
         self.assertTrue(message.visible)
+
+
+class TestReceiptForm(TestCase):
+
+    def setUp(self):
+        super(TestReceiptForm, self).setUp()
+        self.user = User.objects.create_user("Foo")
+        self.application = FinancialAidApplication.objects.create(
+            user=self.user,
+            profession="Foo",
+            experience_level=PYTHON_EXPERIENCE_BEGINNER,
+            what_you_want="money",
+            use_of_python="fun",
+            presenting=1,
+        )
+        self.application.save()
+
+    def test_valid_receipt_png(self):
+        """Checks form is valid with SimpleUploadeFile extension png."""
+        # Use StringIO to create files
+        png_file = StringIO.StringIO('portable network graphics file')
+        # Use PIL Image to create new png and pdf files
+        Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(png_file, 'png')
+        png_file.seek(0)
+        # Django-friendly ContentFiles
+        file = SimpleUploadedFile('test_file.png', png_file.read())
+        # Data for the form
+        data_png = {'description': 'description png',
+                    'amount': 1,
+                    }
+        files = {'receipt_image': file}
+
+        form_png = ReceiptForm(data_png, files, instance=Receipt(application=self.application))
+
+        self.assertTrue(form_png.is_valid(), msg=form_png.errors)
+        form_png.save()
+
+    def test_valid_receipt_pdf(self):
+        """Checks form is valid with SimpleUploadeFile extension pdf"""
+        # Use StringIO to create files
+        pdf_file = StringIO.StringIO('portable document format file')
+        # Use PIL Image to create new png and pdf files
+        Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(pdf_file, 'pdf')
+        pdf_file.seek(0)
+        file = SimpleUploadedFile('test_file.pdf', pdf_file.read())
+        # Data for the form
+        data_pdf = {'description': 'description pdf',
+                    'amount': 1,
+                    }
+        files = {'receipt_image': file}
+        form_pdf = ReceiptForm(data_pdf, files, instance=Receipt(application=self.application))
+
+        self.assertTrue(form_pdf.is_valid(), msg=form_pdf.errors)
+        form_pdf.save()
+
+    def test_missing_image(self):
+        """Verifies the form is not valid when the receipt_image field is blank."""
+        data = {'description': 'description of file',
+                'amount': 1,
+                }
+        form = ReceiptForm(data, {}, instance=Receipt(application=self.application))
+
+        self.assertIn('This field is required.', form.errors['receipt_image'])

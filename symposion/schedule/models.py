@@ -139,7 +139,8 @@ class Presentation(models.Model):
     description = models.TextField()
     abstract = models.TextField()
     speaker = models.ForeignKey("speakers.Speaker", related_name="presentations")
-    additional_speakers = models.ManyToManyField("speakers.Speaker", related_name="copresentations", blank=True)
+    additional_speakers = models.ManyToManyField("speakers.Speaker",
+                                                 related_name="copresentations", blank=True)
     cancelled = models.BooleanField(default=False)
     proposal_base = models.OneToOneField(ProposalBase, related_name="presentation")
     section = models.ForeignKey(Section, related_name="presentations")
@@ -176,3 +177,8 @@ class Presentation(models.Model):
 
     class Meta:
         ordering = ["slot"]
+
+    def save(self, *args, **kwargs):
+        # Section is computable from the proposal, so force it to be right
+        self.section = self.proposal_base.kind.section
+        super(Presentation, self).save(*args, **kwargs)

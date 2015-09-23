@@ -347,6 +347,7 @@ header.main {
 .python-footer-block {
   text-align: center;
   padding-top: 6em;
+  overflow: hidden;
   @media (min-width: @breakTablet) {
     padding-top: 4em;
   }
@@ -375,7 +376,9 @@ header.main {
     }
   }
   img.footer-forest {
-    width: 100%;
+    min-width: 102%;
+    margin-left: -1%;
+    margin-bottom: -1px;
     height: auto;
   }
 }
@@ -394,6 +397,13 @@ footer {
     position: relative;
     top: 10px;
     padding-bottom: 20px;
+    .span6 {
+      width: 100%;
+      margin: 0;
+      @media (min-width: @breakDesktop) {
+        width: 50%;
+      }
+    }
     p {
       padding-top: 0;
       margin: 0 0 1.25em 0;
@@ -408,6 +418,26 @@ footer {
         &:hover{
           border-bottom: 1px solid @tanCity;
         }
+      }
+    }
+    .caktus-logo {
+      display: block;
+      width: 92px;
+      margin: 1.5em auto 0;
+      position: relative;
+      border-bottom: none;
+      &:hover,
+      &:active,
+      &:focus {
+        border-bottom: none;
+      }
+      @media (min-width: @breakMobileLandscape) {
+      }
+      @media (min-width: @breakDesktop) {
+        display: inline-block;
+        margin: 0;
+        top: -12px;
+        right: -11px;
       }
     }
   }

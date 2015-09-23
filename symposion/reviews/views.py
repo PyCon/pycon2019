@@ -17,7 +17,7 @@ from django.utils.translation import ugettext as _
 from pycon.models import PyConProposal, PyConProposalCategory
 
 from symposion.conf import settings
-from symposion.conference.models import Section
+from symposion.conference.models import Section, current_conference
 from symposion.proposals.forms import ProposalTagsForm
 from symposion.proposals.kinds import get_proposal_model, get_proposal_model_from_section_slug
 from symposion.proposals.models import ProposalBase, AdditionalSpeaker
@@ -130,7 +130,7 @@ def review_section(request, section_slug, assigned=False):
     can_manage = False
     if request.user.has_perm("reviews.can_manage_%s" % section_slug):
         can_manage = True
-    section = get_object_or_404(Section, slug=section_slug)
+    section = get_object_or_404(Section, slug=section_slug, conference=current_conference())
     model = get_proposal_model_from_section_slug(section_slug)
     queryset = model.objects.all()
 
@@ -140,9 +140,7 @@ def review_section(request, section_slug, assigned=False):
             pk_list = [int(i) for i in pk_string.split(',')]
             for pk in pk_list:
                 status = request.POST['status']
-                base_obj = queryset.get(pk=pk)
-                p_type = section_slug.rstrip('s').replace('-', '')
-                proposal = getattr(base_obj, 'pycon%sproposal' % p_type)
+                proposal = queryset.get(pk=pk)
                 proposal.overall_status = status
                 proposal.save()
         else:
@@ -248,9 +246,10 @@ def is_review_period_active(proposal):
 
 
 def is_voting_period_active(proposal):
-    if proposal.result is None or proposal.result.group is None:
+    result = ProposalResult.objects.filter(proposal=proposal).first()
+    if result is None or result.group is None:
         return True
-    group = proposal.result.group
+    group = result.group
     return group.vote_start <= datetime.datetime.now() <= group.vote_end
 
 
