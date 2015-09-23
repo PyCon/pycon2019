@@ -53,7 +53,9 @@ class Section(models.Model):
     conference = models.ForeignKey(Conference, verbose_name=_("conference"))
 
     name = models.CharField(_("name"), max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(
+        help_text="section slugs are lowercase and plural, e.g. 'tutorials'"
+    )
 
     # when the section runs
     start_date = models.DateField(_("start date"), null=True, blank=True)
@@ -65,6 +67,7 @@ class Section(models.Model):
     class Meta(object):
         verbose_name = _("section")
         verbose_name_plural = _("sections")
+        unique_together = (('conference', 'slug'),)
 
 
 def current_conference():

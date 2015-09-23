@@ -10,7 +10,7 @@ from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
     PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, PyConLightningTalkProposal, \
-    SpecialEvent
+    SpecialEvent, EduSummitTalkProposal
 
 from symposion.proposals.tests.factories import ProposalKindFactory, \
     ProposalBaseFactory
@@ -43,7 +43,6 @@ class ProposalGroupFactory(factory.django.DjangoModelFactory):
                                              end_dt=aware_now() - timedelta(days=1))
     vote_end = factory.fuzzy.FuzzyDateTime(start_dt=aware_now() + timedelta(days=1),
                                            end_dt=aware_now() + timedelta(days=2))
-
 
 
 class ProposalResultFactory(factory.django.DjangoModelFactory):
@@ -121,4 +120,13 @@ class PyConLightningTalkProposalFactory(PyConProposalFactory):
 
     kind = factory.SubFactory(ProposalKindFactory,
                               name="lightning",
-                              slug="lightning")
+                              slug="lightning-talk")
+
+
+class PyConEduSummitProposalFactory(PyConProposalFactory):
+    class Meta:
+        model = EduSummitTalkProposal
+
+    kind = factory.SubFactory(ProposalKindFactory,
+                              name="edusummit",
+                              slug="edusummit")
