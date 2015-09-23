@@ -113,7 +113,7 @@ class TestReceiptForm(TestCase):
         # Use PIL Image to create new png and pdf files
         Image.new('RGB', size=(50, 50), color=(256, 0, 0)).save(pdf_file, 'pdf')
         pdf_file.seek(0)
-        file = SimpleUploadedFile('test_file.df', pdf_file.read())
+        file = SimpleUploadedFile('test_file.pdf', pdf_file.read())
         # Data for the form
         data_pdf = {'description': 'description pdf',
                     'amount': 1,
