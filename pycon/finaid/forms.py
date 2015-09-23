@@ -93,17 +93,6 @@ class BulkEmailForm(forms.Form):
 
 
 class ReceiptForm(forms.ModelForm):
-    def clean(self, *args, **kwargs):
-        """We require the receipt image field to be the correct format."""
-        cleaned_data = super(ReceiptForm, self).clean()
-        receipt_field = cleaned_data.get("receipt_image")
-        if receipt_field is not None:
-            # Make sure that the receipt image field can be converted to python
-            # This does validation based on the field type (ImageField or FileField)
-            self.fields['receipt_image'].to_python(receipt_field)
-        else:
-            raise forms.ValidationError("No receipt image uploaded.")
-
     class Meta:
         model = Receipt
         fields = ["description", "amount", "receipt_image"]

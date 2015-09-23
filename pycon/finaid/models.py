@@ -294,7 +294,7 @@ def user_directory_path(instance, filename):
     https://docs.djangoproject.com/en/1.7/topics/migrations/#serializing-values
     """
     # file will be uploaded to MEDIA_ROOT/finaid_receipts/<user>/<filename>
-    return 'finaid_receipts/{}/{}'.format(instance.user.username, filename)
+    return 'finaid_receipts/{}/{}'.format(instance.application.user.username, filename)
 
 
 class Receipt(models.Model):
@@ -303,7 +303,7 @@ class Receipt(models.Model):
                                     related_name="receipts")
 
     description = models.CharField(max_length=255,
-        help_text="Please enter a description of this receipt image.")
+                                   help_text="Please enter a description of this receipt image.")
     amount = models.DecimalField(
         verbose_name=_("Amount"),
         help_text=_("Please enter the amount of the receipt in US dollars."),
