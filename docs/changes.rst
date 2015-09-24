@@ -9,10 +9,26 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.12
+---------------
+
+Thursday, September 24, 2015
+
+* Fix scrollbar on homepage images (#566, #567)
+* Upgrade to mainline django-constance (#563)
+* Final front-end tweaks (#558, #559):
+  * added breadcrumbs the sponsor page, fixed double underline on active
+    nav item, and changed H1 on venue pages to title case
+  * When I click on a nav heading, its underline becomes twice as thick
+    and the whole site content drops by one or two pixels, then when I
+    click again to close the nav menu the whole site moves up again.
+* Don't redirect / anymore. (#556)
+* Remove "2015" from tutorials text on front page (#561)
+
 Version 2016.11
 ---------------
 
-Wednesday, September 17, 2015
+Wednesday, September 23, 2015
 
 * Bug fixes for Education Summit Proposals (#551, #552, #547, #548)
 * Redirect / to sponsor prospectus (#546)
