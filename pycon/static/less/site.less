@@ -773,11 +773,10 @@ header.main {
           border-bottom: 2px solid transparent;
           &:hover {
             color: @maroon;
-            border-bottom: 2px solid @maroon;
             .transition(0.25s);
           }
           &.active {
-            border-bottom: 2px solid @maroon;
+            border-bottom-color: @maroon;
           }
           &:focus {
             .caret {
@@ -873,12 +872,16 @@ header.main {
               a {
                 color: @maroon;
                 background-image: none;
+                &:hover {
+                  border-bottom-color: transparent;
+                }
               }
             }
             a {
               margin: 0;
               color: @grayDark;
               padding: 1em 0;
+              border-bottom: 2px solid transparent;
               @media (max-width: @breakDesktop) {
                 padding-left: 0 !important;
               }
@@ -887,6 +890,7 @@ header.main {
               &:focus,
               &.active {
                 background-image: none;
+                border-bottom: 2px solid @maroon;
               }
 
               &:hover,
@@ -1267,6 +1271,7 @@ body.home {
           font-size: @baseFontSize * 2;
           text-decoration: none;
           border-bottom: none;
+          margin-bottom: 0.25em;
         }
       }
     }
@@ -1666,7 +1671,9 @@ body.venue {
 
 /* CMS Pages
 ==================== */
-body.cms-page {
+
+body.cms-page,
+body.venue {
   h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
   }
@@ -1677,6 +1684,9 @@ body.cms-page {
     padding-top: .8em;
     line-height: 1.4em;
   }
+}
+
+body.cms-page {
   .edit-btn {
     .btn;
     .btn-primary;

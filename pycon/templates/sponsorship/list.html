@@ -3,6 +3,7 @@
 {% load cache %}
 {% load sponsorship_tags %}
 {% load thumbnail %}
+{% load sitetree %}
 {% load i18n %}
 
 {% block head_title %}{% trans "About PyCon Sponsors" %}{% endblock %}
@@ -16,6 +17,8 @@
         <i class="icon icon-arrow-right"></i>
     </a>
 {% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block page_content %}
     <div class="container">
