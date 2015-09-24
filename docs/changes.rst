@@ -16,6 +16,10 @@ Wednesday, September 17, 2015
 
 * Bug fixes for Education Summit Proposals (#551, #552, #547, #548)
 * Redirect / to sponsor prospectus (#546)
+* Fix for uploading PDFs of financial aid receipts (#549, #550)
+* Add Caktus logo to footer (#525, #555)
+* Update Pycon favicon (#525, #555)
+* Upgrade pytz (#553)
 
 Version 2016.10
 ---------------
