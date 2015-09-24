@@ -21,12 +21,7 @@ gunicorn==19.3.0
 django-secure==1.0
 raven==5.5.0
 
-# django-constance 1.0.1 broken on Django 1.8
-#django-constance[database]==1.0.1
-
-# Use a fork with fixes for now:
-git+https://github.com/caktus/django-constance@fixes_recent_djangos#egg=django-constance[database]
-
+django-constance[database]==1.1
 
 django-picklefield==0.3.0
 
