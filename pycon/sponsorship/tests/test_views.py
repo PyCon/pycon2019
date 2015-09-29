@@ -29,7 +29,6 @@ FIXTURE_DIR = os.path.join(os.path.dirname(__file__), '../../../fixtures')
 
 class TestSponsorZipDownload(TestCase):
     fixtures = [
-        os.path.join(FIXTURE_DIR, 'conference.json'),
         os.path.join(FIXTURE_DIR, 'sponsorship_levels.json'),
         os.path.join(FIXTURE_DIR, 'sponsorship_benefits.json'),
     ]
@@ -243,7 +242,6 @@ class TestSponsorZipDownload(TestCase):
 
 class TestSponsorApply(ViewTestMixin, TestCase):
     fixtures = [
-        os.path.join(FIXTURE_DIR, 'conference.json'),
         os.path.join(FIXTURE_DIR, 'sponsorship_levels.json'),
         os.path.join(FIXTURE_DIR, 'sponsorship_benefits.json'),
     ]

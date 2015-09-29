@@ -2,6 +2,8 @@ import factory
 import factory.django
 import factory.fuzzy
 
+from symposion.conference.tests.factories import get_conference
+
 from .. import models
 
 
@@ -9,8 +11,7 @@ class SponsorLevelFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.SponsorLevel
 
-    conference = factory.SubFactory(
-        'symposion.conference.tests.factories.ConferenceFactory')
+    conference = get_conference()
     name = factory.fuzzy.FuzzyText()
     cost = factory.fuzzy.FuzzyInteger(1, 10000)
 

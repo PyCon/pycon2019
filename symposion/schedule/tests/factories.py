@@ -3,6 +3,7 @@ import factory
 import factory.fuzzy
 
 from pycon.tests.factories import PyConTutorialProposalFactory
+from symposion.conference.models import Section
 from symposion.conference.tests.factories import SectionFactory
 from symposion.speakers.tests.factories import SpeakerFactory
 
@@ -54,5 +55,5 @@ class PresentationFactory(factory.DjangoModelFactory):
     abstract = 'Abstract'
     speaker = factory.SubFactory(SpeakerFactory)
     proposal_base = factory.SubFactory(PyConTutorialProposalFactory)
-    section = factory.SubFactory(SectionFactory)
+    section = Section.objects.get(slug='tutorials')
     slot = factory.SubFactory(SlotFactory)
