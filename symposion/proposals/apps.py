@@ -6,6 +6,6 @@ class SymposionProposalsConfig(AppConfig):
 
     def ready(self):
         # Hook up signals now that models are done loading
-        # Note: This import does the hooking up and is NOT
-        # a no-op!
-        import symposion.proposals.signals  # no-qa
+        from symposion.proposals.signals import connect_signals
+
+        connect_signals()

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from httplib import OK
 from zipfile import ZipFile
 from StringIO import StringIO
-from datetime import timedelta, date
+from datetime import date
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -34,9 +34,6 @@ class ProgramExportTest(TestCase):
             name="Print logo", type="file")
         self.advertisement_benefit = Benefit.objects.create(
             name="Advertisement", type="file")
-
-        yesterday = now() - timedelta(hours=24)
-        tomorrow = now() + timedelta(hours=24)
 
         for slug in ['talks', 'tutorials']:
             section = Section.objects.get(conference=conference, slug=slug)

@@ -24,7 +24,8 @@ class TestEnsureProposalRecords(TestCase):
         ProposalKind.objects.filter(slug__in=['talk', 'lightning-talk']).delete()
         ProposalSection.objects.filter(section__slug__in=['talks', 'lightning-talks']).delete()
         Section.objects.filter(slug__in=['talks', 'lightning-talks']).delete()
-        Permission.objects.filter(content_type=review_ct, codename__startswith='can_review').delete()
+        Permission.objects.filter(content_type=review_ct,
+                                  codename__startswith='can_review').delete()
 
         ensure_proposal_records()
 

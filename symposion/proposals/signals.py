@@ -2,7 +2,6 @@
 # to avoid signal handlers being hooked up multiple times.
 
 from django.db.models.signals import post_save, post_delete, post_migrate
-from django.dispatch import receiver
 
 from taggit.models import TaggedItem
 from symposion.proposals.kinds import ensure_proposal_records
@@ -13,7 +12,6 @@ from symposion.proposals.models import ProposalBase
 # that refer to proposals get updated.  Basically we want to
 # figure out which proposal or proposals are affected and call
 # .cache_tags() on them.
-@receiver(post_save, sender=TaggedItem)
 def tagitem_saved(sender, instance, raw, created, using, update_fields, **kwargs):
     """
     When a tagitem linked to a proposal changes, update the proposal
@@ -25,7 +23,6 @@ def tagitem_saved(sender, instance, raw, created, using, update_fields, **kwargs
             thing_tagged.cache_tags()
 
 
-@receiver(post_delete, sender=TaggedItem)
 def tagitem_deleted(sender, instance, **kwargs):
     """
     When a tagitem linked to a proposal is deleted, update the proposal
@@ -38,7 +35,12 @@ def tagitem_deleted(sender, instance, **kwargs):
 
 # After migrating this app, make sure that we have all the right
 # records for our proposal kinds.
-@receiver(post_migrate)
 def proposals_post_migrate(sender, app_config, **kwargs):
     if app_config.name == 'symposion.proposals':
         ensure_proposal_records()
+
+
+def connect_signals():
+    post_save.connect(tagitem_saved, sender=TaggedItem)
+    post_delete.connect(tagitem_deleted, sender=TaggedItem)
+    post_migrate.connect(proposals_post_migrate)
