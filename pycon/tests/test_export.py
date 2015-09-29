@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from httplib import OK
 from zipfile import ZipFile
 from StringIO import StringIO
-from datetime import timedelta, date
+from datetime import date
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -18,11 +18,6 @@ from symposion.schedule.tests.factories import PresentationFactory
 
 
 class ProgramExportTest(TestCase):
-    fixtures = [
-        'fixtures/conference.json',
-        'fixtures/proposal_base.json'
-    ]
-
     def setUp(self):
         self.url = reverse('program_export')
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
@@ -40,20 +35,8 @@ class ProgramExportTest(TestCase):
         self.advertisement_benefit = Benefit.objects.create(
             name="Advertisement", type="file")
 
-        yesterday = now() - timedelta(hours=24)
-        tomorrow = now() + timedelta(hours=24)
-
-        for kind_name in ['Talk', 'Tutorial']:
-            slug = kind_name.lower()
-            section, __ = Section.objects.get_or_create(
-                conference=conference,
-                name__iexact=kind_name + "s",  # Section names are plural
-                defaults=dict(name=kind_name + "s",
-                              start_date=yesterday,
-                              end_date=tomorrow,
-                              slug=slug))
-            ProposalKind.objects.get_or_create(name__iexact=kind_name,
-                                               defaults=dict(slug=slug, section=section))
+        for slug in ['talks', 'tutorials']:
+            section = Section.objects.get(conference=conference, slug=slug)
             Schedule.objects.get_or_create(section=section)
 
     def test_special_events_export(self):
@@ -75,7 +58,7 @@ class ProgramExportTest(TestCase):
         self.assertNotIn(self.unpublished_special.description, file_contents)
 
     def test_talks_schedule(self):
-        section = Section.objects.get(name='Talks')
+        section = Section.objects.get(slug='talks')
         schedule = Schedule.objects.get(section=section)
 
         day = Day.objects.create(schedule=schedule, date=date.today())
@@ -108,7 +91,7 @@ class ProgramExportTest(TestCase):
     def test_tutorials_presentation(self):
         section = Section.objects.get(name='Tutorials')
         schedule = Schedule.objects.get(section=section)
-        prop_kind = ProposalKind.objects.get(name__iexact='tutorial')
+        prop_kind = ProposalKind.objects.get(slug='tutorial')
         proposal = PyConTutorialProposalFactory(
             kind=prop_kind,
         )

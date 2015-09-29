@@ -58,8 +58,6 @@ class ReviewTestMixin(object):
 
 
 class ReviewTests(TestCase):
-    fixtures = ["proposals"]
-
     def setUp(self):
         raise SkipTest
 
@@ -182,11 +180,6 @@ class ReviewTests(TestCase):
 
 
 class ReviewPageTest(ReviewTestMixin, TestCase):
-    fixtures = [
-        'conference.json',
-        'proposal_base.json',
-    ]
-
     def test_review_section(self):
 
         talk = PyConTalkProposalFactory(
@@ -248,11 +241,6 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
 
 
 class SubmitReviewTest(ReviewTestMixin, TestCase):
-    fixtures = [
-        'conference.json',
-        'proposal_base.json',
-    ]
-
     def submit_review(self, proposal, user, vote):
         # Submit a vote and return the updated proposal object
         assert is_voting_period_active(proposal)

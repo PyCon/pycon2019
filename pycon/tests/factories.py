@@ -12,8 +12,8 @@ from pycon.models import PyConProposalCategory, PyConProposal, \
     PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, PyConLightningTalkProposal, \
     SpecialEvent, EduSummitTalkProposal
 
-from symposion.proposals.tests.factories import ProposalKindFactory, \
-    ProposalBaseFactory
+from symposion.proposals.models import ProposalKind
+from symposion.proposals.tests.factories import ProposalBaseFactory
 from symposion.reviews.models import ProposalResult, ProposalGroup
 
 
@@ -72,9 +72,7 @@ class PyConTalkProposalFactory(PyConProposalFactory):
 
     duration = 0
 
-    kind = factory.SubFactory(ProposalKindFactory,
-                              name="talk",
-                              slug="talk")
+    kind = ProposalKind.objects.get(slug='talk')
     outline = "outline"
     audience = "audience"
     perceived_value = "perceived_value"
@@ -84,10 +82,7 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     class Meta:
         model = PyConTutorialProposal
 
-    kind = factory.SubFactory(ProposalKindFactory,
-                              name="tutorial",
-                              slug="tutorial")
-
+    kind = ProposalKind.objects.get(slug='tutorial')
     domain_level = 1
     outline = "outline"
     more_info = "more info"
@@ -118,15 +113,11 @@ class PyConLightningTalkProposalFactory(PyConProposalFactory):
     class Meta:
         model = PyConLightningTalkProposal
 
-    kind = factory.SubFactory(ProposalKindFactory,
-                              name="lightning",
-                              slug="lightning-talk")
+    kind = ProposalKind.objects.get(slug='lightning-talk')
 
 
 class PyConEduSummitProposalFactory(PyConProposalFactory):
     class Meta:
         model = EduSummitTalkProposal
 
-    kind = factory.SubFactory(ProposalKindFactory,
-                              name="edusummit",
-                              slug="edusummit")
+    kind = ProposalKind.objects.get(slug='edusummit')

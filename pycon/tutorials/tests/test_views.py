@@ -1,13 +1,11 @@
 from mock import patch
 
-from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from pycon.bulkemail.tasks import send_bulk_emails
 
+from pycon.bulkemail.tasks import send_bulk_emails
 from pycon.finaid.tests.utils import TestMixin
-from symposion.conference.models import Conference
 from symposion.schedule.tests.factories import PresentationFactory
 from symposion.speakers.tests.factories import SpeakerFactory
 
@@ -131,7 +129,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
             'subject': 'Test Subject',
             'body': 'Test Body'
         }
-       # We can display the page prompting for a message to send them
+        # We can display the page prompting for a message to send them
         url = reverse(
             'tutorial_email',
             kwargs={
@@ -156,7 +154,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
             'subject': 'Test Subject',
             'body': 'Test Body'
         }
-       # We can display the page prompting for a message to send them
+        # We can display the page prompting for a message to send them
         url = reverse(
             'tutorial_email',
             kwargs={
@@ -172,7 +170,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
 class TestTutorialMessageView(TestMixin, TestCase):
     def setUp(self):
         super(TestTutorialMessageView, self).setUp()
-        self.presentation = PresentationFactory(section__conference=Conference.objects.get(id=settings.CONFERENCE_ID))
+        self.presentation = PresentationFactory()
         self.tutorial_url = reverse(
             'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
@@ -183,7 +181,7 @@ class TestTutorialMessageView(TestMixin, TestCase):
         rsp = self.client.get(self.tutorial_url)
         self.assertIn('id="messages"', rsp.content)
 
-       # We can display the page prompting for a message to send them
+        # We can display the page prompting for a message to send them
         url = reverse(
             'tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
         rsp = self.client.get(url)
@@ -213,7 +211,7 @@ class TestTutorialMessageView(TestMixin, TestCase):
         rsp = self.client.get(self.tutorial_url)
         self.assertIn('id="messages"', rsp.content)
 
-       # We can display the page prompting for a message to send them
+        # We can display the page prompting for a message to send them
         url = reverse(
             'tutorial_message', kwargs={'pk': self.presentation.proposal.pk})
         rsp = self.client.get(url)
