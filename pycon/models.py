@@ -175,7 +175,7 @@ class PyConTalkProposal(PyConProposal):
         return answer
 
 
-register_proposal_model('talk', PyConTalkProposal)
+register_proposal_model('talk', PyConTalkProposal, 'Talks')
 
 
 class PyConLightningTalkProposal(PyConProposal):
@@ -184,7 +184,7 @@ class PyConLightningTalkProposal(PyConProposal):
         verbose_name = "PyCon lightning talk proposal"
 
 
-register_proposal_model('lightning-talk', PyConLightningTalkProposal)
+register_proposal_model('lightning-talk', PyConLightningTalkProposal, 'Lightning Talks')
 
 
 class PyConTutorialProposal(PyConProposal):
@@ -249,7 +249,7 @@ class PyConTutorialProposal(PyConProposal):
         verbose_name = "PyCon tutorial proposal"
 
 
-register_proposal_model('tutorial', PyConTutorialProposal)
+register_proposal_model('tutorial', PyConTutorialProposal, 'Tutorials')
 
 
 class PyConPosterProposal(PyConProposal):
@@ -257,7 +257,7 @@ class PyConPosterProposal(PyConProposal):
         verbose_name = "PyCon Poster proposal"
 
 
-register_proposal_model('poster', PyConPosterProposal)
+register_proposal_model('poster', PyConPosterProposal, 'Posters')
 
 
 class PyConSponsorTutorialProposal(ProposalBase):
@@ -268,7 +268,7 @@ class PyConSponsorTutorialProposal(ProposalBase):
         return self.title
 
 
-register_proposal_model('sponsor-tutorial', PyConSponsorTutorialProposal)
+register_proposal_model('sponsor-tutorial', PyConSponsorTutorialProposal, 'Sponsor Tutorials')
 
 
 class EduSummitTalkProposal(PyConProposal):
@@ -276,7 +276,7 @@ class EduSummitTalkProposal(PyConProposal):
         verbose_name = "Python Education Summit talk proposal"
 
 
-register_proposal_model('edusummit', EduSummitTalkProposal)
+register_proposal_model('edusummit', EduSummitTalkProposal, 'Education Summit')
 
 
 class PyConOpenSpaceProposal(PyConProposal):
@@ -284,7 +284,7 @@ class PyConOpenSpaceProposal(PyConProposal):
         verbose_name = "PyCon Open Space proposal"
 
 
-register_proposal_model('open-space', PyConOpenSpaceProposal)
+register_proposal_model('open-space', PyConOpenSpaceProposal, 'Open Spaces')
 
 
 class SpecialEvent(models.Model):

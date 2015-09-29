@@ -1,4 +1,5 @@
 from httplib import OK, NOT_FOUND
+from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import Permission
@@ -6,16 +7,15 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.dateformat import format, time_format
+from django.utils.timezone import now
 
 from pycon.finaid.tests.utils import TestMixin
 from pycon.models import EduSummitTalkProposal, PyConTalkProposal, PyConProposal
 from pycon.tests.factories import SpecialEventFactory, PyConProposalCategoryFactory, \
     PyConEduSummitProposalFactory, PyConLightningTalkProposalFactory, PyConTalkProposalFactory
-from symposion.conference.models import Conference, current_conference
-from symposion.conference.tests.factories import SectionFactory
+from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.kinds import get_proposal_model
-from symposion.proposals.models import ProposalKind
-from symposion.proposals.tests.factories import ProposalSectionFactory
+from symposion.proposals.models import ProposalKind, ProposalSection
 from symposion.reviews.models import Review
 from symposion.speakers.tests.factories import SpeakerFactory
 
@@ -50,9 +50,13 @@ class CreateEduSummitProposal(TestMixin, TestCase):
     def test_create_edusummit_proposal(self):
         SpeakerFactory(user=self.create_user())
         self.login()
-        section = SectionFactory(conference=current_conference(), slug='edusummits')
-        ProposalSectionFactory(section=section)
-        ProposalKind.objects.get_or_create(slug='edusummit', section=section)
+        section = Section.objects.get(conference=current_conference(), slug='edusummits')
+        psection = ProposalSection.objects.get(section=section)
+        if not psection.is_available():
+            psection.closed = False
+            psection.start = now() - timedelta(days=3)
+            psection.end = now() + timedelta(days=3)
+            psection.save()
 
         url = reverse('proposal_submit_kind', args=['edusummit'])
         data = {
@@ -75,8 +79,7 @@ class ChangeStatusProposal(TestMixin, TestCase):
     def check_one_kind(self, kind_slug, factory):
         section_slug = kind_slug + "s"
         speaker = SpeakerFactory(user=self.create_user())
-        section = SectionFactory(conference=current_conference(), slug=section_slug)
-        ProposalSectionFactory(section=section)
+        section = Section.objects.get(conference=current_conference(), slug=section_slug)
         kind, __ = ProposalKind.objects.get_or_create(slug=kind_slug, section=section)
         proposal = factory(
             kind=kind,
@@ -87,15 +90,11 @@ class ChangeStatusProposal(TestMixin, TestCase):
         # can review their own proposals.
         reviewer = self.create_user(username="reviewer", email="reviewer@example.com")
         ct = ContentType.objects.get_for_model(Review)
-        perm, __ = Permission.objects.get_or_create(
-            codename="can_review_%s" % section_slug,
-            name="Can review %s proposals" % kind_slug,
-            content_type=ct)
+        perm = Permission.objects.get(content_type=ct,
+                                      codename="can_review_%s" % section_slug)
         reviewer.user_permissions.add(perm)
-        perm, __ = Permission.objects.get_or_create(
-            codename="can_manage_%s" % section_slug,
-            name="Can manage %s proposals" % kind_slug,
-            content_type=ct)
+        perm = Permission.objects.get(content_type=ct,
+                                      codename="can_manage_%s" % section_slug)
         reviewer.user_permissions.add(perm)
         self.login(username="reviewer")
 

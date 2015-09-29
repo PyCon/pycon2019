@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Permission
 
 # from symposion.proposals.actions import export_as_csv_action
 from symposion.proposals.models import ProposalSection, ProposalKind
@@ -36,3 +37,6 @@ class ProposalKindAdmin(admin.ModelAdmin):
 
 admin.site.register(ProposalSection, ProposalSectionAdmin)
 admin.site.register(ProposalKind, ProposalKindAdmin)
+admin.site.register(Permission,
+                    list_display=['content_type', 'codename', 'name'],
+                    search_fields=['codename', 'name'])

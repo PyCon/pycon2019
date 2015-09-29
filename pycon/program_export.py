@@ -207,8 +207,8 @@ class PresentationsExporter(BaseExporter):
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
-            filename = kind.name.lower().replace(' ', '_') + 's'
-            if kind.name.lower() in ['talk', 'tutorial']:
+            filename = kind.name.lower().replace(' ', '_')
+            if kind.slug in ['talk', 'tutorial']:
                 self.write(filename, presentations,
                            self.fields + ['room', 'time'])
             else:
@@ -276,8 +276,8 @@ class ScheduleExporter(BaseExporter):
         return ''
 
     def export(self):
-        schedules = [Schedule.objects.get(section__name=name)
-                     for name in ['Talks', 'Tutorials']]
+        schedules = [Schedule.objects.get(section__slug=slug)
+                     for slug in ['talks', 'tutorials']]
 
         for schedule in schedules:
             slots = []

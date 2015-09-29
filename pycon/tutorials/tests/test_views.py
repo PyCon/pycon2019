@@ -172,7 +172,7 @@ class TestTutorialEmailView(TestCase, TestMixin):
 class TestTutorialMessageView(TestMixin, TestCase):
     def setUp(self):
         super(TestTutorialMessageView, self).setUp()
-        self.presentation = PresentationFactory(section__conference=Conference.objects.get(id=settings.CONFERENCE_ID))
+        self.presentation = PresentationFactory()
         self.tutorial_url = reverse(
             'schedule_presentation_detail', args=[self.presentation.pk])
         self.user = self.create_user()
