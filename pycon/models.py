@@ -172,6 +172,12 @@ class PyConTalkProposal(PyConProposal):
             if self.thunderdome_group:
                 code = self.thunderdome_group.code
             answer['thunderdome_group'] = code
+            answer['duration'] = self.get_duration_display()
+            answer['outline'] = self.outline
+            answer['audience'] = self.audience
+            answer['objective'] = self.perceived_value
+            answer['audience_level'] = self.get_audience_level_display()
+            answer['recording_release'] = self.recording_release
         return answer
 
 
