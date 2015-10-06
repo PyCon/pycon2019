@@ -9,6 +9,14 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.14
+---------------
+
+Tuesday, October 6, 2015
+
+* Fix speaker photo uploads with non-ASCII filenames (#573)
+* Change from Ned Jackson Lovely (njl): "richer API response" (#572)
+
 Version 2016.13
 ---------------
 
