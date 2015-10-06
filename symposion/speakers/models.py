@@ -1,9 +1,24 @@
 import datetime
+import os
+from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+
+def get_photo_path(instance, filename):
+    """
+    Generate the path where we save the uploaded photo.
+    Store the files under speaker_photos.
+    To avoid problems with non-ASCII, generate a random UUID and use that as
+    the base filename, with the original filename's extension appended.
+    """
+    # file will be uploaded to MEDIA_ROOT/speaker_photos/<UUID>.extension
+    extension = os.path.splitext(filename)[1]
+    uuid = uuid4()
+    return 'speaker_photos/{}{}'.format(uuid, extension)
 
 
 class Speaker(models.Model):
@@ -21,18 +36,18 @@ class Speaker(models.Model):
         help_text=_(u"A little bit about you. 100 words or less, please. This "
                     u"will be used in print publications so please keep it "
                     u"simple, no links or formatting."))
-    photo = models.ImageField(upload_to="speaker_photos", blank=True)
+    photo = models.ImageField(upload_to=get_photo_path, blank=True)
     twitter_username = models.CharField(
-        max_length = 15,
-        blank = True,
+        max_length=15,
+        blank=True,
         help_text=_(u"Your Twitter account")
     )
-    annotation = models.TextField() # staff only
+    annotation = models.TextField()  # staff only
     invite_email = models.CharField(max_length=200, unique=True, null=True, db_index=True)
     invite_token = models.CharField(max_length=40, db_index=True)
     created = models.DateTimeField(
-        default = datetime.datetime.now,
-        editable = False
+        default=datetime.datetime.now,
+        editable=False
     )
     sessions_preference = models.IntegerField(
         choices=SESSION_COUNT_CHOICES,
