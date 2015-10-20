@@ -178,6 +178,8 @@ class PyConTalkProposal(PyConProposal):
             answer['objective'] = self.perceived_value
             answer['audience_level'] = self.get_audience_level_display()
             answer['recording_release'] = self.recording_release
+            answer['additional_requirements'] = self.additional_requirements
+            answer['category'] = self.category.name if self.category else None
         return answer
 
 
