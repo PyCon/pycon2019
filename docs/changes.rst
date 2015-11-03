@@ -9,6 +9,14 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.15
+---------------
+
+Tuesday, November 3, 2015
+
+* Fix buttons under sponsor carousels on CMS page (#576, #577)
+* More export changes from njl (#574)
+
 Version 2016.14
 ---------------
 
