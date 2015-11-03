@@ -1235,43 +1235,32 @@ body.home {
   }
 
   .register {
-    margin-bottom: 3em;
+    margin-bottom: 2em;
+    @media (min-width: @breakTablet) {
+      margin-bottom: 5em;
+    }
     .full { padding: 10px; }
     .register-banner {
       background: url("/2016/site_media/static/img/PNG/Register-Banner.png") center center no-repeat;
       background: url("/2016/site_media/static/img/SVG/Register-Banner.svg") center center no-repeat;
+      box-sizing: border-box;
       width: 100%;
-      height: auto;
-      background-size: cover;
-      margin: 1.25em auto 1em;
+      margin: 0 auto;
       text-align: center;
-      padding: 1.5em 0;
-      font-size: @baseFontSize * .75;
-      @media (min-width: @breakTablet) {
-        width: 50%;
-        padding: 2em;
-      }
-      @media (min-width: @breakDesktop) {
-        width: 35%;
-        padding: 2.2em 2em 1.7em;
-        margin: 0 auto 2em;
+      padding: 2.5em 3em;
+      @media (min-width:@breakDesktop) {
+        padding: 3em;
       }
       .promo {
-        @media (max-width: @breakDesktop) {
-          margin-top: .75em;
-          &.no-link {
-            top: 20px;
-          }
-        }
         p, a {
           color: white;
           font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
           font-weight: 700;
           text-transform: uppercase;
-          font-size: @baseFontSize * 2;
-          text-decoration: none;
+          line-height: 125%;
+          font-size: @baseFontSize * 1.75;
           border-bottom: none;
-          margin-bottom: 0.25em;
+          margin-bottom: 0;
         }
       }
     }
@@ -1294,11 +1283,18 @@ body.home {
       }
       h2 {
         text-align: left;
+        @media (min-width:@breakDesktop) {
+            padding-left: 3.5em;
+        }
+        @media (min-width:@breakDesktopLarge) {
+            padding-left: 4.3em;
+        }
       }
     }
 
     .pycon-past {
-      overflow: visible;
+      overflow: auto;
+      margin-bottom: 2em;
     }
 
     .pycon-announcements {
@@ -1307,6 +1303,9 @@ body.home {
       width: 100%;
       @media (min-width:@breakMobileLandscape ) {
         height: 400px;
+      }
+      @media (min-width:@breakDesktop) {
+        padding-left: 0;
         width: 50%;
       }
       .announcement-bg {
@@ -1316,8 +1315,8 @@ body.home {
         right: 3%;
         @media (min-width:@breakMobileLandscape ) {
           height: 370px;
-          width: 94%;
-          right: 3%;
+          width: 96%;
+          right: 2%;
         }
         @media (min-width:@breakDesktop ) {
           width: 49%;
@@ -1330,24 +1329,36 @@ body.home {
       }
       .post-content {
         padding: 0.5em;
+        padding-left: 0;
         @media (min-width:@breakDesktop ) {
-          padding: 0.5em 3em;
+          padding: 0.5em 5em;
+          max-width: 500px;
         }
         @media (min-width:@breakDesktopLarge ) {
-          padding: 0.5em 5em 0.5em 3em;
+          padding: 0.5em 15% 0.5em 6em;
         }
       }
       .blog-post {
-        padding: 15px;
+        width: 85%;
+        height: 450px;
+        margin: 15px 0 0 15px;
         overflow: auto;
         color: white;
         text-align: left;
         z-index: 1;
         position: absolute;
         overflow: auto;
+        @media (min-width:@breakMobileLandscape ) {
+          height: 380px;
+        }
         @media (min-width:@breakTablet) and (max-width:@breakDesktop) {
-					padding: 1em 10% 1em 0;
+					padding: 1em 0;
+          margin-left: 0;
 				}
+        @media (min-width:@breakDesktop ) {
+          width: 49%;
+          margin-left: 0;
+        }
         h3 {
           color: white;
           margin-top: 0;
@@ -1371,6 +1382,9 @@ body.home {
           text-transform: uppercase;
           font-size: 0.8em;
           font-weight: 600;
+        }
+        .teaser {
+          padding-bottom: 4em;
         }
       }
     }
@@ -2479,7 +2493,7 @@ body#group-registration {
 @media (min-width: @breakDesktop) {
 	.js-flickity {
 		.flickity-viewport {
-			height: 370px !important;
+			height: 350px !important;
 		}
 		.flickity-prev-next-button {
 			top: 34%;

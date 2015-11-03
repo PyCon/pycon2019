@@ -128,8 +128,8 @@
             <div class="half pycon-announcements">
               <h2 class="scroll-title">{% trans "Announcements" %}</h2>
               <div class="announcement-bg">
-                <img class="announcement-banner hide-mobile" src="{{ STATIC_URL }}img/PNG/announcement-banner.png" width=400 height=200 alt="announcements banner">
-                <img class="announcement-banner hide-desktop" src="{{ STATIC_URL }}img/PNG/announcement-banner-mobile.png" width=200 height=400 alt="announcements banner">
+                <img class="announcement-banner hide-mobile" src="{{ STATIC_URL }}img/PNG/announcement-banner.png" alt="announcements banner">
+                <img class="announcement-banner hide-desktop" src="{{ STATIC_URL }}img/PNG/announcement-banner-mobile.png" alt="announcements banner">
               </div>
               {% latest_blog_posts as posts %}
               {% for post in posts|slice:"1" %}
