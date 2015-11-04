@@ -9,6 +9,16 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.16
+---------------
+
+Wednesday, November 4, 2015
+
+* Improvements to styling of homepage announcements (#569, #578):
+    changed the scale and breakpoints for the register banner,
+    past pycon image carrousel, and announcements banner so the
+    transitions are smoother and content doesn't get cut off
+
 Version 2016.15
 ---------------
 
