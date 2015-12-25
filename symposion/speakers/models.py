@@ -23,11 +23,6 @@ def get_photo_path(instance, filename):
 
 class Speaker(models.Model):
 
-    SESSION_COUNT_CHOICES = [
-        (1, _(u"One")),
-        (2, _(u"Two"))
-    ]
-
     user = models.OneToOneField(User, null=True, related_name="speaker_profile")
     name = models.CharField(max_length=100,
                             help_text=_(u"As you would like it to appear in "
@@ -48,16 +43,6 @@ class Speaker(models.Model):
     created = models.DateTimeField(
         default=datetime.datetime.now,
         editable=False
-    )
-    sessions_preference = models.IntegerField(
-        choices=SESSION_COUNT_CHOICES,
-        null=True,
-        blank=True,
-        help_text=_(u"If you've submitted multiple talk proposals, please let "
-                    u"us know if you only want to give one or if you'd like "
-                    u"to give two talks.  For tutorials and posters, state "
-                    u"similar preferences in the additional notes section of "
-                    u"your proposals.")
     )
 
     class Meta:
