@@ -9,15 +9,6 @@ from symposion.speakers.models import Speaker
 
 class SpeakerForm(forms.ModelForm):
 
-    sessions_preference = forms.ChoiceField(
-        widget=forms.RadioSelect(),
-        choices=Speaker.SESSION_COUNT_CHOICES,
-        required=False,
-        help_text=_(u"If you've submitted multiple proposals, please let us "
-                    u"know if you only want to give one or if you'd like "
-                    u"to give two talks.")
-    )
-
     class Meta:
         model = Speaker
         fields = [
@@ -33,12 +24,6 @@ class SpeakerForm(forms.ModelForm):
         if value.startswith("@"):
             value = value[1:]
         return value
-
-    def clean_sessions_preference(self):
-        value = self.cleaned_data["sessions_preference"]
-        if not value:
-            return None
-        return int(value)
 
     def clean_biography(self):
         value = self.cleaned_data["biography"]
