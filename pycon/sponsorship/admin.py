@@ -45,7 +45,7 @@ class SponsorAdmin(admin.ModelAdmin):
             "fields": ["wants_table", "wants_booth"],
         }),
         ("Sponsor Data", {
-           "fields": ["booth_number", "job_fair_table_number", "registration_promo_codes"],
+            "fields": ["booth_number", "job_fair_table_number", "registration_promo_codes"],
         }),
         ("Contact Information", {
             "fields": ["contact_name", "contact_emails", "contact_phone",
@@ -81,11 +81,17 @@ class SponsorAdmin(admin.ModelAdmin):
     def get_form(self, *args, **kwargs):
         # @@@ kinda ugly but using choices= on NullBooleanField is broken
         form = super(SponsorAdmin, self).get_form(*args, **kwargs)
+
         form.base_fields["active"].widget.choices = [
             (u"1", _(u"unreviewed")),
             (u"2", _(u"approved")),
             (u"3", _(u"rejected"))
         ]
+
+        applicant_qs = form.base_fields['applicant'].queryset
+        applicant_qs = applicant_qs.order_by('first_name', 'last_name', 'pk')
+        form.base_fields['applicant'].queryset = applicant_qs
+
         return form
 
     # Define accessor functions for our benefit fields and add them to
