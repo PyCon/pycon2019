@@ -9,6 +9,13 @@ The most recent update is at the top.
 Version numbers are tags in git.  ``#`` numbers are issues and
 pull requests in github (https://github.com/pycon/pycon.git).
 
+Version 2016.17
+---------------
+
+Wednesday, January 6, 2016
+
+* Order sponsor applicant choices by first name then last name
+
 Version 2016.16
 ---------------
 
