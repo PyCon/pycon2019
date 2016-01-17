@@ -2,8 +2,13 @@
 - hosts: localhost
   tasks:
 
-  - apt_key:
+  - name: Configure apt key for third-party Postgres repository
+    apt_key:
       id=ACCC4CF8 url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
+
+  - name: Configure apt key for third-party Node.js repository
+    apt_key:
+      id=68576280 url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key
 
   - name: Configure apt repositories
     apt_repository: repo={{ item }}
