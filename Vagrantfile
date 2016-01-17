@@ -63,13 +63,15 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline <<-SHELL
-  #   sudo apt-get install apache2
-  # SHELL
+  # Provision with Ansible.  The ansible_local method does not work at
+  # the moment because the new Ansible 2.0 cannot be properly detected
+  # by that Vagrant method, so we install and invoke Ansible manually.
 
-  config.vm.provision :shell, path: "vagrant_bootstrap.sh"
+  config.vm.provision "shell", inline: <<-SHELL
+    if ! which ansible-playbook
+    then sudo apt-get install -y ansible
+    fi
+    sudo ansible-playbook -i "localhost," -c local /vagrant/develop/playbook.yml
+  SHELL
 
 end
