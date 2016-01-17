@@ -69,7 +69,10 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     if ! which ansible-playbook
-    then sudo apt-get install -y ansible
+    then
+      sudo apt-get update
+      sudo apt-get install -y python-dev python-pip
+      sudo pip install ansible
     fi
     sudo ansible-playbook -i "localhost," -c local /vagrant/develop/playbook.yml
   SHELL
