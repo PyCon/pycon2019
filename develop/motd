@@ -1,0 +1,9 @@
+
+Welcome to the Vagrant-powered development box for the PyCon site!
+To run the Django application, simply run these commands:
+
+    cd /vagrant
+    ./manage.py runserver 0.0.0.0:8000
+
+Then visit http://localhost:8000/2016/ in your browser.
+
