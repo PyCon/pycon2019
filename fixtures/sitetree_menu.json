@@ -1481,7 +1481,7 @@
             "sort_order": 70,
             "title": "PyLadies Lunch @ PyCon!",
             "tree": 1,
-            "url": "cms_page \"events/pyladieslunch/\" ",
+            "url": "cms_page \"events/pyladieslunch/\"",
             "urlaspattern": true
         },
         "model": "sitetree.treeitem",
