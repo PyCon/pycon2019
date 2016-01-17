@@ -11,9 +11,12 @@ case $REPLY in
   ;;
 esac
 
-dropdb pycon2016
-createdb pycon2016
-python manage.py syncdb --noinput
+set -e                          # exit immediately on error
+set -x                          # print commands as they execute
+
+dropdb --if-exists pycon2016
+createdb pycon2016 --locale=en_US.UTF-8 --encoding=UTF8 --template=template0
+
 python manage.py migrate
 
 python manage.py loaddata \
