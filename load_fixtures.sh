@@ -1,23 +1,7 @@
 #!/bin/bash
 
-# Create fresh db, load fixtures in an order that works
-
-read -p "About to blow away DB - answer Y to go ahead, ^C to cancel> "
-case $REPLY in
-  Y*) ;;
-  *)
-   echo "Cancelling (try capital Y if you meant to go ahead)"
-   exit 1
-  ;;
-esac
-
 set -e                          # exit immediately on error
 set -x                          # print commands as they execute
-
-dropdb --if-exists pycon2016
-createdb pycon2016 --locale=en_US.UTF-8 --encoding=UTF8 --template=template0
-
-python manage.py migrate
 
 python manage.py loaddata \
   fixtures/auth_user.json \
