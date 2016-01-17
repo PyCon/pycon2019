@@ -8,15 +8,43 @@
   - apt_repository:
       repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
 
-  - apt: name=git-core
-  - apt: name=libpq-dev
-  - apt: name=make
-  - apt: name=postgresql-9.3
-  - apt: name=postgresql-client-9.3
-  - apt: name=postgresql-server-dev-9.3
-  - apt: name=python-dev
-  - apt: name=python-psycopg2
+  - name: Install Ubuntu packages
+    apt: name={{ item }}
+    with_items:
+      - git-core
+      - libpq-dev
+      - make
+      - postgresql-9.3
+      - postgresql-client-9.3
+      - postgresql-server-dev-9.3
+      - python-dev
+      - python-pip
+      - python-psycopg2
 
-  - postgresql_user: name=vagrant role_attr_flags=SUPERUSER
+  - name: Give the vagrant user permission to database
+    postgresql_user: name=vagrant role_attr_flags=SUPERUSER
     become: yes
     become_user: postgres
+
+  - name: Upgrade virtualenv to latest version
+    shell: '[ -x /usr/local/bin/virtualenv ] || pip install -U virtualenv'
+
+  - name: Install app dependencies in a virtualenv
+    pip:
+      requirements=/vagrant/requirements/dev.txt
+      virtualenv=/home/vagrant
+      extra_args='--trusted-host dist.pinaxproject.com'
+    become: yes
+    become_user: vagrant
+
+  - name: Copy settings file
+    copy:
+      src=/vagrant/pycon/settings/local.py-example
+      dest=/vagrant/pycon/settings/local.py
+      owner=vagrant group=vagrant
+
+  - name: Activate developer settings
+    lineinfile:
+      dest=/vagrant/pycon/settings/local.py
+      regexp='^#from .dev'
+      line='from .dev import *'
