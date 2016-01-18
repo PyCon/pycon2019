@@ -25,26 +25,28 @@ Running the PyCon site locally
 Developers can easily run the PyCon web application inside a virtual
 machine by using `Vagrant`_.  Once you have Vagrant installed on your
 computer, simply check out this project from GitHub and ask Vagrant to
-build its development machine:
+build its development machine::
 
     $ git clone https://github.com/PyCon/pycon.git
     $ cd pycon
     $ vagrant up
 
-Vagrant with automatically run ``provision`` on this first call to
-``up`` that creates the virtual machine — it may take a few minutes to
-complete as it downloads Django and the tools it needs.
+On this first call to ``up`` that creates the virtual machine, Vagrant
+will go ahead and automatically perform all of the provisioning steps
+that the application needs.  You can later re-run the steps if you want
+by typing ``vagrant provision``.  Provisioning may take a few minutes to
+complete, since it downloads Django and all of the libraries it needs.
 
-When provision finishes, the PyCon application should be ready to run.
+When provisioning finishes, the PyCon application is ready to run.
 Simply SSH into the Vagrant machine and follow the instructions in the
-greeting that it prints out, which will recommend something like this:
+greeting that it prints out, which will recommend something like this::
 
     $ vagrant ssh
     (vagrant)vagrant@precise64:~$ cd /vagrant
     (vagrant)vagrant@precise64:/vagrant$ ./manage.py runserver 0.0.0.0:8000
 
 Finally, you should see the development version of the PyCon web site
-appear when you visit ``http://localhost:8000/`` in your browser!
+when you visit ``http://localhost:8000/`` in your browser!
 
 .. _Vagrant: https://www.vagrantup.com/
 
