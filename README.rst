@@ -1,4 +1,9 @@
-PyCon 2016 website being built by Caktus Consulting Group, based on symposion.
+
+=====================
+ PyCon 2016 Web Site
+=====================
+
+Built by the Caktus Consulting Group atop the Django web framework.
 
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
@@ -14,25 +19,39 @@ Build status for develop branch:
 .. image:: https://travis-ci.org/PyCon/pycon.svg?branch=develop
     :target: https://travis-ci.org/PyCon/pycon
 
-To get running locally
-----------------------
+Running the PyCon site locally
+------------------------------
 
-* First, if you're not on Ubuntu 12.04 or 14.04, you might need to do the following in
-  a virtual machine that is running one of them.  You can use the provided
-  Vagrantfile to create one running Ubuntu 12.04 and install some of the prerequisites::
+Developers can easily run the PyCon web application inside a virtual
+machine by using `Vagrant`_.  Once you have Vagrant installed on your
+computer, simply check out this project from GitHub and ask Vagrant to
+build its development machine:
 
+    $ git clone https://github.com/PyCon/pycon.git
+    $ cd pycon
     $ vagrant up
 
-  That'll have the current local directory mounted internally as /vagrant.
-  Ssh into the vagrant system and change directories to /vagrant::
+Vagrant with automatically run ``provision`` on this first call to
+``up`` that creates the virtual machine — it may take a few minutes to
+complete as it downloads Django and the tools it needs.
+
+When provision finishes, the PyCon application should be ready to run.
+Simply SSH into the Vagrant machine and follow the instructions in the
+greeting that it prints out, which will recommend something like this:
 
     $ vagrant ssh
-    $ cd /vagrant
+    (vagrant)vagrant@precise64:~$ cd /vagrant
+    (vagrant)vagrant@precise64:/vagrant$ ./manage.py runserver 0.0.0.0:8000
 
-  and then continue working there with the following instructions.
+Finally, you should see the development version of the PyCon web site
+appear when you visit ``http://localhost:8000/`` in your browser!
 
-* If you are already on an Ubuntu system (12.04 or 14.04), you can skip using vagrant and
-  just continue on from here.
+.. _Vagrant: https://www.vagrantup.com/
+
+Running the PyCon web site in production
+----------------------------------------
+
+* You will want to run the application on an Ubuntu 12.04 or 14.04 host.
 
 * Create a new virtualenv and activate it::
 
@@ -41,13 +60,11 @@ To get running locally
 
 * Install the requirements for running and testing locally::
 
-    $ pip install --trusted-host dist.pinaxproject.com -r requirements/dev.txt
-
-  (For production, install -r requirements/project.txt).
+    $ pip install --trusted-host dist.pinaxproject.com -r requirements/project.txt
 
 * Copy ``pycon/settings/local.py-example`` to ``pycon/settings/local.py``.
 * Edit ``pycon/settings/local.py`` according to the comments. Note that you
-  `will` have to edit it; by default everything there is commented out.
+  *will* have to edit it; by default everything there is commented out.
 
 * If you have ssh access to the staging server, copy the database and media::
 
@@ -67,23 +84,6 @@ To get running locally
 * Create a user account::
 
     $ ./manage.py createsuperuser
-
-* Run local server, binding to all IP addresses, and using port 8000::
-
-    python manage.py runserver 0.0.0.0:8000
-
-* Now you should be able to visit the running site from your host system's browser
-  at `http://localhost:8000`.  (If you're running Vagrant, Vagrant fowards port 8000
-  from the Vagrant system to the host system.)
-
-
-For production
---------------
-
-* Start with instructions above, except:
-
-  * Install requirements from requirements/project.txt instead of requirements/dev.txt
-  * Stop when you get to `Run local server`
 
 * Edit ``pycon/settings/local.py`` to make sure DEBUG=False.
 * Add an appropriate ALLOWED_HOSTS setting (https://docs.djangoproject.com/en/1.5/ref/settings/#std:setting-ALLOWED_HOSTS)
