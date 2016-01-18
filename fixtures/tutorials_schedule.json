@@ -1,14 +1,14 @@
 [
     {
         "pk": 1,
-        "model": "schedule.schedule",
+        "model": "symposion_schedule.schedule",
         "fields": {
             "section": 1
         }
     },
     {
         "pk": 1,
-        "model": "schedule.day",
+        "model": "symposion_schedule.day",
         "fields": {
             "date": "2014-03-13",
             "schedule": 1
@@ -16,7 +16,7 @@
     },
     {
         "pk": 2,
-        "model": "schedule.day",
+        "model": "symposion_schedule.day",
         "fields": {
             "date": "2014-03-14",
             "schedule": 1
@@ -24,7 +24,7 @@
     },
     {
         "pk": 3,
-        "model": "schedule.day",
+        "model": "symposion_schedule.day",
         "fields": {
             "date": "2014-03-15",
             "schedule": 1
@@ -32,7 +32,7 @@
     },
     {
         "pk": 4,
-        "model": "schedule.day",
+        "model": "symposion_schedule.day",
         "fields": {
             "date": "2014-03-16",
             "schedule": 1
@@ -40,7 +40,7 @@
     },
     {
         "pk": 5,
-        "model": "schedule.day",
+        "model": "symposion_schedule.day",
         "fields": {
             "date": "2014-03-17",
             "schedule": 1
@@ -48,7 +48,7 @@
     },
     {
         "pk": 1,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 1,
             "name": "Tutorials 1",
@@ -57,7 +57,7 @@
     },
     {
         "pk": 2,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 2,
             "name": "Tutorials 2",
@@ -66,7 +66,7 @@
     },
     {
         "pk": 3,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 3,
             "name": "Tutorials 3",
@@ -75,7 +75,7 @@
     },
     {
         "pk": 4,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 4,
             "name": "Tutorials 4",
@@ -84,7 +84,7 @@
     },
     {
         "pk": 5,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 5,
             "name": "Tutorials 5",
@@ -93,7 +93,7 @@
     },
     {
         "pk": 6,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 6,
             "name": "Tutorials 6",
@@ -102,7 +102,7 @@
     },
     {
         "pk": 7,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 7,
             "name": "Tutorials 7",
@@ -111,7 +111,7 @@
     },
     {
         "pk": 8,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 8,
             "name": "Tutorials 8",
@@ -120,7 +120,7 @@
     },
     {
         "pk": 9,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 9,
             "name": "Tutorials 9",
@@ -129,7 +129,7 @@
     },
     {
         "pk": 10,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 10,
             "name": "Tutorials 10",
@@ -138,7 +138,7 @@
     },
     {
         "pk": 11,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 11,
             "name": "Tutorials 11",
@@ -147,7 +147,7 @@
     },
     {
         "pk": 12,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 12,
             "name": "Tutorials 12",
@@ -156,7 +156,7 @@
     },
     {
         "pk": 13,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 13,
             "name": "Tutorials 13",
@@ -165,7 +165,7 @@
     },
     {
         "pk": 14,
-        "model": "schedule.room",
+        "model": "symposion_schedule.room",
         "fields": {
             "order": 14,
             "name": "Tutorials 14",
@@ -174,7 +174,7 @@
     },
     {
         "pk": 1,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "tutorial",
             "schedule": 1
@@ -182,7 +182,7 @@
     },
     {
         "pk": 2,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "poetry slam",
             "schedule": 1
@@ -190,7 +190,7 @@
     },
     {
         "pk": 3,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "sermon",
             "schedule": 1
@@ -198,7 +198,7 @@
     },
     {
         "pk": 4,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "lightning talk",
             "schedule": 1
@@ -206,7 +206,7 @@
     },
     {
         "pk": 5,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "lesson",
             "schedule": 1
@@ -214,7 +214,7 @@
     },
     {
         "pk": 6,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "exhortation",
             "schedule": 1
@@ -222,7 +222,7 @@
     },
     {
         "pk": 7,
-        "model": "schedule.slotkind",
+        "model": "symposion_schedule.slotkind",
         "fields": {
             "label": "confession",
             "schedule": 1
@@ -230,7 +230,7 @@
     },
     {
         "pk": 1,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
             "kind": 1,
             "end": "12:20:00",
@@ -241,7 +241,7 @@
     },
     {
         "pk": 2,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -253,7 +253,7 @@
     },
     {
         "pk": 3,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -265,7 +265,7 @@
     },
     {
         "pk": 4,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -277,7 +277,7 @@
     },
     {
         "pk": 5,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -289,7 +289,7 @@
     },
     {
         "pk": 6,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -301,7 +301,7 @@
     },
     {
         "pk": 7,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -313,7 +313,7 @@
     },
     {
         "pk": 8,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -325,7 +325,7 @@
     },
     {
         "pk": 9,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -337,7 +337,7 @@
     },
     {
         "pk": 10,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -349,7 +349,7 @@
     },
     {
         "pk": 11,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -361,7 +361,7 @@
     },
     {
         "pk": 12,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -373,7 +373,7 @@
     },
     {
         "pk": 13,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -385,7 +385,7 @@
     },
     {
         "pk": 14,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -397,7 +397,7 @@
     },
     {
         "pk": 15,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -409,7 +409,7 @@
     },
     {
         "pk": 16,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -421,7 +421,7 @@
     },
     {
         "pk": 17,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -433,7 +433,7 @@
     },
     {
         "pk": 18,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -445,7 +445,7 @@
     },
     {
         "pk": 19,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -457,7 +457,7 @@
     },
     {
         "pk": 20,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -469,7 +469,7 @@
     },
     {
         "pk": 21,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -481,7 +481,7 @@
     },
     {
         "pk": 22,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -493,7 +493,7 @@
     },
     {
         "pk": 23,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -505,7 +505,7 @@
     },
     {
         "pk": 24,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -517,7 +517,7 @@
     },
     {
         "pk": 25,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -529,7 +529,7 @@
     },
     {
         "pk": 26,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -541,7 +541,7 @@
     },
     {
         "pk": 27,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -553,7 +553,7 @@
     },
     {
         "pk": 28,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -565,7 +565,7 @@
     },
     {
         "pk": 29,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -577,7 +577,7 @@
     },
     {
         "pk": 30,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -589,7 +589,7 @@
     },
     {
         "pk": 31,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -601,7 +601,7 @@
     },
     {
         "pk": 32,
-        "model": "schedule.slot",
+        "model": "symposion_schedule.slot",
         "fields": {
 
             "kind": 1,
@@ -613,7 +613,7 @@
     },
     {
         "pk": 1,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 1,
             "room": 1
@@ -621,7 +621,7 @@
     },
     {
         "pk": 2,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 2,
             "room": 2
@@ -629,7 +629,7 @@
     },
     {
         "pk": 3,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 3,
             "room": 3
@@ -637,7 +637,7 @@
     },
     {
         "pk": 4,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 4,
             "room": 4
@@ -645,7 +645,7 @@
     },
     {
         "pk": 5,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 5,
             "room": 5
@@ -653,7 +653,7 @@
     },
     {
         "pk": 6,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 6,
             "room": 6
@@ -661,7 +661,7 @@
     },
     {
         "pk": 7,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 7,
             "room": 7
@@ -669,7 +669,7 @@
     },
     {
         "pk": 8,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 8,
             "room": 8
@@ -677,7 +677,7 @@
     },
     {
         "pk": 9,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 9,
             "room": 1
@@ -685,7 +685,7 @@
     },
     {
         "pk": 10,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 10,
             "room": 2
@@ -693,7 +693,7 @@
     },
     {
         "pk": 11,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 11,
             "room": 3
@@ -701,7 +701,7 @@
     },
     {
         "pk": 12,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 12,
             "room": 4
@@ -709,7 +709,7 @@
     },
     {
         "pk": 13,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 13,
             "room": 5
@@ -717,7 +717,7 @@
     },
     {
         "pk": 14,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 14,
             "room": 6
@@ -725,7 +725,7 @@
     },
     {
         "pk": 15,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 15,
             "room": 7
@@ -733,7 +733,7 @@
     },
     {
         "pk": 16,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 16,
             "room": 8
@@ -741,7 +741,7 @@
     },
     {
         "pk": 17,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 17,
             "room": 1
@@ -749,7 +749,7 @@
     },
     {
         "pk": 18,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 18,
             "room": 2
@@ -757,7 +757,7 @@
     },
     {
         "pk": 19,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 19,
             "room": 3
@@ -765,7 +765,7 @@
     },
     {
         "pk": 20,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 20,
             "room": 4
@@ -773,7 +773,7 @@
     },
     {
         "pk": 21,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 21,
             "room": 5
@@ -781,7 +781,7 @@
     },
     {
         "pk": 22,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 22,
             "room": 6
@@ -789,7 +789,7 @@
     },
     {
         "pk": 23,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 23,
             "room": 7
@@ -797,7 +797,7 @@
     },
     {
         "pk": 24,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 24,
             "room": 8
@@ -805,7 +805,7 @@
     },
     {
         "pk": 25,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 25,
             "room": 1
@@ -813,7 +813,7 @@
     },
     {
         "pk": 26,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 26,
             "room": 2
@@ -821,7 +821,7 @@
     },
     {
         "pk": 27,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 27,
             "room": 3
@@ -829,7 +829,7 @@
     },
     {
         "pk": 28,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 28,
             "room": 4
@@ -837,7 +837,7 @@
     },
     {
         "pk": 29,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 29,
             "room": 5
@@ -845,7 +845,7 @@
     },
     {
         "pk": 30,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 30,
             "room": 6
@@ -853,7 +853,7 @@
     },
     {
         "pk": 31,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 31,
             "room": 7
@@ -861,7 +861,7 @@
     },
     {
         "pk": 32,
-        "model": "schedule.slotroom",
+        "model": "symposion_schedule.slotroom",
         "fields": {
             "slot": 32,
             "room": 8

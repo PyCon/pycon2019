@@ -46,7 +46,7 @@
     become: yes
     become_user: vagrant
 
-  - name: Activate virtual environment on every login
+  - name: Make "vagrant" shell auto-activate the virtual environment
     lineinfile:
       dest=/home/vagrant/.bashrc
       line='source $HOME/bin/activate'
@@ -79,7 +79,16 @@
                    lc_ctype=en_US.UTF-8
                    template=template0
 
-  - name: Migrate the application database
+  - name: Migrate the application database if we just created it
     become: yes
     become_user: vagrant
-    shell: /home/vagrant/bin/python manage.py migrate chdir=/vagrant
+    when: database_creation | changed
+    shell: /home/vagrant/bin/python manage.py migrate
+           chdir=/vagrant
+
+  - name: Load database data from fixtures if we just created it
+    become: yes
+    become_user: vagrant
+    when: database_creation | changed
+    shell: /home/vagrant/bin/python manage.py loaddata fixtures/*
+           chdir=/vagrant

@@ -1,9 +1,12 @@
 
-Welcome to the Vagrant-powered development box for the PyCon site!
-To run the Django application, simply run these commands:
+Welcome to the Vagrant-powered virtual machine for developers working on
+the PyCon web site!  To run the Django application:
 
     cd /vagrant
     ./manage.py runserver 0.0.0.0:8000
 
-Then visit http://localhost:8000/2016/ in your browser.
+You can view the site at http://localhost:8000/2016/ in your browser.
+To log into the site, create a user with an email address and password:
+
+    ./manage.py createsuperuser
 

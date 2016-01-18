@@ -111,24 +111,5 @@
       ]
     ]
   }
-},
-{
-  "pk": 6, 
-  "model": "teams.team", 
-  "fields": {
-    "description": "Review financial aid applications", 
-    "created": "2013-07-26T08:41:52.643", 
-    "manager_permissions": [], 
-    "name": "Financial Aid Review Team", 
-    "access": "invitation", 
-    "slug": "financial-aid-review-team", 
-    "permissions": [
-      [
-        "review_financial_aid", 
-        "finaid", 
-        "financialaidapplication"
-      ]
-    ]
-  }
 }
 ]
