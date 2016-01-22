@@ -337,7 +337,14 @@ CONSTANCE_CONFIG = {
     "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),
 }
 
-BIBLION_PARSER = ["symposion.markdown_parser.parse", {}]
+
+# Instead of expecting blog posts to be typed as markup, simply expect
+# raw HTML to be typed into the "Teaser:" and "Content:" fields of each
+# Biblion Post in the Django admin interface.  By using the identity
+# function unicode() as the filter, the HTML winds up being saved to the
+# database intact and unchanged.
+BIBLION_PARSER = ["__builtin__.unicode", {}]
+
 BIBLION_SECTIONS = [
     ("general", "General"),
 ]
