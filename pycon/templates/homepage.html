@@ -139,7 +139,10 @@
                       {% blocktrans with author=post.author.get_full_name %}
                         <p class="post_dateline">by <span class="author">{{ author }}</span></p>
                       {% endblocktrans %}
-                      <div class="teaser">{{ post.teaser_html|safe }}</div>
+                      <div class="teaser">
+                        {{ post.teaser_html|safe }}
+                        <p><a href="{{ post.get_absolute_url }}">Read&nbsp;more&nbsp;&raquo;</a></p>
+                      </div>
                   </div>
               </div>
               {% empty %}
