@@ -17,8 +17,11 @@
             <h1>{{ post.title }}</h1>
 
             <div class="newsdate">
-                {% if post.published %}{{ post.published|date }}{% else %}{% trans "Not published yet" %}{% endif %}
+              <p>
+                {% if post.published %}{{ post.published|date:"Y F d" }}{% else %}{% trans "Not published yet" %}{% endif %}
+                <br>
                 by {{ post.author.get_full_name }}
+              </p>
             </div>
 
             <div class="blog-teaser">{{ post.teaser_html|safe }}</div>
