@@ -105,7 +105,7 @@ class Review(models.Model):
     # No way to encode "-0" vs. "+0" into an IntegerField, and I don't feel
     # like some complicated encoding system.
     vote = models.CharField(max_length=2, blank=True, choices=VOTES.CHOICES)
-    comment = models.TextField()
+    comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(default=datetime.now, editable=False)
 
     def save(self, **kwargs):
