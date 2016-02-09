@@ -2,17 +2,19 @@
 #
 # Build the CSV files needed for SQL import.
 
+set -e
+
 cat schedule.csv | sed '
 
 s/,0,/,20160530,/
 s/,1,/,20160531,/
 s/,2,/,20160601,/
 
-s/,A,/,101,/
-s/,B,/,102,/
-s/,C,/,103,/
-s/,D,/,104,/
-s/,E,/,105,/
+s/,A,/,Session A,/
+s/,B,/,Session B,/
+s/,C,/,Session C,/
+s/,D,/,Session D,/
+s/,E,/,Session E,/
 
 ' > schedule2.csv
 
@@ -60,16 +62,16 @@ EOF
 
 cat > rooms.csv <<EOF
 id,name,order,schedule_id
-101,Room A,1,1
-102,Room B,2,1
-103,Room C,3,1
-104,Room D,4,1
-105,Room E,5,1
+101,Session A,1,1
+102,Session B,2,1
+103,Session C,3,1
+104,Session D,4,1
+105,Session E,5,1
 EOF
 
 # 2014,20160530,C,16:30:00,30,"To mock, or not to mock, that is the question"
 
-psql pycon2016 <<'EOF'
+psql "${1:-pycon2016}" <<'EOF'
 
 begin;
 
@@ -102,7 +104,7 @@ create temporary table r (
 create temporary table s (
  proposal_id integer,
  day_id integer,
- room_id integer,
+ room_name text,
  time time,
  minutes integer,
  title text
@@ -145,6 +147,13 @@ insert into symposion_schedule_slot
   (select id from symposion_schedule_slotkind where label = 'talk')
  from s;
 
+insert into symposion_schedule_slotroom
+ select
+  proposal_id,
+  (select id from symposion_schedule_room where name = room_name),
+  proposal_id
+ from s;
+
 insert into symposion_schedule_presentation
  select
   proposal_id,
@@ -159,7 +168,7 @@ insert into symposion_schedule_presentation
   '',
   '',
   ''
- from s join proposals_proposalbase pp on (pp.id = 1);
+ from s join proposals_proposalbase pp on (pp.id = proposal_id);
 
 commit;
 
