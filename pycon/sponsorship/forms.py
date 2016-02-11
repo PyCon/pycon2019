@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from multi_email_field.forms import MultiEmailField
 
-from pycon.sponsorship.models import Sponsor, SponsorBenefit
+from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel
 
 
 class SponsorDetailsForm(forms.ModelForm):
@@ -48,6 +48,12 @@ class SponsorApplicationForm(SponsorDetailsForm):
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
+        # TODO: there should be a way to turn off each level as it
+        # fills, instead of having to edit code. Plus, this should
+        # really be a radio button, where the unavailable ones stay
+        # visible but grayed out with "Full" or "Out" next to them.
+        self.fields['level'].queryset = SponsorLevel.objects.exclude(
+            name='Open Source and Community')
 
     def save(self, commit=True):
         obj = super(SponsorApplicationForm, self).save(commit=False)
