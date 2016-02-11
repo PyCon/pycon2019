@@ -121,6 +121,7 @@ delete from symposion_schedule_slotroom;
 delete from symposion_schedule_room;
 delete from symposion_schedule_slot;
 delete from symposion_schedule_day;
+delete from symposion_schedule_presentation_additional_speakers
 delete from symposion_schedule_presentation;
 
 insert into symposion_schedule_slotkind select * from k;
@@ -169,6 +170,11 @@ insert into symposion_schedule_presentation
   '',
   ''
  from s join proposals_proposalbase pp on (pp.id = proposal_id);
+
+insert into symposion_schedule_presentation_additional_speakers
+ select id, proposalbase_id, speaker_id
+ from proposals_proposalbase_additional_speakers
+ where proposalbase_id in (select id from symposion_schedule_presentation);
 
 commit;
 
