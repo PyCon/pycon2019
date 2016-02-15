@@ -42,16 +42,18 @@
         </text>
 <%  end
 
-    def open_spaces():
-        block(wopen, 1000, 2100, 'Open Spaces', 'open-spaces-background')
+    def open_spaces(begin=1000, end=2100):
+        block(wopen, begin, end, 'Open Spaces', 'open-spaces-background')
         h = w = 10
+        rows = (t(end) - t(begin)) // 60 * tscale
         for i in range(7):
-            for j in range(11):
+            for j in range(rows):
+                y = t(1000) + j*60//tscale
                 if j == 5 or random() < 0.65:
                     continue
                 end
 %>
-                <rect x="{{i*20}}" y="{{t(1000) + j*60//tscale}}"
+                <rect x="{{i*20}}" y="{{y}}"
                       height="{{60//tscale}}" width="20" />
 <%
             end
@@ -72,9 +74,9 @@
 
 %>
 <svg
-   xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="532px"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="{{10 + wopen + 20 + wtalk + 20 + wexpo + 2}}px"
    height="{{t(opening_time, closing_time) + 2}}px"
    viewBox="-1 -1 531 {{t(opening_time, closing_time) + 1}}"
    >
@@ -104,6 +106,7 @@
   .summit rect {fill: #325959;}
   .summit text {fill: #ffffff;}
   .tutorial {fill: #FFFBF4;}
+  a:hover .tutorial {fill: #FBF5EB;}
   .open-spaces text {fill: #ffffff;}
   .open-spaces rect {fill: #54607A;}
   .open-spaces-background rect {fill: #778096;}
@@ -112,42 +115,44 @@
   .expo rect {fill: #E0CFAC;}
   .break text {fill: #ffffff;}
   .break rect {fill: #B7A177;}
+  a.break:hover rect {fill: #AD9870;}
   .dinner text {fill: #ffffff;}
   .dinner rect {fill: #8C4741;}
 </style>
 
-% def talks(odd, even):
-<g transform="translate({{wopen + 20}}, 0)" >
-  % block(wtalk, 900, 1010, 'Keynote', 'plenary')
+% def talks(odd, even, start=1050):
   <g class="talk">
     % for x in 0, 2, 4:
       <g transform="translate({{wtalk * x // 5}}, 0)">
-        % talkcolumn(wtalk // 5, 1050, odd)
+        % talkcolumn(wtalk // 5, start, odd)
       </g>
     % end
     % for x in 1, 3:
       <g transform="translate({{wtalk * x // 5}}, 0)">
-        % talkcolumn(wtalk // 5, 1050, even)
+        % talkcolumn(wtalk // 5, start, even)
       </g>
     % end
-    <text x="{{wtalk//2}}" y="{{t(1420)}}">Talks</text>
+    <text x="{{wtalk//2}}" y="{{t(1415)}}">Talks</text>
   </g>
-  % block(wtalk, 1740, 1840, 'Lightning Talks', 'lightning')
-</g>
 % end
 
-<%
-   if day in [1, 2]:
-    w = 30
-    for x in range(9): %>
-     <rect class="tutorial" x="{{x*w}}" width="{{w}}"
-           y="{{t(900)}}" height="{{t(900,1220)}}" />
-     <rect class="tutorial" x="{{x*w}}" width="{{w}}"
-           y="{{t(1320)}}" height="{{t(1320,1640)}}" />
-%   end
+% if day in [1, 2]:
+  % w = 30
+  <a xlink:href="/2016/schedule/tutorials/" target="_top">
+    % for x in range(9):
+      <rect class="tutorial" x="{{x*w}}" width="{{w}}"
+            y="{{t(900)}}" height="{{t(900,1220)}}" />
+    % end
     <text x="{{4.5*w}}" y="{{t(1045)}}">Morning Tutorials ($)</text>
-    <text x="{{4.5*w}}" y="{{t(1250)}}">Lunch</text>
+  </a>
+  <a xlink:href="/2016/schedule/tutorials/" target="_top">
+    % for x in range(9):
+      <rect class="tutorial" x="{{x*w}}" width="{{w}}"
+              y="{{t(1320)}}" height="{{t(1320,1640)}}" />
+    % end
     <text x="{{4.5*w}}" y="{{t(1505)}}">Afternoon Tutorials ($)</text>
+  </a>
+    <text x="{{4.5*w}}" y="{{t(1250)}}">Lunch</text>
 %   h = t(900,1640)
     <g class="summit" transform="translate(300, {{t(1640)}}) rotate(-90)">
       <rect width="{{h}}" height="48" />
@@ -161,27 +166,41 @@
 %  end
 
 %  if day == 2:
-    <g class="break">
+    <a class="break" xlink:href="/2016/events/reception/" target="_top">
       <rect width="{{w*9}}" y="{{t(1800)}}" height="{{t(1800,2100)}}" />
       <text x="{{w*9//2}}" y="{{t(1930)}}">Opening Reception 6p-9p</text>
-    </g>
+    </a>
 %  end
 
 
 % if day in [3, 4, 5]:
+  <g transform="translate(10, 0)" class="open-spaces">
+    % open_spaces(end=2100 if day < 5 else 1900)
+  </g>
+  <g transform="translate({{wopen + 20}}, 0)" class="dinner" >
+    % text = 'PyLadies Auction ($)' if day == 4 else 'Dinner ($)'
+    % block(wtalk, 1900, 2000, text, 'open')
+  </g>
+% end
 
-<g transform="translate(10, 0)" class="open-spaces">
-  % open_spaces()
-</g>
+% if day in [3, 4, 5]:
+  <g transform="translate({{wopen + 20}}, 0)" >
+    % if day in [3, 4]:
+      % talks([40,40,45,-60,40,40,45,-30,40,30],
+      %       [40,40,30,-60,55,40,30,-30,55,30])
+      % block(wtalk, 900, 1010, 'Keynote', 'plenary')
+      % block(wtalk, 1740, 1840, 'Lightning Talks', 'lightning')
+    % else:
+      % block(wtalk, 830, 900, 'Lightning Talks', 'lightning')
+      % block(wtalk, 900, 1000, 'Keynote', 'plenary')
+      % talks([40, 40, 35], [40, 40, 35], 1310)
+      % block(wtalk, 1510, 1630, 'Keynote and Closing', 'plenary')
+      % block(wtalk, 1700, 1830, 'Intro to Sprints', 'talk')
+    % end
+  </g>
+% end
 
-% talks([40,40,45,-60,40,40,45,-30,40,30],
-%       [40,40,30,-60,55,40,30,-30,55,30])
-
-<g transform="translate({{wopen + 20}}, 0)" class="dinner" >
-  % text = 'PyLadies Auction ($)' if day == 4 else 'Dinner ($)'
-  % block(wtalk, 1900, 2000, text, 'open')
-</g>
-
+% if day in [3, 4]:
 <g transform="translate({{wopen + wtalk + 30}}, 0)" >
   % block(wexpo, 800, 1800, 'Expo Hall 8a-6p', 'expo', -15)
   <g class="break">
@@ -191,6 +210,21 @@
     % expobar(wexpo, 1540, 1630, 'Break')
   </g>
 </g>
+% end
+
+% if day == 5:
+<g transform="translate({{wopen + wtalk + 30}}, 0)" >
+  % block(wexpo, 800, 1310, '', 'expo', -15)
+  <g class="break">
+    % expobar(wexpo, 805, 855, 'Breakfast')
+    % expobar(wexpo, 1210, 1300, 'Lunch')
+  </g>
+  % block(wexpo // 2, 1000, 1200, 'Posters', 'break')
+  <g transform="translate({{wexpo//2}}, 0)">
+    % block(wexpo // 2, 1000, 1200, 'Job Fair', 'break')
+  </g>
+</g>
+% end
 % end
 
 </svg>
