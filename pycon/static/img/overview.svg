@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="530px"
+   height="450px"
+   viewBox="0 0 530 450"
+   >
+<style>
+  text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .lightning rect, .plenary rect {
+    fill: #325959;
+    stroke-width: 1px;
+    stroke: #DDDDDD;
+  }
+  .lightning text, .plenary text {
+    fill: #ffffff;
+  }
+  .talk rect, .open-spaces rect {
+    stroke-width: 1px;
+    stroke: #DDDDDD;
+  }
+  .open-spaces text {fill: #ffffff;}
+  .open-spaces rect {fill: #54607A;}
+  .open-spaces-background rect {fill: #778096;}
+  .talk rect {fill: #FFFBF4;}
+  .expo text {fill: #ffffff;}
+  .expo rect {fill: #E0CFAC;}
+  .breaks text {fill: #ffffff;}
+  .breaks rect {fill: #B7A177;}
+  .dinner text {fill: #ffffff;}
+  .dinner rect {fill: #8C4741;}
+</style>
+
+<rect width="600" height="600" style="fill: #FEF8EC; stroke-width: 0" />
+
+
+<g transform="translate(10, 0)" class="open-spaces">
+    <g class="open-spaces-background">
+      <rect width="140" y="90" height="330" />
+      <text x="70" y="255">Open Spaces</text>
+    </g>
+                <rect x="0" y="120"
+                      height="30" width="20" />
+                <rect x="0" y="150"
+                      height="30" width="20" />
+                <rect x="0" y="300"
+                      height="30" width="20" />
+                <rect x="0" y="330"
+                      height="30" width="20" />
+                <rect x="20" y="90"
+                      height="30" width="20" />
+                <rect x="20" y="150"
+                      height="30" width="20" />
+                <rect x="20" y="270"
+                      height="30" width="20" />
+                <rect x="20" y="330"
+                      height="30" width="20" />
+                <rect x="20" y="360"
+                      height="30" width="20" />
+                <rect x="40" y="150"
+                      height="30" width="20" />
+                <rect x="60" y="300"
+                      height="30" width="20" />
+                <rect x="80" y="90"
+                      height="30" width="20" />
+                <rect x="80" y="120"
+                      height="30" width="20" />
+                <rect x="80" y="210"
+                      height="30" width="20" />
+                <rect x="80" y="270"
+                      height="30" width="20" />
+                <rect x="80" y="300"
+                      height="30" width="20" />
+                <rect x="80" y="360"
+                      height="30" width="20" />
+                <rect x="80" y="390"
+                      height="30" width="20" />
+                <rect x="100" y="150"
+                      height="30" width="20" />
+                <rect x="100" y="180"
+                      height="30" width="20" />
+                <rect x="100" y="360"
+                      height="30" width="20" />
+                <rect x="120" y="150"
+                      height="30" width="20" />
+                <rect x="120" y="180"
+                      height="30" width="20" />
+                <rect x="120" y="330"
+                      height="30" width="20" />
+</g>
+
+<g transform="translate(160, 0)" >
+    <g class="plenary">
+      <rect width="200" y="60" height="35" />
+      <text x="100" y="77">Keynote</text>
+    </g>
+  <g class="talk">
+      <g transform="translate(0, 0)">
+               <rect width="40" y="115" height="20" />
+               <rect width="40" y="135" height="20" />
+               <rect width="40" y="155" height="22" />
+               <rect width="40" y="207" height="20" />
+               <rect width="40" y="227" height="20" />
+               <rect width="40" y="247" height="22" />
+               <rect width="40" y="284" height="20" />
+               <rect width="40" y="304" height="15" />
+      </g>
+      <g transform="translate(80, 0)">
+               <rect width="40" y="115" height="20" />
+               <rect width="40" y="135" height="20" />
+               <rect width="40" y="155" height="22" />
+               <rect width="40" y="207" height="20" />
+               <rect width="40" y="227" height="20" />
+               <rect width="40" y="247" height="22" />
+               <rect width="40" y="284" height="20" />
+               <rect width="40" y="304" height="15" />
+      </g>
+      <g transform="translate(160, 0)">
+               <rect width="40" y="115" height="20" />
+               <rect width="40" y="135" height="20" />
+               <rect width="40" y="155" height="22" />
+               <rect width="40" y="207" height="20" />
+               <rect width="40" y="227" height="20" />
+               <rect width="40" y="247" height="22" />
+               <rect width="40" y="284" height="20" />
+               <rect width="40" y="304" height="15" />
+      </g>
+      <g transform="translate(40, 0)">
+               <rect width="40" y="115" height="20" />
+               <rect width="40" y="135" height="20" />
+               <rect width="40" y="155" height="15" />
+               <rect width="40" y="200" height="27" />
+               <rect width="40" y="227" height="20" />
+               <rect width="40" y="247" height="15" />
+               <rect width="40" y="277" height="27" />
+               <rect width="40" y="304" height="15" />
+      </g>
+      <g transform="translate(120, 0)">
+               <rect width="40" y="115" height="20" />
+               <rect width="40" y="135" height="20" />
+               <rect width="40" y="155" height="15" />
+               <rect width="40" y="200" height="27" />
+               <rect width="40" y="227" height="20" />
+               <rect width="40" y="247" height="15" />
+               <rect width="40" y="277" height="27" />
+               <rect width="40" y="304" height="15" />
+      </g>
+    <text x="100" y="220">Talks</text>
+  </g>
+    <g class="lightning">
+      <rect width="200" y="320" height="30" />
+      <text x="100" y="335">Lightning Talks</text>
+    </g>
+</g>
+
+<g transform="translate(160, 0)" class="dinner" >
+    <g class="open">
+      <rect width="200" y="360" height="60" />
+      <text x="100" y="390">Dinner ($)</text>
+    </g>
+</g>
+
+<g transform="translate(370, 0)" >
+    <g class="expo">
+      <rect width="150" y="30" height="300" />
+      <text x="75" y="315">Expo Hall 8a-6p</text>
+    </g>
+  <g class="breaks">
+        <rect x="20" width="110"
+              y="33" height="23"
+              rx="12" ry="12" />
+        <text x="75" y="45">
+          Breakfast
+        </text>
+        <rect x="20" width="110"
+              y="93" height="23"
+              rx="12" ry="12" />
+        <text x="75" y="105">
+          Break
+        </text>
+        <rect x="20" width="110"
+              y="178" height="23"
+              rx="12" ry="12" />
+        <text x="75" y="190">
+          Lunch
+        </text>
+        <rect x="20" width="110"
+              y="261" height="23"
+              rx="12" ry="12" />
+        <text x="75" y="273">
+          Break
+        </text>
+  </g>
+</g>
+
+</svg>
+

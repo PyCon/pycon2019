@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<%
+   from random import random
+
+   tscale = 2
+   bg = '#FEF8EC'
+   talk = '#FFFBF4'
+   talkborder = '#DDDDDD'
+   lightning = plenary = '#325959'
+
+   wopen = 140
+   wtalk = 200
+   wexpo = 150
+
+   def t(hourmin, end_time=None):
+       if end_time is not None:
+           return t(end_time) - t(hourmin)
+       end
+       hour, minute = divmod(hourmin, 100)
+       delta_minutes = (hour * 60 + minute) - (7 * 60)
+       return delta_minutes // 2
+   end
+
+   def talkcolumn(width, start, seq):
+       i = t(start)
+       for minutes in seq:
+           if minutes > 0:
+%>
+               <rect width="{{width}}" y="{{i}}" height="{{minutes//tscale}}" />
+<%
+           end
+           i += abs(minutes//tscale)
+       end
+    end
+
+    def expobar(width, begin, end, label):
+        height = t(begin, end)
+%>
+        <rect x="20" width="{{width - 40}}"
+              y="{{t(begin) + 1}}" height="{{height - 2}}"
+              rx="{{height//2}}" ry="{{height//2}}" />
+        <text x="{{width//2}}" y="{{t(begin) + height//2 + 1}}">
+          {{label}}
+        </text>
+<%
+    end
+
+    def open_spaces():
+        block(wopen, 1000, 2100, 'Open Spaces', 'open-spaces-background')
+        h = w = 10
+        for i in range(7):
+            for j in range(11):
+                if j == 5 or random() < 0.65:
+                    continue
+                end
+%>
+                <rect x="{{i*20}}" y="{{t(1000) + j*60//tscale}}"
+                      height="{{60//tscale}}" width="20" />
+<%
+            end
+        end
+    end
+
+    def block(width, t0, t1, name, css_class, offset=None):
+        height = t(t1) - t(t0)
+        text_y = (height + offset) if offset else (t(t0) + height // 2)
+%>
+    <g class="{{css_class}}">
+      <rect width="{{width}}" y="{{t(t0)}}" height="{{height}}" />
+      <text x="{{width//2}}" y="{{text_y}}">{{name}}</text>
+    </g>
+<%
+    end
+%>
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="530px"
+   height="{{t(2200)}}px"
+   viewBox="0 0 530 {{t(2200)}}"
+   >
+<style>
+  text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .lightning rect, .plenary rect {
+    fill: #325959;
+    stroke-width: 1px;
+    stroke: #DDDDDD;
+  }
+  .lightning text, .plenary text {
+    fill: #ffffff;
+  }
+  .talk rect, .open-spaces rect {
+    stroke-width: 1px;
+    stroke: #DDDDDD;
+  }
+  .open-spaces text {fill: #ffffff;}
+  .open-spaces rect {fill: #54607A;}
+  .open-spaces-background rect {fill: #778096;}
+  .talk rect {fill: #FFFBF4;}
+  .expo text {fill: #ffffff;}
+  .expo rect {fill: #E0CFAC;}
+  .breaks text {fill: #ffffff;}
+  .breaks rect {fill: #B7A177;}
+  .dinner text {fill: #ffffff;}
+  .dinner rect {fill: #8C4741;}
+</style>
+
+<rect width="600" height="600" style="fill: {{bg}}; stroke-width: 0" />
+
+% def talks(odd, even):
+<g transform="translate({{wopen + 20}}, 0)" >
+  % block(wtalk, 900, 1010, 'Keynote', 'plenary')
+  <g class="talk">
+    % for x in 0, 2, 4:
+      <g transform="translate({{wtalk * x // 5}}, 0)">
+        % talkcolumn(wtalk // 5, 1050, odd)
+      </g>
+    % end
+    % for x in 1, 3:
+      <g transform="translate({{wtalk * x // 5}}, 0)">
+        % talkcolumn(wtalk // 5, 1050, even)
+      </g>
+    % end
+    <text x="{{wtalk//2}}" y="{{t(1420)}}">Talks</text>
+  </g>
+  % block(wtalk, 1740, 1840, 'Lightning Talks', 'lightning')
+</g>
+% end
+
+<g transform="translate(10, 0)" class="open-spaces">
+  % open_spaces()
+</g>
+
+% talks([40,40,45,-60,40,40,45,-30,40,30],
+%       [40,40,30,-60,55,40,30,-30,55,30])
+
+<g transform="translate({{wopen + 20}}, 0)" class="dinner" >
+  % block(wtalk, 1900, 2100, 'Dinner ($)', 'open')
+</g>
+
+<g transform="translate({{wopen + wtalk + 30}}, 0)" >
+  % block(wexpo, 800, 1800, 'Expo Hall 8a-6p', 'expo', 15)
+  <g class="breaks">
+    % expobar(wexpo, 805, 855, 'Breakfast')
+    % expobar(wexpo, 1005, 1055, 'Break')
+    % expobar(wexpo, 1255, 1345, 'Lunch')
+    % expobar(wexpo, 1540, 1630, 'Break')
+  </g>
+</g>
+
+</svg>
