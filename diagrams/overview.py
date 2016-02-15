@@ -46,16 +46,16 @@ def main():
     if len(sys.argv) != 2:
         print >>sys.stderr, 'usage: overview.py destination_directory'
         sys.exit(2)
-    random.seed(1)
     with open('overview.tpl') as f:
         template_text = f.read()
-    for i, end_time in zip(range(1, 6), [1730, 2130, 1900,1900,1900]):
+    for day, end_time in zip(range(1, 6), [1730, 2030, 2045, 2045, 2045]):
+        random.seed(day)
         scope = dict(
-            day=i,
-            t=Time(800, end_time, 2),
+            day=day,
+            t=Time((800 if day < 3 else 700), end_time, 2),
             )
         output = template(template_text, **scope)
-        path = os.path.join(sys.argv[1], 'overview{}.svg'.format(i))
+        path = os.path.join(sys.argv[1], 'overview{}.svg'.format(day))
         with open(path, 'w') as f:
             f.write(output.encode('utf-8'))
 
