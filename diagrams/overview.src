@@ -17,33 +17,30 @@
            return t(end_time) - t(hourmin)
        end
        hour, minute = divmod(hourmin, 100)
-       delta_minutes = (hour * 60 + minute) - (7 * 60)
-       return delta_minutes // 2
+       h0, m0 = divmod(opening_time, 100)
+       delta_minutes = (hour * 60 + minute) - (h0 * 60 + m0)
+       return delta_minutes // tscale
    end
 
    def talkcolumn(width, start, seq):
        i = t(start)
        for minutes in seq:
-           if minutes > 0:
-%>
+           if minutes > 0: %>
                <rect width="{{width}}" y="{{i}}" height="{{minutes//tscale}}" />
-<%
-           end
+<%         end
            i += abs(minutes//tscale)
        end
     end
 
     def expobar(width, begin, end, label):
-        height = t(begin, end)
-%>
+        height = t(begin, end) %>
         <rect x="20" width="{{width - 40}}"
               y="{{t(begin) + 1}}" height="{{height - 2}}"
               rx="{{height//2}}" ry="{{height//2}}" />
         <text x="{{width//2}}" y="{{t(begin) + height//2 + 1}}">
           {{label}}
         </text>
-<%
-    end
+<%  end
 
     def open_spaces():
         block(wopen, 1000, 2100, 'Open Spaces', 'open-spaces-background')
@@ -63,22 +60,23 @@
 
     def block(width, t0, t1, name, css_class, offset=None):
         height = t(t1) - t(t0)
-        text_y = (height + offset) if offset else (t(t0) + height // 2)
-%>
-    <g class="{{css_class}}">
-      <rect width="{{width}}" y="{{t(t0)}}" height="{{height}}" />
-      <text x="{{width//2}}" y="{{text_y}}">{{name}}</text>
-    </g>
-<%
-    end
-%>
+        text_y = (height + offset) if offset else (t(t0) + height // 2) %>
+        <g class="{{css_class}}">
+          <rect width="{{width}}" y="{{t(t0)}}" height="{{height}}" />
+          <text x="{{width//2}}" y="{{text_y}}">{{name}}</text>
+        </g>
+<%  end
 
+    opening_time = [None, 900, 900, 800, 800, 800][day]
+    closing_time = [None, 1640, 2100, 2000, 2000, 2000][day]
+
+%>
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="530px"
-   height="{{t(2200)}}px"
-   viewBox="0 0 530 {{t(2200)}}"
+   width="532px"
+   height="{{t(opening_time, closing_time) + 2}}px"
+   viewBox="-1 -1 531 {{t(opening_time, closing_time) + 1}}"
    >
 <style>
   text {
@@ -88,6 +86,9 @@
     font-weight: bold;
     font-size: 18px;
   }
+  text.note {
+    font-style: italic;
+  }
   .lightning rect, .plenary rect {
     fill: #325959;
     stroke-width: 1px;
@@ -96,23 +97,24 @@
   .lightning text, .plenary text {
     fill: #ffffff;
   }
-  .talk rect, .open-spaces rect {
+  .tutorial, .talk rect, .open-spaces rect {
     stroke-width: 1px;
     stroke: #DDDDDD;
   }
+  .summit rect {fill: #325959;}
+  .summit text {fill: #ffffff;}
+  .tutorial {fill: #FFFBF4;}
   .open-spaces text {fill: #ffffff;}
   .open-spaces rect {fill: #54607A;}
   .open-spaces-background rect {fill: #778096;}
   .talk rect {fill: #FFFBF4;}
   .expo text {fill: #ffffff;}
   .expo rect {fill: #E0CFAC;}
-  .breaks text {fill: #ffffff;}
-  .breaks rect {fill: #B7A177;}
+  .break text {fill: #ffffff;}
+  .break rect {fill: #B7A177;}
   .dinner text {fill: #ffffff;}
   .dinner rect {fill: #8C4741;}
 </style>
-
-<rect width="600" height="600" style="fill: {{bg}}; stroke-width: 0" />
 
 % def talks(odd, even):
 <g transform="translate({{wopen + 20}}, 0)" >
@@ -134,6 +136,40 @@
 </g>
 % end
 
+<%
+   if day in [1, 2]:
+    w = 30
+    for x in range(9): %>
+     <rect class="tutorial" x="{{x*w}}" width="{{w}}"
+           y="{{t(900)}}" height="{{t(900,1220)}}" />
+     <rect class="tutorial" x="{{x*w}}" width="{{w}}"
+           y="{{t(1320)}}" height="{{t(1320,1640)}}" />
+%   end
+    <text x="{{4.5*w}}" y="{{t(1045)}}">Morning Tutorials ($)</text>
+    <text x="{{4.5*w}}" y="{{t(1250)}}">Lunch</text>
+    <text x="{{4.5*w}}" y="{{t(1505)}}">Afternoon Tutorials ($)</text>
+%   h = t(900,1640)
+    <g class="summit" transform="translate(300, {{t(1640)}}) rotate(-90)">
+      <rect width="{{h}}" height="48" />
+%     if day == 1:
+       <text x="{{h/2}}" y="{{15}}">Language Summit</text>
+       <text x="{{h/2}}" y="{{35}}" class="note">invitation only</text>
+%     else:
+       <text x="{{h/2}}" y="{{25}}">Education Summit</text>
+%     end
+    </g>
+%  end
+
+%  if day == 2:
+    <g class="break">
+      <rect width="{{w*9}}" y="{{t(1800)}}" height="{{t(1800,2100)}}" />
+      <text x="{{w*9//2}}" y="{{t(1930)}}">Opening Reception 6p-9p</text>
+    </g>
+%  end
+
+
+% if day in [3, 4, 5]:
+
 <g transform="translate(10, 0)" class="open-spaces">
   % open_spaces()
 </g>
@@ -142,17 +178,19 @@
 %       [40,40,30,-60,55,40,30,-30,55,30])
 
 <g transform="translate({{wopen + 20}}, 0)" class="dinner" >
-  % block(wtalk, 1900, 2100, 'Dinner ($)', 'open')
+  % text = 'PyLadies Auction ($)' if day == 4 else 'Dinner ($)'
+  % block(wtalk, 1900, 2000, text, 'open')
 </g>
 
 <g transform="translate({{wopen + wtalk + 30}}, 0)" >
-  % block(wexpo, 800, 1800, 'Expo Hall 8a-6p', 'expo', 15)
-  <g class="breaks">
+  % block(wexpo, 800, 1800, 'Expo Hall 8a-6p', 'expo', -15)
+  <g class="break">
     % expobar(wexpo, 805, 855, 'Breakfast')
     % expobar(wexpo, 1005, 1055, 'Break')
     % expobar(wexpo, 1255, 1345, 'Lunch')
     % expobar(wexpo, 1540, 1630, 'Break')
   </g>
 </g>
+% end
 
 </svg>
