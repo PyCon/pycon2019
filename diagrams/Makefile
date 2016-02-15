@@ -1,2 +1,2 @@
-overview.svg: overview.py overview.src
+overview.svg: overview.py overview.tpl
 	python2.7 overview.py ../pycon/static/img/
