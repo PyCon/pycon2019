@@ -124,10 +124,12 @@ class ProposalBase(models.Model):
         return self.title
 
     def can_edit(self):
-        if hasattr(self, "presentation") and self.presentation_id:
-            return False
-        else:
-            return True
+        """
+        Return True if this proposal is editable - meaning no presentation exists yet.
+        """
+        # Putting this import at the top would result in a circular import
+        from symposion.schedule.models import Presentation
+        return not Presentation.objects.filter(proposal_base=self).exists()
 
     def cache_tags(self):
         self.cached_tags = self.get_tags_display()

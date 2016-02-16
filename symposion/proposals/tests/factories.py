@@ -24,6 +24,7 @@ class ProposalBaseFactory(factory.DjangoModelFactory):
     class Meta:
         model = ProposalBase
 
+    kind = factory.SubFactory(ProposalKindFactory)
     speaker = factory.SubFactory(SpeakerFactory)
 
 
