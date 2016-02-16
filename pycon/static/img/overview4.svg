@@ -183,7 +183,7 @@
      <rect x="1" width="248" y="60" height="30" />
      <text x="124" y="75">Keynote</text>
    </a>
-     <a xlink:href="/2016/events/charityauction/" target="_top" class="event">
+     <a xlink:href="/2016/sponsors/charityauction/" target="_top" class="event">
        <rect x="1" width="248" y="345" height="60" />
        <text x="133" y="383">PyLadies Auction ($)</text>
      </a>

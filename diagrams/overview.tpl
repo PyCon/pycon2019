@@ -140,9 +140,9 @@
   %  reticle(520, 2030)
   %  plenary(900, 1000, ('Welcome and ' if day == 3 else '') + 'Keynote', 'keynotes')
   %  title = 'PyLadies Auction ($)' if day == 4 else 'Dinner ($)'
-  %  slug = 'charityauction' if day == 4 else 'dinners'
+  %  slug = 'sponsors/charityauction' if day == 4 else 'events/dinners'
   %  start = 1830 if day == 4 else 1900
-     <a xlink:href="/2016/events/{{slug}}/" target="_top" class="event">
+     <a xlink:href="/2016/{{slug}}/" target="_top" class="event">
        <rect x="1" width="248" y="{{t(start)}}" height="{{t(start,2030)}}" />
        <text x="{{267//2}}" y="{{t(1947)}}">{{ title }}</text>
      </a>
