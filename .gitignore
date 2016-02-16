@@ -17,3 +17,4 @@ htmlcov/
 env/
 .vagrant
 node_modules/
+develop/tools/*.csv
