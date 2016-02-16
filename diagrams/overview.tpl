@@ -15,23 +15,23 @@
 % end
 %
 % def tutorials(w=30, offset=143):
-   <a xlink:href="/2016/schedule/tutorials/" target="_top" class="tutorials">
+   <a class="tutorials">
 %  for x in range(0, w*9, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(900)}}" height="{{t(900,1220)}}" />
 %  end
     <text x="{{w*4.5}}" y="{{t(900+offset)}}">Morning Tutorials ($)</text>
    </a>
-   <a xlink:href="/2016/schedule/tutorials/" target="_top" class="tutorials">
+   <a class="tutorials">
 %  for x in range(0, w*9, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(1320)}}" height="{{t(1320,1640)}}" />
 %  end
     <text x="{{w*4.5}}" y="{{t(1320+offset)}}">Afternoon Tutorials ($)</text>
-    <text x="{{w*4.5}}" y="{{t(1250)}}">Lunch</text>
    </a>
+   <text x="{{w*4.5}}" y="{{t(1250)}}">Lunch</text>
 % end
 %
 % def workshops(w=55):
-   <a xlink:href="/2016/schedule/sponsor-tutorials/" target="_top" class="workshops">
+   <a class="workshops">
 %  for x in range(0, w*2, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(900)}}" height="{{t(900,1030)}}" />
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(1050)}}" height="{{t(1050,1220)}}" />
@@ -64,7 +64,7 @@
 % end
 %
 % def summit(name, w=100):
-   % slug = 'education-summit' if name == 'Education' else 'language-summit'
+   % slug = 'edusummit' if name == 'Education' else 'langsummit'
    <a xlink:href="/2016/events/{{slug}}/" target="_top" class="summit">
      <rect x="{{1}}" width="{{w-3}}" y="{{t(900)}}" height="{{t(900,1220)}}" />
      <rect x="{{1}}" width="{{w-3}}" y="{{t(1320)}}" height="{{t(1320,1640)}}" />
@@ -74,9 +74,9 @@
    <text x="{{w//2}}" y="{{t(1250)}}">Lunch</text>
 % end
 %
-% def plenary(start, end, name, slug):
+% def plenary(start, end, name, slug, css_class='plenary'):
 %  w = 248
-   <a xlink:href="/2016/events/{{slug}}/" target="_top" class="plenary">
+   <a class="{{css_class}}">
      <rect x="1" width="{{w}}" y="{{t(start)}}" height="{{t(start, end)}}" />
      <text x="{{w//2}}" y="{{t(start) + t(start, end) // 2}}">{{name}}</text>
    </a>
@@ -89,7 +89,7 @@
    height="{{ t(t.start, t.end) }}px"
    viewBox="0 0 1000 {{ t(t.start, t.end) }}"
    >
-  <style>
+  <style type="text/css">
     path {
      stroke-width: 1px;
      stroke: black;
@@ -108,7 +108,7 @@
      font-style: italic;
      font-weight: normal;
     }
-    a:hover text {text-decoration: underline}
+    a:hover[target] text {text-decoration: underline}
     .reticle text {font-size: 13px}
     .open-spaces rect {fill: #90E4D3}
     .open-space rect {stroke: black; fill: #7FDDC2}
@@ -141,11 +141,12 @@
   %  plenary(900, 1000, ('Welcome and ' if day == 3 else '') + 'Keynote', 'keynotes')
   %  title = 'PyLadies Auction ($)' if day == 4 else 'Dinner ($)'
   %  slug = 'charityauction' if day == 4 else 'dinners'
+  %  start = 1830 if day == 4 else 1900
      <a xlink:href="/2016/events/{{slug}}/" target="_top" class="event">
-       <rect x="1" width="248" y="{{t(1900)}}" height="{{t(1900,2030)}}" />
+       <rect x="1" width="248" y="{{t(start)}}" height="{{t(start,2030)}}" />
        <text x="{{267//2}}" y="{{t(1947)}}">{{ title }}</text>
      </a>
-     <a xlink:href="/2016/events/openspaces/" target="_top" class="open-spaces"
+     <a xlink:href="/2016/events/open-spaces/" target="_top" class="open-spaces"
         transform="translate(570, 0)" >
        % hour = t(0,60)
        <rect width="{{hour * 4}}" y="{{t(900)}}" height="{{t(900,2000)}}" />
@@ -164,7 +165,7 @@
   % if day in [3, 4]:
   %  plenary(1740, 1840, 'Lightning Talks', '')
   %  talks(1050, '334L334B33', '333L433B43')
-     <a xlink:href="/2016/events/exhibitfloor/" target="_top" class="expo"
+     <a xlink:href="/2016/sponsors/exhibitfloor/" target="_top" class="expo"
         transform="translate(350, 0)" >
        <rect x="1" width="120" y="{{t(800)}}" height="{{t(800,1700)}}" />
        <text x="60" y="{{t(1155)}}">Expo Hall</text>
@@ -175,7 +176,7 @@
      </a>
   % elif day == 5:
   %  talks(1310, '333', '333')
-     <a xlink:href="/2016/schedule/posters/list/" target="_top" class="expo"
+     <a xlink:href="/2016/sponsors/exhibitfloor/" target="_top" class="expo"
         transform="translate(350, 0)" >
        <rect x="1" width="120" y="{{t(1000)}}" height="{{t(1000,1300)}}" />
        <text x="60" y="{{t(1050)}}">Posters and</text>
@@ -183,6 +184,6 @@
        <text x="60" y="{{t(1240)}}" class="break">— Lunch —</text>
      </a>
   %  plenary(1510, 1630, 'Keynote and Closing', '')
-  %  plenary(1700, 1830, 'Introduction to Sprints', '')
+  %  plenary(1700, 1830, 'Intro to sprints', '', 'talks')
   % end
 </svg>

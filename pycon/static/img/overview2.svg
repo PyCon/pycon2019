@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="1000px"
+   height="375px"
+   viewBox="0 0 1000 375"
+   >
+  <style type="text/css">
+    path {
+     stroke-width: 1px;
+     stroke: black;
+    }
+    text {
+     fill: black;
+     stroke: none;
+     text-anchor: middle;
+     dominant-baseline: middle;
+     font-family: Helvetica;
+     font-size: 18px;
+     font-weight: bold;
+    }
+    text.break {
+     font-size: 14px;
+     font-style: italic;
+     font-weight: normal;
+    }
+    a:hover[target] text {text-decoration: underline}
+    .reticle text {font-size: 13px}
+    .open-spaces rect {fill: #90E4D3}
+    .open-space rect {stroke: black; fill: #7FDDC2}
+    .tutorials rect, .talks rect {fill: #EEDDA0}
+    .workshops rect, .expo rect {fill: #CEED9F}
+    .plenary rect {fill: #FBE452}
+    .summit rect {fill: #D1EE3D}
+    .event rect {fill: #E0E0E0}
+  </style>
+    <g transform="translate(320, 30.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        9:00 am
+      </text>
+    </g>
+    <g transform="translate(320, 60.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        10:00 am
+      </text>
+    </g>
+    <g transform="translate(320, 90.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        11:00 am
+      </text>
+    </g>
+    <g transform="translate(320, 120.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        12:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 150.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        1:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 180.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        2:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 210.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        3:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 240.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        4:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 270.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        5:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 300.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        6:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 330.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        7:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 360.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        8:00 pm
+      </text>
+    </g>
+    <g transform="translate(320, 390.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        9:00 pm
+      </text>
+    </g>
+   <a class="tutorials">
+    <rect x="1" width="27" y="30" height="100" />
+    <rect x="31" width="27" y="30" height="100" />
+    <rect x="61" width="27" y="30" height="100" />
+    <rect x="91" width="27" y="30" height="100" />
+    <rect x="121" width="27" y="30" height="100" />
+    <rect x="151" width="27" y="30" height="100" />
+    <rect x="181" width="27" y="30" height="100" />
+    <rect x="211" width="27" y="30" height="100" />
+    <rect x="241" width="27" y="30" height="100" />
+    <text x="135.0" y="81">Morning Tutorials ($)</text>
+   </a>
+   <a class="tutorials">
+    <rect x="1" width="27" y="160" height="100" />
+    <rect x="31" width="27" y="160" height="100" />
+    <rect x="61" width="27" y="160" height="100" />
+    <rect x="91" width="27" y="160" height="100" />
+    <rect x="121" width="27" y="160" height="100" />
+    <rect x="151" width="27" y="160" height="100" />
+    <rect x="181" width="27" y="160" height="100" />
+    <rect x="211" width="27" y="160" height="100" />
+    <rect x="241" width="27" y="160" height="100" />
+    <text x="135.0" y="211">Afternoon Tutorials ($)</text>
+   </a>
+   <text x="135.0" y="145">Lunch</text>
+     <g transform="translate(370, 0)">
+   <a class="workshops">
+    <rect x="1" width="52" y="30" height="45" />
+    <rect x="1" width="52" y="85" height="45" />
+    <rect x="1" width="52" y="160" height="45" />
+    <rect x="1" width="52" y="215" height="45" />
+    <rect x="56" width="52" y="30" height="45" />
+    <rect x="56" width="52" y="85" height="45" />
+    <rect x="56" width="52" y="160" height="45" />
+    <rect x="56" width="52" y="215" height="45" />
+    <text x="55" y="45">Sponsor</text>
+    <text x="55" y="65">Workshops</text>
+   </a>
+   <text x="55" y="145">Lunch</text>
+     </g>
+    <g transform="translate(530, 30.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        9:00 am
+      </text>
+    </g>
+    <g transform="translate(530, 60.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        10:00 am
+      </text>
+    </g>
+    <g transform="translate(530, 90.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        11:00 am
+      </text>
+    </g>
+    <g transform="translate(530, 120.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        12:00 pm
+      </text>
+    </g>
+    <g transform="translate(530, 150.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        1:00 pm
+      </text>
+    </g>
+    <g transform="translate(530, 180.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        2:00 pm
+      </text>
+    </g>
+    <g transform="translate(530, 210.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        3:00 pm
+      </text>
+    </g>
+    <g transform="translate(530, 240.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        4:00 pm
+      </text>
+    </g>
+    <g transform="translate(530, 270.5)" class="reticle">
+      <path d="M -40 0 L -30 0 z  M 30 0 L 40 0 z" />
+      <text x="0" y="0">
+        5:00 pm
+      </text>
+    </g>
+     <g transform="translate(580, 0)">
+   <a xlink:href="/2016/events/edusummit/" target="_top" class="summit">
+     <rect x="1" width="97" y="30" height="100" />
+     <rect x="1" width="97" y="160" height="100" />
+     <text x="50" y="45">Education</text>
+     <text x="50" y="65">Summit</text>
+   </a>
+   <text x="50" y="145">Lunch</text>
+     </g>
+     <a xlink:href="/2016/events/reception/" target="_top" class="event">
+       <rect x="1" width="267" y="300" height="90" />
+       <text x="133" y="345">Opening Reception</text>
+     </a>
+</svg>
