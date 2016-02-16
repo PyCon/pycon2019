@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# Build the CSV files needed for SQL import.
+# Given a talks schedule CSV, import the data into PostgreSQL import.
 
 set -e
 
-cat schedule.csv | sed '
+sed '
 
 s/,0,/,20160530,/
 s/,1,/,20160531,/
@@ -16,7 +16,7 @@ s/,C,/,Session C,/
 s/,D,/,Session D,/
 s/,E,/,Session E,/
 
-' > schedule2.csv
+' "${1:-schedule.csv}" > schedule2.csv
 
 # When tutorials are ready:
 # 20160528,2016-05-28,1
@@ -47,31 +47,31 @@ day_id,start,minutes,kind_label
 EOF
 
 cat > days.csv <<EOF
-id,date,schedule_id
-20160530,2016-05-30,1
-20160531,2016-05-31,1
-20160601,2016-06-01,1
+id,date
+20160530,2016-05-30
+20160531,2016-05-31
+20160601,2016-06-01
 EOF
 
 cat > kinds.csv <<EOF
-id,label,schedule_id
-1,talk,1
-8,Break,1
-9,Lunch,1
+id,label
+1,talk
+8,Break
+9,Lunch
 EOF
 
 cat > rooms.csv <<EOF
-id,name,order,schedule_id
-101,Session A,1,1
-102,Session B,2,1
-103,Session C,3,1
-104,Session D,4,1
-105,Session E,5,1
+id,name,order
+101,Session A,1
+102,Session B,2
+103,Session C,3
+104,Session D,4
+105,Session E,5
 EOF
 
 # 2014,20160530,C,16:30:00,30,"To mock, or not to mock, that is the question"
 
-psql "${1:-pycon2016}" <<'EOF'
+psql "${2:-pycon2016}" <<'EOF'
 
 begin;
 
@@ -84,21 +84,18 @@ create temporary table b (
 
 create temporary table d (
  id integer,
- date date,
- schedule_id integer
+ date date
 );
 
 create temporary table k (
  id integer,
- label text,
- schedule_id integer
+ label text
 );
 
 create temporary table r (
  id integer,
  name text,
- "order" integer,
- schedule_id integer
+ "order" integer
 );
 
 create temporary table s (
@@ -121,12 +118,23 @@ delete from symposion_schedule_slotroom;
 delete from symposion_schedule_room;
 delete from symposion_schedule_slot;
 delete from symposion_schedule_day;
-delete from symposion_schedule_presentation_additional_speakers
+delete from symposion_schedule_presentation_additional_speakers;
 delete from symposion_schedule_presentation;
 
-insert into symposion_schedule_slotkind select * from k;
-insert into symposion_schedule_day select * from d;
-insert into symposion_schedule_room select * from r;
+insert into symposion_schedule_slotkind select *,
+ (select id from symposion_schedule_schedule where section_id =
+   (select id from conference_section where slug = 'talks'))
+ from k;
+
+insert into symposion_schedule_day select *,
+ (select id from symposion_schedule_schedule where section_id =
+   (select id from conference_section where slug = 'talks'))
+ from d;
+
+insert into symposion_schedule_room select *,
+ (select id from symposion_schedule_schedule where section_id =
+   (select id from conference_section where slug = 'talks'))
+ from r;
 
 insert into symposion_schedule_slot
  select
