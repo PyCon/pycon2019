@@ -124,6 +124,10 @@ class ProposalBase(models.Model):
         return self.title
 
     def can_edit(self):
+        """
+        Return True if this proposal is editable - meaning no presentation exists yet.
+        """
+        # Putting this import at the top would result in a circular import
         from symposion.schedule.models import Presentation
         return not Presentation.objects.filter(proposal_base=self).exists()
 
