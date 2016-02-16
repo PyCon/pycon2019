@@ -1,5 +1,4 @@
 import itertools
-import operator
 
 from django.db.models import Count, Min
 
