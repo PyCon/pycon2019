@@ -7,6 +7,7 @@ from symposion.speakers.models import Speaker
 
 class SpeakerAdmin(MarkEditAdmin):
     list_display = ["name", "email", "created", "twitter_username"]
+    raw_id_fields = ["user"]
     search_fields = ["name", "twitter_username"]
 
     class MarkEdit:
