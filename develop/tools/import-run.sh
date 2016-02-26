@@ -4,62 +4,32 @@
 
 set -e
 
-# The "sed" command turns lines that look like this:
-#
-# 2014,0,C,16:30:00,30,"To mock, or not to mock, that is the question"
-#
-# into lines that look like:
-#
-# 2014,20160530,C,16:30:00,30,"To mock, or not to mock, that is the question"
-
-sed '
-
-s/,0,/,20160530,/
-s/,1,/,20160531,/
-s/,2,/,20160601,/
-
-s/,A,/,Session A,/
-s/,B,/,Session B,/
-s/,C,/,Session C,/
-s/,D,/,Session D,/
-s/,E,/,Session E,/
-
-' "${1:-talks.csv}" > talks2.csv
-
-
 # When tutorials are ready:
 # 20160528,2016-05-28,1
 # 20160529,2016-05-29,1
 
 cat > breaks.csv <<EOF
-day_id,start,minutes,kind_label
-20160530,12:40,60,Lunch
-20160530,12:40,60,Lunch
-20160530,12:55,60,Lunch
-20160530,12:55,60,Lunch
-20160530,12:55,60,Lunch
-20160531,12:40,60,Lunch
-20160531,12:40,60,Lunch
-20160531,12:55,60,Lunch
-20160531,12:55,60,Lunch
-20160531,12:55,60,Lunch
-20160530,15:45,30,Break
-20160530,15:45,30,Break
-20160530,16:00,30,Break
-20160530,16:00,30,Break
-20160530,16:00,30,Break
-20160531,15:45,30,Break
-20160531,15:45,30,Break
-20160531,16:00,30,Break
-20160531,16:00,30,Break
-20160531,16:00,30,Break
-EOF
-
-cat > days.csv <<EOF
-id,date
-20160530,2016-05-30
-20160531,2016-05-31
-20160601,2016-06-01
+day,start,minutes,kind_label
+2016-05-30,12:40,60,Lunch
+2016-05-30,12:40,60,Lunch
+2016-05-30,12:55,60,Lunch
+2016-05-30,12:55,60,Lunch
+2016-05-30,12:55,60,Lunch
+2016-05-31,12:40,60,Lunch
+2016-05-31,12:40,60,Lunch
+2016-05-31,12:55,60,Lunch
+2016-05-31,12:55,60,Lunch
+2016-05-31,12:55,60,Lunch
+2016-05-30,15:45,30,Break
+2016-05-30,15:45,30,Break
+2016-05-30,16:00,30,Break
+2016-05-30,16:00,30,Break
+2016-05-30,16:00,30,Break
+2016-05-31,15:45,30,Break
+2016-05-31,15:45,30,Break
+2016-05-31,16:00,30,Break
+2016-05-31,16:00,30,Break
+2016-05-31,16:00,30,Break
 EOF
 
 cat > kinds.csv <<EOF
@@ -83,15 +53,10 @@ psql "${2:-pycon2016}" <<'EOF'
 begin;
 
 create temporary table b (
- day_id integer,
+ day date,
  start time,
  minutes integer,
  kind_label text
-);
-
-create temporary table d (
- id integer,
- date date
 );
 
 create temporary table k (
@@ -107,15 +72,13 @@ create temporary table r (
 
 create temporary table s (
  proposal_id integer,
- day_id integer,
- room_name text,
+ day date,
  time time,
  minutes integer,
- title text
+ room_name text
 );
 
 \copy b from 'breaks.csv' csv header;
-\copy d from 'days.csv' csv header;
 \copy k from 'kinds.csv' csv header;
 \copy r from 'rooms.csv' csv header;
 \copy s from 'talks2.csv' csv header;
@@ -133,10 +96,10 @@ insert into symposion_schedule_slotkind select *,
    (select id from conference_section where slug = 'talks'))
  from k;
 
-insert into symposion_schedule_day select *,
+insert into symposion_schedule_day (date, schedule_id) select d.day,
  (select id from symposion_schedule_schedule where section_id =
    (select id from conference_section where slug = 'talks'))
- from d;
+ from (select distinct day from s) d;
 
 insert into symposion_schedule_room select *,
  (select id from symposion_schedule_schedule where section_id =
@@ -149,7 +112,7 @@ insert into symposion_schedule_slot
   start,
   start + cast(minutes || ' minutes' as interval),
   '',
-  day_id,
+  (select id from symposion_schedule_day ssd where ssd.date = day),
   (select id from symposion_schedule_slotkind where label = kind_label)
  from b;
 
@@ -159,7 +122,7 @@ insert into symposion_schedule_slot
   time,
   time + cast(minutes || ' minutes' as interval),
   '',
-  day_id,
+  (select id from symposion_schedule_day ssd where ssd.date = day),
   (select id from symposion_schedule_slotkind where label = 'talk')
  from s;
 
@@ -173,7 +136,7 @@ insert into symposion_schedule_slotroom
 insert into symposion_schedule_presentation
  select
   proposal_id,
-  s.title,
+  pp.title,
   pp.description,
   pp.abstract,
   false,
