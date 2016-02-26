@@ -4,6 +4,14 @@
 
 set -e
 
+# The "sed" command turns lines that look like this:
+#
+# 2014,0,C,16:30:00,30,"To mock, or not to mock, that is the question"
+#
+# into lines that look like:
+#
+# 2014,20160530,C,16:30:00,30,"To mock, or not to mock, that is the question"
+
 sed '
 
 s/,0,/,20160530,/
@@ -16,7 +24,8 @@ s/,C,/,Session C,/
 s/,D,/,Session D,/
 s/,E,/,Session E,/
 
-' "${1:-schedule.csv}" > schedule2.csv
+' "${1:-talks.csv}" > talks2.csv
+
 
 # When tutorials are ready:
 # 20160528,2016-05-28,1
@@ -69,8 +78,6 @@ id,name,order
 105,Session E,5
 EOF
 
-# 2014,20160530,C,16:30:00,30,"To mock, or not to mock, that is the question"
-
 psql "${2:-pycon2016}" <<'EOF'
 
 begin;
@@ -111,7 +118,7 @@ create temporary table s (
 \copy d from 'days.csv' csv header;
 \copy k from 'kinds.csv' csv header;
 \copy r from 'rooms.csv' csv header;
-\copy s from 'schedule2.csv' csv header;
+\copy s from 'talks2.csv' csv header;
 
 delete from symposion_schedule_slotkind;
 delete from symposion_schedule_slotroom;
@@ -187,8 +194,3 @@ insert into symposion_schedule_presentation_additional_speakers
 commit;
 
 EOF
-
-# When testing on my Vagrant box:
-#
-# alter table symposion_schedule_presentation drop constraint symposion_schedule_presentation_proposal_base_id_key
-# alter table symposion_schedule_presentation drop constraint s_proposal_base_id_5335e1577995b5c_fk_proposals_proposalbase_id
