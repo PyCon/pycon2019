@@ -36,6 +36,24 @@ def main():
 
     dfs.append(t)
 
+    t = pd.read_csv('sponsor-tutorials-edited.csv')
+
+    t = t[t['ID'].notnull()].copy()
+    t['kind_slug'] = 'sponsor-tutorial'
+    #t['kind_slug'] = 'tutorial'
+    t['proposal_id'] = t.pop('ID').astype(int)
+    t['day'] = pd.to_datetime(t['Day Slot'])
+    t['time'] = t['Time Slot'].str.extract('([^ ]*)')
+    t['duration'] = 90
+    t['room'] = 1
+    t = t.sort_values(['Title'])
+    t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
+    t['room'] = t['room'].apply(lambda n: 'Sponsor Room {}'.format(n))
+
+    t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
+
+    dfs.append(t)
+
     #t.to_csv('schedule.csv', index=False)
 
     pd.concat(dfs).to_csv('schedule.csv', index=False)
