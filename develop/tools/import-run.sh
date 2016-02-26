@@ -4,10 +4,6 @@
 
 set -e
 
-# When tutorials are ready:
-# 20160528,2016-05-28,1
-# 20160529,2016-05-29,1
-
 cat > breaks.csv <<EOF
 day,start,minutes,kind_label
 talk,2016-05-30,12:40,60,Lunch
@@ -54,7 +50,7 @@ create temporary table s (
 );
 
 \copy b from 'breaks.csv' csv header;
-\copy s from 'talks2.csv' csv header;
+\copy s from 'schedule.csv' csv header;
 
 delete from symposion_schedule_slotkind;
 delete from symposion_schedule_slotroom;

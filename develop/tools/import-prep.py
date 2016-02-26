@@ -7,6 +7,8 @@ from datetime import date
 
 def main():
 
+    dfs = []
+
     t = pd.read_csv('talks.csv')
 
     t['kind_slug'] = 'talk'
@@ -16,7 +18,27 @@ def main():
 
     t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
 
-    t.to_csv('talks2.csv', index=False)
+    dfs.append(t)
+
+    t = pd.read_csv('tutorials.csv')
+
+    t['kind_slug'] = 'tutorial'
+    t['proposal_id'] = t.pop('ID')
+    t['day'] = pd.to_datetime(t['Day Slot'])
+    t['time'] = t['Time Slot'].str.extract('([^ ]*)')
+    t['duration'] = 200
+    t['room'] = 1
+    t = t.sort_values(['Title'])
+    t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
+    t['room'] = t['room'].apply(lambda n: 'Tutorial {}'.format(n))
+
+    t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
+
+    dfs.append(t)
+
+    #t.to_csv('schedule.csv', index=False)
+
+    pd.concat(dfs).to_csv('schedule.csv', index=False)
 
 if __name__ == '__main__':
     main()
