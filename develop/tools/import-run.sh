@@ -5,7 +5,29 @@
 set -e
 
 cat > breaks.csv <<EOF
-day,start,minutes,kind_label
+kind,day,start,minutes,kind_label
+sponsor-tutorial,2016-05-28,10:30,30,Break
+sponsor-tutorial,2016-05-28,12:30,60,Lunch
+sponsor-tutorial,2016-05-29,12:30,60,Lunch
+sponsor-tutorial,2016-05-29,12:30,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-28,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
+tutorial,2016-05-29,12:20,60,Lunch
 talk,2016-05-30,12:40,60,Lunch
 talk,2016-05-30,12:40,60,Lunch
 talk,2016-05-30,12:55,60,Lunch
@@ -51,6 +73,13 @@ create temporary table s (
 
 \copy b from 'breaks.csv' csv header;
 \copy s from 'schedule.csv' csv header;
+
+alter table b add column schedule_id integer;
+update b set schedule_id = sss.id
+ from symposion_schedule_slotkind ssk
+   join symposion_schedule_schedule sss on (ssk.schedule_id = sss.id)
+ where b.kind_slug = ssk.label
+ ;
 
 alter table s add column schedule_id integer;
 update s set schedule_id = sss.id
@@ -107,8 +136,10 @@ insert into symposion_schedule_slot
   start,
   start + cast(minutes || ' minutes' as interval),
   '',
-  (select id from symposion_schedule_day ssd where ssd.date = day),
-  (select id from symposion_schedule_slotkind where label = kind_label)
+  (select id from symposion_schedule_day ssd
+    where ssd.date = day and ssd.schedule_id = b.schedule_id),
+  (select id from symposion_schedule_slotkind ssk
+    where label = kind_label and ssk.schedule_id = b.schedule_id)
  from b;
 
 insert into symposion_schedule_slot
