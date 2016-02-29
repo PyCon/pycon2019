@@ -207,9 +207,13 @@ insert into symposion_schedule_presentation
  ;
 
 insert into symposion_schedule_presentation_additional_speakers
- select id, proposalbase_id, speaker_id
- from proposals_proposalbase_additional_speakers
- where proposalbase_id in (select id from symposion_schedule_presentation);
+  (presentation_id, speaker_id)
+ select
+  ssp.id, ppas.speaker_id
+ from
+  proposals_proposalbase_additional_speakers ppas
+  join symposion_schedule_presentation ssp
+   on (ppas.proposalbase_id = ssp.proposal_base_id);
 
 commit;
 
