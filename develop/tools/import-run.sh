@@ -183,6 +183,29 @@ insert into symposion_schedule_presentation
   join proposals_proposalkind pk on (pb.kind_id = pk.id)
  ;
 
+insert into symposion_schedule_presentation
+  (title, description, abstract, cancelled,
+   proposal_base_id, section_id, slot_id, speaker_id,
+   assets_url, slides_url, video_url)
+ select
+  pb.title,
+  pb.description,
+  pb.abstract,
+  false,
+
+  pb.id,
+  (select id from conference_section where slug = 'posters'),
+  NULL,
+  pb.speaker_id,
+
+  '',
+  '',
+  ''
+ from pycon_pyconposterproposal pp
+  join proposals_proposalbase pb on (pp.proposalbase_ptr_id = pb.id)
+ where overall_status = 4
+ ;
+
 insert into symposion_schedule_presentation_additional_speakers
  select id, proposalbase_id, speaker_id
  from proposals_proposalbase_additional_speakers
