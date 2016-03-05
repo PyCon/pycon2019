@@ -5,49 +5,51 @@
 set -e
 
 cat > breaks.csv <<EOF
-kind,day,start,minutes,kind_label
-sponsor-tutorial,2016-05-28,10:30,30,Break
-sponsor-tutorial,2016-05-28,12:30,60,Lunch
-sponsor-tutorial,2016-05-29,12:30,60,Lunch
-sponsor-tutorial,2016-05-29,12:30,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-28,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-tutorial,2016-05-29,12:20,60,Lunch
-talk,2016-05-30,12:40,60,Lunch
-talk,2016-05-30,12:40,60,Lunch
-talk,2016-05-30,12:55,60,Lunch
-talk,2016-05-30,12:55,60,Lunch
-talk,2016-05-30,12:55,60,Lunch
-talk,2016-05-31,12:40,60,Lunch
-talk,2016-05-31,12:40,60,Lunch
-talk,2016-05-31,12:55,60,Lunch
-talk,2016-05-31,12:55,60,Lunch
-talk,2016-05-31,12:55,60,Lunch
-talk,2016-05-30,15:45,30,Break
-talk,2016-05-30,15:45,30,Break
-talk,2016-05-30,16:00,30,Break
-talk,2016-05-30,16:00,30,Break
-talk,2016-05-30,16:00,30,Break
-talk,2016-05-31,15:45,30,Break
-talk,2016-05-31,15:45,30,Break
-talk,2016-05-31,16:00,30,Break
-talk,2016-05-31,16:00,30,Break
-talk,2016-05-31,16:00,30,Break
+kind_slug,kind_label,day,start,duration
+sponsor-tutorial,Break,2016-05-28,10:30,30
+sponsor-tutorial,Lunch,2016-05-28,12:30,60
+sponsor-tutorial,Lunch,2016-05-29,12:30,60
+sponsor-tutorial,Lunch,2016-05-29,12:30,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-28,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+tutorial,Lunch,2016-05-29,12:20,60
+talk,Breakfast,2016-05-30,8:00,60
+talk,Break,2016-05-30,10:10,40
+talk,Lunch,2016-05-30,12:40,60
+talk,Lunch,2016-05-30,12:40,60
+talk,Lunch,2016-05-30,12:55,60
+talk,Lunch,2016-05-30,12:55,60
+talk,Lunch,2016-05-30,12:55,60
+talk,Lunch,2016-05-31,12:40,60
+talk,Lunch,2016-05-31,12:40,60
+talk,Lunch,2016-05-31,12:55,60
+talk,Lunch,2016-05-31,12:55,60
+talk,Lunch,2016-05-31,12:55,60
+talk,Break,2016-05-30,15:45,30
+talk,Break,2016-05-30,15:45,30
+talk,Break,2016-05-30,16:00,30
+talk,Break,2016-05-30,16:00,30
+talk,Break,2016-05-30,16:00,30
+talk,Break,2016-05-31,15:45,30
+talk,Break,2016-05-31,15:45,30
+talk,Break,2016-05-31,16:00,30
+talk,Break,2016-05-31,16:00,30
+talk,Break,2016-05-31,16:00,30
 EOF
 
 psql "${1:-pycon2016}" <<'EOF'
@@ -56,18 +58,18 @@ begin;
 
 create temporary table b (
  kind_slug text,
+ kind_label text,
  day date,
  start time,
- minutes integer,
- kind_label text
+ duration integer
 );
 
 create temporary table s (
  kind_slug text,
  proposal_id integer,
  day date,
- time time,
- minutes integer,
+ start time,
+ duration integer,
  room_name text
 );
 
@@ -134,7 +136,7 @@ insert into symposion_schedule_slot
  select
   10 + row_number() over (order by start),
   start,
-  start + cast(minutes || ' minutes' as interval),
+  start + cast(duration || ' minutes' as interval),
   '',
   (select id from symposion_schedule_day ssd
     where ssd.date = day and ssd.schedule_id = b.schedule_id),
@@ -145,8 +147,8 @@ insert into symposion_schedule_slot
 insert into symposion_schedule_slot
  select
   proposal_id,
-  time,
-  time + cast(minutes || ' minutes' as interval),
+  start,
+  start + cast(duration || ' minutes' as interval),
   '',
   (select id from symposion_schedule_day ssd
     where ssd.date = day and ssd.schedule_id = s.schedule_id),

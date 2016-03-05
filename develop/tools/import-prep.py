@@ -56,7 +56,8 @@ def main():
 
     #t.to_csv('schedule.csv', index=False)
 
-    pd.concat(dfs).to_csv('schedule.csv', index=False)
+    c = pd.concat(dfs).rename(columns={'time': 'start'})
+    c.to_csv('schedule.csv', index=False)
 
 if __name__ == '__main__':
     main()
