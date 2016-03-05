@@ -161,10 +161,11 @@ insert into symposion_schedule_slotroom
  from s;
 
 insert into symposion_schedule_presentation
-  (title, description, abstract, cancelled,
+  (id, title, description, abstract, cancelled,
    proposal_base_id, section_id, slot_id, speaker_id,
    assets_url, slides_url, video_url)
  select
+  pb.id,
   pb.title,
   pb.description,
   pb.abstract,
@@ -184,10 +185,11 @@ insert into symposion_schedule_presentation
  ;
 
 insert into symposion_schedule_presentation
-  (title, description, abstract, cancelled,
+  (id, title, description, abstract, cancelled,
    proposal_base_id, section_id, slot_id, speaker_id,
    assets_url, slides_url, video_url)
  select
+  pb.id,
   pb.title,
   pb.description,
   pb.abstract,
