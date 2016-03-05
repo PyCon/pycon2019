@@ -69,6 +69,9 @@
   - name: Supply an informative message of the day
     copy: src=/vagrant/develop/motd dest=/etc/motd
 
+  - name: Make psql willing to print UTF-8 strings
+    copy: src=/vagrant/develop/dot-psqlrc dest=/home/vagrant/.psqlrc owner=vagrant
+
   - name: Create application database "pycon2016"
     become: yes
     become_user: postgres
