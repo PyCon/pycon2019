@@ -53,7 +53,7 @@ talk,Break,2016-06-01,10:00,190,Session %,Poster Session / Job Fair / Lunch — 
 talk,plenary,2016-06-01,15:10,40,Session %,Keynote — K Lars Lohn
 talk,plenary,2016-06-01,15:50,20,Session %,Closing Remarks
 talk, ,2016-06-01,16:10,20,Session %,
-talk,Introduction to Sprints,2016-06-01,16:30,90,Session %,
+talk,Break,2016-06-01,16:30,90,Session %,Introduction to Sprints
 EOF
 
 psql "${1:-pycon2016}" <<'EOF'
@@ -223,6 +223,7 @@ insert into symposion_schedule_presentation
  from pycon_pyconposterproposal pp
   join proposals_proposalbase pb on (pp.proposalbase_ptr_id = pb.id)
  where overall_status = 4
+  and not cancelled
  ;
 
 insert into symposion_schedule_presentation_additional_speakers
