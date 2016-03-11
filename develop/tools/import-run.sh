@@ -44,7 +44,8 @@ talk,Break,2016-05-31,15:45,30,Session B,
 talk,Break,2016-05-31,16:00,30,Session C,
 talk,Break,2016-05-31,16:00,30,Session D,
 talk,Break,2016-05-31,16:00,30,Session E,
-talk,plenary,2016-05-31,17:40,60,Session %,Lightning Talks
+talk,plenary,2016-05-31,17:40,50,Session %,Lightning Talks
+talk,Break,2016-05-31,18:30,150,Session %,PyLadies Charity Auction
 talk,Breakfast,2016-06-01,8:00,30,Session %,
 talk,plenary,2016-06-01,8:30,30,Session %,Lightning Talks
 talk,plenary,2016-06-01,9:00,20,Session %,Python Software Foundation — Van Lindberg
