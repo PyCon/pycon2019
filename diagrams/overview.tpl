@@ -111,9 +111,9 @@
     a:hover[target] text {text-decoration: underline}
     .reticle text {font-size: 13px}
     .open-spaces rect {fill: #90E4D3}
-    .open-space rect {stroke: black; fill: #7FDDC2}
+    .open-space rect {fill: #fcfcfc; stroke-width: 0}
     .tutorials rect, .talks rect {fill: #EEDDA0}
-    .workshops rect, .expo rect {fill: #CEED9F}
+    .workshops rect, .expo rect {fill: #CEDE9F}
     .plenary rect {fill: #FBE452}
     .summit rect {fill: #D1EE3D}
     .event rect {fill: #E0E0E0}
@@ -152,11 +152,15 @@
        <rect width="{{hour * 4}}" y="{{t(900)}}" height="{{t(900,2000)}}" />
        <text x="{{hour * 2}}" y="{{t(1430)}}">Open Spaces</text>
        <g class="open-space">
+         % p = 2
          % for i in range(2 * 4, 7 * 4) + range(8 * 4, 13 * 4):
-           % if random() < .42:
+           % if random() < .45:
              % y, x = divmod(i, 4)
-             <rect x="{{hour*x}}" y="{{hour*y}}"
-                   width="{{hour}}" height="{{hour}}" />
+             % rot = random() * 8.0 - 4.0
+             <rect x="{{hour*x + p}}" y="{{hour*y + p}}"
+                   width="{{hour - 2*p}}" height="{{hour - 2*p}}"
+                   transform="rotate({{rot}} {{hour*(x+0.5)}} {{hour*y}})" />
+             <circle cx="{{hour*(x+0.5)}}" cy="{{hour*y + 6}}" r="1.5" />
            % end
          % end
        </g>

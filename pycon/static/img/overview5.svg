@@ -28,9 +28,9 @@
     a:hover[target] text {text-decoration: underline}
     .reticle text {font-size: 13px}
     .open-spaces rect {fill: #90E4D3}
-    .open-space rect {stroke: black; fill: #7FDDC2}
+    .open-space rect {fill: #fcfcfc; stroke-width: 0}
     .tutorials rect, .talks rect {fill: #EEDDA0}
-    .workshops rect, .expo rect {fill: #CEED9F}
+    .workshops rect, .expo rect {fill: #CEDE9F}
     .plenary rect {fill: #FBE452}
     .summit rect {fill: #D1EE3D}
     .event rect {fill: #E0E0E0}
@@ -192,34 +192,74 @@
        <rect width="120" y="60" height="330" />
        <text x="60" y="225">Open Spaces</text>
        <g class="open-space">
-             <rect x="60" y="90"
-                   width="30" height="30" />
-             <rect x="90" y="120"
-                   width="30" height="30" />
-             <rect x="30" y="150"
-                   width="30" height="30" />
-             <rect x="0" y="180"
-                   width="30" height="30" />
-             <rect x="30" y="180"
-                   width="30" height="30" />
-             <rect x="60" y="180"
-                   width="30" height="30" />
-             <rect x="30" y="240"
-                   width="30" height="30" />
-             <rect x="90" y="240"
-                   width="30" height="30" />
-             <rect x="30" y="270"
-                   width="30" height="30" />
-             <rect x="60" y="270"
-                   width="30" height="30" />
-             <rect x="0" y="300"
-                   width="30" height="30" />
-             <rect x="30" y="300"
-                   width="30" height="30" />
-             <rect x="0" y="330"
-                   width="30" height="30" />
-             <rect x="0" y="360"
-                   width="30" height="30" />
+             <rect x="62" y="92"
+                   width="26" height="26"
+                   transform="rotate(-0.275018764975 75.0 90)" />
+             <circle cx="75.0" cy="96" r="1.5" />
+             <rect x="62" y="122"
+                   width="26" height="26"
+                   transform="rotate(-0.247447617743 75.0 120)" />
+             <circle cx="75.0" cy="126" r="1.5" />
+             <rect x="92" y="122"
+                   width="26" height="26"
+                   transform="rotate(0.350086873887 105.0 120)" />
+             <circle cx="105.0" cy="126" r="1.5" />
+             <rect x="32" y="152"
+                   width="26" height="26"
+                   transform="rotate(-2.26616159629 45.0 150)" />
+             <circle cx="45.0" cy="156" r="1.5" />
+             <rect x="62" y="152"
+                   width="26" height="26"
+                   transform="rotate(3.33076297447 75.0 150)" />
+             <circle cx="75.0" cy="156" r="1.5" />
+             <rect x="2" y="182"
+                   width="26" height="26"
+                   transform="rotate(2.37717593145 15.0 180)" />
+             <circle cx="15.0" cy="186" r="1.5" />
+             <rect x="32" y="182"
+                   width="26" height="26"
+                   transform="rotate(0.939620163729 45.0 180)" />
+             <circle cx="45.0" cy="186" r="1.5" />
+             <rect x="62" y="182"
+                   width="26" height="26"
+                   transform="rotate(-3.98580110238 75.0 180)" />
+             <circle cx="75.0" cy="186" r="1.5" />
+             <rect x="2" y="242"
+                   width="26" height="26"
+                   transform="rotate(-2.2761506462 15.0 240)" />
+             <circle cx="15.0" cy="246" r="1.5" />
+             <rect x="92" y="242"
+                   width="26" height="26"
+                   transform="rotate(3.6918239116 105.0 240)" />
+             <circle cx="105.0" cy="246" r="1.5" />
+             <rect x="62" y="272"
+                   width="26" height="26"
+                   transform="rotate(3.5278080087 75.0 270)" />
+             <circle cx="75.0" cy="276" r="1.5" />
+             <rect x="62" y="302"
+                   width="26" height="26"
+                   transform="rotate(-1.11048052222 75.0 300)" />
+             <circle cx="75.0" cy="306" r="1.5" />
+             <rect x="92" y="302"
+                   width="26" height="26"
+                   transform="rotate(-2.83438472367 105.0 300)" />
+             <circle cx="105.0" cy="306" r="1.5" />
+             <rect x="2" y="332"
+                   width="26" height="26"
+                   transform="rotate(-1.58912719384 15.0 330)" />
+             <circle cx="15.0" cy="336" r="1.5" />
+             <rect x="62" y="332"
+                   width="26" height="26"
+                   transform="rotate(1.42347399638 75.0 330)" />
+             <circle cx="75.0" cy="336" r="1.5" />
+             <rect x="92" y="332"
+                   width="26" height="26"
+                   transform="rotate(-1.52033654717 105.0 330)" />
+             <circle cx="105.0" cy="336" r="1.5" />
+             <rect x="62" y="362"
+                   width="26" height="26"
+                   transform="rotate(-0.150252910105 75.0 360)" />
+             <circle cx="75.0" cy="366" r="1.5" />
        </g>
     </a>
    <a xlink:href="/2016/schedule/talks/" target="_top" class="talks">
