@@ -15,13 +15,13 @@
 % end
 %
 % def tutorials(w=30, offset=143):
-   <a class="tutorials">
+   <a class="tutorials" xlink:href="/2016/schedule/tutorials/" target="_top">
 %  for x in range(0, w*9, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(900)}}" height="{{t(900,1220)}}" />
 %  end
     <text x="{{w*4.5}}" y="{{t(900+offset)}}">Morning Tutorials ($)</text>
    </a>
-   <a class="tutorials">
+   <a class="tutorials" xlink:href="/2016/schedule/tutorials/" target="_top">
 %  for x in range(0, w*9, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(1320)}}" height="{{t(1320,1640)}}" />
 %  end
@@ -31,7 +31,7 @@
 % end
 %
 % def workshops(w=55):
-   <a class="workshops">
+   <a class="workshops" xlink:href="/2016/schedule/sponsor-tutorials/" target="_top">
 %  for x in range(0, w*2, w):
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(900)}}" height="{{t(900,1030)}}" />
     <rect x="{{x+1}}" width="{{w-3}}" y="{{t(1050)}}" height="{{t(1050,1220)}}" />
