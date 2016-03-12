@@ -28,7 +28,7 @@
     a:hover[target] text {text-decoration: underline}
     .reticle text {font-size: 13px}
     .open-spaces rect {fill: #90E4D3}
-    .open-space rect {fill: #fcfcfc; stroke-width: 0}
+    .open-space rect {fill: white; stroke-width: 0}
     .tutorials rect, .talks rect {fill: #EEDDA0}
     .workshops rect, .expo rect {fill: #CEDE9F}
     .plenary rect {fill: #FBE452}
