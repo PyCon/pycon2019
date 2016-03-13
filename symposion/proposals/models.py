@@ -219,6 +219,10 @@ class AdditionalSpeaker(models.Model):
     proposalbase = models.ForeignKey(ProposalBase)
     status = models.IntegerField(choices=SPEAKING_STATUS, default=SPEAKING_STATUS_PENDING)
 
+    def __unicode__(self):
+        return u'Additional speaker {} for "{}"'.format(
+            self.speaker, self.proposalbase)
+
     class Meta:
         db_table = "proposals_proposalbase_additional_speakers"
         unique_together = ("speaker", "proposalbase")
