@@ -120,6 +120,9 @@ class ProposalBase(models.Model):
     tags = TaggableManager(blank=True)
     cached_tags = models.TextField(blank=True, default='', editable=False)
 
+    class Meta:
+        ordering = ['title']
+
     def __unicode__(self):
         return self.title
 
