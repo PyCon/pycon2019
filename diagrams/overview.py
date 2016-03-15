@@ -20,28 +20,6 @@ class Time(object):
             start, end = self.start, start
         return self.minutes(end) - self.minutes(start)
 
-class Boxes(object):
-    def __init__(self):
-        self.coordinates = []
-
-    def add(self, x, width, start, end):
-        self.coordinates.append((x, width, start, end))
-
-gradient_names = (
-    ['12m']
-    + ['{}a'.format(h) for h in range(1, 12)]
-    + ['12n']
-    + ['{}p'.format(h) for h in range(1, 12)]
-    )
-
-def content_of(day):
-    tutorials = []
-    for day in 1, 2:
-        for x in range(9):
-            tutorials.append()
-
-    return locals()
-
 def main():
     if len(sys.argv) != 2:
         print >>sys.stderr, 'usage: overview.py destination_directory'
