@@ -85,9 +85,8 @@ create temporary table s (
 \copy s from 'schedule.csv' csv header;
 
 alter table b add column schedule_id integer;
-update b set schedule_id = sss.id
+update b set schedule_id = ssk.schedule_id
  from symposion_schedule_slotkind ssk
-   join symposion_schedule_schedule sss on (ssk.schedule_id = sss.id)
  where b.kind_slug = ssk.label
  ;
 
@@ -106,6 +105,8 @@ delete from symposion_schedule_slot;
 delete from symposion_schedule_day;
 delete from symposion_schedule_presentation_additional_speakers;
 delete from symposion_schedule_presentation;
+delete from pycon_schedule_session;
+delete from pycon_schedule_session_slots;
 
 insert into symposion_schedule_slotkind (label, schedule_id)
  select
@@ -235,6 +236,53 @@ insert into symposion_schedule_presentation_additional_speakers
   proposals_proposalbase_additional_speakers ppas
   join symposion_schedule_presentation ssp
    on (ppas.proposalbase_id = ssp.proposal_base_id);
+
+-- Session IDs look like XYZ where:
+--  X is the main conference day: 1, 2, or 3
+--  Y is the room number: 1 through 5
+--  Z is part of day: 1 before 1pm, 2 after 1pm, 3 after 4pm
+
+insert into pycon_schedule_session
+  (id, day_id)
+ select
+  (date - '2016-05-29') * 100 + room * 10 + daypart, id
+ from
+  symposion_schedule_day ssd,
+  (values (1), (2), (3), (4), (5)) t1 (room),
+  (values (1), (2), (3)) t2 (daypart)
+ where
+  schedule_id = 6;
+
+insert into pycon_schedule_session_slots
+  (session_id, slot_id)
+ select
+  pss.id session_id,
+  sss.id slot_id
+ from
+  pycon_schedule_session pss
+  join symposion_schedule_day ssd on (pss.day_id = ssd.id)
+  join symposion_schedule_slot sss on (ssd.id = sss.day_id)
+  join symposion_schedule_slotkind sssk on (sss.kind_id = sssk.id)
+  join symposion_schedule_slotroom sssr on (sss.id = sssr.slot_id)
+  join symposion_schedule_room ssr on (sssr.room_id = ssr.id)
+ where
+  (pss.id % 10) = case when sss.start < '13:00:00' then 1
+                       when sss.start < '16:00:00' then 2
+                       else 3 end
+  and
+  (pss.id / 10 % 10) = case when ssr.name = 'Session A' then 1
+                            when ssr.name = 'Session B' then 2
+                            when ssr.name = 'Session C' then 3
+                            when ssr.name = 'Session D' then 4
+                            else 5 end
+  and
+  (pss.id / 100) = case when ssd.date = '2016-05-30' then 1
+                        when ssd.date = '2016-05-31' then 2
+                        else 3 end
+  and sssk.label = 'talk'
+  and sssk.schedule_id = 6
+ order by
+  session_id;
 
 commit;
 
