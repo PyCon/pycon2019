@@ -52,11 +52,15 @@ class SponsorApplicationForm(SponsorDetailsForm):
         # fills, instead of having to edit code. Plus, this should
         # really be a radio button, where the unavailable ones stay
         # visible but grayed out with "Full" or "Out" next to them.
-        self.fields['level'].queryset = SponsorLevel.objects.exclude(
-            name='Open Source and Community').exclude(
-            name='Silver').exclude(
-            name='Gold').exclude(
-            name='Diamond')
+        self.fields['level'].queryset = (
+            SponsorLevel.objects
+            .exclude(name='Open Source and Community')
+            .exclude(name='Patron')
+            .exclude(name='Silver')
+            .exclude(name='Gold')
+            .exclude(name='Platinum')
+            .exclude(name='Diamond')
+            )
 
     def save(self, commit=True):
         obj = super(SponsorApplicationForm, self).save(commit=False)
