@@ -5,7 +5,7 @@
 set -e
 
 cat > breaks.csv <<EOF
-kind_slug,kind_label,day,start,duration,content_override
+slot_id,kind_slug,kind_label,day,start,duration,room_name,content_override
 sponsor-tutorial,Break,2016-05-28,10:30,30,Sponsor Room 1,
 sponsor-tutorial,Lunch,2016-05-28,12:30,60,Sponsor Room 2,
 sponsor-tutorial,Lunch,2016-05-29,12:30,60,Sponsor Room 1,
@@ -284,6 +284,26 @@ insert into pycon_schedule_session_slots
   and sssk.schedule_id = 6
  order by
   session_id;
+
+update symposion_schedule_room
+ set name = 'Oregon Ballroom 201–202'
+ where name = 'Session A';
+
+update symposion_schedule_room
+ set name = 'Oregon Ballroom 203–204'
+ where name = 'Session B';
+
+update symposion_schedule_room
+ set name = 'Oregon Ballroom 251 & 258'
+ where name = 'Session C';
+
+update symposion_schedule_room
+ set name = 'Oregon Ballroom 252–253'
+ where name = 'Session D';
+
+update symposion_schedule_room
+ set name = 'Oregon Ballroom 254–255'
+ where name = 'Session E';
 
 commit;
 
