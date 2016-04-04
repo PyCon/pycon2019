@@ -52,9 +52,10 @@ talk,plenary,2016-06-01,9:00,20,Session %,Python Software Foundation — Van Lin
 talk,plenary,2016-06-01,9:20,40,Session %,Keynote — Cris Ewing
 talk,Break,2016-06-01,10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
 talk,plenary,2016-06-01,15:10,40,Session %,Keynote — K Lars Lohn
-talk,plenary,2016-06-01,15:50,20,Session %,Closing Remarks
-talk, ,2016-06-01,16:10,20,Session %,
-talk,Break,2016-06-01,16:30,90,Session %,Introduction to Sprints
+talk,plenary,2016-06-01,15:50,10,Session %,Final Remarks and Conference Close
+talk, ,2016-06-01,16:00,10,Session %,
+talk,plenary,2016-06-01,16:10,20,Session %,Sprint Pitches
+talk,Break,2016-06-01,16:30,90,Session %,“Introduction to Sprints” workshop
 EOF
 
 psql "${1:-pycon2016}" <<'EOF'
