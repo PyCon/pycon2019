@@ -20,6 +20,10 @@ def main():
 
     dfs.append(t)
 
+    t = pd.read_csv('~/Downloads/PyCon 2016 Tutorial Counts - Sheet1.csv')
+    rooms = {str(title).strip().lower(): room_name
+             for title, room_name in t[['Title', 'Room Name']].values}
+
     t = pd.read_csv('tutorials.csv')
 
     t['kind_slug'] = 'tutorial'
@@ -27,10 +31,7 @@ def main():
     t['day'] = pd.to_datetime(t['Day Slot'])
     t['time'] = t['Time Slot'].str.extract('([^ ]*)')
     t['duration'] = 200
-    t['room'] = 1
-    t = t.sort_values(['Title'])
-    t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
-    t['room'] = t['room'].apply(lambda n: 'Tutorial {}'.format(n))
+    t['room'] = t['Title'].str.strip().str.lower().map(rooms)
 
     t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
 

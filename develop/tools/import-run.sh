@@ -10,10 +10,10 @@ sponsor-tutorial,Break,2016-05-28,10:30,30,Sponsor Room 1,
 sponsor-tutorial,Lunch,2016-05-28,12:30,60,Sponsor Room 2,
 sponsor-tutorial,Lunch,2016-05-29,12:30,60,Sponsor Room 1,
 sponsor-tutorial,Lunch,2016-05-29,12:30,60,Sponsor Room 2,
-tutorial,Lunch,2016-05-28,12:20,60,Tutorial %,
-tutorial,Lunch,2016-05-29,12:20,60,Tutorial %,
-tutorial, ,2016-05-29,16:40,80,Tutorial %,
-tutorial,plenary,2016-05-29,18:00,180,Tutorial %,Opening Reception
+tutorial,Lunch,2016-05-28,12:20,60,(B%|C%),
+tutorial,Lunch,2016-05-29,12:20,60,(B%|C%),
+tutorial, ,2016-05-29,16:40,80,(B%|C%),
+tutorial,plenary,2016-05-29,18:00,180,(B%|C%),Opening Reception
 talk,Breakfast,2016-05-30,8:00,60,Session %,
 talk,plenary,2016-05-30,9:00,30,Session %,Welcome to PyCon
 talk,plenary,2016-05-30,9:30,40,Session %,Keynote — Lorena Barba
@@ -172,7 +172,7 @@ insert into symposion_schedule_slotroom (room_id, slot_id)
   ssr.id,
   b.slot_id
  from b
-  join symposion_schedule_room ssr on (ssr.name like b.room_name);
+  join symposion_schedule_room ssr on (ssr.name similar to b.room_name);
 
 insert into symposion_schedule_slotroom (room_id, slot_id)
  select
@@ -294,15 +294,15 @@ update symposion_schedule_room
  where name = 'Session B';
 
 update symposion_schedule_room
- set name = 'Oregon Ballroom 251 & 258'
+ set name = 'Portland Ballroom 251 & 258'
  where name = 'Session C';
 
 update symposion_schedule_room
- set name = 'Oregon Ballroom 252–253'
+ set name = 'Portland Ballroom 252–253'
  where name = 'Session D';
 
 update symposion_schedule_room
- set name = 'Oregon Ballroom 254–255'
+ set name = 'Portland Ballroom 254–255'
  where name = 'Session E';
 
 commit;
