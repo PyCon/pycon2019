@@ -198,9 +198,6 @@ def schedule_json(request):
             "end": "HH:MM:SS",  # ISO format
             "duration": 30,  # minutes
             "authors" ["author name 1", "author name 2", ..., "author name N"],
-            "released":  true | false,   # recording release agreed to
-            "license": "xx",
-            "contact": ["email1", "email2", .., "emailN"],  # emails of authors
             "abstract": "Lorem ipsum and so forth and so on",
             "description: "Lorem ipsum and so forth and so on",
             "conf_key": 27,
@@ -219,14 +216,11 @@ def schedule_json(request):
             "authors" ["author name 1", "author name 2", ..., "author name N"],
             "abstract": "Lorem ipsum and so forth and so on",
             "description: "Lorem ipsum and so forth and so on",
-            "license": "xx",
             "room": "roomname1, roomname2, ..., roomnameN",
             "start": "HH:MM:SS",  # Provided but meaningless, ignore...
             "end": "HH:MM:SS",  # Provided but meaningless, ignore...
-            "contact": ["email1", "email2", .., "emailN"],  # emails of authors
             "conf_key": 1227,
-            "conf_url": "https://conference_domain/path/to/page/about/talk",
-            "released":  true | false,   # recording release agreed to
+            "conf_url": "https://conference_domain/path/to/page/about/talk"
         }
     """
     slots = Slot.objects.all().order_by("start")
@@ -263,18 +257,15 @@ def schedule_json(request):
             "authors": [s.name for s in poster.speakers()],
             "description": getattr(poster.description, 'raw', poster.description),
             "abstract": getattr(poster.abstract, 'raw', poster.abstract),
-            "license": "CC",
             "room": "Poster Room",
             "start": datetime.datetime(2014, 03, 17, 10).isoformat(),
             "end": datetime.datetime(2014, 03, 17, 13, 10).isoformat(),
-            "contact": [s.email for s in poster.speakers()],
             "conf_key": 1000 + poster.pk,
             "conf_url": "https://%s%s" % (
                 Site.objects.get_current().domain,
                 reverse("schedule_presentation_detail", args=[poster.pk])
             ),
             "kind": "poster",
-            "released": poster.proposal.recording_release,
         }
         data.append(poster_data)
 
