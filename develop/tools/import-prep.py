@@ -45,7 +45,6 @@ def main():
     t['proposal_id'] = t.pop('ID').astype(int)
     t['day'] = pd.to_datetime(t['Day Slot'])
     t['time'] = t['Time Slot'].str.extract('([^ ]*)')
-    t['duration'] = 90
     t['room'] = 1
     t = t.sort_values(['Title'])
     t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
