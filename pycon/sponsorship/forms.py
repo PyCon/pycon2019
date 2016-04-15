@@ -55,11 +55,14 @@ class SponsorApplicationForm(SponsorDetailsForm):
         self.fields['level'].queryset = (
             SponsorLevel.objects
             .exclude(name='Open Source and Community')
+            .exclude(name='Financial Aid Sponsor')
+            .exclude(name='Media')
             .exclude(name='Patron')
             .exclude(name='Silver')
             .exclude(name='Gold')
             .exclude(name='Platinum')
             .exclude(name='Diamond')
+            .exclude(name='Keystone')
             )
 
     def save(self, commit=True):
