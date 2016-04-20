@@ -45,10 +45,10 @@ def main():
     t['proposal_id'] = t.pop('ID').astype(int)
     t['day'] = pd.to_datetime(t['Day Slot'])
     t['time'] = t['Time Slot'].str.extract('([^ ]*)')
-    t['room'] = 1
-    t = t.sort_values(['Title'])
-    t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
-    t['room'] = t['room'].apply(lambda n: 'Sponsor Room {}'.format(n))
+    t['room'] = t['Room']
+    # t = t.sort_values(['Title'])
+    # t['room'] = t.groupby(['day', 'time'])['room'].cumsum()
+    # t['room'] = t['room'].apply(lambda n: 'Sponsor Room {}'.format(n))
 
     t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
 

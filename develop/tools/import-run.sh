@@ -6,13 +6,11 @@ set -e
 
 cat > breaks.csv <<EOF
 slot_id,kind_slug,kind_label,day,start,duration,room_name,content_override
-sponsor-tutorial,Break,2016-05-28,10:30,30,Sponsor Room 1,
-sponsor-tutorial,Lunch,2016-05-28,12:30,60,Sponsor Room 2,
-sponsor-tutorial,Break,2016-05-29,10:30,30,Sponsor Room 2,
-sponsor-tutorial,Lunch,2016-05-29,12:30,60,Sponsor Room 1,
-sponsor-tutorial,Lunch,2016-05-29,12:30,60,Sponsor Room 2,
-sponsor-tutorial,Break,2016-05-29,15:00,30,Sponsor Room 1,
-sponsor-tutorial,Break,2016-05-29,15:00,30,Sponsor Room 2,
+sponsor-tutorial,Break,2016-05-28,10:30,30,Room A107-A109,
+sponsor-tutorial,Lunch,2016-05-28,12:30,60,Room A107-A109,
+sponsor-tutorial,Break,2016-05-29,10:30,30,Room A106,
+sponsor-tutorial,Lunch,2016-05-29,12:30,60,Room A%,
+sponsor-tutorial,Break,2016-05-29,15:00,30,Room A%,
 tutorial,Lunch,2016-05-28,12:20,60,(B%|C%),
 tutorial,Lunch,2016-05-29,12:20,60,(B%|C%),
 tutorial, ,2016-05-29,16:40,80,(B%|C%),
