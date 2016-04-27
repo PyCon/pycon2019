@@ -9,8 +9,8 @@ slot_id,kind_slug,kind_label,day,start,duration,room_name,content_override
 sponsor-tutorial,Break,2016-05-28,10:30,30,Room A107-A109,
 sponsor-tutorial,Lunch,2016-05-28,12:30,60,Room A107-A109,
 sponsor-tutorial,Break,2016-05-29,10:30,30,Room A106,
-sponsor-tutorial,Lunch,2016-05-29,12:30,60,Room A%,
-sponsor-tutorial,Break,2016-05-29,15:00,30,Room A%,
+sponsor-tutorial,Lunch,2016-05-29,12:30,60,Room A%|Sponsor Room%,
+sponsor-tutorial,Break,2016-05-29,15:00,30,Room A%|Sponsor Room%,
 tutorial,Lunch,2016-05-28,12:20,60,(B%|C%),
 tutorial,Lunch,2016-05-29,12:20,60,(B%|C%),
 tutorial, ,2016-05-29,16:40,80,(B%|C%),
@@ -56,7 +56,7 @@ talk,plenary,2016-06-01,15:10,40,Session %,Keynote — K Lars Lohn
 talk,plenary,2016-06-01,15:50,10,Session %,Final Remarks and Conference Close
 talk, ,2016-06-01,16:00,10,Session %,
 talk,plenary,2016-06-01,16:10,20,Session %,Sprint Pitches
-talk,Break,2016-06-01,16:30,90,Session %,“Introduction to Sprints” workshop
+talk,Break,2016-06-01,16:30,90,Session %,“Introduction to Sprints” workshop — Oregon Ballroom 201–202
 EOF
 
 psql "${1:-pycon2016}" <<'EOF'
