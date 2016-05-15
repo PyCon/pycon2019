@@ -2217,6 +2217,7 @@ table.calendar {
     }
 
     .badges > .btn {
+      margin-top: 5px;
       border: 2px solid @maroon;
       border-radius: 4px;
       background-color: white;
@@ -2250,13 +2251,18 @@ table.calendar {
       display: block;
       color: @greenDark;
     }
-    span.speaker {
+    span.speaker, span.audience_level {
       font-weight: 400;
       display:block;
       font-size: 10px;
       line-height: 14px;
-      margin: 2px 0 5px;
+      margin: 2px 0;
+    }
+    span.speaker {
       color: @maroon;
+    }
+    span.audience_level {
+      color: @grayDark;
     }
   }
 }
