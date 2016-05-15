@@ -24,7 +24,7 @@
                                 </span>
                                 <div class="badges">
                                     {% for session in slot.sessions.all %}
-                                        <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" style="margin-right: 10px" title="Session Information">S</a>
+                                        <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" {% if not forloop.last %}style="margin-right: 10px" {% endif %}title="Session Information">S</a>
                                     {% endfor %}
                                 </div>
                             {% endif %}
