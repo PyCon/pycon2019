@@ -2,14 +2,18 @@
 #
 # Take various CSV inputs and produce a read-to-import conference schedule.
 
+import os
 import pandas as pd
 from datetime import date
+
+def path_to(name):
+    return os.path.join(os.path.expanduser('~/pycon/tools/2016'), name)
 
 def main():
 
     dfs = []
 
-    t = pd.read_csv('talks.csv')
+    t = pd.read_csv(path_to('talks.csv'))
 
     t['kind_slug'] = 'talk'
     t['proposal_id'] = t.pop('proposal')
@@ -20,11 +24,11 @@ def main():
 
     dfs.append(t)
 
-    t = pd.read_csv('~/Downloads/PyCon 2016 Tutorial Counts - Sheet1.csv')
+    t = pd.read_csv(path_to('PyCon 2016 Tutorial Counts - Sheet1.csv'))
     rooms = {str(title).strip().lower(): room_name
              for title, room_name in t[['Title', 'Room Name']].values}
 
-    t = pd.read_csv('tutorials.csv')
+    t = pd.read_csv(path_to('tutorials.csv'))
 
     t['kind_slug'] = 'tutorial'
     t['proposal_id'] = t.pop('ID')
@@ -37,7 +41,7 @@ def main():
 
     dfs.append(t)
 
-    t = pd.read_csv('sponsor-tutorials-edited.csv')
+    t = pd.read_csv(path_to('sponsor-tutorials-edited.csv'))
 
     t = t[t['ID'].notnull()].copy()
     t['kind_slug'] = 'sponsor-tutorial'
