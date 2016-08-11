@@ -23,7 +23,6 @@ class SpeakerFormTest(TestCase):
             data={
                 'name': name,
                 'biography': name,
-                'sessions_preference': 1,
                 '': None,
                 'twitter_username': '',
             },
