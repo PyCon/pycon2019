@@ -398,6 +398,7 @@ def review_detail(request, pk):
         "review_form": review_form,
         "proposal_tags_form": proposal_tags_form,
         "message_form": message_form,
+        'date_now': datetime.datetime.now()
     })
 
 
