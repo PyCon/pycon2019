@@ -28,7 +28,7 @@ from symposion.utils.mail import send_email
 # Column titles are arbitrary.
 
 BENEFITS = [
-    # Print logo not being used for 2016 but keep it in anyway
+    # Print logo not being used for 2017 but keep it in anyway
     {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
