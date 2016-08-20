@@ -5,7 +5,7 @@ the PyCon web site!  To run the Django application:
     cd /vagrant
     ./manage.py runserver 0.0.0.0:8000
 
-You can view the site at http://localhost:8000/2016/ in your browser.
+You can view the site at http://localhost:8000/2017/ in your browser.
 To log into the site, create a user with an email address and password:
 
     ./manage.py createsuperuser

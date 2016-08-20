@@ -26,5 +26,5 @@ Add events to Menus
 To add an event to the site menus, go to the Django admin, find the
 site tree called "main" and open it, then add a new item. Set the
 URL to the event's URL, minus the hostname part - e.g. if the
-full URL is ``https://us.pycon.org/2016/special_events/bigbash/``,
-just include ``/2016/special_events/bigbash/``.
+full URL is ``https://us.pycon.org/2017/special_events/bigbash/``,
+just include ``/2017/special_events/bigbash/``.

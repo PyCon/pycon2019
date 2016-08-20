@@ -3,10 +3,10 @@
         "pk": 1,
         "model": "conference.conference",
         "fields": {
-            "timezone": "US/Eastern",
-            "start_date": "2016-05-28",
-            "end_date": "2014-06-05",
-            "title": "PyCon 2016"
+            "timezone": "US/Pacific",
+            "start_date": "2017-05-17",
+            "end_date": "2017-05-25",
+            "title": "PyCon 2017"
         }
     }
 ]

@@ -23,7 +23,7 @@ a template, and click "Send". Each applicant selected will receive an email
 customized for them using the template chosen.
 
 Templates for this function are created and edited in the admin, at e.g.
-``/2016/admin/finaid/financialaidemailtemplate/``.
+``/2017/admin/finaid/financialaidemailtemplate/``.
 
 Each template has a name, which is just used to identify the template
 here and on the mail sending page, and a body, which uses Django templating
