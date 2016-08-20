@@ -14,7 +14,7 @@ def create_site(apps, schema_editor):
         defaults= {
             "pk": 1,
             "domain": "us.pycon.org",
-            "name": "PyCon 2016"
+            "name": "PyCon 2017"
         }
     )
 
