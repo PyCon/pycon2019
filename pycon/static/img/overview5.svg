@@ -183,11 +183,11 @@
      <rect x="1" width="248" y="60" height="30" />
      <text x="124" y="75">Keynote</text>
    </a>
-     <a xlink:href="/2016/events/dinners/" target="_top" class="event">
+     <a xlink:href="/2017/events/dinners/" target="_top" class="event">
        <rect x="1" width="248" y="360" height="45" />
        <text x="133" y="383">Dinner ($)</text>
      </a>
-     <a xlink:href="/2016/events/open-spaces/" target="_top" class="open-spaces"
+     <a xlink:href="/2017/events/open-spaces/" target="_top" class="open-spaces"
         transform="translate(570, 0)" >
        <rect width="120" y="60" height="330" />
        <text x="60" y="225">Open Spaces</text>
@@ -262,7 +262,7 @@
              <circle cx="75.0" cy="366" r="1.5" />
        </g>
     </a>
-   <a xlink:href="/2016/schedule/talks/" target="_top" class="talks">
+   <a xlink:href="/2017/schedule/talks/" target="_top" class="talks">
            <rect x="1" width="48" y="186" height="15" />
            <rect x="1" width="48" y="203" height="17" />
            <rect x="1" width="48" y="222" height="15" />
@@ -280,7 +280,7 @@
            <rect x="201" width="48" y="222" height="15" />
      <text x="125" y="196">Talks</text>
    </a>
-     <a xlink:href="/2016/sponsors/exhibitfloor/" target="_top" class="expo"
+     <a xlink:href="/2017/sponsors/exhibitfloor/" target="_top" class="expo"
         transform="translate(350, 0)" >
        <rect x="1" width="120" y="90" height="90" />
        <text x="60" y="115">Posters and</text>

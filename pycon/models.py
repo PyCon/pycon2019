@@ -111,8 +111,8 @@ class PyConProposal(ProposalBase):
                     u"the Python Software Foundation to record, edit, and release audio "
                     u"and/or video of your presentation. If you do not agree to this, "
                     u"please uncheck this box. See "
-                    u"<a href='https://us.pycon.org/2016/speaking/recording/' "
-                    u"target='_blank'>PyCon 2016 Recording Release</a> for details.")
+                    u"<a href='https://us.pycon.org/2017/speaking/recording/' "
+                    u"target='_blank'>PyCon 2017 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(
