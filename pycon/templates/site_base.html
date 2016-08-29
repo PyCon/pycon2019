@@ -1,4 +1,6 @@
-{% extends "theme_base.html" %}
+<!doctype html>
+<html>
+<head>
 
 {% load url from future %}
 
@@ -11,29 +13,11 @@
 {% load thumbnail %}
 {% load sitetree %}
 
-{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Portland, OR{% endblock %}
+<title>{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Portland, Oregon{% endblock %}</title>
 
 {% block style_base %}
-    {% compress css %}
-        <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet" type="text/css">
-    {% endcompress %}
-
-    {% if debug %}
-        <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/site.less" />
-
-        <!-- Trying this out -->
-        <!-- <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/responsive-site.less" /> -->
-
-        <script src="{{ STATIC_URL }}js/less-1.3.3.min.js"></script>
-    {% else %}
-        {% compress css %}
-            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}less/site.less" />
-            <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}css/flickity.css" />
-        {% endcompress %}
-    {% endif %}
-
+    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/slight.css" />
     {% include "markedit/includes/markedit-css.html" %}
-
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
@@ -46,60 +30,40 @@
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
 {% endblock %}
 
+</head>
+<body>
+
 {% block extra_body_base %}
     {% analytics %}
     {% block extra_body %}{% endblock %}
 {% endblock %}
 
 {% block topbar_base %}
-    {% include "_messages.html" %}
-    <header class="main">
-        <a id="skip" href="#content">{% trans "Skip to main content" %}</a>
-        <a class="logo-smaller" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, Or</a>
+  {% include "_messages.html" %}
+  <header class="main">
+    {% block account_bar %}
+      {% include "_account_bar.html" %}
+    {% endblock %}
+    <a class="logo-smaller" href="{% url 'home' %}"
+       >{{ SITE_NAME }} in Portland, Oregon</a>
 
-        <div class="container">
+    <div class="container">
 
-        {% block main_nav %}
-            <nav>
-                <!--<a class="logo-small" href="{% url 'home' %}">{{ SITE_NAME }} in Portland, Or</a>-->
+    {% block main_nav %}
+    <nav>
+      {% block nav %}
+        {% sitetree_menu from "main" include "trunk" %}
+      {% endblock %}
+    </nav>
+    {% endblock %}
 
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-
-                        <div class="nav-collapse collapse">
-                          <div class="account-bar{% if user.is_authenticated %} {% trans "loggedin" %}{% endif %}">
-                              {% block account_bar %}
-                              {% include "_account_bar.html" %}
-                              {% endblock %}
-                          </div>
-                          {% block topbar %}
-                              {% block nav %}
-                              {% sitetree_menu from "main" include "trunk" %}
-                              {% endblock %}
-                          {% endblock %}
-                        </div>
-
-                    </div>
-                </div>
-            </nav>
-        {% endblock %}
-
-
-        </div>
-        <div class="page-head">
-            <img src="{{ STATIC_URL }}img/PNG/breadcrumbs-hills-left.png" width=460 height=180 alt="hills next to breadcrumb illustration">
-            <div class="container">
-                {% block breadcrumbs %}{% endblock %}
-            </div>
-        </div>
-    </header>
-    {% block banner %}{% endblock %}
+    <!--
+    <div class="page-head">
+      {% block breadcrumbs %}{% endblock %}
+    </div>
+    -->
+  </header>
+  {% block banner %}{% endblock %}
 {% endblock %}
 
 {% block body_base %}
@@ -117,12 +81,13 @@
                     </div>
                  </div>
 
+                <!--
                 <div class="span12 col-centered sponsor-crawl">
                     {% cache 600 "homepage-sponsor-slider" %}
                         <h2 class="scroll-title-first">Sponsors</h2>
                         {% sponsors "diamond" as diamond_sponsors %}
                         <div id="sponsorslider" class="carousel slide col-centered">
-                            <!-- Carousel items -->
+                            <!-- Carousel items
                             <div class="carousel-inner">
                                 {% sponsors as all_sponsors %}
                                 {# sponsors without levels, 12 per each slide #}
@@ -140,7 +105,7 @@
 
 
                             {% if all_sponsors.count > 12 %}
-                              <!-- Carousel nav -->
+                              <!-- Carousel nav
                               <nav id="slider-nav">
                                 <div class="slider-nav">
                                     <div class="nav-container">
@@ -156,88 +121,28 @@
                         </div>
                     {% endcache %}
                 </div>
+                -->
                 </div>
 
                 {% endblock %}
             </div>
         {% endblock %}
     </div>
-    <div class="python-footer-block">
-      <div class="logo-block">
-        <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=80 alt="Python Software Foundation logo">
-        {{ SITE_NAME }} in Portland, OR is a production of the <a href="http://python.org/psf/">Python Software Foundation</a>.
-      </div>
-      <img class="footer-forest" src="{{ STATIC_URL }}img/SVG/footer-trees.svg" src="{{ STATIC_URL }}img/PNG/footer-trees.png" width=400 height=180 alt="Evergreen tree illustration above footer content">
-    </div>
     <footer>
-        <div class="container">
-        {% block footer %}
-            <div class="row-fluid footer-content col-centered">
-                <div class="span6">
-                  <p>
-                    {% blocktrans %}
-                      Site utilizes <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>
-                    {% endblocktrans %}
-                  </p>
-                  <p>
-                  {% blocktrans %}
-                    Hosting provided by <a href="http://www.rackspace.com/">Rackspace US, Inc.</a>
-                  {% endblocktrans %}
-                  </p>
-                </div>
-                <div class="span6">
-                  <p>
-                    {% blocktrans %}
-                      Questions? Comments? Contact <a href="mailto:{{ REGISTRATION_EMAIL }}">{{ REGISTRATION_EMAIL }}</a></br>
-                    {% endblocktrans %}
-                  </p>
-                  <div class="footer-center">
-                      <p>
-                        Site built and designed by <a href="http://caktusgroup.com">Caktus Consulting Group, LLC.</a>
-                      <a class="caktus-logo" href="http://caktusgroup.com">
-                        <img src="{{ STATIC_URL }}img/SVG/caktusgroup-logo.svg" src="{{ STATIC_URL }}img/PNG/caktusgroup-logo.png" width=100% height=auto alt="Caktus Group Logo">
-                      </a>
-                      </p>
-                  </div>
-                </div>
-            </div>
-        {% endblock %}
-        </div>
+      <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=60 alt="Python logo">
+      <p>
+        {{ SITE_NAME }} in Portland, Oregon is a production of the
+        <a href="http://python.org/psf/">Python Software Foundation</a>.
+        Questions? Comments? Contact <a href="mailto:{{ REGISTRATION_EMAIL }}">{{ REGISTRATION_EMAIL }}</a>.
+      </p>
+      <p>
+        Site utilizes
+        <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
+        Hosting provided by
+        <a href="http://www.rackspace.com/">Rackspace US, Inc</a>.
+      </p>
     </footer>
 {% endblock %}
 
-{% block script_base %}
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "pinax/js/theme.js" %}"></script>
-    <script src="{% static "js/flickity.pkgd.js" %}"></script>
-
-    <!-- Makes Sponsor Carrousel Pagination Work -->
-    {% compress js %}
-        <script type="text/javascript">
-            $(function(){
-                var slider = $("#sponsorslider").carousel({interval: 7000});
-                slider.bind("slid", function() {
-                    var index = $(this).find(".active").index();
-                    $(this).find("#slider-nav a").removeClass("activeSlide").eq(index).addClass("activeSlide");
-                });
-                $("#slider-nav a").click(function(e){
-                    var index = $(this).index();
-                    slider.carousel(index);
-                    e.preventDefault();
-                });
-
-                var retina = window.devicePixelRatio > 1.5 ? true : false;
-                if (retina) {
-                    $("div.sponsor-scroll-item").each(function() {
-                        var retinaimage = $(this).data("background-2x");
-                        $(this).css("background-image", "url("+retinaimage+")");
-                        // preload image
-                        $('<img/>')[0].src = retinaimage;
-                    })
-                };
-            });
-        </script>
-    {% endcompress %}
-
-    {% block extra_script %}{% endblock %}
-{% endblock %}
+</body>
+</html>
