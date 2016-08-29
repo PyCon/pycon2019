@@ -54,15 +54,15 @@ class SponsorApplicationForm(SponsorDetailsForm):
         # visible but grayed out with "Full" or "Out" next to them.
         self.fields['level'].queryset = (
             SponsorLevel.objects
-            .exclude(name='Open Source and Community')
-            .exclude(name='Financial Aid Sponsor')
-            .exclude(name='Media')
-            .exclude(name='Patron')
-            .exclude(name='Silver')
-            .exclude(name='Gold')
-            .exclude(name='Platinum')
-            .exclude(name='Diamond')
-            .exclude(name='Keystone')
+            # .exclude(name='Open Source and Community')
+            # .exclude(name='Financial Aid Sponsor')
+            # .exclude(name='Media')
+            # .exclude(name='Patron')
+            # .exclude(name='Silver')
+            # .exclude(name='Gold')
+            # .exclude(name='Platinum')
+            # .exclude(name='Diamond')
+            # .exclude(name='Keystone')
             )
 
     def save(self, commit=True):
