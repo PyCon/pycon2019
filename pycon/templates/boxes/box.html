@@ -30,6 +30,9 @@
         var converter = new Attacklab.showdown.converter();
         var html = converter.makeHtml(mdown);
         $('#content_{{ label }} > div.markdown').html(html);
+        $('#content_{{ label }} > a').click(function() {
+            $('#edit_{{ label }}').toggle('hide');
+        });
     });
 </script>
 

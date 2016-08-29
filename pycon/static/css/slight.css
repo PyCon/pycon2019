@@ -497,7 +497,7 @@ html {
     line-height: 1.4;
 }
 
-.edit-btn {
+.edit-btn, .edit-toggle {
     display: block;
     float: right;
     background: #eee;
@@ -505,7 +505,7 @@ html {
     color: #308898;
     text-decoration: none;
 }
-.edit-btn:hover {
+.edit-btn:hover, .edit-toggle:hover {
     background: #ddd;
 }
 
@@ -525,6 +525,9 @@ label {
 .controls .help-block {
     margin: 0;
     font-size: 0.8em;
+}
+.hide {
+    display: none;
 }
 
 /* The footer at the bottom of every page. */
