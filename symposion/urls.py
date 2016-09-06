@@ -18,7 +18,7 @@ URL_PREFIX = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
 urlpatterns = patterns("",
     url(r"^$", RedirectView.as_view(url="/%s/" % URL_PREFIX, permanent=True)),
     url(r"^%s/" % URL_PREFIX, include(patterns("",
-        url(r"^$", RedirectView.as_view(url="/%s/why-sponsor/" % URL_PREFIX)),
+        url(r"^$", RedirectView.as_view(url="/%s/sponsors/why-sponsor/" % URL_PREFIX)),
         # The real home page, currently shadowed:
         url(r"^$", TemplateView.as_view(template_name="homepage.html"),
             name="home"),
