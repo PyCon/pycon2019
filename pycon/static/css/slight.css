@@ -509,7 +509,7 @@ html {
     background: #ddd;
 }
 
-/* Forms */
+/* Forms, when there are no errors */
 
 legend {
     margin: 1em 0;
@@ -519,8 +519,9 @@ legend {
     margin: 1em 0;
 }
 label {
-    color: #440;
-    font-style: italic;
+    color: #550;
+    font-weight: bold;
+    font-size: 0.9em;
 }
 .controls .help-block {
     margin: 0;
@@ -528,6 +529,19 @@ label {
 }
 .hide {
     display: none;
+}
+
+/* Forms, when an error message needs to display. */
+
+.control-group.error {
+    border: 2px solid #df7070;
+    border-radius: 6px;
+    background-color: #ffeaea;
+    padding: 2px;
+}
+span.help-inline {
+    color: #df7070;
+    display: block;
 }
 
 /* The footer at the bottom of every page. */
