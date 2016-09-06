@@ -92,9 +92,17 @@ class Sponsor(models.Model):
     approval_time = models.DateTimeField(null=True, blank=True, editable=False)
 
     wants_table = models.BooleanField(
-        _("Does your organization want a table at the job fair?"), default=False)
+        _(
+            'Does your organization want a table at the job fair? '
+            '(See <a href="/2017/sponsors/fees/">Estimated Sponsor Fees</a> '
+            'for costs that might be involved.)'
+        ), default=False)
     wants_booth = models.BooleanField(
-        _("Does your organization want a booth on the expo floor?"), default=False)
+        _(
+            'Does your organization want a booth on the expo floor? '
+            '(See <a href="/2017/sponsors/fees/">Estimated Sponsor Fees</a> '
+            'for costs that might be involved.)'
+        ), default=False)
 
     # Whether things are complete
     # True = complete, False = incomplate, Null = n/a for this sponsor level
