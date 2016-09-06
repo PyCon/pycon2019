@@ -38,6 +38,53 @@
 
                 <div class="dashboard-panel">
                     <div class="dashboard-panel-header">
+                        <i class="icon-briefcase"></i>
+                        <h3>{% trans "Sponsorship" %}</h3>
+                    </div>
+                    <div class="dashboard-panel-content">
+                        <div class="actions">
+                            <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="action">
+                                <i class="widget-icon icon-info-sign"></i>
+                                <span class="widget-label">{% trans "Learn about sponsorship" %}</span>
+                            </a>
+                            {% if not user.sponsorships.exists %}
+                                <a href="{% url 'sponsor_apply' %}" class="action">
+                                    <i class="widget-icon icon-money"></i>
+                                    <span class="widget-label">{% trans "Apply to be a sponsor" %}</span>
+                                </a>
+                            {% endif %}
+                            {% if user.is_staff %}
+                                <a href="{% url "sponsor_zip_logos" %}" class="action">
+                                    <i class="widget-icon icon-arrow-down"></i>
+                                    <span class="widget-label">Download sponsor logos</span>
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        {% if user.sponsorships.exists %}
+                            <section class="subsection">
+                                <h4>{% trans "Your Sponsorship" %}</h4>
+                                <ul>
+                                    {% for sponsorship in user.sponsorships.all %}
+                                        <li>
+                                            {% if sponsorship.active %}
+                                                <a href="{% url 'sponsor_detail' sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
+                                                ({{ sponsorship.level }})
+                                            {% else %}
+                                                <b>{{ sponsorship.name }}</b>
+                                                ({{ sponsorship.level }})
+                                                <span class="label label-warning">{% trans "awaiting approval" %}</span>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </section>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="dashboard-panel">
+                    <div class="dashboard-panel-header">
                         <i class="icon-bullhorn"></i>
                         <h3>{% trans "Speaking" %}</h3>
                     </div>
@@ -240,53 +287,6 @@
                     </div>
                   </div>
                 {% endif %}
-
-                <div class="dashboard-panel">
-                    <div class="dashboard-panel-header">
-                        <i class="icon-briefcase"></i>
-                        <h3>{% trans "Sponsorship" %}</h3>
-                    </div>
-                    <div class="dashboard-panel-content">
-                        <div class="actions">
-                            <a href="{% url 'cms_page' "sponsors/prospectus/" %}" class="action">
-                                <i class="widget-icon icon-info-sign"></i>
-                                <span class="widget-label">{% trans "Learn about sponsorship" %}</span>
-                            </a>
-                            {% if not user.sponsorships.exists %}
-                                <a href="{% url 'sponsor_apply' %}" class="action">
-                                    <i class="widget-icon icon-money"></i>
-                                    <span class="widget-label">{% trans "Apply to be a sponsor" %}</span>
-                                </a>
-                            {% endif %}
-                            {% if user.is_staff %}
-                                <a href="{% url "sponsor_zip_logos" %}" class="action">
-                                    <i class="widget-icon icon-arrow-down"></i>
-                                    <span class="widget-label">Download sponsor logos</span>
-                                </a>
-                            {% endif %}
-                        </div>
-
-                        {% if user.sponsorships.exists %}
-                            <section class="subsection">
-                                <h4>{% trans "Your Sponsorship" %}</h4>
-                                <ul>
-                                    {% for sponsorship in user.sponsorships.all %}
-                                        <li>
-                                            {% if sponsorship.active %}
-                                                <a href="{% url 'sponsor_detail' sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
-                                                ({{ sponsorship.level }})
-                                            {% else %}
-                                                <b>{{ sponsorship.name }}</b>
-                                                ({{ sponsorship.level }})
-                                                <span class="label label-warning">{% trans "awaiting approval" %}</span>
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </section>
-                        {% endif %}
-                    </div>
-                </div>
 
                 {% if review_sections %}
                     <div class="dashboard-panel">
