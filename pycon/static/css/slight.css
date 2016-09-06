@@ -555,6 +555,17 @@ span.help-inline {
 
 /* The dashboard. */
 
+.dashboard-panel {
+    margin-bottom: 1em;
+    background-color: #f5f8ff;
+    padding: 0.5em;
+}
+.dashboard-panel .icon-briefcase {
+    display: none;
+}
+.dashboard-panel h3 {
+    margin: 0 0 0.5em;
+}
 .dashboard-panel a.action {
     display: inline-block;
     margin: 0.2em;
