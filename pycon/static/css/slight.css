@@ -426,10 +426,10 @@ html {
 
 .logo-smaller {
     display: block;
-    margin: 0 auto;
-    height: 269px;
-    width: 250px;
-    background-image: url('../img/temporary-2017-logo.png');
+    margin: 20px auto 10px;
+    width: 540px;
+    height: 260px;
+    background-image: url('../img/pycon2017.png');
     text-indent: -9999px;
 }
 
@@ -437,7 +437,7 @@ html {
 
 .account-links {
     margin-bottom: 0.5em;
-    background-color: #988830;
+    background-color: #971d10;  /* chroma('#EA684E').darken(1.5).hex() */
     text-align: center;
     color: #fff;
     font-weight: bold;
