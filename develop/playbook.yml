@@ -13,7 +13,7 @@
   - name: Configure apt repositories
     apt_repository: repo={{ item }}
     with_items:
-      - 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
+      - 'deb https://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
       - 'deb https://deb.nodesource.com/node_0.10 precise main'
 
   - name: Install Ubuntu packages
