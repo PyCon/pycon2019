@@ -429,6 +429,7 @@ html {
     margin: 20px auto 10px;
     width: 540px;
     height: 260px;
+    /* Rendered with: inkscape -f pycon2017.svg -w 540 -e pycon2017.png */
     background-image: url('../img/pycon2017.png');
     text-indent: -9999px;
 }
