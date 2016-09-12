@@ -22,6 +22,7 @@ class SponsorDetailsForm(forms.ModelForm):
                   "contact_address",
                   "external_url",
                   "display_url",
+                  "twitter_username",
                   "web_description",
                   "web_logo",
                   ]

@@ -77,6 +77,9 @@ class Sponsor(models.Model):
         _("Link to sponsor web page"),
         help_text=_("(Must include https:// or http://.)")
     )
+    twitter_username = models.CharField(
+        _("Twitter username"), blank=True, max_length=15,
+    )
     annotation = models.TextField(_("annotation"), blank=True)
     contact_name = models.CharField(_("Contact Name"), max_length=100)
     contact_emails = MultiEmailField(
