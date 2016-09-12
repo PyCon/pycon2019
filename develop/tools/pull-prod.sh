@@ -6,5 +6,5 @@
 ssh pycon pg_dump -Fc '"$(cat dsn)"' |
     vagrant ssh -- pg_restore -d template1 --create --clean
 
-echo 'alter database "pycon-prod" rename to pycon2016;' |
+echo 'alter database "pycon-prod" rename to pycon;' |
     vagrant ssh -- psql template1
