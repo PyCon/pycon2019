@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,10 +7,35 @@ from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, FinancialAidEmailTemplate, Receipt
 
 
+def validate_is_checked(value):
+    if not value:
+        raise ValidationError(
+            _('Please read the page, then click this box')
+        )
+
+
 class FinancialAidApplicationForm(forms.ModelForm):
+    i_have_read = forms.BooleanField(
+        label='I have read the <a href="https://us.pycon.org/2017/financial-assistance/">Financial Assistance</a> page',
+        required=False,         # so our own validator gets called
+        validators=[validate_is_checked],
+    )
     class Meta:
         model = FinancialAidApplication
-        exclude = ["timestamp", "user", "status"]
+        fields = [
+            'i_have_read',
+            'first_time',
+            'amount_requested',
+            'international',
+            'travel_plans',
+            'profession',
+            'involvement',
+            'what_you_want',
+            'experience_level',
+            'presenting',
+            'presented',
+            'pyladies_grant_requested',
+        ]
         widgets = {
             'travel_plans': Textarea(
                 attrs={'cols': 80, 'rows': 10,
@@ -27,15 +53,8 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 attrs={'cols': 80, 'rows': 10,
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
-            'portfolios': Textarea(
-                attrs={'cols': 80, 'rows': 3,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 500}),
-            'use_of_python': Textarea(
-                attrs={'cols': 80, 'rows': 10,
-                       'class': 'fullwidth-textarea',
-                       'maxlength': 500}),
         }
+
 
 
 class FinancialAidReviewForm(forms.ModelForm):

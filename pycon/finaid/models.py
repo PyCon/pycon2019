@@ -82,33 +82,27 @@ class FinancialAidApplication(models.Model):
     travel_plans = models.CharField(
         verbose_name=_("Travel plans"),
         max_length=1024,
-        help_text=_("Please describe your travel plans"))
+        help_text=_("Please describe your travel plans, "
+                    " including the country you will travel from."))
 
     profession = models.CharField(
         verbose_name=_("Profession"),
-        help_text=_("What is it that you do"), max_length=500)
+        help_text=_("What is your career, or where are you a student?"),
+        max_length=500)
     involvement = models.CharField(
-        verbose_name=_("Involvement"),
+        verbose_name=_("Your involvement"),
         help_text=_("Describe your involvement in any open source "
                     "projects or community."),
         blank=True, max_length=1024)
     what_you_want = models.CharField(
-        verbose_name=u"What you want",
-        help_text=_("What do you want to get out of attending PyCon?"),
+        verbose_name=u"How you use Python and how PyCon will help",
+        help_text=_("Please tell us how you use Python currently, "
+                    "and what you hope to get out of attending PyCon."),
         max_length=500)
-    portfolios = models.CharField(
-        verbose_name=_("Portfolios"),
-        help_text=_("Please provide links to any portfolios you have "
-                    "that contain Python work. (e.g. Github, "
-                    "Bitbucket, etc.)"),
-        max_length=500, blank=True)
-    use_of_python = models.CharField(
-        verbose_name=_("Use of Python"),
-        help_text=_("Describe your use of Python"), max_length=500)
     presenting = models.IntegerField(
         verbose_name=_("Presenting"),
         help_text=_("Will you be speaking, hosting a poster session, "
-                    "or otherwise presenting at PyCon?"),
+                    "or otherwise presenting at this PyCon?"),
         choices=PRESENTING_CHOICES)
     experience_level = models.CharField(
         verbose_name=_("Python experience level"),
