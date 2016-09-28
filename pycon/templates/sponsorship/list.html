@@ -21,43 +21,28 @@
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block page_content %}
-    <div class="container">
-        {% cache 600 "sponsors-list" %}
-        {% sponsor_levels as levels %}
+    {% cache 600 "sponsors-list" %}
+    {% sponsor_levels as levels %}
 
-        {% for level in levels %}
-            <div class="col-centered span12">
-                {% if level.sponsors.count > 0 %}
+    {% for level in levels %}
+        <div class="sponsor-level">
+            {% if level.sponsors.count > 0 %}
                 <h2>{{ level.name }}</h2>
 
-                <div class="row">
-                    {% for sponsor in level.sponsors %}
-                      {% if forloop.revcounter == 1 and level.sponsors|length|mod:"3" == 1 %}
-                        <div class="span4 offset4">
-                      {% elif forloop.revcounter == 2 and level.sponsors|length|mod:"3" == 2 %}
-                        <div class="span4 offset2">
-                      {% else %}
-                        <div class="span4">
-                      {% endif %}
-                            <div class="sponsor" id="sponsor-{{ sponsor.id }}">
-                                <div class="sponsor-content">
-                                    <h3>
-                                        <a href="{{ sponsor.external_url }}">
-                                            <img src="{% thumbnail sponsor.website_logo '150x80' %}" alt="{{ sponsor.name }}" />
-                                        </a>
-                                    </h3>
-
-                                    <h4>{{ sponsor.name }}</h4>
-                                    <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                                    <p>{{ sponsor.web_description|urlize|linebreaks }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-        {% endcache %}
-    </div>
+                {% for sponsor in level.sponsors %}
+                    <div class="sponsor" id="sponsor-{{ sponsor.id }}">
+                        <h3>{{ sponsor.name }}</h3>
+                        <a href="{{ sponsor.external_url }}">
+                            <img src="{% thumbnail sponsor.website_logo '150x80' %}" alt="Logo of {{ sponsor.name }}" />
+                        </a>
+                        <a href="{{ sponsor.external_url }}">
+                          {{ sponsor.get_display_url }}
+                        </a>
+                        <p>{{ sponsor.web_description|urlize|linebreaks }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+     {% endfor %}
+     {% endcache %}
 {% endblock %}

@@ -1,3 +1,7 @@
+/*
+ * PyCon 2017 CSS: normalize.css + as few tweaks as possible (below)
+ */
+
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 
 /**
@@ -591,4 +595,30 @@ footer > img {
 footer > p {
     margin: 1em auto;
     max-width: 46em;
+}
+
+/* The sponsors page. */
+
+.sponsor-level {
+    text-align: center;
+}
+.sponsor-level h2 {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.sponsor {
+    display: inline-block;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    vertical-align: top;
+    max-width: 22em;
+}
+.sponsor > a {
+    display: block;
+}
+.sponsor h3 {
+    margin-bottom: 0.5em;
+}
+.sponsor > p {
+    text-align: left;
 }
