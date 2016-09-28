@@ -507,12 +507,21 @@ html {
     color: #110;
     line-height: 1.4;
 }
+aside {
+    float: right;
+    margin: 0.8em;
+    border-radius: 0.5em;
+    max-width: 18em;
+    padding: 0 1em;
+    background-color: #eee;
+}
 
 /* The edit button that site admins are given. */
 
 .edit-btn, .edit-toggle {
     display: block;
     float: right;
+    margin-left: 0.3em;
     border-radius: 8px;
     background: #eee;
     padding: 0.5em;
@@ -588,6 +597,7 @@ span.help-inline {
 /* The footer at the bottom of every page. */
 
 footer {
+    clear: both;
     background-color: #eee;
     padding: 2.5em 1em 1em;
 }
