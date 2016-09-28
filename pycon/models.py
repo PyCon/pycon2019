@@ -1,11 +1,16 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
 from symposion.proposals.kinds import register_proposal_model
 from symposion.proposals.models import ProposalBase
+
+
+def strip(text):
+    return u' '.join(text.strip().split())
 
 
 class PyConProposalCategory(models.Model):
@@ -135,32 +140,79 @@ class PyConTalkProposal(PyConProposal):
         (2, _(u"I prefer a 45 minute slot")),
     ]
 
-    duration = models.IntegerField(choices=DURATION_CHOICES)
+    duration = models.IntegerField(
+        choices=DURATION_CHOICES,
+        default=1,
+        help_text=strip(
+            u"""
+            <i>Committee note:</i>
+            There are far fewer 45 minute slots available
+            than 30 minute slots,
+            so not every accepted talk that requests a longer slot
+            may be able to get it.
+            If you select a 45 minute slot,
+            please indicate in your outline (below)
+            what content could be cut — if possible — for a 30 minute version.
+            """
+        ),
+    )
 
     outline = models.TextField(
-        _(u"Outline")
+        help_text=strip(
+            u"""
+            The “outline” is a skeleton of your talk
+            that is as detailed as possible,
+            including rough timings for different sections.
+            If requesting a 45 minute slot,
+            please describe what content would appear in the 45 minute version
+            but not a 30 minute version,
+            either within the outline or in a paragraph at the end.<br>
+            <br>
+            <i>Committee note:</i>
+            The outline is extremely important for the program committee
+            to understand what the content and structure of your talk will be.
+            We hope that writing the outline is helpful to you as well,
+            to organize and clarify your thoughts for your talk!
+            The outline will <b>not</b> be shared
+            with conference attendees.<br>
+            <br>
+            If there’s too much to your topic
+            to cover even in 45 minutes,
+            you may wish to narrow it down.
+            Alternatively, consider submitting a 3-hour PyCon tutorial instead.
+            """
+        ),
     )
-    audience = models.CharField(
-        max_length=150,
-        help_text=_(u'Who is the intended audience for your talk? (Be '
-                    u'specific; "Python programmers" is not a good answer '
-                    u'to this question.)'),
-    )
-    perceived_value = models.TextField(
-        _(u"Objectives"),
-        max_length=400,
-        help_text=_(u"What will attendees get out of your talk? When they "
-                    u"leave the room, what will they know that they didn't "
-                    u"know before?"),
+    audience = models.TextField(
+        u"Who and Why (Audience)",
+        help_text=strip(
+            u"""
+            1–2 paragraphs that should answer three questions:
+            (1) Who is this talk for?
+            (2) What background knowledge or experience
+            do you expect the audience to have?
+            (3) What do you expect the audience to learn or do
+            after watching the talk?<br>
+            <br>
+            <i>Committee note:</i> The “Audience” section
+            helps the program committee get a sense
+            of whether your talk is geared more at novices
+            or experienced individuals in a given subject.
+            (We need a balance of both lower-level and advanced talks
+            to make a great PyCon!)
+            It also helps us evaluate the relevance of your talk
+            to the Python community.
+            """
+        ),
     )
 
-    thunderdome_group = models.ForeignKey(
-        ThunderdomeGroup,
-        blank=True,
-        default=None,
-        null=True,
-        related_name=u'talks',
-    )
+    # TODO: this does not actually remove the fields, so the form cannot
+    # yet be submitted successfully.  Should we upgrade to Django 1.10?
+    abstract = None
+    additional_requirements = None
+    audience_level = None
+    category = None
+    perceived_value = None
 
     class Meta:
         verbose_name = "PyCon talk proposal"
@@ -168,18 +220,10 @@ class PyConTalkProposal(PyConProposal):
     def as_dict(self, details=False):
         answer = super(PyConTalkProposal, self).as_dict(details=details)
         if details:
-            code = None
-            if self.thunderdome_group:
-                code = self.thunderdome_group.code
-            answer['thunderdome_group'] = code
             answer['duration'] = self.get_duration_display()
             answer['outline'] = self.outline
             answer['audience'] = self.audience
-            answer['objective'] = self.perceived_value
-            answer['audience_level'] = self.get_audience_level_display()
             answer['recording_release'] = self.recording_release
-            answer['additional_requirements'] = self.additional_requirements
-            answer['category'] = self.category.name if self.category else None
         return answer
 
 

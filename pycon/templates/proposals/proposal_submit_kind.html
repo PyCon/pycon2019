@@ -4,17 +4,15 @@
 {% load boxes_tags %}
 {% load i18n %}
 
-{% block head_title %}{% blocktrans with name=kind.name %}Submit a Proposal for a {{ name }}{% endblocktrans %}{% endblock %}
-{% block page_title %}{% blocktrans with name=kind.name %}Submit a Proposal for a {{ name }}{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans with name=kind.name %}Submit a proposal for our {{ name }}{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with name=kind.name %}{{ name }} proposal form{% endblocktrans %}{% endblock %}
 
 {% block body %}
     <div class="span12">
         {% box kind.slug|add:"-proposal" %}
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
-            <fieldset>
-                {{ form|as_bootstrap }}
-            </fieldset>
+            {{ form|as_bootstrap }}
             <div class="form-actions">
                 <p>{% blocktrans %}
                     You will be able to edit your proposal after it has been submitted.

@@ -544,6 +544,9 @@ label {
 .hide {
     display: none;
 }
+input[type=text], textarea {
+    min-width: 80%;
+}
 
 /* Forms, when an error message needs to display. */
 

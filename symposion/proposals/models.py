@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import datetime
 import json
 import os
@@ -15,6 +17,10 @@ from model_utils.managers import InheritanceManager
 from taggit.managers import TaggableManager
 
 from symposion.conference.models import Section
+
+
+def strip(text):
+    return u' '.join(text.strip().split())
 
 
 class ProposalSection(models.Model):
@@ -91,12 +97,28 @@ class ProposalBase(models.Model):
 
     kind = models.ForeignKey(ProposalKind)
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100,
+        help_text=strip(
+            u"""
+            Puns, jokes, or “hooks” in titles are okay,
+            but make sure that if all someone knew was the title,
+            they still would have some idea what the presentation is about.
+            """
+        ),
+    )
     description = models.TextField(
         _("Description"),
         max_length=400,  # @@@ need to enforce 400 in UI
-        help_text="If your talk is accepted this will be made public and printed in the "
-                  "program. Should be one paragraph, maximum 400 characters."
+        help_text=strip(
+            u"""
+            1–2 paragraphs summing up what the presentation is about.
+            This will appear in the conference program
+            and should help attendees decide whether this presentation
+            is relevant to them.
+            Maximum 400 characters.
+            """
+        ),
     )
     abstract = models.TextField(
         _("Detailed Abstract"),
@@ -105,9 +127,19 @@ class ProposalBase(models.Model):
     )
     additional_notes = models.TextField(
         blank=True,
-        help_text=_("Anything else you'd like the program committee to know "
-                    "when making their selection: your past speaking "
-                    "experience, open source community experience, etc.")
+        help_text=strip(
+            u"""
+            Anything else you would like to share with the committee:<br>
+            Speaker public speaking experience.<br>
+            Speaker subject matter experience.<br>
+            Have the speaker(s) given this presentation before elsewhere?<br>
+            Links to recordings, slides, blog posts, code, or other material.
+            <br>
+            Specific needs or special requests — accessibility,
+            audio (will you need to play pre-recorded sound?),
+            or restrictions on when your talk can be scheduled.
+            """,
+        ),
     )
     submitted = models.DateTimeField(
         default=datetime.datetime.now,
