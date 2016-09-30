@@ -2,6 +2,20 @@
 - hosts: localhost
   tasks:
 
+  - name: Install Ubuntu packages
+    apt: name={{ item }}
+    with_items:
+      - git-core
+      - make
+      - python-dev
+      - python-pip
+      - python-psycopg2
+
+  - name: Install support for SNI needed by Node.js repository
+    shell: 'pip install urllib3 pyopenssl ndg-httpsclient pyasn1'
+    become: yes
+    become_user: postgres
+
   - name: Configure apt key for third-party Postgres repository
     apt_key:
       id=ACCC4CF8 url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
@@ -16,19 +30,14 @@
       - 'deb https://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
       - 'deb https://deb.nodesource.com/node_0.10 precise main'
 
-  - name: Install Ubuntu packages
+  - name: Install third-party packages
     apt: name={{ item }}
     with_items:
-      - git-core
       - libpq-dev
-      - make
       - nodejs
       - postgresql-9.3
       - postgresql-client-9.3
       - postgresql-server-dev-9.3
-      - python-dev
-      - python-pip
-      - python-psycopg2
 
   - name: Give the vagrant user permission to database
     postgresql_user: name=vagrant role_attr_flags=SUPERUSER
