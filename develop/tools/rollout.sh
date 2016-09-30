@@ -8,12 +8,15 @@ fi
 
 set -e
 
-git co staging
+git checkout develop
+git push
+
+git checkout staging
 git pull origin develop
 git push
 
-git co production
+git checkout production
 git pull origin develop
 git push
 
-git co develop
+git checkout develop
