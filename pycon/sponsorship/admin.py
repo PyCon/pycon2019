@@ -37,7 +37,7 @@ class SponsorAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             "fields": ["name", "applicant", "level", "external_url",
-                       "display_url", "annotation",
+                       "display_url", "twitter_username", "annotation",
                        "web_description", "web_logo",
                        ("active", "approval_time")],
         }),
