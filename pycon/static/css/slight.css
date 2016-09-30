@@ -536,6 +536,15 @@ td {
     padding: 0.5em;
 }
 
+/* The "Hotels" grid on the "Venue" page. */
+
+.hotel {
+    display: inline-block;
+    width: 12em;
+    padding: 0.8em;
+    vertical-align: top;
+}
+
 /* The edit button that site admins are given. */
 
 .edit-btn, .edit-toggle {
