@@ -50,9 +50,10 @@
     {% endif %}
 
 
-    <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}, Track: {{ proposal.track }})</h3>
+    <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }})</h3>
 
     <div class="tabbable">
+        <!--
         <ul class="nav nav-tabs">
             <li class="active"><a href="#proposal-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
             {% if request.user == proposal.speaker.user %}
@@ -62,6 +63,7 @@
                 <li><a href="#proposal-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ proposal.messages.all|length }}</span></a></li>
             {% endif %}
         </ul>
+        -->
         <div class="tab-content">
             <div class="tab-pane active" id="proposal-detail">
                 {% include "proposals/_proposal_fields.html" %}
@@ -96,13 +98,18 @@
 
             <h3>{% trans "Conversation with Reviewers" %}</h3>
 
-            {% for message in proposal.messages.all %}
+            {% with proposal.messages.all as messages %}
+            {% if not messages %}
+            (There are not yet any messages you need to respond to.)
+            {% endif %}
+            {% for message in messages %}
                 <div class="review-box">
                     <div class="comment">{{ message.message|bleach|linebreaksbr|safe }}</div>
                     <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
                 </div>
                 <div class="clear"></div>
             {% endfor %}
+            {% endwith %}
 
             <h3>{% trans "Leave a Message" %}</h3>
 

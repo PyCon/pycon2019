@@ -515,6 +515,26 @@ aside {
     padding: 0 1em;
     background-color: #eee;
 }
+dt {
+    color: #CE624D;
+    font-style: italic;
+}
+pre {
+    border: 1px solid #FBBF8B;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    font-size: 0.8333em;
+}
+table {
+    border-collapse: collapse;
+}
+th {
+    padding: 0 0.4em;
+}
+td {
+    border: 2px solid #B4D3C6;
+    padding: 0.5em;
+}
 
 /* The edit button that site admins are given. */
 
@@ -583,7 +603,7 @@ span.help-inline {
 .dashboard-panel h3 {
     margin: 0 0 0.5em;
 }
-.dashboard-panel a.action {
+.btn, .dashboard-panel a.action {
     display: inline-block;
     margin: 0.2em;
     border: 2px solid blue;
