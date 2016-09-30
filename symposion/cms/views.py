@@ -1,5 +1,7 @@
+import requests
+
+from constance import config
 from django.conf import settings
-from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import static
@@ -63,6 +65,12 @@ def page_edit(request, path):
             page = form.save(commit=False)
             page.path = path
             page.save()
+            if config.CDN_PURGE_BASE_URL:
+                url = '{}/{}'.format(
+                    config.CDN_PURGE_BASE_URL.rstrip('/'),
+                    path.lstrip('/'),
+                )
+                requests.request('PURGE', url)
             return redirect(page)
         else:
             print form.errors

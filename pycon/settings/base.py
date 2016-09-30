@@ -328,6 +328,8 @@ DEBUG_TOOLBAR_CONFIG = {
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {
     # "SETTING_NAME": (default_value, "help text")
+    "CDN_PURGE_BASE_URL": ("", "Base URL for CDN 'PURGE' requests"
+                           " when pages are edited through the web."),
     "CTE_SECRET": ("", "Shared secret for CTE integration"),
     "CTE_BASICAUTH_USER": ("", "Shared User for accessing CTE Registration data"),
     "CTE_BASICAUTH_PASS": ("", "Shared User password for accessing CTE Registration data"),
