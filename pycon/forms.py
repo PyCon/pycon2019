@@ -33,6 +33,15 @@ class PyConTalkProposalForm(PyConProposalForm):
         super(PyConTalkProposalForm, self).__init__(*args, **kwargs)
         del self.fields["category"]
 
+    def clean(self):
+        # We no longer ask for an "audience level" for talk proposals,
+        # but we still need to force it to a value that the database
+        # will accept.
+        cleaned_data = super(PyConTalkProposalForm, self).clean()
+        cleaned_data['audience_level'] = (
+            PyConTalkProposal.AUDIENCE_LEVEL_INTERMEDIATE)
+        return cleaned_data
+
     class Meta:
         model = PyConTalkProposal
         fields = [
@@ -43,9 +52,14 @@ class PyConTalkProposalForm(PyConProposalForm):
             "outline",
             "additional_notes",
             "recording_release",
+            # Hidden fields:
+            "audience_level",
         ]
         widgets = {
             "description": MarkEdit(),
+            "audience_level": forms.HiddenInput(
+                attrs={'value': PyConTalkProposal.AUDIENCE_LEVEL_INTERMEDIATE},
+            ),
         }
 
 

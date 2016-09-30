@@ -91,7 +91,8 @@ class PyConProposal(ProposalBase):
         (REJECTION_BAD, "No really: rejected. It's just plain bad."),
     ]
 
-    category = models.ForeignKey(PyConProposalCategory)
+    category = models.ForeignKey(PyConProposalCategory,
+                                 blank=True, null=True)
     audience_level = models.IntegerField(
         choices=AUDIENCE_LEVELS,
         help_text=_(u'Level of audience expertise assumed in Python.'),
@@ -208,11 +209,11 @@ class PyConTalkProposal(PyConProposal):
 
     # TODO: this does not actually remove the fields, so the form cannot
     # yet be submitted successfully.  Should we upgrade to Django 1.10?
-    abstract = None
-    additional_requirements = None
-    audience_level = None
-    category = None
-    perceived_value = None
+    # abstract = None
+    # additional_requirements = None
+    # audience_level = None
+    # category = None
+    # perceived_value = None
 
     class Meta:
         verbose_name = "PyCon talk proposal"
