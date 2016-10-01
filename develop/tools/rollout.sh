@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    echo usage: rollout.sh yes >&2
+    echo 'usage: rollout.sh staging|prod' >&2
     exit 2
 fi
 
@@ -15,8 +15,11 @@ git checkout staging
 git pull origin develop
 git push
 
-git checkout production
-git pull origin develop
-git push
+if [ "$1" = "prod" ]
+then
+    git checkout production
+    git pull origin develop
+    git push
+fi
 
 git checkout develop
