@@ -31,26 +31,21 @@
 {% endblock %}
 
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
 {% block extra_body_base %}
     {% analytics %}
     {% block extra_body %}{% endblock %}
 {% endblock %}
 
-{% block topbar_base %}
-  {% include "_messages.html" %}
-  <header class="main">
-    {% block account_bar %}
-      {% include "_account_bar.html" %}
-    {% endblock %}
-    <a class="logo-smaller" href="{% url 'home' %}"
-       >{{ SITE_NAME }} in Portland, Oregon</a>
+{% include "_messages.html" %}
+<header class="main">
+  {% block account_bar %}
+    {% include "_account_bar.html" %}
+  {% endblock %}
 
-    <center style="color: #888">May 17–25</center>
-
-    <div class="container">
-
+  {% block logo_and_nav %}
+    <img class="beatrix-banner" src="{{ STATIC_URL }}/img/pycon-cityscape.png">
     {% block main_nav %}
     <nav>
       {% block nav %}
@@ -64,9 +59,9 @@
       {% block breadcrumbs %}{% endblock %}
     </div>
     -->
-  </header>
-  {% block banner %}{% endblock %}
-{% endblock %}
+  {% endblock %}
+</header>
+{% block banner %}{% endblock %}
 
 {% block body_base %}
     <div id="content">
@@ -130,20 +125,21 @@
             </div>
         {% endblock %}
     </div>
-    <footer>
-      <img class="python-logo" src="{{ STATIC_URL }}img/PNG/python-logo.png" width=200 height=60 alt="Python logo">
-      <p>
-        {{ SITE_NAME }} in Portland, Oregon is a production of the
-        <a href="http://python.org/psf/">Python Software Foundation</a>.
-        Questions? Comments? Contact <a href="mailto:{{ REGISTRATION_EMAIL }}">{{ REGISTRATION_EMAIL }}</a>.
-      </p>
-      <p>
-        Site utilizes
-        <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
-        Hosting provided by
-        <a href="http://www.rackspace.com/">Rackspace US, Inc</a>.
-      </p>
-    </footer>
+
+<footer>
+  <div>
+    <img class="python-logo" src="{{ STATIC_URL }}img/psf-logo.png"
+         width=334 height=82 alt="PSF logo">
+    <p>
+      PyCon 2017 in Portland, Oregon, is a production of the
+      <a href="http://python.org/psf/">Python Software Foundation</a>.
+      Site utilizes
+      <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
+      Hosting provided by
+      <a href="http://www.rackspace.com/">Rackspace US, Inc</a>.
+    </p>
+  </div>
+</footer>
 {% endblock %}
 
 <!--
