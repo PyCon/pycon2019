@@ -13,4 +13,10 @@ vagrant ssh -- psql template1 <<EOF
 drop database "pycon";
 alter database "pycon-prod" rename to pycon;
 
+sudo mkdir -p /vagrant/site_media/media
+chown vagrant.vagrant /vagrant/site_media/media
+
 EOF
+
+# ssh pycon tar cf - -C /srv/pycon/media sponsor_files |
+#     vagrant ssh -- tar xvf - -C /vagrant/site_media/media
