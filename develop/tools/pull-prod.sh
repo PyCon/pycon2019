@@ -13,6 +13,10 @@ vagrant ssh -- psql template1 <<EOF
 drop database "pycon";
 alter database "pycon-prod" rename to pycon;
 
+EOF
+
+vagrant ssh <<EOF
+
 sudo mkdir -p /vagrant/site_media/media
 chown vagrant.vagrant /vagrant/site_media/media
 
