@@ -18,6 +18,12 @@ class SpeakerForm(forms.ModelForm):
             "twitter_username",
             "mobile_number",
         ]
+        help_texts = {
+            'mobile_number': _(
+                u"For on-site use only,"
+                u" in case we need to get in touch with you."
+            ),
+        }
 
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]
