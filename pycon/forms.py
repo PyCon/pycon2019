@@ -233,23 +233,19 @@ class EducationSummitTalkProposalForm(PyConProposalForm):
         super(EducationSummitTalkProposalForm, self).__init__(*args, **kwargs)
         self.fields['audience_level'].widget = forms.HiddenInput()
         self.fields['audience_level'].initial = PyConProposal.AUDIENCE_LEVEL_NOVICE
+        del self.fields["category"]
 
     class Meta:
         model = EduSummitTalkProposal
         fields = [
             "title",
-            "category",
             "description",
             "additional_notes",
-            "additional_requirements",
             "audience_level",
             "recording_release",
         ]
         widgets = {
-            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
-            "description": forms.Textarea(attrs={'rows': '3'}),
-            "additional_notes": MarkEdit(attrs={'rows': '3'}),
-            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
+            "description": MarkEdit(),
         }
 
 
