@@ -667,6 +667,7 @@ footer p {
     padding: 2px 10px;
     background: #136E8E;
     color: white;
+    font-weight: bold;
 }
 
 /* -------------------- Page-specific styles -------------------- */
