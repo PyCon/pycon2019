@@ -67,6 +67,15 @@ class PyConTalkProposalForm(PyConProposalForm):
                 attrs={'value': PyConTalkProposal.AUDIENCE_LEVEL_INTERMEDIATE},
             ),
         }
+        help_texts = {
+            'title': strip(
+                u"""
+                Puns, jokes, or “hooks” in titles are okay,
+                but make sure that if all someone knew was the title,
+                they still would have some idea what the presentation is about.
+                """
+            ),
+        }
 
 
 register_proposal_form('talk', PyConTalkProposalForm)
@@ -131,17 +140,35 @@ class PyConTutorialProposalForm(PyConProposalForm):
             "perceived_value": forms.Textarea(attrs={'rows': '3'}),
         }
         help_texts = {
-            'additional_notes': strip(u"""
-            (a) If you have offered this tutorial before,
-            please provide links to the material and video, if possible.
-            Otherwise, please provide links to one (or two!)
-            previous presentations by each speaker.
-            (b) Please summarize your teaching or public speaking experience
-            and your experience with the subject of the tutorial.
-            (c) Let us know if you have specific needs or special requests —
-            for example, requests that involve accessibility, audio,
-            or restrictions on when your talk can be scheduled.
-            """),
+            'additional_notes': strip(
+                u"""
+                (a) If you have offered this tutorial before,
+                please provide links to the material and video, if possible.
+                Otherwise, please provide links to one (or two!)
+                previous presentations by each speaker.
+                (b) Please summarize your teaching
+                or public speaking experience
+                and your experience with the subject of the tutorial.
+                (c) Let us know if you have specific needs or special requests —
+                for example, requests that involve accessibility, audio,
+                or restrictions on when your talk can be scheduled.
+                """
+            ),
+            'outline': strip(
+                u"""
+                Make an outline that lists the topics and activities
+                you will guide your students through
+                over the 3 hours of your tutorial.
+                Provide timings for each activity —
+                indicate when and for how long you will lecture,
+                and when and for how long students
+                will be tackling hands-on exercises.
+                This is a very important criteria!
+                Generally speaking, the more detailed the outline,
+                the more confidence the committee will have
+                that you can deliver the material in the allotted time.
+                """
+            ),
         }
 
 

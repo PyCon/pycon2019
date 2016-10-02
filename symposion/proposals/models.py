@@ -99,13 +99,6 @@ class ProposalBase(models.Model):
 
     title = models.CharField(
         max_length=100,
-        help_text=strip(
-            u"""
-            Puns, jokes, or “hooks” in titles are okay,
-            but make sure that if all someone knew was the title,
-            they still would have some idea what the presentation is about.
-            """
-        ),
     )
     description = models.TextField(
         _("Description"),

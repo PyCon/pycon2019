@@ -269,19 +269,7 @@ class PyConTutorialProposal(PyConProposal):
             """
         ),
     )
-    outline = models.TextField(
-        help_text=strip(
-            u"""
-            Make an outline that lists the topics and activities
-            you will guide your students through
-            over the 3 hours of your tutorial.
-            Provide timings for each activity —
-            indicate when and for how long you will lecture,
-            and when and for how long students
-            will be tackling hands-on exercises.
-            """
-        ),
-    )
+    outline = models.TextField()
     handout = models.FileField(
         _(u"Student Handout"),
         blank=True,
