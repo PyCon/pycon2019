@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,6 +10,10 @@ from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConTutorialProposal, PyConPosterProposal,
                      PyConLightningTalkProposal, PyConSponsorTutorialProposal,
                      PyConOpenSpaceProposal, EduSummitTalkProposal, PyConProposal)
+
+
+def strip(text):
+    return u' '.join(text.strip().split())
 
 
 class PyConProposalForm(forms.ModelForm):
@@ -96,35 +102,46 @@ register_proposal_form('lightning-talk', PyConLightningTalkProposalForm)
 
 
 class PyConTutorialProposalForm(PyConProposalForm):
+    def __init__(self, *args, **kwargs):
+        super(PyConTutorialProposalForm, self).__init__(*args, **kwargs)
+        del self.fields["category"]
 
     class Meta:
         model = PyConTutorialProposal
         fields = [
             "title",
-            "category",
             "audience_level",
             "domain_level",
             "description",
             "audience",
-            "perceived_value",
-            "abstract",
             "outline",
-            "more_info",
             "additional_notes",
-            "additional_requirements",
-            "handout",
             "recording_release",
         ]
         widgets = {
-            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
-            "description": forms.Textarea(attrs={'rows': '3'}),
-            "audience": forms.TextInput(attrs={'class': 'fullwidth-input'}),
+             "audience_level": forms.HiddenInput(
+                 attrs={'value':
+                        PyConTutorialProposal.AUDIENCE_LEVEL_INTERMEDIATE},
+             ),
+             "domain_level": forms.HiddenInput(
+                 attrs={'value':
+                        PyConTutorialProposal.DOMAIN_LEVEL_INTERMEDIATE},
+             ),
+            "description": MarkEdit(),
             "perceived_value": forms.Textarea(attrs={'rows': '3'}),
-            "abstract": MarkEdit(),
-            "outline": MarkEdit(),
-            "more_info": MarkEdit(),
-            "additional_notes": MarkEdit(attrs={'rows': '3'}),
-            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
+        }
+        help_texts = {
+            'additional_notes': strip(u"""
+            (a) If you have offered this tutorial before,
+            please provide links to the material and video, if possible.
+            Otherwise, please provide links to one (or two!)
+            previous presentations by each speaker.
+            (b) Please summarize your teaching or public speaking experience
+            and your experience with the subject of the tutorial.
+            (c) Let us know if you have specific needs or special requests —
+            for example, requests that involve accessibility, audio,
+            or restrictions on when your talk can be scheduled.
+            """),
         }
 
 

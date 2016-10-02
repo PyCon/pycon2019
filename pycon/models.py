@@ -113,7 +113,7 @@ class PyConProposal(ProposalBase):
         help_text=_(u'The reason the proposal was rejected.'))
     recording_release = models.BooleanField(
         default=True,
-        help_text=_(u"By submitting your talk proposal, you agree to give permission to "
+        help_text=_(u"By submitting your proposal, you agree to give permission to "
                     u"the Python Software Foundation to record, edit, and release audio "
                     u"and/or video of your presentation. If you do not agree to this, "
                     u"please uncheck this box. See "
@@ -256,26 +256,31 @@ class PyConTutorialProposal(PyConProposal):
         help_text=_(u'Level of audience expertise assumed in the '
                     u'presentation\'s domain.'))
 
+    audience = models.TextField(
+        u"Audience",
+        help_text=strip(
+            u"""
+            1–2 paragraphs that should answer three questions:
+            (1) Who is this tutorial for?
+            (2) What background knowledge or experience
+            do you expect students to have?
+            (3) What do you expect students to learn,
+            or to be able to do after attending your tutorial?
+            """
+        ),
+    )
     outline = models.TextField(
-        _(u"Outline")
-    )
-    more_info = models.TextField(
-        _(u"More info"),
-        help_text=_(u"More info. Will be made public "
-                    u"if your talk is accepted.")
-    )
-    audience = models.CharField(
-        max_length=150,
-        help_text=_(u'Who is the intended audience for your talk? (Be '
-                    u'specific; "Python programmers" is not a good answer '
-                    u'to this question.)'),
-    )
-    perceived_value = models.TextField(
-        _(u"Objectives"),
-        max_length=500,
-        help_text=_(u"What will attendees get out of your talk? When they "
-                    u"leave the room, what will they know that they didn't "
-                    u"know before?"),
+        help_text=strip(
+            u"""
+            Make an outline that lists the topics and activities
+            you will guide your students through
+            over the 3 hours of your tutorial.
+            Provide timings for each activity —
+            indicate when and for how long you will lecture,
+            and when and for how long students
+            will be tackling hands-on exercises.
+            """
+        ),
     )
     handout = models.FileField(
         _(u"Student Handout"),
