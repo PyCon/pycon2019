@@ -42,6 +42,11 @@ class Speaker(models.Model):
         blank=True,
         help_text=_(u"Your Twitter account")
     )
+    mobile_number = models.CharField(max_length=40, blank=True, help_text=_(
+        u"Your mobile number, that we can use to contact you at PyCon"
+        u" if your talk has been accepted and put on the schedule"
+        u" but we cannot find you when it is time."
+    ))
     annotation = models.TextField()  # staff only
     invite_email = models.CharField(max_length=200, unique=True, null=True, db_index=True)
     invite_token = models.CharField(max_length=40, db_index=True)
