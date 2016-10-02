@@ -38,8 +38,6 @@ urlpatterns = patterns("",
 
         url(r"^registration/", include("pycon.registration.urls")),
 
-        url(r"^venue/$", TemplateView.as_view(template_name="venue/detail.html"), name="venue_detail"),
-
         url(r"^finaid/", include("pycon.finaid.urls")),
         url(r"^pycon_api/", include("pycon.pycon_api.urls")),
         url(r"^schedule/", include("pycon.schedule.urls")),
