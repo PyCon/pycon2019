@@ -13,7 +13,7 @@
         $(function () {
             var converter = new Attacklab.showdown.converter();
             $('.job-listing').each(function() {
-                $(this).html(converter.makeHtml($(this).html()));
+                $(this).html(converter.makeHtml($(this).text()));
             })
         });
     </script>
@@ -45,7 +45,7 @@
                             </h2>
                             <h5>{{ sponsor.name }}</h5>
                             <p><a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a></p>
-                            <div class="job-listing">{{ sponsor.joblisting_text|bleach|safe }}</div>
+                            <div class="job-listing">{{ sponsor.joblisting_text|bleach }}</div>
                         </div>
                     </div>
                 {% endfor %}

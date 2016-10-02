@@ -13,9 +13,9 @@
         $(function () {
             var converter = new Attacklab.showdown.converter();
             $('.tutorial-comment').each(function() {
-                $(this).html(converter.makeHtml($(this).html()));
+                $(this).html(converter.makeHtml($(this).text()));
             })
-            $('.abstract').html(converter.makeHtml($('.abstract').html()));
+            $('.abstract').html(converter.makeHtml($('.abstract').text()));
 
         });
     </script>
@@ -58,7 +58,7 @@
     {% if proposal.abstract  %}
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract|bleach|safe }}</div>
+    <div class="abstract">{{ presentation.abstract|bleach }}</div>
     {% endif %}
 
     {% if presentation.has_urls %}
@@ -105,7 +105,7 @@
                         <div class="commment-content">
                           <strong>{% user_display message.user %}</strong>
                           {{ message.submitted_at|timesince }} ago
-                          <div class="tutorial-comment">{{ message.message|bleach|safe }}</div>
+                          <div class="tutorial-comment">{{ message.message|bleach }}</div>
                         </div>
                       </div>
                     {% endfor %}

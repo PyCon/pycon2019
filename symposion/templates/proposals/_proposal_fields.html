@@ -71,25 +71,25 @@
 
     {% if proposal.kind.slug != "lightning-talk" %}
         <dt>{% trans "Abstract" %}</dt>
-        <dd id="abstract">{{ proposal.abstract|bleach|safe }}&nbsp;</dd>
+        <dd id="abstract">{{ proposal.abstract|bleach }}&nbsp;</dd>
     {% endif %}
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
-        <dd id="outline">{{ proposal.outline|bleach|safe }}&nbsp;</dd>
+        <dd id="outline">{{ proposal.outline|bleach }}&nbsp;</dd>
 
         <dt>{% trans "More info" %}</dt>
-        <dd id="more_info">{{ proposal.more_info|bleach|safe }}&nbsp;</dd>
+        <dd id="more_info">{{ proposal.more_info|bleach }}&nbsp;</dd>
     {% endif %}
 
     <dt>{% trans "Notes" %}</dt>
-    <dd id="additional-notes">{{ proposal.additional_notes|bleach|safe }}&nbsp;</dd>
+    <dd id="additional-notes">{{ proposal.additional_notes|bleach }}&nbsp;</dd>
 
     <dt>{% trans "Speaker Bio" %}</dt>
-    <dd id="bio">{{ proposal.speaker.biography|bleach|safe }}&nbsp;</dd>
+    <dd id="bio">{{ proposal.speaker.biography|bleach }}&nbsp;</dd>
 
     <dt>{% trans "Additional Requirements" %}</dt>
-    <dd id="additional-requirements">{{ proposal.additional_requirements|bleach|safe }}&nbsp;</dd>
+    <dd id="additional-requirements">{{ proposal.additional_requirements|bleach }}&nbsp;</dd>
 
 
     {% if proposal.kind.slug == "tutorial" %}

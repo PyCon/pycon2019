@@ -12,7 +12,7 @@
   {% compress js %}
     <script type="text/javascript">
         $(function () {
-            var mdown = $('#bio').html();
+            var mdown = $('#bio').text();
             var converter = new Attacklab.showdown.converter();
             var html = converter.makeHtml(mdown);
             $('#bio').html(html);
@@ -35,7 +35,7 @@
                 <a class="btn pull-right" href="{% url 'speaker_edit' speaker.pk %}">{% trans "Edit" %}</a>
             {% endif %}
             <h1>{{ speaker.name }}</h1>
-            <div id="bio" class="bio">{{ speaker.biography|bleach|safe }}</div>
+            <div id="bio" class="bio">{{ speaker.biography|bleach }}</div>
 
             <h2>{% trans "Presentations" %}</h2>
             {% for presentation in presentations %}

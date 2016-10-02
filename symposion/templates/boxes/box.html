@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
     $(function () {
-        var mdown = $('#content_{{ label }} > div.markdown').html();
+        var mdown = $('#content_{{ label }} > div.markdown').text();
         var converter = new Attacklab.showdown.converter();
         var html = converter.makeHtml(mdown);
         $('#content_{{ label }} > div.markdown').html(html);
@@ -33,7 +33,7 @@
     {% if form %}
         <a href="#edit_{{ label }}" data-toggle="modal" class="btn edit-toggle"><i class="icon-pencil"></i> {% trans "Edit this content" %}</a>
     {% endif %}
-    <div class="markdown">{{ box.content|safe }}</div>
+    <div class="markdown">{{ box.content }}</div>
 </div>
 
 

@@ -15,7 +15,7 @@
             var converter = new Attacklab.showdown.converter();
             var ids = '#abstract,#outline,#more_info,#additional-notes,#bio';
             $(ids).each(function() {
-                $(this).html(converter.makeHtml($(this).html()));
+                $(this).html(converter.makeHtml($(this).text()));
             })
         });
     </script>

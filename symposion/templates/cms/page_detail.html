@@ -20,7 +20,7 @@
 {% block extra_head %}
     <script type="text/javascript">
         $(function () {
-            var mdown = $('.box-content').html();
+            var mdown = $('.box-content').text();
             var converter = new Attacklab.showdown.converter();
             var html = converter.makeHtml(mdown);
             $('.box-content').html(html);
@@ -30,4 +30,4 @@
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block body %}{{ page.body|safe }}{% endblock %}
+{% block body %}{{ page.body }}{% endblock %}
