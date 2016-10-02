@@ -660,6 +660,15 @@ footer p {
     margin: 1em auto;
 }
 
+/* -------------------- Styles for use in Markdown -------------------- */
+
+.box-content .label {
+    border-radius: 3px;
+    padding: 2px 10px;
+    background: #136E8E;
+    color: white;
+}
+
 /* -------------------- Page-specific styles -------------------- */
 
 /* The home page. */
@@ -693,7 +702,8 @@ footer p {
     margin-top: 2em;
     /* border: 5px solid #A8AA8D; */
     /* border-radius: 1em; */
-    background-color: #e4e6c7;
+    /* background-color: #e4e6c7; */
+    max-width: 36em;
     padding: 1em;
     font-size: 20px;
 }
