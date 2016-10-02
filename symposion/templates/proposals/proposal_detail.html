@@ -68,30 +68,7 @@
             <div class="tab-pane active" id="proposal-detail">
                 {% include "proposals/_proposal_fields.html" %}
             </div>
-            {% if request.user == proposal.speaker.user %}
-                <div class="tab-pane" id="proposal-documents">
-                    <h3>{% trans "Supporting Documents" %}</h3>
-
-                    {% if proposal.supporting_documents.exists %}
-                        <table class="table table-striped">
-                            {% for document in proposal.supporting_documents.all %}
-                                <tr>
-                                    <td><a href="{{ document.download_url }}">{{ document.description }}</a></td>
-                                    <td>
-                                    <form style="margin: 0;" method="post" action="{% url 'proposal_document_delete' document.pk %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-mini">{% trans "delete" %}</button>
-                                    </form>
-                                </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                        <p>{% trans "No supporting documents attached to this proposal." %}</p>
-                    {% endif %}
-                    <a class="btn btn-small{% if proposal.cancelled %} btn-disabled{% endif %}" href="{% url 'proposal_document_create' proposal.pk %}"><i class="icon-upload"></i> {% trans "Add Document" %}</a>
-                </div>
-            {% endif %}
+        </div>
 
     {% if message_form %}
         <div class="tab-pane" id="proposal-feedback">
@@ -117,9 +94,7 @@
 
             <form action="" method="POST" accept-charset="utf-8">
                 {% csrf_token %}
-                <fieldset>
-                    {{ message_form|as_bootstrap }}
-                </fieldset>
+                {{ message_form|as_bootstrap }}
                 <div class="actions">
                     <button type="submit" name="message_submit" class="btn primary">{% trans "Submit" %}</button>
                 </div>

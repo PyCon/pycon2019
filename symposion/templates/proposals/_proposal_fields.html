@@ -30,27 +30,6 @@
         <dd>{{ proposal.get_tags_display }}&nbsp;</dd>
     {% endif %}
 
-    <dt>{% trans "Category" %}</dt>
-    <dd>{{ proposal.category }}&nbsp;</dd>
-
-    {% if proposal.kind.slug != "lightning-talk" %}
-        <dt>{% trans "Python Level" %}</dt>
-        <dd>{{ proposal.get_audience_level_display }}&nbsp;</dd>
-    {% endif %}
-
-    {% if proposal.kind.slug == "tutorial" %}
-        <dt>{% trans "Audience" %}</dt>
-        <dd>{{ proposal.audience }}&nbsp;</dd>
-
-        <dt>{% trans "Objectives" %}</dt>
-        <dd>{{ proposal.perceived_value }}&nbsp;</dd>
-    {% endif %}
-
-    {% if proposal.kind.slug == "tutorial" %}
-        <dt>{% trans "Domain Level" %}</dt>
-        <dd>{{ proposal.get_domain_level_display }}&nbsp;</dd>
-    {% endif %}
-
     {% if proposal.additional_speakers.all %}
         <dt>{% trans "Additional Speakers" %}</dt>
         <dd>
@@ -69,59 +48,23 @@
     <dt>{% trans "Description" %}</dt>
     <dd>{{ proposal.description }}&nbsp;</dd>
 
-    {% if proposal.kind.slug != "lightning-talk" %}
-        <dt>{% trans "Abstract" %}</dt>
-        <dd id="abstract">{{ proposal.abstract|bleach }}&nbsp;</dd>
+    {% if proposal.kind.slug == "tutorial" %}
+        <dt>{% trans "Audience" %}</dt>
+        <dd>
+          <pre>{{ proposal.audience }}&nbsp;</pre>
+        </dd>
     {% endif %}
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
-        <dd id="outline">{{ proposal.outline|bleach }}&nbsp;</dd>
-
-        <dt>{% trans "More info" %}</dt>
-        <dd id="more_info">{{ proposal.more_info|bleach }}&nbsp;</dd>
+        <dd id="outline">
+          <pre>{{ proposal.outline }}&nbsp</pre>
+        </dd>
     {% endif %}
 
-    <dt>{% trans "Notes" %}</dt>
-    <dd id="additional-notes">{{ proposal.additional_notes|bleach }}&nbsp;</dd>
-
-    <dt>{% trans "Speaker Bio" %}</dt>
-    <dd id="bio">{{ proposal.speaker.biography|bleach }}&nbsp;</dd>
-
-    <dt>{% trans "Additional Requirements" %}</dt>
-    <dd id="additional-requirements">{{ proposal.additional_requirements|bleach }}&nbsp;</dd>
-
-
-    {% if proposal.kind.slug == "tutorial" %}
-    <dt>{% trans "Student Handout" %}</dt>
-    <dd>
-        {% if proposal.handout %}
-            <a href="{{ proposal.handout.url }}">{% trans "Download" %}</a>
-        {% else %}
-            {% trans "No handout attached to this proposal." %}
-        {% endif %}
-    </dd>
-    {% endif %}
-
-    <dt>{% trans "Supporting Documents" %}</dt>
-    <dd>
-        {% if proposal.supporting_documents.exists %}
-            <table class="table table-striped">
-                {% for document in proposal.supporting_documents.all %}
-                    <tr>
-                        <td><a href="{{ document.download_url }}">{{ document.description }}</a></td>
-                        <td>
-                        <form style="margin: 0;" method="post" action="{% url 'proposal_document_delete' document.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-mini">{% trans "delete" %}</button>
-                        </form>
-                    </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            {% trans "No supporting documents attached to this proposal." %}
-        {% endif %}
+    <dt>{% trans "Additional notes" %}</dt>
+    <dd id="additional-notes">
+      <pre>{{ proposal.additional_notes }}&nbsp</pre>
     </dd>
   {% endif %}
 </dl>
