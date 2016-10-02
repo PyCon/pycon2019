@@ -660,7 +660,7 @@ footer p {
     margin: 1em auto;
 }
 
-/* -------------------- Styles for use in Markdown -------------------- */
+/* -------------------- Styles for use in CMS editing -------------------- */
 
 .box-content .label {
     border-radius: 3px;
@@ -668,6 +668,14 @@ footer p {
     background: #136E8E;
     color: white;
     font-weight: bold;
+}
+.hotel {
+    display: inline-block;
+    margin: 0.4em;
+    background-color: #e4e6c7;
+    width: 12em;
+    padding: 0 0.8em;
+    vertical-align: top;
 }
 
 /* -------------------- Page-specific styles -------------------- */
@@ -768,13 +776,4 @@ footer p {
 }
 .sponsor > p {
     text-align: left;
-}
-
-/* The "Hotels" grid on the "Venue" page. */
-
-.hotel {
-    display: inline-block;
-    width: 12em;
-    padding: 0.8em;
-    vertical-align: top;
 }
