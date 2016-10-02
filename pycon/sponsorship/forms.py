@@ -38,6 +38,7 @@ class SponsorApplicationForm(SponsorDetailsForm):
             "level",
             "wants_table",
             "wants_booth",
+            "small_entity_discount",
         ]
 
     def __init__(self, *args, **kwargs):

@@ -42,7 +42,7 @@ class SponsorAdmin(admin.ModelAdmin):
                        ("active", "approval_time")],
         }),
         ("Desired benefits", {
-            "fields": ["wants_table", "wants_booth"],
+            "fields": ["wants_table", "wants_booth", "small_entity_discount"],
         }),
         ("Sponsor Data", {
             "fields": ["booth_number", "job_fair_table_number", "registration_promo_codes"],
