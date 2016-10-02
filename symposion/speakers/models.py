@@ -49,16 +49,6 @@ class Speaker(models.Model):
         default=datetime.datetime.now,
         editable=False
     )
-    sessions_preference = models.IntegerField(
-        choices=SESSION_COUNT_CHOICES,
-        null=True,
-        blank=True,
-        help_text=_(u"If you've submitted multiple talk proposals, please let "
-                    u"us know if you only want to give one or if you'd like "
-                    u"to give two talks.  For tutorials and posters, state "
-                    u"similar preferences in the additional notes section of "
-                    u"your proposals.")
-    )
 
     class Meta:
         ordering = ['name']
