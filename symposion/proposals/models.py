@@ -102,14 +102,13 @@ class ProposalBase(models.Model):
     )
     description = models.TextField(
         _("Description"),
-        max_length=400,  # @@@ need to enforce 400 in UI
         help_text=strip(
             u"""
-            1–2 paragraphs summing up what the presentation is about.
-            This will appear in the conference program
-            and should help attendees decide whether this presentation
-            is relevant to them.
-            Maximum 400 characters.
+            Both your title and this description are made public
+            and displayed in the conference program
+            to help attendees decide
+            whether they are interested in this presentation.
+            Limit this description to a few concise paragraphs.
             """
         ),
     )
