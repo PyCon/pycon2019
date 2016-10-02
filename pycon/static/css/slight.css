@@ -672,10 +672,13 @@ footer p {
 .hotel {
     display: inline-block;
     margin: 0.4em;
-    background-color: #e4e6c7;
+    background-color: #f3f5d6;
     width: 12em;
     padding: 0 0.8em;
     vertical-align: top;
+}
+.hotel h3 {
+    color: #CE624D;
 }
 
 /* -------------------- Page-specific styles -------------------- */
