@@ -177,24 +177,34 @@ register_proposal_form('tutorial', PyConTutorialProposalForm)
 
 class PyConPosterProposalForm(PyConProposalForm):
 
+    def __init__(self, *args, **kwargs):
+        super(PyConPosterProposalForm, self).__init__(*args, **kwargs)
+        del self.fields["category"]
+
     class Meta:
         model = PyConPosterProposal
         fields = [
             "title",
-            "category",
             "audience_level",
             "description",
-            "abstract",
             "additional_notes",
-            "additional_requirements",
-            "recording_release",
         ]
         widgets = {
-            "title": forms.TextInput(attrs={'class': 'fullwidth-input'}),
-            "description": forms.Textarea(attrs={'rows': '3'}),
-            "abstract": MarkEdit(),
-            "additional_notes": MarkEdit(attrs={'rows': '3'}),
-            "additional_requirements": forms.Textarea(attrs={'rows': '3'}),
+            "audience_level": forms.HiddenInput(
+                attrs={'value':
+                       PyConTutorialProposal.AUDIENCE_LEVEL_INTERMEDIATE},
+            ),
+            "description": MarkEdit(),
+        }
+        help_texts = {
+            'additional_notes': strip(u"""
+            Additional notes for the program committee, like:<br>
+            Have you presented on this poster’s topic before?<br>
+            What are your qualifications and experiences in this area?<br>
+            Links to any related publications, slides, or source code.<br>
+            Will you need electrical power?<br>
+            Do you have accessibility needs that we should plan ahead for?
+            """),
         }
 
 
