@@ -613,12 +613,17 @@ input[type=text], textarea {
     /* ^ chroma('#98917A').brighten(1.5).hex() */
     min-width: 80%;
 }
+.box-content .markedit > textarea {
+    /* override the jQuery UI "markedit > textarea" styling */
+    padding: 0;
+}
 .markedit .markedit-preview {
     /* override the jQuery UI "ui-widget-content" styling */
-    margin: 1em;
+    margin: 1em 0;
     border: 2px dotted black;
     background: none;
     padding: 0.2em;
+    color: #6a644e; /* chroma('#98917A').darken().hex() */
 }
 
 /* Forms, when an error message needs to display. */

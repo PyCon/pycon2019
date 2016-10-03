@@ -12,7 +12,9 @@
         {% box kind.slug|add:"-proposal" %}
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
-            {{ form|as_bootstrap }}
+            <fieldset>
+                {{ form|as_bootstrap }}
+            </fieldset>
             <div class="form-actions">
                 <p>{% blocktrans %}
                     You will be able to edit your proposal after it has been submitted.
