@@ -10,7 +10,9 @@
     <p><a href="{% url 'proposal_speaker_manage' proposal.pk %}">{% trans "Manage speakers" %}</a></p>
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
-        {{ form|as_bootstrap }}
+        <fieldset>
+            {{ form|as_bootstrap }}
+        </fieldset>
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
             <a class="btn" href="{% url 'proposal_detail' proposal.pk %}">{% trans "Cancel" %}</a>

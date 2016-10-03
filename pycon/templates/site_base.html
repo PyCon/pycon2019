@@ -39,28 +39,17 @@
 {% endblock %}
 
 {% include "_messages.html" %}
+
 <header class="main">
-  {% block account_bar %}
-    {% include "_account_bar.html" %}
+  {% include "_account_bar.html" %}
+  {% block logo %}
+    <a class="beatrix-banner" href="{% url "home" %}">
+      <img src="{{ STATIC_URL }}/img/pycon-cityscape.png">
+    </a>
   {% endblock %}
-
-  {% block logo_and_nav %}
-    <img class="beatrix-banner" src="{{ STATIC_URL }}/img/pycon-cityscape.png">
-    {% block main_nav %}
-    <nav>
-      {% block nav %}
-        {% sitetree_menu from "main" include "trunk" %}
-      {% endblock %}
-    </nav>
-    {% endblock %}
-
-    <!--
-    <div class="page-head">
-      {% block breadcrumbs %}{% endblock %}
-    </div>
-    -->
-  {% endblock %}
+  <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
 </header>
+
 {% block banner %}{% endblock %}
 
 {% block body_base %}

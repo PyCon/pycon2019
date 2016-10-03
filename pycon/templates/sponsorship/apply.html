@@ -15,7 +15,9 @@
     <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" >
         {% csrf_token %}
         <legend>{% trans "Apply to be a Sponsor" %}</legend>
-        {{ form|as_bootstrap }}
+        <fieldset>
+          {{ form|as_bootstrap }}
+        </fieldset>
 
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% trans "Apply" %}" />

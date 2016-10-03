@@ -427,6 +427,7 @@ textarea {
 /* -------------------- Styles applying to all pages -------------------- */
 
 html {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 18px;
     line-height: 1.4;
 }
@@ -461,7 +462,7 @@ a {
     text-decoration: none;
 }
 .account-links a:hover {
-    background-color: #675b00;
+    text-decoration: underline;
 }
 .account-links form {
     padding: 0 0.5em;
@@ -470,15 +471,18 @@ a {
 
 /* The main logo. */
 
-.beatrix-banner {
+.beatrix-banner, .beatrix-banner img {
     display: block;
     width: 100%;
 }
 
 /* The navigation bar. */
 
-.nav {
+nav > .nav {
+    border-top: 1px solid #57b8dc;
+    border-bottom: 1px solid #004360;
     background-color: #308898;
+    background: linear-gradient(to bottom, #0B88AA 0%, #136E8E 100%);
     text-align: center;
     font-weight: bold;
     margin-top: 0;
@@ -577,6 +581,12 @@ td {
 
 /* Forms, when there are no errors */
 
+fieldset {
+    border: none;
+    border-radius: 1em;
+    background-color: #f3f5d6; /* chroma('#A8AA8D').brighten(1.5).hex() */
+    padding: 1em;
+}
 legend {
     margin: 1em 0;
     font-weight: bold;
@@ -597,28 +607,48 @@ label {
     display: none;
 }
 input[type=text], textarea {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #98917A #e2dac2 #e2dac2 #98917A;
+    /* ^ chroma('#98917A').brighten(1.5).hex() */
     min-width: 80%;
+}
+.markedit .markedit-preview {
+    /* override the jQuery UI "ui-widget-content" styling */
+    margin: 1em;
+    border: 2px dotted black;
+    background: none;
+    padding: 0.2em;
 }
 
 /* Forms, when an error message needs to display. */
 
-.control-group.error {
-    border: 2px solid #df7070;
-    border-radius: 6px;
-    background-color: #ffeaea;
-    padding: 2px;
+.control-group.error input[type=text], .control-group.error textarea {
+    border: 3px solid red;
 }
 span.help-inline {
-    color: #df7070;
+    color: red;
     display: block;
+}
+
+/* Text-area fields that should honor line breaks. */
+
+.proposal-fields dd {
+    white-space: pre-wrap;
+    white-space: pre-line;
+}
+.proposal-fields dd.description {
+    white-space: normal;
 }
 
 /* The dashboard. */
 
 .dashboard-panel {
     margin-bottom: 1em;
+    border: 1px solid #e5e8ef;
+    border-radius: 1em;
     background-color: #f5f8ff;
-    padding: 0.5em;
+    padding: 1em;
 }
 .dashboard-panel .icon-briefcase {
     display: none;
@@ -629,12 +659,24 @@ span.help-inline {
 .btn, .dashboard-panel a.action {
     display: inline-block;
     margin: 0.2em;
-    border: 2px solid blue;
+    box-shadow: 0 0 0 1px #CE624D;
+    border-top: 1px solid #FBBF8B;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
     border-radius: 5px;
-    background-color: #99eafc;
+    background-color: #CE624D;
+    background: linear-gradient(to bottom, #e57257 0%, #ce624d 100%);
     padding: 0.2em 0.3em;
-    color: black;
+    color: white;
+    font-weight: bold;
     text-decoration: none;
+}
+
+/* Sidebar navigation lists, like on /account/settings/. */
+
+.nav-list {
+    padding-left: 1em;
 }
 
 /* The footer at the bottom of every page. */
@@ -701,11 +743,7 @@ footer p {
 }
 .home-banner p {
     display: inline-block;
-    margin: 0 auto 1.25em;
-    font-weight: bold;
-    /* border-top: 3px solid black; */
-    /* border-bottom: 3px solid black; */
-    /* padding: 0.5em; */
+    margin: 1.25em auto;
 }
 .home-banner img {
     width: 100%;

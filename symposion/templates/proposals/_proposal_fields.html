@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load review_tags %}
 
-<dl class="dl-horizontal">
+<dl class="proposal-fields">
   {% if proposal.kind.slug == "talk" %}
     <dt>{% trans "Submitted by" %}</dt>
     <dd>{{ proposal.speaker }}</dd>
@@ -10,16 +10,16 @@
     <dd>{{ proposal.get_duration_display }}</dd>
 
     <dt>{% trans "Description" %}</dt>
-    <dd>{{ proposal.description }}</dd>
+    <dd class="description">{{ proposal.description }}</dd>
 
     <dt>{% trans "Who and Why (Audience)" %}</dt>
-    <dd><pre>{{ proposal.audience }}</pre></dd>
+    <dd>{{ proposal.audience }}&nbsp;</dd>
 
     <dt>{% trans "Outline" %}</dt>
-    <dd><pre>{{ proposal.outline }}&nbsp;</pre></dd>
+    <dd>{{ proposal.outline }}&nbsp;</dd>
 
     <dt>{% trans "Additional Notes" %}</dt>
-    <dd><pre>{{ proposal.additional_notes }}&nbsp;</pre></dd>
+    <dd>{{ proposal.additional_notes }}&nbsp;</dd>
 
   {% else %}
     <dt>{% trans "Submitted by" %}</dt>
@@ -46,25 +46,19 @@
     {% endif %}
 
     <dt>{% trans "Description" %}</dt>
-    <dd>{{ proposal.description }}&nbsp;</dd>
+    <dd class="description">{{ proposal.description }}&nbsp;</dd>
 
     {% if proposal.kind.slug == "tutorial" %}
         <dt>{% trans "Audience" %}</dt>
-        <dd>
-          <pre>{{ proposal.audience }}&nbsp;</pre>
-        </dd>
+        <dd>{{ proposal.audience }}&nbsp;</dd>
     {% endif %}
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
-        <dd id="outline">
-          <pre>{{ proposal.outline }}&nbsp</pre>
-        </dd>
+        <dd id="outline">{{ proposal.outline }}&nbsp</dd>
     {% endif %}
 
     <dt>{% trans "Additional notes" %}</dt>
-    <dd id="additional-notes">
-      <pre>{{ proposal.additional_notes }}&nbsp</pre>
-    </dd>
+    <dd id="additional-notes">{{ proposal.additional_notes }}&nbsp</dd>
   {% endif %}
 </dl>

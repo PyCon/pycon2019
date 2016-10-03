@@ -5,10 +5,8 @@
 <div class="account-links">
     {% if user.is_authenticated %}
         {% if request.user.get_full_name%}
-            <span>
-                <i class="icon icon-user"></i>
-                <strong>{% user_display request.user %}</strong>
-            </span>
+            <strong>{% user_display request.user %}</strong>
+            &nbsp;
             |
         {% endif %}
         {% if user.is_staff %}

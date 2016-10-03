@@ -13,7 +13,7 @@
     <script type="text/javascript">
         $(function () {
             var converter = new Attacklab.showdown.converter();
-            var ids = '#abstract,#outline,#more_info,#additional-notes,#bio';
+            var ids = 'dd.description';
             $(ids).each(function() {
                 $(this).html(converter.makeHtml($(this).text()));
             })
@@ -23,6 +23,8 @@
 
 {% block body %}
     {% box kind.slug|add:"-proposal-detail" %}
+
+    <p>← <a href="/2017/dashboard/">Return to your dashboard</a></p>
 
     {% if proposal.can_edit %}
         <div class="pull-right">
