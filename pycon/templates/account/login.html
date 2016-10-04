@@ -9,12 +9,9 @@
 {% block body_class %}login{% endblock %}
 
 {% block page_content %}
-  <div class="container">
-    <div class="row">
-      <div class="span9">
+    <center>
         <h1>{% trans "Log in" %}</h1>
-        <div class="box">
-          <div class="box-content">
+        <div class="hotel">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <h4>{% trans "Sign in to an existing account" %}</h4>
                 {% csrf_token %}
@@ -31,14 +28,9 @@
                     </p>
                 </div>
             </form>
-
-          </div>
         </div>
-      </div>
-      <aside class="span2">
-        <h1>&nbsp;</h1>
+        <div class="hotel">
         {% include "account/_openid_sidebar.html" %}
-      </aside>
-    </div>
-  </div>
+        </div>
+    </center>
 {% endblock page_content %}
