@@ -15,6 +15,7 @@
 
 <title>{% block head_title_base %}{% block head_title %}{% endblock %} | {{ SITE_NAME }} in Portland, Oregon{% endblock %}</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 {% block style_base %}
     <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/slight.css" />
     {% include "markedit/includes/markedit-css.html" %}

@@ -3,7 +3,7 @@
 <ul class="nav">
     {% for item in sitetree_items %}
         <li class="{% if item.has_children %}dropdown{% endif %} {% if item.is_current or item.in_current_branch %}active{% endif %}">
-            <a href="{% sitetree_url for item %}" {% if item.has_children %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+            <a {% if item.has_children %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
                 ▼ {{ item.title_resolved }}
                 {% if item.has_children %}<b class="caret"></b>{% endif %}
             </a>

@@ -750,6 +750,10 @@ footer p {
     display: inline-block;
     margin: 1em auto 2em;
 }
+.home-banner p span {
+    /* Avoid "May 17-25" being split across lines on mobile. */
+    white-space: nowrap;
+}
 .home-banner img {
     width: 100%;
 }
