@@ -54,7 +54,24 @@ class FinancialAidApplicationForm(forms.ModelForm):
                        'class': 'fullwidth-textarea',
                        'maxlength': 500}),
         }
-
+        help_texts = {
+            'experience_level': (
+                'We welcome people of all experience levels.'
+                ' What is your experience level with Python?'
+            ),
+            'international': (
+                'Check the box if you will be traveling internationally,'
+                ' or from anywhere outside of the continental United States.'
+            ),
+            'involvement': (
+                'Describe your involvement in any open source projects'
+                ' or Python communities, local or international.'
+            ),
+            'profession': (
+                'What is your career? If you are a student,'
+                ' what is the name of the school you are attending?'
+            ),
+        }
 
 
 class FinancialAidReviewForm(forms.ModelForm):
