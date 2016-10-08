@@ -6,20 +6,14 @@
 {% block body_class %}account{% endblock %}
 
 {% block page_content %}
-  <div class="container">
-    <div class="row">
-      <aside class="list span3">
-        <ul class="nav nav-list">
-          <li class="nav-header">{% trans "Account" %}</li>
-          <li><a href="{% url "account_settings" %}">{% trans "Settings" %}</a></li>
-          <li><a href="{% url "account_password" %}">{% trans "Change password" %}</a></li>
-          <li><a href="{% url "social_auth_associations" %}">{% trans "Associations" %}</a></li>
-          <li><a href="{% url "account_delete" %}">{% trans "Delete account" %}</a></li>
-        </ul>
-      </aside>
-      <div class="span8">
-        {% block body %}{% endblock %}
-      </div>
-    </div>
-  </div>
+<aside>
+  <h3>{% trans "Settings" %}</h3>
+  <ul class="nav nav-list">
+    <li><a href="{% url "account_settings" %}">{% trans "Preferences" %}</a></li>
+    <li><a href="{% url "account_password" %}">{% trans "Change password" %}</a></li>
+    <li><a href="{% url "social_auth_associations" %}">{% trans "Associations" %}</a></li>
+    <li><a href="{% url "account_delete" %}">{% trans "Delete account" %}</a></li>
+  </ul>
+</aside>
+{% block body %}{% endblock %}
 {% endblock %}
