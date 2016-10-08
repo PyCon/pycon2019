@@ -26,6 +26,11 @@
     <meta property="og:image" content="{% static "img/pycon2017-logo.png" %}" />
     <link href="{{ STATIC_URL }}img/pycon-2017.png" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      $(document).on('click', '.message button', function(event) {
+        $(this).parent().hide();
+      });
+    </script>
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />

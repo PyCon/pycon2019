@@ -445,6 +445,20 @@ a {
     text-indent: -9999px;
 }
 
+/* Alerts at the top of the page. */
+
+.messages {
+    position: absolute;
+}
+.messages .message {
+    margin: 1em;
+    border: 1px solid #D98771;
+    border-radius: 0.5em;
+    background: #a55945;  /* chroma('#D98771').darken().hex() */
+    padding: 0.5em;
+    color: white;
+}
+
 /* The bar across the top saying whether you are logged in. */
 
 .account-links {
