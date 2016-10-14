@@ -76,6 +76,12 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 " (For women."
                 " All trans and non-binary people are also eligible.)"
             ),
+            'travel_plans': (
+                "Please describe your travel plans. "
+                " Planes? Trains? Automobiles?"
+                " If traveling internationally,"
+                " let us know which country you will travel from."
+            ),
         }
 
 
