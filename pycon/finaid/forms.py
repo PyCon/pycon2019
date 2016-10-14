@@ -71,6 +71,11 @@ class FinancialAidApplicationForm(forms.ModelForm):
                 'What is your career? If you are a student,'
                 ' what is the name of the school you are attending?'
             ),
+            'pyladies_grant_requested': (
+                "Would you like to be considered for a PyLadies grant?"
+                " (For women."
+                " All trans and non-binary people are also eligible.)"
+            ),
         }
 
 
