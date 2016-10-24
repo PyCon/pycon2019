@@ -24,14 +24,6 @@ class PyConProposalForm(forms.ModelForm):
             queryset=PyConProposalCategory.objects.order_by("name")
         )
 
-    def clean_description(self):
-        value = self.cleaned_data["description"]
-        if len(value) > 400:
-            raise forms.ValidationError(
-                _(u"The description must be less than 400 characters")
-            )
-        return value
-
 
 class PyConTalkProposalForm(PyConProposalForm):
 
