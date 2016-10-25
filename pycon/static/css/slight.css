@@ -512,6 +512,10 @@ nav > .nav {
     color: #fff;
     text-decoration: none;
 }
+.dropdown-toggle {
+    /* Allow click event on iOS devices */
+    cursor: pointer;
+}
 .dropdown-menu {
     display: none;
     position: absolute;
