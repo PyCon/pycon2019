@@ -73,8 +73,8 @@ class FinancialAidApplicationForm(forms.ModelForm):
             ),
             'pyladies_grant_requested': (
                 "Would you like to be considered for a PyLadies grant?"
-                " (For women."
-                " All trans and non-binary people are also eligible.)"
+                " (For women, including cis women,"
+                " trans women, and non-binary people.)"
             ),
             'travel_plans': (
                 "Please describe your travel plans. "
