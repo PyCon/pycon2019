@@ -19,6 +19,11 @@ urlpatterns = patterns("",
     url(r"^$", RedirectView.as_view(url="/%s/" % URL_PREFIX, permanent=True)),
     url(r"^%s/" % URL_PREFIX, include(patterns("",
 
+        url(r"^sponsors/charityauction/$", RedirectView.as_view(
+            url="/%s/events/auction/" % URL_PREFIX,
+            permanent=True,
+        )),
+
         # url(r"^$", RedirectView.as_view(
         #     url="/%s/sponsors/why-sponsor/" % URL_PREFIX,
         #     permanent=False,
