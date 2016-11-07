@@ -831,6 +831,7 @@ footer p {
 }
 .sponsor {
     display: inline-block;
+    margin-top: 1em;
     padding-left: 0.4em;
     padding-right: 0.4em;
     vertical-align: top;
