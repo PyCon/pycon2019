@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
@@ -6,6 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 from multi_email_field.forms import MultiEmailField
 
 from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel
+
+def strip(text):
+    return u' '.join(text.strip().split())
 
 
 class SponsorDetailsForm(forms.ModelForm):
@@ -40,6 +44,13 @@ class SponsorApplicationForm(SponsorDetailsForm):
             "wants_booth",
             "small_entity_discount",
         ]
+        help_texts = {
+            'web_description': strip(
+                u"""
+                Your description can be up to 100 words long.
+                """
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -66,6 +77,16 @@ class SponsorApplicationForm(SponsorDetailsForm):
             # .exclude(name='Diamond')
             # .exclude(name='Keystone')
             )
+
+    def clean_web_description(self):
+        value = self.cleaned_data['web_description']
+        word_count = len(re.findall(r"[-\w']+", value.lower()))
+        if word_count > 100:
+            raise forms.ValidationError(
+                _(u"Your description is {} words long;"
+                  " please reduce it to 100 or less.".format(word_count))
+            )
+        return value
 
     def save(self, commit=True):
         obj = super(SponsorApplicationForm, self).save(commit=False)
