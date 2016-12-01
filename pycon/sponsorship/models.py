@@ -174,8 +174,10 @@ class Sponsor(models.Model):
         %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair tabl number, or empty string if not set
         """
         text = text.replace("%%NAME%%", self.name)
-        text = text.replace("%%REGISTRATION_PROMO_CODES%%", self.registration_promo_codes)
-        text = text.replace("%%EXPO_PROMO_CODES%%", self.expo_promo_codes)
+        text = text.replace("%%REGISTRATION_PROMO_CODES%%",
+                            self.registration_promo_codes or 'N/A')
+        text = text.replace("%%EXPO_PROMO_CODES%%",
+                            self.expo_promo_codes or 'N/A')
 
         # The next two are numbers, or if not set, None.  We don't want to
         # display "None" :-), but we might want to display "0".
