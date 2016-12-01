@@ -175,7 +175,7 @@ class Sponsor(models.Model):
         """
         text = text.replace("%%NAME%%", self.name)
         text = text.replace("%%REGISTRATION_PROMO_CODES%%", self.registration_promo_codes)
-        text = text.replace("%%EXPO_PROMO_CODES%%", self.registration_promo_codes)
+        text = text.replace("%%EXPO_PROMO_CODES%%", self.expo_promo_codes)
 
         # The next two are numbers, or if not set, None.  We don't want to
         # display "None" :-), but we might want to display "0".
