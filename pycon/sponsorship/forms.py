@@ -138,3 +138,24 @@ class SponsorEmailForm(forms.Form):
                           widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
     subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'fullwidth-input'}))
     body = forms.CharField(widget=forms.Textarea(attrs={'class': 'fullwidth-textarea'}))
+    sample_subject = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'fullwidth-input',
+            'readonly': True,
+            'style': 'background-color: #ddd',
+        }),
+    )
+    sample_body = forms.CharField(
+        help_text=_(u"""
+            You can keep editing the body and hitting Send
+            until you love how this preview looks.
+            Then, press Send one final time!
+        """),
+        required=False,
+        widget=forms.Textarea(attrs={
+            'class': 'fullwidth-textarea',
+            'readonly': True,
+            'style': 'background-color: #ddd',
+        }),
+    )

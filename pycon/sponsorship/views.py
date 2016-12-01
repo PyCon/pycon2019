@@ -214,9 +214,29 @@ def sponsor_email(request, pks):
     # check if it's a POST and it looks like our form.
     if request.method == 'POST' and 'subject' in request.POST:
         form = SponsorEmailForm(request.POST, initial=initial)
-        if form.is_valid():
-            data = form.cleaned_data
+        is_valid = form.is_valid()
 
+        # If the user has just edited the Subject or Body, then show
+        # them what it will look like after the %% substitutions are
+        # done.  Only once they like the look of the output, and
+        # re-submit the form without any changes, do we hit Send.
+        if is_valid:
+            data = form.cleaned_data
+            sponsor = sponsors[0]  # any old sponsor will do
+            subject = sponsor.render_email(data['subject'])
+            body = sponsor.render_email(data['body'])
+            is_valid = (
+                subject == data['sample_subject']
+                and
+                body == data['sample_body']
+            )
+            print repr(subject)
+            print repr(data['sample_subject'])
+            form.data = form.data.copy()
+            form.data['sample_subject'] = subject
+            form.data['sample_body'] = body
+
+        if is_valid:
             # Send emails one at a time, rendering the subject and
             # body as templates.
             for sponsor in sponsors:
