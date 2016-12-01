@@ -45,7 +45,8 @@ class SponsorAdmin(admin.ModelAdmin):
             "fields": ["wants_table", "wants_booth", "small_entity_discount"],
         }),
         ("Sponsor Data", {
-            "fields": ["booth_number", "job_fair_table_number", "registration_promo_codes"],
+            "fields": ["booth_number", "job_fair_table_number",
+                       "registration_promo_codes", "expo_promo_codes"],
         }),
         ("Contact Information", {
             "fields": ["contact_name", "contact_emails", "contact_phone",

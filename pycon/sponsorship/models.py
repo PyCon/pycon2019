@@ -118,6 +118,7 @@ class Sponsor(models.Model):
     advertisement_benefit = models.NullBooleanField(help_text=_(u"Advertisement benefit is complete"))
 
     registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
+    expo_promo_codes = models.CharField(max_length=200, blank=True, default='')
     booth_number = models.IntegerField(blank=True, null=True, default=None)
     job_fair_table_number = models.IntegerField(blank=True, null=True, default=None)
 
@@ -168,11 +169,13 @@ class Sponsor(models.Model):
 
         %%NAME%% --> Sponsor name
         %%REGISTRATION_PROMO_CODES%% --> Registration promo codes, or empty string
+        %%EXPO_PROMO_CODES%% --> Expo Hall only promo codes, or empty string
         %%BOOTH_NUMBER%% --> Booth number, or empty string if not set
         %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair tabl number, or empty string if not set
         """
         text = text.replace("%%NAME%%", self.name)
         text = text.replace("%%REGISTRATION_PROMO_CODES%%", self.registration_promo_codes)
+        text = text.replace("%%EXPO_PROMO_CODES%%", self.registration_promo_codes)
 
         # The next two are numbers, or if not set, None.  We don't want to
         # display "None" :-), but we might want to display "0".
