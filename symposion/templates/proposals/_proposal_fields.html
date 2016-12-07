@@ -33,6 +33,7 @@
     {% if proposal.additional_speakers.all %}
         <dt>{% trans "Additional Speakers" %}</dt>
         <dd>
+          <ul>
             {% for speaker in proposal.additional_speakers.all %}
                 <li>
                     {% if speaker.user %}
@@ -42,23 +43,24 @@
                     {% endif %}
                 </li>
             {% endfor %}
+          </ul>
         </dd>
     {% endif %}
 
     <dt>{% trans "Description" %}</dt>
-    <dd class="description">{{ proposal.description }}&nbsp;</dd>
+    <dd class="description significant-whitespace">{{ proposal.description }}&nbsp;</dd>
 
     {% if proposal.kind.slug == "tutorial" %}
         <dt>{% trans "Audience" %}</dt>
-        <dd>{{ proposal.audience }}&nbsp;</dd>
+        <dd class="significant-whitespace">{{ proposal.audience }}&nbsp;</dd>
     {% endif %}
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
-        <dd id="outline">{{ proposal.outline }}&nbsp</dd>
+        <dd id="outline" class="significant-whitespace">{{ proposal.outline }}&nbsp</dd>
     {% endif %}
 
     <dt>{% trans "Additional notes" %}</dt>
-    <dd id="additional-notes">{{ proposal.additional_notes }}&nbsp</dd>
+    <dd id="additional-notes" class="significant-whitespace">{{ proposal.additional_notes }}&nbsp</dd>
   {% endif %}
 </dl>

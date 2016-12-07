@@ -656,7 +656,7 @@ span.help-inline {
 
 /* Text-area fields that should honor line breaks. */
 
-.proposal-fields dd {
+.proposal-fields dd.significant-whitespace {
     white-space: pre-wrap;
     white-space: pre-line;
 }
