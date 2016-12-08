@@ -696,6 +696,18 @@ span.help-inline {
     text-decoration: none;
 }
 
+/* Paginated tables within the dashboard. */
+
+.pagination li {
+    display: inline;
+}
+.pagination a {
+    padding: 0.5em;
+}
+.pagination a:hover {
+    background: #eef;
+}
+
 /* Sidebar navigation lists, like on /account/settings/. */
 
 .nav-list {
