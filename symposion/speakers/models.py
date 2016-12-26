@@ -23,11 +23,6 @@ def get_photo_path(instance, filename):
 
 class Speaker(models.Model):
 
-    SESSION_COUNT_CHOICES = [
-        (1, _(u"One")),
-        (2, _(u"Two"))
-    ]
-
     user = models.OneToOneField(User, null=True, related_name="speaker_profile")
     name = models.CharField(max_length=100,
                             help_text=_(u"As you would like it to appear in "
