@@ -12,9 +12,9 @@
       - python-psycopg2
 
   - name: Install support for SNI needed by Node.js repository
-    shell: 'pip install urllib3 pyopenssl ndg-httpsclient pyasn1'
+    shell: 'pip install urllib3 pyopenssl ndg-httpsclient pyasn1 && chmod -R a+rX /usr/local/lib/python2.7/dist-packages'
     become: yes
-    become_user: postgres
+    become_user: root
 
   - name: Configure apt key for third-party Postgres repository
     apt_key:
@@ -22,7 +22,7 @@
 
   - name: Configure apt key for third-party Node.js repository
     apt_key:
-      id=68576280 url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      id=68576280 url=https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
 
   - name: Configure apt repositories
     apt_repository: repo={{ item }}

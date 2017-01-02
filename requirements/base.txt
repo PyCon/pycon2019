@@ -17,7 +17,7 @@ git+https://github.com/dpoirier/django-openid.git@minimal_django18#egg=django-op
 python-openid==2.2.5
 django_compressor==1.5
 git+https://github.com/caktus/biblion.git@feature/django-1.8#egg=biblion
-git+https://github.com/caktus/django-sitetree.git#egg=django-sitetree
+git+https://github.com/PyCon/django-sitetree.git#egg=django-sitetree
 git+https://github.com/shvechikov/python-rtfng.git#egg=python-rtfng
 
 django-taggit==0.15.0

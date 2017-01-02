@@ -68,10 +68,19 @@ Vagrant.configure(2) do |config|
   # by that Vagrant method, so we install and invoke Ansible manually.
 
   config.vm.provision "shell", inline: <<-SHELL
+    cat > /etc/os-release <<'EOF'
+NAME="Ubuntu"
+VERSION="12.04 LTS, Precise Pangolin"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu precise (12.04 LTS)"
+VERSION_ID="12.04"
+EOF
     if ! which ansible-playbook
     then
       sudo apt-get update
       sudo apt-get install -y python-dev python-pip libffi-dev
+      sudo pip install -U pip
       sudo pip install ansible
     fi
     sudo ansible-playbook -i "localhost," -c local /vagrant/develop/playbook.yml
