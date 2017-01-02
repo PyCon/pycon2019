@@ -2,26 +2,6 @@
 {% load review_tags %}
 
 <dl class="proposal-fields">
-  {% if proposal.kind.slug == "talk" %}
-    <dt>{% trans "Submitted by" %}</dt>
-    <dd>{{ proposal.speaker }}</dd>
-
-    <dt>{% trans "Duration" %}</dt>
-    <dd>{{ proposal.get_duration_display }}</dd>
-
-    <dt>{% trans "Description" %}</dt>
-    <dd class="description">{{ proposal.description }}</dd>
-
-    <dt>{% trans "Who and Why (Audience)" %}</dt>
-    <dd>{{ proposal.audience }}&nbsp;</dd>
-
-    <dt>{% trans "Outline" %}</dt>
-    <dd>{{ proposal.outline }}&nbsp;</dd>
-
-    <dt>{% trans "Additional Notes" %}</dt>
-    <dd>{{ proposal.additional_notes }}&nbsp;</dd>
-
-  {% else %}
     <dt>{% trans "Submitted by" %}</dt>
     <dd>{{ proposal.speaker }}</dd>
 
@@ -50,7 +30,7 @@
     <dt>{% trans "Description" %}</dt>
     <dd class="description significant-whitespace">{{ proposal.description }}&nbsp;</dd>
 
-    {% if proposal.kind.slug == "tutorial" %}
+    {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Audience" %}</dt>
         <dd class="significant-whitespace">{{ proposal.audience }}&nbsp;</dd>
     {% endif %}
@@ -62,5 +42,4 @@
 
     <dt>{% trans "Additional notes" %}</dt>
     <dd id="additional-notes" class="significant-whitespace">{{ proposal.additional_notes }}&nbsp</dd>
-  {% endif %}
 </dl>
