@@ -118,37 +118,23 @@
   </select>
 </form>
 
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"
+        type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"
+        type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"
+        type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"
+        type="text/javascript"></script>
 
 {% compress js %}
-<script src="{{ STATIC_URL }}datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}tabletools/js/TableTools.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}datatables/js/dataTables.bootstrap.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
         $(".tip").tooltip();
-        var cols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9{% if request.user.is_superuser %}, 11, 12{% endif %}];
-        $("table.table-reviews").DataTable({
-            "sDom": "<'row'<'span3'l><'span3'T><'span4'f>r>t<'row'<'span3'i><'span5'p>>",
-            "sPaginationType": "bootstrap",
-            "bStateSave": true,
-            "oTableTools": {
-                "aButtons": [
-                    {
-                        "sExtends": "copy",
-                        "mColumns": cols
-                    },
-                    {
-                        "sExtends": "csv",
-                        "mColumns": cols,
-                        "sFileName": "{{ section }} Review.csv"
-                    },
-                    {
-                        "sExtends": "print",
-                        "mColumns": cols
-                    },
-                ],
-                "sSwfPath": "{{ STATIC_URL }}tabletools/swf/copy_csv_xls.swf"
-            }
+        var table = $("table.table-reviews").DataTable({
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'print'],
+            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]]
         });
         // When a row is clicked it becomes selected
         $('table tbody').on( 'click', 'tr', function () {
@@ -156,7 +142,6 @@
         });
 
         // When the submit button is clicked all the selected rows are found and are sent as the value of multiInput
-        var table = $("table.table-reviews").DataTable();
         $('#button').click( function () {
             var new_list=[];
             for (i=0; i<table.rows('.selected').data().length; i++){

@@ -679,7 +679,10 @@ span.help-inline {
 .dashboard-panel h3 {
     margin: 0 0 0.5em;
 }
-.btn, .dashboard-panel a.action {
+.btn,
+.dashboard-panel a.action,
+.dataTables_paginate .paginate_button,
+.dt-button {
     display: inline-block;
     margin: 0.2em;
     box-shadow: 0 0 0 1px #CE624D;
