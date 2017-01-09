@@ -154,6 +154,13 @@ class ProposalBase(models.Model):
         """
         Return True if this proposal is editable - meaning no presentation exists yet.
         """
+        # TODO: For PyCon 2018, this should be a switch that we can
+        # throw in the admin, or maybe even schedule ahead of time to
+        # trigger on a certain date.  For tonight?  At 1:25am?  I am
+        # just returning False and going to bed.
+        if str(self.kind) == 'Talks':
+            return False
+
         # Putting this import at the top would result in a circular import
         from symposion.schedule.models import Presentation
         return not Presentation.objects.filter(proposal_base=self).exists()
