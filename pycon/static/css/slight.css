@@ -654,12 +654,15 @@ span.help-inline {
     display: block;
 }
 
-/* Text-area fields that should honor line breaks. */
+/* Most proposal text-area fields should honor line breaks. */
 
 .proposal-fields dd.significant-whitespace {
     white-space: pre-wrap;
     white-space: pre-line;
 }
+
+/* Except for the Description, which gets Markdown processing. */
+
 .proposal-fields dd.description {
     white-space: normal;
 }
