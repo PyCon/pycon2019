@@ -35,13 +35,15 @@
             <tr class="{{ proposal.user_vote_css }}">
                 <td>{{ proposal.number }}</td>
                 <td>
+                    {{ proposal.speaker }}
+                    <br />
+                    &lt;{{ proposal.speaker.email }}&gt;
+                </td>
+                <td>
                     <a href="{% url 'review_detail' proposal.pk %}">
-                        {{ proposal.speaker }}
-                        <br />
-                        &lt;{{ proposal.speaker.email }}&gt;
+                        {{ proposal.title }}
                     </a>
                 </td>
-                <td>{{ proposal.title }}</td>
                 <td>{{ proposal.category }}</td>
                 <td>{{ proposal.cached_tags }}</td>
                 {% if section_slug == "talks" %}
