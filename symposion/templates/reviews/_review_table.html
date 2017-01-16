@@ -139,7 +139,8 @@
             lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]]
         });
         // When a row is clicked it becomes selected
-        $('table tbody').on( 'click', 'tr', function () {
+        $('table tbody').on( 'click', 'tr', function (event) {
+            if ($(event.target).is('a')) return;
             $(this).toggleClass('selected');
         });
 
