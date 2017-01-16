@@ -19,14 +19,12 @@
         <th>+0</th>
         <th>-0</th>
         <th>-1</th>
-        <th>{% trans "Online Result Status" %}</th>
         <th>{% trans "Overall Status" %}</th>
         {% if can_manage %}
             <th>{% trans "Update Overall Status" %}</th>
         {% endif %}
         {% if request.user.is_superuser %}
             <th>{% trans "Rejection Status" %}</th>
-            <th>{% trans "Damage Score" %}</th>
         {% endif %}
     </thead>
 
@@ -57,15 +55,6 @@
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
                 <td>{{ proposal.minus_one }}</td>
-                <td>
-                    {% with proposal.result.status as status %}
-                        <div class="{{ status }}">
-                            {% if status != "undecided" %}
-                                <span>{{ status }}</span>
-                            {% endif %}
-                        </div>
-                    {% endwith %}
-                </td>
                 <td>{{ proposal.get_overall_status_display }}</td>
                 {% if can_manage %}
                     <td>
@@ -91,9 +80,6 @@
                                 N/A
                             {% endif %}
                         {% endwith %}
-                    </td>
-                    <td>
-                        {{ proposal.damage }}
                     </td>
                 {% endif %}
             </tr>
