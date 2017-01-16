@@ -15,6 +15,7 @@
         {% if section_slug == "talks" %}
             <th>{% trans "Voting Start" %}</th>
         {% endif %}
+        <th>{% trans "Your Vote" %}</th>
         <th>+1</th>
         <th>+0</th>
         <th>-0</th>
@@ -51,6 +52,11 @@
                 {% if section_slug == "talks" %}
                     <td>{{ proposal.result.group.vote_start|date:"M. j H:i T" }}</td>
                 {% endif %}
+                <td>
+                {% if proposal.user_vote %}
+                    <b>{{ proposal.user_vote }}</b>
+                {% endif %}
+                </td>
                 <td>{{ proposal.plus_one }}</td>
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
