@@ -39,9 +39,15 @@
                     &lt;{{ proposal.speaker.email }}&gt;
                 </td>
                 <td>
+                    {% if proposal.cancelled %}
+                        <strike>
+                    {% endif %}
                     <a href="{% url 'review_detail' proposal.pk %}">
                         {{ proposal.title }}
                     </a>
+                    {% if proposal.cancelled %}
+                        </strike>
+                    {% endif %}
                 </td>
                 <td>{{ proposal.category }}</td>
                 <td>{{ proposal.cached_tags }}</td>
@@ -61,9 +67,18 @@
                 <td>{{ proposal.plus_zero }}</td>
                 <td>{{ proposal.minus_zero }}</td>
                 <td>{{ proposal.minus_one }}</td>
-                <td>{{ proposal.get_overall_status_display }}</td>
+                <td>
+                    {% if proposal.cancelled %}
+                        <i>Cancelled</i>
+                    {% else %}
+                        {{ proposal.get_overall_status_display }}
+                    {% endif %}
+                </td>
                 {% if can_manage %}
                     <td>
+                      {% if proposal.cancelled %}
+                          <i>Cancelled</i>
+                      {% else %}
                         <form action="" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="pk" value="{{ proposal.pk }}" />
@@ -75,6 +90,7 @@
                                     {% endfor %}
                                 </select>
                             </form>
+                      {% endif %}
                     </td>
                 {% endif %}
                 {% if request.user.is_superuser %}
