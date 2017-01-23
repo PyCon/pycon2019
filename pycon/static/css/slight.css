@@ -745,12 +745,19 @@ footer p {
 
 /* -------------------- Styles for use in CMS editing -------------------- */
 
-.box-content .label {
+.box-content .label {  /* White words in a tight blue box, used in text. */
     border-radius: 3px;
     padding: 2px 10px;
     background: #136E8E;
     color: white;
     font-weight: bold;
+}
+.callout {  /* Paragraph in a rectangle with a light blue background. */
+    border: 2px solid #B4D3C6;
+    border-radius: 2em;
+    padding: 1em 2em;
+    background-color: #e6fff9;
+    /* ^ chroma('#B4D3C6').brighten().hex() */
 }
 .hotel {
     display: inline-block;

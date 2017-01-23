@@ -31,8 +31,9 @@
 
 {% block page_content %}
     {% job_sponsors as grouped_sponsors %}
-    <div class="container">
-        <div class="span8">
+    <div class="callout">
+        {% box "sponsor_jobs" %}
+    </div>
             {% for level_name, sponsors in grouped_sponsors %}
                 <h2>{{ level_name }}</h2>
                 {% for sponsor in sponsors %}
@@ -50,9 +51,4 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-        </div>
-        <aside class="span3">
-            {% box "sponsor_jobs" %}
-        </aside>
-    </div>
 {% endblock %}
