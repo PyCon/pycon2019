@@ -64,7 +64,7 @@ def schedule_list(request, slug=None):
     schedule = fetch_schedule(slug)
 
     presentations = Presentation.objects.filter(section=schedule.section)
-    presentations = presentations.exclude(cancelled=True)
+    presentations = presentations.exclude(cancelled=True).order_by('title')
 
     ctx = {
         "schedule": schedule,
