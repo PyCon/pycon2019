@@ -144,7 +144,8 @@
         var table = $("table.table-reviews").DataTable({
             dom: 'Blfrtip',
             buttons: ['copy', 'csv', 'print'],
-            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]]
+            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+            pageLength: -1
         });
         // When a row is clicked it becomes selected
         $('table tbody').on( 'click', 'tr', function (event) {
