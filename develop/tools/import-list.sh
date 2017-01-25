@@ -11,6 +11,12 @@
 
 set -e
 
+if ! [ -f accepted-talks.csv ]
+then
+    echo "Error: accepted-talks.csv not found"
+    exit 1
+fi
+
 psql "${1:-pycon2017}" <<'EOF'
 
 begin;
@@ -19,11 +25,13 @@ delete from symposion_schedule_presentation;
 delete from symposion_schedule_schedule;
 
 create temporary table s (
- proposal_id integer
+ x text,
+ y text,
+ proposal_id integer,
+ z text
 );
 
-insert into s values (135);
-insert into s values (598);
+\copy s (x, y, proposal_id, z) from 'accepted-talks.csv' csv;
 
 insert into symposion_schedule_schedule (published, section_id) values (
   true,
