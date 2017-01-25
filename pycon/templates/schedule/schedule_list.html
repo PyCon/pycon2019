@@ -25,11 +25,14 @@
   </script>
 {% endblock %}
 
+{% block body_class %}presentation-list{% endblock %}
+
 {% block body %}
   {% box "schedule_detail_"|add:schedule.section.name|slugify %}
   {% for presentation in presentations %}
     <h2>
-      <a href="{% url 'schedule_presentation_detail' presentation.pk %}">
+      <a id="presentation-{{ presentation.id }}"
+         href="{% url 'schedule_presentation_detail' presentation.pk %}">
         {{ presentation.title }}
       </a>
     </h2>

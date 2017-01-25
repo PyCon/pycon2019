@@ -845,6 +845,12 @@ footer p {
     max-width: 240px;
 }
 
+/* The presentation lists. */
+
+.presentation-list #content {
+    font-size: 16px;
+}
+
 /* The sponsors page. */
 
 .sponsor-level {

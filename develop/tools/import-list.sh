@@ -25,13 +25,10 @@ delete from symposion_schedule_presentation;
 delete from symposion_schedule_schedule;
 
 create temporary table s (
- x text,
- y text,
- proposal_id integer,
- z text
+ proposal_id integer
 );
 
-\copy s (x, y, proposal_id, z) from 'accepted-talks.csv' csv;
+\copy s (proposal_id) from 'accepted_ids.csv' csv;
 
 insert into symposion_schedule_schedule (published, section_id) values (
   true,
