@@ -535,7 +535,18 @@ def result_notification(request, section_slug, status):
         return access_not_permitted(request)
 
     model = get_proposal_model_from_section_slug(section_slug)
-    proposals = model.objects.filter(result__status=status).prefetch_related('notifications')
+    # This use to be crazy and complicated and involved something
+    # involving voting periods:
+    #proposals = model.objects.filter(result__status=status).prefetch_related('notifications')
+    # Now it is just driven directly by the PyCon-specific "overall" status:
+    status_code = {
+        u'accepted': PyConProposal.STATUS_ACCEPTED,
+        u'rejected': PyConProposal.STATUS_REJECTED,
+        u'standby': PyConProposal.STATUS_DAMAGED, # is that what standby meant?
+    }[status]
+    proposals = (model.objects
+                 .filter(overall_status=status_code)
+                 .prefetch_related('notifications'))
     notification_templates = NotificationTemplate.objects.all()
 
     ctx = {

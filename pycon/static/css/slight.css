@@ -701,6 +701,11 @@ span.help-inline {
     font-weight: bold;
     text-decoration: none;
 }
+.btn[disabled] {
+    box-shadow: none;
+    border: 1px solid #aaa;
+    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+}
 
 /* Paginated tables within the dashboard. */
 
