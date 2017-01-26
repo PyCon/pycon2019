@@ -23,3 +23,10 @@ then
 fi
 
 git checkout develop
+
+if [ "$1" != "prod" ]
+then
+    echo
+    echo '    Argument "prod" not provided, so NOT pushing to production'
+    echo
+fi
