@@ -528,6 +528,11 @@ def review_bulk_accept(request, section_slug):
         "form": form,
     })
 
+STATUS_MAP = {
+    u'accepted': PyConProposal.STATUS_ACCEPTED,
+    u'rejected': PyConProposal.STATUS_REJECTED,
+    #u'standby'?
+}
 
 @login_required
 def result_notification(request, section_slug, status):
@@ -539,11 +544,7 @@ def result_notification(request, section_slug, status):
     # involving voting periods:
     #proposals = model.objects.filter(result__status=status).prefetch_related('notifications')
     # Now it is just driven directly by the PyCon-specific "overall" status:
-    status_code = {
-        u'accepted': PyConProposal.STATUS_ACCEPTED,
-        u'rejected': PyConProposal.STATUS_REJECTED,
-        u'standby': PyConProposal.STATUS_DAMAGED, # is that what standby meant?
-    }[status]
+    status_code = STATUS_MAP[status]
     proposals = (model.objects
                  .filter(overall_status=status_code)
                  .prefetch_related('notifications'))
@@ -573,9 +574,11 @@ def result_notification_prepare(request, section_slug, status):
     except ValueError:
         return HttpResponseBadRequest()
     model = get_proposal_model_from_section_slug(section_slug)
-    proposals = model.objects.filter(
-        result__status=status,
-    )
+    # proposals = model.objects.filter(
+    #     result__status=status,
+    # )
+    status_code = STATUS_MAP[status]
+    proposals = model.objects.filter(overall_status=status_code)
     proposals = proposals.filter(pk__in=proposal_pks)
 
     notification_template_pk = request.POST.get("notification_template", "")
@@ -611,9 +614,11 @@ def result_notification_send(request, section_slug, status):
         return HttpResponseBadRequest()
 
     model = get_proposal_model_from_section_slug(section_slug)
-    proposals = model.objects.filter(
-        result__status=status,
-    )
+    # proposals = model.objects.filter(
+    #     result__status=status,
+    # )
+    status_code = STATUS_MAP[status]
+    proposals = model.objects.filter(overall_status=status_code)
     proposals = proposals.filter(pk__in=proposal_pks)
 
     notification_template_pk = request.POST.get("notification_template", "")
