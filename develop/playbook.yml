@@ -5,6 +5,7 @@
   - name: Install Ubuntu packages
     apt: name={{ item }}
     with_items:
+      - apt-transport-https  # avoid "The method driver ... could not be found"
       - git-core
       - make
       - python-dev
