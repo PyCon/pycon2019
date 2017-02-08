@@ -58,7 +58,7 @@ class GroupRegistration(TemplateView):
     http_method_names = ('get', 'post')
     template_name = "registration/group_registration.html"
 
-    @method_decorator(permission_required("auth.group_registration"))
+    @method_decorator(permission_required("registration.group_registration"))
     def dispatch(self, request, *args, **kwargs):
         return super(GroupRegistration, self).dispatch(request, *args, **kwargs)
 
