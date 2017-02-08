@@ -4,62 +4,74 @@
 
 set -e
 
+# DAY1=2016-05-28
+# DAY2=2016-05-29
+# DAY3=2016-05-30
+# DAY4=2016-05-31
+# DAY5=2016-06-01
+
+DAY1=2017-05-17
+DAY2=2017-05-18
+DAY3=2017-05-19
+DAY4=2017-05-20
+DAY5=2017-05-21
+
 cat > breaks.csv <<EOF
-slot_id,kind_slug,kind_label,day,start,duration,room_name,content_override
-sponsor-tutorial,Break,2016-05-28,10:30,30,Room A107-A109,
-sponsor-tutorial,Lunch,2016-05-28,12:30,60,Room A107-A109,
-sponsor-tutorial,Break,2016-05-29,10:30,30,Room A106,
-sponsor-tutorial,Lunch,2016-05-29,12:30,60,Room A%|Sponsor Room%,
-sponsor-tutorial,Break,2016-05-29,15:00,30,Room A%|Sponsor Room%,
-tutorial,Lunch,2016-05-28,12:20,60,(B%|C%),
-tutorial,Lunch,2016-05-29,12:20,60,(B%|C%),
-tutorial, ,2016-05-29,16:40,80,(B%|C%),
-tutorial,plenary,2016-05-29,18:00,180,(B%|C%),Opening Reception
-talk,Breakfast,2016-05-30,8:00,60,Session %,
-talk,plenary,2016-05-30,9:00,30,Session %,Welcome to PyCon
-talk,plenary,2016-05-30,9:30,40,Session %,Keynote — Lorena Barba
-talk,Break,2016-05-30,10:10,40,Session %,
-talk,Lunch,2016-05-30,12:40,60,Session A,
-talk,Lunch,2016-05-30,12:40,60,Session B,
-talk,Lunch,2016-05-30,12:55,60,Session C,
-talk,Lunch,2016-05-30,12:55,60,Session D,
-talk,Lunch,2016-05-30,12:55,60,Session E,
-talk,Break,2016-05-30,15:45,30,Session A,
-talk,Break,2016-05-30,15:45,30,Session B,
-talk,Break,2016-05-30,16:00,30,Session C,
-talk,Break,2016-05-30,16:00,30,Session D,
-talk,Break,2016-05-30,16:00,30,Session E,
-talk,plenary,2016-05-30,17:40,60,Session %,Lightning Talks
-talk,Breakfast,2016-05-31,8:00,30,Session %,
-talk,plenary,2016-05-31,8:30,30,Session %,Lightning Talks
-talk,plenary,2016-05-31,9:00,40,Session %,Python Language — Guido van Rossum
-talk,plenary,2016-05-31,9:40,40,Session %,Keynote — Parisa Tabriz
-talk,Break,2016-05-31,10:20,30,Session %,
-talk,Lunch,2016-05-31,12:40,60,Session A,
-talk,Lunch,2016-05-31,12:40,60,Session B,
-talk,Lunch,2016-05-31,12:55,60,Session C,
-talk,Lunch,2016-05-31,12:55,60,Session D,
-talk,Lunch,2016-05-31,12:55,60,Session E,
-talk,Break,2016-05-31,15:45,30,Session A,
-talk,Break,2016-05-31,15:45,30,Session B,
-talk,Break,2016-05-31,16:00,30,Session C,
-talk,Break,2016-05-31,16:00,30,Session D,
-talk,Break,2016-05-31,16:00,30,Session E,
-talk,plenary,2016-05-31,17:40,50,Session %,Lightning Talks
-talk,Break,2016-05-31,18:30,150,Session %,PyLadies Charity Auction
-talk,Breakfast,2016-06-01,8:00,30,Session %,
-talk,plenary,2016-06-01,8:30,30,Session %,Lightning Talks
-talk,plenary,2016-06-01,9:00,20,Session %,Python Software Foundation — Van Lindberg
-talk,plenary,2016-06-01,9:20,40,Session %,Keynote — Cris Ewing
-talk,Break,2016-06-01,10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
-talk,plenary,2016-06-01,15:10,40,Session %,Keynote — K Lars Lohn
-talk,plenary,2016-06-01,15:50,10,Session %,Final Remarks and Conference Close
-talk, ,2016-06-01,16:00,10,Session %,
-talk,plenary,2016-06-01,16:10,20,Session %,Sprint Pitches
-talk,Break,2016-06-01,16:30,90,Session %,“Introduction to Sprints” workshop — Oregon Ballroom 201–202
+kind_slug,kind_label,day,start,duration,room_name,content_override
+sponsor-tutorial,Break,${DAY1},10:30,30,Room A107-A109,
+sponsor-tutorial,Lunch,${DAY1},12:30,60,Room A107-A109,
+sponsor-tutorial,Break,${DAY2},10:30,30,Room A106,
+sponsor-tutorial,Lunch,${DAY2},12:30,60,Room A%|Sponsor Room%,
+sponsor-tutorial,Break,${DAY2},15:00,30,Room A%|Sponsor Room%,
+tutorial,Lunch,${DAY1},12:20,60,(B%|C%),
+tutorial,Lunch,${DAY2},12:20,60,(B%|C%),
+tutorial, ,${DAY2},16:40,80,(B%|C%),
+tutorial,plenary,${DAY2},18:00,180,(B%|C%),Opening Reception
+talk,Breakfast,${DAY3},8:00,60,Session %,
+talk,plenary,${DAY3},9:00,30,Session %,Welcome to PyCon
+talk,plenary,${DAY3},9:30,40,Session %,Keynote
+talk,Break,${DAY3},10:10,40,Session %,
+talk,Lunch,${DAY3},12:40,60,Session A,
+talk,Lunch,${DAY3},12:40,60,Session B,
+talk,Lunch,${DAY3},12:55,60,Session C,
+talk,Lunch,${DAY3},12:55,60,Session D,
+talk,Lunch,${DAY3},12:55,60,Session E,
+talk,Break,${DAY3},15:45,30,Session A,
+talk,Break,${DAY3},15:45,30,Session B,
+talk,Break,${DAY3},16:00,30,Session C,
+talk,Break,${DAY3},16:00,30,Session D,
+talk,Break,${DAY3},16:00,30,Session E,
+talk,plenary,${DAY3},17:40,60,Session %,Lightning Talks
+talk,Breakfast,${DAY4},8:00,30,Session %,
+talk,plenary,${DAY4},8:30,30,Session %,Lightning Talks
+talk,plenary,${DAY4},9:00,40,Session %,Keynote
+talk,plenary,${DAY4},9:40,40,Session %,Keynote
+talk,Break,${DAY4},10:20,30,Session %,
+talk,Lunch,${DAY4},12:40,60,Session A,
+talk,Lunch,${DAY4},12:40,60,Session B,
+talk,Lunch,${DAY4},12:55,60,Session C,
+talk,Lunch,${DAY4},12:55,60,Session D,
+talk,Lunch,${DAY4},12:55,60,Session E,
+talk,Break,${DAY4},15:45,45,Session A,
+talk,Break,${DAY4},15:45,45,Session B,
+talk,Break,${DAY4},16:00,30,Session C,
+talk,Break,${DAY4},16:00,30,Session D,
+talk,Break,${DAY4},16:00,30,Session E,
+talk,plenary,${DAY4},17:40,50,Session %,Lightning Talks
+talk,Break,${DAY4},18:30,150,Session %,PyLadies Charity Auction
+talk,Breakfast,${DAY5},8:00,30,Session %,
+talk,plenary,${DAY5},8:30,30,Session %,Lightning Talks
+talk,plenary,${DAY5},9:00,20,Session %,Python Software Foundation — Van Lindberg
+talk,plenary,${DAY5},9:20,40,Session %,PSF and Python
+talk,Break,${DAY5},10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
+talk,plenary,${DAY5},15:10,40,Session %,Keynote
+talk,plenary,${DAY5},15:50,10,Session %,Final Remarks and Conference Close
+talk, ,${DAY5},16:00,10,Session %,
+talk,plenary,${DAY5},16:10,20,Session %,Sprint Pitches
+talk,Break,${DAY5},16:30,90,Session %,“Introduction to Sprints” workshop — Oregon Ballroom 201–202
 EOF
 
-psql "${1:-pycon2016}" <<'EOF'
+psql "${1:-pycon2017}" <<EOF
 
 begin;
 
@@ -86,19 +98,8 @@ create temporary table s (
 \copy b (kind_slug, kind_label, day, start, duration, room_name, content_override) from 'breaks.csv' csv header;
 \copy s from 'schedule.csv' csv header;
 
-alter table b add column schedule_id integer;
-update b set schedule_id = ssk.schedule_id
- from symposion_schedule_slotkind ssk
- where b.kind_slug = ssk.label
- ;
-
-alter table s add column schedule_id integer;
-update s set schedule_id = sss.id
- from proposals_proposalbase ppb
-   join proposals_proposalkind ppk on (ppb.kind_id = ppk.id)
-   join symposion_schedule_schedule sss on (ppk.section_id = sss.section_id)
- where s.proposal_id = ppb.id
- ;
+-- Avoid conflict with slot id's from schedule.csv:
+update b set slot_id = -slot_id;
 
 delete from symposion_schedule_slotkind;
 delete from symposion_schedule_slotroom;
@@ -109,6 +110,18 @@ delete from symposion_schedule_presentation_additional_speakers;
 delete from symposion_schedule_presentation;
 delete from pycon_schedule_session;
 delete from pycon_schedule_session_slots;
+delete from symposion_schedule_schedule;
+
+insert into symposion_schedule_schedule (published, section_id)
+ select 't', id from conference_section;
+
+alter table s add column schedule_id integer;
+
+update s set schedule_id = sss.id
+ from proposals_proposalbase ppb
+   join proposals_proposalkind ppk on (ppb.kind_id = ppk.id)
+   join symposion_schedule_schedule sss on (ppk.section_id = sss.section_id)
+ where s.proposal_id = ppb.id;
 
 insert into symposion_schedule_slotkind (label, schedule_id)
  select
@@ -121,10 +134,23 @@ insert into symposion_schedule_slotkind (label, schedule_id)
   from (
    select distinct kind_slug, kind_label from b
    union
+   select distinct kind_slug, kind_slug from b
+   union
    select distinct kind_slug, kind_slug from s
   ) t;
 
+alter table b add column schedule_id integer;
+
+update b set schedule_id = ssk.schedule_id
+ from symposion_schedule_slotkind ssk
+ where b.kind_slug = ssk.label;
+
 insert into symposion_schedule_day (date, schedule_id)
+ select distinct b.day, ss.id
+  from b
+   join proposals_proposalkind pk on (b.kind_slug = pk.slug)
+   join symposion_schedule_schedule ss on (pk.section_id = ss.section_id)
+ union
  select distinct day, ss.id
   from s
    join proposals_proposalbase pb on (s.proposal_id = pb.id)
@@ -247,7 +273,7 @@ insert into symposion_schedule_presentation_additional_speakers
 insert into pycon_schedule_session
   (id, day_id)
  select
-  (date - '2016-05-29') * 100 + room * 10 + daypart, id
+  (date - '${DAY2}') * 100 + room * 10 + daypart, id
  from
   symposion_schedule_day ssd,
   (values (1), (2), (3), (4), (5)) t1 (room),
@@ -278,8 +304,8 @@ insert into pycon_schedule_session_slots
                             when ssr.name = 'Session D' then 4
                             else 5 end
   and
-  (pss.id / 100) = case when ssd.date = '2016-05-30' then 1
-                        when ssd.date = '2016-05-31' then 2
+  (pss.id / 100) = case when ssd.date = '${DAY3}' then 1
+                        when ssd.date = '${DAY4}' then 2
                         else 3 end
   and sssk.label = 'talk'
   and sssk.schedule_id = 6
