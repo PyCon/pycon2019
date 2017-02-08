@@ -10,7 +10,7 @@ for the various conference staff to perform their duties.
 Registrant
     When whole groups need to be registered for PyCon,
     the administrator at our registration provider
-    visits `/<YEAR>/registration/register/group/`
+    visits ``/<YEAR>/registration/register/group/``
     and will need this permission to see the form
     and successfully submit it:
     ::
