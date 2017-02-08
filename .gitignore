@@ -1,4 +1,5 @@
 _build
+*.csv
 *.pyc
 *.swp
 dev.db
