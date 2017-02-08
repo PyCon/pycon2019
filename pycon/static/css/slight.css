@@ -850,10 +850,43 @@ footer p {
     max-width: 240px;
 }
 
-/* The presentation lists. */
+/* The very wide schedule grid. */
+
+.schedule-page #content {
+    max-width: none;
+    font-size: 14px;  /* slightly smaller */
+}
+table.calendar td {
+    border: 1px solid black;
+    text-align: center;
+}
+td.slot-talk .title {
+    font-weight: bold;
+}
+td.slot-talk .title,
+td.slot-talk .speaker {
+    display: block;
+}
+td.slot-Breakfast,
+td.slot-Break,
+td.slot-Lunch {
+    background-color: #CE624D;
+    color: #fff;
+    font-weight: bold;
+}
+td.slot-plenary {
+    background-color: #136E8E;
+    color: #fff;
+    font-weight: bold;
+}
+td.time {
+    font-weight: bold;
+}
+
+/* The presentation lists for Talks, Tutorials, and Posters. */
 
 .presentation-list #content {
-    font-size: 16px;
+    font-size: 16px;  /* slightly smaller */
 }
 
 /* The sponsors page. */

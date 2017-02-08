@@ -1,4 +1,4 @@
-{% extends "schedule/wide_base.html" %}
+{% extends "site_base.html" %}
 
 {% load i18n %}
 {% load bootstrap_tags %}
@@ -13,6 +13,8 @@
 {% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block body_class %}schedule-page{% endblock %}
 
 {% block page_content %}
   <div class="container">

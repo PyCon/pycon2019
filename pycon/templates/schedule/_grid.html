@@ -22,9 +22,9 @@
                                 <span class="speaker">
                                     {{ slot.content.speakers|join:", " }}
                                 </span>
-                                <span class="audience_level">
+                                <!-- <span class="audience_level">
                                     {{ slot.content.proposal.get_audience_level_display }}
-                                </span>
+                                </span> -->
                                 <div class="badges">
                                     {% for session in slot.sessions.all %}
                                         <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" {% if not forloop.last %}style="margin-right: 10px" {% endif %}title="Session Information">S</a>
