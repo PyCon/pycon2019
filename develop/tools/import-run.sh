@@ -61,14 +61,11 @@ talk,plenary,${DAY4},17:40,50,Session %,Lightning Talks
 talk,Break,${DAY4},18:30,150,Session %,PyLadies Charity Auction
 talk,Breakfast,${DAY5},8:00,30,Session %,
 talk,plenary,${DAY5},8:30,30,Session %,Lightning Talks
-talk,plenary,${DAY5},9:00,20,Session %,Python Software Foundation — Van Lindberg
-talk,plenary,${DAY5},9:20,40,Session %,PSF and Python
+talk,plenary,${DAY5},9:00,20,Session %,PSF Community Service Awards
+talk,plenary,${DAY5},9:20,40,Session %,Python Panel with Guido van Rossum
 talk,Break,${DAY5},10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
 talk,plenary,${DAY5},15:10,40,Session %,Keynote
 talk,plenary,${DAY5},15:50,10,Session %,Final Remarks and Conference Close
-talk, ,${DAY5},16:00,10,Session %,
-talk,plenary,${DAY5},16:10,20,Session %,Sprint Pitches
-talk,Break,${DAY5},16:30,90,Session %,“Introduction to Sprints” workshop — Oregon Ballroom 201–202
 EOF
 
 psql "${1:-pycon2017}" <<EOF
