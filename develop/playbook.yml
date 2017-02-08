@@ -110,3 +110,8 @@
     when: database_creation | changed
     shell: /home/vagrant/bin/python manage.py loaddata fixtures/*
            chdir=/vagrant
+
+  - name: Make bash history more sane
+    lineinfile:
+      dest: /home/vagrant/.bashrc
+      line: 'HISTCONTROL=erasedups; unset HISTFILE'
