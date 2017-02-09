@@ -870,12 +870,12 @@ td.slot-talk .speaker {
 td.slot-Breakfast,
 td.slot-Break,
 td.slot-Lunch {
-    background-color: #CE624D;
+    background-color: #136E8E;
     color: #fff;
     font-weight: bold;
 }
 td.slot-plenary {
-    background-color: #136E8E;
+    background-color: #CE624D;
     color: #fff;
     font-weight: bold;
 }
