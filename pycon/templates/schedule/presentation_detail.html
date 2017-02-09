@@ -12,11 +12,9 @@
     <script type="text/javascript">
         $(function () {
             var converter = new Attacklab.showdown.converter();
-            $('.tutorial-comment').each(function() {
+            $('.tutorial-comment, .description').each(function() {
                 $(this).html(converter.makeHtml($(this).text()));
             })
-            $('.abstract').html(converter.makeHtml($('.abstract').text()));
-
         });
     </script>
 {% endblock %}
