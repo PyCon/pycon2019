@@ -67,7 +67,7 @@ class SponsorApplicationForm(SponsorDetailsForm):
         # visible but grayed out with "Full" or "Out" next to them.
         self.fields['level'].queryset = (
             SponsorLevel.objects
-            .exclude(name='Open Source and Community')
+            .exclude(name='Open Source Project/Community')
             # .exclude(name='Financial Aid Sponsor')
             # .exclude(name='Media')
             # .exclude(name='Patron')
