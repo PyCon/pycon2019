@@ -114,6 +114,7 @@ class ProposalBase(models.Model):
     )
     abstract = models.TextField(
         _("Detailed Abstract"),
+        blank=True,
         help_text=_("Detailed description. Will be made public "
                     "if your talk is accepted.")
     )
