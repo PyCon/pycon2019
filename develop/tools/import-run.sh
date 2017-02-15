@@ -23,10 +23,10 @@ sponsor-tutorial,Lunch,${DAY1},12:30,60,Room A107-A109,
 sponsor-tutorial,Break,${DAY2},10:30,30,Room A106,
 sponsor-tutorial,Lunch,${DAY2},12:30,60,Room A%|Sponsor Room%,
 sponsor-tutorial,Break,${DAY2},15:00,30,Room A%|Sponsor Room%,
-tutorial,Lunch,${DAY1},12:20,60,(B%|C%),
-tutorial,Lunch,${DAY2},12:20,60,(B%|C%),
-tutorial, ,${DAY2},16:40,80,(B%|C%),
-tutorial,plenary,${DAY2},18:00,180,(B%|C%),Opening Reception
+tutorial,Lunch,${DAY1},12:20,60,(B%|C%|Room%),
+tutorial,Lunch,${DAY2},12:20,60,(B%|C%|Room%),
+tutorial, ,${DAY2},16:40,80,(B%|C%|Room%),
+tutorial,plenary,${DAY2},18:00,180,(B%|C%|Room%),Opening Reception
 talk,Breakfast,${DAY3},8:00,60,Session %,
 talk,plenary,${DAY3},9:00,30,Session %,Welcome to PyCon
 talk,plenary,${DAY3},9:30,40,Session %,Keynote

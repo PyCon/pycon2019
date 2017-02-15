@@ -11,11 +11,23 @@ def path_to(base, name):
     return os.path.join(os.path.expanduser(base), name)
 
 def main():
-
     dfs = []
-
     base = sys.argv[1]
-    t = pd.read_csv(path_to(base, 'talks.csv'))
+
+    path = path_to(base, 'talks.csv')
+    if os.path.exists(path):
+        dfs.append(read_talks(path))
+
+    path = path_to(base, 'tutorials.csv')
+    if os.path.exists(path):
+        dfs.append(read_tutorials(path))
+
+    c = pd.concat(dfs).rename(columns={'time': 'start'})
+    c.to_csv('schedule.csv', index=False)
+
+
+def read_talks(path):
+    t = pd.read_csv(path)
 
     t['kind_slug'] = 'talk'
     t['proposal_id'] = t.pop('proposal')
@@ -24,24 +36,27 @@ def main():
 
     t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
 
-    dfs.append(t)
+    return t
 
     # t = pd.read_csv(path_to(base, 'PyCon 2016 Tutorial Counts - Sheet1.csv'))
     # rooms = {str(title).strip().lower(): room_name
     #          for title, room_name in t[['Title', 'Room Name']].values}
 
-    # t = pd.read_csv(path_to(base, 'tutorials.csv'))
 
-    # t['kind_slug'] = 'tutorial'
-    # t['proposal_id'] = t.pop('ID')
-    # t['day'] = pd.to_datetime(t['Day Slot'])
-    # t['time'] = t['Time Slot'].str.extract('([^ ]*)')
-    # t['duration'] = 200
-    # t['room'] = t['Title'].str.strip().str.lower().map(rooms)
+def read_tutorials(path):
+    t = pd.read_csv(path)
 
-    # t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
+    t['kind_slug'] = 'tutorial'
+    t['proposal_id'] = t.pop('id')
+    t['day'] = pd.to_datetime(t['day'])
+    t['time'] = t['time'].str.extract('([^ ]*)', expand=False)
+    t['duration'] = 200
+    t['room'] = ['Room {}'.format((n%9) + 1) for n in range(len(t))]
+    #t['room'] = t['title'].str.strip().str.lower().map(rooms)
 
-    # dfs.append(t)
+    t = t[['kind_slug', 'proposal_id', 'day', 'time', 'duration', 'room']]
+
+    return t
 
     # t = pd.read_csv(path_to(base, 'sponsor-tutorials-edited.csv'))
 
@@ -62,8 +77,6 @@ def main():
 
     #t.to_csv('schedule.csv', index=False)
 
-    c = pd.concat(dfs).rename(columns={'time': 'start'})
-    c.to_csv('schedule.csv', index=False)
 
 if __name__ == '__main__':
     main()
