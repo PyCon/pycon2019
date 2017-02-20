@@ -29,6 +29,12 @@
           </div>
         </div>
 
+        <p>
+          (Use
+          <tt>{% verbatim %}{{name}}{% endverbatim %}</tt>
+          in the title and template
+          where you want the recipient name inserted)
+        </p>
         {{ form|as_bootstrap }}
         <p>{% trans "(Use admin to add email templates.)" %}</p>
         <div class="form-actions">

@@ -197,7 +197,7 @@ def finaid_email(request, pks):
     if request.method == 'POST':
         form = BulkEmailForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
+            subject_template = Template(form.cleaned_data['subject'])
             from_email = settings.FINANCIAL_AID_EMAIL
             template_text = form.cleaned_data['template'].template
             template = Template(template_text)
@@ -211,9 +211,11 @@ def finaid_email(request, pks):
 
                 ctx = {
                     'application': application,
+                    'name': application.user.get_full_name(),
                     'review': review,
                 }
                 text = template.render(Context(ctx))
+                subject = subject_template.render(Context(ctx))
                 emails.append((subject, text, from_email,
                                [application.user.email]))
             try:
