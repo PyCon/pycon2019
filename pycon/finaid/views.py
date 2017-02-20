@@ -1,6 +1,5 @@
 import csv
 import logging
-import re
 
 from smtplib import SMTPException
 
@@ -97,18 +96,7 @@ def finaid_review(request, pks=None):
     if request.method == 'POST':
         # They want to do something to bulk applicants
         # Find the checkboxes they checked
-        regex = re.compile(r'^finaid_application_(.*)$')
-        pk_list = []
-        for field_name in request.POST:
-            m = regex.match(field_name)
-            if m:
-                pk_list.append(m.group(1))
-        if not pk_list:
-            messages.add_message(
-                request, messages.ERROR,
-                _(u"Please select at least one application"))
-            return redirect(request.path)
-
+        pk_list = request.POST.getlist('id')
         if 'email_action' in request.POST:
             # They want to email applicants
             pks = ",".join(pk_list)
