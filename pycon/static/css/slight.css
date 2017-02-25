@@ -882,6 +882,10 @@ td.slot-plenary {
 td.time {
     font-weight: bold;
 }
+.schedule-page .badges .btn {
+    font-size: 0.8em;
+    min-width: 1em;
+}
 
 /* The presentation lists for Talks, Tutorials, and Posters. */
 
