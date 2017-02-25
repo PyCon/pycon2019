@@ -270,13 +270,15 @@ insert into symposion_schedule_presentation_additional_speakers
 insert into pycon_schedule_session
   (id, day_id)
  select
-  (date - '${DAY2}') * 100 + room * 10 + daypart, id
+  (date - '${DAY2}') * 100 + room * 10 + daypart, ssd.id
  from
-  symposion_schedule_day ssd,
+  symposion_schedule_day ssd
+   join symposion_schedule_schedule sss on (ssd.schedule_id = sss.id)
+   join conference_section cs on (sss.section_id = cs.id),
   (values (1), (2), (3), (4), (5)) t1 (room),
   (values (1), (2), (3)) t2 (daypart)
  where
-  schedule_id = 6;
+  cs.slug = 'talks';
 
 insert into pycon_schedule_session_slots
   (session_id, slot_id)
@@ -290,6 +292,8 @@ insert into pycon_schedule_session_slots
   join symposion_schedule_slotkind sssk on (sss.kind_id = sssk.id)
   join symposion_schedule_slotroom sssr on (sss.id = sssr.slot_id)
   join symposion_schedule_room ssr on (sssr.room_id = ssr.id)
+  join symposion_schedule_schedule sss2 on (sssk.schedule_id = sss2.id)
+  join conference_section cs on (sss2.section_id = cs.id)
  where
   (pss.id % 10) = case when sss.start < '13:00:00' then 1
                        when sss.start < '16:00:00' then 2
@@ -305,7 +309,7 @@ insert into pycon_schedule_session_slots
                         when ssd.date = '${DAY4}' then 2
                         else 3 end
   and sssk.label = 'talk'
-  and sssk.schedule_id = 6
+  and cs.slug = 'talks'
  order by
   session_id;
 
