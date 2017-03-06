@@ -42,6 +42,7 @@ class Command(NoArgsCommand):
                 tut_name = row['tutorialname']
                 max_attendees = row['maxattendees']
                 user_email = row['useremail']
+                user_id = row['PyConID']
 
                 if not tut_id:
                     logger.warn(
@@ -57,14 +58,14 @@ class Command(NoArgsCommand):
                         tutorial = PyConTutorialProposal.objects.get(presentation=tut_id)
                     except PyConTutorialProposal.DoesNotExist:
                         logger.warn(
-                            "Unable to register '{}' for '{}': Tutorial ID "
-                            "{} is invalid.".format(user_email, tut_name, tut_id))
+                            "Unable to register '{}[{}]' for '{}': Tutorial ID "
+                            "{} is invalid.".format(user_email, user_id, tut_name, tut_id))
                         continue
                     except PyConTutorialProposal.MultipleObjectsReturned:
                         logger.warn(
-                            "Unable to register '{} for '{}': Multiple "
+                            "Unable to register '{}[{}] for '{}': Multiple "
                             "tutorials found for '{}' or '{}'".format(
-                                user_email, tut_name, tut_name, tut_id))
+                                user_email, user_id, tut_name, tut_name, tut_id))
                         continue
                     else:
                         # Clear the registrants as these are effectively
@@ -79,21 +80,28 @@ class Command(NoArgsCommand):
                 tutorial.save()
 
                 try:
-                    user = User.objects.get(email=user_email)
+                    user = User.objects.get(id=int(user_id))
                 except User.DoesNotExist:
                     logger.warn(
-                        "Unable to register '{}' for '{}' ({}): User account "
-                        "not found.".format(user_email, tut_name, tut_id))
+                        "Unable to register '{}[{}]' for '{}' ({}): User account "
+                        "not found.".format(user_email, user_id, tut_name, tut_id))
                     continue
                 except User.MultipleObjectsReturned:
                     logger.warn(
-                        "Unable to register '{}' for '{}' ({}): "
+                        "Unable to register '{}[{}]' for '{}' ({}): "
                         "Multiple user accounts found for "
-                        "email.".format(user_email, tut_name, tut_id))
+                        "email.".format(user_email, user_id, tut_name, tut_id))
+                    continue
+                except ValueError:
+                    logger.warn(
+                        "Unable to register '{}[{}]' for '{}' ({}): PyConID \"{}\""
+                        "not recognized as an integer.".format(user_email, user_id,
+                                                               tut_name, tut_id,
+                                                               user_id))
                     continue
                 else:
                     tutorial.registrants.add(user)
                     logger.debug(
-                        "Successfully registered '{}' for '{}' "
-                        "({}).".format(user_email, tut_name, tut_id))
+                        "Successfully registered '{}[{}]' for '{}' "
+                        "({}).".format(user_email, user_id, tut_name, tut_id))
         logger.debug("End update tutorial registration numbers.")
