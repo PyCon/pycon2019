@@ -92,6 +92,13 @@ class Command(NoArgsCommand):
                         "Multiple user accounts found for "
                         "email.".format(user_email, user_id, tut_name, tut_id))
                     continue
+                except ValueError:
+                    logger.warn(
+                        "Unable to register '{}[{}]' for '{}' ({}): PyConID \"{}\""
+                        "not recognized as an integer.".format(user_email, user_id,
+                                                               tut_name, tut_id,
+                                                               user_id))
+                    continue
                 else:
                     tutorial.registrants.add(user)
                     logger.debug(
