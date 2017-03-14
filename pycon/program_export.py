@@ -5,6 +5,7 @@ import os
 import shutil
 import sys
 from django.contrib.sites.models import Site
+from django.utils.text import slugify
 
 from rtfng import Styles, Renderer, Elements
 from rtfng.document.paragraph import Paragraph
@@ -143,7 +144,7 @@ class SpeakerBiosExporter(BaseExporter):
                 speakers.extend(presentation.speakers())
                 all_speakers.extend(presentation.speakers())
             speakers = sorted(list(set(speakers)), key=sort_key)
-            filename = kind.name.lower().replace(' ', '_') + '_bios'
+            filename = slugify(kind.name) + '_bios'
             self.write(filename, speakers)
 
         all_speakers = sorted(list(set(all_speakers)), key=sort_key)
@@ -163,7 +164,7 @@ class SponsorsExporter(BaseExporter):
         levels = SponsorLevel.objects.all()
         for level in levels:
             sponsors = queryset.filter(level=level).order_by('name')
-            filename = level.name.lower().replace(' ', '_') + '_sponsors'
+            filename = slugify(level.name) + '_sponsors'
             self.write(filename, sponsors)
 
 
@@ -207,7 +208,7 @@ class PresentationsExporter(BaseExporter):
         for kind in kinds:
             presentations = queryset.filter(proposal_base__kind=kind)
             presentations = presentations.order_by('slot__day', 'slot__start', 'title')
-            filename = kind.name.lower().replace(' ', '_')
+            filename = slugify(kind.name)
             if kind.slug in ['talk', 'tutorial']:
                 self.write(filename, presentations,
                            self.fields + ['room', 'time'])
@@ -290,7 +291,7 @@ class ScheduleExporter(BaseExporter):
             slots.sort(key=lambda s: s.end)
             slots.sort(key=lambda s: s.start)
             slots.sort(key=lambda s: s.day.date)
-            filename = schedule.section.name.lower().replace(' ', '_') + '_schedule'
+            filename = slugify(schedule.section.name) + '_schedule'
             self.write(filename, slots)
 
 
