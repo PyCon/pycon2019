@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+"$(dirname "$0")"/import-prep.py "$@"
 scp schedule.csv import-run.sh pycon:
 cat <<'EOF'
 

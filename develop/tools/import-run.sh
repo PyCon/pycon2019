@@ -18,11 +18,11 @@ DAY5=2017-05-21
 
 cat > breaks.csv <<EOF
 kind_slug,kind_label,day,start,duration,room_name,content_override
-sponsor-tutorial,Break,${DAY1},10:30,30,Room A107-A109,
-sponsor-tutorial,Lunch,${DAY1},12:30,60,Room A107-A109,
-sponsor-tutorial,Break,${DAY2},10:30,30,Room A106,
-sponsor-tutorial,Lunch,${DAY2},12:30,60,Room A%|Sponsor Room%,
-sponsor-tutorial,Break,${DAY2},15:00,30,Room A%|Sponsor Room%,
+sponsor-tutorial,Break,${DAY1},10:30,30,(B110-111|B118-119),
+sponsor-tutorial,Lunch,${DAY1},12:30,60,(B110-111|B118-119),
+sponsor-tutorial,Break,${DAY2},10:30,30,(B110-111|B118-119),
+sponsor-tutorial,Lunch,${DAY2},12:30,60,(B110-111|B118-119),
+sponsor-tutorial,Break,${DAY2},15:00,30,(B110-111|B118-119),
 tutorial,Lunch,${DAY1},12:20,60,(B%|C%|Room%),
 tutorial,Lunch,${DAY2},12:20,60,(B%|C%|Room%),
 tutorial, ,${DAY2},16:40,80,(B%|C%|Room%),
@@ -109,16 +109,25 @@ delete from pycon_schedule_session;
 delete from pycon_schedule_session_slots;
 delete from symposion_schedule_schedule;
 
+create or replace function raise_error(text) returns int as \$\$
+begin
+  raise exception '%', \$1;
+  return -1;
+end; \$\$ language plpgsql;
+
 insert into symposion_schedule_schedule (published, section_id)
  select 't', id from conference_section;
 
 alter table s add column schedule_id integer;
 
-update s set schedule_id = sss.id
+update s set schedule_id = coalesce(sss.id,
+  raise_error(format('Error! No proposal exists with ID %s', sss.id)))
  from proposals_proposalbase ppb
    join proposals_proposalkind ppk on (ppb.kind_id = ppk.id)
    join symposion_schedule_schedule sss on (ppk.section_id = sss.section_id)
  where s.proposal_id = ppb.id;
+
+select * from s;
 
 insert into symposion_schedule_slotkind (label, schedule_id)
  select
@@ -174,10 +183,19 @@ insert into symposion_schedule_slot
   start + cast(duration || ' minutes' as interval),
   coalesce(b.content_override, ''),
   (select id from symposion_schedule_day ssd
-    where ssd.date = day and ssd.schedule_id = b.schedule_id),
+    where ssd.date = b.day and ssd.schedule_id = b.schedule_id),
   (select id from symposion_schedule_slotkind ssk
     where label = kind_label and ssk.schedule_id = b.schedule_id)
  from b;
+
+-- Broken:
+
+select * from symposion_schedule_day order by 2, 3;
+select * from s;
+select s.day, s.schedule_id,
+  (select id from symposion_schedule_day ssd
+    where ssd.date = s.day and ssd.schedule_id = s.schedule_id)
+ from s order by 1, 2;
 
 insert into symposion_schedule_slot
  (id, start, "end", content_override, day_id, kind_id)
@@ -187,7 +205,7 @@ insert into symposion_schedule_slot
   start + cast(duration || ' minutes' as interval),
   '',
   (select id from symposion_schedule_day ssd
-    where ssd.date = day and ssd.schedule_id = s.schedule_id),
+    where ssd.date = s.day and ssd.schedule_id = s.schedule_id),
   (select id from symposion_schedule_slotkind where label = kind_slug)
  from s;
 
