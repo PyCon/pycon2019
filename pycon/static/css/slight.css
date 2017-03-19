@@ -860,11 +860,11 @@ table.calendar td {
     border: 1px solid black;
     text-align: center;
 }
-td.slot-talk .title {
+td.slot .title {
     font-weight: bold;
 }
-td.slot-talk .title,
-td.slot-talk .speaker {
+td.slot .title,
+td.slot .speaker {
     display: block;
 }
 td.slot-Breakfast,
