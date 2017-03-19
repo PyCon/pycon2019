@@ -43,17 +43,16 @@
           in {{ presentation.proposal.category }}
         {% endif %}
       </b>
-    </p>
-    <div class="presentation-description">{{ presentation.description }}</div>
-    {% if presentation.slot %}
-    <p>
+      {% if presentation.slot %}
+      <br>
       <b>
         {{ presentation.slot.day.date|date:"l" }}
         {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
         in
         {{ presentation.slot.rooms|join:", " }}
       </b>
+      {% endif %}
     </p>
-    {% endif %}
+    <div class="presentation-description">{{ presentation.description }}</div>
   {% endfor %}
 {% endblock %}
