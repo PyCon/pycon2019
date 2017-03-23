@@ -169,20 +169,10 @@ class SponsorsExporter(BaseExporter):
 
 
 class PresentationsExporter(BaseExporter):
-    fields = [('name', 'title'), 'speakers', 'audience_level', 'category',
+    fields = [('name', 'title'), 'speakers',
               'description', 'abstract', 'url']
     basedir = 'presentations/'
     description_fields = ['description']
-
-    def prepare_category(self, presentation):
-        if presentation.proposal.kind.name == "Sponsor Tutorial":
-            return "N/A"
-        return presentation.proposal.category.name
-
-    def prepare_audience_level(self, presentation):
-        if presentation.proposal.kind.name == "Sponsor Tutorial":
-            return "N/A"
-        return presentation.proposal.get_audience_level_display()
 
     def prepare_speakers(self, presentation):
         return ', '.join([s.name for s in presentation.speakers()])
@@ -239,7 +229,7 @@ class SpecialEventsExporter(BaseExporter):
 
 class ScheduleExporter(BaseExporter):
     fields = [('name', 'title'), 'speakers', 'room', 'day', 'start', 'end',
-              'audience_level', 'category', 'url', 'abstract']
+              'url', 'abstract']
     basedir = 'schedule/'
     description_fields = []
 
@@ -260,16 +250,6 @@ class ScheduleExporter(BaseExporter):
 
     def prepare_room(self, slot):
         return ', '.join([r.name for r in slot.rooms])
-
-    def prepare_audience_level(self, slot):
-        if slot.content:
-            return slot.content.proposal.get_audience_level_display()
-        return ''
-
-    def prepare_category(self, slot):
-        if slot.content:
-            return slot.content.proposal.category.name
-        return ''
 
     def prepare_url(self, slot):
         if slot.content:
