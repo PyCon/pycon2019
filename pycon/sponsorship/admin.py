@@ -128,7 +128,7 @@ class BenefitAdmin(admin.ModelAdmin):
 
 
 class SponsorLevelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'order', 'cost', 'benefits']
+    list_display = ['name', 'available', 'order', 'cost', 'benefits']
     list_editable = ['order']
     list_filter = ['conference', 'benefit_levels__benefit']
     inlines = [BenefitLevelInline]

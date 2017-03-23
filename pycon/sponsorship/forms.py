@@ -61,22 +61,8 @@ class SponsorApplicationForm(SponsorDetailsForm):
             }
         })
         super(SponsorApplicationForm, self).__init__(*args, **kwargs)
-        # TODO: there should be a way to turn off each level as it
-        # fills, instead of having to edit code. Plus, this should
-        # really be a radio button, where the unavailable ones stay
-        # visible but grayed out with "Full" or "Out" next to them.
-        self.fields['level'].queryset = (
-            SponsorLevel.objects
-            .exclude(name='Open Source Project/Community')
-            # .exclude(name='Financial Aid Sponsor')
-            # .exclude(name='Media')
-            # .exclude(name='Patron')
-            # .exclude(name='Silver')
-            # .exclude(name='Gold')
-            # .exclude(name='Platinum')
-            # .exclude(name='Diamond')
-            # .exclude(name='Keystone')
-            )
+        self.fields['level'].queryset = SponsorLevel.objects.exclude(
+            available=False)
 
     def clean_web_description(self):
         value = self.cleaned_data['web_description']

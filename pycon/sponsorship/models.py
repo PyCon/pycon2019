@@ -46,6 +46,7 @@ class SponsorLevel(models.Model):
 
     conference = models.ForeignKey(Conference, verbose_name=_("conference"))
     name = models.CharField(_("name"), max_length=100)
+    available = models.BooleanField(default=True)
     order = models.IntegerField(_("order"), default=0)
     cost = models.PositiveIntegerField(_("cost"))
     description = models.TextField(_("description"), blank=True, help_text=_("This is private."))
