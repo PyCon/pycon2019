@@ -893,6 +893,16 @@ td.time {
     font-size: 16px;  /* slightly smaller */
 }
 
+/* The Job Listing page. */
+
+.job-fair h1 {
+    text-align: center;
+}
+.job-fair .sponsor-logo {
+    float: right;
+    margin: 0 0 1em 1em;
+}
+
 /* The sponsors page. */
 
 .sponsor-level {
