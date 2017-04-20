@@ -902,6 +902,15 @@ td.time {
     float: right;
     margin: 0 0 1em 1em;
 }
+.job-fair .callout {
+    margin-bottom: 1em;
+}
+@media (min-width: 600px) {
+    .job-fair .callout {
+        width: 30%;
+        float: right;
+    }
+}
 
 /* The sponsors page. */
 
