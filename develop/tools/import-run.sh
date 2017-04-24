@@ -23,13 +23,15 @@ sponsor-tutorial,Lunch,${DAY1},12:30,60,(B110-111|B118-119),
 sponsor-tutorial,Break,${DAY2},10:30,30,(B110-111|B118-119),
 sponsor-tutorial,Lunch,${DAY2},12:30,60,(B110-111|B118-119),
 sponsor-tutorial,Break,${DAY2},15:00,30,(B110-111|B118-119),
+sponsor-tutorial, ,${DAY2},17:00,60,(B110-111|B118-119),
+sponsor-tutorial,plenary,${DAY2},18:00,180,(B110-111|B118-119),Opening Reception
 tutorial,Lunch,${DAY1},12:20,60,(B%|C%|Room%),
 tutorial,Lunch,${DAY2},12:20,60,(B%|C%|Room%),
 tutorial, ,${DAY2},16:40,80,(B%|C%|Room%),
 tutorial,plenary,${DAY2},18:00,180,(B%|C%|Room%),Opening Reception
 talk,Breakfast,${DAY3},8:00,60,Session %,
 talk,plenary,${DAY3},9:00,30,Session %,Welcome to PyCon
-talk,plenary,${DAY3},9:30,40,Session %,Keynote
+talk,plenary,${DAY3},9:30,40,Session %,Keynote: Jake Vanderplas
 talk,Break,${DAY3},10:10,40,Session %,
 talk,Lunch,${DAY3},12:40,60,Session A,
 talk,Lunch,${DAY3},12:40,60,Session B,
@@ -44,8 +46,8 @@ talk,Break,${DAY3},16:00,30,Session E,
 talk,plenary,${DAY3},17:40,60,Session %,Lightning Talks
 talk,Breakfast,${DAY4},8:00,30,Session %,
 talk,plenary,${DAY4},8:30,30,Session %,Lightning Talks
-talk,plenary,${DAY4},9:00,40,Session %,Keynote
-talk,plenary,${DAY4},9:40,40,Session %,Keynote
+talk,plenary,${DAY4},9:00,40,Session %,Keynote: Lisa Guo & Hui Ding
+talk,plenary,${DAY4},9:40,40,Session %,Keynote: Katy Huff
 talk,Break,${DAY4},10:20,30,Session %,
 talk,Lunch,${DAY4},12:40,60,Session A,
 talk,Lunch,${DAY4},12:40,60,Session B,
@@ -62,9 +64,9 @@ talk,Break,${DAY4},18:30,150,Session %,PyLadies Charity Auction
 talk,Breakfast,${DAY5},8:00,30,Session %,
 talk,plenary,${DAY5},8:30,30,Session %,Lightning Talks
 talk,plenary,${DAY5},9:00,20,Session %,PSF Community Service Awards
-talk,plenary,${DAY5},9:20,40,Session %,Python Panel with Guido van Rossum
+talk,plenary,${DAY5},9:20,40,Session %,"Panel: Paul Everitt with Guido van Rossum and others"
 talk,Break,${DAY5},10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
-talk,plenary,${DAY5},15:10,40,Session %,Keynote
+talk,plenary,${DAY5},15:10,40,Session %,Keynote: Kelsey Hightower
 talk,plenary,${DAY5},15:50,10,Session %,Final Remarks and Conference Close
 EOF
 
