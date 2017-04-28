@@ -33,7 +33,7 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    <h2>{{ presentation.title }}</h2>
+    <h2>{{ proposal.title }}</h2>
 
     <h4>
         {% for speaker in speakers %}
@@ -51,12 +51,12 @@
 
     <h3>{% trans "Description" %}</h3>
 
-    <div class="description">{{ presentation.description }}</div>
+    <div class="description">{{ proposal.description }}</div>
 
     {% if proposal.abstract  %}
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ presentation.abstract|bleach }}</div>
+    <div class="abstract">{{ proposal.abstract|bleach }}</div>
     {% endif %}
 
     {% if presentation.has_urls %}

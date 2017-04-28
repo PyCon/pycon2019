@@ -164,7 +164,7 @@ def schedule_presentation_detail(request, pk):
     ctx = {
         "presentation": presentation,
         "proposal": presentation.proposal,
-        "speakers": presentation.speakers,
+        "speakers": presentation.proposal.speakers,
         "schedule": schedule,
     }
     return render(request, "schedule/presentation_detail.html", ctx)
