@@ -303,3 +303,4 @@ class Receipt(models.Model):
         help_text=_("Please enter the amount of the receipt in US dollars."),
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     receipt_image = models.FileField(upload_to=user_directory_path)
+    logged = models.BooleanField(blank=False, default=False)

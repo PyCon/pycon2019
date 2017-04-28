@@ -14,8 +14,9 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 class ReceiptAdmin(admin.ModelAdmin):
-    list_display = ('timestamp', application__user, 'amount', 'receipt_image', )
+    list_display = ('timestamp', application__user, 'amount', 'receipt_image', 'logged')
     list_filter = ('application__user', )
+    search_fields = ('application__user__first_name', 'application__user__last_name', 'application__user__email')
 
 
 admin.site.register(FinancialAidApplication)
