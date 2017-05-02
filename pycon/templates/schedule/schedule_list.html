@@ -33,12 +33,12 @@
     <h2>
       <a id="presentation-{{ presentation.id }}"
          href="{% url 'schedule_presentation_detail' presentation.pk %}">
-        {{ presentation.title }}
+        {{ presentation.proposal.title }}
       </a>
     </h2>
     <p>
       <b>
-        {{ presentation.speakers|join:", " }}
+        {{ presentation.proposal.speakers|join:", " }}
         {% if presentation.proposal.category %}
           in {{ presentation.proposal.category }}
         {% endif %}
@@ -53,6 +53,7 @@
       </b>
       {% endif %}
     </p>
-    <div class="presentation-description">{{ presentation.description }}</div>
+    <div class="presentation-description"
+         >{{ presentation.proposal.description }}</div>
   {% endfor %}
 {% endblock %}
