@@ -219,6 +219,8 @@ class PyConUserAdmin(UserAdmin):
     inlines = list(UserAdmin.inlines) + [AccountInline, EmailAddressInline]
     search_fields = list(UserAdmin.search_fields) + ['emailaddress__email']
     list_filter = list(UserAdmin.list_filter) + [HasAccountListFilter, HasEmailAddressListFilter]
+    list_display = ('first_name', 'last_name', 'email', 'is_staff')
+    ordering = ('first_name', 'last_name')
 
 
 admin.site.unregister(User)
