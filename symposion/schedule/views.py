@@ -221,8 +221,7 @@ def schedule_json(request):
             "start": "HH:MM:SS",  # Provided but meaningless, ignore...
             "end": "HH:MM:SS",  # Provided but meaningless, ignore...
             "conf_key": 1227,
-            "conf_url": "https://conference_domain/path/to/page/about/talk",
-            "recording_release": false
+            "conf_url": "https://conference_domain/path/to/page/about/talk"
         }
     """
     slots = Slot.objects.all().order_by("start")
@@ -248,7 +247,7 @@ def schedule_json(request):
                 "slides_url": slot.content.slides_url,
                 "assets_url": slot.content.assets_url,
                 "tags": "",
-                "recording_release": slot.content.recording_release,
+                "recording_release": slot.content.proposal_base.recording_release,
             }
         else:
             continue
