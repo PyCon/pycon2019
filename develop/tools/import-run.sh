@@ -28,7 +28,9 @@ sponsor-tutorial,plenary,${DAY2},18:00,180,(B110-111|B118-119),Opening Reception
 tutorial,Lunch,${DAY1},12:20,60,(B%|C%|Room%),
 tutorial,Lunch,${DAY2},12:20,60,(B%|C%|Room%),
 tutorial, ,${DAY2},16:40,80,(B%|C%|Room%),
-tutorial,plenary,${DAY2},18:00,180,(B%|C%|Room%),Opening Reception
+tutorial,plenary,${DAY2},18:00,150,(B%|C%|Room%),Opening Reception (Expo Hall)
+talk,Breakfast,${DAY2},8:00,600,Session %,Registration desk open
+talk,plenary,${DAY2},18:00,150,Session %,Opening Reception (Expo Hall)
 talk,Breakfast,${DAY3},8:00,60,Session %,
 talk,plenary,${DAY3},9:00,30,Session %,Welcome to PyCon
 talk,plenary,${DAY3},9:30,40,Session %,Keynote: Jake Vanderplas
@@ -65,7 +67,7 @@ talk,Breakfast,${DAY5},8:00,30,Session %,
 talk,plenary,${DAY5},8:30,30,Session %,Lightning Talks
 talk,plenary,${DAY5},9:00,20,Session %,PSF Community Service Awards
 talk,plenary,${DAY5},9:20,40,Session %,"Panel: Paul Everitt with Guido van Rossum and others"
-talk,Break,${DAY5},10:00,190,Session %,Poster Session / Job Fair / Lunch — Expo Hall
+talk,Break,${DAY5},10:00,190,Session %,Poster Session / Job Fair / Lunch (Expo Hall)
 talk,plenary,${DAY5},15:10,40,Session %,Keynote: Kelsey Hightower
 talk,plenary,${DAY5},15:50,10,Session %,Final Remarks and Conference Close
 EOF
