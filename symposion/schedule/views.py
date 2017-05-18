@@ -205,7 +205,8 @@ def schedule_json(request):
             "video_url": "https://somehost/path/to/video_of_talk",
             "slides_url": "https://somehost/path/to/slides_of_talk",
             "assets_url": "https://somehost/path/to/assets_for_talk",
-            "tags": "tag1, tag2, ..., tagN"
+            "tags": "tag1, tag2, ..., tagN",
+            "recording_release": true
         }
 
     and a poster looks like::
@@ -220,7 +221,8 @@ def schedule_json(request):
             "start": "HH:MM:SS",  # Provided but meaningless, ignore...
             "end": "HH:MM:SS",  # Provided but meaningless, ignore...
             "conf_key": 1227,
-            "conf_url": "https://conference_domain/path/to/page/about/talk"
+            "conf_url": "https://conference_domain/path/to/page/about/talk",
+            "recording_release": false
         }
     """
     slots = Slot.objects.all().order_by("start")
@@ -246,6 +248,7 @@ def schedule_json(request):
                 "slides_url": slot.content.slides_url,
                 "assets_url": slot.content.assets_url,
                 "tags": "",
+                "recording_release": slot.content.recording_release,
             }
         else:
             continue
