@@ -75,7 +75,6 @@ class PyConTalkProposalFactory(PyConProposalFactory):
     kind = ProposalKind.objects.get(slug='talk')
     outline = "outline"
     audience = "audience"
-    perceived_value = "perceived_value"
 
 
 class PyConTutorialProposalFactory(PyConProposalFactory):
@@ -85,9 +84,7 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     kind = ProposalKind.objects.get(slug='tutorial')
     domain_level = 1
     outline = "outline"
-    more_info = "more info"
     audience = "audience"
-    perceived_value = "perceived_value"
 
 
 class SpecialEventFactory(factory.django.DjangoModelFactory):
