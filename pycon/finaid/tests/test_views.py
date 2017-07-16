@@ -41,7 +41,6 @@ class TestUploadFinaidReceipt(TestMixin, TestCase):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_EXPERT,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
             travel_plans="get there",
         )
@@ -126,10 +125,10 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_EXPERT,
             what_you_want="money",
-            use_of_python="fun",
             presenting='1',
             amount_requested="0.00",
             travel_plans="get there",
+            i_have_read=True,
         )
         self.assertEqual(0, len(mail.outbox))
         rsp = self.client.post(self.edit_url, data)
@@ -171,7 +170,6 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_EXPERT,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
             travel_plans="get there",
         )
@@ -181,10 +179,10 @@ class TestFinaidApplicationView(TestCase, TestMixin):
             profession="Gourmet",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
-            use_of_python="fun",
-            presenting='1',
+            presenting=1,
             amount_requested="0.00",
             travel_plans="get there quickly",
+            i_have_read=True,
         )
 
         self.assertEqual(0, len(mail.outbox))
@@ -448,7 +446,6 @@ class TestCSVExport(TestMixin, ReviewTestMixin, TestCase):
             profession=u"Föo",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want=u"money\nand\n'lóts' of it.",
-            use_of_python="fun",
             presenting=1,
         )
         FinancialAidReviewData.objects.create(

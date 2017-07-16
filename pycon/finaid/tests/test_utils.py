@@ -34,7 +34,6 @@ class TestFinAidUtils(TestCase):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
         )
         self.assertTrue(has_application(user))

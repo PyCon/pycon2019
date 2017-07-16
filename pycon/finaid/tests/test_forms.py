@@ -26,10 +26,10 @@ class FinancialAidTest(TestCase):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
             amount_requested="0.00",
             travel_plans="get there",
+            i_have_read=True,
         )
         instance = FinancialAidApplication(user=user)
         form = FinancialAidApplicationForm(data, instance=instance)
@@ -47,7 +47,6 @@ class FinancialAidTest(TestCase):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
         )
         application.save()
@@ -81,7 +80,6 @@ class TestReceiptForm(TestCase):
             profession="Foo",
             experience_level=PYTHON_EXPERIENCE_BEGINNER,
             what_you_want="money",
-            use_of_python="fun",
             presenting=1,
         )
         self.application.save()
