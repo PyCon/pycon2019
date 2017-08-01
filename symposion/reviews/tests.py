@@ -215,7 +215,7 @@ class ReviewPageTest(ReviewTestMixin, TestCase):
         self.assertEqual(OK, rsp.status_code)
 
         # Now run it for the test, making sure we don't need more queries than reasonable
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(15):
             rsp = self.client.get(url)
         self.assertEqual(OK, rsp.status_code)
         self.assertContains(rsp, talk.title)
