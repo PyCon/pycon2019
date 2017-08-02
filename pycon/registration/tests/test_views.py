@@ -10,6 +10,7 @@ from django.test import override_settings
 from pycon.tests import factories
 from pycon.tests.base import TransactionViewTestCase, ViewTestCase
 
+from pycon.registration.models import Registration
 from ..views import GroupRegistration
 
 
@@ -34,13 +35,12 @@ class GroupRegistrationTestMixin(object):
 
     def setUp(self):
         super(GroupRegistrationTestMixin, self).setUp()
-        self.permission = Permission.objects.create(
-            content_type=ContentType.objects.get_for_model(User),
-            codename='group_registration',
-            name="Can add group registrations",
+        permission = Permission.objects.get(
+            content_type=ContentType.objects.get_for_model(Registration),
+            codename='group_registration'
         )
         self.user = self.create_user()
-        self.user.user_permissions.add(self.permission)
+        self.user.user_permissions.add(permission)
         self.login_user(self.user)
 
     @override_settings(ACCOUNT_CREATE_ON_SAVE=False)
