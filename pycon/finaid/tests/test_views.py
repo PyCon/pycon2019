@@ -303,7 +303,7 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
             'template': template2.pk,
             'subject': subject,
         }
-        mock_render.return_value = template_text
+        mock_render.side_effect = [template_text, subject]
         rsp = self.client.post(self.url, data)
         self.assertEqual(302, rsp.status_code, rsp.content)
         # we tried to send the right emails
