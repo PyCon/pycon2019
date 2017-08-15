@@ -33,13 +33,12 @@ and spin up the site:
 
 On this first call to ``up`` that creates the containers, ``make``
 will go ahead and automatically perform all of the provisioning steps
-that the application needs.  You can later re-run the steps if you want
-by typing ``vagrant provision``.  Bootstrapping may take a few minutes to
+that the application needs.  You can later reset the environment using
+``make reset``.  Bootstrapping may take a few minutes to
 complete, since it downloads Django and all of the libraries it needs.
 
-When provisioning finishes, the PyCon application is ready to run.
-Simply SSH into the Vagrant machine and follow the instructions in the
-greeting that it prints out, which will recommend something like this::
+When ``docker-compose`` finishes, the PyCon application is running with
+some sample content!
 
 Finally, you should see the development version of the PyCon web site
 when you visit ``http://localhost:8000/`` in your browser!
