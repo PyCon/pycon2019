@@ -485,11 +485,15 @@ a {
 
 /* The main logo. */
 
-.beatrix-banner, .beatrix-banner img {
+.logo-banner a {
+    text-decoration: none;
+}
+
+.logo-banner, .logo-banner img {
     display: block;
-    position: absolute;
-    
-    width: 100%;
+    margin: auto;
+    position: relative;
+    height: 200px;
 }
 
 /* The navigation bar. */

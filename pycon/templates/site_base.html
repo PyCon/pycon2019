@@ -61,6 +61,9 @@
 <header class="main">
   {% include "_account_bar.html" %}
   {% block logo %}
+     <a class="logo-banner" href="{% url "home" %}">
+       <img src="{{ STATIC_URL }}/img/pycon2018.png">
+     </a>
   {% endblock %}
   <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
 </header>
