@@ -4,9 +4,9 @@
         "model": "conference.conference",
         "fields": {
             "timezone": "US/Pacific",
-            "start_date": "2017-05-17",
-            "end_date": "2017-05-25",
-            "title": "PyCon 2017"
+            "start_date": "2018-05-9",
+            "end_date": "2018-05-17",
+            "title": "PyCon 2018"
         }
     }
 ]
