@@ -426,12 +426,18 @@ textarea {
 
 /* -------------------- Styles applying to all pages -------------------- */
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 html {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 18px;
     line-height: 1.4;
 }
+
 a {
     color: #004360; /* chroma('#136E8E').darken().hex() */
 }
