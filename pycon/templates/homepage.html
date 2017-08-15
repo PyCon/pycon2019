@@ -8,18 +8,27 @@
 {% load boxes_tags %}
 {% load biblion_tags %}
 
-{% block head_title_base %}{{ SITE_NAME }} in Portland, OR | May 17–25{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Cleveland, Ohio | May 9-17{% endblock %}
 
 {% block body_class %}home-page{% endblock %}
 
 {% block logo %}
 <div class="home-banner">
-  <h1>PyCon 2017 in Portland, Oregon</h1>
-  <p>
-    <span>By the Community</span>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;May 17–25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span>For the Community</span>
-  </p>
+  <div id="clouds">
+    <div class="cloud x1"></div>
+    <div class="cloud x2"></div>
+    <div class="cloud x3"></div>
+    <div class="cloud x4"></div>
+    <div class="cloud x5"></div>
+  </div>
+  <div>
+    <h1>PyCon 2018 in Portland, Oregon</h1>
+    <p>
+      <span>By the Community</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;May 9-17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>For the Community</span>
+    </p>
+  </div>
 </div>
 {% endblock %}
 
@@ -68,20 +77,20 @@
     <h2>The conference is sold out!</h2>
     We thank everyone who is planning to attend.
     You can double-check your registration and hotel reservations
-    at the <a href="/2017/registration/">registration page</a>.
+    at the <a href="/2018/registration/">registration page</a>.
   </div><div>
     <img src="{{ STATIC_URL }}img/PNG/conference-icon.png">
     <h2>The schedule is up!</h2>
     Visit the site’s “Schedule” drop-down menu
     to see our
-    <a href="/2017/schedule/talks/">talks</a>,
-    <a href="/2017/schedule/tutorials/">tutorials</a>,
-    <a href="/2017/schedule/sponsor-tutorials/">sponsor workshops</a>,
+    <a href="/2018/schedule/talks/">talks</a>,
+    <a href="/2018/schedule/tutorials/">tutorials</a>,
+    <a href="/2018/schedule/sponsor-tutorials/">sponsor workshops</a>,
     and more.
     Then visit the “Events” tab to see everything else we have planned!
   </div><div>
     <img src="{{ STATIC_URL }}img/PNG/Sprints-Icon.png">
-    <h2><a href="/2017/sponsors/why-sponsor/"
+    <h2><a href="/2018/sponsors/why-sponsor/"
            ><b>Become a sponsor</b></a></h2>
     The companies and organizations who sponsor PyCon
     make the conference possible,

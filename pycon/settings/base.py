@@ -15,7 +15,7 @@ def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
 
-CONFERENCE_YEAR = "2017"
+CONFERENCE_YEAR = "2018"
 
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -307,10 +307,10 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
 # (10) In the Create Client ID popup, select
 #     Application type:  Web application
 #     Authorized JS origins: Your site base URL (e.g. https://staging-pycon.python.org,
-#       not https://staging-pycon.python.org/2017/)
+#       not https://staging-pycon.python.org/2018/)
 #     Authorized redirect URIs: Should be the same base URL, plus
 #       YYYY/account/social/complete/google-oauth2/ - e.g.
-#       https://staging-pycon.python.org/2017/account/social/complete/google-oauth2/
+#       https://staging-pycon.python.org/2018/account/social/complete/google-oauth2/
 # (11) Copy the displayed client ID and client secret
 
 # Google OAuth2 won't work without these defined, but not having them defined

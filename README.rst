@@ -1,6 +1,6 @@
 
 =====================
- PyCon 2017 Web Site
+ PyCon 2018 Web Site
 =====================
 
 Built by the Caktus Consulting Group atop the Django web framework.
@@ -8,7 +8,7 @@ Built by the Caktus Consulting Group atop the Django web framework.
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
 
-PyCon 2017 is built on top of Pinax Symposion but may have customizations that
+PyCon 2018 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
 
 Installation instructions are in this README.  There's more documentation
@@ -99,11 +99,11 @@ Running the PyCon web site in production
 
     python manage.py collectstatic --noinput
 
-* Arrange to serve the site_media directory as ``/2017/site_media/whatever``.
-  E.g. ``site_media/foo.html`` would be at ``/2017/site_media/foo.html``.
+* Arrange to serve the site_media directory as ``/2018/site_media/whatever``.
+  E.g. ``site_media/foo.html`` would be at ``/2018/site_media/foo.html``.
 * Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running
   with the same virtualenv (or equivalent).  It will only handle URLs
-  starting with ``/2017`` though, so you don't have to pass it any other requests.
+  starting with ``/2018`` though, so you don't have to pass it any other requests.
 
 To run tests
 ------------

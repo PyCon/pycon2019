@@ -16,7 +16,7 @@ URL_PREFIX = settings.CONFERENCE_URL_PREFIXES[settings.CONFERENCE_ID]
 
 
 urlpatterns = patterns("",
-    url(r"^$", RedirectView.as_view(url="/%s/" % URL_PREFIX, permanent=True)),
+    url(r"^$", RedirectView.as_view(url="/%s/" % URL_PREFIX, permanent=False)),
     url(r"^%s/" % URL_PREFIX, include(patterns("",
 
         url(r"^sponsors/charityauction/$", RedirectView.as_view(

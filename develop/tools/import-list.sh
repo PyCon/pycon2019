@@ -17,7 +17,7 @@ then
     exit 1
 fi
 
-psql "${1:-pycon2017}" <<'EOF'
+psql "${1:-pycon2018}" <<'EOF'
 
 begin;
 
