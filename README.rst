@@ -3,7 +3,7 @@
  PyCon 2018 Web Site
 =====================
 
-Built by the Caktus Consulting Group atop the Django web framework.
+Built by the Python Community atop the Django web framework.
 
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
@@ -22,33 +22,29 @@ Build status for develop branch:
 Running the PyCon site locally
 ------------------------------
 
-Developers can easily run the PyCon web application inside a virtual
-machine by using `Vagrant`_.  Once you have Vagrant installed on your
-computer, simply check out this project from GitHub and ask Vagrant to
-build its development machine::
+Developers can easily run the PyCon web application inside an isolated 
+environemnt by using `Docker`_.  Once you have Docker and Docker Compose
+installed on your computer, simply check out this project from GitHub
+and spin up the site:
 
     $ git clone https://github.com/PyCon/pycon.git
     $ cd pycon
-    $ vagrant up
+    $ make up
 
-On this first call to ``up`` that creates the virtual machine, Vagrant
+On this first call to ``up`` that creates the containers, ``make``
 will go ahead and automatically perform all of the provisioning steps
 that the application needs.  You can later re-run the steps if you want
-by typing ``vagrant provision``.  Provisioning may take a few minutes to
+by typing ``vagrant provision``.  Bootstrapping may take a few minutes to
 complete, since it downloads Django and all of the libraries it needs.
 
 When provisioning finishes, the PyCon application is ready to run.
 Simply SSH into the Vagrant machine and follow the instructions in the
 greeting that it prints out, which will recommend something like this::
 
-    $ vagrant ssh
-    (vagrant)vagrant@precise64:~$ cd /vagrant
-    (vagrant)vagrant@precise64:/vagrant$ ./manage.py runserver 0.0.0.0:8000
-
 Finally, you should see the development version of the PyCon web site
 when you visit ``http://localhost:8000/`` in your browser!
 
-.. _Vagrant: https://www.vagrantup.com/
+.. _Docker: https://docs.docker.com/compose/install/
 
 Running the PyCon web site in production
 ----------------------------------------
