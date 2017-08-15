@@ -630,6 +630,9 @@ label {
     margin: 0;
     font-size: 0.8em;
 }
+.controls input {
+    min-width: 60%;
+}
 .hide {
     display: none;
 }
@@ -777,7 +780,7 @@ footer p {
     display: inline-block;
     margin: 0.4em;
     background-color: #f3f5d6;
-    width: 12em;
+    width: 24em;
     padding: 0 0.8em;
     vertical-align: top;
 }
