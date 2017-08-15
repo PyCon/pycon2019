@@ -25,7 +25,8 @@ Running the PyCon site locally
 Developers can easily run the PyCon web application inside an isolated 
 environemnt by using `Docker`_.  Once you have Docker and Docker Compose
 installed on your computer, simply check out this project from GitHub
-and spin up the site:
+and spin up the site::
+
 
     $ git clone https://github.com/PyCon/pycon.git
     $ cd pycon
