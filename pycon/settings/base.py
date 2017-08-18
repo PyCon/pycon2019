@@ -143,7 +143,6 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "reversion.middleware.RevisionMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -191,7 +190,6 @@ INSTALLED_APPS = [
     # external
     "compressor",
     "mailer",
-    "django_openid",
     "timezones",
     "metron",
     "easy_thumbnails",
