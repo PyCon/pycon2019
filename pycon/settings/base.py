@@ -206,6 +206,7 @@ INSTALLED_APPS = [
     "gunicorn",
     "selectable",
     "multi_email_field",
+    "email_log",
 
     # symposion
     "symposion.conference",
@@ -236,7 +237,8 @@ FIXTURE_DIRS = [
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_USE_OPENID = False
