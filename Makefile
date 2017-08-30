@@ -1,4 +1,4 @@
-.PHONY: all test flake8 docs
+.PHONY: all test flake8 docs up down reset-volume reset
 
 MAKEFLAGS = silent
 
@@ -19,3 +19,18 @@ flake8:
 # If 'make docs' fails, try pip installing requirements/docs.txt
 docs:
 	(cd docs; DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS_MODULE) make html)
+
+up:
+	@docker-compose up -d
+	@docker-compose run web python manage.py migrate
+	@docker-compose run web python manage.py loaddata fixtures/*.json
+	@open http://localhost:8000
+
+down:
+	@docker-compose down
+	@docker-compose rm
+
+reset-volume:
+	@docker volume rm pycon_pgdata
+
+reset: down reset-volume up

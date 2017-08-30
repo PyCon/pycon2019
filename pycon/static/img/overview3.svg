@@ -183,11 +183,11 @@
      <rect x="1" width="248" y="60" height="30" />
      <text x="124" y="75">Welcome and Keynote</text>
    </a>
-     <a xlink:href="/2017/events/dinners/" target="_top" class="event">
+     <a xlink:href="/2018/events/dinners/" target="_top" class="event">
        <rect x="1" width="248" y="360" height="45" />
        <text x="133" y="383">Dinner ($)</text>
      </a>
-     <a xlink:href="/2017/events/open-spaces/" target="_top" class="open-spaces"
+     <a xlink:href="/2018/events/open-spaces/" target="_top" class="open-spaces"
         transform="translate(570, 0)" >
        <rect width="120" y="60" height="330" />
        <text x="60" y="225">Open Spaces</text>
@@ -254,7 +254,7 @@
      <rect x="1" width="248" y="320" height="30" />
      <text x="124" y="335">Lightning Talks</text>
    </a>
-   <a xlink:href="/2017/schedule/talks/" target="_top" class="talks">
+   <a xlink:href="/2018/schedule/talks/" target="_top" class="talks">
            <rect x="1" width="48" y="116" height="15" />
            <rect x="1" width="48" y="133" height="17" />
            <rect x="1" width="48" y="152" height="22" />
@@ -297,7 +297,7 @@
            <rect x="201" width="48" y="298" height="15" />
      <text x="125" y="196">Talks</text>
    </a>
-     <a xlink:href="/2017/sponsors/exhibitfloor/" target="_top" class="expo"
+     <a xlink:href="/2018/sponsors/exhibitfloor/" target="_top" class="expo"
         transform="translate(350, 0)" >
        <rect x="1" width="120" y="30" height="270" />
        <text x="60" y="147">Expo Hall</text>

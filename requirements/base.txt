@@ -12,9 +12,6 @@ http://dist.pinaxproject.com/alpha/django-mailer/django-mailer-0.2a1.tar.gz#egg=
 django-timezones==0.2
 pytz==2015.6
 
-git+https://github.com/dpoirier/django-openid.git@minimal_django18#egg=django-openid
-
-python-openid==2.2.5
 django_compressor==1.5
 git+https://github.com/caktus/biblion.git@feature/django-1.8#egg=biblion
 git+https://github.com/PyCon/django-sitetree.git#egg=django-sitetree
@@ -32,6 +29,7 @@ django-uni-form==0.9.0
 requests==2.0.0
 bleach==1.4
 
+django-email-log==0.2.0
 django-multi-email-field==0.3.1
 
 celery[redis]==3.1.18

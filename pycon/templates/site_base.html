@@ -17,14 +17,15 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 {% block style_base %}
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/slight.css" />
     {% include "markedit/includes/markedit-css.html" %}
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
 {% block extra_head_base %}
-    <meta property="og:image" content="{% static "img/pycon2017-logo.png" %}" />
-    <link href="{{ STATIC_URL }}img/pycon-2017.png" rel="shortcut icon" />
+    <meta property="og:image" content="{% static "img/pycon2018-logo.png" %}" />
+    <link href="{{ STATIC_URL }}img/pycon-2018.png" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       $(document).on('click', '.message button', function(event) {
@@ -60,9 +61,9 @@
 <header class="main">
   {% include "_account_bar.html" %}
   {% block logo %}
-    <a class="beatrix-banner" href="{% url "home" %}">
-      <img src="{{ STATIC_URL }}/img/pycon-cityscape.png">
-    </a>
+     <a class="logo-banner" href="{% url "home" %}">
+       <img src="{{ STATIC_URL }}/img/pycon2018.png">
+     </a>
   {% endblock %}
   <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
 </header>
@@ -135,12 +136,10 @@
 <footer>
   <div>
     <img class="python-logo" src="{{ STATIC_URL }}img/psf-logo.png"
-         width=334 height=82 alt="PSF logo">
+         width=300 alt="PSF logo">
     {% block credits %}{% endblock %}
     <p>
-      This year’s logo and banner were designed by
-      <a href="https://trixi.graphics/">Beatrix Bodó</a>.
-      The PyCon 2017 conference in Portland, Oregon, is a production of the
+      The PyCon 2018 conference in Cleveland, Ohio, USA, is a production of the
       <a href="http://python.org/psf/">Python Software Foundation</a>.
       This site is built using
       <a href="https://www.djangoproject.com/">Django</a>
@@ -148,6 +147,10 @@
       <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
       Hosting is provided by
       <a href="http://www.rackspace.com/">Rackspace US, Inc</a>.
+    </p>
+    <p>
+      Design by
+      <a href="http://hellofizz.com/">Fizz Creative</a>.
     </p>
   </div>
 </footer>

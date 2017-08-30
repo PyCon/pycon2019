@@ -89,7 +89,7 @@
         5:00 pm
       </text>
     </g>
-   <a class="tutorials" xlink:href="/2017/schedule/tutorials/" target="_top">
+   <a class="tutorials" xlink:href="/2018/schedule/tutorials/" target="_top">
     <rect x="1" width="27" y="30" height="100" />
     <rect x="31" width="27" y="30" height="100" />
     <rect x="61" width="27" y="30" height="100" />
@@ -101,7 +101,7 @@
     <rect x="241" width="27" y="30" height="100" />
     <text x="135.0" y="81">Morning Tutorials ($)</text>
    </a>
-   <a class="tutorials" xlink:href="/2017/schedule/tutorials/" target="_top">
+   <a class="tutorials" xlink:href="/2018/schedule/tutorials/" target="_top">
     <rect x="1" width="27" y="160" height="100" />
     <rect x="31" width="27" y="160" height="100" />
     <rect x="61" width="27" y="160" height="100" />
@@ -115,7 +115,7 @@
    </a>
    <text x="135.0" y="145">Lunch</text>
      <g transform="translate(370, 0)">
-   <a class="workshops" xlink:href="/2017/schedule/sponsor-tutorials/" target="_top">
+   <a class="workshops" xlink:href="/2018/schedule/sponsor-tutorials/" target="_top">
     <rect x="1" width="52" y="30" height="45" />
     <rect x="1" width="52" y="85" height="45" />
     <rect x="1" width="52" y="160" height="45" />
@@ -184,7 +184,7 @@
       </text>
     </g>
      <g transform="translate(580, 0)">
-   <a xlink:href="/2017/events/langsummit/" target="_top" class="summit">
+   <a xlink:href="/2018/events/langsummit/" target="_top" class="summit">
      <rect x="1" width="97" y="30" height="100" />
      <rect x="1" width="97" y="160" height="100" />
      <text x="50" y="45">Language</text>

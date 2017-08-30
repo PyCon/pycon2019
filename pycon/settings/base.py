@@ -15,7 +15,7 @@ def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
 
-CONFERENCE_YEAR = "2017"
+CONFERENCE_YEAR = "2018"
 
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -143,10 +143,8 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
     "reversion.middleware.RevisionMiddleware",
-    "social_auth.middleware.SocialAuthExceptionMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -167,7 +165,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
     "pycon.context_processors.global_settings",
-    "social_auth.context_processors.social_auth_backends",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
     "symposion.reviews.context_processors.reviews",
@@ -193,7 +190,6 @@ INSTALLED_APPS = [
     # external
     "compressor",
     "mailer",
-    "django_openid",
     "timezones",
     "metron",
     "easy_thumbnails",
@@ -202,7 +198,6 @@ INSTALLED_APPS = [
     "taggit",
     "reversion",
     "biblion",
-    "social_auth",
     "djangosecure",
     "raven.contrib.django.raven_compat",
     "constance.backends.database",
@@ -211,6 +206,7 @@ INSTALLED_APPS = [
     "gunicorn",
     "selectable",
     "multi_email_field",
+    "email_log",
 
     # symposion
     "symposion.conference",
@@ -241,7 +237,8 @@ FIXTURE_DIRS = [
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_USE_OPENID = False
@@ -255,23 +252,9 @@ AUTHENTICATION_BACKENDS = [
     # Permissions backends
     "symposion.teams.backends.TeamPermissionsBackend",
 
-    # Social Auth Backends
-    "social_auth.backends.google.GoogleOAuth2Backend",
-    "social_auth.backends.yahoo.YahooBackend",
-    "social_auth.backends.OpenIDBackend",
-
     # Django User Accounts
     "account.auth_backends.EmailAuthenticationBackend",
     'django.contrib.auth.backends.ModelBackend',
-]
-
-SOCIAL_AUTH_PIPELINE = [
-    "social_auth.backends.pipeline.social.social_auth_user",
-    "social_auth.backends.pipeline.user.get_username",
-    "symposion.social_auth.pipeline.user.create_user",
-    "social_auth.backends.pipeline.social.associate_user",
-    "social_auth.backends.pipeline.social.load_extra_data",
-    "social_auth.backends.pipeline.user.update_user_details",
 ]
 
 LOGIN_URL = reverse_lazy("account_login")
@@ -281,42 +264,6 @@ ACCOUNT_LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 LOGIN_ERROR_URL = reverse_lazy("account_login")
-
-# Need these to be reversed urls, currently breaks if using reverse_lazy
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/{}/dashboard/".format(CONFERENCE_YEAR)
-
-SOCIAL_AUTH_ASSOCIATE_BY_MAIL = False
-
-# Don't clobber User.email if someone associates a social account that
-# happens to have a different email address
-# http://django-social-auth.readthedocs.org/en/latest/configuration.html#miscellaneous-settings
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
-
-# To get the Google OAuth2 Client ID and Secret:
-#
-# (1) Login to google with some account you control
-# (2) Go to https://console.developers.google.com/project
-# (3) Create a project, give it some name (e.g. Pycon Web Site, or Pycon Staging Web Site)
-# (4) Wait until the page says the project has been created
-# (5) The project will open in the dev console
-# (6) On the left, select "APIs & auth"/"Credentials"
-# (7) Under OAuth, click "Create new Client ID" (don't worry, it's OAuth2)
-# (8) Select application type "Web application"
-# (9) Enter a Product Name on the consent Screen page and click Save
-# (10) In the Create Client ID popup, select
-#     Application type:  Web application
-#     Authorized JS origins: Your site base URL (e.g. https://staging-pycon.python.org,
-#       not https://staging-pycon.python.org/2017/)
-#     Authorized redirect URIs: Should be the same base URL, plus
-#       YYYY/account/social/complete/google-oauth2/ - e.g.
-#       https://staging-pycon.python.org/2017/account/social/complete/google-oauth2/
-# (11) Copy the displayed client ID and client secret
-
-# Google OAuth2 won't work without these defined, but not having them defined
-# won't break anything else, as far as I can tell.
-GOOGLE_OAUTH2_CLIENT_ID = env_or_default('GOOGLE_OAUTH2_CLIENT_ID', '')
-GOOGLE_OAUTH2_CLIENT_SECRET = env_or_default('GOOGLE_OAUTH2_CLIENT_SECRET', '')
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG

@@ -1,5 +1,5 @@
 /*
- * PyCon 2017 CSS: normalize.css + as few tweaks as possible (below)
+ * PyCon 2018 CSS: normalize.css + as few tweaks as possible (below)
  */
 
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
@@ -426,11 +426,18 @@ textarea {
 
 /* -------------------- Styles applying to all pages -------------------- */
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 html {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     font-size: 18px;
     line-height: 1.4;
 }
+
 a {
     color: #004360; /* chroma('#136E8E').darken().hex() */
 }
@@ -440,8 +447,7 @@ a {
     margin: 20px auto 10px;
     width: 540px;
     height: 260px;
-    /* Rendered with: inkscape -f pycon2017.svg -w 540 -e pycon2017.png */
-    background-image: url('../img/pycon2017.png');
+    background-image: url('../img/pycon2018.png');
     text-indent: -9999px;
 }
 
@@ -464,10 +470,10 @@ a {
 .account-links {
     /* margin-bottom: 0.5em; */
     /* background-color: #CE624D; */
-    background-color: #136E8E;
+    background-color: #78aca7;
     text-align: center;
     color: #DBF8EB;
-    font-weight: bold;
+    font-weight: 400;
 }
 .account-links a {
     display: inline-block;
@@ -485,20 +491,23 @@ a {
 
 /* The main logo. */
 
-.beatrix-banner, .beatrix-banner img {
+.logo-banner a {
+    text-decoration: none;
+}
+
+.logo-banner, .logo-banner img {
     display: block;
-    width: 100%;
+    margin: auto;
+    position: relative;
+    height: 200px;
 }
 
 /* The navigation bar. */
 
 nav > .nav {
-    border-top: 1px solid #57b8dc;
-    border-bottom: 1px solid #004360;
-    background-color: #308898;
-    background: linear-gradient(to bottom, #0B88AA 0%, #136E8E 100%);
+    background-color: #78aca7;
     text-align: center;
-    font-weight: bold;
+    font-weight: 400;
     margin-top: 0;
 }
 .dropdown {
@@ -621,6 +630,9 @@ label {
     margin: 0;
     font-size: 0.8em;
 }
+.controls input {
+    min-width: 60%;
+}
 .hide {
     display: none;
 }
@@ -686,19 +698,19 @@ span.help-inline {
 .dashboard-panel a.action,
 .dataTables_paginate .paginate_button,
 .dt-button {
+    background-color: #ea6446;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
     margin: 0.2em;
-    box-shadow: 0 0 0 1px #CE624D;
-    border-top: 1px solid #FBBF8B;
-    border-bottom: 1px solid black;
     border-left: none;
     border-right: none;
-    border-radius: 5px;
-    background-color: #CE624D;
-    background: linear-gradient(to bottom, #e57257 0%, #ce624d 100%);
+    border-radius: 1px;
     padding: 0.2em 0.3em;
-    color: white;
-    font-weight: bold;
+    color: black;
+    font-weight: 300;
     text-decoration: none;
 }
 .btn[disabled] {
@@ -729,7 +741,10 @@ span.help-inline {
 
 footer {
     clear: both;
-    background-color: #B4D3C6;
+        background: #77aba7;
+        background: -webkit-linear-gradient(top, #fff 0%, #77aba7 100%);
+        background: -linear-gradient(top, #fff 0%, #77aba7 100%);
+        background: -moz-linear-gradient(top, #fff 0%, #77aba7 100%);
     padding: 1em 1em 1em;
 }
 footer > div {
@@ -739,9 +754,6 @@ footer > div {
 footer img {
     float: right;
     margin: 0 0 1em 0.6em;
-    box-shadow: 0px 0px 20px #2d483d;
-    background-color: #2d483d;
-    border-radius: 5px;
     padding: 5px;
 }
 footer p {
@@ -768,7 +780,7 @@ footer p {
     display: inline-block;
     margin: 0.4em;
     background-color: #f3f5d6;
-    width: 12em;
+    width: 24em;
     padding: 0 0.8em;
     vertical-align: top;
 }
@@ -778,24 +790,38 @@ footer p {
 
 /* -------------------- Page-specific styles -------------------- */
 
+button {
+    background-color: #ea6446;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
 /* The home page. */
 
 .home-page #content, .home-page h2 {
     text-align: center;
 }
 .home-banner {
-    background-color: #B4D3C6;
     text-align: center;
     font-size: 22px;
+    height: 575px;
 }
 .home-banner h1 {
     margin: 0 auto;
-    height: 368px;
+    height: 450px;
+    position: relative;
+    top: -550px;
     background: url('../img/pycon-cityscape.png') center no-repeat;
+    background-size: contain;
     text-indent: -9999px;
+    z-index: 900;
 }
 .home-banner p {
-    display: inline-block;
+    position: relative;
+    top: -550px;
     margin: 1em auto 2em;
 }
 .home-banner p span {
@@ -939,4 +965,128 @@ td.time {
 }
 .sponsor > p {
     text-align: left;
+}
+
+/* clouds */
+
+/*Lets start with the cloud formation rather*/
+
+/*The container will also serve as the SKY*/
+
+#clouds{
+  padding: 0 0 0 0 ;
+        height: 600px;
+  background: #a7b6b8;
+  background: -webkit-linear-gradient(top, #a7b6b8 0%, #fff 100%);
+  background: -linear-gradient(top, #a7b6b8 0%, #fff 100%);
+  background: -moz-linear-gradient(top, #a7b6b8 0%, #fff 100%);
+}
+
+/*Time to finalise the cloud shape*/
+.cloud {
+  width: 200px; height: 60px;
+  background: #fff;
+  
+  border-radius: 200px;
+  -moz-border-radius: 200px;
+  -webkit-border-radius: 200px;
+  
+  position: relative; 
+}
+
+.cloud:before, .cloud:after {
+  content: '';
+  position: absolute; 
+  background: #fff;
+  width: 100px; height: 80px;
+  position: absolute; top: -15px; left: 10px;
+  
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+}
+
+.cloud:after {
+  width: 120px; height: 120px;
+  top: -55px; left: auto; right: 15px;
+}
+
+/*Time to animate*/
+.x1 {
+  left: 300px; top: 120px;
+  -webkit-animation: moveclouds 100s linear infinite;
+  -moz-animation: moveclouds 100s linear infinite;
+  -o-animation: moveclouds 100s linear infinite;
+}
+
+/*variable speed, opacity, and position of clouds for realistic effect*/
+.x2 {
+  left: -800px; top: 75px;
+  
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  transform: scale(0.6);
+  opacity: 0.6; /*opacity proportional to the size*/
+  
+  /*Speed will also be proportional to the size and opacity*/
+  /*More the speed. Less the time in 's' = seconds*/
+  -webkit-animation: moveclouds 120s linear infinite;
+  -moz-animation: moveclouds 120s linear infinite;
+  -o-animation: moveclouds 120s linear infinite;
+}
+
+.x3 {
+  left: 0px; top: 10px;
+  
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8; /*opacity proportional to the size*/
+  
+  -webkit-animation: moveclouds 160s linear infinite;
+  -moz-animation: moveclouds 160s linear infinite;
+  -o-animation: moveclouds 160s linear infinite;
+}
+
+.x4 {
+  left: -100px; top: 50px;
+  
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  opacity: 0.75; /*opacity proportional to the size*/
+  
+  -webkit-animation: moveclouds 140s linear infinite;
+  -moz-animation: moveclouds 140s linear infinite;
+  -o-animation: moveclouds 140s linear infinite;
+}
+
+.x5 {
+  left: -500px; top: 100px;
+  
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8; /*opacity proportional to the size*/
+  
+  -webkit-animation: moveclouds 160s linear infinite;
+  -moz-animation: moveclouds 160s linear infinite;
+  -o-animation: moveclouds 160s linear infinite;
+}
+
+@-webkit-keyframes moveclouds {
+  0% {margin-left: 1000px;}
+  100% {margin-left: -1000px;}
+}
+@-moz-keyframes moveclouds {
+  0% {margin-left: 1000px;}
+  100% {margin-left: -1000px;}
+}
+@-o-keyframes moveclouds {
+  0% {margin-left: 1000px;}
+  100% {margin-left: -1000px;}
 }

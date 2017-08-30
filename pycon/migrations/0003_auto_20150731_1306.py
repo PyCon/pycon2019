@@ -8,7 +8,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pycon', '0002_remove_old_google_openid_auths'),
+        ('pycon', '0001_initial'),
     ]
 
     operations = [

@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -22,6 +24,14 @@ class SignupForm(account.forms.SignupForm):
             "password",
             "password_confirm"
         ]
+
+        # BEGIN HACK TO ORDER FIELDS
+        # Django 1.8 and or django-forms-bootstrap doesn't respect keyOrder above
+        ordered = OrderedDict()
+        for k in self.fields.keyOrder:
+            ordered[k] = self.fields[k]
+        self.fields = ordered
+        # END HACK TO ORDER FIELDS
 
     def clean_email_confirm(self):
         email = self.cleaned_data.get("email")
