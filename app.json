@@ -1,0 +1,25 @@
+{
+  "name": "PyCon 2018 app",
+  "description": "The official website of PyCon 2018.",
+  "image": "heroku/python",
+  "repository": "http://github.com/pycon/pycon",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql", "sentry"],
+  "env": {
+    "SECRET_TOKEN": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "env": {
+        "IS_HEROKU_TEST": "1"
+      },
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
