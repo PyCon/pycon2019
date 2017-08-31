@@ -2,7 +2,7 @@
 
 import os
 
-from .production import *
+from .server import *
 
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
