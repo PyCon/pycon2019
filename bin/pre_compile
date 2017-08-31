@@ -2,3 +2,5 @@
 
 echo '-----> Copying Heroku local settings to proper place...'
 cp pycon/settings/local.py-heroku pycon/settings/local.py
+
+ls pycon/settings
