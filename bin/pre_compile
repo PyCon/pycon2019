@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-cp pycon/settings/local.py-example pycon/settings/local.py
+cp pycon/settings/local.py-heroku pycon/settings/local.py

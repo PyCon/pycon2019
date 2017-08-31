@@ -1,0 +1,9 @@
+# Heroku settings.
+
+import os
+
+from production import *
+
+
+SECRET_KEY = os.environ['SECRET_KEY']
+ALLOWED_HOSTS = ['*']
