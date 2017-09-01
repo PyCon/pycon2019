@@ -751,13 +751,18 @@ footer > div {
     margin: 0 auto;
     max-width: 46em;
 }
-footer img {
+footer .python-logo {
     float: right;
     margin: 0 0 1em 0.6em;
     padding: 5px;
 }
 footer p {
     margin: 1em auto;
+}
+footer p a img {
+    height: 1.25em;
+    margin-bottom: -.3em;
+    margin-left: -.1em;
 }
 
 /* -------------------- Styles for use in CMS editing -------------------- */
