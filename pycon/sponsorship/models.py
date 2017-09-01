@@ -110,7 +110,7 @@ class Sponsor(models.Model):
     small_entity_discount = models.BooleanField(
         _(
             'Does your organization have fewer than 25 employees,'
-            ' which qualifies you for our Small Entity Discount?'
+            ' which qualifies you for our Small Entity Discount of 30%?'
         ), default=False)
 
     # Whether things are complete
