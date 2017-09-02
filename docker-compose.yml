@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   pgdata:
+  redisdata:
 
 services:
   db:
@@ -11,6 +12,13 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data/
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/var/lib/redis/
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -18,9 +26,25 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_HOST=db
+      - REDIS_HOST=redis
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+  worker:
+    build: .
+    command: celery -A pycon worker --autoreload --beat
+    environment:
+      - C_FORCE_ROOT=1
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_HOST=db
+      - REDIS_HOST=redis
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis

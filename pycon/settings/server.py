@@ -34,7 +34,8 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Yes, send email
-EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env_or_default("EMAIL_HOST", "")
 
