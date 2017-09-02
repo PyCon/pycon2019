@@ -6,7 +6,7 @@
 
 {% load cache %}
 {% load compress %}
-{% load static %}
+{% load staticfiles %}
 {% load metron_tags %}
 {% load i18n %}
 {% load sponsorship_tags %}
@@ -62,7 +62,7 @@
   {% include "_account_bar.html" %}
   {% block logo %}
      <a class="logo-banner" href="{% url "home" %}">
-       <img src="{% static "/img/pycon2018.png" %}">
+       <img src="{% static "img/pycon2018.png" %}">
      </a>
   {% endblock %}
   <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
