@@ -207,6 +207,7 @@ INSTALLED_APPS = [
     "selectable",
     "multi_email_field",
     "email_log",
+    "djcelery_email",
 
     # symposion
     "symposion.conference",
@@ -237,7 +238,8 @@ FIXTURE_DIRS = [
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_OPEN_SIGNUP = True
@@ -339,7 +341,8 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 
 # Celery
-BROKER_URL = 'redis://localhost:6379/0'  # Redis DB 0 for Celery.  (Cache will use DB 1)
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+BROKER_URL = 'redis://{}:6379/0'.format(REDIS_HOST)  # Redis DB 0 for Celery.  (Cache will use DB 1)
 # We deliberately do not set CELERY_RESULT_BACKEND because we are discarding results.
 # Pickle is fine, our redis is only accessible on localhost
 CELERY_ACCEPT_CONTENT = ['pickle']

@@ -22,3 +22,4 @@ node_modules/
 /develop/playbook.retry
 develop/tools/*.csv
 .vscode/
+celerybeat-schedule
