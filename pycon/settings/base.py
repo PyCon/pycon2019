@@ -309,10 +309,6 @@ MARKEDIT_DEFAULT_SETTINGS = {
     }
 }
 
-COMPRESS_PRECOMPILERS = (
-    ('text/less', 'lessc {infile} {outfile}'),
-)
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',

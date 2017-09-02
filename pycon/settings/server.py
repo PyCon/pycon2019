@@ -30,11 +30,11 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin@gmail.com'),
-    ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
 )
 MANAGERS = ADMINS
 
 # Yes, send email
+EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env_or_default("EMAIL_HOST", "")
 
@@ -74,29 +74,23 @@ LOGGING['handlers'].update(
             'include_html': False,
             'filters': ['require_debug_false'],
         },
-        'sam_gelf': {
-            'class': 'graypy.GELFHandler',
-            'host': env_or_default('GRAYLOG_HOST', ''),
-            'port': 12201,
-            'filters': ['static_fields', 'django_exc'],
-        }
     }
 )
 LOGGING['loggers'].update(
     {
         'django.request': {
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
         'pycon': {
             # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'WARNING',
         },
         'symposion': {
             # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'WARNING',
         }
     }
