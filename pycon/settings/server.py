@@ -42,6 +42,8 @@ EMAIL_HOST = env_or_default("EMAIL_HOST", "")
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 # tells Pinax not to serve media through the staticfiles app.
 SERVE_MEDIA = False
 

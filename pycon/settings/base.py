@@ -104,7 +104,6 @@ MEDIA_URL = "/%s/site_media/media/" % CONFERENCE_URL_PREFIXES[CONFERENCE_ID]
 # at deploy time and served from in production.  Should NOT be
 # in version control, or contain anything before deploying.
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
