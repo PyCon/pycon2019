@@ -1,4 +1,4 @@
-.PHONY: all test flake8 docs up down reset-volume reset
+.PHONY: all test flake8 docs up down reset-volume reset rebuild
 
 MAKEFLAGS = silent
 
@@ -33,4 +33,7 @@ down:
 reset-volume:
 	@docker volume rm pycon_pgdata
 
-reset: down reset-volume up
+rebuild:
+	@docker-compose build
+
+reset: down rebuild reset-volume up
