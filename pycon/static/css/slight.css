@@ -488,7 +488,7 @@ a {
   align-items: center;
   background: #78ACA8;
   display: flex;
-  font-size: 0.813rem;
+  font-size: 0.875rem;
   letter-spacing: .01em;
   height: 40px;
   justify-content: center;
@@ -555,7 +555,7 @@ a {
 .nav .has-dropdown .nav-primary-link {
   color: rgba(255,255,255,0.6);
   cursor: default;
-  font-size: 0.813rem;
+  font-size: 0.875rem;
   letter-spacing: .05em;
   text-decoration: none;
   text-transform: uppercase;
@@ -627,7 +627,7 @@ a {
   color: #FFF;
   cursor: pointer;
   display: flex;
-  font-size: 0.813rem;
+  font-size: 0.875rem;
   height: 40px;
   justify-content: space-between;
   letter-spacing: .05em;
@@ -993,34 +993,58 @@ button {
 
 /* The home page. */
 
-.home-page #content, .home-page h2 {
+/* home page top banner */
+.home-page #content {
     text-align: center;
 }
 .home-banner {
-    text-align: center;
+    background: #D3E2E0;
+    background: -webkit-linear-gradient(top, #D3E2E0 0%, #fff 100%);
+    background: -linear-gradient(top, #D3E2E0 0%, #fff 100%);
+    background: -moz-linear-gradient(top, #D3E2E0 0%, #fff 100%);
     font-size: 22px;
-    height: 575px;
+    padding: 20px 0;
+    position: relative;
+    text-align: center;
+}
+.home-banner .max-width-container {
+  position: relative;
+  z-index: 1;
 }
 .home-banner h1 {
-    margin: 0 auto;
-    height: 450px;
-    position: relative;
-    top: -550px;
-    background: url('../img/pycon-cityscape.png') center no-repeat;
-    background-size: contain;
-    text-indent: -9999px;
-    z-index: 900;
+  background: url('../img/home-header-mobile.png') center no-repeat;
+  background-size: contain;
+  height: 320px;
+  margin: 0;
+  text-indent: -9999px;
+  width: 100%;
 }
-
+@media (min-width: 750px) {
+  .home-banner h1 {
+    background: url('../img/home-header-desktop.png') center no-repeat;
+    background-size: contain;
+    height: 340px;
+  }
+}
+@media (min-width: 950px) {
+  .home-banner h1 {
+    height: 400px;
+  }
+}
+@media (min-width: 1150px) {
+  .home-banner h1 {
+    height: 450px;
+  }
+}
 .home-banner .tagline-container {
-  border-bottom: 32px solid #EA6446;
+  border-bottom: 32px solid #CF9962;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-top: 32px solid #EA6446;
+  border-top: 32px solid #CF9962;
   position: relative;
-  margin: 10px 0;
+  margin: 20px auto 0;
+  max-width: 850px;
 }
-
 .home-banner h2 {
   align-content: center;
   align-items: center;
@@ -1035,62 +1059,79 @@ button {
   margin: 0;
   position: absolute;
   right: 0;
+  text-align: center;
   text-transform: uppercase;
   top: -32px;
   width: 100%;
 }
-
 .home-banner h2 span {
+  box-sizing: border-box;
   display: block;
-  font-size: 11px;
-  margin: 0 5px;
+  font-size: 0.688rem;
+  width: 100%;
 }
-
 .home-banner h2 .date {
-  font-size: 13px;
+  font-size: 0.813rem;
   width: 100%;
   margin-bottom: 2px;
 }
-
-@media (min-width: 768px) {
+@media (min-width: 500px) {
   .home-banner .tagline-container {
-    border-bottom: 26px solid #EA6446;
+    border-bottom: 26px solid #CF9962;
     border-left: 13px solid transparent;
     border-right: 13px solid transparent;
-    border-top: 26px solid #EA6446;
+    border-top: 26px solid #CF9962;
   }
-
   .home-banner h2 {
-    flex-wrap: nowrap;
     height: 52px;
-    justify-content: space-around;
     top: -26px;
   }
-
+  .home-banner h2 span {
+    margin: 0 5px;
+    width: auto;
+  }
+}
+@media (min-width: 750px) {
+  .home-banner {
+    padding: 60px 0 40px;
+  }
+  .home-banner .tagline-container {
+    border-bottom: 20px solid #CF9962;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid #CF9962;
+    margin: -1px auto 0;
+  }
+  .home-banner h2 {
+    flex-wrap: nowrap;
+    height: 40px;
+    justify-content: space-around;
+    top: -20px;
+  }
   .home-banner h2 span {
     font-size: 14px;
     margin: 0;
+    width: 220px;
     white-space: nowrap;
   }
-
   .home-banner h2 .tag1 {
     order: 1;
   }
-
   .home-banner h2 .date {
-    font-size: 14px;
+    font-size: 0.813rem;
     order: 2;
     width: auto;
   }
-
   .home-banner h2 .tag2 {
     order: 3;
   }
 }
-
-.home-banner img {
-    width: 100%;
+@media (min-width: 1150px) {
+  .home-banner .tagline-container {
+    max-width: 975px;
+  }
 }
+
 #content_homepage-about p {
     margin-top: 2em;
     /* border: 5px solid #A8AA8D; */
@@ -1227,126 +1268,171 @@ td.time {
     text-align: left;
 }
 
-/* clouds */
+/* Home Banner Cloud Animation */
 
-/*Lets start with the cloud formation rather*/
-
-/*The container will also serve as the SKY*/
-
-#clouds{
-  padding: 0 0 0 0 ;
-  height: 600px;
-  background: #D3E2E0;
-  background: -webkit-linear-gradient(top, #D3E2E0 0%, #fff 100%);
-  background: -linear-gradient(top, #D3E2E0 0%, #fff 100%);
-  background: -moz-linear-gradient(top, #D3E2E0 0%, #fff 100%);
+#clouds {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
-
-/*Time to finalise the cloud shape*/
 .cloud {
-  width: 200px; height: 60px;
-  background: #fff;
-  
-  border-radius: 200px;
-  -moz-border-radius: 200px;
-  -webkit-border-radius: 200px;
-  
-  position: relative; 
+  position: absolute;
+  left: 0;
+  margin-left: 100%;
 }
-
-.cloud:before, .cloud:after {
-  content: '';
-  position: absolute; 
-  background: #fff;
-  width: 100px; height: 80px;
-  position: absolute; top: -15px; left: 10px;
-  
-  border-radius: 100px;
-  -moz-border-radius: 100px;
-  -webkit-border-radius: 100px;
-  
-  -webkit-transform: rotate(30deg);
-  transform: rotate(30deg);
-  -moz-transform: rotate(30deg);
+@-webkit-keyframes animateCloud {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: -220px;
+  }
 }
-
-.cloud:after {
-  width: 120px; height: 120px;
-  top: -55px; left: auto; right: 15px;
+@-moz-keyframes animateCloud {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: -220px;
+  }
 }
-
-/*Time to animate*/
-.x1 {
-  left: 300px; top: 120px;
-  -webkit-animation: moveclouds 100s linear infinite;
-  -moz-animation: moveclouds 100s linear infinite;
-  -o-animation: moveclouds 100s linear infinite;
+@keyframes animateCloud {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: -220px;
+  }
 }
-
-/*variable speed, opacity, and position of clouds for realistic effect*/
-.x2 {
-  left: -800px; top: 75px;
-  
-  -webkit-transform: scale(0.6);
-  -moz-transform: scale(0.6);
-  transform: scale(0.6);
-  opacity: 0.6; /*opacity proportional to the size*/
-  
-  /*Speed will also be proportional to the size and opacity*/
-  /*More the speed. Less the time in 's' = seconds*/
-  -webkit-animation: moveclouds 120s linear infinite;
-  -moz-animation: moveclouds 120s linear infinite;
-  -o-animation: moveclouds 120s linear infinite;
+.cloud.x1,
+.cloud.x2,
+.cloud.x3,
+.cloud.x4 {
+  width: 120px;
+  height: 65px;
+  background: url('../img/home-cloud-1.svg') center no-repeat;
+  background-size: contain;
 }
-
-.x3 {
-  left: 0px; top: 10px;
-  
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  transform: scale(0.8);
-  opacity: 0.8; /*opacity proportional to the size*/
-  
-  -webkit-animation: moveclouds 160s linear infinite;
-  -moz-animation: moveclouds 160s linear infinite;
-  -o-animation: moveclouds 160s linear infinite;
+.cloud.x1 {
+  top: 25%;
+  -webkit-animation: animateCloud 35s linear infinite;
+  -moz-animation: animateCloud 35s linear infinite;
+  animation: animateCloud 35s linear infinite;
 }
-
-.x4 {
-  left: -100px; top: 50px;
-  
-  -webkit-transform: scale(0.75);
-  -moz-transform: scale(0.75);
-  transform: scale(0.75);
-  opacity: 0.75; /*opacity proportional to the size*/
-  
-  -webkit-animation: moveclouds 140s linear infinite;
-  -moz-animation: moveclouds 140s linear infinite;
-  -o-animation: moveclouds 140s linear infinite;
+.cloud.x2 {
+  top: 3%;
+  transform: scale(.85,.85);
+  opacity: .85;
+  -webkit-animation: animateCloud 45s linear infinite;
+  -moz-animation: animateCloud 45s linear infinite;
+  animation: animateCloud 45s linear infinite;
+  animation-delay: 18s;
 }
-
-.x5 {
-  left: -500px; top: 100px;
-  
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  transform: scale(0.8);
-  opacity: 0.8; /*opacity proportional to the size*/
-  
-  -webkit-animation: moveclouds 160s linear infinite;
-  -moz-animation: moveclouds 160s linear infinite;
-  -o-animation: moveclouds 160s linear infinite;
+.cloud.x3 {
+  top: 12%;
+  transform: scale(.65,.65);
+  opacity: .65;
+  -webkit-animation: animateCloud 55s linear infinite;
+  -moz-animation: animateCloud 55s linear infinite;
+  animation: animateCloud 55s linear infinite;
+  animation-delay: 2s;
 }
-
-@-webkit-keyframes moveclouds {
-  0% {margin-left: 1000px;}
-  100% {margin-left: -1000px;}
+.cloud.x4 {
+  top: 20%;
+  transform: scale(.45,.45);
+  opacity: .45;
+  -webkit-animation: animateCloud 65s linear infinite;
+  -moz-animation: animateCloud 65s linear infinite;
+  animation: animateCloud 65s linear infinite;
+  animation-delay: 26s;
 }
-@-moz-keyframes moveclouds {
-  0% {margin-left: 1000px;}
-  100% {margin-left: -1000px;}
+@media (min-width: 750px) {
+  .cloud.x1,
+  .cloud.x2,
+  .cloud.x3,
+  .cloud.x4 {
+    width: 240px;
+    height: 130px;
+  }
+  .cloud.x1 {
+    top: 45%;
+  }
+  .cloud.x2 {
+    top: 5%;
+  }
+  .cloud.x3 {
+    top: 25%;
+  }
+  .cloud.x4 {
+    top: 45%;
+  }
 }
-@-o-keyframes moveclouds {
-  0% {margin-left: 1000px;}
-  100% {margin-left: -1000px;}
+.cloud.x5,
+.cloud.x6,
+.cloud.x7,
+.cloud.x8 {
+  width: 110px;
+  height: 44px;
+  background: url('../img/home-cloud-2.svg') center no-repeat;
+  background-size: contain;
+}
+.cloud.x5 {
+  top: 10%;
+  -webkit-animation: animateCloud 35s linear infinite;
+  -moz-animation: animateCloud 35s linear infinite;
+  animation: animateCloud 35s linear infinite;
+  animation-delay: 12s;
+}
+.cloud.x6 {
+  top: 45%;
+  transform: scale(.85,.85);
+  opacity: .85;
+  -webkit-animation: animateCloud 45s linear infinite;
+  -moz-animation: animateCloud 45s linear infinite;
+  animation: animateCloud 45s linear infinite;
+  animation-delay: 14s;
+}
+.cloud.x7 {
+  top: 30%;
+  transform: scale(.65,.65);
+  opacity: .65;
+  -webkit-animation: animateCloud 55s linear infinite;
+  -moz-animation: animateCloud 55s linear infinite;
+  animation: animateCloud 55s linear infinite;
+  animation-delay: 20s;
+}
+.cloud.x8 {
+  top: 0;
+  transform: scale(.45,.45);
+  opacity: .45;
+  -webkit-animation: animateCloud 65s linear infinite;
+  -moz-animation: animateCloud 65s linear infinite;
+  animation: animateCloud 65s linear infinite;
+  animation-delay: 5s;
+}
+@media (min-width: 750px) {
+  .cloud.x5,
+  .cloud.x6,
+  .cloud.x7,
+  .cloud.x8 {
+    width: 220px;
+    height: 88px;
+  }
+  .cloud.x5 {
+    top: 20%;
+  }
+  .cloud.x6 {
+    top: 60%;
+  }
+  .cloud.x7 {
+    top: 35%;
+  }
+  .cloud.x8 {
+    top: 0;
+  }
 }
