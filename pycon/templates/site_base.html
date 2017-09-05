@@ -43,9 +43,14 @@
         return false;
       });
     </script>
+
+    <script src="{% static "js/site.js"%}"></script>
+
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
+
+
 {% endblock %}
 
 </head>
@@ -58,14 +63,14 @@
 
 {% include "_messages.html" %}
 
-<header class="main">
+<header class="header-container">
   {% include "_account_bar.html" %}
-  {% block logo %}
-     <a class="logo-banner" href="{% url "home" %}">
-       <img src="{% static "img/pycon2018.png" %}">
-     </a>
+  {% block header-imagery %}
+    <a class="logo-banner" href="{% url "home" %}">
+      <img src="{% static "img/pycon2018.png" %}">
+    </a>
   {% endblock %}
-  <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
+  {% sitetree_menu from "main" include "trunk" %}
 </header>
 
 {% block banner %}{% endblock %}
@@ -84,50 +89,7 @@
                       {% endblock %}
                     </div>
                  </div>
-
-                <!--
-                <div class="span12 col-centered sponsor-crawl">
-                    {% cache 600 "homepage-sponsor-slider" %}
-                        <h2 class="scroll-title-first">Sponsors</h2>
-                        {% sponsors "diamond" as diamond_sponsors %}
-                        <div id="sponsorslider" class="carousel slide col-centered">
-                            <!-- Carousel items
-                            <div class="carousel-inner">
-                                {% sponsors as all_sponsors %}
-                                {# sponsors without levels, 12 per each slide #}
-                                {% for sponsor in all_sponsors %}
-                                    {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                        <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                                    {% endif %}
-
-                                    <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                                        <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
-                                    </a>
-                                    {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
-                                {% endfor %}
-                            </div>
-
-
-                            {% if all_sponsors.count > 12 %}
-                              <!-- Carousel nav
-                              <nav id="slider-nav">
-                                <div class="slider-nav">
-                                    <div class="nav-container">
-                                    {% for sponsor in all_sponsors %}
-                                        {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                            <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                              </nav>
-                            {% endif %}
-                        </div>
-                    {% endcache %}
                 </div>
-                -->
-                </div>
-
                 {% endblock %}
             </div>
         {% endblock %}

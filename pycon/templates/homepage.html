@@ -13,7 +13,7 @@
 
 {% block body_class %}home-page{% endblock %}
 
-{% block logo %}
+{% block header-imagery %}
 <div class="home-banner">
   <div id="clouds">
     <div class="cloud x1"></div>
@@ -22,13 +22,15 @@
     <div class="cloud x4"></div>
     <div class="cloud x5"></div>
   </div>
-  <div>
+  <div class="max-width-container">
     <h1>PyCon 2018 in Cleveland, Ohio, USA</h1>
-    <p>
-      <span>By the Community</span>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span>For the Community</span>
-    </p>
+    <div class="tagline-container">
+      <h2>
+        <span class="date">May 9 &ndash; 17</span>
+        <span class="tag1">By the Community</span>
+        <span class="tag2">For the Community</span>
+      </h2>
+    </div>
   </div>
 </div>
 {% endblock %}
