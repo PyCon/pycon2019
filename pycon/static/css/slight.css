@@ -164,7 +164,7 @@ h1 {
 
 mark {
   background-color: #ff0;
-  color: #000;
+  color: #012A29;
 }
 
 /**
@@ -426,20 +426,22 @@ textarea {
 
 /* -------------------- Styles applying to all pages -------------------- */
 
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.4;
+  color: #012A29;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 a {
-    color: #004360; /* chroma('#136E8E').darken().hex() */
+  color: #09486B;
 }
 
 .max-width-container {
@@ -478,11 +480,6 @@ a {
     color: white;
 }
 
-/* Header container */
-.header-container {
-
-}
-
 /* Account navigation (log in, sign up, etc.) */
 .account-nav-container {
   align-items: center;
@@ -494,6 +491,10 @@ a {
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: .05em;
+}
+.account-nav-container strong {
+  font-weight: normal;
+  padding: 0 15px 0 0;
 }
 .account-nav-container a {
   align-items: center;
@@ -507,17 +508,24 @@ a {
 .account-nav-container a:hover {
   background: #8ABCB7;
 }
-
 .account-nav-container form {
-  padding: 0 0.5em;
   display: inline-block;
 }
-
+.account-nav-container button {
+  background: none;
+  border: 2px solid #FFF;
+  box-sizing: border-box;
+  padding: 2px 12px 2px;
+  margin: 0 0 0 4px;
+}
+.account-nav-container button:hover {
+  background: #8ABCB7
+}
 .account-nav-container .divider {
   color: #8ABCB7;
 }
 
-/* The main logo. */
+/* The main logo */
 .logo-banner a {
     text-decoration: none;
 }
@@ -566,6 +574,7 @@ a {
 /* style active page link */
 .nav li.active > a {
   color: #012A29 !important;
+  font-weight: bolder;
 }
 /* first level of navigation */
 .nav .nav-primary-list > li {
@@ -737,7 +746,7 @@ a {
     margin: 0 auto;
     max-width: 46em;
     padding: 1em;
-    color: #110;
+    color: #012A29;
 }
 aside {
     float: right;
@@ -794,41 +803,111 @@ td {
 }
 
 /* Forms, when there are no errors */
-
 fieldset {
-    border: none;
-    border-radius: 1em;
-    background-color: #f3f5d6; /* chroma('#A8AA8D').brighten(1.5).hex() */
-    padding: 1em;
+  border: none;
+  box-sizing: border-box;
+  background-color: #D3E2E0;
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 600px;
+  padding: 20px;
+  width: 100%;
 }
 legend {
-    margin: 1em 0;
-    font-weight: bold;
+  margin: 0 auto 16px;
+  font-weight: bold;
+  max-width: 600px;
+  width: 100%;
 }
 .control-group {
-    margin: 1em 0;
+  margin: 0 auto 20px;
+}
+.control-group:last-child {
+  margin-bottom: 0;
 }
 label {
-    color: #550;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-.controls .help-block {
-    margin: 0;
-    font-size: 0.8em;
-}
-.controls input {
-    min-width: 60%;
+  color: #012A29;
+  display: block;
+  font-size: 0.813rem;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0 0 5px 0;
+  width: 100%;
 }
 .hide {
     display: none;
 }
-input[type=text], textarea {
-    border-width: 2px;
-    border-style: solid;
-    border-color: #98917A #e2dac2 #e2dac2 #98917A;
-    /* ^ chroma('#98917A').brighten(1.5).hex() */
-    min-width: 80%;
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=url],
+textarea {
+  border: 2px solid #FFF;
+  display: block;
+  padding: 4px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=url]:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #3592B3;
+}
+input[type=file] {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+input[type=file]:after {
+  content: 'Choose File';
+  display: block;
+  background: #3592B3;
+  height: 1.7rem;
+  width: 6.5rem;
+  position: absolute;
+  top: 0;
+  color: white;
+  box-sizing: border-box;
+  padding: 2px 0 0 0;
+  text-align: center;
+  transition: all .25s ease-in-out;
+}
+input[type=file]:hover:after {
+  background: #78ACA8;
+}
+select {
+  background: #FFF;
+  border: 2px solid #FFF;
+  border-radius: 0;
+  padding: 4px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+select:focus {
+  outline: none;
+  border: 2px solid #3592B3;
+}
+input[type=checkbox],
+input[type=radio] {
+  margin: 0 7px 5px 0;
+}
+.help-block {
+  font-size: .75rem;
+  max-width: 400px
+}
+.controls .help-block {
+  margin: 5px 0 0 0;
+}
+.form-actions {
+  text-align: center;
+}
+.form-actions .help-block {
+  font-size: .813rem;
+  max-width: 400px
 }
 .box-content .markedit > textarea {
     /* override the jQuery UI "markedit > textarea" styling */
@@ -837,7 +916,7 @@ input[type=text], textarea {
 .markedit .markedit-preview {
     /* override the jQuery UI "ui-widget-content" styling */
     margin: 1em 0;
-    border: 2px dotted black;
+    border: 2px dotted #012A29;
     background: none;
     padding: 0.2em;
     color: #6a644e; /* chroma('#98917A').darken().hex() */
@@ -881,24 +960,28 @@ span.help-inline {
 .dashboard-panel h3 {
     margin: 0 0 0.5em;
 }
+button,
 .btn,
 .dashboard-panel a.action,
 .dataTables_paginate .paginate_button,
 .dt-button {
-    background-color: #ea6446;
-    border: none;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 0.2em;
-    border-left: none;
-    border-right: none;
-    border-radius: 1px;
-    padding: 0.2em 0.3em;
-    color: black;
-    font-weight: 300;
-    text-decoration: none;
+  background: #3592B3;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 300;
+  padding: 3px 15px 6px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .25s ease-in-out;
+}
+button:hover,
+.btn:hover,
+.dashboard-panel a.action:hover,
+.dataTables_paginate .paginate_button:hover,
+.dt-button:hover {
+  background: #78ACA8;
 }
 .btn[disabled] {
     box-shadow: none;
@@ -969,12 +1052,13 @@ footer p a img {
     /* ^ chroma('#B4D3C6').brighten().hex() */
 }
 .hotel {
-    display: inline-block;
-    margin: 0.4em;
-    background-color: #f3f5d6;
-    width: 24em;
-    padding: 0 0.8em;
-    vertical-align: top;
+  background-color: #D3E2E0;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  max-width: 420px;
+  padding: 20px;
+  width: 100%;
 }
 .hotel h3 {
     color: #CE624D;
@@ -982,21 +1066,12 @@ footer p a img {
 
 /* -------------------- Page-specific styles -------------------- */
 
-button {
-    background-color: #ea6446;
-    border: none;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+/* The home page */
+body.home-page #content,
+body.home-page h2 {
+  text-align: center;
 }
-
-/* The home page. */
-
 /* home page top banner */
-.home-page #content {
-    text-align: center;
-}
 .home-banner {
     background: #D3E2E0;
     background: -webkit-linear-gradient(top, #D3E2E0 0%, #fff 100%);
@@ -1170,7 +1245,7 @@ button {
     padding: 1em;
 }
 .front-page-sponsors a:hover {
-    border: 2px solid black;
+    border: 2px solid #012A29;
 }
 .front-page-sponsors img {
     max-height: 120px;
@@ -1184,7 +1259,7 @@ button {
     font-size: 14px;  /* slightly smaller */
 }
 table.calendar td {
-    border: 1px solid black;
+    border: 1px solid #012A29;
     text-align: center;
 }
 td.slot .title {
@@ -1247,8 +1322,8 @@ td.time {
     text-align: center;
 }
 .sponsor-level h2 {
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-top: 2px solid #012A29;
+    border-bottom: 2px solid #012A29;
 }
 .sponsor {
     display: inline-block;
@@ -1435,4 +1510,13 @@ td.time {
   .cloud.x8 {
     top: 0;
   }
+}
+
+/* Log In Page */
+body.login #content {
+  text-align: center;
+}
+
+body.login .forgot {
+  font-size: .813rem;
 }
