@@ -1201,7 +1201,7 @@ body.home-page h2 {
 .home-banner h2 .date {
   font-size: 0.813rem;
   width: 100%;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 @media (min-width: 500px) {
   .home-banner .tagline-container {
@@ -1215,8 +1215,14 @@ body.home-page h2 {
     top: -26px;
   }
   .home-banner h2 span {
-    margin: 0 5px;
     width: auto;
+  }
+  .home-banner h2 .tag1 {
+    border-right: 2px solid #FFCF89;
+    padding-right: 12px;
+  }
+  .home-banner h2 .tag2 {
+    padding-left: 15px;
   }
 }
 @media (min-width: 750px) {
@@ -1238,12 +1244,13 @@ body.home-page h2 {
   }
   .home-banner h2 span {
     font-size: 14px;
-    margin: 0;
     width: 220px;
     white-space: nowrap;
   }
   .home-banner h2 .tag1 {
+    border: none;
     order: 1;
+    padding: 0;
   }
   .home-banner h2 .date {
     font-size: 0.813rem;
@@ -1252,6 +1259,7 @@ body.home-page h2 {
   }
   .home-banner h2 .tag2 {
     order: 3;
+    padding: 0;
   }
 }
 @media (min-width: 1150px) {
@@ -1465,36 +1473,36 @@ td.time {
 }
 .cloud.x1 {
   top: 25%;
-  -webkit-animation: animateCloud 35s linear infinite;
-  -moz-animation: animateCloud 35s linear infinite;
-  animation: animateCloud 35s linear infinite;
+  -webkit-animation: animateCloud 45s linear infinite;
+  -moz-animation: animateCloud 45s linear infinite;
+  animation: animateCloud 45s linear infinite;
 }
 .cloud.x2 {
   top: 3%;
   transform: scale(.85,.85);
   opacity: .85;
-  -webkit-animation: animateCloud 45s linear infinite;
-  -moz-animation: animateCloud 45s linear infinite;
-  animation: animateCloud 45s linear infinite;
-  animation-delay: 18s;
+  -webkit-animation: animateCloud 55s linear infinite;
+  -moz-animation: animateCloud 55s linear infinite;
+  animation: animateCloud 55s linear infinite;
+  animation-delay: 24s;
 }
 .cloud.x3 {
   top: 12%;
   transform: scale(.65,.65);
   opacity: .65;
-  -webkit-animation: animateCloud 55s linear infinite;
-  -moz-animation: animateCloud 55s linear infinite;
-  animation: animateCloud 55s linear infinite;
-  animation-delay: 2s;
+  -webkit-animation: animateCloud 65s linear infinite;
+  -moz-animation: animateCloud 65s linear infinite;
+  animation: animateCloud 65s linear infinite;
+  animation-delay: 4s;
 }
 .cloud.x4 {
   top: 20%;
   transform: scale(.45,.45);
   opacity: .45;
-  -webkit-animation: animateCloud 65s linear infinite;
-  -moz-animation: animateCloud 65s linear infinite;
-  animation: animateCloud 65s linear infinite;
-  animation-delay: 26s;
+  -webkit-animation: animateCloud 75s linear infinite;
+  -moz-animation: animateCloud 75s linear infinite;
+  animation: animateCloud 75s linear infinite;
+  animation-delay: 34s;
 }
 @media (min-width: 750px) {
   .cloud.x1,
@@ -1528,37 +1536,37 @@ td.time {
 }
 .cloud.x5 {
   top: 10%;
-  -webkit-animation: animateCloud 35s linear infinite;
-  -moz-animation: animateCloud 35s linear infinite;
-  animation: animateCloud 35s linear infinite;
-  animation-delay: 12s;
+  -webkit-animation: animateCloud 45s linear infinite;
+  -moz-animation: animateCloud 45s linear infinite;
+  animation: animateCloud 45s linear infinite;
+  animation-delay: 16s;
 }
 .cloud.x6 {
   top: 45%;
   transform: scale(.85,.85);
   opacity: .85;
-  -webkit-animation: animateCloud 45s linear infinite;
-  -moz-animation: animateCloud 45s linear infinite;
-  animation: animateCloud 45s linear infinite;
-  animation-delay: 14s;
-}
-.cloud.x7 {
-  top: 30%;
-  transform: scale(.65,.65);
-  opacity: .65;
   -webkit-animation: animateCloud 55s linear infinite;
   -moz-animation: animateCloud 55s linear infinite;
   animation: animateCloud 55s linear infinite;
   animation-delay: 20s;
 }
+.cloud.x7 {
+  top: 30%;
+  transform: scale(.65,.65);
+  opacity: .65;
+  -webkit-animation: animateCloud 65s linear infinite;
+  -moz-animation: animateCloud 65s linear infinite;
+  animation: animateCloud 65s linear infinite;
+  animation-delay: 28s;
+}
 .cloud.x8 {
   top: 0;
   transform: scale(.45,.45);
   opacity: .45;
-  -webkit-animation: animateCloud 65s linear infinite;
-  -moz-animation: animateCloud 65s linear infinite;
-  animation: animateCloud 65s linear infinite;
-  animation-delay: 5s;
+  -webkit-animation: animateCloud 75s linear infinite;
+  -moz-animation: animateCloud 75s linear infinite;
+  animation: animateCloud 75s linear infinite;
+  animation-delay: 8s;
 }
 @media (min-width: 750px) {
   .cloud.x5,
