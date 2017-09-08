@@ -12,7 +12,7 @@
       "last_login": "2013-06-05T13:06:07.617",
       "groups": [],
       "user_permissions": [],
-      "password": "",
+      "password": "pbkdf2_sha256$20000$Ub0tWtIQclN4$hG3Ans/oqvBzODShb+soTZtbxyQo0+hHRjoOv1vcVe4=",
       "email": "user1@example.com",
       "date_joined": "2013-06-05T13:06:07.617"
     }
