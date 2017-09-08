@@ -23,6 +23,11 @@
                     {% endif %}
                     <div class="form-actions">
                         <button class="btn btn-primary" type="submit">{% trans "Create Account" %}</button>
+                        <p class="account-msg">
+                            <a href="{% url "account_login" %}">
+                                {% trans "Log in" %}
+                            </a>
+                        </p>
                     </div>
                 </fieldset>
             </form>

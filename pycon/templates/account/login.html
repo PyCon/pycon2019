@@ -9,10 +9,9 @@
 {% block body_class %}login{% endblock %}
 
 {% block page_content %}
-    <h1>{% trans "Log in" %}</h1>
-    <div class="hotel">
-        <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-            <h4>{% trans "Sign in to an existing account" %}</h4>
+    <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        <legend><h1>{% trans "Log in to an existing account" %}</h1></legend>
+        <fieldset>
             {% csrf_token %}
             {{ form|as_bootstrap }}
             {% if redirect_field_value %}
@@ -20,12 +19,17 @@
             {% endif %}
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
-                <p class="forgot">
+                <p class="account-msg">
                     <a href="{% url "account_password_reset" %}">
                         {% trans "Forgot your password?" %}
                     </a>
                 </p>
+                <p class="account-msg">
+                    <a href="{% url "account_signup" %}">
+                        {% trans "Sign up" %}
+                    </a>
+                </p>
             </div>
-        </form>
-    </div>
+        </fieldset>
+    </form>
 {% endblock page_content %}
