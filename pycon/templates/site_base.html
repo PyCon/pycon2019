@@ -63,38 +63,40 @@
 
 {% include "_messages.html" %}
 
-<header class="header-container">
-  {% include "_account_bar.html" %}
-  {% block header-imagery %}
-    <a class="logo-banner" href="{% url "home" %}">
-      <img src="{% static "img/pycon2018.png" %}">
-    </a>
-  {% endblock %}
-  {% sitetree_menu from "main" include "trunk" %}
-</header>
+<div id="content-wrapper"> <!-- wrap everything but footer for sticky footer -->
+  <header class="header-container">
+    {% include "_account_bar.html" %}
+    {% block header-imagery %}
+      <a class="logo-banner" href="{% url "home" %}">
+        <img src="{% static "img/pycon2018.png" %}">
+      </a>
+    {% endblock %}
+    {% sitetree_menu from "main" include "trunk" %}
+  </header>
 
-{% block banner %}{% endblock %}
+  {% block banner %}{% endblock %}
 
-{% block body_base %}
+  {% block body_base %}
     <div id="content">
         {% block body_outer %}
-            <div class="page-content">
-                {% block page_content %}
-                <div class="container">
-                    {% block edit_page %}{% endblock %}
-                    <h1>{% block page_title %}{% endblock %}</h1>
-                    <div class="box">
-                      {% block box %}
-                        <div class="box-content">{% block body %}{% endblock %}</div>
-                      {% endblock %}
-                    </div>
-                 </div>
+          <div class="page-content">
+            {% block page_content %}
+              <div class="container">
+                {% block edit_page %}{% endblock %}
+                <h1>{% block page_title %}{% endblock %}</h1>
+                <div class="box">
+                  {% block box %}
+                    <div class="box-content">{% block body %}{% endblock %}</div>
+                  {% endblock %}
                 </div>
-                {% endblock %}
+              </div>
             </div>
+            {% endblock %}
+          </div>
         {% endblock %}
     </div>
-
+  {% endblock %}
+</div>
 <footer>
   <div>
     <img class="python-logo" src="{% static "img/psf-logo.png" %}"
@@ -116,7 +118,7 @@
     </p>
   </div>
 </footer>
-{% endblock %}
+  
 
 {% block extra_script %}{% endblock %}
 

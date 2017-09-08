@@ -771,14 +771,28 @@ dt {
 p {
     max-width: 46em;
 }
+#content ul {
+  max-width: 46em;
+}
 pre {
-    border: 1px solid #FBBF8B;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    font-size: 0.8333em;
+  border: 2px solid #FFCF89;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.817rem;
+  overflow: scroll;
+}
+@media (min-width: 750px) {
+  pre {
+    padding: 20px;
+  }
+}
+hr {
+  border: none;
+  border-bottom: 2px solid #D9DFDF;
 }
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  margin: 1em 0;
 }
 th {
     padding: 0 0.4em;
@@ -915,6 +929,8 @@ input[type=radio] {
 }
 .form-actions .help-block {
   font-size: .813rem;
+  margin-right: auto;
+  margin-left: auto;
   max-width: 400px
 }
 .box-content .markedit > textarea {
@@ -1067,7 +1083,7 @@ body {
   display: flex;
   flex-direction: column;
 }
-#content {
+#content-wrapper {
   flex-grow: 1;
 }
 
