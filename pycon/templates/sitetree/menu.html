@@ -4,7 +4,7 @@
     <a href="#!" tabindex="0" id="nav-toggle" class="nav-toggle" role="button">
         Menu
     </a>
-    <nav id="nav" class="nav">
+    <nav id="nav" class="primary-site-nav">
         <ul class="nav-primary-list">
             {% for item in sitetree_items %}
                 <li class="{% if item.has_children %}has-dropdown{% endif %} {% if item.is_current or item.in_current_branch %}active{% endif %}">

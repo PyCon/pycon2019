@@ -9,11 +9,13 @@
 
 {% block body %}
     <form method="POST" action="{% url "account_settings" %}">
-        <legend>{% trans "Account" %}</legend>
+        <legend><h1>{% trans "Account" %}</h1></legend>
         {% csrf_token %}
-        {{ form|as_bootstrap }}
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
-        </div>
+        <fieldset>
+          {{ form|as_bootstrap }}
+          <div class="form-actions">
+              <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+          </div>
+        </fieldset>
     </form>
 {% endblock %}
