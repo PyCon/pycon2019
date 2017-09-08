@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "auth.user",
     "fields": {
-      "username": "user1",
+      "username": "admin",
       "first_name": "",
       "last_name": "",
       "is_active": true,
@@ -13,7 +13,25 @@
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$20000$Ub0tWtIQclN4$hG3Ans/oqvBzODShb+soTZtbxyQo0+hHRjoOv1vcVe4=",
-      "email": "user1@example.com",
+      "email": "admin@example.com",
+      "date_joined": "2013-06-05T13:06:07.617"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+      "username": "user",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2013-06-05T13:06:07.617",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$Ub0tWtIQclN4$hG3Ans/oqvBzODShb+soTZtbxyQo0+hHRjoOv1vcVe4=",
+      "email": "user@example.com",
       "date_joined": "2013-06-05T13:06:07.617"
     }
   }
