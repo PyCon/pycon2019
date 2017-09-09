@@ -9,8 +9,8 @@
 {% block body %}
     <form method="POST" action="">
         <legend><h1>{% trans "Delete Account" %}</h1></legend>
-        <p>If you go ahead and delete your account, your information will be <bold>expunged within 48 hours</bold>.</p>
         <fieldset>
+            <p>If you go ahead and delete your account, your information will be <bold>expunged within 48 hours</bold>.</p>
             {% csrf_token %}
             {{ form|as_bootstrap }}
             <div class="form-actions">

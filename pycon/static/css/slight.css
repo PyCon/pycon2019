@@ -469,17 +469,27 @@ a {
 }
 
 /* Alerts at the top of the page. */
-
 .messages {
-    position: absolute;
+  position: absolute;
+  z-index: 2;
 }
 .messages .message {
-    margin: 1em;
-    border: 1px solid #D98771;
-    border-radius: 0.5em;
-    background: #a55945;  /* chroma('#D98771').darken().hex() */
-    padding: 0.5em;
-    color: white;
+  align-items: center;
+  background: #EA6446;
+  border-radius: 10px;
+  border: 2px solid #D25438;
+  color: #FFF;
+  display: flex;
+  margin: 10px;
+  padding: 10px 10px 10px 0;
+}
+@media (min-width: 750px) {
+  .messages .message {
+    margin: 20px;
+  }
+}
+.messages .message button {
+  background: #EA6446;
 }
 
 /* Account navigation (log in, sign up, etc.) */
@@ -834,6 +844,9 @@ fieldset {
   max-width: 600px;
   padding: 20px;
   width: 100%;
+}
+fieldset > *:first-child {
+  margin-top: 0;
 }
 legend {
   margin: 0 auto 16px;
