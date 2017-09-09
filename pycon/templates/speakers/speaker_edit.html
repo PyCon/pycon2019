@@ -6,8 +6,6 @@
 
 {% block head_title %}{% trans "Edit Speaker Profile" %}{% endblock %}
 
-{% block page_title %}{% trans "Edit Speaker Profile" %}{% endblock %}
-
 {% block body %}
     <div class="span12">
         {% box "speaker-profile" %}
@@ -22,14 +20,15 @@
 
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
-            <legend>{% trans "Edit Speaker Profile" %}</legend>
+            <legend><h1>{% trans "Edit Speaker Profile" %}</h1></legend>
             <fieldset>
                 {{ form|as_bootstrap }}
+                <div class="form-actions">
+                    <a class="btn secondary" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
+                    <input class="btn" type="submit" value="Save" />
+                </div>
             </fieldset>
-            <div class="form-actions">
-                <input class="btn-primary" type="submit" value="Save" />
-                <a class="btn btn-primary" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
-            </div>
+            
         </form>
     </div>
 {% endblock %}

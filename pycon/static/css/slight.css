@@ -772,7 +772,7 @@ a {
   margin: 0 auto;
   color: #012A29;
   box-sizing: border-box;
-  max-width: 1400px;
+  max-width: 900px;
   padding: 0 10px;
   width: 100%;
 }
@@ -784,12 +784,6 @@ a {
 dt {
     color: #CE624D;
     font-style: italic;
-}
-p {
-    max-width: 46em;
-}
-#content ul {
-  max-width: 46em;
 }
 pre {
   border: 2px solid #FFCF89;
@@ -919,7 +913,7 @@ input[type=file]:after {
   transition: all .25s ease-in-out;
 }
 input[type=file]:hover:after {
-  background: #78ACA8;
+  background: #307D98;
 }
 select {
   background: #FFF;
@@ -939,7 +933,6 @@ input[type=radio] {
 }
 .help-block {
   font-size: .75rem;
-  max-width: 400px
 }
 .controls .help-block {
   margin: 5px 0 0 0;
@@ -953,21 +946,39 @@ input[type=radio] {
   margin-left: auto;
   max-width: 400px
 }
+/* Specific Form: Edit Speaker Profile */
+fieldset #div_id_photo .controls a {
+  display: block;
+}
+fieldset #div_id_photo .controls label {
+  display: inline-block;
+  width: auto;
+  margin-bottom: 20px;
+}
 .box-content .markedit > textarea {
-    /* override the jQuery UI "markedit > textarea" styling */
-    padding: 0;
+  /* override the jQuery UI "markedit > textarea" styling */
+  padding: 0;
 }
 .markedit .markedit-preview {
-    /* override the jQuery UI "ui-widget-content" styling */
-    margin: 1em 0;
-    border: 2px dotted #012A29;
-    background: none;
-    padding: 0.2em;
-    color: #6a644e; /* chroma('#98917A').darken().hex() */
+  /* override the jQuery UI "ui-widget-content" styling */
+  margin: 1em 0;
+  border: 2px dotted #77ABA7;
+  background: none;
+  box-sizing: border-box;
+  padding: 0 1em;
+  min-height: 40px;
+  color: #012A29;
+}
+.input-prepend {
+  align-items: center;
+  display: flex;
+}
+.input-prepend > span:first-child {
+  margin-right: 5px;
 }
 
-/* Forms, when an error message needs to display. */
 
+/* Forms, when an error message needs to display. */
 .control-group.error input[type=text], .control-group.error textarea {
     border: 3px solid red;
 }
@@ -1016,7 +1027,7 @@ button,
 .dataTables_paginate .paginate_button,
 .dt-button {
   background: #3592B3;
-  border: none;
+  border: 2px solid #3592B3;
   color: #FFF;
   cursor: pointer;
   display: inline-block;
@@ -1032,6 +1043,7 @@ button:hover,
 .dataTables_paginate .paginate_button:hover,
 .dt-button:hover {
   background: #307D98;
+  border-color: #307D98;;
 }
 .btn.danger {
   background: #EA6446;
@@ -1039,10 +1051,18 @@ button:hover,
 .btn.danger:hover {
   background: #D25438;
 }
+.btn.secondary {
+  background: none;
+  color: #3592B3;
+}
+.btn.secondary:hover {
+  background: none;
+  color: #307D98;
+}
 .btn[disabled] {
-    box-shadow: none;
-    border: 1px solid #aaa;
-    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+  box-shadow: none;
+  border: 1px solid #aaa;
+  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
 }
 
 /* Paginated tables within the dashboard. */
@@ -1140,6 +1160,9 @@ body {
 /* -------------------- Page-specific styles -------------------- */
 
 /* The home page */
+body.home-page #content {
+  max-width: 400px;
+}
 body.home-page #content,
 body.home-page h2 {
   text-align: center;
