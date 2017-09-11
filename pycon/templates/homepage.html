@@ -7,6 +7,7 @@
 {% load thumbnail %}
 {% load boxes_tags %}
 {% load biblion_tags %}
+{% load staticfiles %}
 
 {% block head_title_base %}{{ SITE_NAME }} in Cleveland, Ohio | May 9-17{% endblock %}
 
@@ -37,7 +38,7 @@
 
 <div class="front-page-facets">
   <div>
-    <img src="{{ STATIC_URL }}img/tutorial-photo.jpg">
+    <img src="{% static "img/tutorial-photo.jpg" %}">
     <h2>Tutorials<br>May 9-10 • Wednesday, Thursday</h2>
     <p>
       The first 2 days of the conference
@@ -46,7 +47,7 @@
       learn new technologies and increase their skills.
     </p>
   </div><div>
-    <img src="{{ STATIC_URL }}img/talks-photo.jpg">
+    <img src="{% static "img/talks-photo.jpg" %}">
     <h2>Talks and Events<br>May 11–13 • Friday, Saturday, Sunday</h2>
     <p>
       The 3 main conference days offer almost 100 talks,
@@ -55,7 +56,7 @@
       a Job Fair, and an annual benefit auction.
     </p>
   </div><div>
-    <img src="{{ STATIC_URL }}img/sprints-photo.jpg">
+    <img src="{% static "img/sprints-photo.jpg" %}">
     <h2>Sprints<br>May 14–17 • Monday through Thursday</h2>
     <p>
       The final 4 days are our developer sprints,
@@ -73,16 +74,16 @@
 </h2>
 <div class="front-page-facets narrow">
   <div>
-    <img src="{{ STATIC_URL }}img/PNG/tutorials-icon.png">
+    <img src="{% static "img/PNG/tutorials-icon.png" %}">
     <h2>Conference Registration</h2>
     We're hard at work preparing, Registration will open Fall 2017.
   </div><div>
-    <img src="{{ STATIC_URL }}img/PNG/conference-icon.png">
+    <img src="{% static "img/PNG/conference-icon.png" %}">
     <h2>Call for Proposals!</h2>
     Call for Proposals will open Late Summer 2017, but that doesn't
     mean you can't start preparing your Tutorials and Talks now!
   </div><div>
-    <img src="{{ STATIC_URL }}img/PNG/sprints-icon.png">
+    <img src="{% static "img/PNG/sprints-icon.png" %}">
     <h2><a href="/2018/sponsors/why-sponsor/"
            ><b>Become a sponsor</b></a></h2>
     The companies and organizations who sponsor PyCon
@@ -155,8 +156,8 @@
             <div class="half pycon-announcements">
               <h2 class="scroll-title">{% trans "Announcements" %}</h2>
               <div class="announcement-bg">
-                <img class="announcement-banner hide-mobile" src="{{ STATIC_URL }}img/PNG/announcement-banner.png" alt="announcements banner">
-                <img class="announcement-banner hide-desktop" src="{{ STATIC_URL }}img/PNG/announcement-banner-mobile.png" alt="announcements banner">
+                <img class="announcement-banner hide-mobile" src="{% static "img/PNG/announcement-banner.png" %}" alt="announcements banner">
+                <img class="announcement-banner hide-desktop" src="{% static "img/PNG/announcement-banner-mobile.png" %}" alt="announcements banner">
               </div>
               {% latest_blog_posts as posts %}
               {% for post in posts|slice:"1" %}

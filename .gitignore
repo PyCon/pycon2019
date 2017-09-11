@@ -16,7 +16,10 @@ program_export/
 .coverage
 htmlcov/
 env/
+.env/
 .vagrant
 node_modules/
 /develop/playbook.retry
 develop/tools/*.csv
+.vscode/
+celerybeat-schedule

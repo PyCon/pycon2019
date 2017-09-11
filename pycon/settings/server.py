@@ -30,16 +30,19 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin@gmail.com'),
-    ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
 )
 MANAGERS = ADMINS
 
 # Yes, send email
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env_or_default("EMAIL_HOST", "")
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # tells Pinax not to serve media through the staticfiles app.
 SERVE_MEDIA = False

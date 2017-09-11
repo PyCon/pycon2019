@@ -29,6 +29,7 @@ django-uni-form==0.9.0
 requests==2.0.0
 bleach==1.4
 
+django-celery-email==2.0.0
 django-email-log==0.2.0
 django-multi-email-field==0.3.1
 

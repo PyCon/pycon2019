@@ -6,7 +6,7 @@
 
 {% load cache %}
 {% load compress %}
-{% load static %}
+{% load staticfiles %}
 {% load metron_tags %}
 {% load i18n %}
 {% load sponsorship_tags %}
@@ -18,14 +18,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 {% block style_base %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/slight.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="{% static "css/slight.css"%}"/>
     {% include "markedit/includes/markedit-css.html" %}
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
 {% block extra_head_base %}
-    <meta property="og:image" content="{% static "img/pycon2018-logo.png" %}" />
-    <link href="{{ STATIC_URL }}img/pycon-2018.png" rel="shortcut icon" />
+    <meta property="og:image" content="{% static "img/pycon2018.png" %}" />
+    <link href="{% static "img/pycon2018.png" %}" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       $(document).on('click', '.message button', function(event) {
@@ -62,7 +62,7 @@
   {% include "_account_bar.html" %}
   {% block logo %}
      <a class="logo-banner" href="{% url "home" %}">
-       <img src="{{ STATIC_URL }}/img/pycon2018.png">
+       <img src="{% static "img/pycon2018.png" %}">
      </a>
   {% endblock %}
   <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
@@ -135,7 +135,7 @@
 
 <footer>
   <div>
-    <img class="python-logo" src="{{ STATIC_URL }}img/psf-logo.png"
+    <img class="python-logo" src="{% static "img/psf-logo.png" %}"
          width=300 alt="PSF logo">
     {% block credits %}{% endblock %}
     <p>
@@ -150,7 +150,7 @@
     </p>
     <p>
       Logo and Branding by
-      <a href="http://hellofizz.com/">Fizz Creative</a>.
+      <a href="http://hellofizz.com/"><img title="Fizz Creative" alt="Fizz Creative" src="{% static "img/fizz.png" %}"/></a>.
     </p>
   </div>
 </footer>
