@@ -548,9 +548,6 @@ a {
 .logo-banner a {
   text-decoration: none;
 }
-.logo-banner a:focus {
-  outline: 2px solid #012A29;
-}
 .logo-banner, .logo-banner img {
   display: block;
   margin: auto;
@@ -968,12 +965,20 @@ fieldset #div_id_photo .controls label {
   background: #78ACA8;
   border-color: #78ACA8;
   border-radius: 0;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 5px 0 0 0;
+}
+.markedit .toolbar-group {
+  float: none;
 }
 .markedit button.ui-state-default {
   background: #012A29;
   border-color: #012A29;
   border-radius: 0;
   color: #FFF;
+  padding: 0;
 }
 .markedit button.ui-state-default:focus {
   outline: 2px solid #FFF;
@@ -1047,6 +1052,9 @@ span.help-inline {
 }
 .dashboard-panel h3 {
   margin: 0 0 0.5em;
+}
+.dashboard-panel a.action {
+  margin: 0 5px 5px 0;
 }
 .btn,
 .dashboard-panel a.action,
@@ -1167,17 +1175,20 @@ footer p a img {
     margin-left: -.1em;
 }
 /* sticky footer code */
-html, body {
+html {
   height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 body {
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 #content-wrapper {
   flex-grow: 1;
+  flex-shrink: 0;
+}
+footer {
+  flex-shrink: 0;
 }
 
 /* -------------------- Styles for use in CMS editing -------------------- */
