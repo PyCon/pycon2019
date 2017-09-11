@@ -893,26 +893,21 @@ textarea:focus {
   border: 2px solid #3592B3;
 }
 input[type=file] {
-  cursor: pointer;
   display: block;
-  position: relative;
-  width: 100%;
 }
-input[type=file]:after {
-  content: 'Choose File';
-  display: block;
+input[type=file]::-webkit-file-upload-button {
   background: #3592B3;
-  height: 1.7rem;
-  width: 6.5rem;
-  position: absolute;
-  top: 0;
-  color: white;
-  box-sizing: border-box;
-  padding: 2px 0 0 0;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 300;
+  padding: 3px 15px 6px;
   text-align: center;
+  text-decoration: none;
   transition: all .25s ease-in-out;
 }
-input[type=file]:hover:after {
+input[type=file]::-webkit-file-upload-button:hover {
   background: #307D98;
 }
 select {
