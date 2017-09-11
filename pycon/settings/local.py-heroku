@@ -4,6 +4,8 @@ import os
 
 from .server import *
 
+import dj_database_url
 
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 SECRET_KEY = os.environ.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
