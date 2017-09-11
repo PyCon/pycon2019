@@ -490,6 +490,7 @@ a {
 }
 .messages .message button {
   background: #EA6446;
+  border-color: #EA6446;
 }
 
 /* Account navigation (log in, sign up, etc.) */
@@ -545,14 +546,16 @@ a {
 
 /* The main logo */
 .logo-banner a {
-    text-decoration: none;
+  text-decoration: none;
 }
-
+.logo-banner a:focus {
+  outline: 2px solid #012A29;
+}
 .logo-banner, .logo-banner img {
-    display: block;
-    margin: auto;
-    position: relative;
-    height: 200px;
+  display: block;
+  margin: auto;
+  position: relative;
+  height: 200px;
 }
 
 /* Primary Navigation : no JS available*/
@@ -573,10 +576,13 @@ a {
 }
 .primary-site-nav a {
   color: #FFF;
-  transition: all .25s ease-in-out;
+  transition: background .25s ease-in-out, color .25s ease-in-out;
 }
 .primary-site-nav a:hover {
   color: #012A29;
+}
+.primary-site-nav a:focus {
+  outline: 2px solid #012A29;
 }
 /* style dropdown headers differently than other nav links */
 .primary-site-nav .has-dropdown .nav-primary-link {
@@ -888,12 +894,15 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 input[type=url]:focus,
+input[type=file]:focus,
 textarea:focus {
   outline: none;
-  border: 2px solid #3592B3;
+  border: 2px solid #012A29;
 }
 input[type=file] {
+  border: 2px solid transparent;
   display: block;
+  width: 100%;
 }
 input[type=file]::-webkit-file-upload-button {
   background: #3592B3;
@@ -920,7 +929,7 @@ select {
 }
 select:focus {
   outline: none;
-  border: 2px solid #3592B3;
+  border: 2px solid #012A29;
 }
 input[type=checkbox],
 input[type=radio] {
@@ -950,14 +959,30 @@ fieldset #div_id_photo .controls label {
   width: auto;
   margin-bottom: 20px;
 }
+/* MarkedIt styling */
+.markedit .ui-widget-header {
+  background: #78ACA8;
+  border-color: #78ACA8;
+  border-radius: 0;
+}
+.markedit button.ui-state-default {
+  background: #012A29;
+  border-color: #012A29;
+  border-radius: 0;
+  color: #FFF;
+}
+.markedit button.ui-state-default:focus {
+  outline: 2px solid #FFF;
+} 
 .box-content .markedit > textarea {
   /* override the jQuery UI "markedit > textarea" styling */
-  padding: 0;
+  margin: 0 0 20px;
+  padding: 4px 10px;
 }
 .markedit .markedit-preview {
   /* override the jQuery UI "ui-widget-content" styling */
   margin: 1em 0;
-  border: 2px dotted #77ABA7;
+  border: 2px dashed #012A29;
   background: none;
   box-sizing: border-box;
   padding: 0 1em;
@@ -965,11 +990,14 @@ fieldset #div_id_photo .controls label {
   color: #012A29;
 }
 .input-prepend {
-  align-items: center;
+  align-items: stretch;
   display: flex;
 }
 .input-prepend > span:first-child {
-  margin-right: 5px;
+  background: #FFF;
+  margin-right: 2px;
+  padding: 4px 8px 0;
+  white-space: nowrap;
 }
 
 
@@ -1016,7 +1044,6 @@ span.help-inline {
 .dashboard-panel h3 {
   margin: 0 0 0.5em;
 }
-button,
 .btn,
 .dashboard-panel a.action,
 .dataTables_paginate .paginate_button,
@@ -1032,7 +1059,6 @@ button,
   text-decoration: none;
   transition: all .25s ease-in-out;
 }
-button:hover,
 .btn:hover,
 .dashboard-panel a.action:hover,
 .dataTables_paginate .paginate_button:hover,
@@ -1042,9 +1068,11 @@ button:hover,
 }
 .btn.danger {
   background: #EA6446;
+  border-color: #EA6446;
 }
 .btn.danger:hover {
   background: #D25438;
+  border-color: #D25438;
 }
 .btn.secondary {
   background: none;
@@ -1054,10 +1082,31 @@ button:hover,
   background: none;
   color: #307D98;
 }
+button:focus,
+.btn:focus,
+.btn.danger:focus,
+.btn.secondary:focus,
+.dashboard-panel a.action:focus,
+.dataTables_paginate .paginate_button:focus,
+.dt-button:focus {
+  border-color: #012A29;
+  outline: none;
+}
 .btn[disabled] {
   box-shadow: none;
   border: 1px solid #aaa;
   background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+}
+/* List of Buttons, used on proposal submit page */
+.btn-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+.btn-list li {
+  white-space: nowrap;
+  margin: 0 5px 5px 0;
 }
 
 /* Paginated tables within the dashboard. */
