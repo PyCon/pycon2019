@@ -884,11 +884,14 @@ input[type=email],
 input[type=password],
 input[type=url],
 textarea {
+  -webkit-appearance: none;
   border: 2px solid #FFF;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
   display: block;
   padding: 4px 10px;
   width: 100%;
-  box-sizing: border-box;
 }
 input[type=text]:focus,
 input[type=email]:focus,
@@ -901,6 +904,7 @@ textarea:focus {
 }
 input[type=file] {
   border: 2px solid transparent;
+  box-shadow: none;
   display: block;
   width: 100%;
 }
@@ -1165,6 +1169,8 @@ footer p a img {
 /* sticky footer code */
 html, body {
   height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 body {
   display: flex;

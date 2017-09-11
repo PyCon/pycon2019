@@ -32,16 +32,6 @@
         $(this).parent().hide();
         return false;
       });
-      $(document).on('click', '.dropdown-toggle', function(event) {
-        /* toggle visibility of nav menu (jQuery sets the "display" attr) */
-        $(this).parent().children('.dropdown-menu').toggle();
-        return false;
-      });
-      $(document).on('mouseout', '.dropdown', function(event) {
-        /* remove any "display" attr that jQuery added when clicked */
-        $(this).children('.dropdown-menu').removeAttr('style');
-        return false;
-      });
     </script>
 
     <script src="{% static "js/site.js"%}"></script>
