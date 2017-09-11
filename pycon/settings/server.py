@@ -74,29 +74,23 @@ LOGGING['handlers'].update(
             'include_html': False,
             'filters': ['require_debug_false'],
         },
-        'sam_gelf': {
-            'class': 'graypy.GELFHandler',
-            'host': env_or_default('GRAYLOG_HOST', ''),
-            'port': 12201,
-            'filters': ['static_fields', 'django_exc'],
-        }
     }
 )
 LOGGING['loggers'].update(
     {
         'django.request': {
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
         'pycon': {
             # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'WARNING',
         },
         'symposion': {
             # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
+            'handlers': ['mail_admins'],
             'level': 'WARNING',
         }
     }
