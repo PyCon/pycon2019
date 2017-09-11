@@ -1131,6 +1131,9 @@ footer {
   font-size: .875rem;
   padding: 20px 0;
 }
+footer p {
+  max-width: 800px;
+}
 footer > div {
   box-sizing: border-box;
   margin-left: auto;
