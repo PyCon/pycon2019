@@ -13,6 +13,9 @@ ALLOWED_HOSTS = ['*']
 REDIS_URL = os.environ.get('REDIS_URL')
 BROKER_URL = REDIS_URL
 
+MIDDLEWARE_CLASSES = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE_CLASSES
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
@@ -49,3 +52,16 @@ CACHES = {
         },
     },
 }
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+

@@ -35,3 +35,4 @@ django-multi-email-field==0.3.1
 
 celery[redis]==3.1.18
 dj-database-url
+Whitenoise
