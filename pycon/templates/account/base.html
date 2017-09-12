@@ -8,11 +8,13 @@
 {% block page_content %}
 <aside>
   <h3>{% trans "Settings" %}</h3>
-  <ul class="nav nav-list">
-    <li><a href="{% url "account_settings" %}">{% trans "Preferences" %}</a></li>
-    <li><a href="{% url "account_password" %}">{% trans "Change password" %}</a></li>
-    <li><a href="{% url "account_delete" %}">{% trans "Delete account" %}</a></li>
-  </ul>
+  <nav class="account-nav">
+    <ul class="nav-list">
+      <li><a href="{% url "account_settings" %}" class="btn">{% trans "Account" %}</a></li>
+      <li><a href="{% url "account_password" %}" class="btn">{% trans "Change Password" %}</a></li>
+      <li><a href="{% url "account_delete" %}" class="btn danger">{% trans "Delete Account" %}</a></li>
+    </ul>
+  </nav>
 </aside>
 {% block body %}{% endblock %}
 {% endblock %}

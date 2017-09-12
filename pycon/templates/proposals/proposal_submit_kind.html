@@ -5,27 +5,29 @@
 {% load i18n %}
 
 {% block head_title %}{% blocktrans with name=kind.name %}Submit a proposal for our {{ name }}{% endblocktrans %}{% endblock %}
-{% block page_title %}{% blocktrans with name=kind.name %}{{ name }} proposal form{% endblocktrans %}{% endblock %}
 
 {% block body %}
     <div class="span12">
         {% box kind.slug|add:"-proposal" %}
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
+            <legend><h1>
+                {% blocktrans with name=kind.name %}{{ name }} proposal form{% endblocktrans %}
+            </h1></legend>
             <fieldset>
                 {{ form|as_bootstrap }}
-            </fieldset>
-            <div class="form-actions">
+                 <div class="form-actions">
                 <p>{% blocktrans %}
                     You will be able to edit your proposal after it has been submitted.
                     The program committee may ask questions, provide feedback,
                     and even suggest changes to your proposal as part of the review processes.
                   {% endblocktrans %}
                 </p>
-                <input class="btn-primary" type="submit" name="finish" value="{% trans "Save" %}" />
-                <!-- <span style="float: right; padding: 4px 6px">or</span> -->
-                <input class="btn-primary" type="submit" name="add-speakers" value="{% trans "Save and Add Additional Speakers" %}" />
+                <input class="btn" type="submit" name="add-speakers" value="{% trans "Save and Add Additional Speakers" %}" />
+                <input class="btn" type="submit" name="finish" value="{% trans "Save" %}" />
             </div>
+            </fieldset>
+           
         </form>
     </div>
 {% endblock %}

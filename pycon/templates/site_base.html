@@ -32,20 +32,15 @@
         $(this).parent().hide();
         return false;
       });
-      $(document).on('click', '.dropdown-toggle', function(event) {
-        /* toggle visibility of nav menu (jQuery sets the "display" attr) */
-        $(this).parent().children('.dropdown-menu').toggle();
-        return false;
-      });
-      $(document).on('mouseout', '.dropdown', function(event) {
-        /* remove any "display" attr that jQuery added when clicked */
-        $(this).children('.dropdown-menu').removeAttr('style');
-        return false;
-      });
     </script>
+
+    <script src="{% static "js/site.js"%}"></script>
+
     {% include "markedit/includes/markedit-js.html" %}
     {% block extra_head %}{% endblock %}
     <meta name="google-site-verification" content="fG_DG4G4eFtBcgIKht-bJKdirGhDa_51X6yeCS8daDs" />
+
+
 {% endblock %}
 
 </head>
@@ -58,81 +53,40 @@
 
 {% include "_messages.html" %}
 
-<header class="main">
-  {% include "_account_bar.html" %}
-  {% block logo %}
-     <a class="logo-banner" href="{% url "home" %}">
-       <img src="{% static "img/pycon2018.png" %}">
-     </a>
-  {% endblock %}
-  <nav>{% sitetree_menu from "main" include "trunk" %}</nav>
-</header>
+<div id="content-wrapper"> <!-- wrap everything but footer for sticky footer -->
+  <header class="header-container">
+    {% include "_account_bar.html" %}
+    {% block header-imagery %}
+      <a class="logo-banner" href="{% url "home" %}">
+        <img src="{% static "img/pycon2018.png" %}">
+      </a>
+    {% endblock %}
+    {% sitetree_menu from "main" include "trunk" %}
+  </header>
 
-{% block banner %}{% endblock %}
+  {% block banner %}{% endblock %}
 
-{% block body_base %}
+  {% block body_base %}
     <div id="content">
         {% block body_outer %}
-            <div class="page-content">
-                {% block page_content %}
-                <div class="container">
-                    {% block edit_page %}{% endblock %}
-                    <h1>{% block page_title %}{% endblock %}</h1>
-                    <div class="box">
-                      {% block box %}
-                        <div class="box-content">{% block body %}{% endblock %}</div>
-                      {% endblock %}
-                    </div>
-                 </div>
-
-                <!--
-                <div class="span12 col-centered sponsor-crawl">
-                    {% cache 600 "homepage-sponsor-slider" %}
-                        <h2 class="scroll-title-first">Sponsors</h2>
-                        {% sponsors "diamond" as diamond_sponsors %}
-                        <div id="sponsorslider" class="carousel slide col-centered">
-                            <!-- Carousel items
-                            <div class="carousel-inner">
-                                {% sponsors as all_sponsors %}
-                                {# sponsors without levels, 12 per each slide #}
-                                {% for sponsor in all_sponsors %}
-                                    {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                        <div class="item {% if forloop.first %}active{% endif %}" style="margin: auto;">
-                                    {% endif %}
-
-                                    <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-                                        <div class="sponsor-scroll-item" style="background-image: url('{% thumbnail sponsor.website_logo '300x300' %}')" data-background-2x="{% thumbnail sponsor.website_logo '500x500' %}"></div>
-                                    </a>
-                                    {% if forloop.counter|divisibleby:"12" or forloop.last %}</div>{% endif %}
-                                {% endfor %}
-                            </div>
-
-
-                            {% if all_sponsors.count > 12 %}
-                              <!-- Carousel nav
-                              <nav id="slider-nav">
-                                <div class="slider-nav">
-                                    <div class="nav-container">
-                                    {% for sponsor in all_sponsors %}
-                                        {% if forloop.first or forloop.counter0|divisibleby:"12" %}
-                                            <a href="#" class="{% if forloop.first %}activeSlide{% endif %}">●</a>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                              </nav>
-                            {% endif %}
-                        </div>
-                    {% endcache %}
+          <div class="page-content">
+            {% block page_content %}
+              <div class="container">
+                {% block edit_page %}{% endblock %}
+                <h1>{% block page_title %}{% endblock %}</h1>
+                <div class="box">
+                  {% block box %}
+                    <div class="box-content">{% block body %}{% endblock %}</div>
+                  {% endblock %}
                 </div>
-                -->
-                </div>
-
-                {% endblock %}
+              </div>
             </div>
+            {% endblock %}
+          </div>
         {% endblock %}
     </div>
-
+  {% endblock %}
+</div>
 <footer>
   <div>
     <img class="python-logo" src="{% static "img/psf-logo.png" %}"
@@ -152,9 +106,12 @@
       Logo and Branding by
       <a href="http://hellofizz.com/"><img title="Fizz Creative" alt="Fizz Creative" src="{% static "img/fizz.png" %}"/></a>.
     </p>
+    <p>
+      Front-end development assistance by
+      <a href="http://imnikkilee.com/"><img title="Nikki Lee" alt="Nikki Lee" src="{% static "img/nikkilee.png" %}"/></a>.
   </div>
 </footer>
-{% endblock %}
+  
 
 {% block extra_script %}{% endblock %}
 

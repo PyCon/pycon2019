@@ -1,0 +1,79 @@
+[
+  {
+    "fields": {
+      "start": null,
+      "section": 1,
+      "end": null,
+      "closed": true,
+      "published": false
+    },
+    "model": "proposals.proposalsection",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 2,
+      "end": null,
+      "closed": true,
+      "published": false
+    },
+    "model": "proposals.proposalsection",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 3,
+      "end": null,
+      "closed": true,
+      "published": false
+    },
+    "model": "proposals.proposalsection",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 4,
+      "end": null,
+      "closed": true,
+      "published": false
+    },
+    "model": "proposals.proposalsection",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 5,
+      "end": null,
+      "closed": true,
+      "published": false
+    },
+    "model": "proposals.proposalsection",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 6,
+      "end": null,
+      "closed": false,
+      "published": true
+    },
+    "model": "proposals.proposalsection",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "start": null,
+      "section": 7,
+      "end": null,
+      "closed": false,
+      "published": true
+    },
+    "model": "proposals.proposalsection",
+    "pk": 7
+  }
+]

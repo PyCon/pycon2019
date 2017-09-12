@@ -11,9 +11,9 @@
     {% if kinds %}
         <p>{% trans "Select what kind of proposal you'd like to submit:" %}</p>
     
-        <ul>
+        <ul class="btn-list">
             {% for kind in kinds %}
-                <li><a href="{% url 'proposal_submit_kind' kind.slug %}">{{ kind }}</a></li>
+                <li><a class="btn" href="{% url 'proposal_submit_kind' kind.slug %}">{{ kind }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

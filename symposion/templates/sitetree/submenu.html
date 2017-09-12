@@ -1,7 +1,7 @@
 {% load sitetree %}
-<ul class="dropdown-menu">
+<ul class="dropdown-menu" role="menu">
     {% for item in sitetree_items %}
-    <li>
+    <li role="menuitem">
         <a href="{% sitetree_url for item %}" title="{{ item.hint|default:"" }}">{{ item.title_resolved }}</a>
     </li>
     {% endfor %}
