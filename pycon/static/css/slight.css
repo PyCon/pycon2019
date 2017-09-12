@@ -1224,9 +1224,6 @@ footer {
 /* -------------------- Page-specific styles -------------------- */
 
 /* The home page */
-body.home-page #content {
-  max-width: 400px;
-}
 body.home-page #content,
 body.home-page h2 {
   text-align: center;
@@ -1346,7 +1343,7 @@ body.home-page h2 {
   .home-banner h2 {
     flex-wrap: nowrap;
     height: 40px;
-    justify-content: space-around;
+    justify-content: center;
     top: -20px;
   }
   .home-banner h2 span {
@@ -1354,19 +1351,11 @@ body.home-page h2 {
     width: 220px;
     white-space: nowrap;
   }
-  .home-banner h2 .tag1 {
-    border: none;
-    order: 1;
-    padding: 0;
-  }
   .home-banner h2 .date {
-    font-size: 0.813rem;
-    order: 2;
-    width: auto;
+    display: none;
   }
   .home-banner h2 .tag2 {
-    order: 3;
-    padding: 0;
+    padding-left: 22px;
   }
 }
 @media (min-width: 1150px) {
@@ -1423,18 +1412,27 @@ body.home-page h2 {
   border-radius: 10px;
   max-width: 100%;
 }
-.front-page-sponsors a {
-    display: inline-block;
-    vertical-align: middle;
-    border: 2px solid white;
-    padding: 1em;
+.front-page-sponsors {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
-.front-page-sponsors a:hover {
-    border: 2px solid #012A29;
+.front-page-sponsors a {
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid white;
+  padding: 1em;
+}
+.front-page-sponsors a:hover,
+.front-page-sponsors a:focus {
+  border: 2px solid #012A29;
+  outline: none;
 }
 .front-page-sponsors img {
-    max-height: 120px;
-    max-width: 240px;
+  max-height: 120px;
+  max-width: 240px;
 }
 
 /* The very wide schedule grid. */
