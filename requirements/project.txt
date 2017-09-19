@@ -22,8 +22,7 @@ django-secure==1.0
 raven==5.5.0
 
 django-constance[database]==1.1
-
-django-picklefield==0.3.0
+django-picklefield==1.0.0
 
 django-model-utils==2.3.1
 django-redis-cache==1.6.0
