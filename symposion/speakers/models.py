@@ -55,9 +55,13 @@ class Speaker(models.Model):
     )
     interested_mentee = MultiSelectField(
         choices=MENTORSHIP_CHOICES,
+        null=True,
+        blank=True
     )
     interested_mentor = MultiSelectField(
         choices=MENTORSHIP_CHOICES,
+        null=True,
+        blank=True
     )
     financial_support = models.BooleanField(
         default=False,
