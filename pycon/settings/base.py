@@ -208,6 +208,7 @@ INSTALLED_APPS = [
     "multi_email_field",
     "email_log",
     "djcelery_email",
+    "multiselectfield",
 
     # symposion
     "symposion.conference",

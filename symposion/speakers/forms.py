@@ -17,11 +17,41 @@ class SpeakerForm(forms.ModelForm):
             "photo",
             "twitter_username",
             "mobile_number",
+            "interested_mentee",
+            "interested_mentor",
+            "financial_support",
         ]
         help_texts = {
             'mobile_number': _(
                 u"For on-site use only,"
                 u" in case we need to get in touch with you."
+            ),
+            'interested_mentee': _(
+                u"We're trying something new this year... **tell people about "
+                u"to expect if they check these boxes**"
+            ),
+            'interested_mentor': _(
+                u"We're trying something new this year... **tell people about "
+                u"to expect if they check these boxes**"
+            ),
+            'financial_support': _(
+                u"PyCon does not want expenses to discourage you from "
+                u"submitting a proposal, and offers financial support "
+                u"with a preference for speakers. Check here to indicate "
+                u"that you require assistance. This is not seen by the "
+                u"proposal reviewers and does not affect the review of "
+                u" your proposal."
+            )
+        }
+        labels = {
+            'interested_mentee': _(
+                u"I'm interested in receiving mentorship in the following areas:"
+            ),
+            'interested_mentor': _(
+                u"I'm interested in providing mentorship in the following ways:"
+            ),
+            'financial_support': _(
+                u"I require financial assistance if my proposal is accepted."
             ),
         }
 

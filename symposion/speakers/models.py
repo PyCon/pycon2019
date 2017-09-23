@@ -7,6 +7,14 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from multiselectfield import MultiSelectField
+
+MENTORSHIP_CHOICES = (
+    ('brainstorming', 'Brainstorming'),
+    ('proposal_creation', 'Proposal Creation'),
+    ('proposal_review', 'Proposal Review'),
+)
+
 
 def get_photo_path(instance, filename):
     """
@@ -44,6 +52,15 @@ class Speaker(models.Model):
     created = models.DateTimeField(
         default=datetime.datetime.now,
         editable=False
+    )
+    interested_mentee = MultiSelectField(
+        choices=MENTORSHIP_CHOICES,
+    )
+    interested_mentor = MultiSelectField(
+        choices=MENTORSHIP_CHOICES,
+    )
+    financial_support = models.BooleanField(
+        default=False,
     )
 
     class Meta:

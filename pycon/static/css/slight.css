@@ -960,6 +960,12 @@ fieldset #div_id_photo .controls label {
   width: auto;
   margin-bottom: 20px;
 }
+fieldset #div_id_interested_mentee .controls label {
+  font-weight: normal;
+}
+fieldset #div_id_interested_mentor .controls label {
+  font-weight: normal;
+}
 /* MarkedIt styling */
 .markedit .ui-widget-header {
   background: #78ACA8;
