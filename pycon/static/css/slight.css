@@ -815,6 +815,16 @@ td {
     border: 2px solid #D9DFDF;
     padding: 0.5em;
 }
+.dashboard-panel-content th {
+    padding: 0em 1em 0em 1em;
+    white-space: nowrap;
+}
+.dashboard-panel-content td {
+    padding: 0.3em;
+}
+.dashboard-panel-content .actions {
+    white-space: nowrap;
+}
 
 /* The edit button that site admins are given. */
 
@@ -1028,8 +1038,13 @@ span.help-inline {
 /* Most proposal text-area fields should honor line breaks. */
 
 .proposal-fields dd.significant-whitespace {
+    padding-top: .5em;
     white-space: pre-wrap;
     white-space: pre-line;
+}
+
+.proposal-fields dt {
+    padding-top: 1em;
 }
 
 /* Except for the Description, which gets Markdown processing. */
@@ -1125,6 +1140,12 @@ button:focus,
 .btn-list li {
   white-space: nowrap;
   margin: 0 5px 5px 0;
+}
+
+.btn-mini {
+  padding: .33em;
+  font-size: smaller;
+  margin: 0 2px 2px 0;
 }
 
 /* Paginated tables within the dashboard. */
