@@ -134,6 +134,14 @@ class ProposalBase(models.Model):
             """,
         ),
     )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+    )
+    updated = models.DateTimeField(
+        auto_now=True,
+        null=True,
+    )
     submitted = models.BooleanField(
         default=False
     )
