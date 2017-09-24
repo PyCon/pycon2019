@@ -27,20 +27,33 @@ class SpeakerForm(forms.ModelForm):
                 u" in case we need to get in touch with you."
             ),
             'interested_mentee': _(
-                u"We're trying something new this year... **tell people about "
-                u"to expect if they check these boxes**"
+                u"We want to support our speakers by connecting them with "
+                u"volunteers from the community to help with the CFP process. "
+                u"If you are interested in receiving mentorship as you "
+                u"prepare your proposal, please select what kind of help "
+                u"you're interested in and you'll hear from us when we have "
+                u"more information! <br/> <b>This is by no means limited to "
+                u"new or first time speakers, everyone is invited to "
+                u"participate!</b>"
             ),
             'interested_mentor': _(
-                u"We're trying something new this year... **tell people about "
-                u"to expect if they check these boxes**"
+                u"We want to support our speakers by connecting them with "
+                u"volunteers from the community to help with the CFP process. "
+                u"If you are interested in providing mentorship to "
+                u"others as they prepare their proposals, please select what "
+                u"kind of help you're interested in providing and you'll hear "
+                u"from us when we have more information!"
             ),
             'financial_support': _(
                 u"PyCon does not want expenses to discourage you from "
                 u"submitting a proposal, and offers financial support "
                 u"with a preference for speakers. Check here to indicate "
-                u"that you require assistance. This is not seen by the "
+                u"that you require assistance. <b>This is not seen by the "
                 u"proposal reviewers and does not affect the review of "
-                u" your proposal."
+                u"your proposal.</b> <br/><br/> After proposals are selected, "
+                u"we'll reach out to you regarding your needs. We understand "
+                u"situations can change, and we are here for you. If you have "
+                u"any questions let us know at pycon-aid@python.org"
             )
         }
         labels = {
