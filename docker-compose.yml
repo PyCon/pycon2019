@@ -26,6 +26,7 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_HOST=db
+      - DJANGO_SETTINGS_MODULE=pycon.settings.dev
       - REDIS_HOST=redis
     volumes:
       - .:/code
@@ -42,6 +43,7 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_HOST=db
+      - DJANGO_SETTINGS_MODULE=pycon.settings.dev
       - REDIS_HOST=redis
     volumes:
       - .:/code
