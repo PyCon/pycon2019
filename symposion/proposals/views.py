@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 import random
 
@@ -284,6 +285,28 @@ def proposal_cancel(request, pk):
         return redirect("dashboard")
 
     return render(request, "proposals/proposal_cancel.html", {
+        "proposal": proposal,
+    })
+
+
+@login_required
+def proposal_submit_final(request, pk):
+    queryset = ProposalBase.objects.select_related("speaker")
+    proposal = get_object_or_404(queryset, pk=pk)
+    proposal = ProposalBase.objects.get_subclass(pk=proposal.pk)
+
+    if proposal.speaker.user != request.user:
+        return HttpResponseForbidden()
+
+    if request.method == "POST":
+        proposal.submitted = True
+        proposal.submitted_at = datetime.datetime.now()
+        proposal.save()
+        # @@@ fire off email to submitter and other speakers
+        messages.success(request, "%s has been submitted" % proposal.title)
+        return redirect("proposal_detail", proposal.pk)
+
+    return render(request, "proposals/proposal_submit_final.html", {
         "proposal": proposal,
     })
 
