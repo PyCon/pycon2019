@@ -46,14 +46,14 @@ class SpeakerForm(forms.ModelForm):
             ),
             'financial_support': _(
                 u"PyCon does not want expenses to discourage you from "
-                u"submitting a proposal, and offers financial support "
-                u"with a preference for speakers. Check here to indicate "
-                u"that you require assistance. <b>This is not seen by the "
-                u"proposal reviewers and does not affect the review of "
-                u"your proposal.</b> <br/><br/> After proposals are selected, "
-                u"we'll reach out to you regarding your needs. We understand "
-                u"situations can change, and we are here for you. If you have "
-                u"any questions let us know at pycon-aid@python.org"
+                u"submitting a proposal, and offers speaker grants "
+                u"ensure that anyone can speak at PyCon. Check here to "
+                u"indicate that you require a speaker grant. <b>This is not "
+                u"seen by the proposal reviewers and does not affect the "
+                u"review of your proposal.</b> <br/><br/> After proposals are "
+                u"selected, we'll reach out to you regarding your needs. We "
+                u"understand situations can change, and are here for you. If "
+                u"you have any questions let us know at pycon-aid@python.org"
             )
         }
         labels = {
@@ -64,7 +64,7 @@ class SpeakerForm(forms.ModelForm):
                 u"I'm interested in providing mentorship in the following ways:"
             ),
             'financial_support': _(
-                u"I require financial assistance if my proposal is accepted."
+                u"I require a speaker grant if my proposal is accepted."
             ),
         }
 
