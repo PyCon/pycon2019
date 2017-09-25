@@ -1128,7 +1128,8 @@ button:focus,
 .btn[disabled] {
   box-shadow: none;
   border: 1px solid #aaa;
-  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+  background: #fcce8e;
+  color: black;
 }
 /* List of Buttons, used on proposal submit page */
 .btn-list {

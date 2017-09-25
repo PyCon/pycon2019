@@ -13,8 +13,10 @@
             {% if request.user == proposal.speaker.user %}
                 {% if proposal.result.accepted %}
                     <span class="label label-success">{% trans "Accepted" %}</span>
-                {% else %}
+                {% elif proposal.submitted %}
                     <span class="label">{% trans "Submitted" %}</span>
+                {% else %}
+                    <span class="label">{% trans "Draft" %}</span>
                 {% endif %}
             {% else %}
                 <span class="label">{% trans "Associated" %}</span>
@@ -22,11 +24,16 @@
         {% endif %}
     </td>
         
-    <td>
+    <td class="actions">
         {% if not proposal.cancelled %}
             {% if request.user == proposal.speaker.user and proposal.can_edit %}
                 <a href="{% url 'proposal_edit' proposal.pk %}" class="btn btn-mini"><i class="icon-pencil"></i> Edit</a>
-                <a href="{% url 'proposal_speaker_manage' proposal.id %}" class="btn btn-mini"><i class="icon-user"></i> {% trans "Manage Additional Speakers" %}</a>
+                <a href="{% url 'proposal_speaker_manage' proposal.id %}" class="btn btn-mini"><i class="icon-user"></i> {% trans "Manage Speakers" %}</a>
+                {% if not proposal.submitted %}
+                <a href="{% url 'proposal_submit_final' proposal.pk %}" class="btn btn-mini danger"><i class="icon-pencil"></i> Submit</a>
+                {% else %}
+                <div class="btn btn-mini" disabled=true>Submitted</div>
+                {% endif %}
             {% endif %}
         {% endif %}
     </td>

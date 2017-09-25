@@ -11,7 +11,7 @@
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <p>{% blocktrans with title=proposal.title %}Are you sure you want to cancel <b>{{ title }}</b>?{% endblocktrans %}</p>
-        <input class="btn btn-danger" type="submit" value="{% trans "I am sure" %}" />
+        <input class="btn danger" type="submit" value="{% trans "I am sure" %}" />
         <a class="btn" href="{% url 'proposal_detail' proposal.pk %}">{% trans "No, keep it for now" %}</a>
     </form>
 {% endblock %}

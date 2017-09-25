@@ -134,8 +134,20 @@ class ProposalBase(models.Model):
             """,
         ),
     )
-    submitted = models.DateTimeField(
-        default=datetime.datetime.now,
+    created = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+    )
+    updated = models.DateTimeField(
+        auto_now=True,
+        null=True,
+    )
+    submitted = models.BooleanField(
+        default=False
+    )
+    submitted_at = models.DateTimeField(
+        blank=True,
+        null=True,
         editable=False,
     )
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
@@ -155,12 +167,10 @@ class ProposalBase(models.Model):
         """
         Return True if this proposal is editable - meaning no presentation exists yet.
         """
-        # TODO: For PyCon 2018, this should be a switch that we can
-        # throw in the admin, or maybe even schedule ahead of time to
-        # trigger on a certain date.  For tonight?  At 1:25am?  I am
-        # just returning False and going to bed.
-        if str(self.kind) == 'Talks':
-            return False
+        proposal_section = ProposalSection.objects.filter(section=self.kind.section).first()
+        if proposal_section.is_available():
+            return True
+        return False
 
         # Putting this import at the top would result in a circular import
         from symposion.schedule.models import Presentation
