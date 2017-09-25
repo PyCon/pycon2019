@@ -32,7 +32,7 @@
                 {% if not proposal.submitted %}
                 <a href="{% url 'proposal_submit_final' proposal.pk %}" class="btn btn-mini danger"><i class="icon-pencil"></i> Submit</a>
                 {% else %}
-                <a class="btn btn-mini disabled">Submitted</a>
+                <div class="btn btn-mini" disabled=true>Submitted</div>
                 {% endif %}
             {% endif %}
         {% endif %}

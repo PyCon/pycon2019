@@ -167,8 +167,10 @@ class ProposalBase(models.Model):
         """
         Return True if this proposal is editable - meaning no presentation exists yet.
         """
-        if self.submitted:
-            return False
+        proposal_section = ProposalSection.objects.filter(section=self.kind.section).first()
+        if proposal_section.is_available():
+            return True
+        return False
 
         # Putting this import at the top would result in a circular import
         from symposion.schedule.models import Presentation
