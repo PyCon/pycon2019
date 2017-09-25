@@ -11,7 +11,7 @@
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <p>{% blocktrans with title=proposal.title %}Are you sure you want to submit <b>{{ title }}</b>?{% endblocktrans %}</p>
-        <p>Once submitted, you will not be able to edit it any further</p>
+        <p>You will be able to edit your proposal after it has been submitted. The program committee may ask questions, provide feedback, and even suggest changes to your proposal as part of the review processes.</p>
         <input class="btn danger" type="submit" value="{% trans "I am sure" %}" />
         <a class="btn" href="{% url 'proposal_detail' proposal.pk %}">{% trans "No, I'd like to edit it further" %}</a>
     </form>

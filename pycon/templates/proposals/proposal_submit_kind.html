@@ -17,11 +17,9 @@
             <fieldset>
                 {{ form|as_bootstrap }}
                  <div class="form-actions">
-                <p>{% blocktrans %}
-                    You will be able to edit your proposal after it has been submitted.
-                    The program committee may ask questions, provide feedback,
-                    and even suggest changes to your proposal as part of the review processes.
-                  {% endblocktrans %}
+                <p>
+                    Saving your proposal will not immediately submit if for review!
+                    You can safely save at any time and come back before submission.
                 </p>
                 <input class="btn" type="submit" name="add-speakers" value="{% trans "Save and Add Additional Speakers" %}" />
                 <input class="btn" type="submit" name="finish" value="{% trans "Save" %}" />
