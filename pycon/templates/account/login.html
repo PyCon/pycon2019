@@ -10,7 +10,9 @@
 
 {% block page_content %}
     <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        <legend><h1>{% trans "Log in to an existing account" %}</h1></legend>
+        <legend>
+            <h1>{% trans "Log in to an existing account" %}</h1>
+        </legend>
         <fieldset>
             {% csrf_token %}
             {{ form|as_bootstrap }}
@@ -31,5 +33,11 @@
                 </p>
             </div>
         </fieldset>
+        <legend>
+            <div class="callout" style="font-size: smaller; font-weight:normal">
+              <p>Accounts from the previous years are no longer carried over year-to-year.</p>
+              <p>You will need to create a new login <a href="{% url "account_signup" %}">here</a>.</p>
+            </div>
+        </legend>
     </form>
 {% endblock page_content %}
