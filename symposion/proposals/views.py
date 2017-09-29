@@ -67,7 +67,7 @@ def proposal_submit_kind(request, kind_slug):
             proposal.speaker = speaker_profile
             proposal.save()
             form.save_m2m()
-            messages.success(request, "Proposal submitted.")
+            messages.success(request, "Proposal saved.")
             if "add-speakers" in request.POST:
                 return redirect("proposal_speaker_manage", proposal.pk)
             return redirect("dashboard")
