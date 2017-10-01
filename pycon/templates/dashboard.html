@@ -48,13 +48,13 @@
                                 <span class="widget-label">{% trans "Learn about sponsorship" %}</span>
                             </a>
                             {% if not user.sponsorships.exists %}
-                                <a href="{% url 'sponsor_apply' %}" class="action">
+                                <a href="{% url 'sponsor_apply' %}" class="btn">
                                     <i class="widget-icon icon-money"></i>
                                     <span class="widget-label">{% trans "Apply to be a sponsor" %}</span>
                                 </a>
                             {% endif %}
                             {% if user.is_staff %}
-                                <a href="{% url "sponsor_zip_logos" %}" class="action">
+                                <a href="{% url "sponsor_zip_logos" %}" class="btn">
                                     <i class="widget-icon icon-arrow-down"></i>
                                     <span class="widget-label">Download sponsor logos</span>
                                 </a>
@@ -91,13 +91,13 @@
                     <div class="dashboard-panel-content">
                         {% if user.speaker_profile %}
                             <div class="actions">
-                                <a href="{% url 'speaker_edit' %}" class="action">
+                                <a href="{% url 'speaker_edit' %}" class="btn">
                                     <i class="widget-icon icon-pencil"></i>
                                     <span class="widget-label">{% trans "Edit your speaker profile" %}</span>
                                 </a>
 
                                 {% if proposals_are_open %}
-                                  <a href="{% url 'proposal_submit' %}" class="action">
+                                  <a href="{% url 'proposal_submit' %}" class="btn">
                                       <i class="widget-icon  icon-bullhorn"></i>
                                       <span class="widget-label">{% trans "Submit a new proposal" %}</span>
                                   </a>
@@ -162,7 +162,7 @@
                         {% elif proposals_are_open %}
                             <p>{% trans "To submit a proposal, first create a speaker profile." %}</p>
                             <div class="actions">
-                                <a href="{% url 'speaker_create' %}" class="action">
+                                <a href="{% url 'speaker_create' %}" class="btn">
                                     <i class="widget-icon icon-user"></i>
                                     <span class="widget-label">{% trans "Create a speaker profile" %}</span>
                                 </a>
@@ -216,73 +216,78 @@
                       <h3>Financial Aid</h3>
                     </div>
                     <div class="dashboard-panel-content">
-                      <div class="actions">
-                        {% if show_finaid_apply_button %}
-                          <a href="{% url 'finaid_apply' %}" class="action">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Apply for financial aid</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_provide_info_button %}
-                          <a href="{% url 'finaid_provide_info' %}" class="action">
-                            <i class="widget-icon icon-pencil"></i>
-                            <span class='widget-label'>Provide requested information</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_accept_button %}
-                          <a href="{% url 'finaid_accept' %}" class="action">
-                            <i class="widget-icon icon-check"></i>
-                            <span class='widget-label'>Accept financial aid offer</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_decline_button %}
-                          <a href="{% url 'finaid_decline' %}" class="action">
-                            <i class="widget-icon icon-ban-circle"></i>
-                            <span class='widget-label'>Decline financial aid offer</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_request_more_button %}
-                          <a href="{% url 'finaid_request_more' %}" class="action">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Request more funds</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_edit_button %}
-                          <a href="{% url 'finaid_edit' %}" class="action">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Edit financial aid application</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_status_button %}
-                          <a href="{% url 'finaid_status' %}" class="action">
-                            <i class="widget-icon icon-ok"></i>
-                            <span class='widget-label'>Financial aid application status</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_withdraw_button %}
-                          <a href="{% url 'finaid_withdraw' %}" class="action">
-                            <i class="widget-icon icon-trash"></i>
-                            <span class='widget-label'>Withdraw financial aid application</span>
-                          </a>
-                        {% endif %}
+                      {% if request.user.is_staff %}
+                      <div class="actions admin">
+                        <h4>Admin functions</h4>
                         {% if show_finaid_review_button %}
-                          <a href="{% url 'finaid_review' %}" class="action">
+                          <a href="{% url 'finaid_review' %}" class="btn">
                             <i class="widget-icon icon-comment"></i>
                             <span class="widget-label">Review applications</span>
                           </a>
                         {% endif %}
                         {% if show_finaid_download_button %}
-                          <a href="{% url 'finaid_download_csv' %}" class="action">
+                          <a href="{% url 'finaid_download_csv' %}" class="btn">
                             <i class="widget-icon icon-arrow-down"></i>
                             <span class="widget-label">Download applications</span>
                           </a>
                         {% endif %}
-                          {% if show_finaid_receipt_form %}
-                          <a href="{% url 'receipt_upload' %}" class="action">
+                      </div>
+                      {% endif %}
+                      <div class="actions">
+                        {% if show_finaid_apply_button %}
+                          <a href="{% url 'finaid_apply' %}" class="btn">
                             <i class="widget-icon icon-money"></i>
-                            <span class="widget-label">Upload Receipt</span>
+                            <span class='widget-label'>Apply for financial aid</span>
                           </a>
-                          {% endif %}
+                        {% endif %}
+                        {% if show_finaid_provide_info_button %}
+                          <a href="{% url 'finaid_provide_info' %}" class="btn">
+                            <i class="widget-icon icon-pencil"></i>
+                            <span class='widget-label'>Provide requested information</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_accept_button %}
+                          <a href="{% url 'finaid_accept' %}" class="btn">
+                            <i class="widget-icon icon-check"></i>
+                            <span class='widget-label'>Accept offer</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_decline_button %}
+                          <a href="{% url 'finaid_decline' %}" class="btn">
+                            <i class="widget-icon icon-ban-circle"></i>
+                            <span class='widget-label'>Decline offer</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_request_more_button %}
+                          <a href="{% url 'finaid_request_more' %}" class="btn">
+                            <i class="widget-icon icon-money"></i>
+                            <span class='widget-label'>Request more funds</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_edit_button %}
+                          <a href="{% url 'finaid_edit' %}" class="btn">
+                            <i class="widget-icon icon-money"></i>
+                            <span class='widget-label'>Edit application</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_status_button %}
+                          <a href="{% url 'finaid_status' %}" class="btn">
+                            <i class="widget-icon icon-ok"></i>
+                            <span class='widget-label'>Application status</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_withdraw_button %}
+                          <a href="{% url 'finaid_withdraw' %}" class="btn danger">
+                            <i class="widget-icon icon-trash"></i>
+                            <span class='widget-label'>Withdraw application</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_receipt_form %}
+                        <a href="{% url 'receipt_upload' %}" class="btn">
+                          <i class="widget-icon icon-money"></i>
+                          <span class="widget-label">Upload Receipt</span>
+                        </a>
+                        {% endif %}
                       </div>
                     </div>
                   </div>

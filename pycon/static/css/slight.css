@@ -481,7 +481,7 @@ a {
   color: #FFF;
   display: flex;
   margin: 10px;
-  padding: 10px 10px 10px 0;
+  padding: 10px 10px 10px 10px;
 }
 @media (min-width: 750px) {
   .messages .message {
@@ -491,6 +491,7 @@ a {
 .messages .message button {
   background: #EA6446;
   border-color: #EA6446;
+  margin: 0px 10px 0px 0px;
 }
 
 /* Account navigation (log in, sign up, etc.) */
@@ -948,6 +949,26 @@ input[type=radio] {
 }
 .help-block {
   font-size: .75rem;
+}
+.help-block[id^=error_] {
+  align-items: center;
+  background: #EA6446;
+  border-radius: 10px;
+  border: 2px solid #D25438;
+  color: #FFF;
+  display: flex;
+  margin: 10px;
+  padding: 10px 10px 10px 10px;
+}
+.text-error {
+  align-items: center;
+  background: #EA6446;
+  border-radius: 10px;
+  border: 2px solid #D25438;
+  color: #FFF;
+  display: flex;
+  margin: 10px;
+  padding: 10px 10px 10px 10px;
 }
 .controls .help-block {
   margin: 5px 0 0 0;
