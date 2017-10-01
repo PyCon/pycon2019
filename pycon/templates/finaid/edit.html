@@ -33,9 +33,11 @@
           </div>
         {% endif %}
 
+        <fieldset>
         {{ form|as_bootstrap }}
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% if applying %}{% trans "Apply" %}{% else %}{% trans "Submit" %}{% endif %}" />
         </div>
+        </fieldset>
     </form>
 {% endblock %}
