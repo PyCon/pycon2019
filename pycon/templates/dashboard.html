@@ -216,7 +216,7 @@
                       <h3>Financial Aid</h3>
                     </div>
                     <div class="dashboard-panel-content">
-                      {% if request.user.is_staff %}
+                      {% if request.user.is_staff or show_finaid_review_button or show_finaid_download_button %}
                       <div class="actions admin">
                         <h4>Admin functions</h4>
                         {% if show_finaid_review_button %}
