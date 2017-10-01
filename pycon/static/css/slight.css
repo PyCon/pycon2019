@@ -1109,6 +1109,7 @@ span.help-inline {
   display: inline-block;
   font-weight: 300;
   padding: 3px 15px 6px;
+  margin: 2px 5px 3px 0px;
   text-align: center;
   text-decoration: none;
   transition: all .25s ease-in-out;
