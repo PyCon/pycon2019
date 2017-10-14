@@ -37,3 +37,17 @@ rebuild:
 	@docker-compose build
 
 reset: down rebuild reset-volume up
+
+push-staging:
+	@git fetch -a
+	@git checkout staging
+	@git merge origin/develop
+	@git checkout develop
+	@git push origin staging
+
+push-production:
+	@git fetch -a
+	@git checkout production
+	@git merge origin/develop
+	@git checkout develop
+	@git push origin production
