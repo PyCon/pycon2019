@@ -150,6 +150,19 @@ class SpecialEventAdmin(MarkEditAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+class EduSummitTalkAdmin(ProposalMarkEditAdmin):
+    list_display = [
+        'title',
+        'kind',
+        'status',
+        'submitted',
+        'speaker',
+        'category',
+        'audience_level',
+        'cancelled',
+    ]
+
+
 admin.site.register(PyConProposalCategory)
 admin.site.register(PyConTalkProposal, TalkAdmin)
 admin.site.register(PyConTutorialProposal, TutorialAdmin)
@@ -157,7 +170,7 @@ admin.site.register(PyConPosterProposal, PosterAdmin)
 admin.site.register(PyConOpenSpaceProposal, OpenSpaceAdmin)
 admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
 admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
-admin.site.register(EduSummitTalkProposal)
+admin.site.register(EduSummitTalkProposal, EduSummitTalkAdmin)
 admin.site.register(SpecialEvent, SpecialEventAdmin)
 
 
