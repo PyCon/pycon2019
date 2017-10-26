@@ -1,11 +1,12 @@
 {% extends "site_base.html" %}
 
+{% load sitetree %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Registration and Housing" %}{% endblock %}
 {% block body_class %}registration{% endblock %}
 
-{% block body_outer %}
+{% block page_content %}
     <div class="row">
         <div class="box">
             {# height of tallest registration page is currently 1255 #}
@@ -15,10 +16,3 @@
     </div>
 {% endblock %}
 
-{% block extra_head_base %}
-<script language="javascript">
-    function scrolltotop() {
-        scroll(0,0);
-    }
-</script>
-{% endblock %}
