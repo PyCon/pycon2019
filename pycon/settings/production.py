@@ -9,6 +9,7 @@ REGISTRATION_EMAIL = 'pycon-reg@python.org'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 SPONSORSHIP_EMAIL = 'pycon-sponsors@python.org'
 THEME_CONTACT_EMAIL = 'pycon-reg@python.org'
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['pycon-aid@python.org', 'phyllis@python.org']
 
 LOGGING['filters']['static_fields']['fields']['environment'] = 'production'
 

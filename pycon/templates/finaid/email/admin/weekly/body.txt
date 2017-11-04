@@ -1,0 +1,3 @@
+{{ id__count }} Financial Aid applications totalling ${{ amount_requested__sum }} have been submitted.
+
+- A friendly robot
