@@ -370,3 +370,4 @@ ORGANIZERS_EMAIL = 'pycon@caktusgroup.com'
 REGISTRATION_EMAIL = 'pycon@caktusgroup.com'
 SPONSORSHIP_EMAIL = 'pycon@caktusgroup.com'
 THEME_CONTACT_EMAIL = 'pycon@caktusgroup.com'
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['pycon@caktusgroup.com']
