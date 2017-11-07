@@ -1121,6 +1121,10 @@ span.help-inline {
   background: #307D98;
   border-color: #307D98;;
 }
+.btn.warn{
+  background: #7AABA7;
+  border-color: #7AABA7;
+}
 .btn.danger {
   background: #EA6446;
   border-color: #EA6446;
