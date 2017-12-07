@@ -217,7 +217,7 @@ class PyConIRCLogsApiTest(TestCase, RawDataClientMixin):
 class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
     def setUp(self):
         self.auth_key = APIAuth.objects.create(name="test")
-        self.proposal = PyConTalkProposalFactory.create()
+        self.proposal = PyConTalkProposalFactory.create(submitted=True)
 
     def test_get_data_bad_auth(self):
         self.auth_key.secret = uuid.uuid4()
@@ -333,6 +333,13 @@ class PyConProposalDataApiTest(TestCase, RawDataClientMixin):
 
     def test_list_view_undecided_only(self):
         url = reverse('proposal_list') + '?status=undecided'
+        rsp = self.client.get(url, **self.get_signature(url))
+        self.assertEqual(rsp.status_code, 200, rsp.content)
+        self.assertEqual(len(json.loads(rsp.content)['data']), 1)
+
+    def test_skip_unsubmitted(self):
+        PyConTalkProposalFactory.create(submitted=False)
+        url = reverse('proposal_list') + '?type=talk'
         rsp = self.client.get(url, **self.get_signature(url))
         self.assertEqual(rsp.status_code, 200, rsp.content)
         self.assertEqual(len(json.loads(rsp.content)['data']), 1)

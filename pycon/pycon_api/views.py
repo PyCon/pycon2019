@@ -288,6 +288,9 @@ def proposal_list(request):
     # See if there is such a proposal
     proposals = model.objects.select_related('result').order_by('pk')
 
+    # Don't look at unsubmitted proposals
+    proposals = proposals.exclude(submitted=False)
+
     # Don't look at cancelled proposals.
     proposals = proposals.exclude(cancelled=True)
 
