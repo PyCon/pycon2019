@@ -2,6 +2,8 @@
 before_script:
   - psql -c 'create database pycon2016;' -U postgres
 sudo: false
+addons:
+  postgresql: "9.6"
 language: python
 python:
   - "2.7"
