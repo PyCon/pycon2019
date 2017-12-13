@@ -16,7 +16,7 @@ html5lib==0.999
 # longer.
 git+https://github.com/caktus/django-social-auth@add_migrations#egg=django-social-auth
 
-psycopg2==2.5.3
+psycopg2==2.7.3.2
 gunicorn==19.3.0
 django-secure==1.0
 raven==5.5.0
