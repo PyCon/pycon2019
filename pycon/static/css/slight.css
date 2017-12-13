@@ -1541,6 +1541,7 @@ td.time {
     float: right;
     margin: 0 0 1em 1em;
 }
+/*
 .job-fair .callout {
     margin-bottom: 1em;
 }
@@ -1552,6 +1553,7 @@ td.time {
         padding: 0.3em;
     }
 }
+*/
 
 /* The sponsors page. */
 
@@ -1811,4 +1813,38 @@ body.account .page-content form {
   body.account .page-content aside {
     margin: 30px 50px 0 0;
   }
+}
+
+/* Group Registrations Hax */
+#registrations {
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #D7E5E4;
+  border: 2px solid #CADDDC;
+  display: block;
+  margin: 20px;
+  max-width: 800px;
+  padding: 20px;
+  width: 100%;
+}
+
+#registrations .form-inline {
+  padding-top: 10px;
+  position: relative;
+}
+
+#registrations input {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 2px;
+  width: 90%;
+  border-radius: 5px;
+}
+
+#registrations span {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border-radius: 5px;
 }

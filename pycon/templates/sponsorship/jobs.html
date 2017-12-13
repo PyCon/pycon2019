@@ -30,10 +30,11 @@
 {% endblock %}
 
 {% block page_content %}
+    <blockquote class="callout">
+      {% box "sponsor_jobs" %}
+    </blockquote>
     {% job_sponsors as grouped_sponsors %}
-    <div class="callout">
-        {% box "sponsor_jobs" %}
-    </div>
+    <div class="joblistings">
             {% for level_name, sponsors in grouped_sponsors %}
                 <h1>{{ level_name }} Sponsors</h1>
                 <hr>
@@ -49,4 +50,5 @@
                     <hr>
                 {% endfor %}
             {% endfor %}
+    </div>
 {% endblock %}
