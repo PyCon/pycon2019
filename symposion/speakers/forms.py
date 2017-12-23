@@ -17,8 +17,6 @@ class SpeakerForm(forms.ModelForm):
             "photo",
             "twitter_username",
             "mobile_number",
-            "interested_mentee",
-            "interested_mentor",
             "financial_support",
         ]
         help_texts = {
@@ -57,12 +55,6 @@ class SpeakerForm(forms.ModelForm):
             )
         }
         labels = {
-            'interested_mentee': _(
-                u"I'm interested in receiving mentorship in the following areas:"
-            ),
-            'interested_mentor': _(
-                u"I'm interested in providing mentorship in the following ways:"
-            ),
             'financial_support': _(
                 u"I require a speaker grant if my proposal is accepted."
             ),
