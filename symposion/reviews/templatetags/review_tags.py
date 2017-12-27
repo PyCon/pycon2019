@@ -28,6 +28,6 @@ def _bleach(text):
     return bleach.clean(text, tags=settings.BLEACH_ALLOWED_TAGS)
 
 
-@register.filter("nbsp")
-def _nbsp(text):
-    return text.replace(" ", "&nbsp")
+@register.filter("indentation")
+def _indentation(text):
+    return text.replace(" ", "&nbsp;").replace("\t", "&emsp;")
