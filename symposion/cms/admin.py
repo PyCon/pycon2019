@@ -24,11 +24,12 @@ class PageAdmin(reversion.VersionAdmin, MarkEditAdmin):
         return bool(page.body_fr)
 
     class MarkEdit:
-        fields = ['body', 'body_fr']
+        fields = []
         options = {
             'preview': 'below'
         }
         if not settings.USE_I18N:
-            fields.remove('body_fr')
+            if 'body_fr' in fields:
+                fields.remove('body_fr')
 
 admin.site.register(Page, PageAdmin)

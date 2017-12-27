@@ -9,7 +9,7 @@ from symposion.boxes.models import Box
 
 class BoxAdmin(reversion.VersionAdmin, MarkEditAdmin):
     class MarkEdit:
-        fields = ['content', ]
+        fields = []
         options = {
             'preview': 'below'
         }
