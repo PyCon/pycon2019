@@ -28,6 +28,15 @@ def _bleach(text):
     return bleach.clean(text, tags=settings.BLEACH_ALLOWED_TAGS)
 
 
+def replace_prefix(text, find, replace):
+    leading_count = len(text) - len(text.lstrip(find))
+    return replace*leading_count + text.lstrip(find)
+
+
+def escape_indentation(text):
+    return replace_prefix(replace_prefix(text, "\t", "&emsp;"), " ", "&nbsp;")
+
+
 @register.filter("indentation")
 def _indentation(text):
-    return text.replace(" ", "&nbsp;").replace("\t", "&emsp;")
+    return '\n'.join([escape_indentation(line) for line in text.split('\n')])

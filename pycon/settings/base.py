@@ -328,7 +328,7 @@ LOGGING.setdefault('root', {
     'handlers': ['null'],  # null handler is defined in the default logging config
 })
 
-BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
+BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p', 'amp']
 
 # Django issues a nasty warning in 1.7 if you don't
 # declare a runner explicitly, even though it works...
