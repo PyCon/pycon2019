@@ -38,7 +38,7 @@
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Outline" %}</dt>
-        <dd id="outline" class="significant-whitespace">{{ proposal.outline|indentation|bleach }}&nbsp</dd>
+        <dd id="outline" class="significant-whitespace">{{ proposal.outline|indentation|bleach|safe }}&nbsp</dd>
     {% endif %}
 
     <dt>{% trans "Additional notes" %}</dt>
