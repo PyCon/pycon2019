@@ -12,7 +12,7 @@ class SpeakerAdmin(MarkEditAdmin):
     search_fields = ["name", "twitter_username"]
 
     class MarkEdit:
-        fields = ['biography', ]
+        fields = []
         options = {
             'preview': 'below'
         }

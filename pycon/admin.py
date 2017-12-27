@@ -11,7 +11,7 @@ from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
     class MarkEdit:
-        fields = ['abstract', 'additional_notes', 'outline', 'more_info']
+        fields = []
         options = {
             'preview': 'below'
         }
@@ -85,7 +85,7 @@ class LightningTalkAdminForm(forms.ModelForm):
 
 class LightningTalkAdmin(MarkEditAdmin):
     class MarkEdit:
-        fields = ['additional_notes']
+        fields = []
         options = {
             'preview': 'below'
         }
