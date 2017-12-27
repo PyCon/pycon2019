@@ -26,3 +26,8 @@ def review_assignments(context):
 @register.filter("bleach")
 def _bleach(text):
     return bleach.clean(text, tags=settings.BLEACH_ALLOWED_TAGS)
+
+
+@register.filter("nbsp")
+def _nbsp(text):
+    return text.replace(" ", "&nbsp")
