@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load review_tags %}
+{% load markdownify %}
 
 <dl class="proposal-fields">
     <dt>{% trans "Submitted by" %}</dt>
@@ -28,7 +29,7 @@
     {% endif %}
 
     <dt>{% trans "Description" %}</dt>
-    <dd class="description significant-whitespace">{{ proposal.description }}&nbsp;</dd>
+    <dd class="description significant-whitespace">{{ proposal.description|markdownify }}&nbsp;</dd>
 
     {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
         <dt>{% trans "Audience" %}</dt>

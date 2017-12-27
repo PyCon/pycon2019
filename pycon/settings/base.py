@@ -209,6 +209,7 @@ INSTALLED_APPS = [
     "email_log",
     "djcelery_email",
     "multiselectfield",
+    "markdownify",
 
     # symposion
     "symposion.conference",

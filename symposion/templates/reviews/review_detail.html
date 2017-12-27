@@ -4,6 +4,7 @@
 {% load bootstrap_tags %}
 {% load account_tags %}
 {% load review_tags %}
+{% load markdownify %}
 
 {% block head_title %}#{{ proposal.number }} - {{ proposal.title }}{% endblock %}
 
@@ -173,7 +174,7 @@
                             <div class="review-content">
                                 <b>{% user_display review.user %}</b>
                                 {{ review.submitted_at|timesince }} ago <br />
-                                {{ review.comment|bleach|safe }}
+                                {{ review.comment|markdownify|bleach|safe }}
                             </div>
                         </div>
                     {% endfor %}
