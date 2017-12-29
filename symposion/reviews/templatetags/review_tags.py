@@ -25,7 +25,7 @@ def review_assignments(context):
 
 @register.filter("bleach")
 def _bleach(text):
-    return bleach.clean(text, tags=settings.BLEACH_ALLOWED_TAGS)
+    return bleach.clean(unicode(text), tags=settings.BLEACH_ALLOWED_TAGS)
 
 
 def replace_prefix(text, find, replace):
