@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         to_bump = defaultdict(list)
 
-        unsubmitted = get_proposal_model(options['kind']).objects.filter(submitted=False)
+        unsubmitted = get_proposal_model(options['kind']).objects.filter(submitted=False, cancelled=False)
         for unsub in unsubmitted:
             path = reverse('proposal_detail', args=[unsub.id])
             url = 'https://{domain}{path}'.format(domain=DOMAIN, path=path)
