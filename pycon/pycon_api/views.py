@@ -232,6 +232,23 @@ def thunderdome_group_decide(request, td_group_code):
 
 
 @api_view
+def proposal_counts(request):
+    model = ProposalBase
+    proposal_type = request.GET.get('type', 'talk')
+    if proposal_type:
+        try:
+            model = PROPOSAL_TYPES[proposal_type]
+        except KeyError:
+            return ({ 'error': 'unrecognized proposal type' }, 400)
+
+    submitted = model.objects.filter(submitted=True, cancelled=False).count()
+    draft = model.objects.filter(submitted=False, cancelled=False).count()
+    cancelled = model.objects.filter(cancelled=True).count()
+
+    return {"submitted": submitted, "draft": draft, "cancelled": cancelled}
+
+
+@api_view
 def proposal_list(request):
     """Retrieve and return a list of proposals, optionally
     filtered by the given acceptance status.

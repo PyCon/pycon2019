@@ -4,6 +4,7 @@ from pycon.pycon_api import views
 
 urlpatterns = patterns("",
     url(r'^proposals/$', views.proposal_list, name='proposal_list'),
+    url(r'^proposals/counts$', views.proposal_counts, name='proposal_counts'),
     url(r'^proposals/(?P<proposal_id>[\d]+)/$', views.proposal_detail,
         name='proposal_detail',
     ),
