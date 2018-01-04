@@ -181,6 +181,11 @@ class PyConTalkProposal(PyConProposal):
             to cover even in 45 minutes,
             you may wish to narrow it down.
             Alternatively, consider submitting a 3-hour PyCon tutorial instead.
+            <br>
+            If you plan to do live coding during your talk, please describe
+            your backup plan in case the live coding fails (for whatever
+            reason). Suggestions include a pre-recorded video, or slides
+            to replace the live coding.
             """
         ),
     )
