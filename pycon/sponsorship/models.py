@@ -9,6 +9,7 @@ from django.db.models import SET_NULL
 from django.db.models.signals import post_init, post_save, pre_save
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+from django.template import Context, Template
 
 from django.contrib.auth.models import User
 from multi_email_field.fields import MultiEmailField
@@ -173,7 +174,11 @@ class Sponsor(models.Model):
         %%REGISTRATION_PROMO_CODES%% --> Registration promo codes, or empty string
         %%EXPO_PROMO_CODES%% --> Expo Hall only promo codes, or empty string
         %%BOOTH_NUMBER%% --> Booth number, or empty string if not set
-        %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair tabl number, or empty string if not set
+        %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair table number, or empty string if not set
+
+        Flags:
+          JOB_FAIR_PARTICIPANT: Use with {% if JOB_FAIR_PARTICIPANT %} block to
+                                include some content for Job Fair Participants
         """
         text = text.replace("%%NAME%%", self.name)
         text = text.replace("%%REGISTRATION_PROMO_CODES%%",
@@ -187,6 +192,11 @@ class Sponsor(models.Model):
         text = text.replace("%%BOOTH_NUMBER%%", booth)
         table = str(self.job_fair_table_number) if self.job_fair_table_number is not None else ""
         text = text.replace("%%JOB_FAIR_TABLE_NUMBER%%", table)
+        email_template = Template(text)
+        email_context = Context({
+            'JOB_FAIR_PARTICIPANT': self.job_fair_participant,
+        })
+        text = email_template.render(email_context)
         return text
 
     @cached_property
