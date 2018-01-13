@@ -33,6 +33,23 @@
     <blockquote class="callout">
       {% box "sponsor_jobs" %}
     </blockquote>
+    {% job_fair_participants as grouped_sponsors %}
+    <div class="jobfairparticpants">
+         <table>
+           <tr>
+             <th><b>Sponsor Name</b></th>
+             <th><b>Table Number</b></th>
+           </tr>
+         {% for level_name, sponsors in grouped_sponsors %}
+           {% for sponsor in sponsors %}
+           <tr>
+             <td><a href="{{ sponsor.external_url }}">{{ sponsor.name }}</a></td>
+             <td>{{ sponsor.job_fair_table_number }}</td>
+           </tr>
+           {% endfor %}
+         {% endfor %}
+         </table>
+    </div>
     {% job_sponsors as grouped_sponsors %}
     <div class="joblistings">
             {% for level_name, sponsors in grouped_sponsors %}
