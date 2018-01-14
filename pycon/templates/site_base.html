@@ -67,7 +67,7 @@
   {% block banner %}{% endblock %}
 
   {% block body_base %}
-    <div id="content">
+    <div id="content" class="{% block content_class %}{% endblock %}">
         {% block body_outer %}
           <div class="page-content">
             {% block page_content %}
