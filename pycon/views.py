@@ -42,3 +42,11 @@ def scheduled_event(request, slug):
             'title': event.name,
         }
     })
+
+
+def scheduled_event_overview(request):
+   """Overview of all ScheduledEvents"""
+   events = ScheduledEvent.objects.filter(published=True).order_by('start').all()
+   return render(request, "scheduled_event_overview.html", {
+       'events': events,
+   })
