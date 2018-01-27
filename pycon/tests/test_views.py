@@ -11,7 +11,7 @@ from django.utils.timezone import now
 
 from pycon.finaid.tests.utils import TestMixin
 from pycon.models import EduSummitTalkProposal, PyConTalkProposal, PyConProposal
-from pycon.tests.factories import SpecialEventFactory, PyConProposalCategoryFactory, \
+from pycon.tests.factories import ScheduledEventFactory, PyConProposalCategoryFactory, \
     PyConEduSummitProposalFactory, PyConLightningTalkProposalFactory, PyConTalkProposalFactory
 from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.kinds import get_proposal_model
@@ -24,10 +24,10 @@ def format_datetime(dt):
     return format(dt, settings.DATE_FORMAT) + ", " + time_format(dt, settings.TIME_FORMAT)
 
 
-class SpecialEventViewTest(TestCase):
+class ScheduledEventViewTest(TestCase):
     def setUp(self):
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
-        self.event = SpecialEventFactory()
+        self.event = ScheduledEventFactory()
 
     def test_view_event(self):
         rsp = self.client.get(self.event.get_absolute_url())

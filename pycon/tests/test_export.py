@@ -10,7 +10,7 @@ from django.test import TestCase
 from django.utils.timezone import now
 from pycon.sponsorship.models import Benefit
 from pycon.sponsorship.tests.factories import SponsorFactory
-from pycon.tests.factories import PyConTutorialProposalFactory, SpecialEventFactory
+from pycon.tests.factories import PyConTutorialProposalFactory, ScheduledEventFactory
 from symposion.conference.models import Conference, current_conference, Section
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Schedule, Slot, Day, SlotKind
@@ -39,9 +39,9 @@ class ProgramExportTest(TestCase):
             section = Section.objects.get(conference=conference, slug=slug)
             Schedule.objects.get_or_create(section=section)
 
-    def test_special_events_export(self):
-        self.unpublished_special = SpecialEventFactory(published=False)
-        self.published_special = SpecialEventFactory(published=True)
+    def test_scheduled_events_export(self):
+        self.unpublished_special = ScheduledEventFactory(published=False)
+        self.published_special = ScheduledEventFactory(published=True)
         rsp = self.client.get(self.url)
         self.assertEqual(OK, rsp.status_code)
         self.assertEqual('attachment; filename=program_export.zip', rsp['Content-Disposition'])
@@ -50,7 +50,7 @@ class ProgramExportTest(TestCase):
         # Check out the zip - testzip() returns None if no errors found
         self.assertIsNone(zipfile.testzip())
 
-        fname = "program_export/special_events/csv/special_events_schedule.csv"
+        fname = "program_export/scheduled_events/csv/scheduled_events_schedule.csv"
         file_contents = zipfile.open(fname, "U").read().decode('utf-8')
         self.assertIn(self.published_special.name, file_contents)
         self.assertIn(self.published_special.description, file_contents)

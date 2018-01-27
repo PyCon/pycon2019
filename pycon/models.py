@@ -333,7 +333,7 @@ class PyConOpenSpaceProposal(PyConProposal):
 register_proposal_model('open-space', PyConOpenSpaceProposal, 'Open Spaces')
 
 
-class SpecialEvent(models.Model):
+class ScheduledEvent(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
     location = models.CharField(max_length=100)
@@ -343,7 +343,7 @@ class SpecialEvent(models.Model):
     published = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = "PyCon Special Event"
+        verbose_name = "PyCon Scheduled Event"
 
     def get_absolute_url(self):
-        return reverse('special_event', kwargs={'slug': self.slug})
+        return reverse('scheduled_event', kwargs={'slug': self.slug})

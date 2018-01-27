@@ -7,7 +7,7 @@ from zipfile import ZipFile
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
-from pycon.models import SpecialEvent
+from pycon.models import ScheduledEvent
 from pycon.program_export import export
 
 
@@ -33,10 +33,10 @@ def program_export(request):
                 pass
 
 
-def special_event(request, slug):
-    """Special event detail page"""
-    event = get_object_or_404(SpecialEvent, slug=slug, published=True)
-    return render(request, "special_event.html", {
+def scheduled_event(request, slug):
+    """Scheduled event detail page"""
+    event = get_object_or_404(ScheduledEvent, slug=slug, published=True)
+    return render(request, "scheduled_event.html", {
         'event': event,
         'page': {
             'title': event.name,

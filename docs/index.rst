@@ -22,7 +22,7 @@ Apps:
    sponsorship
    registration
    finaid
-   special_events
+   scheduled_events
    deploying
    translation
    api
