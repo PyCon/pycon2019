@@ -1854,3 +1854,9 @@ body.account .page-content form {
   right: 15px;
   border-radius: 5px;
 }
+
+td.slot.slot-break {
+  background: #92C6C2;
+  font-size: 1.1em;
+  font-weight: bold;
+}
