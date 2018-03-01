@@ -16,7 +16,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import View
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
-    FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm
+    FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm, \
+    FinancialAidAcceptOfferForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN
 from pycon.finaid.models import STATUS_SUBMITTED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, \
@@ -378,6 +379,8 @@ class LoginRequiredMixin(object):
 
 
 class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
+    form = None
+
     def dispatch(self, request, *args, **kwargs):
         if not has_application(request.user):
             messages.add_message(request, messages.ERROR,
@@ -394,12 +397,34 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
         return True
 
     def get(self, request, *args, **kwargs):
+        application = request.user.financial_aid
+        form_to_render = None
+        if self.form is not None:
+            form_to_render = self.form(
+                request.POST or None,
+                instance=application.review,
+            )
         return render(request, "finaid/confirm.html", {
-            'message': self.confirmation_message
+            'message': self.confirmation_message,
+            'form': form_to_render,
         })
 
     def post(self, request, *args, **kwargs):
         application = request.user.financial_aid
+
+        if self.form is not None:
+            form = self.form(
+                request.POST or None,
+                instance=application.review,
+            )
+            if form.is_valid():
+                application.review.save()
+            else:
+                return render(request, "finaid/confirm.html", {
+                    'message': self.confirmation_message,
+                    'form': form,
+                })
+
         try:
             application.review
         except FinancialAidReviewData.DoesNotExist:
@@ -431,6 +456,7 @@ class FinaidAcceptView(AcceptDeclineWithdrawViewBase):
         "{% load review_tags %}{{ user.get_full_name|bleach|safe }} " \
         "has accepted their financial aid offer"
     user_message = _("The offer has been accepted")
+    form = FinancialAidAcceptOfferForm
 
 
 class FinaidDeclineView(AcceptDeclineWithdrawViewBase):
@@ -543,7 +569,7 @@ def finaid_download_csv(request):
     # For these fields, use the get_FIELDNAME_display() method so we get
     # the name of the choice (or other custom string) instead of the internal value
     use_display_method = [
-        'cash_check',
+        'reimbursement_method',
         'last_update',
         'presenting',
         'status',
