@@ -399,7 +399,7 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         application = request.user.financial_aid
         form_to_render = None
-        if self.form is not None:
+        if self.form is not None and application.review.amount > 0:
             form_to_render = self.form(
                 request.POST or None,
                 instance=application.review,
@@ -412,7 +412,7 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         application = request.user.financial_aid
 
-        if self.form is not None:
+        if self.form is not None and application.review.amount > 0:
             form = self.form(
                 request.POST or None,
                 instance=application.review,
