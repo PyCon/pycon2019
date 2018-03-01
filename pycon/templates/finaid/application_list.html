@@ -3,6 +3,7 @@
 {% block body_id %}application_list{% endblock %}
 
 {% load i18n %}
+{% load humanize %}
 {% block extra_style %}
 <link href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css"
       rel="stylesheet" type="text/css" media="all" />
@@ -25,8 +26,8 @@
         <th>Applicant <i class="icon-sort"></i></th>
         <th>Status <i class="icon-sort"></i></th>
         <th>Last updated <i class="icon-sort"></i></th>
-        <th>Notes <i class="icon-sort"></i></th>
-      <th>Sum <i class="icon-sort"></i></th>
+        <th>Messages <i class="icon-sort"></i></th>
+        <th>Offered <i class="icon-sort"></i></th>
       </thead>
 
       <tbody>
@@ -42,12 +43,12 @@
             {{ application.get_status_display }}
           </td>
           <td>
-            {{ application.get_last_update_display }}
+            {{ application.get_last_update|naturaltime }}
           </td>
           <td>
             {{ application.messages.all|length }}
           </td>
-          <td>{{ application.review.sum }}</td>
+          <td>${{ application.review.amount }}</td>
         {% endfor %}
       </tbody>
     </table>
