@@ -89,7 +89,7 @@ class FinancialAidReviewForm(forms.ModelForm):
 
     class Meta:
         model = FinancialAidReviewData
-        fields = ['status', 'amount', 'grant_letter_sent', 'cash_check',
+        fields = ['status', 'amount', 'grant_letter_sent', 'reimbursement_method',
                   'notes', 'disbursement_notes',
                   'promo_code']
         widgets = {
@@ -106,6 +106,57 @@ class FinancialAidReviewForm(forms.ModelForm):
                 )
             ),
         }
+
+
+class FinancialAidAcceptOfferForm(forms.ModelForm):
+    class Meta:
+        model = FinancialAidReviewData
+        fields = [
+            'reimbursement_method',
+            'legal_name',
+            'address',
+        ]
+        widgets = {
+            'address': Textarea(
+                attrs={'cols': 80, 'rows': 4,
+                       'class': 'fullwidth-textarea',
+                       'maxlength': 4096}),
+        }
+        help_texts = {
+            'reimbursement_method': (
+                "The PSF offers three options for receiving payment in USD:  "
+                "PayPal, check, and wire transfer."
+            ),
+            'legal_name': (
+                "Your legal name should match the name displayed on your "
+                "government-issued picture identification. We require your "
+                "legal name for tax purposes, and collecting it ahead of time "
+                "will speed up the up the reimbursement process at PyCon."
+            ),
+            'address': (
+                "Please include your street address/PO Box, city, state, "
+                "zip code, and country. We are required "
+                "to collect the address in order to establish further "
+                "information about your identity."
+            ),
+        }
+
+    def clean(self):
+        cleaned_data = super(FinancialAidAcceptOfferForm, self).clean()
+        reimbursement_method = cleaned_data.get("reimbursement_method")
+        legal_name = cleaned_data.get("legal_name")
+        address = cleaned_data.get("address")
+
+        errors = []
+        if not reimbursement_method:
+            errors.append(ValidationError(_("Must select a Reimbursement Method")))
+        if not legal_name:
+            errors.append(ValidationError(_("Must provide your Legal Name")))
+        if not address:
+            errors.append(ValidationError(_("Must provide your Mailing Address")))
+
+        if errors:
+            raise ValidationError(errors)
 
 
 class MessageForm(forms.ModelForm):

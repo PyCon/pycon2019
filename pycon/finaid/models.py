@@ -40,11 +40,13 @@ STATUS_CHOICES = (
     (STATUS_ACCEPTED, _(u"Accepted"))
 )
 
-PAYMENT_CASH = 1
-PAYMENT_CHECK = 2
+PAYMENT_CHECK = 1
+PAYMENT_WIRE = 2
+PAYMENT_PAYPAL = 3
 PAYMENT_CHOICES = (
-    (PAYMENT_CASH, _(u"Cash")),
     (PAYMENT_CHECK, _(u"Check")),
+    (PAYMENT_WIRE, _(u"Wire Transfer")),
+    (PAYMENT_PAYPAL, _(u"PayPal")),
 )
 
 PYTHON_EXPERIENCE_BEGINNER = "Beginner"
@@ -259,12 +261,15 @@ class FinancialAidReviewData(models.Model):
     amount = models.DecimalField(
         decimal_places=2, max_digits=8, default=Decimal("0.00"))
     grant_letter_sent = models.BooleanField(default=False)
-    cash_check = models.IntegerField(choices=PAYMENT_CHOICES,
-                                     verbose_name="Payment type",
-                                     blank=True, null=True)
+    reimbursement_method = models.IntegerField(choices=PAYMENT_CHOICES,
+                                              verbose_name="Reimbursement Method",
+                                              blank=True, null=True)
     notes = models.TextField(blank=True)
     disbursement_notes = models.TextField(blank=True)
     promo_code = models.CharField(blank=True, max_length=20)
+    legal_name = models.CharField(blank=True, max_length=2048)
+    address = models.TextField(blank=True)
+
 
 
 class FinancialAidEmailTemplate(models.Model):

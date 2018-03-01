@@ -1,10 +1,37 @@
 {% extends 'finaid/base.html' %}
+{% load bootstrap_tags %}
+
 {% load i18n %}
 {% block body %}
+  <br>
+  {% if form %}
+  {% if form.errors %}
+  <div class="alert">
+      <p class="text-error">
+          {% trans "There were errors in your form, please correct them and submit again." %}
+      </p>
+  </div>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <p>If you'd like to accept, we'll need a couple bits of information for logistics, tax, and legal purposes</p>
+    {{ form|as_bootstrap }}
+    <div class="form-actions">
+      <p><strong>{{ message }}</strong></p>
+      <button class="btn btn-primary" style="width: 5em;" type="submit">{% trans "Yes" %}</button>
+    </div>
+    </fieldset>
+  </form>
+  <div style="text-align: center; margin: 0; padding: 0;">
+    <a href="{% url 'dashboard' %}"><button class="btn btn-default" style="width: 5em;">{% trans "No" %}</button></a>
+  </div>
+  {% else %}
   <form method="POST">
     {% csrf_token %}
     <p>{{ message }}</p>
-    <button class="btn btn-primary" type="submit">{% trans "Yes" %}</button>
-    <a href="{% url 'dashboard' %}"><button class="btn btn-default">{% trans "No" %}</button></a>
+    <button class="btn btn-primary" style="width: 5em;" type="submit">{% trans "Yes" %}</button>
   </form>
+  <a href="{% url 'dashboard' %}"><button class="btn btn-default" style="width: 5em;">{% trans "No" %}</button></a>
+  {% endif %}
 {% endblock body %}

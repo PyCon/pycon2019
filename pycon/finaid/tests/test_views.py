@@ -604,6 +604,11 @@ class TestFinaidAccept(FinaidViewTestMixin, TestMixin, TestCase):
     initial_status = STATUS_OFFERED
     final_status = STATUS_ACCEPTED
     subject = 'Joe Smith has accepted their financial aid offer'
+    post_kwargs = {
+        'legal_name': 'Joseph Smith',
+        'address': '123 Main Street City, State USA 11111',
+        'reimbursement_method': 1,
+    }
 
 
 class TestFinaidDecline(FinaidViewTestMixin, TestMixin, TestCase):
