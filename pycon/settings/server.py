@@ -52,8 +52,11 @@ COMPRESS_ENABLED = True
 
 MEDIA_ROOT = env_or_default('MEDIA_ROOT', '')
 
+from copy import deepcopy
 from django.utils.log import DEFAULT_LOGGING
-LOGGING = DEFAULT_LOGGING.copy()
+logging_dict = deepcopy(DEFAULT_LOGGING)
+logging_dict['loggers']['django']['handlers'] = ['console']
+LOGGING = logging_dict
 
 LOGGING['filters'].update(
     {
