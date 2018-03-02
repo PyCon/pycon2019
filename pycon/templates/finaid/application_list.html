@@ -26,6 +26,7 @@
         <th>Applicant <i class="icon-sort"></i></th>
         <th>Status <i class="icon-sort"></i></th>
         <th>Last updated <i class="icon-sort"></i></th>
+        <th style="display: none;">Last updated <i class="icon-sort"></i></th>
         <th>Messages <i class="icon-sort"></i></th>
         <th>Offered <i class="icon-sort"></i></th>
       </thead>
@@ -44,6 +45,9 @@
           </td>
           <td>
             {{ application.get_last_update|naturaltime }}
+          </td>
+	  <td style="display: none;">
+            {{ application.get_last_update_display }}
           </td>
           <td>
             {{ application.messages.all|length }}
@@ -84,6 +88,14 @@
     $(function() {
       $(".tip").tooltip();
       var table = $("table.table-finaid").DataTable({
+	"columnDefs": [
+	    {'orderData':[5], 'targets': [4]},
+	    {
+                'targets': [5],
+		'visible': false,
+		'searchable': false,
+            }
+	],
         lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
         pageLength: -1,
         select: true,
