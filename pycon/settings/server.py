@@ -69,35 +69,6 @@ LOGGING['filters'].update(
         },
     }
 )
-LOGGING['handlers'].update(
-    {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': False,
-            'filters': ['require_debug_false'],
-        },
-    }
-)
-LOGGING['loggers'].update(
-    {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'pycon': {
-            # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins'],
-            'level': 'WARNING',
-        },
-        'symposion': {
-            # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins'],
-            'level': 'WARNING',
-        }
-    }
-)
 
 # Keep sessions in cache
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
