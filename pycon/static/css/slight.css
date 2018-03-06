@@ -15,6 +15,10 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
 /**
  * Remove the margin in all browsers (opinionated).
  */
@@ -271,7 +275,7 @@ textarea {
  */
 
 optgroup {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 /**
@@ -865,7 +869,7 @@ fieldset > *:first-child {
 }
 legend {
   margin: 0 auto 16px;
-  font-weight: bold;
+  font-weight: 600;
   max-width: 600px;
   width: 100%;
 }
@@ -879,7 +883,7 @@ label {
   color: #012A29;
   display: block;
   font-size: 0.813rem;
-  font-weight: bold;
+  font-weight: 600;
   line-height: 1.25;
   margin: 0 0 5px 0;
   width: 100%;
@@ -1252,7 +1256,7 @@ footer {
     padding: 2px 10px;
     background: #EA6446;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
 }
 .callout {  /* Paragraph in a rectangle with a light blue background. */
     border: 2px solid #B4D3C6;
@@ -1455,12 +1459,12 @@ body.home-page h2 {
 .front-page-facets h3 {
   margin-bottom: 0;
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
 }
 .front-page-facets h4 {
   margin-top: 0;
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
 }
 .front-page-facets img {
   border-radius: 10px;
