@@ -26,6 +26,7 @@
         <h4>
             {{ presentation.slot.day.date|date:"l" }}
             {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+            in {{ presentation.slot.rooms|join:", " }}
         </h4>
         {% if proposal.domain_level %}
             {% if request.user.speaker_profile in speakers or request.user.is_staff %}

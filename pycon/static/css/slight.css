@@ -1520,6 +1520,12 @@ td.slot-lunch {
     background-color: #92C6C2;
     font-weight: 500;
 }
+td.slot-event {
+    background-color: #CF9962;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #222222;
+}
 td.slot-plenary {
     background-color: #3592B3;
     font-size: 1.2em;

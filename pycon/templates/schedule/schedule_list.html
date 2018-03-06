@@ -29,6 +29,7 @@
 
 {% block body %}
   {% box "schedule_detail_"|add:schedule.section.name|slugify %}
+  {% cache 600 "schedule-list" schedule.section.name %}
   {% for presentation in presentations %}
     <h2>
       <a id="presentation-{{ presentation.id }}"
@@ -56,4 +57,5 @@
     <div class="presentation-description"
          >{{ presentation.proposal.description }}</div>
   {% endfor %}
+  {% endcache %}
 {% endblock %}
