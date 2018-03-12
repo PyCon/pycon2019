@@ -1,3 +1,6 @@
+{% block extra_script %}
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+{% endblock %}
 <table class="calendar table table-bordered">
     <thead>
         <tr>
@@ -17,7 +20,7 @@
                             {% if not slot.content %}
                             {% else %}
                                 <span class="title">
-                                    <a href="{% url 'schedule_presentation_detail'  slot.content.pk %}" title="{{ slot.content.proposal.description|striptags|cut:"\"" }}">{{ slot.content.proposal.title }}</a>
+                                    <a href="{% url 'schedule_presentation_detail'  slot.content.pk %}" title="{{ slot.content.proposal.description|striptags|cut:'"' }}">{{ slot.content.proposal.title }}</a>
                                 </span>
                                 <span class="speaker">
                                     {{ slot.content.proposal.speakers|join:", " }}
@@ -25,11 +28,13 @@
                                 <!-- <span class="audience_level">
                                     {{ slot.content.proposal.get_audience_level_display }}
                                 </span> -->
+                                {% if user.is_authenticated %}
                                 <div class="badges">
                                     {% for session in slot.sessions.all %}
-                                        <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" {% if not forloop.last %}style="margin-right: 10px" {% endif %}title="Session Information">S</a>
+                                        <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" style="padding: 0px; margin-top: 10px;" title="Volunteer!"><i class="fas fa-user-plus"></i></a>
                                     {% endfor %}
                                 </div>
+                                {% endif %}
                             {% endif %}
                         {% else %}
                             {% if slot.content_override %}
