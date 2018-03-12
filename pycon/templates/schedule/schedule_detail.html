@@ -20,12 +20,21 @@
   <div class="container">
     {% box "schedule_top_"|add:schedule.section.name|slugify %}
 
-    {% cache 600 "schedule-table" schedule.section %}
-      {% for timetable in timetables %}
-        <h3>{{ timetable.day.date }}</h3>
-        {% include "schedule/_grid.html" %}
-      {% endfor %}
-    {% endcache %}
+    {% if user.is_authenticated %}
+      {% cache 120 "schedule-table-authenticated" schedule.section %}
+        {% for timetable in timetables %}
+          <h3>{{ timetable.day.date }}</h3>
+          {% include "schedule/_grid.html" %}
+        {% endfor %}
+      {% endcache %}
+    {% else %}
+      {% cache 600 "schedule-table" schedule.section %}
+        {% for timetable in timetables %}
+          <h3>{{ timetable.day.date }}</h3>
+          {% include "schedule/_grid.html" %}
+        {% endfor %}
+      {% endcache %}
+    {% endif %}
 
     {% box "schedule_bottom_"|add:schedule.section.name|slugify %}
   </div>
