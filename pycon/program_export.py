@@ -118,12 +118,18 @@ class BaseExporter(object):
 
 
 class SpeakerBiosExporter(BaseExporter):
-    fields = ['name', 'biography', 'url']
+    fields = ['name', 'biography', 'url', 'photo_url']
     basedir = 'speakers/bios/'
     description_fields = ['biography']
 
     def prepare_url(self, speaker):
         return full_url(reverse('speaker_profile', args=(speaker.pk,)))
+
+    def prepare_photo_url(self, speaker):
+        try:
+            return full_url(speaker.photo.url)
+        except ValueError:
+            return ''
 
     def prepare_kinds(self, speaker):
         kinds = []
@@ -207,18 +213,20 @@ class PresentationsExporter(BaseExporter):
 
 
 class SpecialEventsExporter(BaseExporter):
-    fields = ['name', 'location', 'time', 'description', 'url']
+    fields = ['name', 'location', 'day', 'time', 'description', 'url']
     basedir = 'special_events/'
     description_fields = ['description']
 
     def prepare_url(self, event):
         return full_url(event.get_absolute_url())
 
+    def prepare_day(self, event):
+        return event.start.strftime('%b %d')
+
     def prepare_time(self, event):
-        return '{0} from {1} to {2}'.format(
-            event.start.strftime('%b %d'),
+        return 'from {} to {}'.format(
             event.start.strftime('%H:%M'),
-            event.end.strftime('%H:%M'),
+            event.end.strftime('%H:%M')
         )
 
     def export(self):
