@@ -249,6 +249,8 @@ class ScheduleExporter(BaseExporter):
     def prepare_title(self, slot):
         if slot.content:
             return slot.content.title
+        if slot.content_override:
+            return slot.content_override
         return slot.kind.label
 
     def prepare_speakers(self, slot):
