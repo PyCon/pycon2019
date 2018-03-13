@@ -29,7 +29,7 @@
     {
         "fields": {
             "type": "text",
-            "name": "Listing on Jobs Fair",
+            "name": "Job Listing(s)",
             "description": ""
         },
         "model": "sponsorship.benefit",

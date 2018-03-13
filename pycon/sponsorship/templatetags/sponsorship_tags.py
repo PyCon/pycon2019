@@ -47,6 +47,21 @@ def job_sponsors():
     return grouped_sponsors
 
 
+@register.assignment_tag
+def job_fair_participants():
+    """
+    Returns active sponsors and table number, grouped by level name, who will
+    be participating in the Job Fair.
+    """
+    conference = current_conference()
+    sponsors = Sponsor.objects.filter(level__conference=conference, active=True)
+    sponsors = sponsors.order_by('level__order', 'added')
+    sponsors = [s for s in sponsors if s.job_fair_participant]
+    grouped_sponsors = groupby(sponsors, attrgetter('level.name'))
+    grouped_sponsors = [(name, list(sponsors)) for name, sponsors in grouped_sponsors]
+    return grouped_sponsors
+
+
 @register.filter
 def mod(a, b):
     return int(a) % int(b)

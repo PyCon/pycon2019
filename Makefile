@@ -1,4 +1,4 @@
-.PHONY: all test flake8 docs up down reset-volume reset rebuild
+.PHONY: all test flake8 docs up down reset-volume reset rebuild migrate makemigrations
 
 MAKEFLAGS = silent
 
@@ -25,6 +25,12 @@ up:
 	@docker-compose run web python manage.py migrate
 	@docker-compose run web python manage.py loaddata fixtures/*.json
 	@open http://localhost:8000
+
+makemigrations:
+	@docker-compose run web python manage.py makemigrations
+
+migrate:
+	@docker-compose run web python manage.py migrate
 
 down:
 	@docker-compose down
