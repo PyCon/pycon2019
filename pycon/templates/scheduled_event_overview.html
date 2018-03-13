@@ -1,0 +1,25 @@
+{% extends "cms/page_detail.html" %}
+
+{% block box %}
+
+  {% regroup events by start|date:"Y-m-d" as events_by_day %}
+
+  {% for day in events_by_day %}
+    <h1>{{ day.grouper }}</h1>
+
+    {% for event in day.list %}
+    <h2>{{ event.name }}</h2>
+    <h3>{{ event.location }}</h3>
+    <p>
+      {% if event.start|date == event.end|date %}
+        {{ event.start|date }}, {{ event.start|time }} &ndash; {{ event.end|time }}
+      {% else %}
+        {{ event.start|date }}, {{ event.start|time }} &ndash; {{ event.end|date }}, {{ event.end|time }}
+      {% endif %}
+    </p>
+    {% endfor %}
+
+  {% endfor %}
+
+
+{% endblock box %}

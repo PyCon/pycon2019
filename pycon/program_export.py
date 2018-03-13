@@ -12,7 +12,7 @@ from rtfng.document.paragraph import Paragraph
 
 from symposion.proposals.models import ProposalKind
 from symposion.schedule.models import Presentation, Schedule
-from pycon.models import SpecialEvent
+from pycon.models import ScheduledEvent
 from pycon.sponsorship.models import Sponsor, SponsorLevel
 
 from django.core.urlresolvers import reverse
@@ -29,7 +29,7 @@ def export(pardir='program_export/'):
     SponsorsExporter(pardir).export()
     PresentationsExporter(pardir).export()
     ScheduleExporter(pardir).export()
-    SpecialEventsExporter(pardir).export()
+    ScheduledEventsExporter(pardir).export()
 
 
 def full_url(url):
@@ -212,9 +212,9 @@ class PresentationsExporter(BaseExporter):
                 self.write(filename, presentations)
 
 
-class SpecialEventsExporter(BaseExporter):
+class ScheduledEventsExporter(BaseExporter):
     fields = ['name', 'location', 'day', 'time', 'description', 'url']
-    basedir = 'special_events/'
+    basedir = 'scheduled_events/'
     description_fields = ['description']
 
     def prepare_url(self, event):
@@ -230,8 +230,8 @@ class SpecialEventsExporter(BaseExporter):
         )
 
     def export(self):
-        queryset = SpecialEvent.objects.filter(published=True).order_by('start', 'name')
-        filename = 'special_events_schedule'
+        queryset = ScheduledEvent.objects.filter(published=True).order_by('start', 'name')
+        filename = 'scheduled_events_schedule'
         self.write(filename, queryset)
 
 

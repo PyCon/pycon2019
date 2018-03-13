@@ -48,6 +48,14 @@ some sample content!
 Finally, you should see the development version of the PyCon web site
 when you visit ``http://localhost:8000/`` in your browser!
 
+Two logins are created during the automated setup!
+
+To login as a Django superuser, use the email address ``admin@example.com``
+and the password ``None``.
+
+To login as a general user, use the email address ``user@example.com`` and
+the password ``None``.
+
 .. _Docker: https://docs.docker.com/compose/install/
 
 Running the PyCon web site in production

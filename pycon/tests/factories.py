@@ -10,7 +10,7 @@ from django.contrib.auth import models as auth
 
 from pycon.models import PyConProposalCategory, PyConProposal, \
     PyConTalkProposal, PyConTutorialProposal, ThunderdomeGroup, PyConLightningTalkProposal, \
-    SpecialEvent, EduSummitTalkProposal
+    ScheduledEvent, EduSummitTalkProposal
 
 from symposion.proposals.models import ProposalKind
 from symposion.proposals.tests.factories import ProposalBaseFactory
@@ -87,9 +87,9 @@ class PyConTutorialProposalFactory(PyConProposalFactory):
     audience = "audience"
 
 
-class SpecialEventFactory(factory.django.DjangoModelFactory):
+class ScheduledEventFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = SpecialEvent
+        model = ScheduledEvent
 
     name = factory.fuzzy.FuzzyText()
     slug = factory.fuzzy.FuzzyText()
