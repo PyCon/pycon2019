@@ -814,6 +814,7 @@ table {
   margin: 1em 0;
 }
 th {
+    font-weight: 600;
     padding: 0 0.4em;
 }
 td {
