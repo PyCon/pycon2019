@@ -7,7 +7,7 @@ from django.core.management.base import NoArgsCommand
 
 from constance import config
 
-from pycon.models import PyConTutorialProposal
+from pycon.models import PyConTutorialProposal, PyConSponsorTutorialProposal
 
 
 logger = logging.getLogger(__name__)
@@ -55,8 +55,13 @@ class Command(NoArgsCommand):
                         # Try to get the tutorial by ID.
                         # If that fails, match name and set the tutorial
                         # ID on the found object.
-                        tutorial = PyConTutorialProposal.objects.get(presentation=tut_id)
+                        tutorial = PyConTutorialProposal.objects.get(id=tut_id)
                     except PyConTutorialProposal.DoesNotExist:
+                        try:
+                            sponsor_tutorial = PyConSponsorTutorialProposal.objects.get(id=tut_id)
+                            continue
+                        except PyConSponsorTutorialProposal.DoesNotExist:
+                            continue
                         logger.warn(
                             "Unable to register '{}[{}]' for '{}': Tutorial ID "
                             "{} is invalid.".format(user_email, user_id, tut_name, tut_id))
