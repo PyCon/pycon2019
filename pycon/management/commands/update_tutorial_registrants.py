@@ -21,12 +21,12 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         """Fetch the external URL and parse the data."""
-        logger.debug("Begin update tutorial registration numbers.")
+        print("Begin update tutorial registration numbers.")
         url = config.CTE_TUTORIAL_DATA_URL
         username = config.CTE_BASICAUTH_USER
         password = config.CTE_BASICAUTH_PASS
         if not all([url, username, password]):
-            logger.warn("CTE tutorial registration may not be correctly configured.")
+            print("CTE tutorial registration may not be correctly configured.")
         auth = (username, password) if username and password else None
         response = requests.get(url, auth=auth)
 
@@ -35,7 +35,7 @@ class Command(NoArgsCommand):
             tutorials = {}  # CTE ID: PyConTutorialProposal
             for row in csv.DictReader(response.content.splitlines()):
                 if not row or not any(v.strip() for v in row.values()):
-                    logger.debug("Skipping blank line.")
+                    print("Skipping blank line.")
                     continue
 
                 tut_id = row['tutorialnumber']
@@ -45,7 +45,7 @@ class Command(NoArgsCommand):
                 user_id = row['PyConID']
 
                 if not tut_id:
-                    logger.warn(
+                    print(
                         "Unable to register '{}' for '{}': Tutorial ID not "
                         "given.".format(user_email, tut_name))
                     continue
@@ -62,12 +62,12 @@ class Command(NoArgsCommand):
                             continue
                         except PyConSponsorTutorialProposal.DoesNotExist:
                             continue
-                        logger.warn(
+                        print(
                             "Unable to register '{}[{}]' for '{}': Tutorial ID "
                             "{} is invalid.".format(user_email, user_id, tut_name, tut_id))
                         continue
                     except PyConTutorialProposal.MultipleObjectsReturned:
-                        logger.warn(
+                        print(
                             "Unable to register '{}[{}] for '{}': Multiple "
                             "tutorials found for '{}' or '{}'".format(
                                 user_email, user_id, tut_name, tut_name, tut_id))
@@ -87,18 +87,18 @@ class Command(NoArgsCommand):
                 try:
                     user = User.objects.get(id=int(user_id))
                 except User.DoesNotExist:
-                    logger.warn(
+                    print(
                         "Unable to register '{}[{}]' for '{}' ({}): User account "
                         "not found.".format(user_email, user_id, tut_name, tut_id))
                     continue
                 except User.MultipleObjectsReturned:
-                    logger.warn(
+                    print(
                         "Unable to register '{}[{}]' for '{}' ({}): "
                         "Multiple user accounts found for "
                         "email.".format(user_email, user_id, tut_name, tut_id))
                     continue
                 except ValueError:
-                    logger.warn(
+                    print(
                         "Unable to register '{}[{}]' for '{}' ({}): PyConID \"{}\""
                         "not recognized as an integer.".format(user_email, user_id,
                                                                tut_name, tut_id,
@@ -109,4 +109,4 @@ class Command(NoArgsCommand):
                     logger.debug(
                         "Successfully registered '{}[{}]' for '{}' "
                         "({}).".format(user_email, user_id, tut_name, tut_id))
-        logger.debug("End update tutorial registration numbers.")
+        print("End update tutorial registration numbers.")
