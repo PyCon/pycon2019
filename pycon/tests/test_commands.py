@@ -61,8 +61,8 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
             self.assertIsNone(tut.max_attendees)
             self.assertEqual(0, tut.registrants.all().count())
 
-        mock_get.return_value = MockGet(tut1=tut1.presentation.pk,
-                                        tut2=tut2.presentation.pk,
+        mock_get.return_value = MockGet(tut1=tut1.pk,
+                                        tut2=tut2.pk,
                                         u1=u1.pk,
                                         u2=u2.pk)
         call_command('update_tutorial_registrants')
@@ -94,8 +94,8 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         self.assertIsNone(tut1.max_attendees)
         self.assertIn(u2, tut2.registrants.all())
 
-        mock_get.return_value = MockGet(tut1=tut1.presentation.pk,
-                                        tut2=tut2.presentation.pk,
+        mock_get.return_value = MockGet(tut1=tut1.pk,
+                                        tut2=tut2.pk,
                                         u1=u1.pk,
                                         u2=u2.pk)
         call_command('update_tutorial_registrants')
