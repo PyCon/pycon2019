@@ -16,7 +16,7 @@
                 <td class="time">{{ row.time|date:"h:iA" }}</td>
                 {% for slot in row.slots %}
                     <td class="slot slot-{{ slot.kind.label }}" colspan="{{ slot.colspan }}" rowspan="{{ slot.rowspan }}">
-                        {% if slot.kind.label == "talk" or slot.kind.label == "tutorial" or slot.kind.label == "sponsor-tutorial" %}
+                        {% if slot.kind.label == "talk" or slot.kind.label == "tutorial" or slot.kind.label == "sponsor-tutorial" or slot.kind.label == "charlas" %}
                             {% if not slot.content %}
                             {% else %}
                                 <span class="title">

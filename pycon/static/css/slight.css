@@ -1537,6 +1537,9 @@ td.slot-plenary {
     font-weight: 600;
     color: #F7F7F7;
 }
+td.slot-charlas {
+    background-image: url('../img/charlas.png');
+}
 td.time {
     font-weight: 500;
 }
