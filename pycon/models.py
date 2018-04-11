@@ -229,6 +229,7 @@ class PyConTalkProposal(PyConProposal):
 
 
 register_proposal_model('talk', PyConTalkProposal, 'Talks')
+register_proposal_model('charla', PyConTalkProposal, 'Charlas')
 
 
 class PyConLightningTalkProposal(PyConProposal):
