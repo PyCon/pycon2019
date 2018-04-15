@@ -247,7 +247,7 @@ def schedule_json(request):
                 "slides_url": slot.content.slides_url,
                 "assets_url": slot.content.assets_url,
                 "tags": "",
-                "recording_release": slot.content.proposal.recording_release,
+                "recording_release": slot.content.proposal.recording_release if hasattr(slot.content.proposal, 'recording_release') else None,
             }
         else:
             continue
