@@ -2,10 +2,13 @@ from collections import OrderedDict
 from copy import deepcopy
 import csv
 import os
+import os.path
 import shutil
 import sys
 from django.contrib.sites.models import Site
 from django.utils.text import slugify
+
+from easy_thumbnails.files import get_thumbnailer
 
 from rtfng import Styles, Renderer, Elements
 from rtfng.document.paragraph import Paragraph
@@ -71,9 +74,10 @@ class BaseExporter(object):
 
     def __init__(self, pardir=''):
         self.pardir = pardir
+        self.imgdir = os.path.join(self.pardir, self.basedir, 'img/')
         self.csvdir = os.path.join(self.pardir, self.basedir, 'csv/')
         self.rtfdir = os.path.join(self.pardir, self.basedir, 'rtf/')
-        for path in (self.csvdir, self.rtfdir):
+        for path in (self.csvdir, self.rtfdir, self.imgdir):
             if not os.path.exists(path):
                 os.makedirs(path)
 
@@ -94,6 +98,9 @@ class BaseExporter(object):
 
     def get_rtf_path(self, filename):
         return os.path.join(self.rtfdir, filename + '.rtf')
+
+    def get_img_path(self, filename, extension='.jpg'):
+        return os.path.join(self.imgdir, filename + extension)
 
     def write(self, filename, objects, fields=None):
         """Write data to both a csv file and an rtf file."""
@@ -118,7 +125,7 @@ class BaseExporter(object):
 
 
 class SpeakerBiosExporter(BaseExporter):
-    fields = ['name', 'biography', 'url', 'photo_url']
+    fields = ['name', 'biography', 'url', 'photo_url', 'photo_path', 'id']
     basedir = 'speakers/bios/'
     description_fields = ['biography']
 
@@ -129,6 +136,17 @@ class SpeakerBiosExporter(BaseExporter):
         try:
             return full_url(speaker.photo.url)
         except ValueError:
+            return ''
+
+    def prepare_photo_path(self, speaker, full=False):
+        if speaker.photo:
+            extension = os.path.splitext(str(speaker.photo))[1]
+            path = self.get_img_path('speaker-%s' % (speaker.id,), extension=extension)
+            if full:
+                return path
+            else:
+                return os.path.relpath(path, self.pardir)
+        else:
             return ''
 
     def prepare_kinds(self, speaker):
@@ -155,6 +173,12 @@ class SpeakerBiosExporter(BaseExporter):
 
         all_speakers = sorted(list(set(all_speakers)), key=sort_key)
         self.write('all', all_speakers, self.fields + ['kinds'])
+
+        for speaker in all_speakers:
+            if speaker.photo:
+                with open(self.prepare_photo_path(speaker, full=True), 'wb') as f:
+                    options = {'size': (256, 256), 'crop': False}
+                    f.write(get_thumbnailer(speaker.photo).get_thumbnail(options).file.read())
 
 
 class SponsorsExporter(BaseExporter):
