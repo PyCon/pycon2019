@@ -1,0 +1,67 @@
+# Heroku settings.
+
+import os
+
+from .server import *
+
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+SECRET_KEY = os.environ.get('SECRET_KEY')
+ALLOWED_HOSTS = ['*']
+
+REDIS_URL = os.environ.get('REDIS_URL')
+BROKER_URL = REDIS_URL
+
+MIDDLEWARE_CLASSES = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE_CLASSES
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            REDIS_URL,
+        ],
+        'OPTIONS': {
+            'DB': 1,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': 2,
+        },
+    },
+    SESSION_CACHE_ALIAS: {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            REDIS_URL,
+        ],
+        'OPTIONS': {
+            'DB': 2,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
+            'MAX_CONNECTIONS': 1000,
+            'PICKLE_VERSION': 2,
+        },
+    },
+}
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
