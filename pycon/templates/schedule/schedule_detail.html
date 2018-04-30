@@ -17,9 +17,11 @@
 {% block body_class %}schedule-page{% endblock %}
 
 {% block page_content %}
-  <div class="container" style="overflow-x: scroll;">
+  <div class="container">
     {% box "schedule_top_"|add:schedule.section.name|slugify %}
+  </div>
 
+  <div class="container container-x-scroll">
     {% if user.is_authenticated %}
       {% cache 120 "schedule-table-authenticated" schedule.section %}
         {% for timetable in timetables %}

@@ -189,3 +189,9 @@
     max-width: 60rem;
   }
 }
+
+@media only screen and (max-width: 960px) {
+  .container-x-scroll {
+    overflow-x: scroll;
+  }
+}
