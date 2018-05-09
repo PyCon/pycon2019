@@ -618,6 +618,91 @@ def finaid_download_csv(request):
     return response
 
 
+def phyllis_finaid_download_csv(request):
+    # Download financial aid application data as a .CSV file
+    # Subset for Phyllis PyCon 2018
+    #
+    #  id
+    #  user
+    #  amount_requested
+    #  presenting
+    #  email
+    #  status
+    #  amount
+    #  reimbursement_method
+    #  legal_name
+    #  address
+
+    if not is_reviewer(request.user):
+        return HttpResponseForbidden(_(u"Not authorized for this page"))
+
+    # Fields to include
+    application_field_names = [
+        'id',
+        'user',
+        'amount_requested',
+        'presenting',
+        'email',
+        'status',
+    ]
+    reviewdata_field_names = [
+        'amount',
+        'status',
+        'reimbursement_method',
+        'legal_name',
+        'address',
+    ]
+
+    # For these fields, use the get_FIELDNAME_display() method so we get
+    # the name of the choice (or other custom string) instead of the internal value
+    use_display_method = [
+        'reimbursement_method',
+        'presenting',
+        'status',
+    ]
+
+    def get_value(name, object):
+        # Get a value from an application or review, using get_NAME_display
+        # if appropriate, then forcing to a unicode string and encoding in
+        # UTF-8 for CSV
+        if name in use_display_method:
+            display_method = getattr(object, "get_%s_display" % name)
+            value = display_method()
+        elif name == 'email':
+            value = object.user.email
+        else:
+            value = getattr(object, name)
+        return unicode(value).encode('utf-8')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="phyllis_financial_aid.csv"'
+
+    writer = csv.DictWriter(
+        response,
+        fieldnames=application_field_names+reviewdata_field_names
+    )
+    writer.writeheader()
+
+    default_review_data = FinancialAidReviewData()
+    apps = FinancialAidApplication.objects.all().select_related('review')
+    for application in apps.order_by('pk'):
+        # They won't all have review data, so use the default values if they don't
+        try:
+            review = application.review
+        except FinancialAidReviewData.DoesNotExist:
+            review = default_review_data
+
+        # Write the data for this application.
+        data = {}
+        for name in application_field_names:
+            data[name] = get_value(name, application)
+        for name in reviewdata_field_names:
+            data[name] = get_value(name, review)
+        writer.writerow(data)
+
+    return response
+
+
 @login_required
 def receipt_upload(request):
     if request.method == 'POST':
