@@ -9,29 +9,17 @@
 {% load biblion_tags %}
 {% load staticfiles %}
 
-{% block head_title_base %}{{ SITE_NAME }} in Cleveland, Ohio | May 9-17{% endblock %}
+{% block head_title_base %}{{ SITE_NAME }} in Cleveland, Ohio | May 1-9{% endblock %}
 
 {% block body_class %}home-page{% endblock %}
 
 {% block header-imagery %}
 <div class="home-banner">
-  <div id="clouds">
-    <div class="cloud x1"></div>
-    <div class="cloud x2"></div>
-    <div class="cloud x3"></div>
-    <div class="cloud x4"></div>
-    <div class="cloud x5"></div>
-    <div class="cloud x6"></div>
-    <div class="cloud x7"></div>
-    <div class="cloud x8"></div>
-    <div class="cloud x9"></div>
-    <div class="cloud x10"></div>
-  </div>
   <div class="max-width-container">
-    <h1>PyCon 2018 in Cleveland, Ohio, USA</h1>
+    <h1>PyCon 2019 in Cleveland, Ohio, USA</h1>
     <div class="tagline-container">
       <h2>
-        <span class="date">May 9 &ndash; 17</span>
+        <span class="date">May 1 &ndash; 9</span>
         <span class="tag1">By the Community</span>
         <span class="tag2">For the Community</span>
       </h2>
@@ -47,7 +35,7 @@
   <div>
     <img src="{% static "img/tutorial-photo.jpg" %}">
     <h3>Tutorials</h3>
-    <h4>May 9-10 • Wednesday, Thursday</h4>
+    <h4>May 1-2 • Wednesday, Thursday</h4>
     <p>
       The first 2 days of the conference
       offer a schedule packed with 3-hour tutorials
@@ -57,7 +45,7 @@
   </div><div>
     <img src="{% static "img/talks-photo.jpg" %}">
     <h3>Talks and Events</h3>
-    <h4>May 11–13 • Friday, Saturday, Sunday</h4>
+    <h4>May 3–5 • Friday, Saturday, Sunday</h4>
     <p>
       The 3 main conference days offer almost 100 talks,
       an Expo Hall where you can visit our sponsors,
@@ -67,7 +55,7 @@
   </div><div>
     <img src="{% static "img/sprints-photo.jpg" %}">
     <h3>Sprints</h3>
-    <h4>May 14–17 • Monday through Thursday</h4>
+    <h4>May 6–9 • Monday through Thursday</h4>
     <p>
       The final 4 days are our developer sprints,
       where developers both veteran and novice
@@ -81,24 +69,27 @@
 
 <div class="front-page-facets narrow max-width-container">
   <h2>
-    See you next year!
+    Coming Soon!
   </h2>
+  <!--
   <div>
     <img src="{% static "img/PNG/tutorials-icon.png" %}">
-    <h3>PyCon 2018 has concluded.</h3>
+    <h3>PyCon 2019 has concluded.</h3>
     <p>
     Thanks to everyone who attended, volunteered, spoke, taught a tutorial,
-    ran an open space, sprinted, sponsored, and made PyCon 2018 a successful conference.
+    ran an open space, sprinted, sponsored, and made PyCon 2019 a successful conference.
     </p>
-  </div><div>
+  </div>
+  <div>
     <img src="{% static "img/PNG/conference-icon.png" %}">
     <h3>Retrospect on the schedule</h3>
-    <p><a href="/2018/schedule/talks/" class="btn danger">Talks</a></p>
-    <p><a href="/2018/schedule/tutorials/" class="btn danger">Tutorials</a></p>
-  </div><div>
-    <img src="{% static "img/PNG/sprints-icon.png" %}">
+    <p><a href="/2019/schedule/talks/" class="btn danger">Talks</a></p>
+    <p><a href="/2019/schedule/tutorials/" class="btn danger">Tutorials</a></p>
+  </div> -->
+  <div>
+    <img src="{% static "img/PNG/sprints-icon.png" %}" style="filter: grayscale(100%); -webkit-filter: grayscale(100%);">
     <h3>Our sponsors</h3>
-    <p><a href="/2018/sponsors/" class="btn">Meet our sponsors!</a></p>
+    <p><a href="/2019/sponsors/apply/" class="btn danger">Apply to Sponsor!</a></p>
     <p>The companies and organizations who sponsor PyCon
     make the conference possible,
     and get to connect with a wide array of Python programmers.</p>
@@ -111,8 +102,10 @@
 
 {% block body_outer %}
 
+
 {# Sponsors #}
 
+<!--
 <h2>Sponsors</h2>
 
 <p class="front-page-sponsors">
@@ -123,6 +116,7 @@
   </a>
   {% endfor %}
 </p>
+-->
 
 {% endblock %}
 
@@ -131,71 +125,6 @@
   Thanks to Mike Pirnat for the
   <a href="https://www.flickr.com/photos/mikepirnat/34931475515/in/album-72157684291069175/"
      >talk photo</a>
-  and Kushal Das for the
-  <a href="https://www.flickr.com/photos/kushaldas/16671966733/"
-     >sprints photo</a>
   used above!
 </p>
 {% endblock %}
-
-{% block debris %}
-
-  {# Register #}
-          <div class="row register">
-            <div class="full">
-              <div class="register-banner">
-                {% if config.REGISTRATION_STATUS != 'open' %}
-                <div class="promo no-link">
-                    {% if config.REGISTRATION_STATUS == 'soon' %}
-                        <p>{% trans "Registration will open mid-October" %}</p>
-                    {% elif config.REGISTRATION_STATUS == 'closed' %}
-                        <p class="small">{% trans "Registration Closed" %}</p>
-                    {% else %}
-                        <p>&nbsp;&nbsp;</p>
-                    {% endif %}
-                </div>
-                {% endif %}
-                {% if config.REGISTRATION_STATUS == 'open' %}
-                <div class="promo" itemprop="tickets" itemscope itemtype="http://data-vocabulary.org/Offer">
-                   <a href="{% url 'registration_start' %}">Register Now</a>
-                </div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-
-          <div class="container past-pycon-announcements">
-    {# Announcements #}
-            <div class="half pycon-announcements">
-              <h2 class="scroll-title">{% trans "Announcements" %}</h2>
-              <div class="announcement-bg">
-                <img class="announcement-banner hide-mobile" src="{% static "img/PNG/announcement-banner.png" %}" alt="announcements banner">
-                <img class="announcement-banner hide-desktop" src="{% static "img/PNG/announcement-banner-mobile.png" %}" alt="announcements banner">
-              </div>
-              {% latest_blog_posts as posts %}
-              {% for post in posts|slice:"1" %}
-              <div class="blog-post">
-                  <div class="post-content">
-                      <h3>{{ post.title }}</h3>
-                      {% with author=post.author.get_full_name %}
-                        <p class="post_dateline">by <span class="author">{{ author }}</span> &mdash; {{ post.published|date:"Y F d" }}</p>
-                      {% endwith %}
-                      <div class="teaser">
-                        {{ post.teaser_html|safe }}
-                        <p><a href="{{ post.get_absolute_url }}">Read&nbsp;more&nbsp;&raquo;</a></p>
-                      </div>
-                  </div>
-              </div>
-              {% empty %}
-              <div class="col-centered span4">
-                <div class="blog-post">
-                  <div class="post-content">
-                    <p>{% trans "Announcements coming soon." %}</p>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-{% endblock %}
-
