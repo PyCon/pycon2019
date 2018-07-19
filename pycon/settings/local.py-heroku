@@ -16,8 +16,10 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 REDIS_URL = os.environ.get('REDIS_URL')
 BROKER_URL = REDIS_URL
 
-MIDDLEWARE_CLASSES = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE_CLASSES
+MIDDLEWARE_CLASSES = ['whitenoise.middleware.WhiteNoiseMiddleware', 'sslify.middleware.SSLifyMiddleware'] + MIDDLEWARE_CLASSES
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CACHES = {
     'default': {

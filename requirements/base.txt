@@ -38,4 +38,5 @@ celery[redis]==3.1.18
 
 # Heroku
 dj-database-url
+django-sslify
 Whitenoise
