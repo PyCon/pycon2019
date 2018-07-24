@@ -3,7 +3,12 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+
+from easy_thumbnails.signals import saved_file
+
+from pycon import tasks
 
 from symposion.proposals.kinds import register_proposal_model
 from symposion.proposals.models import ProposalBase
@@ -353,3 +358,9 @@ class ScheduledEvent(models.Model):
 
     def get_absolute_url(self):
         return reverse('scheduled_event', kwargs={'slug': self.slug})
+
+@receiver(saved_file)
+def generate_thumbnails_async(sender, fieldfile, **kwargs):
+    tasks.generate_thumbnails.delay(
+        model=sender, pk=fieldfile.instance.pk,
+        field=fieldfile.field.name)
