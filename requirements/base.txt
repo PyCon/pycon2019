@@ -40,3 +40,5 @@ celery[redis]==3.1.18
 dj-database-url
 django-sslify
 Whitenoise
+django-storages
+boto3
