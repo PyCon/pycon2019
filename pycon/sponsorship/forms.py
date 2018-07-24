@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from multi_email_field.forms import MultiEmailField
 
-from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel
+from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel, SponsorPackage
 
 def strip(text):
     return u' '.join(text.strip().split())
@@ -36,10 +36,16 @@ class SponsorDetailsForm(forms.ModelForm):
 
 
 class SponsorApplicationForm(SponsorDetailsForm):
+    packages = forms.ModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        queryset=SponsorPackage.objects.filter(available=True),
+        required=False,
+    )
 
     class Meta(SponsorDetailsForm.Meta):
         fields = SponsorDetailsForm.Meta.fields + [
             "level",
+            "packages",
             "wants_table",
             "wants_booth",
             "small_entity_discount",

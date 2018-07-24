@@ -69,11 +69,21 @@
                                         <li>
                                             {% if sponsorship.active %}
                                                 <a href="{% url 'sponsor_detail' sponsorship.pk %}"><b>{{ sponsorship.name }}</b></a>
-                                                ({{ sponsorship.level }})
+                                                <ul>
+                                                  <li>Level: {{ sponsorship.level }}</li>
+                                                  {% for package in sponsorship.packages.all %}
+                                                  <li>Package: {{ package }}</li>
+                                                  {% endfor %}
+                                                </ul>
                                             {% else %}
                                                 <b>{{ sponsorship.name }}</b>
-                                                ({{ sponsorship.level }})
-                                                <span class="label label-warning">{% trans "awaiting approval" %}</span>
+                                                <span class="label label-warning">({% trans "awaiting approval" %})</span>
+                                                <ul>
+                                                  <li>Level: {{ sponsorship.level }}</li>
+                                                  {% for package in sponsorship.packages.all %}
+                                                  <li>Package: {{ package }}</li>
+                                                  {% endfor %}
+                                                </ul>
                                             {% endif %}
                                         </li>
                                     {% endfor %}
