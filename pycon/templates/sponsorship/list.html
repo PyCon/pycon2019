@@ -32,7 +32,7 @@
                 {% for sponsor in level.sponsors %}
                     <div class="sponsor" id="sponsor-{{ sponsor.id }}">
                         <a href="{{ sponsor.external_url }}">
-                            <img src="{% thumbnail sponsor.website_logo '260x240' %}" alt="Logo of {{ sponsor.name }}" />
+                            <img src="{{ sponsor.website_logo|thumbnail_url:'sponsor_list' }}" alt="Logo of {{ sponsor.name }}" />
                         </a>
                         <a href="{{ sponsor.external_url }}">
                           {{ sponsor.get_display_url }}

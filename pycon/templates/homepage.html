@@ -112,7 +112,7 @@
   {% sponsors as all_sponsors %}
   {% for sponsor in all_sponsors %}
   <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-    <img src="{% thumbnail sponsor.website_logo '300x300' %}">
+    <img src="{{ sponsor.website_logo|thumbnail_url:'sponsor_homepage' }}">
   </a>
   {% endfor %}
 </p>
