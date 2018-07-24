@@ -210,6 +210,7 @@ INSTALLED_APPS = [
     "djcelery_email",
     "multiselectfield",
     "markdownify",
+    "storages",
 
     # symposion
     "symposion.conference",
