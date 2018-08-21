@@ -1,0 +1,1 @@
+Your {{ current_site.name }} sponsorship application for {{ sponsor.name }} has been received!

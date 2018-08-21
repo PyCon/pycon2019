@@ -354,7 +354,7 @@ def _check_level_change(sender, instance, created, **kwargs):
 post_save.connect(_check_level_change, sender=Sponsor)
 
 
-def _send_admin_email(sender, instance, created, **kwargs):
+def _send_confirmation(sender, instance, created, **kwargs):
     """
     Send an email to the sponsors mailing list when a new application is
     submitted.
@@ -367,7 +367,12 @@ def _send_admin_email(sender, instance, created, **kwargs):
                 'sponsor': instance,
             },
         )
-post_save.connect(_send_admin_email, sender=Sponsor)
+        send_email(
+            to=instance.contact_emails,
+            kind='new_sponsor_confirm',
+            context={'sponsor': instance}
+        )
+post_save.connect(_send_confirmation, sender=Sponsor)
 
 
 def _store_initial_active(sender, instance, **kwargs):
