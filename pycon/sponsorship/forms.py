@@ -63,6 +63,7 @@ class SponsorDetailsForm(forms.ModelForm):
 
 class SponsorApplicationForm(SponsorDetailsForm):
     packages = forms.ModelMultipleChoiceField(
+        label=_(u"\xc0 la carte sponsorship packages"),
         widget=forms.CheckboxSelectMultiple,
         queryset=SponsorPackage.objects.filter(available=True),
         required=False,
