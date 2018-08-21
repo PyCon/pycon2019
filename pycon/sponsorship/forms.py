@@ -1,6 +1,7 @@
 import re
 from django import forms
 from django.contrib.admin.widgets import AdminFileWidget
+from django.core.files.images import get_image_dimensions
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 
@@ -45,9 +46,17 @@ class SponsorDetailsForm(forms.ModelForm):
         if image_file:
             if not image_file.name.split('.')[-1].lower() in WEB_LOGO_TYPES:
                 raise forms.ValidationError(
-                    "Your file extension was not recongized, please submit "
+                    "Your file extension was not recognized, please submit "
                     "one of: {}".format(', '.join(WEB_LOGO_TYPES))
                 )
+            w, h = get_image_dimensions(image_file)
+            if w < 768 and h < 768:
+                raise forms.ValidationError(
+                    "Smallest dimension must be no less than 768px, "
+                    "submitted image had dimensions {}x{}".format(w, h)
+                )
+        else:
+            raise forms.ValidationError("You must supply a web logo file")
         return image_file
 
     def clean_print_logo(self):
@@ -55,7 +64,7 @@ class SponsorDetailsForm(forms.ModelForm):
         if image_file:
             if not image_file.name.split('.')[-1].lower() in PRINT_LOGO_TYPES:
                 raise forms.ValidationError(
-                    "Your file extension was not recongized, please submit "
+                    "Your file extension was not recognized, please submit "
                     "one of: {}".format(', '.join(PRINT_LOGO_TYPES))
                 )
         return image_file

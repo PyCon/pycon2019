@@ -90,13 +90,13 @@ class Sponsor(models.Model):
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
     display_url = models.CharField(
-        _("Link text - text to display on link to sponsor page, if different from the actual link"),
+        _("Link text - text to display on link to sponsor webpage, if different from the actual link"),
         max_length=200,
         default='',
         blank=True
     )
     external_url = models.URLField(
-        _("Link to sponsor web page"),
+        _("Link to sponsor webpage"),
         help_text=_("(Must include https:// or http://.)")
     )
     twitter_username = models.CharField(
@@ -150,13 +150,15 @@ class Sponsor(models.Model):
         _(u"Company description (to show on the web site)"),
     )
     web_logo = models.ImageField(
-        _(u"Web logo (For display on our sponsors page. High resolution PNG or JPG)"),
+        _(u"Web logo"),
+        help_text=_("For display on our sponsor webpage. High resolution PNG or JPG, smallest dimension no less than 250px"),
         upload_to="sponsor_files",
         null=True,  # This is nullable in case old data doesn't have a web logo
         # We enforce it on all new or edited sponsors though.
     )
     print_logo = models.FileField(
-        _(u"Print logo (For printed materials, signage, and projection. SVG or EPS)"),
+        _(u"Print logo"),
+        help_text=_("For printed materials, signage, and projection. SVG or EPS"),
         upload_to="sponsor_files",
         blank=True,
         null=True,  # This is nullable in case old data doesn't have a printed logo
