@@ -159,6 +159,7 @@ class Sponsor(models.Model):
     print_logo = models.FileField(
         _(u"Print logo (For printed materials, signage, and projection. SVG or EPS)"),
         upload_to="sponsor_files",
+        blank=True,
         null=True,  # This is nullable in case old data doesn't have a printed logo
         # We enforce it on all new or edited sponsors though.
     )

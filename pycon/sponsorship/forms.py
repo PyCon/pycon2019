@@ -21,7 +21,6 @@ class SponsorDetailsForm(forms.ModelForm):
     contact_emails = MultiEmailField(
         help_text=_(u"Please enter one email address per line.")
     )
-    print_logo = forms.FileField(required=False)
 
     class Meta:
         model = Sponsor
