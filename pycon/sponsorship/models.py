@@ -151,9 +151,15 @@ class Sponsor(models.Model):
         _(u"Company description (to show on the web site)"),
     )
     web_logo = models.ImageField(
-        _(u"Company logo (to show on the web site)"),
+        _(u"Web logo (For display on our sponsors page. High resolution PNG or JPG)"),
         upload_to="sponsor_files",
         null=True,  # This is nullable in case old data doesn't have a web logo
+        # We enforce it on all new or edited sponsors though.
+    )
+    print_logo = models.FileField(
+        _(u"Print logo (For printed materials, signage, and projection. SVG or EPS)"),
+        upload_to="sponsor_files",
+        null=True,  # This is nullable in case old data doesn't have a printed logo
         # We enforce it on all new or edited sponsors though.
     )
 

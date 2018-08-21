@@ -35,7 +35,7 @@ class TestSponsorApplicationForm(TestCase):
             'web_description': 'Funky sponsor',
         }
         self.files = {
-            'web_logo': SimpleUploadedFile('file.gif', TEST_IMAGE),
+            'web_logo': SimpleUploadedFile('file.png', TEST_IMAGE),
         }
 
     def test_initial(self):

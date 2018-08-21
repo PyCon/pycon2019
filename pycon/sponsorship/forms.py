@@ -8,6 +8,11 @@ from multi_email_field.forms import MultiEmailField
 
 from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel, SponsorPackage
 
+
+WEB_LOGO_TYPES = ['png', 'jpg']
+PRINT_LOGO_TYPES = ['svg', 'eps']
+
+
 def strip(text):
     return u' '.join(text.strip().split())
 
@@ -16,6 +21,7 @@ class SponsorDetailsForm(forms.ModelForm):
     contact_emails = MultiEmailField(
         help_text=_(u"Please enter one email address per line.")
     )
+    print_logo = forms.FileField(required=False)
 
     class Meta:
         model = Sponsor
@@ -29,10 +35,31 @@ class SponsorDetailsForm(forms.ModelForm):
                   "twitter_username",
                   "web_description",
                   "web_logo",
+                  "print_logo",
                   ]
         widgets = {
             'web_description': forms.widgets.Textarea(attrs={'cols': 40, 'rows': 5}),
         }
+
+    def clean_web_logo(self):
+        image_file = self.cleaned_data.get("web_logo")
+        if image_file:
+            if not image_file.name.split('.')[-1].lower() in WEB_LOGO_TYPES:
+                raise forms.ValidationError(
+                    "Your file extension was not recongized, please submit "
+                    "one of: {}".format(', '.join(WEB_LOGO_TYPES))
+                )
+        return image_file
+
+    def clean_print_logo(self):
+        image_file = self.cleaned_data.get("print_logo")
+        if image_file:
+            if not image_file.name.split('.')[-1].lower() in PRINT_LOGO_TYPES:
+                raise forms.ValidationError(
+                    "Your file extension was not recongized, please submit "
+                    "one of: {}".format(', '.join(PRINT_LOGO_TYPES))
+                )
+        return image_file
 
 
 class SponsorApplicationForm(SponsorDetailsForm):

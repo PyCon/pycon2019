@@ -43,10 +43,9 @@ class SponsorAdmin(admin.ModelAdmin):
     list_per_page = 1000000  # Do not limit sponsors per page, just one big page
     fieldsets = [
         (None, {
-            "fields": ["name", "applicant", "level", "packages", "external_url",
-                       "display_url", "twitter_username", "annotation",
-                       "web_description", "web_logo",
-                       ("active", "approval_time")],
+            "fields": ["name", "applicant", "level", ("active", "approval_time"),
+                       "packages", "external_url", "display_url", "twitter_username",
+                       "annotation", "web_description", "web_logo", "print_logo",]
         }),
         ("Desired benefits", {
             "fields": ["wants_table", "wants_booth", "small_entity_discount"],
