@@ -29,7 +29,6 @@ from symposion.utils.mail import send_email
 # Column titles are arbitrary.
 
 BENEFITS = [
-    # Print logo not being used for 2018 but keep it in anyway
     {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
@@ -121,13 +120,13 @@ class Sponsor(models.Model):
     wants_table = models.BooleanField(
         _(
             'Does your organization want a table at the job fair? '
-            '(See <a href="/2018/sponsors/fees/">Estimated Sponsor Fees</a> '
+            '(See <a href="/2019/sponsors/fees/">Estimated Sponsor Fees</a> '
             'for costs that might be involved.)'
         ), default=False)
     wants_booth = models.BooleanField(
         _(
             'Does your organization want a booth on the expo floor? '
-            '(See <a href="/2018/sponsors/fees/">Estimated Sponsor Fees</a> '
+            '(See <a href="/2019/sponsors/fees/">Estimated Sponsor Fees</a> '
             'for costs that might be involved.)'
         ), default=False)
     small_entity_discount = models.BooleanField(
