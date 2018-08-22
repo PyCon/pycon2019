@@ -559,6 +559,9 @@ a {
   position: relative;
   height: 200px;
 }
+.logo-banner {
+  margin-top: 10px;
+}
 
 /* Primary Navigation : no JS available*/
 .nav-container {
