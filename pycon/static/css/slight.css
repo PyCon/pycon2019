@@ -561,6 +561,7 @@ a {
 }
 .logo-banner {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* Primary Navigation : no JS available*/
@@ -1320,7 +1321,7 @@ body.home-page h2 {
   .home-banner h1 {
     background: url('../img/home-header-desktop.png') center no-repeat;
     background-size: contain;
-    height: 170px;
+    height: 150px;
   }
 }
 @media (min-width: 950px) {
@@ -1330,10 +1331,11 @@ body.home-page h2 {
 }
 @media (min-width: 1150px) {
   .home-banner h1 {
-    height: 275px;
+    height: 250px;
   }
 }
 .home-banner .tagline-container {
+  display: none;
   border-bottom: 32px solid black;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
@@ -1399,7 +1401,6 @@ body.home-page h2 {
     padding: 20px 0px 0px 0px;
   }
   .home-banner .tagline-container {
-    display: none;
   }
   .home-banner h2 {
     flex-wrap: nowrap;
