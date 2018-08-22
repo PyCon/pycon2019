@@ -438,7 +438,7 @@ body {
 
 html {
   color: #012A29;
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 18px;
   line-height: 1.4;
@@ -1311,6 +1311,9 @@ body.home-page h2 {
   width: 100%;
 }
 @media (min-width: 750px) {
+  .home-banner {
+    padding: 0;
+  }
   .home-banner h1 {
     background: url('../img/home-header-desktop.png') center no-repeat;
     background-size: contain;
@@ -1319,19 +1322,19 @@ body.home-page h2 {
 }
 @media (min-width: 950px) {
   .home-banner h1 {
-    height: 200px;
+    height: 275px;
   }
 }
 @media (min-width: 1150px) {
   .home-banner h1 {
-    height: 200px;
+    height: 275px;
   }
 }
 .home-banner .tagline-container {
-  border-bottom: 32px solid #333333;
+  border-bottom: 32px solid black;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-top: 32px solid #333333;
+  border-top: 32px solid black;
   position: relative;
   margin: 20px auto 0;
   max-width: 850px;
@@ -1368,10 +1371,10 @@ body.home-page h2 {
 }
 @media (min-width: 500px) {
   .home-banner .tagline-container {
-    border-bottom: 26px solid #333333;
+    border-bottom: 26px solid black;
     border-left: 13px solid transparent;
     border-right: 13px solid transparent;
-    border-top: 26px solid #333333;
+    border-top: 26px solid black;
   }
   .home-banner h2 {
     height: 52px;
@@ -1390,14 +1393,10 @@ body.home-page h2 {
 }
 @media (min-width: 750px) {
   .home-banner {
-    padding: 0px 0 20px;
+    padding: 20px 0px 0px 0px;
   }
   .home-banner .tagline-container {
-    border-bottom: 20px solid #333333;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 20px solid #333333;
-    margin: -1px auto 0;
+    display: none;
   }
   .home-banner h2 {
     flex-wrap: nowrap;
@@ -1415,11 +1414,6 @@ body.home-page h2 {
   }
   .home-banner h2 .tag2 {
     padding-left: 22px;
-  }
-}
-@media (min-width: 1150px) {
-  .home-banner .tagline-container {
-    max-width: 975px;
   }
 }
 
