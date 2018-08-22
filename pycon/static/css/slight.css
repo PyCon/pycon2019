@@ -1317,12 +1317,12 @@ body.home-page h2 {
   .home-banner h1 {
     background: url('../img/home-header-desktop.png') center no-repeat;
     background-size: contain;
-    height: 200px;
+    height: 170px;
   }
 }
 @media (min-width: 950px) {
   .home-banner h1 {
-    height: 275px;
+    height: 200px;
   }
 }
 @media (min-width: 1150px) {
