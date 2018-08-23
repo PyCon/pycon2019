@@ -50,9 +50,9 @@ class SponsorDetailsForm(forms.ModelForm):
                     "one of: {}".format(', '.join(WEB_LOGO_TYPES))
                 )
             w, h = get_image_dimensions(image_file)
-            if w < 768 and h < 768:
+            if w < 256 and h < 256:
                 raise forms.ValidationError(
-                    "Smallest dimension must be no less than 768px, "
+                    "Smallest dimension must be no less than 256px, "
                     "submitted image had dimensions {}x{}".format(w, h)
                 )
         else:

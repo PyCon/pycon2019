@@ -151,7 +151,7 @@ class Sponsor(models.Model):
     )
     web_logo = models.ImageField(
         _(u"Web logo"),
-        help_text=_("For display on our sponsor webpage. High resolution PNG or JPG, smallest dimension no less than 768px"),
+        help_text=_("For display on our sponsor webpage. High resolution PNG or JPG, smallest dimension no less than 256px"),
         upload_to="sponsor_files",
         null=True,  # This is nullable in case old data doesn't have a web logo
         # We enforce it on all new or edited sponsors though.
