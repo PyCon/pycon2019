@@ -67,6 +67,13 @@ CACHES = {
 SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
+FINANCIAL_AID_EMAIL = os.environ.get('FINANCIAL_AID_EMAIL')
+ORGANIZERS_EMAIL = os.environ.get('ORGANIZERS_EMAIL')
+REGISTRATION_EMAIL = os.environ.get('REGISTRATION_EMAIL')
+SPONSORSHIP_EMAIL = os.environ.get('SPONSORSHIP_EMAIL')
+THEME_CONTACT_EMAIL = os.environ.get('THEME_CONTACT_EMAIL')
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = os.environ.get('FINANCIAL_AID_WEEKLY_REPORT_EMAIL').split(',')
+
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
