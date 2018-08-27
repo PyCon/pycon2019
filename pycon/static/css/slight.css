@@ -1315,9 +1315,9 @@ body.home-page h2 {
   background: url('../img/website-header-wordmark.svg') center no-repeat;
   background-size: contain;
   position: absolute;
-  height: 120px;
-  right: -150px;
-  top: 25px;
+  height: 140px;
+  margin-right: 30%;
+  top: 15px;
   margin: 0;
   padding: 0;
   text-indent: -9999px;
@@ -1341,9 +1341,9 @@ body.home-page h2 {
     height: 300px;
   }
   .home-banner .tagline-container {
-    height: 150px;
-    top: 30px;
-    right: -100px;
+    height: 175px;
+    top: 15px;
+    margin-right: 10%;
   }
   .home-banner h1 {
     height: 300px;
@@ -1356,7 +1356,7 @@ body.home-page h2 {
   .home-banner .tagline-container {
     height: 200px;
     top: 20px;
-    right: -25px;
+    margin-right: 10%;
   }
   .home-banner h1 {
     height: 350px;
