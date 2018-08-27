@@ -858,7 +858,7 @@ fieldset {
   border: none;
   border-radius: 10px;
   box-sizing: border-box;
-  background-color: #EEEEEE;
+  background-color: #E5F5F8;
   border: 2px solid #EFEFEF;
   display: block;
   margin: 0 auto 20px;
@@ -935,7 +935,7 @@ input[type=file]::-webkit-file-upload-button {
   transition: all .25s ease-in-out;
 }
 input[type=file]::-webkit-file-upload-button:hover {
-  background: #666666;
+  background: #5685AB;
 }
 select {
   background: #FFF;
@@ -1084,9 +1084,9 @@ span.help-inline {
 
 .dashboard-panel {
   margin: 10px 0 0 0;
-  border: 2px solid #666666;
+  border: 2px solid #009EBD;
   border-radius: 10px;
-  background-color: #EEEEEE;
+  background-color: #E5F5F8;
   padding: 10px;
 }
 @media (min-width: 750px) {
@@ -1124,7 +1124,7 @@ span.help-inline {
 .dashboard-panel a.action:hover,
 .dataTables_paginate .paginate_button:hover,
 .dt-button:hover {
-  background: #555555;
+  background: #6993B4;
   border-color: #666666;
 }
 .btn.warn{
@@ -1261,11 +1261,11 @@ footer {
     font-weight: 600;
 }
 .callout {  /* Paragraph in a rectangle with a light blue background. */
-    border: 2px solid #B4D3C6;
+    border: 2px solid #99D8E4;
     border-radius: 2em;
     padding: 1em 2em;
-    background-color: #e6fff9;
-    /* ^ chroma('#B4D3C6').brighten().hex() */
+    background-color: #CCEBF1;
+    /* ^ chroma('#99D8E4').brighten().hex() */
 }
 .hotel {
   background-color: #D7E5E4;
