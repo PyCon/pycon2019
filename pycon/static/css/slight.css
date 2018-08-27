@@ -461,7 +461,7 @@ a {
     margin: 20px auto 10px;
     width: 540px;
     height: 260px;
-    background-image: url('../img/pycon2019.png');
+    background-image: url('../img/website-header-wordmark.svg') center no-repeat;
     text-indent: -9999px;
 }
 
@@ -550,11 +550,15 @@ a {
   display: block;
   margin: auto;
   position: relative;
-  height: 200px;
+  height: 175px;
 }
 .logo-banner {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #009abf;
+  background: -webkit-linear-gradient(top, #9bcddf 0%, #009abf 100%);
+  background: -linear-gradient(top, #9bcddf 0%, #009abf 100%);
+  background: -moz-linear-gradient(top, #9bcddf 0%, #009abf 100%);
 }
 
 /* Primary Navigation : no JS available*/
