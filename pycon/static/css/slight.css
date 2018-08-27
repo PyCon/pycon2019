@@ -453,14 +453,7 @@ a {
   margin-left: auto;
   margin-right: auto;
   max-width: 1400px;
-  padding: 0 10px;
   width: 100%;
-}
-
-@media (min-width: 750px) {
-  .max-width-container {
-    padding: 0 20px;
-  }
 }
 
 .logo-smaller {
@@ -500,7 +493,7 @@ a {
 
 /* Account navigation (log in, sign up, etc.) */
 .account-nav-container {
-  background: #444444;
+  background: #306998;
   font-size: 0.875rem;
   letter-spacing: .01em;
   text-transform: uppercase;
@@ -546,7 +539,7 @@ a {
   background: #555555
 }
 .account-nav-container .login {
-  border-right: 2px solid #666666;
+  border-right: 2px solid #eeeeee;
 }
 
 /* The main logo */
@@ -572,7 +565,7 @@ a {
   display: none;
 }
 .primary-site-nav {
-  background: #444444;
+  background: #306998;
   border-bottom: 1px solid #555555;
 }
 .primary-site-nav ul {
@@ -625,7 +618,7 @@ a {
 /* Primary Navigation : with JS */
 .js .nav-toggle {
   align-items: center;
-  background: #444444;
+  background: #306998;
   color: #FFF;
   cursor: pointer;
   display: flex;
@@ -1293,12 +1286,12 @@ body.home-page h2 {
 }
 /* home page top banner */
 .home-banner {
-    background: #EEEEEE;
-    background: -webkit-linear-gradient(top, #EEEEEE 0%, #fff 100%);
-    background: -linear-gradient(top, #EEEEEE 0%, #fff 100%);
-    background: -moz-linear-gradient(top, #EEEEEE 0%, #fff 100%);
+    background: #009abf;
+    background: -webkit-linear-gradient(top, #9bcddf 0%, #009abf 100%);
+    background: -linear-gradient(top, #9bcddf 0%, #009abf 100%);
+    background: -moz-linear-gradient(top, #9bcddf 0%, #009abf 100%);
     font-size: 22px;
-    padding: 20px 0;
+    padding-top: 40px;
     position: relative;
     text-align: center;
 }
@@ -1307,9 +1300,9 @@ body.home-page h2 {
   z-index: 1;
 }
 .home-banner h1 {
-  background: url('../img/home-header-mobile.png') center no-repeat;
+  background: url('../img/website-header-wordmark.svg') center no-repeat;
   background-size: contain;
-  height: 200px;
+  height: 250px;
   margin: 0;
   text-indent: -9999px;
   width: 100%;
@@ -1319,19 +1312,19 @@ body.home-page h2 {
     padding: 0;
   }
   .home-banner h1 {
-    background: url('../img/home-header-desktop.png') center no-repeat;
-    background-size: contain;
-    height: 150px;
+    background: url('../img/web-site-header-skyline.svg') left no-repeat;
+    background-size: cover;
+    width: 100%;
   }
 }
 @media (min-width: 950px) {
   .home-banner h1 {
-    height: 200px;
+    height: 300px;
   }
 }
 @media (min-width: 1150px) {
   .home-banner h1 {
-    height: 250px;
+    height: 350px;
   }
 }
 .home-banner .tagline-container {
