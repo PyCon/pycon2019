@@ -1196,10 +1196,10 @@ button:focus,
 /* The footer at the bottom of every page. */
 footer {
   clear: both;
-  background: #EEEEEE;
-  background: -webkit-linear-gradient(top, #fff 0%, #EEEEEE 100%);
-  background: -linear-gradient(top, #fff 0%, #EEEEEE 100%);
-  background: -moz-linear-gradient(top, #fff 0%, #EEEEEE 100%);
+  background: #B2E1EB;
+  background: -webkit-linear-gradient(top, #fff 0%, #B2E1EB 100%);
+  background: -linear-gradient(top, #fff 0%, #B2E1EB 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #B2E1EB 100%);
   font-size: .875rem;
   padding: 20px 0;
 }
