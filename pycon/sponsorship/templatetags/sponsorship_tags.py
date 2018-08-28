@@ -5,7 +5,7 @@ from django import template
 
 from symposion.conference.models import current_conference
 
-from ..models import Sponsor, SponsorLevel
+from ..models import Sponsor, SponsorLevel, SponsorPackage
 
 
 register = template.Library()
@@ -30,6 +30,13 @@ def sponsor_levels():
     """Return all sponsorship levels for this conference."""
     conference = current_conference()
     return SponsorLevel.objects.filter(conference=conference)
+
+
+@register.assignment_tag
+def sponsor_packages():
+    """Return all sponsorship packages for this conference."""
+    conference = current_conference()
+    return SponsorPackage.objects.filter(conference=conference)
 
 
 @register.assignment_tag
