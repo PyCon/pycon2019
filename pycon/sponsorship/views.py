@@ -33,7 +33,10 @@ def sponsor_apply(request):
     if request.method == "POST":
         form = SponsorApplicationForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
-            form.save()
+            sponsor = form.save()
+            packages = form.cleaned_data['packages']
+            sponsor.packages = packages
+            sponsor.save()
             return redirect("dashboard")
     else:
         form = SponsorApplicationForm(user=request.user)

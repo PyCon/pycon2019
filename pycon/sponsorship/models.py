@@ -29,7 +29,6 @@ from symposion.utils.mail import send_email
 # Column titles are arbitrary.
 
 BENEFITS = [
-    # Print logo not being used for 2018 but keep it in anyway
     {
         'name': 'Print logo',
         'field_name': 'print_logo_benefit',
@@ -48,6 +47,7 @@ class SponsorLevel(models.Model):
     conference = models.ForeignKey(Conference, verbose_name=_("conference"))
     name = models.CharField(_("name"), max_length=100)
     available = models.BooleanField(default=True)
+    display = models.BooleanField(default=True)
     order = models.IntegerField(_("order"), default=0)
     cost = models.PositiveIntegerField(_("cost"))
     description = models.TextField(_("description"), blank=True, help_text=_("This is private."))
@@ -64,19 +64,41 @@ class SponsorLevel(models.Model):
         return self.sponsor_set.filter(active=True).order_by("added")
 
 
+class SponsorPackage(models.Model):
+
+    conference = models.ForeignKey(Conference, verbose_name=_("conference"))
+    name = models.CharField(_("name"), max_length=100)
+    available = models.BooleanField(default=True)
+    display = models.BooleanField(default=True)
+    order = models.IntegerField(_("order"), default=0)
+    cost = models.PositiveIntegerField(_("cost"))
+    description = models.TextField(_("description"), blank=True, help_text=_("This is private."))
+
+    class Meta:
+        ordering = ["conference", "order"]
+        verbose_name = _("sponsor package")
+        verbose_name_plural = _("sponsor packages")
+
+    def __unicode__(self):
+        return u"%s %s" % (self.conference, self.name)
+
+    def sponsors(self):
+        return self.sponsor_set.filter(active=True).order_by("added")
+
+
 class Sponsor(models.Model):
 
     applicant = models.ForeignKey(User, related_name="sponsorships", verbose_name=_("applicant"), null=True, on_delete=SET_NULL)
 
     name = models.CharField(_("Sponsor Name"), max_length=100)
     display_url = models.CharField(
-        _("Link text - text to display on link to sponsor page, if different from the actual link"),
+        _("Link text - text to display on link to sponsor webpage, if different from the actual link"),
         max_length=200,
         default='',
         blank=True
     )
     external_url = models.URLField(
-        _("Link to sponsor web page"),
+        _("Link to sponsor webpage"),
         help_text=_("(Must include https:// or http://.)")
     )
     twitter_username = models.CharField(
@@ -91,6 +113,7 @@ class Sponsor(models.Model):
     contact_phone = models.CharField(_(u"Contact Phone"), max_length=32)
     contact_address = models.TextField(_(u"Contact Address"))
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
+    packages = models.ManyToManyField(SponsorPackage, verbose_name=_("packages"), blank=True)
     added = models.DateTimeField(_("added"), default=datetime.datetime.now)
 
     active = models.BooleanField(_("active"), default=False)
@@ -99,13 +122,13 @@ class Sponsor(models.Model):
     wants_table = models.BooleanField(
         _(
             'Does your organization want a table at the job fair? '
-            '(See <a href="/2018/sponsors/fees/">Estimated Sponsor Fees</a> '
+            '(See <a href="/2019/sponsors/fees/">Estimated Sponsor Fees</a> '
             'for costs that might be involved.)'
         ), default=False)
     wants_booth = models.BooleanField(
         _(
             'Does your organization want a booth on the expo floor? '
-            '(See <a href="/2018/sponsors/fees/">Estimated Sponsor Fees</a> '
+            '(See <a href="/2019/sponsors/fees/">Estimated Sponsor Fees</a> '
             'for costs that might be involved.)'
         ), default=False)
     small_entity_discount = models.BooleanField(
@@ -129,9 +152,18 @@ class Sponsor(models.Model):
         _(u"Company description (to show on the web site)"),
     )
     web_logo = models.ImageField(
-        _(u"Company logo (to show on the web site)"),
+        _(u"Web logo"),
+        help_text=_("For display on our sponsor webpage. High resolution PNG or JPG, smallest dimension no less than 256px"),
         upload_to="sponsor_files",
         null=True,  # This is nullable in case old data doesn't have a web logo
+        # We enforce it on all new or edited sponsors though.
+    )
+    print_logo = models.FileField(
+        _(u"Print logo"),
+        help_text=_("For printed materials, signage, and projection. SVG or EPS"),
+        upload_to="sponsor_files",
+        blank=True,
+        null=True,  # This is nullable in case old data doesn't have a printed logo
         # We enforce it on all new or edited sponsors though.
     )
 
@@ -231,6 +263,11 @@ class Sponsor(models.Model):
         except SponsorLevel.DoesNotExist:
             pass
 
+        try:
+            packages = self.packages
+        except SponsorPackage.DoesNotExist:
+            pass
+
         allowed_benefits = []
         if level:
             for benefit_level in level.benefit_levels.all():
@@ -253,6 +290,29 @@ class Sponsor(models.Model):
                 sponsor_benefit.save()
 
                 allowed_benefits.append(sponsor_benefit.pk)
+
+        if packages:
+            for package in packages.all():
+                for benefit_package in package.benefit_packages.all():
+                    # Create all needed benefits if they don't exist already
+                    sponsor_benefit, created = SponsorBenefit.objects.get_or_create(
+                        sponsor=self, benefit=benefit_package.benefit)
+
+                    # and set to default limits for this level.
+                    sponsor_benefit.max_words = benefit_package.max_words
+                    sponsor_benefit.other_limits = benefit_package.other_limits
+
+                    # and set to active
+                    sponsor_benefit.active = True
+
+                    # @@@ We don't call sponsor_benefit.clean here. This means
+                    # that if the sponsorship level for a sponsor is adjusted
+                    # downwards, an existing too-long text entry can remain,
+                    # and won't raise a validation error until it's next
+                    # edited.
+                    sponsor_benefit.save()
+
+                    allowed_benefits.append(sponsor_benefit.pk)
 
         # Any remaining sponsor benefits that don't normally belong to
         # this level are set to inactive
@@ -283,16 +343,20 @@ class Sponsor(models.Model):
 def _store_initial_level(sender, instance, **kwargs):
     if instance:
         instance._initial_level_id = instance.level_id
+        try:
+            instance._initial_packages = instance.packages.all()
+        except ValueError:
+            instance._initial_packages = []
 post_init.connect(_store_initial_level, sender=Sponsor)
 
 
 def _check_level_change(sender, instance, created, **kwargs):
-    if instance and (created or instance.level_id != instance._initial_level_id):
+    if instance and (created or instance.level_id != instance._initial_level_id or instance.packages.all() != instance._initial_packages):
         instance.reset_benefits()
 post_save.connect(_check_level_change, sender=Sponsor)
 
 
-def _send_admin_email(sender, instance, created, **kwargs):
+def _send_confirmation(sender, instance, created, **kwargs):
     """
     Send an email to the sponsors mailing list when a new application is
     submitted.
@@ -305,7 +369,12 @@ def _send_admin_email(sender, instance, created, **kwargs):
                 'sponsor': instance,
             },
         )
-post_save.connect(_send_admin_email, sender=Sponsor)
+        send_email(
+            to=instance.contact_emails,
+            kind='new_sponsor_confirm',
+            context={'sponsor': instance}
+        )
+post_save.connect(_send_confirmation, sender=Sponsor)
 
 
 def _store_initial_active(sender, instance, **kwargs):
@@ -373,6 +442,28 @@ class BenefitLevel(models.Model):
 
     def __unicode__(self):
         return u"%s - %s" % (self.level, self.benefit)
+
+
+class BenefitPackage(models.Model):
+
+    benefit = models.ForeignKey(
+        Benefit,
+        related_name="benefit_packages",
+        verbose_name=_("benefit")
+    )
+    package = models.ForeignKey(
+        SponsorPackage,
+        related_name="benefit_packages",
+        verbose_name=_("package")
+    )
+    max_words = models.PositiveIntegerField(_("max words"), blank=True, null=True)
+    other_limits = models.CharField(_("other limits"), max_length=200, blank=True)
+
+    class Meta:
+        ordering = ["package"]
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.package, self.benefit)
 
 
 class SponsorBenefit(models.Model):

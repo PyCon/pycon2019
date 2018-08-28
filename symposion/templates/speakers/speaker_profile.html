@@ -25,7 +25,7 @@
     <div class="row">
         <div class="span2">
             {% if speaker.photo %}
-                <img src="{% thumbnail speaker.photo '128x128' %}" alt="{{ speaker.name }}" />
+                <img src="{{ speaker.photo|thumbnail_url:'speaker_profile' }}" alt="{{ speaker.name }}" />
             {% else %}
                 &nbsp;
             {% endif %}

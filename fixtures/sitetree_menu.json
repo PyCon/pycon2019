@@ -2,7 +2,7 @@
     {
         "fields": {
             "alias": "main",
-            "title": "PyCon US 2018"
+            "title": "PyCon US 2019"
         },
         "model": "sitetree.tree",
         "pk": 1
@@ -78,7 +78,7 @@
             "sort_order": 3,
             "title": "Sponsors",
             "tree": 1,
-            "url": "/2018/sponsors/",
+            "url": "/2019/sponsors/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -147,7 +147,7 @@
             "sort_order": 8,
             "title": "PyCon Mobile Guide",
             "tree": 1,
-            "url": "http://guidebook.com/g/pycon2018/",
+            "url": "http://guidebook.com/g/pycon2019/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -446,7 +446,7 @@
             "sort_order": 2,
             "title": "Speaking",
             "tree": 1,
-            "url": "/2018/speaking/speakatpycon/",
+            "url": "/2019/speaking/speakatpycon/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -929,7 +929,7 @@
             "sort_order": 12,
             "title": "Jobs Fair",
             "tree": 1,
-            "url": "/2018/sponsors/jobs/",
+            "url": "/2019/sponsors/jobs/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1019,7 +1019,7 @@
             "insitetree": true,
             "parent": 45,
             "sort_order": 47,
-            "title": "Register for PyCon 2018",
+            "title": "Register for PyCon 2019",
             "tree": 1,
             "url": "registration_start",
             "urlaspattern": true
@@ -1274,7 +1274,7 @@
             "sort_order": 26,
             "title": "Conference Talk List",
             "tree": 1,
-            "url": "/2018/schedule/talks/list/",
+            "url": "/2019/schedule/talks/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1297,7 +1297,7 @@
             "sort_order": 41,
             "title": "Tutorial List",
             "tree": 1,
-            "url": "/2018/schedule/tutorials/list/",
+            "url": "/2019/schedule/tutorials/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1320,7 +1320,7 @@
             "sort_order": 43,
             "title": "Tutorial Schedule",
             "tree": 1,
-            "url": "/2018/schedule/tutorials/",
+            "url": "/2019/schedule/tutorials/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1412,7 +1412,7 @@
             "sort_order": 27,
             "title": "Conference Talk Schedule",
             "tree": 1,
-            "url": "/2018/schedule/talks/",
+            "url": "/2019/schedule/talks/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1435,7 +1435,7 @@
             "sort_order": 44,
             "title": "Sponsor Workshops",
             "tree": 1,
-            "url": "/2018/schedule/sponsor-tutorials/",
+            "url": "/2019/schedule/sponsor-tutorials/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1481,7 +1481,7 @@
             "sort_order": 58,
             "title": "Poster Session",
             "tree": 1,
-            "url": "/2018/schedule/posters/list/",
+            "url": "/2019/schedule/posters/list/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1527,7 +1527,7 @@
             "sort_order": 60,
             "title": "Jobs Fair",
             "tree": 1,
-            "url": "/2018/sponsors/jobs/",
+            "url": "/2019/sponsors/jobs/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",
@@ -1550,7 +1550,7 @@
             "sort_order": 61,
             "title": "Charity Auction",
             "tree": 1,
-            "url": "/2018/sponsors/charityauction/",
+            "url": "/2019/sponsors/charityauction/",
             "urlaspattern": false
         },
         "model": "sitetree.treeitem",

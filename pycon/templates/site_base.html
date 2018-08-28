@@ -25,8 +25,8 @@
 {% endblock %}
 
 {% block extra_head_base %}
-    <meta property="og:image" content="{% static "img/pycon2018.png" %}" />
-    <link href="{% static "img/pycon2018.png" %}" rel="shortcut icon" />
+    <meta property="og:image" content="{% static "img/pycon2019.png" %}" />
+    <link href="{% static "img/pycon2019.png" %}" rel="shortcut icon" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       $(document).on('click', '.message button', function(event) {
@@ -56,9 +56,10 @@
 
 <div id="content-wrapper"> <!-- wrap everything but footer for sticky footer -->
   <header class="header-container">
+    {% include "_account_bar.html" %}
     {% block header-imagery %}
       <a class="logo-banner" href="{% url "home" %}">
-        <img src="{% static "img/pycon2018.png" %}">
+        <img src="{% static "img/website-header-wordmark.svg" %}">
       </a>
     {% endblock %}
     {% sitetree_menu from "main" include "trunk" %}
@@ -93,22 +94,19 @@
          width=300 alt="PSF logo">
     {% block credits %}{% endblock %}
     <p>
-      The PyCon 2018 conference in Cleveland, Ohio, USA, is a production of the
+      The PyCon 2019 conference in Cleveland, Ohio, USA, is a production of the
       <a href="http://python.org/psf/">Python Software Foundation</a>.
       This site is built using
       <a href="https://www.djangoproject.com/">Django</a>
       and
       <a href="http://eldarion.com/symposion/" title="Symposion — An Open Platform for Conference Websites">Symposion</a>.
       Hosting is provided by
-      <a href="http://www.rackspace.com/">Rackspace US, Inc</a>.
+      <a href="http://heroku.com/">Heroku</a>.
     </p>
     <p>
       Logo and Branding by
       <a href="http://hellofizz.com/"><img title="Fizz Creative" alt="Fizz Creative" src="{% static "img/fizz.png" %}"/></a>.
     </p>
-    <p>
-      Front-end development assistance by
-      <a href="http://imnikkilee.com/"><img title="Nikki Lee" alt="Nikki Lee" src="{% static "img/nikkilee.png" %}"/></a>.
   </div>
 </footer>
   

@@ -1,17 +1,24 @@
 from urllib import quote
 
+from django import forms
 from django.contrib import admin
+from django.db import models
 from django.utils.html import escape, format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from pycon.sponsorship.models import SponsorLevel, Sponsor, Benefit, \
-    BenefitLevel, SponsorBenefit, BENEFITS
+from pycon.sponsorship.models import SponsorLevel, SponsorPackage, Sponsor, Benefit, \
+    BenefitLevel, BenefitPackage, SponsorBenefit, BENEFITS
 from pycon.sponsorship.views import email_selected_sponsors_action
 
 
 class BenefitLevelInline(admin.TabularInline):
     model = BenefitLevel
+    extra = 0
+
+
+class BenefitPackageInline(admin.TabularInline):
+    model = BenefitPackage
     extra = 0
 
 
@@ -36,10 +43,9 @@ class SponsorAdmin(admin.ModelAdmin):
     list_per_page = 1000000  # Do not limit sponsors per page, just one big page
     fieldsets = [
         (None, {
-            "fields": ["name", "applicant", "level", "external_url",
-                       "display_url", "twitter_username", "annotation",
-                       "web_description", "web_logo",
-                       ("active", "approval_time")],
+            "fields": ["name", "applicant", "level", ("active", "approval_time"),
+                       "packages", "external_url", "display_url", "twitter_username",
+                       "annotation", "web_description", "web_logo", "print_logo",]
         }),
         ("Desired benefits", {
             "fields": ["wants_table", "wants_booth", "small_entity_discount"],
@@ -58,6 +64,9 @@ class SponsorAdmin(admin.ModelAdmin):
             "classes": ["collapse"],
         })
     ]
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple},
+    }
     inlines = [SponsorBenefitInline]
     # NB: We add to list_display and list_filter below
     list_display = ["name", "level", "contact", "applicant_field", "active",
@@ -120,12 +129,15 @@ class SponsorAdmin(admin.ModelAdmin):
 
 
 class BenefitAdmin(admin.ModelAdmin):
-    inlines = [BenefitLevelInline]
-    list_display = ['name', 'type', 'levels']
-    list_filter = ['benefit_levels__level']
+    inlines = [BenefitLevelInline, BenefitPackageInline]
+    list_display = ['name', 'type', 'levels', 'packages']
+    list_filter = ['benefit_levels__level', 'benefit_packages__package']
 
     def levels(self, benefit):
         return u", ".join(l.level.name for l in benefit.benefit_levels.all())
+
+    def packages(self, benefit):
+        return u", ".join(p.package.name for p in benefit.benefit_packages.all())
 
 
 class SponsorLevelAdmin(admin.ModelAdmin):
@@ -138,7 +150,18 @@ class SponsorLevelAdmin(admin.ModelAdmin):
         return ', '.join(obj.benefit_levels.values_list('benefit__name', flat=True))
 
 
+class SponsorPackageAdmin(admin.ModelAdmin):
+    list_display = ['name', 'available', 'order', 'cost', 'benefits']
+    list_editable = ['order']
+    list_filter = ['conference', 'benefit_packages__benefit']
+    inlines = [BenefitPackageInline]
+
+    def benefits(self, obj):
+        return ', '.join(obj.benefit_packages.values_list('benefit__name', flat=True))
+
+
 admin.site.register(SponsorLevel, SponsorLevelAdmin)
+admin.site.register(SponsorPackage, SponsorPackageAdmin)
 admin.site.register(Sponsor, SponsorAdmin)
 admin.site.register(Benefit, BenefitAdmin)
 admin.site.register(SponsorBenefit,

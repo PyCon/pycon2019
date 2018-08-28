@@ -24,10 +24,10 @@
         {% for form in formset.forms %}
             <div class="control-group">
                 <label class="control-label">{{ form.instance.benefit }}</label>
-                <div class="controls">
-                    {{ form }}
+                <fieldset>
+                    {{ form|as_bootstrap }}
                     <p class="help-block">{{ form.instance.benefit.description }}</p>
-                </div>
+                </fieldset>
             </div>
         {% endfor %}
 

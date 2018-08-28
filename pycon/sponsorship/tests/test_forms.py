@@ -10,7 +10,7 @@ from .. import forms
 from .factories import SponsorLevelFactory
 
 # Tiny image file for testing
-TEST_IMAGE_FILENAME = os.path.join(os.path.dirname(__file__), 'colormap.gif')
+TEST_IMAGE_FILENAME = os.path.join(os.path.dirname(__file__), 'colormap.png')
 TEST_IMAGE = open(TEST_IMAGE_FILENAME, "rb").read()
 
 
@@ -35,7 +35,7 @@ class TestSponsorApplicationForm(TestCase):
             'web_description': 'Funky sponsor',
         }
         self.files = {
-            'web_logo': SimpleUploadedFile('file.gif', TEST_IMAGE),
+            'web_logo': SimpleUploadedFile('file.png', TEST_IMAGE),
         }
 
     def test_initial(self):

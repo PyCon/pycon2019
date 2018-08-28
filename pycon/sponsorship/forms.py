@@ -1,12 +1,18 @@
 import re
 from django import forms
 from django.contrib.admin.widgets import AdminFileWidget
+from django.core.files.images import get_image_dimensions
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 
 from multi_email_field.forms import MultiEmailField
 
-from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel
+from pycon.sponsorship.models import Sponsor, SponsorBenefit, SponsorLevel, SponsorPackage
+
+
+WEB_LOGO_TYPES = ['png', 'jpg']
+PRINT_LOGO_TYPES = ['svg', 'eps']
+
 
 def strip(text):
     return u' '.join(text.strip().split())
@@ -29,17 +35,53 @@ class SponsorDetailsForm(forms.ModelForm):
                   "twitter_username",
                   "web_description",
                   "web_logo",
+                  "print_logo",
                   ]
         widgets = {
             'web_description': forms.widgets.Textarea(attrs={'cols': 40, 'rows': 5}),
         }
 
+    def clean_web_logo(self):
+        image_file = self.cleaned_data.get("web_logo")
+        if image_file:
+            if not image_file.name.split('.')[-1].lower() in WEB_LOGO_TYPES:
+                raise forms.ValidationError(
+                    "Your file extension was not recognized, please submit "
+                    "one of: {}".format(', '.join(WEB_LOGO_TYPES))
+                )
+            w, h = get_image_dimensions(image_file)
+            if w < 256 and h < 256:
+                raise forms.ValidationError(
+                    "Smallest dimension must be no less than 256px, "
+                    "submitted image had dimensions {}x{}".format(w, h)
+                )
+        else:
+            raise forms.ValidationError("You must supply a web logo file")
+        return image_file
+
+    def clean_print_logo(self):
+        image_file = self.cleaned_data.get("print_logo")
+        if image_file:
+            if not image_file.name.split('.')[-1].lower() in PRINT_LOGO_TYPES:
+                raise forms.ValidationError(
+                    "Your file extension was not recognized, please submit "
+                    "one of: {}".format(', '.join(PRINT_LOGO_TYPES))
+                )
+        return image_file
+
 
 class SponsorApplicationForm(SponsorDetailsForm):
+    packages = forms.ModelMultipleChoiceField(
+        label=_(u"\xc0 la carte sponsorship packages"),
+        widget=forms.CheckboxSelectMultiple,
+        queryset=SponsorPackage.objects.filter(available=True),
+        required=False,
+    )
 
     class Meta(SponsorDetailsForm.Meta):
         fields = SponsorDetailsForm.Meta.fields + [
             "level",
+            "packages",
             "wants_table",
             "wants_booth",
             "small_entity_discount",

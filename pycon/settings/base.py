@@ -15,7 +15,7 @@ def env_or_default(NAME, default):
     return os.environ.get(NAME, default)
 
 
-CONFERENCE_YEAR = "2018"
+CONFERENCE_YEAR = "2019"
 
 # Top level of our source / repository
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -210,6 +210,7 @@ INSTALLED_APPS = [
     "djcelery_email",
     "multiselectfield",
     "markdownify",
+    "storages",
 
     # symposion
     "symposion.conference",
@@ -372,3 +373,15 @@ REGISTRATION_EMAIL = 'pycon@caktusgroup.com'
 SPONSORSHIP_EMAIL = 'pycon@caktusgroup.com'
 THEME_CONTACT_EMAIL = 'pycon@caktusgroup.com'
 FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['pycon@caktusgroup.com']
+
+# django easy_thumbnails
+
+THUMBNAIL_ALIASES = {
+    "": {
+        'sponsor_homepage': {'size': (300, 300)},
+        'sponsor_jobs': {'size': (150, 80)},
+        'sponsor_list': {'size': (260, 240)},
+        'sponsor_link': {'size': (150, 150)},
+        'speaker_profile': {'size': (128, 128)},
+    }
+}

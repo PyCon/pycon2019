@@ -3,6 +3,7 @@ version: '3'
 volumes:
   pgdata:
   redisdata:
+  localstack:
 
 services:
   db:
@@ -19,6 +20,17 @@ services:
       - "6379:6379"
     volumes:
       - redisdata:/var/lib/redis/
+  localstack-s3:
+    image: localstack/localstack:0.8.7
+    environment:
+      - SERVICES=s3:5000
+      - DEFAULT_REGION=us-east-1
+      - HOSTNAME=localstack-s3
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - "5000:5000"
+    volumes:
+      - localstack:/tmp/localstack/data
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
