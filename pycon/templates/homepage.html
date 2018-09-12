@@ -15,14 +15,16 @@
 
 {% block header-imagery %}
 <div class="home-banner">
-  <div class="max-width-container">
-    <h1>PyCon 2019 in Cleveland, Ohio, USA</h1>
-    <div class="tagline-container">
-      <h2>
-        <span class="date">May 1 &ndash; 9</span>
-        <span class="tag1">By the Community</span>
-        <span class="tag2">For the Community</span>
-      </h2>
+  <div class="home-banner-stripe">
+    <div class="max-width-container">
+      <h1>PyCon 2019 in Cleveland, Ohio, USA</h1>
+      <div class="tagline-container">
+        <h2>
+          <span class="date">May 1 &ndash; 9</span>
+          <span class="tag1">By the Community</span>
+          <span class="tag2">For the Community</span>
+        </h2>
+      </div>
     </div>
   </div>
 </div>
@@ -31,72 +33,76 @@
 {% block banner %}
 {% box "homepage-about" %}
 
-<div class="front-page-facets max-width-container">
-  <div>
-    <img src="{% static "img/tutorial-photo.jpg" %}">
-    <h3>Tutorials</h3>
-    <h4>May 1-2 • Wednesday, Thursday</h4>
-    <p>
-      The first 2 days of the conference
-      offer a schedule packed with 3-hour tutorials
-      to help both beginners and experienced developers
-      learn new technologies and increase their skills.
-    </p>
-  </div><div>
-    <img src="{% static "img/talks-photo.jpg" %}">
-    <h3>Talks and Events</h3>
-    <h4>May 3–5 • Friday, Saturday, Sunday</h4>
-    <p>
-      The 3 main conference days offer almost 100 talks,
-      an Expo Hall where you can visit our sponsors,
-      and events including an academic poster session,
-      a Job Fair, and an annual benefit auction.
-    </p>
-  </div><div>
-    <img src="{% static "img/sprints-photo.jpg" %}">
-    <h3>Sprints</h3>
-    <h4>May 6–9 • Monday through Thursday</h4>
-    <p>
-      The final 4 days are our developer sprints,
-      where developers both veteran and novice
-      enjoy several days of rare in-person collaboration
-      on their favorite open source projects.
-    </p>
+<div class="front-page-facets-blue-bg">
+  <div class="front-page-facets max-width-container">
+    <div>
+      <img src="{% static "img/tutorial-photo.jpg" %}" class="photo">
+      <h3>Tutorials</h3>
+      <h4>May 1-2 • Wednesday, Thursday</h4>
+      <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
+      <p>
+        The first 2 days of the conference
+        offer a schedule packed with 3-hour tutorials
+        to help both beginners and experienced developers
+        learn new technologies and increase their skills.
+      </p>
+    </div><div>
+      <img src="{% static "img/talks-photo.jpg" %}" class="photo">
+      <h3>Talks &amp; Events</h3>
+      <h4>May 3–5 • Friday, Saturday, Sunday</h4>
+      <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
+      <p>
+        The 3 main conference days offer almost 100 talks,
+        an Expo Hall where you can visit our sponsors,
+        and events including an academic poster session,
+        a Job Fair, and an annual benefit auction.
+      </p>
+    </div>
+    <div>
+      <img src="{% static "img/sprints-photo.jpg" %}" class="photo">
+      <h3>Sprints</h3>
+      <h4>May 6–9 • Monday through Thursday</h4>
+      <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
+      <p>
+        The final 4 days are our developer sprints,
+        where developers both veteran and novice
+        enjoy several days of rare in-person collaboration
+        on their favorite open source projects.
+      </p>
+    </div>
   </div>
 </div>
 
-<hr>
-
-<div class="front-page-facets narrow max-width-container">
-  <h2>
-    Coming Soon!
-  </h2>
-  <!--
-  <div>
-    <img src="{% static "img/PNG/tutorials-icon.png" %}">
-    <h3>PyCon 2019 has concluded.</h3>
-    <p>
-    Thanks to everyone who attended, volunteered, spoke, taught a tutorial,
-    ran an open space, sprinted, sponsored, and made PyCon 2019 a successful conference.
-    </p>
-  </div>
-  <div>
-    <img src="{% static "img/PNG/conference-icon.png" %}">
-    <h3>Retrospect on the schedule</h3>
-    <p><a href="/2019/schedule/talks/" class="btn danger">Talks</a></p>
-    <p><a href="/2019/schedule/tutorials/" class="btn danger">Tutorials</a></p>
-  </div> -->
-  <div>
-    <img src="{% static "img/PNG/sprints-icon.png" %}" style="filter: grayscale(100%); -webkit-filter: grayscale(100%);">
-    <h3>Our sponsors</h3>
-    <p><a href="/2019/sponsors/apply/" class="btn danger">Apply to Sponsor!</a></p>
-    <p>The companies and organizations who sponsor PyCon
-    make the conference possible,
-    and get to connect with a wide array of Python programmers.</p>
+<div class="front-page-facets-white-bg">
+  <div class="front-page-facets narrow max-width-container">
+    <h2>
+      Coming Soon!
+    </h2>
+    <!--
+    <div>
+      <img src="{% static "img/PNG/tutorials-icon.png" %}">
+      <h3>PyCon 2019 has concluded.</h3>
+      <p>
+      Thanks to everyone who attended, volunteered, spoke, taught a tutorial,
+      ran an open space, sprinted, sponsored, and made PyCon 2019 a successful conference.
+      </p>
+    </div>
+    <div>
+      <img src="{% static "img/PNG/conference-icon.png" %}">
+      <h3>Retrospect on the schedule</h3>
+      <p><a href="/2019/schedule/talks/" class="btn danger">Talks</a></p>
+      <p><a href="/2019/schedule/tutorials/" class="btn danger">Tutorials</a></p>
+    </div> -->
+    <div>
+      <img src="{% static "img/SVG/sprints-icon.svg" %}" width="200" height="200" alt="">
+      <h3>Our sponsors</h3>
+      <p><a href="/2019/sponsors/apply/" class="btn">Apply to Sponsor!</a></p>
+      <p>The companies and organizations who sponsor PyCon
+      make the conference possible,
+      and get to connect with a wide array of Python programmers.</p>
+    </div>
   </div>
 </div>
-
-<hr>
 
 {% endblock %}
 
@@ -123,7 +129,7 @@
 {% block credits %}
 <p>
   Thanks to Mike Pirnat for the
-  <a href="https://www.flickr.com/photos/mikepirnat/34931475515/in/album-72157684291069175/"
+  <a href="https://www.flickr.com/photos/mikepirnat/42481637624/"
      >talk photo</a>
   used above!
 </p>

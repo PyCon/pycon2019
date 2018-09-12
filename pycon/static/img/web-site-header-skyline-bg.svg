@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 400 99.729997"
+   version="1.1"
+   id="svg283"
+   sodipodi:docname="web-site-header-skyline.svg"
+   width="400"
+   height="99.729996"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata287">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Pycon Logo 2019 FINAL</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     id="namedview285"
+     showgrid="false"
+     inkscape:snap-nodes="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.8"
+     inkscape:cx="-328.91667"
+     inkscape:cy="-11.849985"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg283" />
+  <defs
+     id="defs20">
+    <style
+       id="style2">.cls-1,.cls-10{fill:none;}.cls-2{fill:#fff;}.cls-3{fill:url(#linear-gradient);}.cls-4{clip-path:url(#clip-path);}.cls-5{fill:#306a99;}.cls-6{fill:#ffd43c;}.cls-7{fill:#b7d433;}.cls-8{fill:#00ce7c;}.cls-9{fill:#009abf;}.cls-10{stroke:#ffd43c;stroke-miterlimit:10;stroke-width:5.04px;}</style>
+    <linearGradient
+       id="linear-gradient"
+       x1="720"
+       x2="720"
+       y2="556.09003"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#9ecee0"
+         id="stop4" />
+      <stop
+         offset="0.01"
+         stop-color="#9bcddf"
+         id="stop6" />
+      <stop
+         offset="0.36"
+         stop-color="#59b7d2"
+         id="stop8" />
+      <stop
+         offset="0.65"
+         stop-color="#29a7c8"
+         id="stop10" />
+      <stop
+         offset="0.87"
+         stop-color="#0b9ec1"
+         id="stop12" />
+      <stop
+         offset="1"
+         stop-color="#009abf"
+         id="stop14" />
+    </linearGradient>
+    <clipPath
+       id="clip-path">
+      <rect
+         class="cls-1"
+         y="40.529999"
+         width="1440.6801"
+         height="567.08002"
+         id="rect17"
+         x="0"
+         style="fill:none" />
+    </clipPath>
+  </defs>
+  <title
+     id="title22">Pycon Logo 2019 FINAL</title>
+  <rect
+     class="cls-5"
+     y="45.519989"
+     width="400"
+     height="54.210007"
+     id="rect28"
+     x="0"
+     style="fill:#306a99;stroke-width:0.3503879" />
+  <rect
+     style="opacity:1;fill:#ffd43c;fill-opacity:1;stroke:none;stroke-width:0.66150498;stroke-opacity:1"
+     id="rect4924"
+     width="400"
+     height="67.51001"
+     x="0"
+     y="0" />
+  <rect
+     style="opacity:1;fill:#b7d433;fill-opacity:1;stroke:none;stroke-width:0.66150498;stroke-opacity:1"
+     id="rect4946"
+     width="400"
+     height="49.309998"
+     x="0"
+     y="18.199982" />
+  <rect
+     style="opacity:1;fill:#00ce7c;fill-opacity:1;stroke:none;stroke-width:0.99227786;stroke-opacity:1"
+     id="rect4948"
+     width="400"
+     height="34.109985"
+     x="0"
+     y="36.399994" />
+  <rect
+     style="opacity:1;fill:#009abf;fill-opacity:1;stroke:none;stroke-width:1.66970229;stroke-opacity:1"
+     id="rect4952"
+     width="399.72501"
+     height="18.125"
+     x="0.13745117"
+     y="54.649994"
+     ry="0" />
+  <rect
+     id="rect3730"
+     width="0"
+     height="11.25"
+     x="-816.56763"
+     y="-107.76001" />
+</svg>

@@ -17,7 +17,7 @@
    style="enable-background:new 0 0 200 200;"
    xml:space="preserve"
    sodipodi:docname="conference-icon.svg"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    inkscape:export-filename="/Users/ernestd/ernestd/pycon/pycon/static/img/SVG/conference-icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"><metadata
@@ -38,10 +38,10 @@
      id="namedview4755"
      showgrid="true"
      inkscape:zoom="2"
-     inkscape:cx="18.439296"
+     inkscape:cx="-82.060704"
      inkscape:cy="102.23393"
-     inkscape:window-x="15"
-     inkscape:window-y="172"
+     inkscape:window-x="2062"
+     inkscape:window-y="226"
      inkscape:window-maximized="0"
      inkscape:current-layer="XMLID_502_"><inkscape:grid
        type="xygrid"
@@ -53,7 +53,7 @@
 </style><g
      id="XMLID_502_"
      transform="translate(1,1)"><circle
-       style="opacity:1;fill:#77aba7;fill-opacity:1;stroke-width:1.25788641"
+       style="opacity:1;fill:#d0df00;fill-opacity:1;stroke-width:1.25788641"
        id="path4761"
        cx="99"
        cy="99"
