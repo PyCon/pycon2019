@@ -848,6 +848,8 @@ hr {
 table {
   border-collapse: collapse;
   margin: 1em 0;
+  width: 100%;
+  text-align: left;
 }
 th {
     font-weight: 600;
@@ -858,7 +860,7 @@ td {
     padding: 0.5em;
 }
 .dashboard-panel-content th {
-    padding: 0em 1em 0em 1em;
+    padding: 0 1em 0 0;
     white-space: nowrap;
 }
 .dashboard-panel-content td {
