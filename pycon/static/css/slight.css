@@ -499,13 +499,12 @@ a {
 }
 .messages .message {
   align-items: center;
-  background: #EA6446;
+  background: #FFD43B;
   border-radius: 10px;
-  border: 2px solid #D25438;
-  color: #FFF;
   display: flex;
   margin: 10px;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 20px 10px;
+  font-weight: 500;
 }
 @media (min-width: 750px) {
   .messages .message {
@@ -513,8 +512,8 @@ a {
   }
 }
 .messages .message button {
-  background: #EA6446;
-  border-color: #EA6446;
+  background: #FFD43B;
+  border: 0;
   margin: 0px 10px 0px 0px;
 }
 
