@@ -1388,9 +1388,10 @@ body.home-page h2 {
   background-size: contain;
   position: absolute;
   height: 140px;
+  width: 540px;
   top: 10px;
   margin: 0;
-  margin-right: 5%;
+  right: 5%;
   padding: 0;
   text-indent: -9999px;
   z-index: 1;
