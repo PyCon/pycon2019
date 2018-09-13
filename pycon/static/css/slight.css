@@ -828,8 +828,7 @@ a {
   }
 }
 dt {
-    color: #CE624D;
-    font-style: italic;
+    font-weight: 600;
 }
 pre {
   border: 2px solid #FFCF89;
@@ -900,6 +899,8 @@ fieldset {
   border-radius: 10px;
   box-sizing: border-box;
   background-color: #FFD43B;
+  background-color: rgba(255, 212, 59, 0.5);
+  border: 4px solid #FFD43B;
   display: block;
   margin: 0 auto 20px;
   max-width: 800px;
@@ -939,7 +940,7 @@ input[type=password],
 input[type=url],
 textarea {
   -webkit-appearance: none;
-  border: 2px solid #FFF;
+  border: 2px solid #FFD43B;
   border-radius: 0;
   box-shadow: none;
   box-sizing: border-box;
@@ -1030,6 +1031,11 @@ input[type=radio] {
   margin-right: auto;
   margin-left: auto;
 }
+/* Specific Form: Edit Speaker Proposal */
+#div_id_message .fullwidth-textarea {
+  border-color: #012A29;
+}
+
 /* Specific Form: Edit Speaker Profile */
 fieldset #div_id_photo .controls a {
   display: block;
