@@ -464,6 +464,9 @@ a {
   height: 15px;
   background: url('../img/yellow-squiggle.svg') center repeat-x;
 }
+.page-content h1:empty {
+   display: none;
+}
 .page-content h2 {
   margin: 1.4em 0 1em;
 }
