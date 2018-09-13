@@ -36,7 +36,7 @@
 <div class="front-page-facets-blue-bg">
   <div class="front-page-facets max-width-container">
     <div>
-      <img src="{% static "img/tutorial-photo.jpg" %}" class="photo">
+      <img src="{% static "img/tutorial-photo.jpg" %}" alt="People working together at a tutorial" class="photo">
       <h3>Tutorials</h3>
       <h4>May 1-2 • Wednesday, Thursday</h4>
       <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
@@ -47,7 +47,7 @@
         learn new technologies and increase their skills.
       </p>
     </div><div>
-      <img src="{% static "img/talks-photo.jpg" %}" class="photo">
+      <img src="{% static "img/talks-photo.jpg" %}" alt="A woman presenting" class="photo">
       <h3>Talks &amp; Events</h3>
       <h4>May 3–5 • Friday, Saturday, Sunday</h4>
       <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
@@ -59,7 +59,7 @@
       </p>
     </div>
     <div>
-      <img src="{% static "img/sprints-photo.jpg" %}" class="photo">
+      <img src="{% static "img/sprints-photo.jpg" %}" alt="Developers working at a sprint" class="photo">
       <h3>Sprints</h3>
       <h4>May 6–9 • Monday through Thursday</h4>
       <img src="{% static "img/yellow-squiggle.svg" %}" alt="" class="squiggle">
@@ -80,7 +80,7 @@
     </h2>
     <!--
     <div>
-      <img src="{% static "img/PNG/tutorials-icon.png" %}">
+      <img src="{% static "img/PNG/tutorials-icon.png" %}" alt="">
       <h3>PyCon 2019 has concluded.</h3>
       <p>
       Thanks to everyone who attended, volunteered, spoke, taught a tutorial,
@@ -88,7 +88,7 @@
       </p>
     </div>
     <div>
-      <img src="{% static "img/PNG/conference-icon.png" %}">
+      <img src="{% static "img/PNG/conference-icon.png" %}" alt="">
       <h3>Retrospect on the schedule</h3>
       <p><a href="/2019/schedule/talks/" class="btn danger">Talks</a></p>
       <p><a href="/2019/schedule/tutorials/" class="btn danger">Tutorials</a></p>
@@ -118,7 +118,7 @@
   {% sponsors as all_sponsors %}
   {% for sponsor in all_sponsors %}
   <a href="{{ sponsor.external_url }}" title="{{ sponsor.name }}">
-    <img src="{{ sponsor.website_logo|thumbnail_url:'sponsor_homepage' }}">
+    <img src="{{ sponsor.website_logo|thumbnail_url:'sponsor_homepage' }}" alt="">
   </a>
   {% endfor %}
 </p>
