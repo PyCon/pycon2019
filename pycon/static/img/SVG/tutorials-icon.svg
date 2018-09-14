@@ -17,7 +17,7 @@
    style="enable-background:new 0 0 200 200;"
    xml:space="preserve"
    sodipodi:docname="tutorials-icon.svg"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    inkscape:export-filename="/Users/ernestd/ernestd/pycon/pycon/static/img/SVG/tutorials-icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"><metadata
@@ -34,14 +34,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1513"
-     inkscape:window-height="1062"
+     inkscape:window-height="1043"
      id="namedview5413"
      showgrid="true"
      inkscape:zoom="1.18"
-     inkscape:cx="-205.08475"
+     inkscape:cx="-375.42373"
      inkscape:cy="100"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="2035"
+     inkscape:window-y="47"
      inkscape:window-maximized="0"
      inkscape:current-layer="Layer_1"><inkscape:grid
        type="xygrid"
@@ -51,7 +51,7 @@
 	.st0{fill:#BA9F6F;}
 	.st1{fill:#FFFFFF;}
 </style><circle
-     style="opacity:1;fill:#3492b3;fill-opacity:1;stroke-width:2.93218613"
+     style="opacity:1;fill:#009cbd;fill-opacity:1;stroke-width:2.93218613"
      id="path5419"
      cx="100"
      cy="100"
