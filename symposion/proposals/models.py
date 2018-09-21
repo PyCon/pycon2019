@@ -123,6 +123,9 @@ class ProposalBase(models.Model):
         help_text=strip(
             u"""
             Anything else you would like to share with the committee:<br>
+            <b>Please do not submit any personally identifiable information.</b>
+            The initial round of reviews are annonymous, and this field will
+            visible to reviewers.<br>
             Speaker public speaking experience.<br>
             Speaker subject matter experience.<br>
             Have the speaker(s) given this presentation before elsewhere?<br>
