@@ -122,8 +122,8 @@ class PyConProposal(ProposalBase):
                     u"the Python Software Foundation to record, edit, and release audio "
                     u"and/or video of your presentation. If you do not agree to this, "
                     u"please uncheck this box. See "
-                    u"<a href='/2018/speaking/recording/' "
-                    u"target='_blank'>PyCon 2018 Recording Release</a> for details.")
+                    u"<a href='/2019/speaking/recording/' "
+                    u"target='_blank'>PyCon 2019 Recording Release</a> for details.")
     )
 
     additional_requirements = models.TextField(
@@ -166,31 +166,29 @@ class PyConTalkProposal(PyConProposal):
     outline = models.TextField(
         help_text=strip(
             u"""
-            The “outline” is a skeleton of your talk
-            that is as detailed as possible,
-            including rough timings for different sections.
-            If requesting a 45 minute slot,
-            please describe what content would appear in the 45 minute version
-            but not a 30 minute version,
-            either within the outline or in a paragraph at the end.<br>
+            The “outline” is a skeleton of your talk that is as detailed as
+            possible, including rough timings or estimates for different
+            sections. If requesting a 45 minute slot, please describe what
+            content would appear in the 45 minute version but not a 30 minute
+            version, either within the outline or in a paragraph at the
+            end.<br>
             <br>
-            <i>Committee note:</i>
-            The outline is extremely important for the program committee
-            to understand what the content and structure of your talk will be.
-            We hope that writing the outline is helpful to you as well,
-            to organize and clarify your thoughts for your talk!
-            The outline will <b>not</b> be shared
-            with conference attendees.<br>
+            <i>Committee note:</i> The outline is extremely important for the
+            program committee to understand what the content and structure of
+            your talk will be. The timings/percentages help us compare multiple
+            talks that might have a similar abstract. We know that they are
+            estimates and only capture your view at this moment in time and are
+            likely to change before PyCon. We hope that writing the outline is
+            helpful to you as well, to organize and clarify your thoughts for
+            your talk! The outline will not be shared with conference
+            attendees.<br>
             <br>
-            If there’s too much to your topic
-            to cover even in 45 minutes,
-            you may wish to narrow it down.
-            Alternatively, consider submitting a 3-hour PyCon tutorial instead.
-            <br>
-            If you plan to do live coding during your talk, please describe
-            your backup plan in case the live coding fails (for whatever
-            reason). Suggestions include a pre-recorded video, or slides
-            to replace the live coding.
+            If there’s too much to your topic to cover even in 45 minutes, you
+            may wish to narrow it down. Alternatively, consider submitting a
+            3-hour PyCon tutorial instead. If you plan to do live coding during
+            your talk, please describe your backup plan in case the live coding
+            fails (for whatever reason). Suggestions include a pre-recorded
+            video, or slides to replace the live coding.
             """
         ),
     )
