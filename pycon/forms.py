@@ -180,6 +180,7 @@ class PyConPosterProposalForm(PyConProposalForm):
             "audience_level",
             "description",
             "additional_notes",
+            "additional_requirements",
         ]
         widgets = {
             "audience_level": forms.HiddenInput(
@@ -197,6 +198,10 @@ class PyConPosterProposalForm(PyConProposalForm):
             Will you need electrical power?<br>
             Do you have accessibility needs that we should plan ahead for?
             """),
+            'additional_requirements': strip(u'''
+            Please let us know if you have any requirements for presenting your
+            poster such as a 6 foot table for a demo.
+            '''),
         }
 
 

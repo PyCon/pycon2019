@@ -43,4 +43,9 @@
 
     <dt>{% trans "Additional notes" %}</dt>
     <dd id="additional-notes" class="significant-whitespace">{{ proposal.additional_notes }}&nbsp</dd>
+
+    {% if proposal.kind.slug == "poster" %}
+        <dt>{% trans "Additional Requirements" %}</dt>
+        <dd id="additional-requirements" class="significant-whitespace">{{ proposal.additional_requirements }}&nbsp</dd>
+    {% endif %}
 </dl>
