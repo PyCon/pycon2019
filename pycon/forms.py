@@ -7,9 +7,10 @@ from markedit.widgets import MarkEdit
 
 from symposion.proposals.kinds import register_proposal_form
 from .models import (PyConProposalCategory, PyConTalkProposal,
-                     PyConTutorialProposal, PyConPosterProposal,
-                     PyConLightningTalkProposal, PyConSponsorTutorialProposal,
-                     PyConOpenSpaceProposal, EduSummitTalkProposal, PyConProposal)
+                     PyConCharlaProposal, PyConTutorialProposal,
+                     PyConPosterProposal, PyConLightningTalkProposal,
+                     PyConSponsorTutorialProposal, PyConOpenSpaceProposal,
+                     EduSummitTalkProposal, PyConProposal)
 
 
 def strip(text):
@@ -71,6 +72,54 @@ class PyConTalkProposalForm(PyConProposalForm):
 
 
 register_proposal_form('talk', PyConTalkProposalForm)
+
+class PyConCharlaProposalForm(PyConProposalForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PyConCharlaProposalForm, self).__init__(*args, **kwargs)
+        self.fields['title'].label = u'Título'
+        self.fields['description'].label = u'Descripción corta'
+        self.fields['outline'].label = u'Descripción'
+        self.fields['additional_notes'].label = u'Notas sobre el ponente'
+        self.fields['recording_release'].label = u'Liberación de la grabación'
+        del self.fields["category"]
+
+    def clean(self):
+        # We no longer ask for an "audience level" for talk proposals,
+        # but we still need to force it to a value that the database
+        # will accept.
+        cleaned_data = super(PyConCharlaProposalForm, self).clean()
+        cleaned_data['audience_level'] = (
+            PyConCharlaProposal.AUDIENCE_LEVEL_INTERMEDIATE)
+        return cleaned_data
+
+    class Meta:
+        model = PyConCharlaProposal
+        fields = [
+            "title",
+            "description",
+            "outline",
+            "additional_notes",
+            "recording_release",
+            # Hidden fields:
+            "audience_level",
+        ]
+        widgets = {
+            "description": MarkEdit(),
+            "audience_level": forms.HiddenInput(
+                attrs={'value': PyConTalkProposal.AUDIENCE_LEVEL_INTERMEDIATE},
+            ),
+        }
+        help_texts = {
+            'title': strip(u""),
+            'description': strip(u"Resumen de qué trata la charla y por qué es interesante para los asistentes."),
+            'outline': strip(u"Cual es el tema de la charla, que va a cubrir y por qué esta charla deberia ser elegida para las PyCon Charlas."),
+            'additional_notes': strip(u"Informacion general sobre el ponente para los revisores. Experiencia previa, dominio del tema, etc."),
+            'recording_release': strip(u"Al enviar tu propuesta estás de acuerdo con dar permiso a la Python Software Foundation de grabar, editar y liberar el audio y/o vídeo de tu presentación. Si no estás de acuerdo, por favor desmarca la casilla. Dirígete a <a href=\"2019/speaking/recording/\">liberación de grabaciones PyCon 2019</a> para más detalles."),
+        }
+
+
+register_proposal_form('charla', PyConCharlaProposalForm)
 
 
 class PyConLightningTalkProposalForm(PyConProposalForm):
