@@ -237,7 +237,13 @@ class PyConTalkProposal(PyConProposal):
 
 
 register_proposal_model('talk', PyConTalkProposal, 'Talks')
-register_proposal_model('charla', PyConTalkProposal, 'Charlas')
+
+class PyConCharlaProposal(PyConTalkProposal):
+
+    class Meta:
+        verbose_name = "PyCon Charlas proposal"
+
+register_proposal_model('charla', PyConCharlaProposal, 'Charlas')
 
 
 class PyConLightningTalkProposal(PyConProposal):

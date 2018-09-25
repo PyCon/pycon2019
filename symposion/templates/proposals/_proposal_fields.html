@@ -36,7 +36,7 @@
         <dd class="significant-whitespace">{{ proposal.audience }}&nbsp;</dd>
     {% endif %}
 
-    {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" %}
+    {% if proposal.kind.slug == "tutorial" or proposal.kind.slug == "talk" or proposal.kind.slug == "charla" %}
         <dt>{% trans "Outline" %}</dt>
         <dd id="outline" class="significant-whitespace">{{ proposal.outline|indentation|bleach|safe }}&nbsp</dd>
     {% endif %}

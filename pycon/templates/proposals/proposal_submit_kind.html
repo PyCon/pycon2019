@@ -12,14 +12,23 @@
         <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <legend><h1>
+                {% if kind.slug == 'charla' %}
+                Propuesta de charla
+                {% else %}
                 {% blocktrans with name=kind.name %}{{ name }} proposal form{% endblocktrans %}
+                {% endif %}
             </h1></legend>
             <fieldset>
                 {{ form|as_bootstrap }}
                  <div class="form-actions">
                 <p>
+                    {% if kind.slug == 'charla' %}
+                    ¡Guardar tu propuesta no la envía inmediatamente a revisión!
+                    Puedes guardar de manera segura en cualquier momento y regresar antes de enviar tu propuesta.
+                    {% else %}
                     Saving your proposal will not immediately submit if for review!
                     You can safely save at any time and come back before submission.
+                    {% endif %}
                 </p>
                 <input class="btn" type="submit" name="add-speakers" value="{% trans "Save and Add Additional Speakers" %}" />
                 <input class="btn" type="submit" name="finish" value="{% trans "Save" %}" />
