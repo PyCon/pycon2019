@@ -115,7 +115,7 @@ class PyConCharlaProposalForm(PyConProposalForm):
             'description': strip(u"Resumen de qué trata la charla y por qué es interesante para los asistentes."),
             'outline': strip(u"Cual es el tema de la charla, que va a cubrir y por qué esta charla deberia ser elegida para las PyCon Charlas."),
             'additional_notes': strip(u"Informacion general sobre el ponente para los revisores. Experiencia previa, dominio del tema, etc."),
-            'recording_release': strip(u"Al enviar tu propuesta estás de acuerdo con dar permiso a la Python Software Foundation de grabar, editar y liberar el audio y/o vídeo de tu presentación. Si no estás de acuerdo, por favor desmarca la casilla. Dirígete a <a href=\"2019/speaking/recording/\">liberación de grabaciones PyCon 2019</a> para más detalles."),
+            'recording_release': strip(u"Al enviar tu propuesta estás de acuerdo con dar permiso a la Python Software Foundation de grabar, editar y liberar el audio y/o vídeo de tu presentación. Si no estás de acuerdo, por favor desmarca la casilla. Dirígete a <a href=\"/2019/speaking/recording/\">liberación de grabaciones PyCon 2019</a> para más detalles."),
         }
 
 
