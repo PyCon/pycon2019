@@ -226,29 +226,6 @@ class TestFinaidStatusView(TestCase, TestMixin):
         )
         Conference.objects.get_or_create(id=settings.CONFERENCE_ID)
 
-    def test_applicant_cant_see_private_messages(self):
-        self.login()
-        application = create_application(user=self.user)
-        application.save()
-
-        # Create a 2nd user to make a message
-        user2 = self.create_user(username="fred", email="fred@example.com")
-        # Make message
-        FinancialAidMessage.objects.create(user=user2,
-                                           application=application,
-                                           visible=False,
-                                           message="Burma Shave!")
-        # Make visible message, just to be sure we're seeing some messages
-        FinancialAidMessage.objects.create(user=user2,
-                                           application=application,
-                                           visible=True,
-                                           message="Star Trek!")
-        # Status view
-        url = reverse("finaid_status")
-        rsp = self.client.get(url)
-        self.assertContains(rsp, "Star Trek!")
-        self.assertNotContains(rsp, "Burma Shave!")
-
 
 class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
     def setUp(self):

@@ -1,7 +1,7 @@
 {% load i18n %}
 
-<h4>{% trans "STATUS" %}
-<span class="label
+<h4>{% trans "STATUS" %}</h4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label
   {% if application.get_status_display == "Rejected" or application.get_status_display == "Declined" %}
     label-important
   {% elif application.get_status_display == "Information needed" %}
@@ -9,10 +9,10 @@
   {% else %}label-success{% endif %}
   ">
   {{ application.get_status_display }}
-</h4>
+</span>
 
+<h4>{% trans "TIMESTAMP" %}</h4>
 <ul class="timestamp unstyled">
-  <h4>{% trans "TIMESTAMP" %}</h4>
   <li>
    <strong>{% trans "Submitted:" %}</strong>
     {{ application.timestamp }}
@@ -26,19 +26,19 @@
   {% endif %}
 </ul>
 
-<hr>
 
-<ul class="grants unstyled">
-  <h4>{% trans "GRANT(S) REQUESTED" %}</h4>
   {% if application.pyladies_grant_requested %}
-    <li>{% trans "PyLadies grant requested" %}<li>
-  {% endif %}
-</ul>
-
 <hr>
+  <h4>{% trans "GRANT(S) REQUESTED" %}</h4>
+  <ul class="grants unstyled">
+    <li>{% trans "PyLadies grant requested" %}<li>
+  </ul>
+<hr>
+  {% endif %}
 
+
+<h4>{% trans "APPLICANT INFO" %}</h4>
 <ul class="unstyled applicant-info">
-  <h4>{% trans "APPLICANT INFO" %}</h4>
   <li>
     <strong>{% trans "Amount Requested" %}</strong>
     <p>{{ application.amount_requested }}</p>
@@ -51,14 +51,12 @@
     <strong>{% trans "Profession" %}</strong>
     <p>{{ application.profession }}</p>
   </li>
-  {% if application.involvement %}
-    <li>
-      <strong>{% trans "Involvement" %}</strong>
-      <p>{{ application.involvement }}</p>
-    </li>
-  {% endif %}
   <li>
-    <strong>{% trans "What do you want to get out of attending PyCon?" %}</strong>
+    <strong>{% trans "Involvement" %}</strong>
+    <p>{{ application.involvement }}</p>
+  </li>
+  <li>
+    <strong>{% trans "How you use Python and how PyCon will help?" %}</strong>
     <p>{{ application.what_you_want }}</p>
   </li>
   {% if application.portfolios %}
@@ -68,27 +66,19 @@
     </li>
   {% endif %}
   <li>
-    <strong>{% trans "Use of Python" %}</strong>
-    <p>{{ application.use_of_python }}</p>
-  </li>
-  <li>
     <strong>{% trans "Presenting at PyCon:" %}</strong>
-    {{ application.get_presenting_display }}
+    <p>{{ application.get_presenting_display }}</p>
   </li>
   <li>
     <strong>{% trans "Experience level" %}</strong>
     <p>{{ application.experience_level }}</p>
   </li>
-  {% if application.presented %}
-    <li>
-      <strong>{% trans "Presented at PyCon before:" %}</strong>
-      {{ application.presented }}
-    </li>
-  {% endif %}
-  {% if application.first_time %}
-    <li>
-     <strong>{% trans "First time at PyCon:" %}</strong>
-      {{ application.first_time }}
-    </li>
-  {% endif %}
+  <li>
+    <strong>{% trans "Presented at PyCon before:" %}</strong>
+    <p>{{ application.presented }}</p>
+  </li>
+  <li>
+   <strong>{% trans "First time at PyCon:" %}</strong>
+    <p>{{ application.first_time }}</p>
+  </li>
 </ul>
