@@ -17,11 +17,11 @@ from symposion.proposals.kinds import get_proposal_model_from_section_slug
 
 
 PROPOSAL_TYPES = [
-    'charlas',
-    'lightnings',
-    'posters',
-    'talks',
-    'tutorials',
+    'charla',
+    'lightning',
+    'poster',
+    'talk',
+    'tutorial',
 ]
 
 
@@ -236,18 +236,18 @@ def thunderdome_group_decide(request, td_group_code):
 @api_view
 def proposal_counts(request):
     model = ProposalBase
-    proposal_type = request.GET.get('type', 'talk') + 's'
+    proposal_type = request.GET.get('type', 'talk')
     if proposal_type in PROPOSAL_TYPES:
         try:
-            model = get_proposal_model_from_section_slug(proposal_type)
+            model = get_proposal_model_from_section_slug(proposal_type + 's')
         except ValueError:
             return ({ 'error': 'unrecognized proposal type' }, 400)
     else:
         return ({ 'error': 'unrecognized proposal type' }, 400)
 
-    submitted = model.objects.filter(submitted=True, cancelled=False).count()
-    draft = model.objects.filter(submitted=False, cancelled=False).count()
-    cancelled = model.objects.filter(cancelled=True).count()
+    submitted = model.objects.filter(submitted=True, cancelled=False, kind__slug=proposal_type).count()
+    draft = model.objects.filter(submitted=False, cancelled=False, kind__slug=proposal_type).count()
+    cancelled = model.objects.filter(cancelled=True, kind__slug=proposal_type).count()
 
     return {"submitted": submitted, "draft": draft, "cancelled": cancelled}
 
@@ -299,10 +299,10 @@ def proposal_list(request):
     """
     # What model should we be pulling from?
     model = ProposalBase
-    proposal_type = request.GET.get('type', 'talk') + 's'
+    proposal_type = request.GET.get('type', 'talk')
     if proposal_type in PROPOSAL_TYPES:
         try:
-            model = get_proposal_model_from_section_slug(proposal_type)
+            model = get_proposal_model_from_section_slug(proposal_type + 's')
         except ValueError:
             return ({ 'error': 'unrecognized proposal type' }, 400)
     else:
@@ -310,6 +310,7 @@ def proposal_list(request):
 
     # See if there is such a proposal
     proposals = model.objects.select_related('result').order_by('pk')
+    proposals = proposals.filter(kind__slug=proposal_type)
 
     # Don't look at unsubmitted proposals
     proposals = proposals.exclude(submitted=False)
