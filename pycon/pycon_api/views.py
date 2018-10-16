@@ -13,14 +13,16 @@ from pycon.models import (PyConTalkProposal, PyConTutorialProposal,
 
 from symposion.proposals.models import ProposalBase
 from symposion.schedule.models import Slot
+from symposion.proposals.kinds import get_proposal_model_from_section_slug
 
 
-PROPOSAL_TYPES = {
-    'talk': PyConTalkProposal,
-    'tutorial': PyConTutorialProposal,
-    'lightning': PyConLightningTalkProposal,
-    'poster': PyConPosterProposal,
-}
+PROPOSAL_TYPES = [
+    'charlas',
+    'lightnings',
+    'posters',
+    'talks',
+    'tutorials',
+]
 
 
 @api_view
@@ -234,12 +236,14 @@ def thunderdome_group_decide(request, td_group_code):
 @api_view
 def proposal_counts(request):
     model = ProposalBase
-    proposal_type = request.GET.get('type', 'talk')
-    if proposal_type:
+    proposal_type = request.GET.get('type', 'talk') + 's'
+    if proposal_type in PROPOSAL_TYPES:
         try:
-            model = PROPOSAL_TYPES[proposal_type]
-        except KeyError:
+            model = get_proposal_model_from_section_slug(proposal_type)
+        except ValueError:
             return ({ 'error': 'unrecognized proposal type' }, 400)
+    else:
+        return ({ 'error': 'unrecognized proposal type' }, 400)
 
     submitted = model.objects.filter(submitted=True, cancelled=False).count()
     draft = model.objects.filter(submitted=False, cancelled=False).count()
@@ -295,12 +299,14 @@ def proposal_list(request):
     """
     # What model should we be pulling from?
     model = ProposalBase
-    proposal_type = request.GET.get('type', 'talk')
-    if proposal_type:
+    proposal_type = request.GET.get('type', 'talk') + 's'
+    if proposal_type in PROPOSAL_TYPES:
         try:
-            model = PROPOSAL_TYPES[proposal_type]
-        except KeyError:
+            model = get_proposal_model_from_section_slug(proposal_type)
+        except ValueError:
             return ({ 'error': 'unrecognized proposal type' }, 400)
+    else:
+        return ({ 'error': 'unrecognized proposal type' }, 400)
 
     # See if there is such a proposal
     proposals = model.objects.select_related('result').order_by('pk')
