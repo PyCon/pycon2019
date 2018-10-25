@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load boxes_tags %}
+
+{% block head_title %}{% trans "Apply for PyCon Startup Row" %}{% endblock %}
+
+{% block body_class %}startuprow-apply{% endblock %}
+
+{% block body %}
+
+    {% box "startuprow-apply" %}
+
+    <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <legend><h1>{% trans "Apply for PyCon Startup Row" %}</h1></legend>
+        <fieldset>
+          {{ form|as_bootstrap }}
+        </fieldset>
+
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="{% trans "Apply" %}" />
+        </div>
+    </form>
+
+{% endblock %}
