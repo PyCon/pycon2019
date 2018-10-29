@@ -4,10 +4,14 @@ from StringIO import StringIO
 from uuid import uuid4
 from zipfile import ZipFile
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render_to_response, render, redirect
+from django.template import RequestContext
 
 from pycon.models import ScheduledEvent
+from pycon.forms import PyConStartupRowApplicationForm
 from pycon.program_export import export
 
 
@@ -50,3 +54,19 @@ def scheduled_event_overview(request):
    return render(request, "scheduled_event_overview.html", {
        'events': events,
    })
+
+
+@login_required
+def startuprow_apply(request):
+    if request.method == "POST":
+        form = PyConStartupRowApplicationForm(request.POST, request.FILES, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your PyCon Startup Row application has been submitted!")
+            return redirect("startuprow_apply")
+    else:
+        form = PyConStartupRowApplicationForm(user=request.user)
+
+    return render_to_response("startuprow/application.html", {
+        "form": form,
+    }, context_instance=RequestContext(request))

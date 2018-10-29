@@ -6,7 +6,8 @@ from markedit.admin import MarkEditAdmin
 from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
                           PyConTalkProposal, PyConTutorialProposal,
                           PyConPosterProposal, PyConLightningTalkProposal,
-                          PyConOpenSpaceProposal, ScheduledEvent, EduSummitTalkProposal)
+                          PyConOpenSpaceProposal, ScheduledEvent, EduSummitTalkProposal,
+                          PyConStartupRowApplication)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -162,6 +163,14 @@ class EduSummitTalkAdmin(ProposalMarkEditAdmin):
         'cancelled',
     ]
 
+class StartupRowApplicationAdmin(admin.ModelAdmin):
+    list_display = [
+        'company_name',
+        'applicant',
+        'created',
+        'updated',
+    ]
+
 
 admin.site.register(PyConProposalCategory)
 admin.site.register(PyConTalkProposal, TalkAdmin)
@@ -172,6 +181,7 @@ admin.site.register(PyConSponsorTutorialProposal, SponsorTutorialAdmin)
 admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
 admin.site.register(EduSummitTalkProposal, EduSummitTalkAdmin)
 admin.site.register(ScheduledEvent, ScheduledEventAdmin)
+admin.site.register(PyConStartupRowApplication, StartupRowApplicationAdmin)
 
 
 from account.models import Account, EmailAddress

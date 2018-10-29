@@ -10,7 +10,8 @@ from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConCharlaProposal, PyConTutorialProposal,
                      PyConPosterProposal, PyConLightningTalkProposal,
                      PyConSponsorTutorialProposal, PyConOpenSpaceProposal,
-                     EduSummitTalkProposal, PyConProposal)
+                     EduSummitTalkProposal, PyConProposal,
+                     PyConStartupRowApplication)
 
 
 def strip(text):
@@ -333,3 +334,68 @@ class EducationSummitTalkProposalForm(PyConProposalForm):
 
 
 register_proposal_form('edusummit', EducationSummitTalkProposalForm)
+
+
+class PyConStartupRowApplicationForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(PyConStartupRowApplicationForm, self).__init__(*args, **kwargs)
+        self.fields["applicant_name"].label = u'Your name'
+        self.fields["applicant_company_role"].label = u'Your role at your company'
+        self.fields["company_name"].label = u'Company name'
+        self.fields["company_url"].label = u'Company URL'
+        self.fields["company_location"].label = u'Where is your company based?'
+        self.fields["company_activity"].label = u'What does your company do?'
+        self.fields["company_python_usage"].label = u'How is Python used at your company?'
+        self.fields["company_age"].label = u'How long has your company been active?'
+        self.fields["company_size"].label = u'How many full-time employees, including founders, work at your company?'
+        self.fields["company_competitive_advantage"].label = u'What is your competitive advantage?'
+        self.fields["company_monetization_strategy"].label = u'How will your company make money?'
+        self.fields["company_funding"].label = u'How has your company funded its development and growth?'
+        self.fields["company_additional_notes"].label = u'Anything else you\'d like to tell us?'
+        self.fields["company_demo_url"].label = u'Product demo/video URL?'
+
+    class Meta:
+        model = PyConStartupRowApplication
+        fields = [
+            "applicant_name",
+            "applicant_company_role",
+            "company_name",
+            "company_url",
+            "company_location",
+            "company_activity",
+            "company_python_usage",
+            "company_age",
+            "company_size",
+            "company_competitive_advantage",
+            "company_monetization_strategy",
+            "company_funding",
+            "company_additional_notes",
+            "company_demo_url",
+        ]
+        widgets = {
+        }
+        help_texts = {
+            "applicant_name": None,
+            "applicant_company_role": None,
+            "company_name": None,
+            "company_url": "Optional",
+            "company_location": None,
+            "company_activity": "500 Characters or less",
+            "company_python_usage": "500 Characters or less",
+            "company_age": None,
+            "company_size": None,
+            "company_competitive_advantage": "500 Characters or less",
+            "company_monetization_strategy": "500 Characters or less",
+            "company_funding": "Optional",
+            "company_additional_notes": "Optional",
+            "company_demo_url": "Optional",
+        }
+
+    def save(self, commit=True):
+        obj = super(PyConStartupRowApplicationForm, self).save(commit=False)
+        obj.applicant = self.user
+        if commit:
+            obj.save()
+        return obj

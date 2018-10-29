@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -368,3 +369,33 @@ def generate_thumbnails_async(sender, fieldfile, **kwargs):
     tasks.generate_thumbnails.delay(
         model=sender, pk=fieldfile.instance.pk,
         field=fieldfile.field.name)
+
+
+class PyConStartupRowApplication(models.Model):
+    applicant_name = models.CharField(max_length=100)
+    applicant_company_role = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100)
+    company_url = models.CharField(max_length=100, blank=True, default='')
+    company_location = models.CharField(max_length=100)
+    company_activity = models.TextField(max_length=500)
+    company_python_usage = models.TextField(max_length=500)
+    company_age = models.CharField(max_length=50)
+    company_size = models.CharField(max_length=50)
+    company_competitive_advantage = models.TextField(max_length=500)
+    company_monetization_strategy = models.TextField(max_length=500)
+    company_funding = models.CharField(max_length=100, blank=True, default='')
+    company_additional_notes = models.TextField(max_length=500, blank=True, default='')
+    company_demo_url = models.CharField(max_length=100, blank=True, default='')
+
+    applicant = models.ForeignKey(User, related_name="startuprow_applications", verbose_name=_("applicant"), null=True, on_delete=models.SET_NULL)
+    created = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+    )
+    updated = models.DateTimeField(
+        auto_now=True,
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = "PyCon Startup Row Application"
