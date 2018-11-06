@@ -144,6 +144,8 @@ class Sponsor(models.Model):
 
     registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
     expo_promo_codes = models.CharField(max_length=200, blank=True, default='')
+    additional_discounted_registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
+    a_la_carte_registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
     booth_number = models.IntegerField(blank=True, null=True, default=None)
     job_fair_participant = models.BooleanField(default=False)
     job_fair_table_number = models.IntegerField(blank=True, null=True, default=None)
@@ -205,6 +207,8 @@ class Sponsor(models.Model):
         %%NAME%% --> Sponsor name
         %%REGISTRATION_PROMO_CODES%% --> Registration promo codes, or empty string
         %%EXPO_PROMO_CODES%% --> Expo Hall only promo codes, or empty string
+        %%ADDITIONAL_DISCOUNTED_REGISTRATION_PROMO_CODES%% --> Additional Discounted Registration promo codes, or empty string
+        %%A_LA_CARTE_REGISTRATION_PROMO_CODES%% --> A la Carte Registration promo codes, or empty string
         %%BOOTH_NUMBER%% --> Booth number, or empty string if not set
         %%JOB_FAIR_TABLE_NUMBER%%" --> Job fair table number, or empty string if not set
 
@@ -217,6 +221,10 @@ class Sponsor(models.Model):
                             self.registration_promo_codes or 'N/A')
         text = text.replace("%%EXPO_PROMO_CODES%%",
                             self.expo_promo_codes or 'N/A')
+        text = text.replace("%%ADDITIONAL_DISCOUNTED_REGISTRATION_PROMO_CODES%%",
+                            self.additional_discounted_registration_promo_codes or 'N/A')
+        text = text.replace("%%A_LA_CARTE_REGISTRATION_PROMO_CODES%%",
+                            self.a_la_carte_registration_promo_codes or 'N/A')
 
         # The next two are numbers, or if not set, None.  We don't want to
         # display "None" :-), but we might want to display "0".
