@@ -286,6 +286,7 @@ CONSTANCE_CONFIG = {
     "CTE_BASICAUTH_USER": ("", "Shared User for accessing CTE Registration data"),
     "CTE_BASICAUTH_PASS": ("", "Shared User password for accessing CTE Registration data"),
     "CTE_TUTORIAL_DATA_URL": ("", "URL for the CSV of CTE Tutorial Registration Data"),
+    "REGISTRATION_INTRODUCTION_URL": ("", "URL for introduction to registration domain"),
     "REGISTRATION_URL": ("", "URL for registration"),
     "SPONSOR_FROM_EMAIL": ("", "From address for emails to sponsors"),
     "REGISTRATION_STATUS": ("", "Used in the home page template. Valid values are 'soon', 'open' and 'closed'"),

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
@@ -31,6 +31,11 @@ def cte_registration_login(request):
 @login_required
 def cte_registration_start(request):
     return render(request, "registration/register.html")
+
+
+@login_required
+def cte_registration_introduction(request):
+    return redirect(config.REGISTRATION_INTRODUCTION_URL)
 
 
 class GroupRegistration(TemplateView):

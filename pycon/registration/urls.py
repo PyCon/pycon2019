@@ -5,6 +5,9 @@ from . import views
 
 urlpatterns = [
     url(r"^register/$",
+        views.cte_registration_introduction,
+        name="registration_introduction"),
+    url(r"^register/form/$",
         views.cte_registration_start,
         name="registration_start"),
     url(r"^register/login/$",
