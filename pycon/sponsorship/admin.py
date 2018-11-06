@@ -53,7 +53,8 @@ class SponsorAdmin(admin.ModelAdmin):
         ("Sponsor Data", {
             "fields": ["booth_number", "job_fair_participant",
                        "job_fair_table_number", "registration_promo_codes",
-                       "expo_promo_codes"],
+                       "expo_promo_codes", "additional_discounted_registration_promo_codes",
+                       "a_la_carte_registration_promo_codes"],
         }),
         ("Contact Information", {
             "fields": ["contact_name", "contact_emails", "contact_phone",
