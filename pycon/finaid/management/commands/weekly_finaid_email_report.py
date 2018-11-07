@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
-        return
         result = FinancialAidApplication.objects.aggregate(Count('id'), Sum('amount_requested'))
         template_name = 'admin/weekly'
         send_email_message(template_name,
