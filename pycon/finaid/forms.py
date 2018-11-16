@@ -16,7 +16,7 @@ def validate_is_checked(value):
 
 class FinancialAidApplicationForm(forms.ModelForm):
     i_have_read = forms.BooleanField(
-        label='I have read the <a href="/2018/financial-assistance/">Financial Assistance</a> page',
+        label='I have read the <a href="/2019/financial-assistance/">Financial Assistance</a> page',
         required=False,         # so our own validator gets called
         validators=[validate_is_checked],
     )
