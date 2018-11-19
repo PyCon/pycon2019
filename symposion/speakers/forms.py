@@ -17,8 +17,8 @@ class SpeakerForm(forms.ModelForm):
             "photo",
             "twitter_username",
             "mobile_number",
-            "interested_mentee",
-            "interested_mentor",
+#            "interested_mentee",
+#            "interested_mentor",
             "financial_support",
         ]
         help_texts = {
@@ -26,24 +26,24 @@ class SpeakerForm(forms.ModelForm):
                 u"For on-site use only,"
                 u" in case we need to get in touch with you."
             ),
-            'interested_mentee': _(
-                u"We want to support our speakers by connecting them with "
-                u"volunteers from the community to help with the CFP process. "
-                u"If you are interested in receiving mentorship as you "
-                u"prepare your proposal, please select what kind of help "
-                u"you're interested in and you'll hear from us when we have "
-                u"more information! <br/> <b>This is by no means limited to "
-                u"new or first time speakers, everyone is invited to "
-                u"participate!</b>"
-            ),
-            'interested_mentor': _(
-                u"We want to support our speakers by connecting them with "
-                u"volunteers from the community to help with the CFP process. "
-                u"If you are interested in providing mentorship to "
-                u"others as they prepare their proposals, please select what "
-                u"kind of help you're interested in providing and you'll hear "
-                u"from us when we have more information!"
-            ),
+#            'interested_mentee': _(
+#                u"We want to support our speakers by connecting them with "
+#                u"volunteers from the community to help with the CFP process. "
+#                u"If you are interested in receiving mentorship as you "
+#                u"prepare your proposal, please select what kind of help "
+#                u"you're interested in and you'll hear from us when we have "
+#                u"more information! <br/> <b>This is by no means limited to "
+#                u"new or first time speakers, everyone is invited to "
+#                u"participate!</b>"
+#            ),
+#            'interested_mentor': _(
+#                u"We want to support our speakers by connecting them with "
+#                u"volunteers from the community to help with the CFP process. "
+#                u"If you are interested in providing mentorship to "
+#                u"others as they prepare their proposals, please select what "
+#                u"kind of help you're interested in providing and you'll hear "
+#                u"from us when we have more information!"
+#            ),
             'financial_support': _(
                 u"PyCon does not want expenses to discourage you from "
                 u"submitting a proposal, and offers speaker grants "
@@ -57,12 +57,12 @@ class SpeakerForm(forms.ModelForm):
             )
         }
         labels = {
-            'interested_mentee': _(
-                u"I'm interested in receiving mentorship in the following areas:"
-            ),
-            'interested_mentor': _(
-                u"I'm interested in providing mentorship in the following ways:"
-            ),
+#            'interested_mentee': _(
+#                u"I'm interested in receiving mentorship in the following areas:"
+#            ),
+#            'interested_mentor': _(
+#                u"I'm interested in providing mentorship in the following ways:"
+#            ),
             'financial_support': _(
                 u"I require a speaker grant if my proposal is accepted."
             ),
