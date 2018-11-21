@@ -176,9 +176,8 @@ class SponsorEmailForm(forms.Form):
     )
     sample_body = forms.CharField(
         help_text=_(u"""
-            You can keep editing the body and hitting Send
-            until you love how this preview looks.
-            Then, press Send one final time!
+            Edit until you're happy with the results of Preview.
+            Then, press Send to deliver the email!!
         """),
         required=False,
         widget=forms.Textarea(attrs={

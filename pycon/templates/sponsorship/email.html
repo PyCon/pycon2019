@@ -38,9 +38,8 @@
           {% csrf_token %}
           <legend>{% trans "Email selected PyCon Sponsors" %}</legend>
           {{ form|as_bootstrap }}
-          <div class="form-actions">
-              <input class="btn btn-primary" type="submit" value="{% trans "Send" %}" />
-          </div>
+          <input class="btn primary" type="submit" value="{% trans "Preview" %}" name="preview"></input>
+          <input class="btn danger" style="float: right;" type="submit" value="{% trans "Send" %}" name="send"></input>
       </form>
 
     </div>

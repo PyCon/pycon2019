@@ -233,13 +233,11 @@ def sponsor_email(request, pks):
                 and
                 body == data['sample_body']
             )
-            print repr(subject)
-            print repr(data['sample_subject'])
             form.data = form.data.copy()
             form.data['sample_subject'] = subject
             form.data['sample_body'] = body
 
-        if is_valid:
+        if is_valid and 'send' in request.POST:
             # Send emails one at a time, rendering the subject and
             # body as templates.
             for sponsor in sponsors:
