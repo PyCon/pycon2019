@@ -13,9 +13,10 @@ logger = logging.getLogger(__name__)
 class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
-        result = FinancialAidApplication.objects.aggregate(Count('id'), Sum('amount_requested'))
-        template_name = 'admin/weekly'
-        send_email_message(template_name,
-                           from_=settings.FINANCIAL_AID_EMAIL,
-                           to=settings.FINANCIAL_AID_WEEKLY_REPORT_EMAIL,
-                           context=result)
+        if datetime.datetime.now().isoweekday() == 3:  # Wednesday
+            result = FinancialAidApplication.objects.aggregate(Count('id'), Sum('amount_requested'))
+            template_name = 'admin/weekly'
+            send_email_message(template_name,
+                               from_=settings.FINANCIAL_AID_EMAIL,
+                               to=settings.FINANCIAL_AID_WEEKLY_REPORT_EMAIL,
+                               context=result)
