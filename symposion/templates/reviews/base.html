@@ -1,11 +1,9 @@
 {% extends "site_base.html" %}
 
-{% load compress %}
 {% load i18n %}
 {% load sitetree %}
 
 {% block extra_style %}
-  {% compress css %}
     <style type="text/css">
         div.dataTables_length label {
             float: left;
@@ -69,7 +67,6 @@
             outline: none;
         }
     </style>
-  {% endcompress %}
 {% endblock %}
 
 {% block body_class %}reviews{% endblock %}
