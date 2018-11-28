@@ -1,0 +1,35 @@
+{% extends "auth_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load tz %}
+
+{% block head_title %}{% trans "Signup for Proposal Mentorship" %}{% endblock %}
+
+{% block body %}
+    <div class="span12">
+    <h1>Signup to attend a PyCon Proposal Mentorship session</h1>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>. 
+    </p>
+    </div>
+    <div class="span12">
+        {% if form.errors %}
+            <div class="alert">
+                <p class="text-error">
+                    {% trans "There were errors in your form, please correct them and submit again." %}
+                </p>
+            </div>
+        {% endif %}
+        {{ request.user.timezone }}
+        {% regroup slots by time|timezone:timezone|date:"Y-m-d" as slots_by_day %}
+        {% for day in slots_by_day %}
+        <h2>{{ day.grouper }}</h2>
+          {% for slot in day.list %}
+          <a href="" class="btn">{{ slot.time|timezone:timezone}}</a>
+          {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
+

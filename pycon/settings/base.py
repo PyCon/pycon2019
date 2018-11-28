@@ -233,6 +233,7 @@ INSTALLED_APPS = [
     "pycon.finaid",
     "pycon.pycon_api",
     "pycon.tutorials",
+    "pycon.mentorship",
 ]
 
 FIXTURE_DIRS = [
