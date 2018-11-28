@@ -8,10 +8,18 @@
 
 {% block body %}
     <div class="span12">
-    <h1>Signup to attend a PyCon Proposal Mentorship session</h1>
+    <h1>Signup for PyCon Proposal Mentorship</h1>
     <p>
         Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
         <a href="{% url 'account_settings' %}">here</a>. 
+    </p>
+    <p>
+        Select <b>up to three (3) slots</b> that would work for you!
+        Selecting fewer than three options may reduce your chances of joining a full group.
+    </p>
+    <p>
+        As soon as we have a sufficient number of Mentors and Mentees available for a slot,
+        <b>we'll email you at {{ request.user.email }} with confirmation</b>.
     </p>
     </div>
     <div class="span12">
@@ -27,7 +35,7 @@
         {% for day in slots_by_day %}
         <h2>{{ day.grouper }}</h2>
           {% for slot in day.list %}
-          <a href="" class="btn">{{ slot.time|timezone:timezone}}</a>
+          <input type="checkbox" value="{{ slot.id }}"><span class="btn">{{ slot.time|timezone:timezone}}</span></input><br>
           {% endfor %}
         {% endfor %}
     </div>
