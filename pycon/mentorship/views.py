@@ -52,7 +52,6 @@ def mentorship_view(request):
 
              for slot in selected_slots:
                  session, created = MentorshipSession.objects.get_or_create(finalized=False, slot=slot)
-                 print('assigning mentors')
                  for i in range(session.mentors.count(), 2):
                      mentors = slot.available_mentors()
                      session.mentors.add(mentors[random.randint(0, len(mentors)-1)])

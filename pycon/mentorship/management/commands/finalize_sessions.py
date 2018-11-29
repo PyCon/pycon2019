@@ -16,3 +16,11 @@ class Command(BaseCommand):
         for session in sorted(sessions, key=lambda x: x.slot.time):
             if session.mentors.count() >= 2 and session.mentees.count() >= 3:
                 session.finalize()
+
+        for session in sorted(sessions, key=lambda x: x.slot.time):
+            if session.mentees.count() == 0:
+                session.delete()
+            if session.mentors.count() < 2:
+                 for i in range(session.mentors.count(), 2):
+                     mentors = session.slot.available_mentors()
+                     session.mentors.add(mentors[random.randint(0, len(mentors)-1)])
