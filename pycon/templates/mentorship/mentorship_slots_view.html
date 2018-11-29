@@ -76,10 +76,6 @@
     <div class="span12">
     <h1>Signup for PyCon Proposal Mentorship</h1>
     <p>
-        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
-        <a href="{% url 'account_settings' %}">here</a>. 
-    </p>
-    <p>
         Select <b>up to three (3) slots</b> that would work for you!
         Selecting fewer than three options may reduce your chances of joining a full group.
     </p>
@@ -87,28 +83,42 @@
         As soon as we have a sufficient number of Mentors and Mentees available for a slot,
         <b>we'll email you at {{ request.user.email }} with confirmation</b>.
     </p>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
     </div>
     <div class="span12">
-        {% if form.errors %}
+
+        {% if errors %}
             <div class="alert">
                 <p class="text-error">
                     {% trans "There were errors in your form, please correct them and submit again." %}
                 </p>
+                {% for error in errors %}
+                <p class="text-error">{{ error.message }}</p>
+                {% endfor %}
             </div>
         {% endif %}
-        {{ request.user.timezone }}
-        {% regroup slots by time|timezone:timezone|date:"Y-m-d" as slots_by_day %}
-        {% for day in slots_by_day %}
-        <h2>{{ day.grouper }}</h2>
-          {% for slot in day.list %}
-          <label class="checkcontainer">
-            <span class="btn">{{ slot.time|timezone:timezone}}</span>
-            <input type="checkbox" value="{{ slot.id }}">
-            <span class="checkmark"></span>
-            </input>
-          </label>
-          {% endfor %}
-        {% endfor %}
+
+        <form method="POST" action="{% url "mentorship_view" %}">
+            {% csrf_token %}
+            {% regroup slots by time|timezone:timezone|date:"Y-m-d" as slots_by_day %}
+            {% for day in slots_by_day %}
+            <h2>{{ day.grouper }}</h2>
+                {% for slot in day.list %}
+                    <label class="checkcontainer">
+                        <input type="checkbox" id="{{ slot.id }}" name="slot_list" value="{{ slot.id }}">
+                            <label for="{{ slot.id }}"><span class="btn">{{ slot.time|timezone:timezone}}</span></label>
+                            <span class="checkmark"></span>
+                        </input>
+                    </label>
+                {% endfor %}
+            {% endfor %}
+            <div class="form-actions">
+                <button class="btn btn-primary" style="float: right;" type="submit">{% trans "Submit" %}</button>
+            </div>
+        </form>
     </div>
 {% endblock %}
 

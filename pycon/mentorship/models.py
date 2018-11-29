@@ -6,6 +6,9 @@ from django.db import models
 class MentorshipSlot(models.Model):
     time = models.DateTimeField(auto_now=False, null=False)
 
+    def available_mentors(self):
+        return [x.mentor for x in MentorshipAvailability.objects.filter(slot=self).all()]
+
     def __unicode__(self):
         return self.time.strftime('%b %d - %I %p')
 
@@ -16,7 +19,14 @@ class MentorshipMentor(models.Model):
     @property
     def assigned_sessions_as_mentor(self):
         try:
-            return self.mentorship_mentor_sessions.all()
+            return self.mentorship_mentor_sessions.filter(finalized=True)
+        except ValueError:
+            return []
+
+    @property
+    def potential_sessions_as_mentor(self):
+        try:
+            return self.mentorship_mentor_sessions.filter(finalized=False)
         except ValueError:
             return []
 
@@ -38,7 +48,7 @@ class MentorshipMentor(models.Model):
 
         # Check to see if Mentor is already scheduled at the time
         try:
-            self.mentorship_mentor_sessions.get(slot=slot)
+            self.mentorship_mentor_sessions.get(slot=slot, finalized=True)
             return False
         except ObjectDoesNotExist:
             pass
@@ -56,7 +66,14 @@ class MentorshipMentee(models.Model):
     @property
     def assigned_sessions_as_mentee(self):
         try:
-            return self.mentorship_mentee_sessions.all()
+            return self.mentorship_mentee_sessions.filter(finalized=True)
+        except ValueError:
+            return []
+
+    @property
+    def potential_sessions_as_mentee(self):
+        try:
+            return self.mentorship_mentee_sessions.filter(finalized=False)
         except ValueError:
             return []
 
@@ -90,6 +107,18 @@ class MentorshipSession(models.Model):
 
     slot_time.admin_order_field = 'slot__time'
 
+    def finalize(self):
+        self.finalized = True
+        self.save()
+        for mentee in self.mentees.all():
+            for session in mentee.potential_sessions_as_mentee:
+                if session != self:
+                    session.mentees.remove(mentee)
+        for mentor in self.mentors.all():
+            for session in mentor.potential_sessions_as_mentor:
+                if not mentor.available_at(session.slot.time):
+                    session.mentors.remove(mentor)
+
     def __unicode__(self):
         return '%d Mentors, %d Mentees' % (self.mentors.count(), self.mentees.count())
 
@@ -103,4 +132,4 @@ def generate_availabile_slots():
         if len(mentors) > 1:
             slots.append(slot)
 
-    return slots
+    return sorted(slots, key=lambda x: x.time)

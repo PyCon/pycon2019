@@ -1,5 +1,5 @@
 from django.conf.urls import *
   
 urlpatterns = patterns("pycon.mentorship.views",
-    url(r"^view/$", "mentorship_signup_view_slots", name="mentorship_signup_view"),
+    url(r"^form/$", "mentorship_view", name="mentorship_view"),
 )

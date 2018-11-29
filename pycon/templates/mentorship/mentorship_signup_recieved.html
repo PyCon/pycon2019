@@ -1,0 +1,54 @@
+{% extends "auth_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load tz %}
+
+{% block head_title %}{% trans "Proposal Mentorship Signup Recieved" %}{% endblock %}
+
+{% block body %}
+    <div class="span12">
+
+    {% if potential_slots %}
+    <h1>PyCon Proposal Mentorship Signup Recieved</h1>
+    <p>
+        As soon as we have a sufficient number of Mentors and Mentees available for a slot,
+        <b>we'll email you at {{ request.user.email }} with confirmation</b>.
+    </p>
+    <h2>Your Potential Sessions</h2>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
+    <ul>
+      {% for slot in potential_slots %}
+      <li>{{ slot.slot.time|timezone:timezone }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if assigned_slots %}
+    <h1>PyCon Proposal Mentorship Session Scheduled</h1>
+
+    <h2>Your Sessions</h2>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
+    <ul>
+      {% for assigned_slot in assigned_slots %}
+      <h3>{{ assigned_slot.slot.time|timezone:timezone }}</h3>
+      <h4>Mentors</h4>
+        {% for mentor in assigned_slot.mentors.all %}
+        {{ mentor }}
+        {% endfor %}
+      <h4>Mentees</h4> 
+        {% for mentee in assigned_slot.mentees.all %}
+        {{ mentee }}
+        {% endfor %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}
+
