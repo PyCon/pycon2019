@@ -17,9 +17,9 @@ If you are unable to participate, please notify pycon-mentorship@python.org **as
 
 ## How to meet:
 
-Someone in the group must cooridinate a video call and share the link ahead of the meeting. We reccommend Google Hangouts or similar.
+Someone in the group must coordinate a video call and share the link ahead of the meeting. We recommend Google Hangouts or similar.
 
-Additionally, it is reccommended that someone create a calendar invitation and send it to all other participants.
+Additionally, it is recommended that someone create a calendar invitation and send it to all other participants.
 
 ## Before you meet:
 
@@ -30,7 +30,7 @@ Additionally, it is reccommended that someone create a calendar invitation and s
 
 By participating in the mentorship session you agree to comply with the PyCon Code of Conduct while meeting with your group.
 
-### Reccommended
+### Recommended
 
   - Prepare a brief introduction and what kind of support you are looking for as part of the session.
   - Share text of your proposal(s) with the group via email prior to your scheduled time, using a collaborative editor like Google Docs will help share and integrate feedback from mentors.
