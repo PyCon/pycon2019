@@ -1,0 +1,22 @@
+If you're receiving this email, you noted that you would be interested in receiving mentorship for your PyCon Proposal. There are many mentors willing to assist with your proposal that have provided their time availability.
+
+Please go to https://us.pycon.org/2019/mentorship/form/ and select the best mentorship time based on the mentors availability **as soon as possible**.  Mentorship sessions will begin December 3, 2018 and end December 14, 2018.
+
+Matched groups will be composed of at least 2 people as mentors and up to 3 people as mentees, a notification email will be sent for the 1 hour slot to all participants when enough people have signed up for a slot to fill it.
+
+Before you meet:
+
+## Definitely
+
+- Familiarize yourself with the PyCon Code of Conduct and Procedures for Handling Code of Conduct Violations before your scheduled group. By participating in these activities you agree to comply with the PyCon Code of Conduct while meeting with your group.
+  * PyCon Code of Conduct: https://us.pycon.org/2019/about/code-of-conduct/
+  * Attendee Procedure For Handling Harassment: https://us.pycon.org/2019/about/code-of-conduct/attendee-procedure/
+
+## Recommended
+ - Prepare a brief introduction and what kind of support you are looking for as part of the session. 
+ - Share text of your proposal(s) with the group via email prior to your scheduled time, using a collaborative editor like Google Docs will help share and integrate feedback from mentors.
+ - Review any responses to the email thread from other participants
+
+If you have any questions or need assistance, please reply to this email or send a note to pycon-mentorship@python.org.
+
+- PyCon Mentorship Team
