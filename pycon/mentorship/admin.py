@@ -21,11 +21,11 @@ class MentorshipMenteeAdmin(admin.ModelAdmin):
     list_display = ['user']
 
 class MentorshipAvailabilityAdmin(admin.ModelAdmin):
-    list_display = ['mentor', 'slot_time']
+    list_display = ['mentor', 'slot_time', 'viable']
 
 class MentorshipSessionAdmin(admin.ModelAdmin):
     list_filter = ['finalized']
-    list_display = ['__unicode__', 'slot_time', 'finalized']
+    list_display = ['__unicode__', 'slot_time', 'finalized', 'mentors_count', 'mentees_count']
     filter_horizontal = ('mentors', 'mentees',)
 
 admin.site.register(MentorshipSlot, MentorshipSlotAdmin)

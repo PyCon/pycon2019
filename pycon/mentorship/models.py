@@ -1,3 +1,4 @@
+import datetime
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,7 +8,7 @@ class MentorshipSlot(models.Model):
     time = models.DateTimeField(auto_now=False, null=False)
 
     def available_mentors(self):
-        return [x.mentor for x in MentorshipAvailability.objects.filter(slot=self).all()]
+        return [x.mentor for x in MentorshipAvailability.objects.filter(slot=self).all() if x.mentor.available]
 
     def __unicode__(self):
         return self.time.strftime('%b %d - %I %p')
@@ -36,6 +37,16 @@ class MentorshipMentor(models.Model):
 
     def available_at(self, slot_time):
         try:
+            slot_before = MentorshipSlot.objects.get(time=slot_time - datetime.timedelta(hours=1))
+        except ObjectDoesNotExist:
+            slot_before = None
+
+        try:
+            slot_after = MentorshipSlot.objects.get(time=slot_time + datetime.timedelta(hours=1))
+        except ObjectDoesNotExist:
+            slot_after = None
+
+        try:
             slot = MentorshipSlot.objects.get(time=slot_time)
         except ObjectDoesNotExist:
             return False
@@ -46,10 +57,22 @@ class MentorshipMentor(models.Model):
         except ObjectDoesNotExist:
             return False
 
-        # Check to see if Mentor is already scheduled at the time
+        # Check to see if Mentor is already scheduled at the time or the slot before/after
         try:
+            if slot_before is not None:
+                try:
+                    self.mentorship_mentor_sessions.get(slot=slot_before, finalized=True)
+                    return False
+                except ObjectDoesNotExist:
+                    pass
             self.mentorship_mentor_sessions.get(slot=slot, finalized=True)
             return False
+            if slot_after is not None:
+                try:
+                    self.mentorship_mentor_sessions.get(slot=slot_after, finalized=True)
+                    return False
+                except ObjectDoesNotExist:
+                    pass
         except ObjectDoesNotExist:
             pass
 
@@ -62,6 +85,7 @@ class MentorshipMentor(models.Model):
 class MentorshipMentee(models.Model):
     user = models.ForeignKey(User, related_name="mentorship_mentee", verbose_name="mentee", null=False)
     eligibility = models.IntegerField(default=1)
+    responded = models.BooleanField(default=False)
 
     @property
     def assigned_sessions_as_mentee(self):
@@ -91,6 +115,11 @@ class MentorshipAvailability(models.Model):
     def slot_time(self):
         return self.slot.time
 
+    def viable(self):
+        return self.mentor.available
+
+    viable.boolean = True
+
     slot_time.admin_order_field = 'slot__time'
 
     def __unicode__(self):
@@ -105,6 +134,12 @@ class MentorshipSession(models.Model):
     def slot_time(self):
         return self.slot.time
 
+    def available_mentors(self):
+        slot_mentors = self.slot.available_mentors()
+        for mentor in self.mentors.all():
+            slot_mentors = filter(lambda a: a != mentor, slot_mentors)
+        return slot_mentors
+
     slot_time.admin_order_field = 'slot__time'
 
     def finalize(self):
@@ -112,22 +147,34 @@ class MentorshipSession(models.Model):
         self.save()
         for mentee in self.mentees.all():
             for session in mentee.potential_sessions_as_mentee:
-                if session != self:
-                    session.mentees.remove(mentee)
+                if session == self:
+                    continue
+                session.mentees.remove(mentee)
         for mentor in self.mentors.all():
             for session in mentor.potential_sessions_as_mentor:
+                if session == self:
+                    continue
                 if not mentor.available_at(session.slot.time):
                     session.mentors.remove(mentor)
+                session.slot.mentorship_availability.filter(mentor=mentor).delete()
+
+    @property
+    def mentors_count(self):
+        return self.mentors.count()
+
+    @property
+    def mentees_count(self):
+        return self.mentees.count()
 
     def __unicode__(self):
-        return '%d Mentors, %d Mentees' % (self.mentors.count(), self.mentees.count())
+        return 'Mentorship Session'
 
 def generate_availabile_slots():
     slots = []
     for slot in MentorshipSlot.objects.all():
         mentors = []
         for ma in slot.mentorship_availability.all():
-            if ma.mentor.available_at(str(slot.time)):
+            if ma.mentor.available_at(slot.time) and ma.mentor.available:
                 mentors.append(ma.mentor)
         if len(mentors) > 1:
             slots.append(slot)

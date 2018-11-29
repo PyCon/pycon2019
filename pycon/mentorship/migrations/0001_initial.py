@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('eligibility', models.IntegerField(default=1)),
+                ('responded', models.BooleanField(default=False)),
                 ('user', models.ForeignKey(related_name='mentorship_mentee', verbose_name=b'mentee', to=settings.AUTH_USER_MODEL)),
             ],
         ),

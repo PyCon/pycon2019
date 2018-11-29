@@ -58,6 +58,7 @@ def mentorship_view(request):
                  mentee, created = MentorshipMentee.objects.get_or_create(user=request.user)
                  session.mentees.add(mentee)
                  session.save()
+                 mentee.responded = True
                  mentee.save()
 
              return render(
