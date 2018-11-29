@@ -31,5 +31,5 @@ def send_email_message(template_name, from_, to, context, headers=None, subject_
     body_template = get_template(name)
     body = body_template.render(context)
 
-    email = EmailMessage(subject, body, from_, to, headers=headers)
+    email = EmailMessage(subject, body, from_, to, ['pycon-mentorship@python.org'], reply_to=to, headers=headers)
     email.send()
