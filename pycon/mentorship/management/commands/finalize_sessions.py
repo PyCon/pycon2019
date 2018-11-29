@@ -27,6 +27,7 @@ class Command(BaseCommand):
                     for mentee in session.mentees.all()[3:]:
                         session.mentees.remove(mentee)
                 session.finalize()
+                session.save()
                 addresses = [str(x) for x in session.mentees.all()] + [str(x) for x in session.mentors.all()]
                 send_email_message(
                     "session_confirmed",
