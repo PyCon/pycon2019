@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import json
 import random
 
@@ -50,6 +51,12 @@ class Command(BaseCommand):
                          session.mentors.add(mentors[random.randint(0, 2-i)])
 
         unpaired = []
+
+        sessions = MentorshipSession.objects.filter(finalized=False)
+        for session in sorted(sessions, key=lambda x: x.slot.time):
+            if session.slot.time < (datetime.datetime.now() + datetime.timedelta(hours=36)):
+                session.delete()
+
         for mentee in MentorshipMentee.objects.filter(responded=True):
             if mentee.potential_sessions_as_mentee.count() == 0 and mentee.assigned_sessions_as_mentee.count() == 0:
                 unpaired.append(mentee)

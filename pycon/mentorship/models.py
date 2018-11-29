@@ -171,7 +171,7 @@ class MentorshipSession(models.Model):
 
 def generate_availabile_slots():
     slots = []
-    for slot in MentorshipSlot.objects.all():
+    for slot in MentorshipSlot.objects.filter(time__gt=(datetime.datetime.now() + datetime.timedelta(hours=36))):
         mentors = []
         for ma in slot.mentorship_availability.all():
             if ma.mentor.available_at(slot.time) and ma.mentor.available:
