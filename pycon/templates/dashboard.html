@@ -169,6 +169,22 @@
                                 </section>
                             {% endif %}
 
+                            {% if user.speaker_profile.interested_mentee %}
+                                <section class="subsection">
+                                    <h4>{% trans "Proposal Mentorship" %}</h4>
+                                    <a href="{% url 'mentorship_view' %}" class="btn">
+                                      <i class="widget-icon"></i>
+                                      {% if user.mentorship_mentee.get.assigned_sessions_as_mentee %}
+                                        <span class="widget-label">{% trans "View your scheduled mentorship slot!" %}</span>
+                                      {% elif request.user.mentorship_mentee.get.potential_sessions_as_mentee %}
+                                        <span class="widget-label">{% trans "View your potential mentorship slots!" %}</span>
+                                      {% else %}
+                                        <span class="widget-label">{% trans "Sign up to recieve mentorship on your proposal" %}</span>
+                                      {% endif %}
+                                    </a>
+                                </section>
+                            {% endif %}
+
                         {% elif proposals_are_open %}
                             <p>{% trans "To submit a proposal, first create a speaker profile." %}</p>
                             <div class="actions">

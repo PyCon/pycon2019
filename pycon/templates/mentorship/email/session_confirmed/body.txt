@@ -1,0 +1,54 @@
+{% load tz %}
+
+A mentorship session has been scheduled based on the availability you provided for the PyCon Proposal Mentorship program!
+
+All participants in your session have been added to this email thread. Reply to it to communicate with your group!
+
+# Scheduled for {{ session_time|timezone:"Etc/UTC"|date:"c" }} (UTC)
+
+If you are unable to participate, please notify pycon-mentorship@python.org **as soon as possible**!
+
+## Mentors
+{% for mentor in mentors %}  - {{ mentor }}
+{% endfor %}
+## Mentees
+{% for mentee in mentees %}  - {{ mentee }}
+{% endfor %}
+
+## How to meet:
+
+Someone in the group must coordinate a video call and share the link ahead of the meeting. We recommend Google Hangouts or similar.
+
+Additionally, it is recommended that someone create a calendar invitation and send it to all other participants.
+
+## Before you meet:
+
+### Definitely
+
+  - Review the PyCon Code of Conduct: https://us.pycon.org/2019/about/code-of-conduct/
+  - Review the Attendee Procedure for Handling Code of Conduct violations: https://us.pycon.org/2019/about/code-of-conduct/harassment-incidents/
+
+By participating in the mentorship session you agree to comply with the PyCon Code of Conduct while meeting with your group.
+
+### Recommended
+
+  - Prepare a brief introduction and what kind of support you are looking for as part of the session.
+  - Share text of your proposal(s) with the group via email prior to your scheduled time, using a collaborative editor like Google Docs will help share and integrate feedback from mentors.
+  - Review any responses to the email thread from other participants
+
+## What to do during the meeting:
+
+Adhere to PyCon's Code of Conduct while participating.
+
+Please use this hour to the fullest! Here is a "Starter Agenda":
+
+- 0:00 - 5:00: Deal with the bugs and frustrations of video calls. Fix mics, cameras, and screen sharing :-p. Wait for participants to join a bit late.
+- 5:00 - 10:00: Introductions. Brief summary of the introduction email you provided ahead of the meeting via email, remind folks what you're looking to get out of the meeting.
+- 10:00 - 15:00: Discuss as a group and consider if there are strong connections between mentor experience and mentee needs.
+- 15:00 - 60:00: Consider breaking out into two more focused groups for the remainder of the hour.
+
+We are leaning on the two volunteer mentors to facilitate and guide the discussion towards productive outcomes.
+
+If you have any questions, comments, concerns, or suggestions please share them with pycon-mentorship@python.org
+
+- PyCon Proposal Mentorship Team

@@ -1,0 +1,83 @@
+{% extends "auth_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load tz %}
+
+{% block head_title %}{% trans "Proposal Mentorship Signup Recieved" %}{% endblock %}
+
+{% block body %}
+    <div class="span12">
+
+    {% if potential_slots %}
+    <h1>PyCon Proposal Mentorship Signup Recieved</h1>
+    <p>
+        As soon as we have a sufficient number of Mentors and Mentees available for a slot,
+        <b>we'll email you at {{ request.user.email }} with confirmation</b>.
+    </p>
+    <h2>Your Potential Sessions</h2>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
+    <ul>
+      {% for slot in potential_slots %}
+      <li>{{ slot.slot.time|timezone:timezone }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if assigned_slots %}
+    <h1>PyCon Proposal Mentorship Session Scheduled</h1>
+
+    <h2>Your Sessions</h2>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
+    <ul>
+      {% for assigned_slot in assigned_slots %}
+      <h3>{{ assigned_slot.slot.time|timezone:timezone }}</h3>
+      <h4>Mentors</h4>
+        {% for mentor in assigned_slot.mentors.all %}
+        {{ mentor }}<br>
+        {% endfor %}
+      <h4>Mentees</h4> 
+        {% for mentee in assigned_slot.mentees.all %}
+        {{ mentee }}<br>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h2>Prepare for your session!</h2>
+
+    <h3>Definitely</h3>
+
+    <p>
+      Familiarize yourself with the PyCon Code of Conduct and Procedures
+      for Handling Code of Conduct Violations before your scheduled group.
+      By participating in these activities you agree to comply with the
+      PyCon Code of Conduct while meeting with your group.
+    </p>
+
+    <ul>
+      <li><a href="/2019/about/code-of-conduct/">PyCon Code of Conduct</a></li>
+      <li><a href="/2019/about/code-of-conduct/attendee-procedure">Attendee Procedure For Handling Harassment</a></li>
+    </ul>
+
+    <h3>Recommended</h3>
+
+    <ul>
+      <li>Prepare a brief introduction and what kind of support you are looking for as part of the session.</li>
+      <li>Create a copy of your proposal using a collaborative editor like Google Docs will help share and integrate feedback from mentors.</li>
+    </ul>
+
+    <h3>Feeedback</h3>
+
+    <p>
+        If you have any questions or need assistance, please send a note to <a href="mailto:pycon-mentorship@python.org">pycon-mentorship@python.org</a>.
+    </p>
+
+{% endblock %}
+

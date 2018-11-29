@@ -1,0 +1,124 @@
+{% extends "auth_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load tz %}
+
+{% block head_title %}{% trans "Signup for Proposal Mentorship" %}{% endblock %}
+
+{% block extra_style %}
+<style>
+.checkcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.checkcontainer:hover input ~ .checkmark {
+  background-color: #fff;
+}
+
+.checkcontainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkcontainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="span12">
+    <h1>Signup for PyCon Proposal Mentorship</h1>
+    <p>
+        Select <b>up to three (3) slots</b> that would work for you!
+        Selecting fewer than three options may reduce your chances of joining a full group.
+    </p>
+    <p>
+        As soon as we have a sufficient number of Mentors and Mentees available for a slot,
+        <b>we'll email you at {{ request.user.email }} with confirmation</b>.
+    </p>
+    <p>
+        Times below shown in <b>{{ timezone }}</b>, to view in your timezone update your settings
+        <a href="{% url 'account_settings' %}">here</a>.
+    </p>
+    </div>
+    <div class="span12">
+
+        {% if errors %}
+            <div class="alert">
+                <p class="text-error">
+                    {% trans "There were errors in your form, please correct them and submit again." %}
+                </p>
+                {% for error in errors %}
+                <p class="text-error">{{ error.message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url "mentorship_view" %}">
+            {% csrf_token %}
+            {% regroup slots by time|timezone:timezone|date:"Y-m-d" as slots_by_day %}
+            {% for day in slots_by_day %}
+            <h2>{{ day.grouper }}</h2>
+                {% for slot in day.list %}
+                    <label class="checkcontainer">
+                        <input type="checkbox" id="{{ slot.id }}" name="slot_list" value="{{ slot.id }}">
+                            <label for="{{ slot.id }}"><span class="btn">{{ slot.time|timezone:timezone}}</span></label>
+                            <span class="checkmark"></span>
+                        </input>
+                    </label>
+                {% endfor %}
+            {% endfor %}
+            <div class="form-actions">
+                <button class="btn btn-primary" style="float: right;" type="submit">{% trans "Submit" %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

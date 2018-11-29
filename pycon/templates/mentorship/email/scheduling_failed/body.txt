@@ -1,0 +1,7 @@
+We were unable to schedule a mentorship session based on your requested times.
+
+But don't worry! You still may be able to receive mentorship!
+
+Please return to {{ mentorship_signup_link }} to update your preferred times.
+
+- PyCon Proposal Mentorship Team
