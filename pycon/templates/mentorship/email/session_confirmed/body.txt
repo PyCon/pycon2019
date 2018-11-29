@@ -1,0 +1,12 @@
+{% load tz %}
+
+# Scheduled for {{ session_time|timezone:"Etc/UTC"|date:"c" }}
+
+## Mentors
+{% for mentor in mentors %}  - {{ mentor }}
+{% endfor %}
+## Mentees
+{% for mentee in mentees %}  - {{ mentee }}
+{% endfor %}
+
+- PyCon Proposal Mentorship Team

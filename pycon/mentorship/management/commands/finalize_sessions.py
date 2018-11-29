@@ -11,6 +11,8 @@ from django.contrib.auth import get_user_model
 from pycon.mentorship.models import MentorshipSession
 from pycon.mentorship.models import MentorshipMentee
 
+from pycon.mentorship.utils import send_email_message
+
 
 class Command(BaseCommand):
 
@@ -25,6 +27,17 @@ class Command(BaseCommand):
                     for mentee in session.mentees.all()[3:]:
                         session.mentees.remove(mentee)
                 session.finalize()
+                addresses = [str(x) for x in session.mentees.all()] + [str(x) for x in session.mentors.all()]
+                send_email_message(
+                    "session_confirmed",
+                    from_="pycon-mentorship@python.org",
+                    to=addresses,
+                    context={
+                        "mentees": session.mentees.all(),
+                        "mentors": session.mentors.all(),
+                        "session_time": session.slot.time,
+                    }
+                )
 
         sessions = MentorshipSession.objects.filter(finalized=False)
         for session in sorted(sessions, key=lambda x: x.slot.time):
@@ -61,4 +74,12 @@ class Command(BaseCommand):
             if mentee.potential_sessions_as_mentee.count() == 0 and mentee.assigned_sessions_as_mentee.count() == 0:
                 unpaired.append(mentee)
 
-        print(unpaired)
+        for unpaired_mentee in unpaired:
+            send_email_message(
+                "scheduling_failed",
+                from_="pycon-mentorship@python.org",
+                to=[str(unpaired_mentee)],
+                context={
+                    "mentorship_signup_link": "https://us.pycon.org/2019/mentorship/form/",
+                }
+            )
