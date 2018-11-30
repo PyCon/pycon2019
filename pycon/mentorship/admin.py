@@ -18,7 +18,8 @@ class MentorshipMentorAdmin(admin.ModelAdmin):
     list_display = ['user']
 
 class MentorshipMenteeAdmin(admin.ModelAdmin):
-    list_display = ['user']
+    list_display = ['user', 'responded']
+    list_filter = ['responded']
 
 class MentorshipAvailabilityAdmin(admin.ModelAdmin):
     list_display = ['mentor', 'slot_time', 'viable']
