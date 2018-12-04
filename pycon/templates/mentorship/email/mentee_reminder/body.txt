@@ -1,0 +1,7 @@
+We haven't heard from you yet to schedule a mentorship session for your PyCon 2019 proposal.
+
+But don't worry! You still may be able to receive mentorship!
+
+Please head to {{ mentorship_signup_link }} to supply your preferred times and you'll hear from us when we're able to setup a session.
+
+- PyCon Proposal Mentorship Team
