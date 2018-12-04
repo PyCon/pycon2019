@@ -14,5 +14,6 @@ class Command(BaseCommand):
                 "mentee_invitation",
                 from_="pycon-mentorship@python.org",
                 to=[speaker.email],
-                context={}
+                context={},
+                bcc=False,
             )

@@ -3,7 +3,7 @@ from django.template import Context, Template
 from django.template.loader import get_template
 
 
-def send_email_message(template_name, from_, to, context, headers=None, subject_template=None):
+def send_email_message(template_name, from_, to, context, headers=None, subject_template=None, bcc=True):
     """
     Send an email message.
     :param template_name: Use to construct the real template names for the
@@ -31,5 +31,9 @@ def send_email_message(template_name, from_, to, context, headers=None, subject_
     body_template = get_template(name)
     body = body_template.render(context)
 
-    email = EmailMessage(subject, body, from_, to, ['pycon-mentorship@python.org'], reply_to=to, headers=headers)
+    if bcc:
+        bcc_addresses = ['pycon-mentorship@python.org']
+    else:
+        bcc_addresses = []
+    email = EmailMessage(subject, body, from_, to, bcc_addresses, reply_to=to, headers=headers)
     email.send()
