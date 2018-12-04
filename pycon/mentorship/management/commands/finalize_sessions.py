@@ -76,6 +76,7 @@ class Command(BaseCommand):
                 unpaired.append(mentee)
 
         for unpaired_mentee in unpaired:
+            unpaired_mentee.responded = False
             send_email_message(
                 "scheduling_failed",
                 from_="pycon-mentorship@python.org",
@@ -84,3 +85,4 @@ class Command(BaseCommand):
                     "mentorship_signup_link": "https://us.pycon.org/2019/mentorship/form/",
                 }
             )
+            unpaired_mentee.save()
