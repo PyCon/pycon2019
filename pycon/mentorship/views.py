@@ -29,6 +29,8 @@ def mentorship_view(request):
                  "timezone": timezone,
              }
          )
+     # Short circuit out
+     return render(request, "mentorship/mentorship_slots_full.html", {})
      if request.user.speaker_profile.interested_mentee != "":
          slots = generate_availabile_slots()
          if request.method == 'POST':
