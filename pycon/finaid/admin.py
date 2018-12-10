@@ -19,7 +19,15 @@ class ReceiptAdmin(admin.ModelAdmin):
     search_fields = ('application__user__first_name', 'application__user__last_name', 'application__user__email')
 
 
-admin.site.register(FinancialAidApplication)
+def user(obj):
+    return obj.user
+
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = (user, 'application_type')
+    list_filter = ('application_type',)
+    search_fields = ('user__first_name', 'user__last_name', 'application_type')
+
+admin.site.register(FinancialAidApplication, ApplicationAdmin)
 admin.site.register(FinancialAidApplicationPeriod)
 admin.site.register(FinancialAidMessage, MessageAdmin)
 admin.site.register(FinancialAidEmailTemplate)
