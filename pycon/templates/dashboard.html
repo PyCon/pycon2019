@@ -242,27 +242,6 @@
                       <h3>Financial Aid</h3>
                     </div>
                     <div class="dashboard-panel-content">
-                      {% if request.user.is_staff or show_finaid_review_button or show_finaid_download_button %}
-                      <div class="actions admin">
-                        <h4>Admin functions</h4>
-                        {% if show_finaid_review_button %}
-                          <a href="{% url 'finaid_review' %}" class="btn">
-                            <i class="widget-icon icon-comment"></i>
-                            <span class="widget-label">Review applications</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_download_button %}
-                          <a href="{% url 'finaid_download_csv' %}" class="btn">
-                            <i class="widget-icon icon-arrow-down"></i>
-                            <span class="widget-label">Download applications</span>
-                          </a>
-                          <a href="{% url 'phyllis_finaid_download_csv' %}" class="btn">
-                            <i class="widget-icon icon-arrow-down"></i>
-                            <span class="widget-label">For Phyllis!</span>
-                          </a>
-                        {% endif %}
-                      </div>
-                      {% endif %}
                       <div class="actions">
                         {% if show_finaid_apply_button %}
                           <a href="{% url 'finaid_apply' %}" class="btn">
@@ -319,6 +298,27 @@
                         </a>
                         {% endif %}
                       </div>
+                      {% if request.user.is_staff or show_finaid_review_button or show_finaid_download_button %}
+                      <div class="actions admin">
+                        <h4>Admin functions</h4>
+                        {% if show_finaid_review_button %}
+                          <a href="{% url 'finaid_review' %}" class="btn">
+                            <i class="widget-icon icon-comment"></i>
+                            <span class="widget-label">Review applications</span>
+                          </a>
+                        {% endif %}
+                        {% if show_finaid_download_button %}
+                          <a href="{% url 'finaid_download_csv' %}" class="btn">
+                            <i class="widget-icon icon-arrow-down"></i>
+                            <span class="widget-label">Download applications</span>
+                          </a>
+                          <a href="{% url 'phyllis_finaid_download_csv' %}" class="btn">
+                            <i class="widget-icon icon-arrow-down"></i>
+                            <span class="widget-label">For Phyllis!</span>
+                          </a>
+                        {% endif %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                 {% endif %}
