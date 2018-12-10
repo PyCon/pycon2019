@@ -58,6 +58,21 @@ PYTHON_EXPERIENCE_CHOICES = (
     (PYTHON_EXPERIENCE_EXPERT, _("Expert")),
 )
 
+APPLICATION_TYPE_GENERAL = "general"
+APPLICATION_TYPE_STAFF = "staff"
+APPLICATION_TYPE_SPEAKER = "speaker"
+APPLICATION_TYPE_CORE_DEV = "core_dev"
+APPLICATION_TYPE_PSF_BOARD = "psf_board"
+APPLICATION_TYPE_COMMUNITY_MEMBER = "outstanding_community_member"
+APPLICATION_TYPE_CHOICES = (
+    (APPLICATION_TYPE_GENERAL, _("General Applicant")),
+    (APPLICATION_TYPE_STAFF, _("PyCon Staff/Volunteer")),
+    (APPLICATION_TYPE_SPEAKER, _("Speaker")),
+    (APPLICATION_TYPE_CORE_DEV, _("Python Core Developer")),
+    (APPLICATION_TYPE_PSF_BOARD, _("PSF Board Member")),
+    (APPLICATION_TYPE_COMMUNITY_MEMBER, _("Outstanding Community Member")),
+)
+
 
 class FinancialAidApplication(models.Model):
     # The primary key ('id') is used as application number
@@ -119,6 +134,13 @@ class FinancialAidApplication(models.Model):
         verbose_name=_("Presented"),
         help_text=_("Have you spoken at PyCon in the past?"),
         default=False)
+    application_type = models.CharField(
+        verbose_name=u"Application Type",
+        help_text=_("Application Classification"),
+        choices=APPLICATION_TYPE_CHOICES,
+        default=APPLICATION_TYPE_GENERAL,
+        max_length=64,
+    )
 
     def __unicode__(self):
         return u"Financial aid application for %s" % self.user
