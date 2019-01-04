@@ -1,0 +1,17 @@
+{% load account_tags %}
+{{ user.get_full_name|safe }},
+<p> 
+The deadline to submit proposals for PyCon 2019 {{ proposal_kind }}s has passed! For more information on the timelines see: <a href="https://{{current_site}}/2019/speaking/{{ proposal_kind }}s">https://{{current_site}}/2019/speaking/{{ proposal_kind }}s</a>.
+</p>
+<p>
+We noticed that you have {{ proposals|length }} unsubmitted {{ proposal_kind }} proposal{% if proposals|length > 1 %}s{% endif %}: 
+<ul>
+{% for proposal in proposals %}
+  {% url 'proposal_detail' proposal.id as detail_url %}<li>{{ proposal.title }}: <a href="https://{{ current_site }}{{ detail_url }}">https://{{current_site}}{{ detail_url }}</a></li>
+{% endfor %}
+</ul>
+</p>
+<p>
+If you intended to submit these draft proposals, please email <a href="mailto:ernest@python.org">ernest@python.org</a> <b>As Soon As Possible</b>. We will not be able to update their status to submitted after 2018-01-04 18:00:00 UTC (less than 6 hours from now).
+</p>
+- The PyCon Robot
