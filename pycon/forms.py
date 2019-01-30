@@ -449,6 +449,7 @@ class PyConStartupRowApplicationForm(forms.ModelForm):
             "applicant_company_role",
             "company_name",
             "company_url",
+            "company_logo",
             "company_location",
             "company_activity",
             "company_python_usage",
