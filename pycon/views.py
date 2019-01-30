@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, render, redirect
 from django.template import RequestContext
 
-from pycon.models import ScheduledEvent
+from pycon.models import ScheduledEvent, PyConStartupRowApplication
 from pycon.forms import PyConStartupRowApplicationForm
 from pycon.program_export import export
 
@@ -58,14 +58,27 @@ def scheduled_event_overview(request):
 
 @login_required
 def startuprow_apply(request):
+    try:
+        application = request.user.startuprow_application
+    except PyConStartupRowApplication.DoesNotExist:
+        application = None
     if request.method == "POST":
-        form = PyConStartupRowApplicationForm(request.POST, request.FILES, user=request.user)
+        if application:
+            form = PyConStartupRowApplicationForm(request.POST, request.FILES, user=request.user, instance=application)
+        else:
+            form = PyConStartupRowApplicationForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
+            if application and application.accepted:
+                messages.warning(request, "Your PyCon Startup Row application cannot be edited once accepted!")
+                return redirect("startuprow_apply")
             form.save()
             messages.success(request, "Your PyCon Startup Row application has been submitted!")
             return redirect("startuprow_apply")
     else:
-        form = PyConStartupRowApplicationForm(user=request.user)
+        if application:
+            form = PyConStartupRowApplicationForm(user=request.user, instance=application)
+        else:
+            form = PyConStartupRowApplicationForm(user=request.user)
 
     return render_to_response("startuprow/application.html", {
         "form": form,

@@ -372,6 +372,7 @@ def generate_thumbnails_async(sender, fieldfile, **kwargs):
 
 
 class PyConStartupRowApplication(models.Model):
+    accepted = models.BooleanField(default=False)
     applicant_name = models.CharField(max_length=100)
     applicant_company_role = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100)
@@ -386,8 +387,14 @@ class PyConStartupRowApplication(models.Model):
     company_funding = models.CharField(max_length=100, blank=True, default='')
     company_additional_notes = models.TextField(max_length=500, blank=True, default='')
     company_demo_url = models.CharField(max_length=100, blank=True, default='')
+    company_logo = models.ImageField(
+        _(u"Company logo"),
+        help_text=_("For display on our website. High resolution PNG or JPG, smallest dimension no less than 256px"),
+        upload_to="startuprow_logos",
+        null=True,
+    )
 
-    applicant = models.ForeignKey(User, related_name="startuprow_applications", verbose_name=_("applicant"), null=True, on_delete=models.SET_NULL)
+    applicant = models.OneToOneField(User, related_name="startuprow_application", verbose_name=_("applicant"), null=True, on_delete=models.SET_NULL)
     created = models.DateTimeField(
         auto_now_add=True,
         null=True,
