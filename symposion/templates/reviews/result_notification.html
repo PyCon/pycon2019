@@ -81,7 +81,6 @@
 {% endblock %}
 
 {% block extra_script %}
-  {% compress js %}
     <script type="text/javascript">
         (function($) {
             $.fn.actions = function(opts) {
@@ -151,5 +150,4 @@
             $("tr input.action-select").actions();
         });
     </script>
-  {% endcompress %}
 {% endblock %}
