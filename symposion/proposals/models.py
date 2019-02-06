@@ -155,7 +155,7 @@ class ProposalBase(models.Model):
     )
     speaker = models.ForeignKey("speakers.Speaker", related_name="proposals")
     additional_speakers = models.ManyToManyField("speakers.Speaker", through="AdditionalSpeaker",
-                                                 blank=True)
+                                                 related_name='additionalspeakers', blank=True)
     cancelled = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     cached_tags = models.TextField(blank=True, default='', editable=False)

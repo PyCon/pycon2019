@@ -32,6 +32,11 @@ log = logging.getLogger(__name__)
 def speaker_grant_edit(request):
     """Complete, or edit speaker grant request"""
 
+    if not request.user.speaker_profile.is_speaking:
+        messages.add_message(request, messages.ERROR,
+                             _('Speaker Grant Requests are for accepted speakers only'))
+        return redirect("dashboard")
+
     if has_application(request.user):
         application = request.user.financial_aid
         if application.status == STATUS_WITHDRAWN:
