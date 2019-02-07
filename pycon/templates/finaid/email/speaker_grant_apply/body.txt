@@ -1,0 +1,10 @@
+{% load account_tags %}
+Hello {{ user.get_full_name|safe }},
+
+    We are excited that you'll be presenting your {{ proposal_kind }} at PyCon 2019!
+
+    You noted in your Speaker Profile at https://{{ domain }}/2019/speaker/edit/ that you require a speaker grant to attend and present your {{ proposal_kind }}.
+
+    Please complete your Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_apply' %} as soon as possible to let us know your travel plans and what assistance you require.
+
+- The PyCon Financial Assistance Team

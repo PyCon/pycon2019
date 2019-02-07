@@ -246,7 +246,7 @@
                         {% if request.user.speaker_profile.is_speaking %}
                            <h4>Speaker Grant Requests</h4>
                            {% if show_finaid_apply_button %}
-                             <a href="{% url 'finaid_apply' %}" class="btn">
+                             <a href="{% url 'speaker_grant_apply' %}" class="btn">
                                <i class="widget-icon icon-money"></i>
                                <span class='widget-label'>Complete Speaker Grant</span>
                              </a>
@@ -276,7 +276,7 @@
                              </a>
                            {% endif %}
                            {% if show_finaid_edit_button %}
-                             <a href="{% url 'finaid_edit' %}" class="btn">
+                             <a href="{% url 'speaker_grant_edit' %}" class="btn">
                                <i class="widget-icon icon-money"></i>
                                <span class='widget-label'>Edit Request</span>
                              </a>

@@ -1,0 +1,1 @@
+Speaker assistance for your {{ proposal_kind|title }}.
