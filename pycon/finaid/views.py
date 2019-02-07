@@ -17,17 +17,69 @@ from django.views.generic import View
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm, \
-    FinancialAidAcceptOfferForm
+    FinancialAidAcceptOfferForm, SpeakerGrantRequestForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
     FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN
 from pycon.finaid.models import STATUS_SUBMITTED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, \
-    STATUS_NEED_MORE, STATUS_INFO_NEEDED
+    STATUS_NEED_MORE, STATUS_INFO_NEEDED, APPLICATION_TYPE_SPEAKER, PYTHON_EXPERIENCE_INTERMEDIATE
 from .utils import applications_open, email_context, \
     has_application, is_reviewer, send_email_message
 
 
 log = logging.getLogger(__name__)
 
+@login_required
+def speaker_grant_edit(request):
+    """Complete, or edit speaker grant request"""
+
+    if not request.user.speaker_profile.is_speaking:
+        messages.add_message(request, messages.ERROR,
+                             _('Speaker Grant Requests are for accepted speakers only'))
+        return redirect("dashboard")
+
+    if has_application(request.user):
+        application = request.user.financial_aid
+        if application.status == STATUS_WITHDRAWN:
+            applying = True
+        else:
+            applying = False
+    else:
+        application = FinancialAidApplication(user=request.user)
+        applying = True
+
+    application.application_type = APPLICATION_TYPE_SPEAKER
+    application.presenting = 1
+    application.profession = "" if application.profession is None else application.profession
+    application.experience_level = PYTHON_EXPERIENCE_INTERMEDIATE if application.experience_level is None else application.experience_level
+    application.what_you_want = "" if application.what_you_want is None else application.what_you_want
+
+    form = SpeakerGrantRequestForm(request.POST or None,
+                                   instance=application)
+
+    if form.is_valid():
+        application = form.save()
+        if applying:
+            application.set_status(STATUS_SUBMITTED, save=True)
+
+        context = email_context(request, application)
+
+        template_name = "reviewer/" + \
+                        ("submitted" if applying else "edited")
+        send_email_message(template_name,
+                           from_=request.user.email,
+                           to=[settings.FINANCIAL_AID_EMAIL],
+                           context=context)
+
+        # Also display a message to them
+        messages.add_message(request, messages.INFO,
+                             _(u"Speaker Grant Request completed"))
+
+        return redirect("dashboard")
+
+    return render(request, "finaid/speaker_edit.html", {
+        "form": form,
+        "applying": applying,
+    })
 
 @login_required
 def finaid_edit(request):

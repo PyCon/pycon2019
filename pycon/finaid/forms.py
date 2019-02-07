@@ -85,6 +85,45 @@ class FinancialAidApplicationForm(forms.ModelForm):
         }
 
 
+class SpeakerGrantRequestForm(forms.ModelForm):
+    i_have_read = forms.BooleanField(
+        label='I have read the <a href="/2019/financial-assistance/">Financial Assistance</a> page.',
+        required=False,         # so our own validator gets called
+        validators=[validate_is_checked],
+    )
+    class Meta:
+        model = FinancialAidApplication
+        fields = [
+            'i_have_read',
+            'amount_requested',
+            'international',
+            'travel_plans',
+        ]
+        widgets = {
+            'travel_plans': Textarea(
+                attrs={'cols': 80, 'rows': 10,
+                       'class': 'fullwidth-textarea',
+                       'maxlength': 1024}),
+        }
+        help_texts = {
+            'international': (
+                'Check the box if you will be traveling internationally,'
+                ' or from anywhere outside of the continental United States.'
+            ),
+            'i_have_read': (
+                "Our speaker grant program is operated as part of PyCon's "
+                "<a href=\"/2019/financial-assistance/\"> Financial Assistance</a> "
+                "program"
+            ),
+            'travel_plans': (
+                "Please describe your travel plans. "
+                " Planes? Trains? Automobiles?"
+                " If traveling internationally,"
+                " let us know which country you will travel from."
+            ),
+        }
+
+
 class FinancialAidReviewForm(forms.ModelForm):
 
     class Meta:

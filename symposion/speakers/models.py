@@ -9,6 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from multiselectfield import MultiSelectField
 
+from symposion.proposals.kinds import get_proposal_model
+from pycon.models import PyConProposal
+
 MENTORSHIP_CHOICES = (
     ('brainstorming', 'Brainstorming'),
     ('proposal_creation', 'Proposal Creation'),
@@ -104,3 +107,18 @@ class Speaker(models.Model):
             for p in self.copresentations.all():
                 presentations.append(p)
         return presentations
+
+    @property
+    def all_proposals(self):
+        proposals = []
+        if self.proposals:
+            for p in self.proposals.all():
+                proposals.append(p)
+        if self.additionalspeakers:
+            for p in self.additionalspeakers.all():
+                proposals.append(p.proposalbase)
+        return [get_proposal_model(p.kind.slug).objects.get(id=p.id) for p in proposals]
+
+    @property
+    def is_speaking(self):
+        return any([p.overall_status == PyConProposal.STATUS_ACCEPTED for p in self.all_proposals])

@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
     finaid_review_detail, finaid_status, finaid_download_csv, \
-    phyllis_finaid_download_csv, \
+    phyllis_finaid_download_csv, speaker_grant_edit, \
     receipt_upload, FinaidAcceptView, FinaidDeclineView, \
     FinaidProvideInfoView, FinaidWithdrawView, FinaidRequestMoreView
 
@@ -10,6 +10,8 @@ from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
 urlpatterns = [
     url(r"^apply/$", finaid_edit, name="finaid_apply"),
     url(r"^edit/$", finaid_edit, name="finaid_edit"),
+    url(r"^speaker/apply/$", speaker_grant_edit, name="speaker_grant_apply"),
+    url(r"^speaker/edit/$", speaker_grant_edit, name="speaker_grant_edit"),
     url(r'^provide_info/$', FinaidProvideInfoView.as_view(), name="finaid_provide_info"),
     url(r"^withdraw/$", FinaidWithdrawView.as_view(), name="finaid_withdraw"),
     url(r"^decline/$", FinaidDeclineView.as_view(), name="finaid_decline"),

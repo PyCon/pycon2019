@@ -243,60 +243,118 @@
                     </div>
                     <div class="dashboard-panel-content">
                       <div class="actions">
-                        {% if show_finaid_apply_button %}
-                          <a href="{% url 'finaid_apply' %}" class="btn">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Apply for financial aid</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_provide_info_button %}
-                          <a href="{% url 'finaid_provide_info' %}" class="btn">
-                            <i class="widget-icon icon-pencil"></i>
-                            <span class='widget-label'>Provide requested information</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_accept_button %}
-                          <a href="{% url 'finaid_accept' %}" class="btn">
-                            <i class="widget-icon icon-check"></i>
-                            <span class='widget-label'>Accept offer</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_decline_button %}
-                          <a href="{% url 'finaid_decline' %}" class="btn">
-                            <i class="widget-icon icon-ban-circle"></i>
-                            <span class='widget-label'>Decline offer</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_request_more_button %}
-                          <a href="{% url 'finaid_request_more' %}" class="btn">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Request more funds</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_edit_button %}
-                          <a href="{% url 'finaid_edit' %}" class="btn">
-                            <i class="widget-icon icon-money"></i>
-                            <span class='widget-label'>Edit application</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_status_button %}
-                          <a href="{% url 'finaid_status' %}" class="btn">
-                            <i class="widget-icon icon-ok"></i>
-                            <span class='widget-label'>Application status</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_withdraw_button %}
-                          <a href="{% url 'finaid_withdraw' %}" class="btn danger">
-                            <i class="widget-icon icon-trash"></i>
-                            <span class='widget-label'>Withdraw application</span>
-                          </a>
-                        {% endif %}
-                        {% if show_finaid_receipt_form %}
-                        <a href="{% url 'receipt_upload' %}" class="btn">
-                          <i class="widget-icon icon-money"></i>
-                          <span class="widget-label">Upload Receipt</span>
-                        </a>
-                        {% endif %}
+                        {% if request.user.speaker_profile.is_speaking %}
+                           <h4>Speaker Grant Requests</h4>
+                           {% if show_finaid_apply_button %}
+                             <a href="{% url 'speaker_grant_apply' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Complete Speaker Grant</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_provide_info_button %}
+                             <a href="{% url 'finaid_provide_info' %}" class="btn">
+                               <i class="widget-icon icon-pencil"></i>
+                               <span class='widget-label'>Provide requested information</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_accept_button %}
+                             <a href="{% url 'finaid_accept' %}" class="btn">
+                               <i class="widget-icon icon-check"></i>
+                               <span class='widget-label'>Accept grant</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_decline_button %}
+                             <a href="{% url 'finaid_decline' %}" class="btn">
+                               <i class="widget-icon icon-ban-circle"></i>
+                               <span class='widget-label'>Decline grant</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_request_more_button %}
+                             <a href="{% url 'finaid_request_more' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Request more funds</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_edit_button %}
+                             <a href="{% url 'speaker_grant_edit' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Edit Request</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_status_button %}
+                             <a href="{% url 'finaid_status' %}" class="btn">
+                               <i class="widget-icon icon-ok"></i>
+                               <span class='widget-label'>Request status</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_withdraw_button %}
+                             <a href="{% url 'finaid_withdraw' %}" class="btn danger">
+                               <i class="widget-icon icon-trash"></i>
+                               <span class='widget-label'>Withdraw request</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_receipt_form %}
+                           <a href="{% url 'receipt_upload' %}" class="btn">
+                             <i class="widget-icon icon-money"></i>
+                             <span class="widget-label">Upload Receipt</span>
+                           </a>
+                           {% endif %}
+                        {% else %}
+                           {% if show_finaid_apply_button %}
+                             <a href="{% url 'finaid_apply' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Apply for financial aid</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_provide_info_button %}
+                             <a href="{% url 'finaid_provide_info' %}" class="btn">
+                               <i class="widget-icon icon-pencil"></i>
+                               <span class='widget-label'>Provide requested information</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_accept_button %}
+                             <a href="{% url 'finaid_accept' %}" class="btn">
+                               <i class="widget-icon icon-check"></i>
+                               <span class='widget-label'>Accept offer</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_decline_button %}
+                             <a href="{% url 'finaid_decline' %}" class="btn">
+                               <i class="widget-icon icon-ban-circle"></i>
+                               <span class='widget-label'>Decline offer</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_request_more_button %}
+                             <a href="{% url 'finaid_request_more' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Request more funds</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_edit_button %}
+                             <a href="{% url 'finaid_edit' %}" class="btn">
+                               <i class="widget-icon icon-money"></i>
+                               <span class='widget-label'>Edit application</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_status_button %}
+                             <a href="{% url 'finaid_status' %}" class="btn">
+                               <i class="widget-icon icon-ok"></i>
+                               <span class='widget-label'>Application status</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_withdraw_button %}
+                             <a href="{% url 'finaid_withdraw' %}" class="btn danger">
+                               <i class="widget-icon icon-trash"></i>
+                               <span class='widget-label'>Withdraw application</span>
+                             </a>
+                           {% endif %}
+                           {% if show_finaid_receipt_form %}
+                           <a href="{% url 'receipt_upload' %}" class="btn">
+                             <i class="widget-icon icon-money"></i>
+                             <span class="widget-label">Upload Receipt</span>
+                           </a>
+                           {% endif %}
+                      {% endif %}
                       </div>
                       {% if request.user.is_staff or show_finaid_review_button or show_finaid_download_button %}
                       <div class="actions admin">
