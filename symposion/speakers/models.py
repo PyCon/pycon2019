@@ -116,7 +116,7 @@ class Speaker(models.Model):
                 proposals.append(p)
         if self.additionalspeakers:
             for p in self.additionalspeakers.all():
-                proposals.append(p.proposalbase)
+                proposals.append(p)
         return [get_proposal_model(p.kind.slug).objects.get(id=p.id) for p in proposals]
 
     @property
