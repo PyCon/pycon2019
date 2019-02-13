@@ -7,7 +7,7 @@ Hello {{ user.get_full_name|safe }},
 
     We also noticed that you've already applied for PyCon Financial Aid. Your existing application has been converted to a Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_edit' %}.
 
-    Please confirm your Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_edit' %} as soon as possible to let us know your travel plans and what assistance you require.
+    Please confirm your Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_apply' %} by February 16th to let us know your travel plans and what assistance you require.
 
     After that, we'll follow up to confirm and share logistics.
 

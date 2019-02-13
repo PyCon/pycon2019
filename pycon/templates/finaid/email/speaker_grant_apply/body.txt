@@ -5,7 +5,7 @@ Hello {{ user.get_full_name|safe }},
 
     You noted in your Speaker Profile at https://{{ domain }}/2019/speaker/edit/ that you require a speaker grant to attend and present your {{ proposal_kind }}.
 
-    Please complete your Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_apply' %} as soon as possible to let us know your travel plans and what assistance you require.
+    Please complete your Speaker Grant Request at https://{{ domain }}{% url 'speaker_grant_apply' %} by February 16th to let us know your travel plans and what assistance you require.
 
     After that, we'll follow up to confirm and share logistics.
 
