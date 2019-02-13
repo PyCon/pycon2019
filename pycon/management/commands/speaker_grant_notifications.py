@@ -5,6 +5,8 @@ from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
 from symposion.proposals.kinds import get_kind_slugs, get_proposal_model
 
+from email_log.models import Email
+
 from pycon.models import PyConProposal
 from pycon.finaid.models import FinancialAidApplication, APPLICATION_TYPE_SPEAKER
 from pycon.finaid.utils import has_application, send_email_message
@@ -43,6 +45,12 @@ class Command(BaseCommand):
                 to_apply[proposal.speaker.email].append(proposal)
 
         for email, proposals in to_apply.items():
+            notified = Email.objects.filter(
+                recipients='; '.join(['pycon-aid@python.org', email]),
+                subject='Speaker assistance for your {}.'.format(options['kind'].title())
+            ).exists()
+            if notified:
+                continue
             send_email_message(
                 'speaker_grant_apply',
                 from_='pycon-aid@python.org',
@@ -55,6 +63,12 @@ class Command(BaseCommand):
                 },
             )
         for email, proposals in to_confirm.items():
+            notified = Email.objects.filter(
+                recipients='; '.join(['pycon-aid@python.org', email]),
+                subject='Speaker assistance for your {}.'.format(options['kind'].title())
+            ).exists()
+            if notified:
+                continue
             send_email_message(
                 'speaker_grant_confirm',
                 from_='pycon-aid@python.org',
