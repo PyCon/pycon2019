@@ -11,7 +11,8 @@ from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConPosterProposal, PyConLightningTalkProposal,
                      PyConSponsorTutorialProposal, PyConOpenSpaceProposal,
                      EduSummitTalkProposal, PyConProposal,
-                     PyConStartupRowApplication)
+                     PyConStartupRowApplication,
+                     PyConRoomSharingOffer, PyConRoomSharingRequest)
 
 
 def strip(text):
@@ -483,6 +484,63 @@ class PyConStartupRowApplicationForm(forms.ModelForm):
     def save(self, commit=True):
         obj = super(PyConStartupRowApplicationForm, self).save(commit=False)
         obj.applicant = self.user
+        if commit:
+            obj.save()
+        return obj
+
+
+class PyConRoomSharingOfferForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(PyConRoomSharingOfferForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = PyConRoomSharingOffer
+        exclude = ["user", "approved"]
+        widgets = {
+            "arrive": forms.widgets.DateInput(attrs={'type': 'date', 'min': '2019-04-29', 'max': '2019-05-12'}),
+            "depart": forms.widgets.DateInput(attrs={'type': 'date', 'min': '2019-04-29', 'max': '2019-05-12'}),
+            "additional_info": forms.Textarea(attrs={'rows': '3'}),
+        }
+        help_texts = {
+            "arrive": "When your room will be available",
+            "depart": "When you plan on checking out",
+            "contact_info": "How people who are interested in sharing your room should contact you",
+            "additional_info": "How many other people you want to share with, any other requirements (gender, smoking/non-smoking, active hours, etc.)",
+        }
+ 
+    def save(self, commit=True):
+        obj = super(PyConRoomSharingOfferForm, self).save(commit=False)
+        obj.user = self.user
+        if commit:
+            obj.save()
+        return obj
+
+
+class PyConRoomSharingRequestForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(PyConRoomSharingRequestForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = PyConRoomSharingRequest
+        exclude = ["user", "approved"]
+        widgets = {
+            "arrive": forms.widgets.DateInput(attrs={'type': 'date', 'min': '2019-04-29', 'max': '2019-05-12'}),
+            "depart": forms.widgets.DateInput(attrs={'type': 'date', 'min': '2019-04-29', 'max': '2019-05-12'}),
+            "additional_info": forms.Textarea(attrs={'rows': '3'}),
+        }
+        help_texts = {
+            "arrive": "When you plan to arrive",
+            "depart": "When you plan to leave",
+            "contact_info": "How people who have a room to share should contact you",
+            "additional_info": "How many other people you want to share with, any other requirements (gender, smoking/non-smoking, active hours, etc.)",
+        }
+
+    def save(self, commit=True):
+        obj = super(PyConRoomSharingRequestForm, self).save(commit=False)
+        obj.user = self.user
         if commit:
             obj.save()
         return obj
