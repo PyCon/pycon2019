@@ -7,7 +7,7 @@ from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
                           PyConTalkProposal, PyConTutorialProposal,
                           PyConPosterProposal, PyConLightningTalkProposal,
                           PyConOpenSpaceProposal, ScheduledEvent, EduSummitTalkProposal,
-                          PyConStartupRowApplication)
+                          PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -171,6 +171,26 @@ class StartupRowApplicationAdmin(admin.ModelAdmin):
         'updated',
     ]
 
+class RoomSharingOfferAdmin(admin.ModelAdmin):
+    list_display = [
+        'user', 'approved'
+    ]
+    list_filter = ['approved']
+    actions = ['approve']
+
+    def approve(self, request, queryset):
+        queryset.update(approved=True)
+
+class RoomSharingRequestAdmin(admin.ModelAdmin):
+    list_display = [
+        'user', 'approved'
+    ]
+    list_filter = ['approved']
+    actions = ['approve']
+
+    def approve(self, request, queryset):
+        queryset.update(approved=True)
+
 
 admin.site.register(PyConProposalCategory)
 admin.site.register(PyConTalkProposal, TalkAdmin)
@@ -182,6 +202,8 @@ admin.site.register(PyConLightningTalkProposal, LightningTalkAdmin)
 admin.site.register(EduSummitTalkProposal, EduSummitTalkAdmin)
 admin.site.register(ScheduledEvent, ScheduledEventAdmin)
 admin.site.register(PyConStartupRowApplication, StartupRowApplicationAdmin)
+admin.site.register(PyConRoomSharingOffer, RoomSharingOfferAdmin)
+admin.site.register(PyConRoomSharingRequest, RoomSharingRequestAdmin)
 
 
 from account.models import Account, EmailAddress

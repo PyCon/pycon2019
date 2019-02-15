@@ -406,3 +406,21 @@ class PyConStartupRowApplication(models.Model):
 
     class Meta:
         verbose_name = "PyCon Startup Row Application"
+
+
+class PyConRoomSharingOffer(models.Model):
+    user = models.OneToOneField(User, related_name="room_sharing_offer", null=True, on_delete=models.SET_NULL)
+    arrive = models.DateField()
+    depart = models.DateField()
+    contact_info = models.CharField(max_length=128)
+    additional_info = models.CharField(max_length=512)
+    approved = models.BooleanField(default=False)
+
+
+class PyConRoomSharingRequest(models.Model):
+    user = models.OneToOneField(User, related_name="room_sharing_request", null=True, on_delete=models.SET_NULL)
+    arrive = models.DateField()
+    depart = models.DateField()
+    contact_info = models.CharField(max_length=128)
+    additional_info = models.CharField(max_length=512)
+    approved = models.BooleanField(default=False)

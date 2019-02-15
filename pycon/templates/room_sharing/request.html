@@ -1,0 +1,42 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+{% load boxes_tags %}
+
+{% block head_title %}{% trans "Request a Room to share during PyCon" %}{% endblock %}
+
+{% block extra_head %}
+<script>
+var datefield = document.createElement("input")
+
+datefield.setAttribute("type", "date")
+
+if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+    document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+    document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"><\/script>\n') 
+}        
+if (datefield.type != "date"){ //if browser doesn't support input type="date", initialize date picker widget:
+    $(document).ready(function() {
+        $('#id_arrive').datepicker();
+        $('#id_depart').datepicker();
+    }); 
+} 
+</script>
+{% endblock %}
+
+{% block body %}
+
+    <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <legend><h1>{% trans "Request a Room" %}</h1></legend>
+        <fieldset>
+          {{ form|as_bootstrap }}
+        </fieldset>
+
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="{% trans "Submit" %}" />
+        </div>
+    </form>
+
+{% endblock %}

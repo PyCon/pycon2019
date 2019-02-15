@@ -1,0 +1,65 @@
+{% extends "cms/page_detail.html" %}
+{% load boxes_tags %}
+
+
+{% block page_content %}
+
+<div style="text-align: center">
+  <h1>Room Sharing</h1>
+</div>
+
+<div class="row">
+    {% box "room_sharing" %}
+</div>
+
+<div style="text-align: center">
+  <span><h2>Submit a Room Sharing offer or request</h2></span>
+  {% if user.is_authenticated %}
+    {% if user.room_sharing_offer %}
+      <a href="{% url 'room_sharing_offer' %}" class="btn">Update my Room Sharing Offer</a>
+    {% elif user.room_sharing_request %}
+      <a href="{% url 'room_sharing_request' %}" class="btn">Update my Room Sharing Request</a>
+    {% else %}
+      <a href="{% url 'room_sharing_offer' %}" class="btn">I have a Room to share</a>
+      <a href="{% url 'room_sharing_request' %}" class="btn">I'm looking for a Room</a>
+    {% endif %}
+  {% else %}
+  <a href="{% url 'account_login' %}?next={% url 'room_sharing' %}" class="btn">Login to continue...</a>
+  {% endif %}
+</div>
+
+<div>
+  <span><h2>Rooms Offerred</h2></span>
+  <div>
+    <ul>
+  {% for room_sharing_offer in room_sharing_offers %}
+      <li>
+          <p>
+            Dates: {{ room_sharing_offer.arrive }} - {{ room_sharing_offer.depart }}<br>
+            Contact Info: {{ room_sharing_offer.contact_info }}<br>
+            Additional Info: {{ room_sharing_offer.additional_info }}
+          </p>
+      </li>
+  {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div>
+  <span><h2>Rooms Needed</h2></span>
+  <div>
+    <ul>
+  {% for room_sharing_request in room_sharing_requests %}
+      <li>
+          <p>
+            Dates: {{ room_sharing_request.arrive }} - {{ room_sharing_request.depart }}<br>
+            Contact Info: {{ room_sharing_request.contact_info }}<br>
+            Additional Info: {{ room_sharing_request.additional_info }}
+          </p>
+      </li>
+  {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock page_content %}
