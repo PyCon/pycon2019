@@ -16,9 +16,9 @@
   <span><h2>Submit a Room Sharing offer or request</h2></span>
   {% if user.is_authenticated %}
     {% if user.room_sharing_offer %}
-      <a href="{% url 'room_sharing_offer' %}" class="btn">Update my Room Sharing Offer</a>
+      <a href="{% url 'room_sharing_offer' %}" class="btn">Update or withdraw my Room Sharing Offer</a>
     {% elif user.room_sharing_request %}
-      <a href="{% url 'room_sharing_request' %}" class="btn">Update my Room Sharing Request</a>
+      <a href="{% url 'room_sharing_request' %}" class="btn">Update or withdraw my Room Sharing Request</a>
     {% else %}
       <a href="{% url 'room_sharing_offer' %}" class="btn">I have a Room to share</a>
       <a href="{% url 'room_sharing_request' %}" class="btn">I'm looking for a Room</a>

@@ -115,6 +115,16 @@ def room_sharing_offer(request):
 
     return render_to_response("room_sharing/offer.html", {"form": form}, context_instance=RequestContext(request))
 
+@login_required
+def withdraw_room_sharing_offer(request):
+    try:
+        room_sharing_offer = request.user.room_sharing_offer
+        room_sharing_offer.delete()
+        messages.success(request, "Room Sharing Offer withdrawn")
+        return redirect("dashboard")
+    except PyConRoomSharingOffer.DoesNotExist:
+        messages.warning('No Room Sharing Offer to withdraw')
+
 
 @login_required
 def room_sharing_request(request):
@@ -140,3 +150,13 @@ def room_sharing_request(request):
             form = PyConRoomSharingRequestForm(user=request.user)
 
     return render_to_response("room_sharing/request.html", {"form": form}, context_instance=RequestContext(request))
+
+@login_required
+def withdraw_room_sharing_request(request):
+    try:
+        room_sharing_request = request.user.room_sharing_request
+        room_sharing_request.delete()
+        messages.success(request, "Room Sharing Request withdrawn")
+        return redirect("dashboard")
+    except PyConRoomSharingRequest.DoesNotExist:
+        messages.warning('No Room Sharing Request to withdraw')
