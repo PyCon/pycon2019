@@ -12,6 +12,8 @@
     {% box "room_sharing" %}
 </div>
 
+<hr>
+
 <div style="text-align: center">
   <span><h2>Submit a Room Sharing offer or request</h2></span>
   {% if user.is_authenticated %}
@@ -27,6 +29,8 @@
   <a href="{% url 'account_login' %}?next={% url 'room_sharing' %}" class="btn">Login to continue...</a>
   {% endif %}
 </div>
+
+<hr>
 
 <div>
   <span><h2>Rooms Offerred</h2></span>
@@ -45,6 +49,8 @@
   </div>
 </div>
 
+<hr>
+
 <div>
   <span><h2>Rooms Needed</h2></span>
   <div>
@@ -60,6 +66,12 @@
   {% endfor %}
     </ul>
   </div>
+</div>
+
+<hr>
+
+<div style="text-align: center; font: smaller;">
+See something inappropriate or fishy? Let us know at <a href="mailto:pycon-reg@python.org">pycon-reg@python.org</a>.
 </div>
 
 {% endblock page_content %}

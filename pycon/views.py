@@ -123,7 +123,7 @@ def withdraw_room_sharing_offer(request):
         messages.success(request, "Room Sharing Offer withdrawn")
         return redirect("dashboard")
     except PyConRoomSharingOffer.DoesNotExist:
-        messages.warning('No Room Sharing Offer to withdraw')
+        messages.warning(request, 'No Room Sharing Offer to withdraw')
 
 
 @login_required
@@ -159,4 +159,4 @@ def withdraw_room_sharing_request(request):
         messages.success(request, "Room Sharing Request withdrawn")
         return redirect("dashboard")
     except PyConRoomSharingRequest.DoesNotExist:
-        messages.warning('No Room Sharing Request to withdraw')
+        messages.warning(request, 'No Room Sharing Request to withdraw')

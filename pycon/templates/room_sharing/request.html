@@ -36,7 +36,9 @@ if (datefield.type != "date"){ //if browser doesn't support input type="date", i
 
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="{% trans "Submit" %}" />
+            {% if request.user.room_sharing_request %}
             <a class="btn danger" href="{% url 'withdraw_room_sharing_request' %}">Withdraw Request</a>
+            {% endif %}
         </div>
     </form>
 

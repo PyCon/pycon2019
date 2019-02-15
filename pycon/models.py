@@ -414,7 +414,7 @@ class PyConRoomSharingOffer(models.Model):
     depart = models.DateField()
     contact_info = models.CharField(max_length=128)
     additional_info = models.CharField(max_length=512)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
 
 class PyConRoomSharingRequest(models.Model):
@@ -423,4 +423,4 @@ class PyConRoomSharingRequest(models.Model):
     depart = models.DateField()
     contact_info = models.CharField(max_length=128)
     additional_info = models.CharField(max_length=512)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
