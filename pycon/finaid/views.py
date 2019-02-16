@@ -37,6 +37,10 @@ def speaker_grant_edit(request):
                              _('Speaker Grant Requests are for accepted speakers only'))
         return redirect("dashboard")
 
+    messages.add_message(request, messages.ERROR,
+                         _('Speaker Grant Requests have closed, please email pycon-aid@python.org if your needs have changed'))
+    return redirect("dashboard")
+
     if has_application(request.user):
         application = request.user.financial_aid
         if application.status == STATUS_WITHDRAWN:
