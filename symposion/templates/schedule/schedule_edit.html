@@ -1,6 +1,5 @@
 {% extends "site_base.html" %}
 
-{% load compress %}
 {% load i18n %}
 {% load bootstrap_tags %}
 
@@ -31,7 +30,6 @@
 {% endblock %}
 
 {% block extra_script %}
-  {% compress js %}
     <script src="{{ STATIC_URL }}chosen/chosen.jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
@@ -44,5 +42,4 @@
             });
         });
     </script>
-  {% endcompress %}
 {% endblock %}
