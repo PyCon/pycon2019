@@ -28,17 +28,43 @@
             {{ users|join:", " }}
           </div>
         </div>
-
+        <div class="fieldWrapper">
+            {{ form.subject.errors }}
+            <label for="{{ form.subject.id_for_label }}">Subject:</label>
+            {{ form.subject }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.template.errors }}
+            <label for="{{ form.template.id_for_label }}">Template:</label>
+            {{ form.template }}
+        </div>
         <p>
           (Use
           <tt>{% verbatim %}{{name}}{% endverbatim %}</tt>
           in the title and template
           where you want the recipient name inserted)
         </p>
-        {{ form|as_bootstrap }}
+        {% if rendered %}
+        <div>
+          <h2>Preview:</h2>
+          <div>To: <pre>{{ rendered.to }}</pre></div>
+          <div>From: <pre>{{ rendered.from }}</pre></div>
+          <div>Subject: <pre>{{ rendered.subject }}</pre></div>
+          <div>Body: <pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{ rendered.body }}</pre></div>
+        </div>
+        {% endif %}
         <p>{% trans "(Use admin to add email templates.)" %}</p>
+        <div class="fieldWrapper">
+            {{ form.confirm.errors }}
+            <label for="{{ form.confirm.id_for_label }}">Confirm Send:</label>
+            {{ form.confirm }}
+        </div>
         <div class="form-actions">
+            {% if rendered %}
             <input class="btn btn-success" type="submit" value="{% trans "Send" %}" />
+            {% else %}
+            <input class="btn btn-success" type="submit" value="{% trans "Preview" %}" />
+            {% endif %}
         </div>
     </form>
 {% endblock %}

@@ -227,6 +227,7 @@ class BulkEmailForm(forms.Form):
         queryset=FinancialAidEmailTemplate.objects.all(),
         empty_label=u"Pick a bulk mail template to use",
     )
+    confirm = forms.BooleanField(required=False)
 
 
 class ReceiptForm(forms.ModelForm):

@@ -251,6 +251,7 @@ def finaid_email(request, pks):
     emails = [app.user.email for app in applications]
 
     form = None
+    rendered = None
     if request.method == 'POST':
         form = BulkEmailForm(request.POST)
         if form.is_valid():
@@ -275,20 +276,29 @@ def finaid_email(request, pks):
                 subject = subject_template.render(Context(ctx))
                 emails.append((subject, text, from_email,
                                [application.user.email]))
-            try:
-                send_mass_mail(emails)
-            except SMTPException:
-                log.exception("ERROR sending financial aid emails")
-                messages.add_message(request, messages.ERROR,
-                                     _(u"There was some error sending emails, "
-                                       u"not all of them might have made it"))
+            if form.cleaned_data['confirm']:
+                try:
+                    send_mass_mail(emails)
+                except SMTPException:
+                    log.exception("ERROR sending financial aid emails")
+                    messages.add_message(request, messages.ERROR,
+                                         _(u"There was some error sending emails, "
+                                           u"not all of them might have made it"))
+                else:
+                    messages.add_message(request, messages.INFO, _(u"Emails sent"))
+                return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
             else:
-                messages.add_message(request, messages.INFO, _(u"Emails sent"))
-            return redirect(reverse('finaid_review', kwargs=dict(pks=pks)))
+                rendered = {
+                    'from': emails[0][2],
+                    'to': ','.join(emails[0][3]),
+                    'subject': emails[0][0],
+                    'body': emails[0][1],
+                }
 
     ctx = {
         'form': form or BulkEmailForm(),
-        'users': [app.user for app in applications]
+        'users': [app.user for app in applications],
+        'rendered': rendered
     }
     return render(request, "finaid/email.html", ctx)
 

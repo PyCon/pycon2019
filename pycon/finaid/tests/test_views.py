@@ -302,6 +302,7 @@ class TestFinaidEmailView(TestCase, TestMixin, ReviewTestMixin):
         data = {
             'template': template2.pk,
             'subject': subject,
+            'confirm': True,
         }
         mock_render.side_effect = [template_text, subject]
         rsp = self.client.post(self.url, data)
