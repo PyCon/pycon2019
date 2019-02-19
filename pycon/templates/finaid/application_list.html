@@ -27,6 +27,7 @@
         <th>Status <i class="icon-sort"></i></th>
         <th>Last updated <i class="icon-sort"></i></th>
         <th style="display: none;">Last updated <i class="icon-sort"></i></th>
+        <th>Type<i class="icon-sort"></i></th>
         <th>Messages <i class="icon-sort"></i></th>
         <th>Offered <i class="icon-sort"></i></th>
       </thead>
@@ -48,6 +49,9 @@
           </td>
 	  <td style="display: none;">
             {{ application.get_last_update_display }}
+          </td>
+          <td>
+            {{ application.application_type }}
           </td>
           <td>
             {{ application.messages.all|length }}
