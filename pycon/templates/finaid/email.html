@@ -54,13 +54,13 @@
         </div>
         {% endif %}
         <p>{% trans "(Use admin to add email templates.)" %}</p>
-        <div class="fieldWrapper">
-            {{ form.confirm.errors }}
-            <label for="{{ form.confirm.id_for_label }}">Confirm Send:</label>
-            {{ form.confirm }}
-        </div>
         <div class="form-actions">
             {% if rendered %}
+            <div class="fieldWrapper">
+                {{ form.confirm.errors }}
+                <label for="{{ form.confirm.id_for_label }}">Confirm Send:</label>
+                {{ form.confirm }}
+            </div>
             <input class="btn btn-success" type="submit" value="{% trans "Send" %}" />
             {% else %}
             <input class="btn btn-success" type="submit" value="{% trans "Preview" %}" />
