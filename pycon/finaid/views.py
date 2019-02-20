@@ -473,6 +473,7 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
         return render(request, "finaid/confirm.html", {
             'message': self.confirmation_message,
             'form': form_to_render,
+            'application': application,
         })
 
     def post(self, request, *args, **kwargs):

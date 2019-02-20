@@ -4,6 +4,24 @@
 {% load i18n %}
 {% block body %}
   <br>
+  {% if application.review %}
+  {% if request.user.speaker_profile.is_speaking %}
+  <ul>
+    <li>Grant Amount: ${{ request.user.financial_aid.review.amount }}</li>
+    {% if request.user.financial_aid.review.promo_code %}
+    <li>$0 Discounted Conference Registration Code</li>
+    {% endif %}
+  </ul>
+  {% else %}
+  <ul>
+    <li>Grant Amount: ${{ request.user.financial_aid.review.amount }}</li>
+    {% if request.user.financial_aid.review.promo_code %}
+    <li>$50 Discounted Conference Registration Code</li>
+    <li>$50 Discounted Tutorial Registration Code</li>
+    {% endif %}
+  </ul>
+  {% endif %}
+  {% endif %}
   {% if form %}
   {% if form.errors %}
   <div class="alert">

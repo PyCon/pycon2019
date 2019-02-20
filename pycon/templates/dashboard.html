@@ -245,6 +245,14 @@
                       <div class="actions">
                         {% if request.user.speaker_profile.is_speaking %}
                            <h4>Speaker Grant Requests</h4>
+                           {% if request.user.financial_aid.review and show_finaid_accept_button %}
+                           <ul>
+                             <li>Grant Amount: ${{ request.user.financial_aid.review.amount }}</li>
+                             {% if request.user.financial_aid.review.promo_code %}
+                             <li>$0 Discounted Conference Registration Code</li>
+                             {% endif %}
+                           </ul>
+                           {% endif %}
                            {% if show_finaid_apply_button %}
                              <a href="{% url 'speaker_grant_apply' %}" class="btn">
                                <i class="widget-icon icon-money"></i>
@@ -300,6 +308,15 @@
                            </a>
                            {% endif %}
                         {% else %}
+                           {% if request.user.financial_aid.review and show_finaid_accept_button %}
+                           <ul>
+                             <li>Grant Amount: ${{ request.user.financial_aid.review.amount }}</li>
+                             {% if request.user.financial_aid.review.promo_code %}
+                             <li>$50 Discounted Conference Registration Code</li>
+                             <li>$50 Discounted Tutorial Registration Code</li>
+                             {% endif %}
+                           </ul>
+                           {% endif %}
                            {% if show_finaid_apply_button %}
                              <a href="{% url 'finaid_apply' %}" class="btn">
                                <i class="widget-icon icon-money"></i>
