@@ -68,6 +68,13 @@ class SpeakerForm(forms.ModelForm):
             ),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(SpeakerForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['financial_support'].widget.attrs['readonly'] = True
+            self.fields['financial_support'].widget.attrs['disabled'] = True
+
     def clean_twitter_username(self):
         value = self.cleaned_data["twitter_username"]
         if value.startswith("@"):
@@ -82,6 +89,12 @@ class SpeakerForm(forms.ModelForm):
                                     u"words or less"))
         return value
 
+    def clean_financial_support(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.financial_support
+        else:
+            return False
 
 # class SignupForm(PinaxSignupForm):
 
