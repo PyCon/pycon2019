@@ -132,4 +132,7 @@ Also, Travis (https://travis-ci.org/PyCon/pycon) automatically runs the tests ag
 More documentation
 ------------------
 
-There's more documentation under ``docs/``.
+There's more documentation under ``docs/``.  
+
+## LICENSE
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
