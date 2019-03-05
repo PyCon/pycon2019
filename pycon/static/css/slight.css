@@ -1608,10 +1608,10 @@ td.slot-event {
     color: #FFFFFF;
 }
 td.slot-plenary {
-    background-color: #D0D3D4;
+    background-color: #FFD43B;
     font-size: 1.2em;
     font-weight: 600;
-    color: #F7F7F7;
+    color: #111111;
 }
 td.slot-charlas {
     background-image: url('../img/charlas.png');
