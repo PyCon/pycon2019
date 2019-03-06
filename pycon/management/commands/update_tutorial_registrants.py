@@ -1,5 +1,6 @@
 import csv
 import logging
+import re
 import requests
 
 from django.contrib.auth import get_user_model
@@ -12,6 +13,7 @@ from pycon.models import PyConTutorialProposal, PyConSponsorTutorialProposal
 
 logger = logging.getLogger(__name__)
 
+TUT_RE = re.compile('Tutorial (\d+) - (Wed|Thur)\/(AM|PM)')
 
 class Command(NoArgsCommand):
     """
@@ -38,17 +40,21 @@ class Command(NoArgsCommand):
                     print("Skipping blank line.")
                     continue
 
-                tut_id = row['tutorialnumber']
-                tut_name = row['tutorialname']
-                max_attendees = row['maxattendees']
-                user_email = row['useremail']
-                user_id = row['PyConID']
+                item = row['Item']
+                tut_name = row['Tutorial Name']
+                max_attendees = row['Max Attendees']
+                user_email = row['User Email']
+                user_id = row['PyCon ID']
 
-                if not tut_id:
+                tut_match = TUT_RE.match(tut_name)
+
+                if not tut_match:
                     print(
                         "Unable to register '{}' for '{}': Tutorial ID not "
                         "given.".format(user_email, tut_name))
                     continue
+                else:
+                    tut_id = tut_match.group(1)
 
                 if tut_id not in tutorials:
                     try:
