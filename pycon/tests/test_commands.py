@@ -18,10 +18,10 @@ class MockGet(Mock):
 
     @property
     def content(self):
-        headers = '"tutorialnumber","tutorialname","maxattendees","useremail","PyConID"\n'
-        row1 = '"%s","Tutorial1","8","john@doe.com",%s\n' % (self.tut1, self.u1)
-        row2 = '"%s","Tutorial1","8","jane@doe.com",%s\n' % (self.tut1, self.u2)
-        row3 = '"%s","Tutorial2","10","john@doe.com",%s' % (self.tut2, self.u1)
+        headers = '"Item","Tutorial Name","Max Attendees","User Email","PyCon ID"\n'
+        row1 = '"Z01A","Tutorial %s - Wed/AM","8","john@doe.com",%s\n' % (self.tut1, self.u1)
+        row2 = '"Z01A","Tutorial %s - Wed/AM","8","jane@doe.com",%s\n' % (self.tut1, self.u2)
+        row3 = '"Z01B","Tutorial %s - Wed/PM","10","john@doe.com",%s' % (self.tut2, self.u1)
         return headers + row1 + row2 + row3
 
     def raise_for_status(self):
