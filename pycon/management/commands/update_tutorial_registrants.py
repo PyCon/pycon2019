@@ -36,6 +36,7 @@ class Command(NoArgsCommand):
             User = get_user_model()
             tutorials = {}  # CTE ID: PyConTutorialProposal
             for row in csv.DictReader(response.content.splitlines()):
+                row.pop(None, None)  # Delete any goofy keys
                 if not row or not any(v.strip() for v in row.values()):
                     print("Skipping blank line.")
                     continue
