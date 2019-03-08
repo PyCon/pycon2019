@@ -59,7 +59,7 @@
                 {% for sponsor in sponsors %}
                   <h2 id="sponsor-{{ sponsor.id }}">{{ sponsor.name }}</h2>
                   <a class="sponsor-logo" href="{{ sponsor.external_url }}">
-                    <img src="{{ sponsor.website_logo|thumbnail_url:'sponsorship_jobs' }}" alt="{{ sponsor.name }}">
+                    <img src="{{ sponsor.website_logo|thumbnail_url:'sponsor_jobs' }}" alt="{{ sponsor.name }}">
                   </a>
                   <p>
                     <a href="{{ sponsor.external_url }}">{{ sponsor.get_display_url }}</a>
