@@ -14,4 +14,6 @@ urlpatterns = patterns(
     url(r'community/roomsharing/request/$', views.room_sharing_request, name='room_sharing_request'),
     url(r'community/roomsharing/offer/withdraw/$', views.withdraw_room_sharing_offer, name='withdraw_room_sharing_offer'),
     url(r'community/roomsharing/request/withdraw/$', views.withdraw_room_sharing_request, name='withdraw_room_sharing_request'),
+    url(r'schedule/edusummits/mini-sprints/$', views.edu_summit_mini_sprints, name="edu_summit_mini_sprints"),
+
 )

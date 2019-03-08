@@ -10,7 +10,10 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, render, redirect
 from django.template import RequestContext
 
-from pycon.models import ScheduledEvent, PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer
+from symposion.schedule.views import fetch_schedule
+from symposion.schedule.models import Presentation
+
+from pycon.models import ScheduledEvent, PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer, EduSummitTalkProposal
 from pycon.forms import PyConStartupRowApplicationForm, PyConRoomSharingRequestForm, PyConRoomSharingOfferForm
 from pycon.program_export import export
 
@@ -160,3 +163,19 @@ def withdraw_room_sharing_request(request):
         return redirect("dashboard")
     except PyConRoomSharingRequest.DoesNotExist:
         messages.warning(request, 'No Room Sharing Request to withdraw')
+
+
+def edu_summit_mini_sprints(request):
+    schedule = fetch_schedule('edusummits')
+
+    mini_sprints_ids = EduSummitTalkProposal.objects.filter(tags__name__in=['mini-sprint']).values_list('proposalbase_ptr__id', flat=True)
+
+    presentations = Presentation.objects.filter(section=schedule.section)
+    presentations = presentations.filter(proposal_base__id__in=mini_sprints_ids)
+    presentations = presentations.exclude(cancelled=True).order_by('title')
+
+    ctx = {
+        "schedule": schedule,
+        "presentations": presentations,
+    }
+    return render(request, "schedule/schedule_list_edusummits_mini_sprints.html", ctx)
