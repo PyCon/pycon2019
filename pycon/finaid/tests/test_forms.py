@@ -94,8 +94,11 @@ class TestReceiptForm(TestCase):
         # Django-friendly ContentFiles
         file = SimpleUploadedFile('test_file.png', png_file.read())
         # Data for the form
-        data_png = {'description': 'description png',
-                    'amount': 1,
+        data_png = {'description': '',
+                    'receipt_type': 'airfare',
+                    'date': '2019-03-02',
+                    'amount_0': 1,
+                    'amount_1': 'USD',
                     }
         files = {'receipt_image': file}
 
@@ -114,7 +117,10 @@ class TestReceiptForm(TestCase):
         file = SimpleUploadedFile('test_file.pdf', pdf_file.read())
         # Data for the form
         data_pdf = {'description': 'description pdf',
-                    'amount': 1,
+                    'receipt_type': 'airfare',
+                    'date': '2019-03-02',
+                    'amount_0': 1,
+                    'amount_1': 'USD',
                     }
         files = {'receipt_image': file}
         form_pdf = ReceiptForm(data_pdf, files, instance=Receipt(application=self.application))
@@ -125,7 +131,10 @@ class TestReceiptForm(TestCase):
     def test_missing_image(self):
         """Verifies the form is not valid when the receipt_image field is blank."""
         data = {'description': 'description of file',
-                'amount': 1,
+                'receipt_type': 'other',
+                'date': '2019-03-02',
+                'amount_0': 1,
+                'amount_1': 'USD',
                 }
         form = ReceiptForm(data, {}, instance=Receipt(application=self.application))
 
