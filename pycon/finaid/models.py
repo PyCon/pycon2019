@@ -6,6 +6,9 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from djmoney.models.fields import MoneyField
+from djmoney.money import Money
+
 
 SEX_NO_ANSWER = 0
 SEX_CHOICES = (
@@ -318,16 +321,38 @@ def user_directory_path(instance, filename):
     return 'finaid_receipts/{}/{}'.format(instance.application.user.username, filename)
 
 
+RECEIPT_TYPE_CHOICES = (
+    ('airfare', 'Airfare'),
+    ('lodging', 'Lodging: Hotel/Hostel/Airbnb'),
+    ('transit', 'Transit: Taxi/Train/Bus/Parking'),
+    ('visa', 'Visa Application Fee'),
+    ('other', 'Other (Not including food, beverage, or incidentals)'),
+)
+
+
 class Receipt(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     application = models.ForeignKey(FinancialAidApplication,
                                     related_name="receipts")
 
     description = models.CharField(max_length=255,
-                                   help_text="Please enter a description of this receipt image.")
-    amount = models.DecimalField(
+                                   help_text="Please enter a description of this receipt image.",
+                                   blank=True)
+    amount = MoneyField(
         verbose_name=_("Amount"),
-        help_text=_("Please enter the amount of the receipt in US dollars."),
-        decimal_places=2, max_digits=8, default=Decimal("0.00"))
-    receipt_image = models.FileField(upload_to=user_directory_path)
+        help_text=_("Please enter the amount and currency on the receipt."),
+        max_digits=8,
+        decimal_places=2,
+        default_currency='USD',
+        default=Money(0, 'USD'),
+        blank=False,
+    )
+    date = models.DateField(
+        verbose_name=_("Date"),
+        help_text=_("Please enter the date on the reciept."),
+        default=None,
+        blank=False,
+    )
+    receipt_type = models.CharField(choices=RECEIPT_TYPE_CHOICES, blank=False, max_length=32, default='other')
+    receipt_image = models.FileField(upload_to=user_directory_path, blank=False)
     logged = models.BooleanField(blank=False, default=False)

@@ -4,7 +4,8 @@ from django.forms import Textarea, Select
 from django.utils.translation import ugettext_lazy as _
 
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, FinancialAidEmailTemplate, Receipt
+    FinancialAidReviewData, FinancialAidEmailTemplate, Receipt, \
+    RECEIPT_TYPE_CHOICES
 
 
 def validate_is_checked(value):
@@ -230,7 +231,21 @@ class BulkEmailForm(forms.Form):
     confirm = forms.BooleanField(required=False)
 
 
+RECEIPT_TYPE_CHOICES_EMPTY = [('', '------')] + list(RECEIPT_TYPE_CHOICES)
+
+
 class ReceiptForm(forms.ModelForm):
+    receipt_type = forms.ChoiceField(choices=RECEIPT_TYPE_CHOICES_EMPTY, required=True)
+
     class Meta:
         model = Receipt
-        fields = ["description", "amount", "receipt_image"]
+        fields = ["receipt_type", "date", "amount", "description", "receipt_image"]
+        help_texts = {'description': "Please enter a description of this receipt"}
+
+    def clean(self):
+        cleaned_data = super(ReceiptForm, self).clean()
+        receipt_type = cleaned_data.get("receipt_type")
+        description = cleaned_data.get("description")
+        if receipt_type == 'other' and not description:
+            msg = "Description must be provided for 'Other' receipts."
+            self.add_error("description", msg)

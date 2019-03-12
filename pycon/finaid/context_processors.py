@@ -15,7 +15,7 @@ def financial_aid(request):
         "show_finaid_status_button": application and application.show_status_button,
         "show_finaid_review_button": is_reviewer(request.user),
         "show_finaid_download_button": is_reviewer(request.user),
-        "show_finaid_receipt_form": offer_accepted(request.user) and False,
+        "show_finaid_receipt_form": offer_accepted(request.user),
         "show_finaid_withdraw_button": application and application.show_withdraw_button,
         "show_finaid_accept_button": application and application.show_accept_button,
         "show_finaid_decline_button": application and application.show_decline_button,

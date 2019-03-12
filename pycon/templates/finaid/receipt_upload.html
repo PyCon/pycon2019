@@ -7,48 +7,82 @@
 
 {% block body_id %}{% trans "receipt_upload" %}{% endblock %}
 
-{% block page_title %}{% trans "Receipt Application" %}{% endblock %}
+{% block page_title %}{% trans "Receipt Upload" %}{% endblock %}
+
+{% block extra_head %}
+<script>
+var datefield = document.createElement("input")
+
+datefield.setAttribute("type", "date")
+
+if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+    document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+    document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"><\/script>\n')
+}
+if (datefield.type != "date"){ //if browser doesn't support input type="date", initialize date picker widget:
+    $(document).ready(function() {
+        $('#id_date').datepicker();
+    });
+}
+</script>
+{% endblock %}
 
 {% block body %}
-    {% if form.errors %}
-        <div class="alert">
-            <p class="text-error">
-                {% trans "There were errors in your form, please correct them and submit again." %}
-            </p>
-        </div>
-    {% endif %}
+    <div class="container">
+    <div class="row">
 
     <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert">
+                <p class="text-error">
+                    {% trans "There were errors in your form, please correct them and submit again." %}
+                </p>
+            </div>
+        {% endif %}
         {% if form.errors and not form.non_field_errors %}
           <div class="alert alert-error">
             {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
           </div>
+        {% elif form.non_field_errors %}
+          <div class="alert alert-error">
+              {{ form.non_field_errors }}
+          </div>
         {% endif %}
 
+        <fieldset>
         {{ form|as_bootstrap }}
+        </fieldset>
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="Submit" />
         </div>
     </form>
+    </div>
 
-    <div>
+    <div class="row">
       <h3>{% trans "Your previously uploaded receipts:" %}</h3>
 
       <table class="table table-striped table-bordered table-finaid">
         <thead>
+          <th>{% trans "Type" %}<i class="icon-sort"></i></th>
+          <th>{% trans "Date" %}<i class="icon-sort"></i></th>
           <th>{% trans "Description " %}<i class="icon-sort"></i></th>
           <th>{% trans "Amount " %}<i class="icon-sort"></i></th>
+          <th></th>
         </thead>
 
         <tbody>
           {% for receipt in receipts %}
             <tr>
-              <td><a target="_blank" href="{{ receipt.receipt_image.url }}">{{ receipt.description }}</a></td>
+              <td>{{ receipt.receipt_type }}</td>
+              <td>{{ receipt.date }}</td>
+              <td>{{ receipt.description }}</td>
               <td>{{ receipt.amount }}</td>
+              <td><a target="_blank" href="{{ receipt.receipt_image.url }}">Receipt Image</td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
+    </div>
     </div>
 {% endblock %}
