@@ -56,7 +56,7 @@
     {% if proposal.abstract  %}
     <h3>{% trans "Abstract" %}</h3>
 
-    <div class="abstract">{{ proposal.abstract|bleach }}</div>
+    <div class="abstract">{{ proposal.abstract }}</div>
     {% endif %}
 
     {% if presentation.has_urls %}
