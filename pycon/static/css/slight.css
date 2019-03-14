@@ -1616,6 +1616,14 @@ td.slot-plenary {
 td.slot-charlas {
     background-image: url('../img/charlas.png');
 }
+td.slot-hatchery-maintainers-summit {
+    font-weight: bold;
+    background-color: #D0DF00;
+}
+td.slot-hatchery-mentored-sprints {
+    font-weight: bold;
+    background-color: #26D07C;
+}
 th,
 td.time {
     font-weight: 500;
