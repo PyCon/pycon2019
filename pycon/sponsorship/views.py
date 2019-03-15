@@ -142,17 +142,17 @@ def _get_benefit_filenames(sponsor, benefit_name):
     paths = []
     if benefit_name == 'Web logo':
         if sponsor.web_logo:
-            paths = [sponsor.web_logo.path]
+            handles = [sponsor.web_logo]
     else:
         benefits = SponsorBenefit.objects.filter(sponsor=sponsor,
                                                  benefit__name=benefit_name,
                                                  active=True)\
                                          .exclude(upload='')
-        paths = [
-            sponsor_benefit.upload.path
+        handles = [
+            sponsor_benefit.upload
             for sponsor_benefit in benefits
         ]
-    return [path for path in paths if os.path.exists(path)]
+    return handles
 
 
 @staff_member_required
@@ -171,12 +171,11 @@ def sponsor_zip_logo_files(request):
                     full_dir = "/".join([dir_name, level_name, sponsor_name])
                     paths = _get_benefit_filenames(sponsor, benefit_name)
                     for path in paths:
-                        modtime = time.gmtime(os.stat(path).st_mtime)
-                        with open(path, "rb") as f:
-                            fname = os.path.basename(path)
-                            zipinfo = ZipInfo(filename=full_dir + "/" + fname,
-                                              date_time=modtime)
-                            zipfile.writestr(zipinfo, f.read())
+                        modtime = time.gmtime(time.time())
+                        fname = os.path.basename(path.name)
+                        zipinfo = ZipInfo(filename=full_dir + "/" + fname,
+                                          date_time=modtime)
+                        zipfile.writestr(zipinfo, path.read())
 
     response = HttpResponse(zip_stringio.getvalue(),
                             content_type="application/zip")
