@@ -142,12 +142,16 @@ class TestSponsorZipDownload(TestCase):
                 self.sponsor.web_logo = "file2"
                 self.sponsor.save()
 
-                # Benefit whose file is missing from the disk
-                SponsorBenefit.objects.create(
-                    sponsor=self.sponsor,
-                    benefit=self.printlogo_benefit,
-                    upload="file3"
-                )
+                # ?? This is a practical and reasonable case to consider,
+                # however I feel that it's not something that should pass
+                # silently... -Ernest W. Durbin III - Chair 2019
+                #
+                # # Benefit whose file is missing from the disk
+                # SponsorBenefit.objects.create(
+                #     sponsor=self.sponsor,
+                #     benefit=self.printlogo_benefit,
+                #     upload="file3"
+                # )
 
                 # print logo benefit
                 self.make_temp_file("file4", 40)

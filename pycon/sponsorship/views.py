@@ -139,7 +139,7 @@ def _get_benefit_filenames(sponsor, benefit_name):
     Given a sponsor and one benefit name, return a list of the absolute
     paths of the files that exist for that sponsor's benefit of that name.
     """
-    paths = []
+    handles = []
     if benefit_name == 'Web logo':
         if sponsor.web_logo:
             handles = [sponsor.web_logo]
