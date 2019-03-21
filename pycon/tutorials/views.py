@@ -2,6 +2,8 @@ import logging
 
 from smtplib import SMTPException
 
+from account.models import EmailAddress
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -34,7 +36,7 @@ def tutorial_email(request, pk, pks):
     pks = pks.split(",")
     user_model = get_user_model()
     recipients = user_model.objects.filter(pk__in=pks)
-    emails = recipients.values_list('email', flat=True)
+    emails = EmailAddress.objects.filter(user__in=recipients).values_list('email', flat=True)
 
     from_speaker = False
     if hasattr(request.user, 'speaker_profile'):

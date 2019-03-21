@@ -3,6 +3,7 @@ import logging
 import re
 import requests
 
+from account.models import EmailAddress
 from django.contrib.auth import get_user_model
 from django.core.management.base import NoArgsCommand
 
@@ -112,6 +113,10 @@ class Command(NoArgsCommand):
                                                                user_id))
                     continue
                 else:
+                    user_emails = EmailAddress.objects.filter(user=user)
+                    if user_email.lower() not in [e.email.lower() for e in user_emails]:
+                        logger.debug("Adding missing email {} to user {}".format(user_email, user_id))
+                        new_email = EmailAddress.objects.create(user=user, email=user_email)
                     tutorial.registrants.add(user)
                     logger.debug(
                         "Successfully registered '{}[{}]' for '{}' "
