@@ -152,4 +152,7 @@ class UpdateTutorialRegistrantsTestCase(TestCase):
         emails2 = EmailAddress.objects.filter(user=u2)
 
         self.assertEqual(['John@doe.com'], [e.email for e in emails1])
-        self.assertEqual(['jane@doe.com', 'jane.doe@gmail.com'], [e.email for e in emails2])
+        self.assertEqual(
+            sorted(['jane@doe.com', 'jane.doe@gmail.com']),
+            sorted([e.email for e in emails2])
+        )
