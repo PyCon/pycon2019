@@ -165,7 +165,7 @@ def finaid_review(request, pks=None):
         elif 'status_action' in request.POST:
             # They want to change applications' statuses
             applications = FinancialAidApplication.objects.filter(pk__in=pk_list)\
-                .select_related('review')
+                .select_related('review', 'user').prefetch_related('messages')
             status = int(request.POST['status'])
             count = 0
             for application in applications:
@@ -188,7 +188,7 @@ def finaid_review(request, pks=None):
         pk_list = pks.split(",") if pks else []
 
     return render(request, "finaid/application_list.html", {
-        "applications": FinancialAidApplication.objects.all().select_related('review'),
+        "applications": FinancialAidApplication.objects.all().select_related('review', 'user').prefetch_related('messages'),
         "status_options": STATUS_CHOICES,
         "pks": [int(pk) for pk in pk_list],
     })
