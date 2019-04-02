@@ -1,4 +1,5 @@
 import csv
+import datetime
 import logging
 
 from smtplib import SMTPException
@@ -6,7 +7,7 @@ from smtplib import SMTPException
 import django
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mass_mail
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponse, HttpResponseForbidden
@@ -15,11 +16,16 @@ from django.template import Template, Context
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import View
 
+import requests
+
+from djmoney.money import Money
+
 from .forms import FinancialAidApplicationForm, MessageForm, \
     FinancialAidReviewForm, ReviewerMessageForm, BulkEmailForm, ReceiptForm, \
     FinancialAidAcceptOfferForm, SpeakerGrantRequestForm
 from .models import FinancialAidApplication, FinancialAidMessage, \
-    FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN
+    FinancialAidReviewData, STATUS_CHOICES, STATUS_WITHDRAWN, \
+    Receipt
 from pycon.finaid.models import STATUS_SUBMITTED, STATUS_OFFERED, STATUS_ACCEPTED, STATUS_DECLINED, \
     STATUS_NEED_MORE, STATUS_INFO_NEEDED, APPLICATION_TYPE_SPEAKER, PYTHON_EXPERIENCE_INTERMEDIATE
 from .utils import applications_open, email_context, \
@@ -792,3 +798,58 @@ def receipt_upload(request):
         'form': form,
         'receipts': receipts
     })
+
+@permission_required('finaid.can_review_receipts')
+def review_receipt(request, receipt_id=None):
+    receipt = Receipt.objects.get(pk=receipt_id)
+    if receipt.amount_currency != "USD":
+        if hasattr(settings, 'FIXER_ACCESS_KEY') and settings.FIXER_ACCESS_KEY is not None:
+            fixer_result = requests.get(
+                'https://data.fixer.io/api/convert?access_key={access_key}&from={base}&to=USD&amount={amount}'.format(
+                    access_key=settings.FIXER_ACCESS_KEY,
+                    date=receipt.date.strftime('%Y-%m-%d'),
+                    base=receipt.amount_currency,
+                    amount=receipt.amount.amount
+                )
+            ).json()
+            usd_amount = Money(fixer_result['result'], 'USD')
+        else:
+            usd_amount = "Fixer API access not configured."
+    else:
+        usd_amount = receipt.amount
+    return render(request, "finaid/receipt_review.html", {"receipt": receipt, "usd_amount": usd_amount})
+
+@permission_required('finaid.can_review_receipts')
+def review_receipts(request):
+    random_receipt = Receipt.objects.filter(approved=False, flagged=False, logged=False).order_by('?').first()
+    if random_receipt:
+        return redirect("receipt_review", receipt_id=random_receipt.id)
+    messages.add_message(request, messages.INFO, 'All receipts reviewed! Check back later!')
+    return redirect("dashboard")
+
+
+@permission_required('finaid.can_review_receipts')
+def approve_receipt(request, receipt_id=None):
+    receipt = Receipt.objects.get(pk=receipt_id)
+    if receipt.status != 'pending':
+        messages.add_message(request, messages.INFO, 'Receipt already reviewed')
+    else:
+        receipt.approved = True
+        receipt.approved_at = datetime.datetime.now()
+        receipt.approved_by = request.user
+        receipt.save()
+    return redirect("receipts_review")
+
+
+@permission_required('finaid.can_review_receipts')
+def flag_receipt(request, receipt_id=None):
+    receipt = Receipt.objects.get(pk=receipt_id)
+    if receipt.status != 'pending':
+        messages.add_message(request, messages.INFO, 'Receipt already reviewed')
+    else:
+        receipt.flagged = True
+        receipt.flagged_at = datetime.datetime.now()
+        receipt.flagged_by = request.user
+        receipt.flagged_reason = request.POST.get('flagged_reason', '')
+        receipt.save()
+    return redirect("receipts_review")

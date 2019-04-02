@@ -4,7 +4,8 @@ from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
     finaid_review_detail, finaid_status, finaid_download_csv, \
     phyllis_finaid_download_csv, speaker_grant_edit, \
     receipt_upload, FinaidAcceptView, FinaidDeclineView, \
-    FinaidProvideInfoView, FinaidWithdrawView, FinaidRequestMoreView
+    FinaidProvideInfoView, FinaidWithdrawView, FinaidRequestMoreView, \
+    review_receipts, review_receipt, approve_receipt, flag_receipt
 
 
 urlpatterns = [
@@ -27,5 +28,9 @@ urlpatterns = [
     url(r"^download/$", finaid_download_csv, name="finaid_download_csv"),
     url(r"^phyllis_download/$", phyllis_finaid_download_csv, name="phyllis_finaid_download_csv"),
     url(r"^receipt_upload/$", receipt_upload, name="receipt_upload"),
+    url(r"^receipt_review/$", review_receipts, name="receipts_review"),
+    url(r"^receipt_review/(?P<receipt_id>[0-9,]+)/$", review_receipt, name="receipt_review"),
+    url(r"^receipt_review/(?P<receipt_id>[0-9,]+)/approve/$", approve_receipt, name="approve_receipt"),
+    url(r"^receipt_review/(?P<receipt_id>[0-9,]+)/flag/$", flag_receipt, name="flag_receipt"),
 
 ]

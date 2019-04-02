@@ -387,3 +387,6 @@ THUMBNAIL_ALIASES = {
         'speaker_profile': {'size': (128, 128)},
     }
 }
+
+# fixer.io, currency conversion
+FIXER_ACCESS_KEY = os.environ.get('FIXER_ACCESS_KEY')

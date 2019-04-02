@@ -331,6 +331,9 @@ RECEIPT_TYPE_CHOICES = (
 
 
 class Receipt(models.Model):
+    class Meta:
+        permissions = (("can_review_receipts", "Review, Approve, and Flag Receipts"),)
+
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     application = models.ForeignKey(FinancialAidApplication,
                                     related_name="receipts")
@@ -356,3 +359,18 @@ class Receipt(models.Model):
     receipt_type = models.CharField(choices=RECEIPT_TYPE_CHOICES, blank=False, max_length=32, default='other')
     receipt_image = models.FileField(upload_to=user_directory_path, blank=False)
     logged = models.BooleanField(blank=False, default=False)
+    approved = models.BooleanField(blank=False, default=False)
+    approved_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="approved_finaid_receipts", null=True)
+    approved_at = models.DateTimeField(blank=True, null=True, default=None)
+    flagged = models.BooleanField(blank=False, default=False)
+    flagged_reason = models.CharField(max_length=1024, blank=True, null=True, default=None)
+    flagged_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="flagged_finaid_receipts", null=True)
+    flagged_at = models.DateTimeField(blank=True, null=True, default=None)
+
+    @property
+    def status(self):
+        if self.approved:
+            return 'approved'
+        if self.flagged:
+            return 'needs attention'
+        return 'pending'
