@@ -799,7 +799,7 @@ def receipt_upload(request):
         'receipts': receipts
     })
 
-@permission_required('finaid.can_review_receipts')
+@permission_required('finaid.can_review_receipts', raise_exception=True)
 def review_receipt(request, receipt_id=None):
     receipt = Receipt.objects.get(pk=receipt_id)
     if receipt.amount_currency != "USD":
@@ -819,7 +819,7 @@ def review_receipt(request, receipt_id=None):
         usd_amount = receipt.amount
     return render(request, "finaid/receipt_review.html", {"receipt": receipt, "usd_amount": usd_amount})
 
-@permission_required('finaid.can_review_receipts')
+@permission_required('finaid.can_review_receipts', raise_exception=True)
 def review_receipts(request):
     random_receipt = Receipt.objects.filter(approved=False, flagged=False, logged=False).order_by('?').first()
     if random_receipt:
@@ -828,7 +828,7 @@ def review_receipts(request):
     return redirect("dashboard")
 
 
-@permission_required('finaid.can_review_receipts')
+@permission_required('finaid.can_review_receipts', raise_exception=True)
 def approve_receipt(request, receipt_id=None):
     receipt = Receipt.objects.get(pk=receipt_id)
     if receipt.status != 'pending':
@@ -841,7 +841,7 @@ def approve_receipt(request, receipt_id=None):
     return redirect("receipts_review")
 
 
-@permission_required('finaid.can_review_receipts')
+@permission_required('finaid.can_review_receipts', raise_exception=True)
 def flag_receipt(request, receipt_id=None):
     receipt = Receipt.objects.get(pk=receipt_id)
     if receipt.status != 'pending':
