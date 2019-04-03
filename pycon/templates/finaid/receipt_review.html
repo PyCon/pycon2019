@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+      .row {
+        display: flex;
+      }
+      .column {
+        flex: 50%;
+      }
+
+      table {
+        margin: 0 auto;
+      }
+
+      table {
+        color: #333;
+        background: white;
+        border: 1px solid grey;
+        font-size: 12pt;
+        border-collapse: collapse;
+      }
+      table thead th,
+      table tfoot th {
+        color: #777;
+        background: rgba(0,0,0,.1);
+      }
+      table caption {
+        padding:.5em;
+      }
+      table th,
+      table td {
+        padding: .5em;
+        border: 1px solid lightgrey;
+      }
+      .btn {
+        font-size: 1em;
+      }
+      .btn.approve {
+        background-color: green;
+      }
+      .btn.flag {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="column">
+        {% ifequal receipt.receipt_image.url|default:""|slice:"-4:" ".pdf" %}
+        <embed src="{{ receipt.receipt_image.url }}" width="100%" height="100%" type="application/pdf">
+        {% else %}
+        <img src="{{ receipt.receipt_image.url }}" width="100%"></img>
+        {% endifequal %}
+      </div>
+      <div class="column">
+        <div class="row details">
+          <table>
+            <tr><td>Applicant</td><td>{{ receipt.application.user.last_name }}, {{ receipt.application.user.first_name }}</td></tr>
+            <tr><td>Applicant E-mail</td><td>{{ receipt.application.user.email }}</td></tr>
+            <tr><td>Submitted</td><td>{{ receipt.timestamp|date:"Y-m-d" }}</td></tr>
+            <tr><td>Receipt Amount ({{ receipt.amount_currency }})</td><td>{{ receipt.amount }}</td></tr>
+            <tr><td>Receipt Amount (USD as of {{ receipt.date|date:"Y-m-d" }})</td><td>{{ usd_amount }}</td></tr>
+            <tr><td>Receipt Date</td><td>{{ receipt.date|date:"Y-m-d" }}</td></tr>
+            <tr><td>Receipt Type</td><td>{{ receipt.receipt_type }}</td></tr>
+          </table>
+        </div>
+        <div style="padding-left: 2em; padding-top: 2em;" class="row controls">
+          <div style="" class="column">
+            <form action="approve/" method="POST">
+              {% csrf_token %}
+              <button class="btn approve"><i class="fas fa-check"></i> Approve</button>
+            </form>
+            <form action="flag/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="flagged_reason"></input>
+                <button class="btn flag"><i class="fas fa-flag"></i> Flag</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
