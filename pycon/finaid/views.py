@@ -16,8 +16,6 @@ from django.template import Template, Context
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import View
 
-import requests
-
 from djmoney.money import Money
 
 from .forms import FinancialAidApplicationForm, MessageForm, \
@@ -803,18 +801,10 @@ def receipt_upload(request):
 def review_receipt(request, receipt_id=None):
     receipt = Receipt.objects.get(pk=receipt_id)
     if receipt.amount_currency != "USD":
-        if hasattr(settings, 'FIXER_ACCESS_KEY') and settings.FIXER_ACCESS_KEY is not None:
-            fixer_result = requests.get(
-                'https://data.fixer.io/api/convert?access_key={access_key}&from={base}&to=USD&amount={amount}'.format(
-                    access_key=settings.FIXER_ACCESS_KEY,
-                    date=receipt.date.strftime('%Y-%m-%d'),
-                    base=receipt.amount_currency,
-                    amount=receipt.amount.amount
-                )
-            ).json()
-            usd_amount = Money(fixer_result['result'], 'USD')
-        else:
-            usd_amount = "Fixer API access not configured."
+        receipt.convert()
+        usd_amount = receipt.usd_amount
+        if usd_amount is None:
+            usd_amount = "Conversion not available."
     else:
         usd_amount = receipt.amount
     return render(request, "finaid/receipt_review.html", {"receipt": receipt, "usd_amount": usd_amount})

@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+import requests
+
 from djmoney.models.fields import MoneyField
 from djmoney.money import Money
 
@@ -350,6 +352,16 @@ class Receipt(models.Model):
         default=Money(0, 'USD'),
         blank=False,
     )
+    usd_amount = MoneyField(
+        verbose_name=_("USD Amount"),
+        help_text=_("Amount in USD, Automatically converted based on receipt date, do not modify"),
+        max_digits=8,
+        decimal_places=2,
+        default_currency='USD',
+        default=None,
+        blank=True,
+        null=True,
+    )
     date = models.DateField(
         verbose_name=_("Date"),
         help_text=_("Please enter the date on the reciept."),
@@ -366,6 +378,21 @@ class Receipt(models.Model):
     flagged_reason = models.CharField(max_length=1024, blank=True, null=True, default=None)
     flagged_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="flagged_finaid_receipts", null=True)
     flagged_at = models.DateTimeField(blank=True, null=True, default=None)
+
+    def convert(self):
+        if self.usd_amount is not None:
+            return self.usd_amount
+        if hasattr(settings, 'FIXER_ACCESS_KEY') and settings.FIXER_ACCESS_KEY is not None:
+            fixer_result = requests.get(
+                'https://data.fixer.io/api/convert?access_key={access_key}&from={base}&to=USD&amount={amount}'.format(
+                    access_key=settings.FIXER_ACCESS_KEY,
+                    date=self.date.strftime('%Y-%m-%d'),
+                    base=self.amount_currency,
+                    amount=self.amount.amount
+                )
+            ).json()
+            self.usd_amount = Money(fixer_result['result'], 'USD')
+            return self.usd_amount
 
     @property
     def status(self):
