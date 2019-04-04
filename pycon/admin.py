@@ -7,7 +7,8 @@ from pycon.models import (PyConProposalCategory, PyConSponsorTutorialProposal,
                           PyConTalkProposal, PyConTutorialProposal,
                           PyConPosterProposal, PyConLightningTalkProposal,
                           PyConOpenSpaceProposal, ScheduledEvent, EduSummitTalkProposal,
-                          PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer)
+                          PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer,
+                          SecureSubmission)
 
 
 class ProposalMarkEditAdmin(MarkEditAdmin):
@@ -191,6 +192,20 @@ class RoomSharingRequestAdmin(admin.ModelAdmin):
     def approve(self, request, queryset):
         queryset.update(approved=True)
 
+class SecureSubmissionAdmin(admin.ModelAdmin):
+    def attachment_link(self, obj):
+        if obj.file_attachment:
+            return u"<a href='{attachment_url}'>{attachment_name}</a>".format(attachment_url=obj.attachment_url, attachment_name=obj.file_attachment_name)
+        return None
+    attachment_link.short_description = 'Attachment Link'
+    attachment_link.allow_tags = True
+
+    exclude = ('file_attachment', 'file_attachment_name', 'file_attachment_content_type')
+    list_display = ('user', 'timestamp', 'logged', 'submission_type', 'attachment_link')
+    list_filter = ('logged', 'submission_type')
+    search_fields = ('user__first_name', 'user__last_name')
+    readonly_fields = ('attachment_link',)
+
 
 admin.site.register(PyConProposalCategory)
 admin.site.register(PyConTalkProposal, TalkAdmin)
@@ -204,6 +219,7 @@ admin.site.register(ScheduledEvent, ScheduledEventAdmin)
 admin.site.register(PyConStartupRowApplication, StartupRowApplicationAdmin)
 admin.site.register(PyConRoomSharingOffer, RoomSharingOfferAdmin)
 admin.site.register(PyConRoomSharingRequest, RoomSharingRequestAdmin)
+admin.site.register(SecureSubmission, SecureSubmissionAdmin)
 
 
 from account.models import Account, EmailAddress

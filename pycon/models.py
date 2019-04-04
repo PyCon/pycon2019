@@ -7,12 +7,23 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
+from django_cryptography.fields import encrypt
+
 from easy_thumbnails.signals import saved_file
 
 from pycon import tasks
 
 from symposion.proposals.kinds import register_proposal_model
 from symposion.proposals.models import ProposalBase
+
+SECURE_SUBMISSION_TYPE_FINAID_REIMBURSE_DETAILS = 1
+SECURE_SUBMISSION_TYPE_TUTORIAL_PAYMENT_DETAILS = 2
+SECURE_SUBMISSION_TYPE_TUTORIAL_TAX_FORM = 3
+SECURE_SUBMISSION_TYPE_CHOICES = (
+    (SECURE_SUBMISSION_TYPE_FINAID_REIMBURSE_DETAILS, _(u"Financial Aid Recipient - Reimbursement Method Details (Bank, ACH, PayPal, or similar)")),
+    (SECURE_SUBMISSION_TYPE_TUTORIAL_PAYMENT_DETAILS, _(u"Tutorial Presenter - Payment Details (Bank, ACH, PayPal, or similar)")),
+    (SECURE_SUBMISSION_TYPE_TUTORIAL_TAX_FORM, _(u"Tutorial Presenter - Tax Form (W-9, W-8, or similar form)")),
+)
 
 
 def strip(text):
@@ -424,3 +435,25 @@ class PyConRoomSharingRequest(models.Model):
     contact_info = models.CharField(max_length=128)
     additional_info = models.CharField(max_length=512)
     approved = models.BooleanField(default=True)
+
+class SecureSubmission(models.Model):
+    class Meta:
+        permissions = (("can_view_secure_submissions", "View Secure Submissions"),)
+
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="secure_submissions", null=False)
+    submission_type = models.IntegerField(
+        choices=SECURE_SUBMISSION_TYPE_CHOICES,
+        verbose_name="Submission Type",
+        blank=False, null=False,
+    )
+    description = models.CharField(max_length=1024, blank=False, null=False, default='No description provided')
+    message = encrypt(models.TextField(blank=True, null=True, default=None))
+    file_attachment = encrypt(models.BinaryField(blank=True, null=True, default=None))
+    file_attachment_name = models.CharField(max_length=2048, blank=True, null=True, default=None)
+    file_attachment_content_type = models.CharField(max_length=2048, blank=True, null=True, default=None)
+    logged = models.BooleanField(default=False, null=False, blank=True)
+
+    @property
+    def attachment_url(self):
+        return reverse('secure_submission_file_retrieval', kwargs={'secure_submission_id': self.id})
