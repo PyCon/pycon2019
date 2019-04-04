@@ -5,7 +5,7 @@ from uuid import uuid4
 from zipfile import ZipFile
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, render, redirect
 from django.template import RequestContext
@@ -13,8 +13,8 @@ from django.template import RequestContext
 from symposion.schedule.views import fetch_schedule
 from symposion.schedule.models import Presentation
 
-from pycon.models import ScheduledEvent, PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer, EduSummitTalkProposal
-from pycon.forms import PyConStartupRowApplicationForm, PyConRoomSharingRequestForm, PyConRoomSharingOfferForm
+from pycon.models import ScheduledEvent, PyConStartupRowApplication, PyConRoomSharingRequest, PyConRoomSharingOffer, EduSummitTalkProposal, SecureSubmission
+from pycon.forms import PyConStartupRowApplicationForm, PyConRoomSharingRequestForm, PyConRoomSharingOfferForm, SecureSubmissionForm
 from pycon.program_export import export
 
 
@@ -179,3 +179,40 @@ def edu_summit_mini_sprints(request):
         "presentations": presentations,
     }
     return render(request, "schedule/schedule_list_edusummits_mini_sprints.html", ctx)
+
+@login_required
+def secure_submission(request):
+    if request.method == 'POST':
+        form = SecureSubmissionForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.instance.user = request.user
+
+            if form.cleaned_data['file_attachment']:
+                form.instance.file_attachment_name = form.cleaned_data['file_attachment'].name
+                form.instance.file_attachment_content_type = form.cleaned_data['file_attachment'].content_type
+                form.instance.file_attachment = form.cleaned_data['file_attachment'].read()
+
+            if form.cleaned_data['description'] == '':
+                form.instance.description = None
+
+            form.save()
+
+            # Display a message to user
+            messages.add_message(request, messages.INFO,
+                                 "Secure Submission Accepted")
+            return redirect("dashboard")
+
+    else:
+        form = SecureSubmissionForm()
+
+    return render(request, "secure_submission.html", {
+        'form': form,
+    })
+
+@permission_required('can_view_secure_submissions', raise_exception=True)
+def secure_submission_file_retrieval(request, secure_submission_id):
+    secure_submission = SecureSubmission.objects.get(pk=secure_submission_id)
+    response = HttpResponse(secure_submission.file_attachment, content_type=secure_submission.file_attachment_content_type)
+    response['Content-Disposition'] = 'attachment; filename={}'.format(secure_submission.file_attachment_name)
+    return response

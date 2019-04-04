@@ -1,0 +1,45 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Secure Submission "%}{% endblock %}
+
+{% block body_id %}{% trans "receipt_upload" %}{% endblock %}
+
+{% block page_title %}{% trans "Secure Submission" %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert">
+                <p class="text-error">
+                    {% trans "There were errors in your form, please correct them and submit again." %}
+                </p>
+            </div>
+        {% endif %}
+        {% if form.errors and not form.non_field_errors %}
+          <div class="alert alert-error">
+            {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+          </div>
+        {% elif form.non_field_errors %}
+          <div class="alert alert-error">
+              {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <fieldset>
+        {{ form|as_bootstrap }}
+        </fieldset>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+    </form>
+    </div>
+
+    </div>
+{% endblock %}

@@ -12,7 +12,8 @@ from .models import (PyConProposalCategory, PyConTalkProposal,
                      PyConSponsorTutorialProposal, PyConOpenSpaceProposal,
                      EduSummitTalkProposal, PyConProposal,
                      PyConStartupRowApplication,
-                     PyConRoomSharingOffer, PyConRoomSharingRequest)
+                     PyConRoomSharingOffer, PyConRoomSharingRequest,
+                     SecureSubmission, SECURE_SUBMISSION_TYPE_CHOICES)
 
 
 def strip(text):
@@ -544,3 +545,17 @@ class PyConRoomSharingRequestForm(forms.ModelForm):
         if commit:
             obj.save()
         return obj
+
+SECURE_SUBMISSION_TYPE_CHOICES_EMPTY = [('', '--------')] + list(SECURE_SUBMISSION_TYPE_CHOICES)
+
+class SecureSubmissionForm(forms.ModelForm):
+    submission_type = forms.ChoiceField(choices=SECURE_SUBMISSION_TYPE_CHOICES_EMPTY, required=True, help_text="Required: Type of submission")
+    description = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Description of message or file, **WILL NOT BE ENCRYPTED**'}), help_text="Required: Brief description of what is being submitted, Plaintext. **Do Not Include Sensitive Information**")
+    file_attachment = forms.FileField(required=False, help_text="File to submit, will be stored encrypted")
+
+    class Meta:
+        model = SecureSubmission
+        fields = ["submission_type", "description", "message", "file_attachment"]
+        help_texts = {
+            "message": "Message containing your information, will be stored encrypted",
+        }
