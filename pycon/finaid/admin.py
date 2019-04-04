@@ -17,6 +17,7 @@ class ReceiptAdmin(admin.ModelAdmin):
     list_display = ('timestamp', application__user, 'amount', 'receipt_image', 'approved', 'flagged', 'logged')
     list_filter = ('logged', 'approved', 'flagged', )
     search_fields = ('application__user__first_name', 'application__user__last_name', 'application__user__email')
+    readonly_fields = ('approved_by', 'flagged_by')
 
 
 def user(obj):
