@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from pycon.schedule.models import Session, SessionRole
+from pycon.schedule.models import Session, SessionRole, SlidesUpload
 
 
 class SessionAdmin(admin.ModelAdmin):
@@ -20,5 +20,11 @@ class SessionRoleAdmin(admin.ModelAdmin):
         return super(SessionRoleAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
+class SliesUploadAdmin(admin.ModelAdmin):
+
+    list_display = ['presentation', 'slides']
+
+
 admin.site.register(Session, SessionAdmin)
 admin.site.register(SessionRole, SessionRoleAdmin)
+admin.site.register(SlidesUpload, SliesUploadAdmin)

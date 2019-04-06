@@ -1,10 +1,11 @@
+import os
 from datetime import datetime
 
 from django.db import models
 
 from django.contrib.auth.models import User
 
-from symposion.schedule.models import Day, Slot
+from symposion.schedule.models import Day, Slot, Presentation
 
 
 class Session(models.Model):
@@ -61,3 +62,22 @@ class SessionRole(models.Model):
     def __unicode__(self):
         return u"%s %s: %s" % (self.user, self.session,
                                self.SESSION_ROLE_TYPES[self.role-1][1])
+
+
+def get_presentation_upload_path(instance, filename):
+    return os.path.join(
+        "presentation_slides/{}/{}".format(
+            instance.presentation.id,
+            datetime.now().isoformat()
+        )
+    )
+
+
+class SlidesUpload(models.Model):
+    presentation = models.ForeignKey(Presentation)
+    slides = models.FileField(
+        "PDF export of your slides",
+        blank=False,
+        null=False,
+        upload_to=get_presentation_upload_path,
+    )
