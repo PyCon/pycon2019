@@ -66,9 +66,10 @@ class SessionRole(models.Model):
 
 def get_presentation_upload_path(instance, filename):
     return os.path.join(
-        "presentation_slides/{}/{}".format(
+        "presentation_slides/{}/{}/{}".format(
             instance.presentation.id,
-            datetime.now().isoformat()
+            datetime.now().isoformat(),
+            filename
         )
     )
 

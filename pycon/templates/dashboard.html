@@ -218,6 +218,7 @@
                                                 <th>{% trans "Session Type" %}</th>
                                                 <th>{% trans "Title" %}</th>
                                                 <th>{% trans "Slot" %}</th>
+                                                <th>{% trans "Slides" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -226,6 +227,7 @@
                                                     <td>{{ presentation.section.name }}</td>
                                                     <td><a href="{% url 'schedule_presentation_detail' presentation.id %}">{{ presentation.title }}</a></td>
                                                     <td>{{ presentation.slot.day }}, {{ presentation.slot.start }} – {{ presentation.slot.end }}</td>
+                                                    <td><a href="{% url 'pycon_schedule_slides_upload' presentation.id %}">Upload Slides</a></td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
