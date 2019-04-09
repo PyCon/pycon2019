@@ -146,9 +146,9 @@ class Sponsor(models.Model):
     expo_promo_codes = models.CharField(max_length=200, blank=True, default='')
     additional_discounted_registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
     a_la_carte_registration_promo_codes = models.CharField(max_length=200, blank=True, default='')
-    booth_number = models.IntegerField(blank=True, null=True, default=None)
+    booth_number = models.CharField(max_length=5, blank=True, null=True, default=None)
     job_fair_participant = models.BooleanField(default=False)
-    job_fair_table_number = models.IntegerField(blank=True, null=True, default=None)
+    job_fair_table_number = models.CharField(max_length=5, blank=True, null=True, default=None)
 
     web_description = models.TextField(
         _(u"Company description (to show on the web site)"),
