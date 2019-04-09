@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .models import Session, SessionRole
+from .models import Session, SessionRole, Presentation
+from .forms import SlidesUploadForm
 from pycon.pycon_api.decorators import api_view
 from symposion.schedule.models import Slot
 
@@ -155,3 +157,22 @@ def session_staff_json(request):
             data.append(item)
 
     return (data, 200)
+
+
+@login_required
+def slides_upload(request, presentation_id):
+    presentation = Presentation.objects.get(pk=presentation_id)
+    if request.user.speaker_profile != presentation.speaker and user.speaker not in presentation.additional_speakers:
+        messages.add_message(request, messages.ERROR, "You are not a presenter for that presentation!")
+        return redirect("dashboard")
+
+    if request.method == 'POST':
+        form = SlidesUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.presentation = presentation
+            form.save()
+            messages.add_message(request, messages.INFO, "Thank you for uploading your slides!")
+            return redirect("dashboard")
+    else:
+        form = SlidesUploadForm()
+        return render(request, "pycon/schedule/slides_upload.html", {'form': form, 'presentation': presentation})
