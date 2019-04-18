@@ -1,0 +1,34 @@
+{% extends 'finaid/base.html' %}
+{% load bootstrap_tags %}
+
+{% load i18n %}
+{% block body %}
+  <br>
+  {% if form %}
+  {% if form.errors %}
+  <div class="alert">
+      <p class="text-error">
+          {% trans "There were errors in your form, please correct them and submit again." %}
+      </p>
+  </div>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset>
+    {{ form|as_bootstrap }}
+    <div class="form-actions">
+      <p><strong>{{ message }}</strong></p>
+      <button class="btn btn-primary" style="width: 5em;" type="submit">{% trans "Save" %}</button>
+    </div>
+    </fieldset>
+  </form>
+  <div style="text-align: center; margin: 0; padding: 0;">
+  </div>
+  {% else %}
+  <form method="POST">
+    {% csrf_token %}
+    <p>{{ message }}</p>
+    <button class="btn btn-primary" style="width: 5em;" type="submit">{% trans "Save" %}</button>
+  </form>
+  {% endif %}
+{% endblock body %}

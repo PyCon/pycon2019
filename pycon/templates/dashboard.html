@@ -309,6 +309,12 @@
                              <span class="widget-label">Upload Receipt</span>
                            </a>
                            {% endif %}
+                           {% if show_finaid_reimbursement_update %}
+                           <a href="{% url 'finaid_details' %}" class="btn">
+                             <i class="widget-icon icon-money"></i>
+                             <span class="widget-label">Update Reimbursement Details</span>
+                           </a>
+                           {% endif %}
                         {% else %}
                            {% if request.user.financial_aid.review and show_finaid_accept_button %}
                            <ul>
@@ -371,6 +377,12 @@
                            <a href="{% url 'receipt_upload' %}" class="btn">
                              <i class="widget-icon icon-money"></i>
                              <span class="widget-label">Upload Receipt</span>
+                           </a>
+                           {% endif %}
+                           {% if show_finaid_reimbursement_update %}
+                           <a href="{% url 'finaid_details' %}" class="btn">
+                             <i class="widget-icon icon-money"></i>
+                             <span class="widget-label">Update Reimbursement Details</span>
                            </a>
                            {% endif %}
                       {% endif %}

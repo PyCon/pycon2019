@@ -3,7 +3,7 @@ from django.conf.urls import url
 from .views import finaid_edit, finaid_email, finaid_message, finaid_review, \
     finaid_review_detail, finaid_status, finaid_download_csv, \
     phyllis_finaid_download_csv, speaker_grant_edit, \
-    receipt_upload, FinaidAcceptView, FinaidDeclineView, \
+    receipt_upload, FinaidAcceptView, FinaidDeclineView, FinaidDetailsView, \
     FinaidProvideInfoView, FinaidWithdrawView, FinaidRequestMoreView, \
     review_receipts, review_receipt, approve_receipt, flag_receipt
 
@@ -17,6 +17,7 @@ urlpatterns = [
     url(r"^withdraw/$", FinaidWithdrawView.as_view(), name="finaid_withdraw"),
     url(r"^decline/$", FinaidDeclineView.as_view(), name="finaid_decline"),
     url(r"^accept/$", FinaidAcceptView.as_view(), name="finaid_accept"),
+    url(r"^update_details/$", FinaidDetailsView.as_view(), name="finaid_details"),
     url(r"^request_more/$", FinaidRequestMoreView.as_view(), name="finaid_request_more"),
     url(r"^review/$", finaid_review, name="finaid_review"),
     url(r"^review/(?P<pks>[0-9,]+)/$", finaid_review, name="finaid_review"),

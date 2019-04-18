@@ -520,6 +520,45 @@ class AcceptDeclineWithdrawViewBase(LoginRequiredMixin, View):
         return redirect("dashboard")
 
 
+class FinaidDetailsView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        application = request.user.financial_aid
+        form_to_render = FinancialAidAcceptOfferForm
+        form = form_to_render(
+            request.POST or None,
+            instance=application.review,
+        )
+        return render(request, "finaid/update_details.html", {
+            'form': form,
+            'application': application,
+        })
+
+    def post(self, request, *args, **kwargs):
+        application = request.user.financial_aid
+
+        form_to_render = FinancialAidAcceptOfferForm
+        if application.review.amount > 0:
+            form = form_to_render(
+                request.POST or None,
+                instance=application.review,
+            )
+            if form.is_valid():
+                application.review.save()
+            else:
+                return render(request, "finaid/update_details.html", {
+                    'form': form,
+                    'application': application,
+                })
+
+        try:
+            application.review
+        except FinancialAidReviewData.DoesNotExist:
+            FinancialAidReviewData(application=application)
+
+        application.save()
+        messages.info(request, "Reimbursement Details Updated!")
+        return redirect("dashboard")
+
 class FinaidAcceptView(AcceptDeclineWithdrawViewBase):
     confirmation_message = _("Do you want to accept the offer?")
     new_status = STATUS_ACCEPTED
