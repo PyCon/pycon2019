@@ -22,7 +22,7 @@ def financial_aid(request):
         "show_finaid_decline_button": application and application.show_decline_button,
         "show_finaid_request_more_button": application and application.show_request_more_button,
         "show_finaid_provide_info_button": application and application.show_provide_info_button,
-        "show_finaid_reimbursement_update": application and application.review and application.review.amount > 0,
+        "show_finaid_reimbursement_update": application and application.show_update_reimbursement_details_button,
     }
 
     ctx["show_financial_aid_section"] = \

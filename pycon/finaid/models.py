@@ -223,6 +223,15 @@ class FinancialAidApplication(models.Model):
     def show_provide_info_button(self):
         return self.status == STATUS_INFO_NEEDED
 
+    @property
+    def show_update_reimbursement_details_button(self):
+        try:
+            review = self.review
+        except FinancialAidReviewData.DoesNotExist:
+            return False
+
+        return self.review and self.review.amount > 0
+
 
 class FinancialAidMessage(models.Model):
     """Message attached to a financial aid application."""
