@@ -12,6 +12,23 @@
 {% block body %}
     <div class="container">
     <h2>Slide Download for Captioner Review.</h2>
+    {% for day, rooms in grouped_slides.items %}
 
+        <h3>{{ day|date:"D, d, M, Y"  }}</h3>
+
+         {% for room, slides in rooms %}
+             <h4>{{ room }}</h4>
+
+             <table class="table">
+                 {% for slide in slides %}
+                     <tr>
+                         <td>Start Time: {{ slide.presentation.slot.start }}</td>
+                         <td>Presentation Title: {{ slide.presentation.title }}</td>
+                         <td><a href='{{ slide.url }}'>Download slides</a></td>
+                     </tr>
+                 {%  endfor %}
+             </table>
+         {%  endfor %}
+    {% endfor %}
     </div>
 {% endblock %}
