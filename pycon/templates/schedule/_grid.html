@@ -28,7 +28,7 @@
                                 <!-- <span class="audience_level">
                                     {{ slot.content.proposal.get_audience_level_display }}
                                 </span> -->
-                                {% if user.is_authenticated %}
+                                {% if user.is_authenticated and slot.sessions.first.needs_volunteers %}
                                 <div class="badges">
                                     {% for session in slot.sessions.all %}
                                         <a href="{% url 'schedule_session_detail' session.id %}" class="btn btn-mini" style="padding: 0px; margin-top: 10px;" title="Volunteer!"><i class="fas fa-user-plus"></i></a>
