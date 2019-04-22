@@ -40,14 +40,9 @@ class Session(models.Model):
 
     @property
     def needs_volunteers(self):
-        has_chair = False
-        has_runner = False
-        for role in self.session_roles.all():
-            if not has_chair:
-                has_chair = (role.role == 1)
-            if not has_runner:
-                has_runner = (role.role == 2)
-        return not (has_chair and has_runner)
+        chair = SessionRole.objects.filter(session=self, role=SessionRole.SESSION_ROLE_CHAIR).exclude(status=False)
+        runner = SessionRole.objects.filter(session=self, role=SessionRole.SESSION_ROLE_RUNNER).exclude(status=False)
+        return not (chair and runner)
 
 class SessionRole(models.Model):
 
@@ -59,7 +54,7 @@ class SessionRole(models.Model):
         (SESSION_ROLE_RUNNER, "Session Runner"),
     ]
 
-    session = models.ForeignKey(Session, related_name="session_roles")
+    session = models.ForeignKey(Session)
     user = models.ForeignKey(User)
     role = models.IntegerField(choices=SESSION_ROLE_TYPES)
     status = models.NullBooleanField()

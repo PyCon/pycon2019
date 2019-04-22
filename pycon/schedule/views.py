@@ -137,7 +137,7 @@ def session_staff_json(request):
             item = {
                 'conf_key': slot.pk
             }
-            roles = session.session_roles.exclude(status=False)
+            roles = session.sessionrole_set.exclude(status=False)
 
             chair = roles.filter(role=SessionRole.SESSION_ROLE_CHAIR).first()
             if chair:
