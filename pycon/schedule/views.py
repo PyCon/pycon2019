@@ -1,11 +1,12 @@
 from collections import Callable, OrderedDict
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 
 from .models import Session, SessionRole, Presentation, SlidesUpload
 from .forms import SlidesUploadForm
@@ -180,8 +181,12 @@ def slides_upload(request, presentation_id):
         return render(request, "pycon/schedule/slides_upload.html", {'form': form, 'presentation': presentation})
 
 
+@login_required
 def slides_download(request):
     """Build the slides download page for the captioners."""
+
+    if not request.user.groups.filter(name='captioners').exists():
+        return render(request, "pycon/schedule/slides_download.html", context={'not_permitted': True})
 
     available_slides = SlidesUpload.objects.order_by(
         'presentation__slot__start',
