@@ -183,14 +183,22 @@ def slides_upload(request, presentation_id):
 def slides_download(request):
     """Build the slides download page for the captioners."""
 
-    available_slides = SlidesUpload.objects.order_by('presentation__slot__day__date', 'presentation__slot__start')
+    available_slides = SlidesUpload.objects.order_by(
+        'presentation__slot__start',
+        'presentation__slot__day__date',
+        )
+
     # Django ORM does ordering but not grouping, so build the nested display
     # order the hard way.
-
     day_room_time = OrderedDefaultdict(lambda : OrderedDefaultdict(list))
     for slide_upload in available_slides:
         day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
-    return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': day_room_time})
+
+    # now that we accumulated all of the days/rooms, change back to non-default_dict, so templates work
+    grouped_slides = OrderedDict()
+    for day, rooms in day_room_time.items():
+        grouped_slides[day] = OrderedDict(sorted(rooms.items(), key=lambda room: room[0]))
+    return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': grouped_slides})
 
 
 def _slides_date(slide_upload):
