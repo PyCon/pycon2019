@@ -162,7 +162,7 @@ def session_staff_json(request):
 @login_required
 def slides_upload(request, presentation_id):
     presentation = Presentation.objects.get(pk=presentation_id)
-    if request.user.speaker_profile != presentation.speaker and user.speaker not in presentation.additional_speakers:
+    if request.user.speaker_profile != presentation.speaker and request.user.speaker not in presentation.additional_speakers:
         messages.add_message(request, messages.ERROR, "You are not a presenter for that presentation!")
         return redirect("dashboard")
 
