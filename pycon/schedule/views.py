@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -5,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .models import Session, SessionRole, Presentation
+from .models import Session, SessionRole, Presentation, SlidesUpload
 from .forms import SlidesUploadForm
 from pycon.pycon_api.decorators import api_view
 from symposion.schedule.models import Slot
@@ -176,3 +178,26 @@ def slides_upload(request, presentation_id):
     else:
         form = SlidesUploadForm()
         return render(request, "pycon/schedule/slides_upload.html", {'form': form, 'presentation': presentation})
+
+
+def slides_download(request):
+    """Build the slides download page for the captioners."""
+
+    available_slides = SlidesUpload.objects.order_by('presentation__slot__start')
+    # Django ORM does ordering but not grouping, so build the nested display
+    # order the hard way.
+
+    day_room_time = defaultdict(lambda : defaultdict(lambda: list))
+    for slide_upload in available_slides:
+        day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
+    return render(request, "pycon/schedule/slides_download.html")
+
+
+def _slides_date(slide_upload):
+    """Extracted dict key creation for readability"""
+    return slide_upload.presentation.slot.day.date.strftime("%A %d. %B %Y")
+
+
+def _slides_room(slide_upload):
+    """Extracted dict key creation for readability"""
+    return slide_upload.presentation.slot.rooms[0].name
