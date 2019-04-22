@@ -190,12 +190,12 @@ def slides_download(request):
     day_room_time = defaultdict(lambda : defaultdict(lambda: list))
     for slide_upload in available_slides:
         day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
-    return render(request, "pycon/schedule/slides_download.html")
+    return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': day_room_time})
 
 
 def _slides_date(slide_upload):
     """Extracted dict key creation for readability"""
-    return slide_upload.presentation.slot.day.date.strftime("%A %d. %B %Y")
+    return slide_upload.presentation.slot.day.date
 
 
 def _slides_room(slide_upload):
