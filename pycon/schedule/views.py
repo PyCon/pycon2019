@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Callable, OrderedDict
 
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -187,7 +187,7 @@ def slides_download(request):
     # Django ORM does ordering but not grouping, so build the nested display
     # order the hard way.
 
-    day_room_time = defaultdict(lambda : defaultdict(lambda: list))
+    day_room_time = OrderedDefaultdict(lambda : OrderedDefaultdict(list))
     for slide_upload in available_slides:
         day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
     return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': day_room_time})
@@ -201,3 +201,20 @@ def _slides_date(slide_upload):
 def _slides_room(slide_upload):
     """Extracted dict key creation for readability"""
     return slide_upload.presentation.slot.rooms[0].name
+
+
+class OrderedDefaultdict(OrderedDict):
+    """ A defaultdict with OrderedDict as its base class. """
+
+    def __init__(self, default_factory=None, *args, **kwargs):
+        if not (default_factory is None
+                or isinstance(default_factory, Callable)):
+            raise TypeError('First argument must be callable or None.')
+        super(OrderedDefaultdict, self).__init__(*args, **kwargs)
+        self.default_factory = default_factory
+
+    def __missing__(self, key):
+        if self.default_factory is None:
+            raise KeyError(key,)
+        self[key] = value = self.default_factory()
+        return value
