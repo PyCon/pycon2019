@@ -183,7 +183,7 @@ def slides_upload(request, presentation_id):
 def slides_download(request):
     """Build the slides download page for the captioners."""
 
-    available_slides = SlidesUpload.objects.order_by('presentation__slot__start')
+    available_slides = SlidesUpload.objects.order_by('presentation__slot__day__date', 'presentation__slot__start')
     # Django ORM does ordering but not grouping, so build the nested display
     # order the hard way.
 
