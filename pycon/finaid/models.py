@@ -196,6 +196,20 @@ class FinancialAidApplication(models.Model):
         return reverse('finaid_review_detail', args=[str(self.pk)])
 
     @property
+    def legal_name(self):
+        try:
+            return self.review.legal_name
+        except FinancialAidReviewData.DoesNotExist:
+            return _(u"")
+
+    @property
+    def address(self):
+        try:
+            return self.review.address
+        except FinancialAidReviewData.DoesNotExist:
+            return _(u"")
+
+    @property
     def show_status_button(self):
         return self.status != STATUS_WITHDRAWN
 

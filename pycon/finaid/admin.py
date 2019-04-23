@@ -24,9 +24,10 @@ def user(obj):
     return obj.user
 
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = (user, 'application_type')
+    list_display = (user, 'application_type', 'get_status_display')
     list_filter = ('application_type',)
     search_fields = ('user__first_name', 'user__last_name', 'application_type')
+    readonly_fields = ('legal_name', 'address')
 
 admin.site.register(FinancialAidApplication, ApplicationAdmin)
 admin.site.register(FinancialAidApplicationPeriod)
