@@ -1,11 +1,14 @@
-from django.http import HttpResponse
+from collections import Callable, OrderedDict
+
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .models import Session, SessionRole, Presentation
+
+from .models import Session, SessionRole, Presentation, SlidesUpload
 from .forms import SlidesUploadForm
 from pycon.pycon_api.decorators import api_view
 from symposion.schedule.models import Slot
@@ -176,3 +179,55 @@ def slides_upload(request, presentation_id):
     else:
         form = SlidesUploadForm()
         return render(request, "pycon/schedule/slides_upload.html", {'form': form, 'presentation': presentation})
+
+
+@login_required
+def slides_download(request):
+    """Build the slides download page for the captioners."""
+
+    if not request.user.groups.filter(name='captioners').exists():
+        return render(request, "pycon/schedule/slides_download.html", context={'not_permitted': True})
+
+    available_slides = SlidesUpload.objects.order_by(
+        'presentation__slot__start',
+        'presentation__slot__day__date',
+        )
+
+    # Django ORM does ordering but not grouping, so build the nested display
+    # order the hard way.
+    day_room_time = OrderedDefaultdict(lambda : OrderedDefaultdict(list))
+    for slide_upload in available_slides:
+        day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
+
+    # now that we accumulated all of the days/rooms, change back to non-default_dict, so templates work
+    grouped_slides = OrderedDict()
+    for day, rooms in day_room_time.items():
+        grouped_slides[day] = OrderedDict(sorted(rooms.items(), key=lambda room: room[0]))
+    return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': grouped_slides})
+
+
+def _slides_date(slide_upload):
+    """Extracted dict key creation for readability"""
+    return slide_upload.presentation.slot.day.date
+
+
+def _slides_room(slide_upload):
+    """Extracted dict key creation for readability"""
+    return slide_upload.presentation.slot.rooms[0].name
+
+
+class OrderedDefaultdict(OrderedDict):
+    """ A defaultdict with OrderedDict as its base class. """
+
+    def __init__(self, default_factory=None, *args, **kwargs):
+        if not (default_factory is None
+                or isinstance(default_factory, Callable)):
+            raise TypeError('First argument must be callable or None.')
+        super(OrderedDefaultdict, self).__init__(*args, **kwargs)
+        self.default_factory = default_factory
+
+    def __missing__(self, key):
+        if self.default_factory is None:
+            raise KeyError(key,)
+        self[key] = value = self.default_factory()
+        return value

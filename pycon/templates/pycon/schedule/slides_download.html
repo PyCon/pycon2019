@@ -1,0 +1,45 @@
+{% extends "site_base.html" %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Captioner Slides Download "%}{% endblock %}
+
+{% block body_id %}{% trans "slides_download" %}{% endblock %}
+
+{% block page_title %}{% trans "Captioner Slides Download" %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+    {%  if not_permitted %}
+        <h4> You do not have permissions to download slides.</h4>
+    {%  endif %}
+
+    {% for day, rooms in grouped_slides.items %}
+
+        <h3>{{ day|date:"D, M d, Y" }}</h3>
+
+         {% for room, slides in rooms.items %}
+             <h4>Room: {{ room }}</h4>
+
+             <table class="table">
+                 <tr>
+                     <th>Session Time</th>
+                     <th>Session Title</th>
+                     <th>Slide Link</th>
+                     <th>Speaker</th>
+                 </tr>
+                 {% for slide in slides %}
+                     <tr>
+                         <td>{{ slide.presentation.slot.start }}&mdash;{{ slide.presentation.slot.end }}</td>
+                         <td>{{ slide.presentation.title }}</td>
+                         <td><a href='{{ slide.slides.url }}'>{{ slide.filename }}s</a></td>
+                         <td>{{ slide.presentation.speaker.name }}</td>
+                     </tr>
+                 {%  endfor %}
+             </table>
+         {%  endfor %}
+    {% endfor %}
+    </div>
+{% endblock %}
