@@ -92,3 +92,6 @@ class SlidesUpload(models.Model):
         null=False,
         upload_to=get_presentation_upload_path,
     )
+
+    def filename(self):
+        return os.path.basename(self.slides.name)
