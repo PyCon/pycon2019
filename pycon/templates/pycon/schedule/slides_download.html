@@ -12,10 +12,6 @@
 {% block body %}
     <div class="container">
 
-    {%  if not_permitted %}
-        <h4> You do not have permissions to download slides.</h4>
-    {%  endif %}
-
     {% for day, rooms in grouped_slides.items %}
 
         <h3>{{ day|date:"D, M d, Y" }}</h3>

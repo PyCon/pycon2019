@@ -80,6 +80,9 @@ def get_presentation_upload_path(instance, filename):
 
 
 class SlidesUpload(models.Model):
+    class Meta:
+        permissions = (("can_download_slides", "Access and Download uploaded slides"),)
+
     presentation = models.ForeignKey(Presentation)
     slides = models.FileField(
         "PDF export of your slides",
