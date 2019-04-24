@@ -182,7 +182,7 @@ def slides_upload(request, presentation_id):
 
 
 @login_required
-@permission_required('schedule.can_download_slides', raise_exception=True)
+@permission_required('pycon_schedule.can_download_slides', raise_exception=True)
 def slides_download(request):
     """Build the slides download page for the captioners."""
 
