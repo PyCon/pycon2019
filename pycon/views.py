@@ -210,7 +210,7 @@ def secure_submission(request):
         'form': form,
     })
 
-@permission_required('can_view_secure_submissions', raise_exception=True)
+@permission_required('pycon.can_view_secure_submissions', raise_exception=True)
 def secure_submission_file_retrieval(request, secure_submission_id):
     secure_submission = SecureSubmission.objects.get(pk=secure_submission_id)
     response = HttpResponse(secure_submission.file_attachment, content_type=secure_submission.file_attachment_content_type)
