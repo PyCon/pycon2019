@@ -148,6 +148,9 @@ MIDDLEWARE_CLASSES = [
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
+if os.getenv('NOINDEX') == '1':
+    MIDDLEWARE_CLASSES.append('pycon.noindexmiddleware.NoIndexMiddleware')
+
 ROOT_URLCONF = "symposion.urls"
 
 TEMPLATE_DIRS = [
