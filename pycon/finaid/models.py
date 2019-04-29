@@ -215,6 +215,7 @@ class FinancialAidApplication(models.Model):
     def disbursment_details(self):
         try:
             method = self.review.reimbursement_method
+            method_name = 'unspecified'
             if method == PAYMENT_PAYPAL:
                 method_name = 'paypal'
             if method == PAYMENT_CHECK:
