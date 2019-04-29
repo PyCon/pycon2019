@@ -211,7 +211,6 @@ class FinancialAidApplication(models.Model):
         except FinancialAidReviewData.DoesNotExist:
             return _(u"")
 
-    @property
     def disbursment_details(self):
         try:
             method = self.review.reimbursement_method
@@ -223,9 +222,12 @@ class FinancialAidApplication(models.Model):
             if method == PAYMENT_WIRE:
                 method_name = 'wire'
             secure_submissions = SecureSubmission.objects.filter(user=self.user, submission_type=SECURE_SUBMISSION_TYPE_FINAID_REIMBURSE_DETAILS).all()
-            return "{}\n{}".format(method_name, "\n".join([s.get_admin_url() for s in secure_submissions]))
+            return "{}\n{}".format(method_name, "\n".join([
+                "<a href=\"{}\">SecureSubmission {}</a>".format(s.get_admin_url(), s.id) for s in secure_submissions
+            ]))
         except FinancialAidReviewData.DoesNotExist:
             return _(u"")
+    disbursment_details.allow_tags = True
 
     @property
     def show_status_button(self):
