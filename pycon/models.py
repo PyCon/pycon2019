@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
 
 from django_cryptography.fields import encrypt
 
@@ -457,3 +458,7 @@ class SecureSubmission(models.Model):
     @property
     def attachment_url(self):
         return reverse('secure_submission_file_retrieval', kwargs={'secure_submission_id': self.id})
+
+    def get_admin_url(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.id,))

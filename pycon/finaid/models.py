@@ -11,6 +11,8 @@ import requests
 from djmoney.models.fields import MoneyField
 from djmoney.money import Money
 
+from pycon.models import SecureSubmission, SECURE_SUBMISSION_TYPE_FINAID_REIMBURSE_DETAILS
+
 
 SEX_NO_ANSWER = 0
 SEX_CHOICES = (
@@ -206,6 +208,21 @@ class FinancialAidApplication(models.Model):
     def address(self):
         try:
             return self.review.address
+        except FinancialAidReviewData.DoesNotExist:
+            return _(u"")
+
+    @property
+    def disbursment_details(self):
+        try:
+            method = self.review.reimbursement_method
+            if method == PAYMENT_PAYPAL:
+                method_name = 'paypal'
+            if method == PAYMENT_CHECK:
+                method_name = 'check'
+            if method == PAYMENT_WIRE:
+                method_name = 'wire'
+            secure_submissions = SecureSubmission.objects.filter(user=self.user, submission_type=SECURE_SUBMISSION_TYPE_FINAID_REIMBURSE_DETAILS).all()
+            return "{}\n{}".format(method_name, "\n".join([s.get_admin_url() for s in secure_submissions]))
         except FinancialAidReviewData.DoesNotExist:
             return _(u"")
 
