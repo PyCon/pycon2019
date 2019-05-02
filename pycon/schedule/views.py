@@ -7,8 +7,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
-from django.db.models import Max
-
 
 from .models import Session, SessionRole, Presentation, SlidesUpload
 from .forms import SlidesUploadForm
@@ -187,14 +185,14 @@ def slides_upload(request, presentation_id):
 @permission_required('pycon_schedule.can_download_slides', raise_exception=True)
 def slides_download(request):
     """Build the slides download page for the captioners."""
-    # annotate here is a hack that works since these only ever have 1 room.
-    available_slides = SlidesUpload.objects.annotate(room=Max('presentation__slot__slotroom__room__name')).order_by(
+
+    available_slides = SlidesUpload.objects.order_by(
+        'presentation__slot__start',
         'presentation__slot__day__date',
-        'room',
-        'presentation__slot__start'
         )
 
-
+    # Django ORM does ordering but not grouping, so build the nested display
+    # order the hard way.
     day_room_time = OrderedDefaultdict(lambda : OrderedDefaultdict(list))
     for slide_upload in available_slides:
         day_room_time[_slides_date(slide_upload)][_slides_room(slide_upload)].append(slide_upload)
@@ -202,7 +200,7 @@ def slides_download(request):
     # now that we accumulated all of the days/rooms, change back to non-default_dict, so templates work
     grouped_slides = OrderedDict()
     for day, rooms in day_room_time.items():
-        grouped_slides[day] = OrderedDict(rooms.items())
+        grouped_slides[day] = OrderedDict(sorted(rooms.items(), key=lambda room: room[0]))
     return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': grouped_slides})
 
 
