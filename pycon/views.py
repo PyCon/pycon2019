@@ -201,7 +201,7 @@ def secure_submission(request):
             # Display a message to user
             messages.add_message(request, messages.INFO,
                                  "Secure Submission Accepted")
-            return redirect("dashboard")
+            return redirect("secure_submission")
 
     else:
         form = SecureSubmissionForm()
