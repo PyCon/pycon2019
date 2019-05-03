@@ -2,24 +2,17 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from selectable import forms as selectable
-
 from taggit.forms import TagField
 
 from symposion.proposals.models import SupportingDocument
-
-from .lookups import UserLookup
 
 # @@@ generic proposal form
 
 
 class AddSpeakerForm(forms.Form):
 
-    email = selectable.AutoCompleteSelectField(
-        lookup_class=UserLookup,
-        allow_new=True,
-        label=_("Email address"),
-        required=True,
+    email = forms.EmailField(
+        label="Email address of new speaker (use their email address, not yours)"
     )
 
     def __init__(self, *args, **kwargs):
@@ -28,10 +21,7 @@ class AddSpeakerForm(forms.Form):
 
     def clean_email(self):
         value = self.cleaned_data["email"]
-        # django-selectable returns the user
-        if isinstance(value, UserLookup.model):
-            value = value.email
-        if value == self.proposal.speaker.email:
+        if value.lower() == self.proposal.speaker.email.lower():
             raise forms.ValidationError(
                 _("You have submitted the Proposal author's email address. Please" \
                 " select another email address.")
@@ -42,10 +32,9 @@ class AddSpeakerForm(forms.Form):
         ).exists()
         if exists:
             raise forms.ValidationError(
-                _("This email address has already been invited to your talk proposal")
+                "This email address has already been invited to your talk proposal"
             )
         return value
-
 
 class SupportingDocumentCreateForm(forms.ModelForm):
 

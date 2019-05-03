@@ -4,18 +4,6 @@
 {% load bootstrap_tags %}
 {% load i18n %}
 
-{% block extra_style %}
-    <link rel="stylesheet" type="text/css"
-            href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css">
-    <link type="text/css" media="all" rel="stylesheet"
-            href="{{ STATIC_URL }}selectable/css/dj.selectable.css">
-{% endblock extra_style %}
-
-{% comment %}
-Overwriting extra_head_base to remove markedit JS, which causes conflicts
-with selectable (JQuery UI)
-{% endcomment %}
-
 {% block head_title %}Manage Speakers{% endblock head_title %}
 
 {% block body %}
@@ -53,9 +41,3 @@ with selectable (JQuery UI)
     });
     </script>
 {% endblock %}
-
-
-{% block extra_script %}
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
-    {{ add_speaker_form.media.js }}
-{% endblock extra_script %}
