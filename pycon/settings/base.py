@@ -207,7 +207,6 @@ INSTALLED_APPS = [
     "constance",
     "uni_form",
     "gunicorn",
-    "selectable",
     "multi_email_field",
     "email_log",
     "djcelery_email",
