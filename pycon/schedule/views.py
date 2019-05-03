@@ -200,7 +200,7 @@ def slides_download(request):
     # now that we accumulated all of the days/rooms, change back to non-default_dict, so templates work
     grouped_slides = OrderedDict()
     for day, rooms in day_room_time.items():
-        grouped_slides[day] = OrderedDict(sorted(rooms.items(), key=lambda room: room[0]))
+        grouped_slides[day] = OrderedDict(sorted(rooms.items(), key=lambda room: room.first()))
     return render(request, "pycon/schedule/slides_download.html", context={'grouped_slides': grouped_slides})
 
 
@@ -211,7 +211,10 @@ def _slides_date(slide_upload):
 
 def _slides_room(slide_upload):
     """Extracted dict key creation for readability"""
-    return slide_upload.presentation.slot.rooms[0].name
+    room = slide_upload.presentation.slot.rooms.first()
+    if room is not None:
+         return room.name
+    return 'None'
 
 
 class OrderedDefaultdict(OrderedDict):
