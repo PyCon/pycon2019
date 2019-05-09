@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
+from django.db.models import Max
+
 
 from .models import Session, SessionRole, Presentation, SlidesUpload
 from .forms import SlidesUploadForm
@@ -184,12 +186,13 @@ def slides_upload(request, presentation_id):
 @login_required
 @permission_required('pycon_schedule.can_download_slides', raise_exception=True)
 def slides_download(request):
-    """Build the slides download page for the captioners."""
 
-    available_slides = SlidesUpload.objects.order_by(
-        'presentation__slot__start',
+    """Build the slides download page for the captioners."""
+    available_slides = SlidesUpload.objects.annotate(room=Max('presentation__slot__slotroom__room__name')).order_by(
         'presentation__slot__day__date',
-        )
+        'room',
+        'presentation__slot__start'
+    )
 
     # Django ORM does ordering but not grouping, so build the nested display
     # order the hard way.
