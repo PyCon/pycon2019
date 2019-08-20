@@ -77,7 +77,7 @@ class APIAuth(models.Model):
         expected_signature = sha1(base_string.encode('utf-8')).hexdigest()
 
         # Ensure that the actual request signature matches
-        # the one we recieved, and raise AuthenticationError if it does not.
+        # the one we received, and raise AuthenticationError if it does not.
         if expected_signature != request.META['HTTP_X_API_SIGNATURE']:
             raise AuthenticationError('Invalid signature.')
 
