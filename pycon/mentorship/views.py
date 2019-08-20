@@ -22,7 +22,7 @@ def mentorship_view(request):
      mentee, created = request.user.mentorship_mentee.get_or_create(user=request.user)
      if (not request.user.mentorship_mentee.get().eligible) or (len(request.user.mentorship_mentee.get().potential_sessions_as_mentee) > 0):
          return render(
-             request, "mentorship/mentorship_signup_recieved.html",
+             request, "mentorship/mentorship_signup_received.html",
              {
                  "potential_slots": request.user.mentorship_mentee.get().potential_sessions_as_mentee,
                  "assigned_slots": request.user.mentorship_mentee.get().assigned_sessions_as_mentee,
@@ -64,7 +64,7 @@ def mentorship_view(request):
                  mentee.save()
 
              return render(
-                 request, "mentorship/mentorship_signup_recieved.html",
+                 request, "mentorship/mentorship_signup_received.html",
                  {
                      "potential_slots": request.user.mentorship_mentee.get().potential_sessions_as_mentee,
                      "assigned_slots": request.user.mentorship_mentee.get().assigned_sessions_as_mentee,
