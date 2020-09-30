@@ -19,7 +19,7 @@ Build status for develop branch:
 .. image:: https://travis-ci.org/PyCon/pycon.svg?branch=develop
     :target: https://travis-ci.org/PyCon/pycon
 
-Running the PyCon site locally
+Running the PyCon Web site locally
 ------------------------------
 
 Before you get started, you'll need a Docker environment, and docker-compose
@@ -113,7 +113,7 @@ Running the PyCon web site in production
   with the same virtualenv (or equivalent).  It will only handle URLs
   starting with ``/2018`` though, so you don't have to pass it any other requests.
 
-To run tests
+To run the tests
 ------------
 
 Tests won't run from `/vagrant` inside the vagrant system due to shortcomings
