@@ -27,7 +27,7 @@ available, see https://www.docker.com/community-edition for the easiest way
 to get that setup for your platform!
 
 Developers can easily run the PyCon web application inside an isolated 
-environemnt by using `Docker`_.  Once you have Docker and Docker Compose
+environment by using `Docker`_.  Once you have Docker and Docker Compose
 installed on your computer, simply check out this project from GitHub
 and spin up the site::
 
