@@ -6,7 +6,7 @@
 Built by the Python Community atop the Django web framework.
 
 Rather than use this as the basis for your conference site directly, you should
-instead look at https://github.com/pinax/symposion which was designed for reuse.
+instead, look at https://github.com/pinax/symposion which was designed for reuse.
 
 PyCon 2019 is built on top of Pinax Symposion but may have customizations that
 will just make things more difficult for you.
@@ -22,12 +22,11 @@ Build status for develop branch:
 Running the PyCon site locally
 ------------------------------
 
-Before you get started, you'll need a Docker environment, and docker-compose
+Before you get started, you'll need a Docker environment and docker-compose
 available, see https://www.docker.com/community-edition for the easiest way
 to get that setup for your platform!
 
-Developers can easily run the PyCon web application inside an isolated 
-environemnt by using `Docker`_.  Once you have Docker and Docker Compose
+Developers can easily run the PyCon web application inside an isolated environemnt by using `Docker`_.  Once you have Docker and Docker Compose
 installed on your computer, simply check out this project from GitHub
 and spin up the site::
 
@@ -109,9 +108,7 @@ Running the PyCon web site in production
 
 * Arrange to serve the site_media directory as ``/2018/site_media/whatever``.
   E.g. ``site_media/foo.html`` would be at ``/2018/site_media/foo.html``.
-* Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running
-  with the same virtualenv (or equivalent).  It will only handle URLs
-  starting with ``/2018`` though, so you don't have to pass it any other requests.
+* Arrange to serve the wsgi application in ``symposion/wsgi.py`` at ``/``, running with the same virtualenv (or equivalent).  It will only handle URLs starting with ``/2018`` though, so you don't have to pass it any other requests.
 
 To run tests
 ------------
