@@ -3,7 +3,7 @@
  PyCon 2019 Web Site
 =====================
 
-Built by the Python Community atop the Django web framework.
+Built by the Python Community atop an amazing Django web framework. 
 
 Rather than use this as the basis for your conference site directly, you should
 instead look at https://github.com/pinax/symposion which was designed for reuse.
