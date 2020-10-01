@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-
+#Writing code for setup of pycon
 setup(
     name='pycon',
     version='2017',
