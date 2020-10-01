@@ -33,7 +33,7 @@ and spin up the site::
 
 
     $ git clone https://github.com/PyCon/pycon.git
-    $ cd pycon
+    $ cd PyCon
     $ make up
 
 On this first call to ``up`` that creates the containers, ``make``
