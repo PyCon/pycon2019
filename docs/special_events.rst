@@ -1,7 +1,7 @@
-Special Events
-==============
+Exclusive Events
+===============
 
-Special events are events that don't fit into the other categories.
+Special events are events that can't compared with ohter category events.
 
 To create one, use the Django admin (``/YYYY/admin``) and look for
 *PyCon Special Events*.  When adding one, all fields are required
