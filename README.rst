@@ -1,6 +1,6 @@
 
 =====================
- PyCon 2019 Web Site
+ PyCon 2019 Dynamic Web Site
 =====================
 
 Built by the Python Community atop the Django web framework.
