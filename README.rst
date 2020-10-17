@@ -22,7 +22,7 @@ Build status for develop branch:
 Running the PyCon site locally
 ------------------------------
 
-Before you get started, you'll need a Docker environment, and docker-compose
+Before you start, you'll need a Docker environment, and docker-compose
 available, see https://www.docker.com/community-edition for the easiest way
 to get that setup for your platform!
 
